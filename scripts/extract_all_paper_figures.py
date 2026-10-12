@@ -95,8 +95,6 @@ def extraction(slug, pdf_url, original):
                 if number not in found:
                     found[number] = (idx, candidate)
         for num, (idx, item) in sorted(found.items()):
-            if num > 60: # protect against spurious figure number OCR in noisy PDFs
-                continue
             dest = ASSETS / slug / f"figure-{num}.webp"
             peers = [c for c in found.values() if c[0] == idx]
             crop_data = crop(doc, dest, idx, item, [c for _, c in peers])
