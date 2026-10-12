@@ -76,27 +76,62 @@ try {
   }
   await resourcesPage.close();
   console.log('PASS: repository links visible on all reader tabs; official / community provenance labeled');
-  // Verify original paper PDF images actually load in the expanded explanation.
-  for(const viewport of [{width:1280,height:800},{width:390,height:844}]){
+  // End-to-end regression for the user-visible source caption, generator markers
+  // and the native fullscreen figure viewer on desktop and mobile.
+  for (const viewport of [{width:1280,height:800},{width:390,height:844}]) {
     const chapterPage=await browser.newPage({viewport});
-    await chapterPage.goto(baseUrl+'/paper/act',{waitUntil:'networkidle'});
-    await chapterPage.waitForFunction(()=>Boolean(document.querySelector('.paper-source-figure img')));
+    const runtimeErrors=[];
+    chapterPage.on('pageerror',error=>runtimeErrors.push(error.message));
+    await chapterPage.goto(baseUrl+'/paper/libero',{waitUntil:'networkidle'});
+    const figure=chapterPage.locator('.paper-source-figure').first();
+    await figure.waitFor({state:'visible'});
     await chapterPage.evaluate(()=>document.querySelector('.paper-source-figure')?.scrollIntoView({block:'center'}));
     await chapterPage.waitForFunction(()=>{
       const img=document.querySelector('.paper-source-figure img');
       return Boolean(img && img.complete && img.naturalWidth>0);
-    },{timeout:20000});
-    const sourcedFigure=chapterPage.locator('.paper-source-figure').first();
-    const photo=sourcedFigure.locator('img');
-    const size=await photo.evaluate(img=>({w:img.naturalWidth,h:img.naturalHeight}));
-    assert.ok(size.w>=300&&size.h>=130,`Figure must load real image data: ${JSON.stringify(size)}`);
-    assert.match(await sourcedFigure.locator('.paper-source-figcaption').innerText(),/Hình 1.*PDF gốc|Hình 1.*trang 1/i);
-    assert.equal(await chapterPage.locator('.paper-source-figure').count(),2);
-    const overflow=await chapterPage.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
-    assert.ok(overflow<=2,`Expanded paper must not horizontally overflow on ${viewport.width}`);
+    });
+
+    assert.equal(await chapterPage.locator('.paper-source-figure').count(),2,'Two original figures');
+    const originalCaption=await figure.locator('.paper-figure-caption-text').innerText();
+    assert.match(originalCaption,/^Figure 1: Top: LIBERO has four procedurally-generated task suites/i);
+    assert.ok(originalCaption.length>280,'Show the complete original research caption, not the alt text');
+    assert.ok(await figure.getByText('CAPTION GỐC CỦA TÁC GIẢ').isVisible());
+    assert.equal(await figure.locator('.paper-figure-source-link').getAttribute('href'),
+      'https://arxiv.org/pdf/2306.03310#page=2');
+    const prose=await chapterPage.locator('.markdown-body').innerText();
+    assert.ok(!prose.includes('<!-- BEGIN EXTENDED WALKTHROUGH -->'),'No implementation comments in prose');
+    assert.ok(!prose.includes('<!-- END EXTENDED WALKTHROUGH -->'),'No closing generator comments in prose');
+    assert.ok(!prose.includes('Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo'),
+      'No placeholder caption duplicated below figures');
+
+    const trigger=figure.getByRole('button',{name:'Phóng to Hình 1 toàn màn hình'});
+    await trigger.click();
+    const dialog=chapterPage.getByRole('dialog',{name:'Xem Hình 1 toàn màn hình'});
+    await dialog.waitFor({state:'visible'});
+    const dimensions=await dialog.boundingBox();
+    assert.ok(dimensions && dimensions.width>=viewport.width-4 && dimensions.height>=viewport.height-4,
+      'Full-screen lightbox must fill the current viewport');
+    const expanded=dialog.locator('.paper-figure-lightbox-canvas img');
+    await chapterPage.waitForFunction(()=>{
+      const img=document.querySelector('.paper-figure-lightbox-canvas img');
+      return Boolean(img && img.complete && img.naturalWidth>0);
+    });
+    assert.match(await dialog.locator('.paper-figure-lightbox-caption p').innerText(),
+      /^Figure 1: Top: LIBERO has four procedurally-generated task suites/i);
+    await dialog.getByRole('button',{name:'Xem ảnh ở kích thước gốc'}).click();
+    assert.equal(await dialog.getByRole('button',{name:'Vừa màn hình'}).getAttribute('aria-pressed'),'true');
+    await chapterPage.keyboard.press('Escape');
+    await dialog.waitFor({state:'hidden'});
+    assert.equal(await chapterPage.evaluate(()=>document.body.style.overflow),'',
+      'Closing full-screen image restores scrolling');
+    assert.equal(await trigger.count(),1,'Original image stays mounted after closing');
+    const overflow=await chapterPage.evaluate(
+      ()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
+    assert.ok(overflow<=2,'Figure and caption must not force horizontal page scrolling');
+    assert.deepEqual(runtimeErrors,[],'No hydration or runtime errors in figure viewer');
+    console.log('PASS: original PDF caption, hidden generator markers and fullscreen viewer at '+viewport.width+'px');
     await chapterPage.close();
   }
-  console.log('PASS: source PDF figure crops load with captions on desktop/mobile');
 
   // HTML slide-deck acceptance tests: deep links, keyboard navigation, notes and small screens.
   for (const viewport of [{width:1280,height:800},{width:390,height:844}]) {
