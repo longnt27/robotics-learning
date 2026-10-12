@@ -8,6 +8,10 @@ RT-1 học dữ liệu robot rất tốt nhưng chỉ biết những concept mà
 
 *Hình 1, trang 2. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2307.15818#page=2).*
 
+#### Đọc hình gốc: bối cảnh và đóng góp
+
+Hình 1 là câu trả lời trực quan cho ý tưởng trung tâm của RT-2: action robot có thể biểu diễn như token văn bản trong cùng interface với mô hình vision-language đã học kiến thức trên web. Co-finetuning trộn dữ liệu web và robot để model dùng tri thức nhận biết vật thể/mối quan hệ khi sinh action. Hình này nói về chuyển giao ngữ nghĩa, không chứng minh mô hình tự có kỹ năng motor mới chỉ nhờ đọc văn bản web. Skill vận động vẫn cần supervision từ robot demonstrations.
+
 ### Đào sâu: Điểm cốt lõi
 
 **Luận điểm.** Tri thức thị giác–ngôn ngữ học trên web có thể chuyển thành lựa chọn action của robot. RT-2 hỏi câu cực tham vọng: có thể chuyển giao web-scale vision-language kiến thức thẳng vào action policy, thay vì huấn luyện khả năng hiểu ngữ nghĩa lại bằng robot demonstrations không?
@@ -61,6 +65,14 @@ Co-finetuning là chi tiết sống còn. Nếu chỉ fine-tune VLM trên robot 
 ![Hình 2 gốc từ PDF bài báo, trang 5](/paper-figures/rt-2/figure-2.webp)
 
 *Hình 2, trang 5. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2307.15818#page=5).*
+
+#### Đọc hình gốc: từng thành phần và luồng thông tin
+
+Hình 2 tập hợp các ví dụ tình huống RT-2 được kiểm tra khả năng hiểu chỉ dẫn mang tính suy luận hoặc vật thể chưa gặp trong robot data. Các ảnh ví dụ gợi ý cách đánh giá semantic generalization, nhưng khi đọc cần hỏi tập test có bao nhiêu task, cách chọn vật thể, số lần thử và baseline RT-1 được chạy dưới điều kiện nào. Một vài qualitative examples rất có giá trị minh hoạ, song không thể đại diện cho toàn bộ khả năng điều khiển trong môi trường mở.
+
+#### Ví dụ từng bước để hiểu cơ chế
+
+Đưa robot vào cảnh có lon rỗng, khăn và đồ chơi, rồi hỏi 'hãy bỏ rác vào thùng'. VLM biết lon rỗng có thể thuộc nhóm rác; action supervision từ robot dạy thao tác pick/place. Ta kiểm tra trước xem policy chọn đúng vật thể, sau đó mới đo gripper có cầm được lon và đặt vào thùng hay không. Nếu nhận diện đúng nhưng grasp fail, đó là vấn đề motor/geometry chứ không phải semantic reasoning. Để tái hiện, tách evaluation thành seen instructions, novel object semantics và actual manipulation success.
 
 ### Đào sâu: Đối xử action như một dạng token trong VLM
 

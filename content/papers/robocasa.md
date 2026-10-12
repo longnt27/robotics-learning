@@ -8,6 +8,10 @@ Dữ liệu robot thật vừa đắt vừa chậm, còn các simulator cũ thư
 
 *Hình 1, trang 1. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2406.02523#page=1).*
 
+#### Đọc hình gốc: bối cảnh và đóng góp
+
+Hình 1 trình bày các trụ cột của RoboCasa: nhiều căn bếp, nhiều vật thể và nhiệm vụ gia đình trong mô phỏng để huấn luyện/đánh giá robot đa năng. Giá trị của nó không nằm ở một ảnh căn bếp chân thực, mà ở khả năng sinh có quy tắc những tổ hợp environment/task thay vì hard-code một vài scene. Khi dùng nó làm benchmark, phải biết seed và split nào tạo ra những layout quen thuộc, layout mới và object distribution mới.
+
 ### Đào sâu: Điểm cốt lõi
 
 **Luận điểm.** Tăng độ đa dạng của bối cảnh và nhiệm vụ mô phỏng để đánh giá policy thao tác dài hạn. Dữ liệu robot thật vừa đắt vừa chậm, còn các simulator cũ thường nghèo bối cảnh, vật thể và độ đa dạng nhiệm vụ.
@@ -61,6 +65,14 @@ RoboCasa xây khoảng **120 kitchen bối cảnh**, hơn **2,500 vật thể as
 ![Hình 3 gốc từ PDF bài báo, trang 4](/paper-figures/robocasa/figure-3.webp)
 
 *Hình 3, trang 4. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2406.02523#page=4).*
+
+#### Đọc hình gốc: từng thành phần và luồng thông tin
+
+Hình 3 là những floor plan căn bếp khác nhau. Nó giải thích một dạng domain shift thường bị bỏ quên trong tabletop manipulation: robot có thể cần di chuyển giữa tủ, chậu rửa và bếp nấu trong một bố cục mới. Nếu policy chỉ học hình học của một nhà bếp, nó có thể ghi nhớ đường đi thay vì học cách chọn mục tiêu theo instruction. Procedural generation giúp tạo split theo layout và thử khả năng khái quát không gian.
+
+#### Ví dụ từng bước để hiểu cơ chế
+
+Giả sử nhiệm vụ 'lấy đĩa trong tủ rồi đặt vào bồn rửa'. Tạo ba layout bếp: tủ trên cùng một bức tường, tủ ở góc chữ L, tủ ở đảo bếp. Giữ nguyên instruction và loại vật thể, chỉ đổi vị trí hình học. So success rate theo từng layout và tách lỗi tìm tủ, mở cửa, grasp/transport, đặt đĩa. Nếu chỉ đánh giá trên những layout train, model có thể đạt điểm cao bằng cách nhớ vị trí cố định; held-out floor plan mới trả lời câu hỏi về spatial generalization.
 
 ### Đào sâu: Procedural scene generation tạo nhiều môi trường hợp lệ
 

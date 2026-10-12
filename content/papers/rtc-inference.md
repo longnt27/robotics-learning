@@ -21,6 +21,10 @@ Vì vậy vấn đề bài báo thật sự giải không phải chỉ **độ t
 
 *Hình 1, trang 1. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2506.07339#page=1).*
 
+#### Đọc hình gốc: bối cảnh và đóng góp
+
+Hình 1 minh hoạ nhiệm vụ robot cần phối hợp liên tục dù policy sinh action chunk chậm, chẳng hạn đánh lửa bằng diêm. Với hành động nhạy thời gian, đứng yên đợi một inference mới có thể phá timing hoặc contact. RTC cho robot tiếp tục thực thi chunk cũ trong khi model tính chunk mới, nhưng phải đảm bảo lệnh mới nối được với những action đã cam kết. Đó là lý do đây là bài toán điều khiển thời gian thực chứ không chỉ tối ưu throughput của GPU.
+
 ### Đào sâu: Điểm cốt lõi
 
 **Luận điểm.** Không để robot dừng mỗi khi model nghĩ: action chunk mới phải khớp phần chuyển động đã cam kết. Synchronous: thực thi hết phần được chọn của chunk A rồi chờ mô hình sinh B. Robot pause, momentum mất, trạng thái vật thể tiếp tục thay đổi.
@@ -123,6 +127,14 @@ Nếu dự đoán `d_est` dài hơn thực tế, robot giữ continuity nhưng b
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/rtc-inference/figure-2.webp)
 
 *Hình 2, trang 3. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2506.07339#page=3).*
+
+#### Đọc hình gốc: từng thành phần và luồng thông tin
+
+Hình 2 thể hiện một trường hợp hai action chunks phân nhánh khi inference bắt đầu giữa chuỗi và chunk mới không biết chính xác robot đã đi được tới đâu. Những bước trong chunk cũ vốn đã thực thi không thể sửa bằng cách tái tạo ảnh cũ. RTC dùng điều kiện prefix/inpainting để ràng buộc các hành động đã cam kết, đồng thời sinh postfix phù hợp sau điểm nối. Đây là nơi cần phân biệt độ trễ sampling với độ trễ camera/controller: estimator sai ở một trong hai cũng khiến prefix lệch thực tế.
+
+#### Ví dụ từng bước để hiểu cơ chế
+
+Giả sử controller chạy 50 Hz, tức mỗi action cách nhau 20 ms. Policy bắt đầu tính chunk mới nhưng mất 160 ms mới trả kết quả: trong thời gian ấy robot đã thực thi thêm khoảng 8 action cũ. Không thể đơn giản thay toàn bộ chunk từ timestep ban đầu, vì 8 bước đầu đã xảy ra. Hãy đưa prefix gồm các action cam kết vào điều kiện sinh chunk mới, rồi kiểm tra tính liên tục tại mốc nối và task success dưới nhiều mức latency giả lập. Đây là phép kiểm tra đúng bản chất RTC, không chỉ xem video có giật hay không.
 
 ### Đào sâu: Giữ committed prefix, chỉ sinh lại tương lai
 
@@ -444,17 +456,5 @@ Nếu train và test dùng cùng camera, vật thể và background, một mô h
 #### Model học như thế nào?: Dữ liệu và độ lệch phân phối
 
 Nếu train và test dùng cùng camera, vật thể và background, một mô hình có thể học shortcut mà không thật sự khái quát. Hãy tạo held-out scene, held-out object hoặc held-out episode theo đúng mục đích đánh giá của paper. Nếu action policy dùng flow-based v_θ, lấy mẫu cập nhật quỹ đạo từ noise qua các flow-time steps. Cách chia tập phải làm trước bước cắt sliding windows để tránh cùng một trajectory xuất hiện ở cả train và test.
-
-#### Một lần inference xảy ra ra sao?: Dữ liệu và độ lệch phân phối
-
-Nếu train và test dùng cùng camera, vật thể và background, một mô hình có thể học shortcut mà không thật sự khái quát. Hãy tạo held-out scene, held-out object hoặc held-out episode theo đúng mục đích đánh giá của paper. Chunk A đang tiến lên theo trục X và nghiêng cổ tay nhẹ. Inference bắt đầu khi còn một số bước chưa thực thi, nên RTC khóa các bước A chắc chắn sẽ xảy ra. Cách chia tập phải làm trước bước cắt sliding windows để tránh cùng một trajectory xuất hiện ở cả train và test.
-
-#### Mathematical Intuition: Dữ liệu và độ lệch phân phối
-
-Nếu train và test dùng cùng camera, vật thể và background, một mô hình có thể học shortcut mà không thật sự khái quát. Hãy tạo held-out scene, held-out object hoặc held-out episode theo đúng mục đích đánh giá của paper. Mấu chốt: mô hình không được pretrain với conditional prefix, nên RTC phải thêm conditioning tại thời gian inference bằng kỹ thuật gần với gradient-based inpainting. Cách chia tập phải làm trước bước cắt sliding windows để tránh cùng một trajectory xuất hiện ở cả train và test.
-
-#### Kết quả nói lên điều gì?: Dữ liệu và độ lệch phân phối
-
-Nếu train và test dùng cùng camera, vật thể và background, một mô hình có thể học shortcut mà không thật sự khái quát. Hãy tạo held-out scene, held-out object hoặc held-out episode theo đúng mục đích đánh giá của paper. Simulation: Tác giả thiết kế 12 nhiệm vụ động lực học trong Kinetix để khuếch đại tác hại của pause/jerk, thay vì chỉ chọn bench thao tác quasi-static vốn quá dễ bão hòa. Cách chia tập phải làm trước bước cắt sliding windows để tránh cùng một trajectory xuất hiện ở cả train và test.
 
 <!-- END EXTENDED WALKTHROUGH -->

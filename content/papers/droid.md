@@ -8,6 +8,10 @@ Nhiều robot tập dữ liệu lớn vẫn được thu thập trong vài phòn
 
 *Hình 1, trang 1. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2403.12945#page=1).*
 
+#### Đọc hình gốc: bối cảnh và đóng góp
+
+Hình 1 giới thiệu một chiến lược thu dữ liệu khác việc dựng vài scene sạch trong phòng lab: robot được đưa tới nhiều công trình và môi trường thật. DROID công bố khoảng 76.000 trajectories, 350 giờ dữ liệu với đa dạng bối cảnh đáng kể. Điểm đáng học không chỉ là số giờ mà là phân phối: ánh sáng, nền, đồ vật, operator và cách sắp xếp cảnh thay đổi. Chính sự thay đổi này giúp đánh giá khả năng model chú ý đến affordance của vật thay vì nhớ texture của chiếc bàn.
+
 ### Đào sâu: Điểm cốt lõi
 
 **Luận điểm.** Chất lượng dữ liệu robot không chỉ nằm ở số giờ, mà ở độ đa dạng của thế giới thật. Nhiều robot tập dữ liệu lớn vẫn được thu thập trong vài phòng thí nghiệm setup được dựng cẩn thận.
@@ -61,6 +65,14 @@ Bài báo huấn luyện diffusion-style policies và làm matched-data ablation
 ![Hình 2 gốc từ PDF bài báo, trang 4](/paper-figures/droid/figure-2.webp)
 
 *Hình 2, trang 4. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2403.12945#page=4).*
+
+#### Đọc hình gốc: từng thành phần và luồng thông tin
+
+Hình 2 thể hiện một thiết kế tưởng như mâu thuẫn: dùng nền tảng phần cứng tương đối thống nhất để nhiều nhóm ở nhiều nơi thu thập. Thống nhất robot/camera giúp action space và logging nhất quán; thay đổi environment mới là biến nghiên cứu. Nếu mỗi phòng dùng phần cứng khác nhau, khó biết performance gain đến từ dữ liệu đa dạng hay từ khác biệt trong controller, frequency và sensor. Đây là một bài học về thiết kế thí nghiệm, không chỉ logistics.
+
+#### Ví dụ từng bước để hiểu cơ chế
+
+Khi kiểm tra một subset DROID, hãy vẽ timestamp giữa image, proprioception và action; xem vài episode cạnh nhau để phát hiện camera lệch hoặc robot đứng im quá lâu. Với mô hình baseline, đánh giá một tập test cùng environment và một tập test khác environment. Nếu accuracy của action tăng mà success rate không tăng, cần xem có bị lệch temporal synchronization hoặc action normalization không. Đừng gộp mọi episode thành một score rồi kết luận dataset đã giải quyết vấn đề khái quát.
 
 ### Đào sâu: Tăng environment diversity có thể giá trị hơn tăng lặp lại
 

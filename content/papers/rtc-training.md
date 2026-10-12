@@ -12,6 +12,10 @@ RTC inference-time chạy được với existing flow action policy, nhưng đ�
 
 *Hình 1, trang 2. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2512.05964#page=2).*
 
+#### Đọc hình gốc: bối cảnh và đóng góp
+
+Hình 1 cho thấy hai action chunk chồng lên nhau và đoạn d action đầu tiên của chunk mới bị ràng buộc bởi các lệnh từ chunk trước đã phát ra. Trong một hệ thực tế, đây không phải optional smoothing: actuator không thể hoàn tác một chuyển động đã xảy ra trong lúc GPU còn tính toán. Training-time RTC muốn dạy model coi phần prefix ấy là điều kiện thay vì để inference tự tối ưu tốn kém mỗi lần nhận chunk mới.
+
 ### Đào sâu: Điểm cốt lõi
 
 **Luận điểm.** Dạy model ngay lúc training cách tiếp nối committed prefix để inference không cần guidance đắt đỏ. Nó đặc biệt bất lợi khi inference delay lớn vì committed prefix dài hơn. Tác giả hỏi: nếu policy đã được huấn luyện để biết rằng một đoạn quỹ đạo có thể được cho trước, liệu có thể loại bỏ guidance ở runtime không?
@@ -111,6 +115,14 @@ Do đó huấn luyện randomize `k` không thay thế độ trễ estimator/run
 ![Hình 2 gốc từ PDF bài báo, trang 2](/paper-figures/rtc-training/figure-2.webp)
 
 *Hình 2, trang 2. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2512.05964#page=2).*
+
+#### Đọc hình gốc: từng thành phần và luồng thông tin
+
+Hình 2 trình bày chỗ conditioning được gắn vào action expert dạng diffusion Transformer: những action đã cam kết được mã hoá/mask và đưa vào mô hình để sinh phần postfix tương thích. Điều này khác hard-overwrite output ở cuối: model phải nhìn prefix trong quá trình học để tạo quỹ đạo còn lại hợp lý. Vì prefix đã thuộc runtime, cần sampling nhiều độ dài chờ và nhiều trạng thái nối trong training, tránh để mô hình chỉ thành thạo một trường hợp latency cố định.
+
+#### Ví dụ từng bước để hiểu cơ chế
+
+Tưởng tượng action chunk dài 32 và inference mới đến muộn 6 tick. Sáu lệnh đầu không thể sửa; cách naive cắt ghép có thể tạo cú nhảy giữa lệnh thứ 6 và thứ 7. Trong training, lấy demonstration chunk, đánh dấu một prefix dài d, đưa prefix vào condition cùng ảnh/state rồi yêu cầu model dự đoán phần còn lại sao cho khớp cả task và trạng thái cam kết. Đánh giá d=0,4,8,12, xem success, jerk ở boundary và inference latency. Nếu model chỉ tốt d=0, nó chưa học được mục tiêu của training-time RTC.
 
 ### Đào sâu: Condition policy theo prefix ngay từ huấn luyện
 
@@ -382,21 +394,5 @@ Giả sử có hai episode cùng mục tiêu nhưng điều kiện bắt đầu 
 #### Kết quả nói lên điều gì?: Một phản ví dụ có ích
 
 Giả sử có hai episode cùng mục tiêu nhưng điều kiện bắt đầu hơi khác. Trong một episode, dữ liệu huấn luyện che phủ đầy đủ quỹ đạo; ở episode còn lại, robot gặp trạng thái hiếm hoặc vật thể dịch chuyển. Simulation Kinetix: tốt hơn rõ trong nhiều thiết lập delay cao, không thắng mọi k. Nên ghi lại thời điểm hành vi tách khỏi mục tiêu rồi tìm đúng nguồn lỗi thay vì chấm cả hai bằng một con số trung bình.
-
-#### Ablation và bằng chứng: Một phản ví dụ có ích
-
-Giả sử có hai episode cùng mục tiêu nhưng điều kiện bắt đầu hơi khác. Trong một episode, dữ liệu huấn luyện che phủ đầy đủ quỹ đạo; ở episode còn lại, robot gặp trạng thái hiếm hoặc vật thể dịch chuyển. Train k cố định vs sampled trên dải delay. Nên ghi lại thời điểm hành vi tách khỏi mục tiêu rồi tìm đúng nguồn lỗi thay vì chấm cả hai bằng một con số trung bình.
-
-#### Hạn chế cần nói thẳng: Một phản ví dụ có ích
-
-Giả sử có hai episode cùng mục tiêu nhưng điều kiện bắt đầu hơi khác. Trong một episode, dữ liệu huấn luyện che phủ đầy đủ quỹ đạo; ở episode còn lại, robot gặp trạng thái hiếm hoặc vật thể dịch chuyển. Tách rõ tác giả thừa nhận và nhận định phê bình độc lập. Nên ghi lại thời điểm hành vi tách khỏi mục tiêu rồi tìm đúng nguồn lỗi thay vì chấm cả hai bằng một con số trung bình.
-
-#### Bài này đứng ở đâu trong lĩnh vực?: Một phản ví dụ có ích
-
-Giả sử có hai episode cùng mục tiêu nhưng điều kiện bắt đầu hơi khác. Trong một episode, dữ liệu huấn luyện che phủ đầy đủ quỹ đạo; ở episode còn lại, robot gặp trạng thái hiếm hoặc vật thể dịch chuyển. Không đọc paper như một hòn đảo riêng. Nên ghi lại thời điểm hành vi tách khỏi mục tiêu rồi tìm đúng nguồn lỗi thay vì chấm cả hai bằng một con số trung bình.
-
-#### Nếu chỉ nhớ ba điều: Một phản ví dụ có ích
-
-Giả sử có hai episode cùng mục tiêu nhưng điều kiện bắt đầu hơi khác. Trong một episode, dữ liệu huấn luyện che phủ đầy đủ quỹ đạo; ở episode còn lại, robot gặp trạng thái hiếm hoặc vật thể dịch chuyển. Chuyển runtime constraint thành training condition có thể giảm serving cost. Nên ghi lại thời điểm hành vi tách khỏi mục tiêu rồi tìm đúng nguồn lỗi thay vì chấm cả hai bằng một con số trung bình.
 
 <!-- END EXTENDED WALKTHROUGH -->

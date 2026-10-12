@@ -16,6 +16,10 @@ Khó khăn là **action semantics không đồng nhất**. Một vector 7 chiề
 
 *Hình 1, trang 1. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2605.30280#page=1).*
 
+#### Đọc hình gốc: bối cảnh và đóng góp
+
+Hình 1 là bản đồ của một mô hình embodied chung có cả manipulation, navigation và vision-language understanding. Những khả năng này không có cùng action space hay mức supervision. Quan sát từ camera, mô tả embodiment, instruction và điều kiện nhiệm vụ phải được căn chỉnh để action decoder biết đang phục vụ robot nào. Nếu chỉ nhìn một backbone lớn rồi kết luận policy chạy trên mọi robot, ta đã bỏ qua lớp action interface và việc dữ liệu đến từ các nhóm nhiệm vụ rất khác nhau.
+
 ### Đào sâu: Điểm cốt lõi
 
 **Luận điểm.** Kết hợp Qwen VLM, mô tả embodiment và DiT flow expert để điều khiển nhiều loại robot. Trong khi đó, đã pretrain Qwen VLM đã học nhận diện vật, ngôn ngữ, không gian và nhiều quan hệ ngữ nghĩa.
@@ -106,6 +110,14 @@ Khi một mô hình được huấn luyện đa embodiment, phải đánh giá c
 ![Hình 2 gốc từ PDF bài báo, trang 6](/paper-figures/qwen-vla/figure-2.webp)
 
 *Hình 2, trang 6. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2605.30280#page=6).*
+
+#### Đọc hình gốc: từng thành phần và luồng thông tin
+
+Hình 2 giải thích recipe huấn luyện nhiều giai đoạn, đặc biệt T2A trước khi huấn luyện policy có điều kiện đầy đủ theo ảnh: action decoder học cấu trúc của chuỗi hành động trước, sau đó mới kết hợp sâu với tín hiệu vision-language. Hãy phân biệt pretraining một action prior với bằng chứng robot có thể grounding tốt vào ảnh. Model có thể sinh quỹ đạo khá trơn từ text nhưng chưa chắc đúng với vật thể hiện tại; conditioning từ ảnh và state mới giúp chọn chuyển động phù hợp tình huống.
+
+#### Ví dụ từng bước để hiểu cơ chế
+
+Tạo một ví dụ chung lệnh 'đưa tay tới cốc' ở hai robot: robot A đặt cạnh bàn, robot B có camera khác và gripper khác. Trước hết xác nhận output action thuộc đúng hệ quy chiếu của mỗi robot; tiếp theo đặt cùng một lệnh nhưng đổi ảnh cốc từ trái sang phải, xem hướng action có đổi không. Đánh giá loss T2A riêng, loss action condition on vision riêng và rollout success riêng. Nếu T2A tốt mà robot vẫn đưa tay lệch, cần kiểm tra visual grounding hoặc action conversion trước khi kết luận action prior vô dụng.
 
 ### Đào sâu: Embodiment-aware prompting + continuous action expert
 
@@ -431,17 +443,5 @@ Nếu train và test dùng cùng camera, vật thể và background, một mô h
 #### Một lần inference xảy ra ra sao?: Dữ liệu và độ lệch phân phối
 
 Nếu train và test dùng cùng camera, vật thể và background, một mô hình có thể học shortcut mà không thật sự khái quát. Hãy tạo held-out scene, held-out object hoặc held-out episode theo đúng mục đích đánh giá của paper. Cùng một từ “left” có thể chỉ camera-left, world-left hoặc robot base-left. Nếu coordinate convention không rõ, ngay cả một mô hình lý tưởng cũng không thể dự đoán đúng lệnh thực thi. Cách chia tập phải làm trước bước cắt sliding windows để tránh cùng một trajectory xuất hiện ở cả train và test.
-
-#### Mathematical Intuition: Dữ liệu và độ lệch phân phối
-
-Nếu train và test dùng cùng camera, vật thể và background, một mô hình có thể học shortcut mà không thật sự khái quát. Hãy tạo held-out scene, held-out object hoặc held-out episode theo đúng mục đích đánh giá của paper. Khi một mô hình được huấn luyện đa embodiment, phải đánh giá cả per-domain tỷ lệ thành công của nhiệm vụ lẫn dấu hiệu negative chuyển giao: một domain cải thiện có làm domain khác tụt không? Cách chia tập phải làm trước bước cắt sliding windows để tránh cùng một trajectory xuất hiện ở cả train và test.
-
-#### Kết quả nói lên điều gì?: Dữ liệu và độ lệch phân phối
-
-Nếu train và test dùng cùng camera, vật thể và background, một mô hình có thể học shortcut mà không thật sự khái quát. Hãy tạo held-out scene, held-out object hoặc held-out episode theo đúng mục đích đánh giá của paper. Trong thiết lập ALOHA trên robot thật, Qwen-VLA-ALOHA có pretraining được báo cáo tỷ lệ trung bình 83.6% tỷ lệ thành công in-domain, so với 48.5% cho một phiên bản đối chứng ở Bảng 5; ở OOD manipulations, tác giả nêu average 76.9% ở Bảng 6. Cách chia tập phải làm trước bước cắt sliding windows để tránh cùng một trajectory xuất hiện ở cả train và test.
-
-#### Ablation và bằng chứng: Dữ liệu và độ lệch phân phối
-
-Nếu train và test dùng cùng camera, vật thể và background, một mô hình có thể học shortcut mà không thật sự khái quát. Hãy tạo held-out scene, held-out object hoặc held-out episode theo đúng mục đích đánh giá của paper. Khi một bảng báo 83.6% cho supervised/post-trained ALOHA và một benchmark khác chỉ 26.6% zero-shot, không nên gộp thành “Qwen-VLA đạt tỷ lệ thành công 80% trên thế giới thật”. Cách chia tập phải làm trước bước cắt sliding windows để tránh cùng một trajectory xuất hiện ở cả train và test.
 
 <!-- END EXTENDED WALKTHROUGH -->

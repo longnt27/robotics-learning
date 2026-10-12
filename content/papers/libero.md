@@ -8,6 +8,10 @@ Lifelong learning không chỉ hỏi “nhiệm vụ mới làm được bao nhi
 
 *Hình 1, trang 2. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2306.03310#page=2).*
 
+#### Đọc hình gốc: bối cảnh và đóng góp
+
+Hình 1 chia các bộ nhiệm vụ theo kiểu thay đổi kiến thức cần chuyển giao: vị trí đối tượng, đối tượng mới, mục tiêu khác và các nhiệm vụ dài hơn. Điều quan trọng của LIBERO không phải một tỷ lệ thành công đơn lẻ mà là giao thức học liên tục. Nếu model học task B sau task A, ta phải đo cả B lẫn A để phát hiện catastrophic forgetting. Nhìn một hàng cuối cùng không cho biết liệu policy chỉ giỏi task vừa học hay vẫn nhớ những task cũ.
+
 ### Đào sâu: Điểm cốt lõi
 
 **Luận điểm.** Benchmark kiểm tra robot có giữ được kỹ năng và chuyển giao giữa các nhiệm vụ liên tiếp hay không. LIBERO được xây để kiểm tra chính xác các dạng chuyển giao đó trong môi trường thao tác robot có kiểm soát.
@@ -61,6 +65,14 @@ Bài báo gốc đánh giá các thuật toán học liên tục như sequential
 ![Hình 2 gốc từ PDF bài báo, trang 4](/paper-figures/libero/figure-2.webp)
 
 *Hình 2, trang 4. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2306.03310#page=4).*
+
+#### Đọc hình gốc: từng thành phần và luồng thông tin
+
+Hình 2 trình bày cách sinh nhiệm vụ có cấu trúc, giúp tạo nhiều tác vụ có thể so sánh mà không cần viết lại từng environment bằng tay. Tách các yếu tố ngôn ngữ, mục tiêu và hình học giúp benchmark hỏi rõ loại kiến thức nào được giữ lại. Khi tái hiện, cùng một chính sách và một bộ seed phải được đánh giá trên từng task sau mỗi bước học, không chỉ ở cuối quá trình.
+
+#### Ví dụ từng bước để hiểu cơ chế
+
+Ví dụ học tuần tự ba nhiệm vụ: đặt khối đỏ vào bát, mở ngăn kéo, rồi chuyển khối xanh. Ta lưu ma trận hiệu năng R_{i,j}: sau khi học task i, model thành công bao nhiêu trên task j. Từ đó mới đo được mức quên task cũ và khả năng chuyển giao sang task mới. Nếu chỉ đo success rate trên task thứ ba, cách làm đơn giản là fine-tune đến khi quên hết hai task đầu cũng sẽ được chấm là thành công, hoàn toàn lệch mục tiêu continual learning.
 
 ### Đào sâu: Thay một bảng điểm bằng nhiều loại chuyển giao kiến thức
 
@@ -217,18 +229,3 @@ Chạy một nhiệm vụ BC-RNN trong repo LIBERO chính thức trên T4, rồi
 
 <!-- END EXTENDED WALKTHROUGH -->
 
-<!-- BEGIN EXTENDED WALKTHROUGH -->
-
-### Sổ tay kiểm chứng: từ giả thuyết tới thử nghiệm
-
-*Đây là các phép thử và ví dụ sư phạm, không phải kết quả thực nghiệm được tác giả báo cáo.*
-
-#### Điểm cốt lõi: Theo dấu một episode
-
-Đặt một quan sát cụ thể gồm ảnh, state và lệnh nhiệm vụ vào đầu pipeline. Với luận điểm 'Điểm cốt lõi', xác định khi nào thông tin mới được đọc, khi nào mô hình tạo action và khi nào phần cứng nhận lệnh. LIBERO được xây để kiểm tra chính xác các dạng chuyển giao đó trong môi trường thao tác robot có kiểm soát. Nếu không viết được chuỗi này, mô tả còn thiếu mắt xích quan trọng giữa mạng và hệ robot.
-
-#### Học nhiệm vụ mới có thể làm policy quên nhiệm vụ cũ: Theo dấu một episode
-
-Đặt một quan sát cụ thể gồm ảnh, state và lệnh nhiệm vụ vào đầu pipeline. Với luận điểm 'Học nhiệm vụ mới có thể làm policy quên nhiệm vụ cũ', xác định khi nào thông tin mới được đọc, khi nào mô hình tạo action và khi nào phần cứng nhận lệnh. Lifelong learning không chỉ hỏi “nhiệm vụ mới làm được bao nhiêu %”, mà còn hỏi hai câu khó hơn: học nhiệm vụ cũ có giúp học nhiệm vụ mới nhanh hơn không, và học nhiệm vụ mới có làm quên nhiệm vụ cũ không. Nếu không viết được chuỗi này, mô tả còn thiếu mắt xích quan trọng giữa mạng và hệ robot.
-
-<!-- END EXTENDED WALKTHROUGH -->

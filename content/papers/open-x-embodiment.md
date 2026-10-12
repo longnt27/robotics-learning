@@ -8,6 +8,10 @@ Mỗi robotics phòng thí nghiệm thường có một robot, một bộ điề
 
 *Hình 1, trang 1. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2310.08864#page=1).*
 
+#### Đọc hình gốc: bối cảnh và đóng góp
+
+Hình 1 nhấn mạnh quy mô hợp tác của Open X-Embodiment: nhiều đơn vị, nhiều robot và dataset được gom vào một nguồn học chung. Nhưng số robot tự nó không giải quyết action mismatch. Khi cùng một instruction được thực hiện bằng arm 6DoF, 7DoF hoặc mobile manipulator, lệnh điều khiển có thể có unit, tần số, frame và constraints khác nhau.
+
 ### Đào sâu: Điểm cốt lõi
 
 **Luận điểm.** Robot từ nhiều phòng thí nghiệm có thể chia sẻ dữ liệu để huấn luyện policy tổng quát hơn. Open X-Embodiment hỏi: có thể chuẩn hóa kinh nghiệm của nhiều robot đủ để huấn luyện một policy chung và tạo positive chuyển giao hay không?
@@ -61,6 +65,14 @@ Quan trọng về mặt infrastructure là bài báo không cố ép mọi robot
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/open-x-embodiment/figure-2.webp)
 
 *Hình 2, trang 3. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2310.08864#page=3).*
+
+#### Đọc hình gốc: từng thành phần và luồng thông tin
+
+Hình 2 cho thấy các embodiment và dataset đóng góp không đồng đều. Một bộ dữ liệu có hàng trăm nghìn trajectory có thể áp đảo nguồn nhỏ nếu sample trực tiếp theo kích thước; khi ấy model học tốt robot phổ biến mà quên loại hiếm. Vì vậy data mixture weights, normalization và cách chọn test split mới là phần đáng học sau sơ đồ tổng quan.
+
+#### Ví dụ từng bước để hiểu cơ chế
+
+Giả sử hai robot cùng nhặt một vật: robot A dùng delta end-effector, robot B dùng joint positions. Nếu nối hai action vector thô vào một tensor chung, cùng giá trị số không tương ứng cùng chuyển động. Cần schema và adapter rõ ràng, cùng với embedding hoặc thông tin embodiment để policy biết đang điều khiển ai. Thử train trong một robot và kiểm tra robot còn lại phải được gọi là cross-embodiment evaluation, không phải chỉ multi-task accuracy.
 
 ### Đào sâu: Tập hợp dữ liệu nhiều robot trước khi học cross-embodiment
 

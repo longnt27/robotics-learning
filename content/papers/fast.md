@@ -8,6 +8,10 @@ Autoregressive VLA có một vấn đề hơi ngu nhưng chí mạng: action li�
 
 *Hình 1, trang 1. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2501.09747#page=1).*
 
+#### Đọc hình gốc: bối cảnh và đóng góp
+
+Hình 1 giải thích lý do FAST tồn tại: action liên tục có tần số cao nhưng token autoregressive được sinh tuần tự, khiến chuỗi dài, tốn thời gian và khó scale. FAST tận dụng đặc trưng trơn theo thời gian của trajectory, dùng biến đổi miền tần số rồi lượng tử hóa các hệ số quan trọng. Khi hành động thay đổi tương đối chậm, phần lớn tín hiệu nằm ở tần số thấp; ta không nhất thiết cần một token cho từng giá trị joint ở từng frame.
+
 ### Đào sâu: Điểm cốt lõi
 
 **Luận điểm.** Nén action chunk trong miền tần số để autoregressive VLA cần ít token hơn nhiều. Autoregressive VLA có một vấn đề quan trọng: action liên tục stream ở 20-50 Hz tạo quá nhiều tokens nếu discretize từng dimension từng timestep.
@@ -61,6 +65,14 @@ Sau đó FAST được ghép với π-style autoregressive VLA. Vì mỗi chunk 
 ![Hình 2 gốc từ PDF bài báo, trang 2](/paper-figures/fast/figure-2.webp)
 
 *Hình 2, trang 2. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2501.09747#page=2).*
+
+#### Đọc hình gốc: từng thành phần và luồng thông tin
+
+Hình 2 mô tả nơi FAST đứng trong VLA autoregressive: trước khi model dự đoán next token, trajectory đã được nén thành một chuỗi biểu diễn gọn hơn. Sau sampling phải giải mã về action liên tục đúng shape, đơn vị và horizon. Điều này khác hẳn việc thay robot controller bằng Transformer; model học phân phối trên mã hành động, còn decoder phải khôi phục lệnh có thể thực thi.
+
+#### Ví dụ từng bước để hiểu cơ chế
+
+Thử một trajectory 50 timestep và 7 chiều có chuyển động trơn. Chạy DCT theo trục thời gian, sắp xếp hệ số theo tần số, chỉ giữ những hệ số cần thiết rồi inverse DCT. Đo sai số tái tạo từng joint, đặc biệt đoạn tiếp xúc hoặc chuyển gripper trạng thái. Sau đó thử quỹ đạo có va đập/ngắt quãng: tín hiệu nhiều high frequency có thể mất nhiều thông tin hơn ở cùng compression ratio. Đây là cách hiểu trade-off của FAST chứ không chỉ nhìn vào token-count reduction.
 
 ### Đào sâu: Chuyển trajectory sang frequency domain để giữ cái thay đổi chậm
 

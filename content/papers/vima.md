@@ -8,6 +8,10 @@ Một robot thực tế không phải lúc nào cũng nhận nhiệm vụ dướ
 
 *Hình 1, trang 2. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2210.03094#page=2).*
 
+#### Đọc hình gốc: bối cảnh và đóng góp
+
+Hình 1 cho thấy nhiệm vụ robot có thể chỉ định bằng prompt đa phương thức: không chỉ một câu lệnh mà còn hình ảnh đối tượng tham chiếu hoặc ví dụ hành động. Điều này giải quyết một hạn chế của task ID hay label cố định: 'đặt vật giống hình vào khu vực kia' cần model hiểu mối quan hệ giữa prompt và scene. Nhưng prompt giúp diễn đạt mục tiêu phong phú hơn, không có nghĩa robot đã học được mọi thao tác vật lý; VIMA chủ yếu được nghiên cứu trong môi trường mô phỏng có cấu trúc.
+
 ### Đào sâu: Điểm cốt lõi
 
 **Luận điểm.** Robot nhận nhiệm vụ qua prompt có cả text, hình và ví dụ thao tác, chứ không chỉ câu lệnh. Một robot thực tế không phải lúc nào cũng nhận nhiệm vụ dưới một string cố định. User có thể đưa text, ảnh mục tiêu, ảnh vật thể, hoặc một demonstration làm ví dụ.
@@ -61,6 +65,14 @@ Một điểm quan trọng là benchmark cố tách nhiều kiểu OOD: novel pl
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/vima/figure-2.webp)
 
 *Hình 2, trang 3. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2210.03094#page=3).*
+
+#### Đọc hình gốc: từng thành phần và luồng thông tin
+
+Hình 2 định nghĩa nhiều mức generalization của VIMA-BENCH. Đây mới là bản chất benchmark: test model trên nhiệm vụ/tổ hợp chưa gặp trong training chứ không chỉ xem nó tái hiện ví dụ quen thuộc. Khi đọc hình, hãy xác định yếu tố nào được giữ nguyên và yếu tố nào thay đổi ở từng level, rồi xem success rate có giảm khi compositional novelty tăng không. Một metric gộp duy nhất có thể che mất chuyện model chỉ giỏi các tổ hợp gần training distribution.
+
+#### Ví dụ từng bước để hiểu cơ chế
+
+Ví dụ prompt gồm ảnh chiếc khối có hoa văn, một lệnh 'đặt vật giống như mẫu vào bên trái vật màu xanh', và ảnh scene hiện tại có nhiều khối tương tự. Hệ phải grounding được tham chiếu hình ảnh, quan hệ 'bên trái' và kế hoạch chuyển động của gripper. Tạo ba mức test: đúng kiểu vật và vị trí từng gặp, vật mới nhưng quan hệ quen, rồi tổ hợp cả vật và quan hệ mới. Nếu model chỉ thành công mức đầu, không được gọi đó là generalization theo prompt chỉ vì interface đầu vào là multimodal.
 
 ### Đào sâu: Prompt là một chương trình đặc tả nhiệm vụ đa phương thức
 

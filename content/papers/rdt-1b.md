@@ -8,6 +8,10 @@ Bimanual manipulation khó hơn gripper-arm control vì action dimension lớn, 
 
 *Hình 1, trang 2. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2410.07864#page=2).*
 
+#### Đọc hình gốc: bối cảnh và đóng góp
+
+Hình 1 là sơ đồ diffusion Transformer khoảng một tỷ tham số có điều kiện theo dữ liệu quan sát và ngôn ngữ để sinh action cho hai tay. Đọc sơ đồ từ image/state/language condition tới chuỗi action được denoise thay vì nghĩ rằng tất cả khối mạng đều trực tiếp phát joint command. Sự khác biệt chính so với một mạng hồi quy đơn là mô hình học một phân phối chuỗi chuyển động khả thi; với thao tác hai tay, tính phối hợp theo thời gian có thể quan trọng không kém độ chính xác ở một timestep.
+
 ### Đào sâu: Điểm cốt lõi
 
 **Luận điểm.** Diffusion Transformer quy mô lớn sinh action liên tục với điều kiện thị giác–ngôn ngữ đa robot. RDT-1B hỏi: nếu dùng một diffusion Transformer rất lớn và một biểu diễn vật lý thống nhất, có thể pretrain foundation motor policy cho bimanual manipulation không?
@@ -61,6 +65,14 @@ Kiến trúc được thiết kế để scale width/depth và exploit multimoda
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/rdt-1b/figure-2.webp)
 
 *Hình 2, trang 3. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2410.07864#page=3).*
+
+#### Đọc hình gốc: từng thành phần và luồng thông tin
+
+Hình 2 đối chiếu sự phức tạp của bimanual manipulation với một tay: hai nhánh kinematics cùng tiếp xúc một vật và ảnh hưởng lẫn nhau. Một tay nhấc vật trong khi tay kia giữ hoặc căn chỉnh vị trí có thể tạo lực và ràng buộc khác hoàn toàn một tay tự thao tác. Đây là lý do hình học, action representation và đồng bộ timing của hai tay cần được xem kỹ khi đọc RDT-1B. Một action vector dài không tự bảo đảm mô hình hiểu constraints giữa hai gripper.
+
+#### Ví dụ từng bước để hiểu cơ chế
+
+Ví dụ hai tay giữ hai đầu một thanh dài và đặt vào gá. Nếu dự đoán tay trái/pha nâng độc lập với tay phải, thanh có thể nghiêng và va chạm. Ta có thể biểu diễn một action chunk liên tục cho tất cả khớp hai tay, thêm condition từ ảnh và proprioception, rồi sampling bằng diffusion để tìm quỹ đạo nhất quán. Nhưng performance không chỉ nằm ở chất lượng score model: action cần đưa về đúng joint range và controller phải giữ tương tác cơ học ổn định. Đo task success, alignment error, collision và jerk chứ không chỉ denoising MSE.
 
 ### Đào sâu: Scale action generative modeling bằng Transformer
 

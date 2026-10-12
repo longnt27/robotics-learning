@@ -14,6 +14,10 @@ Nó không cố chứng minh một kiến trúc magic nào đập tan π0.5. Con
 
 *Hình 1, trang 2. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2607.06403#page=2).*
 
+#### Đọc hình gốc: bối cảnh và đóng góp
+
+Hình 1 tóm bốn mảnh ghép trong LingBot-VLA 2.0: tuyển lọc dữ liệu, chuẩn hoá action space 55 chiều, mở rộng action expert bằng sparse MoE và học biểu diễn trạng thái tương lai. Đọc hình như một hệ thống engineering research, không phải một block thần kỳ. Figure chỉ cho thấy các phần được ghép với nhau; muốn biết phần nào thực sự tạo gain phải xem ablation tách riêng data curation, normalization, MoE và predictive objective.
+
 ### Đào sâu: Điểm cốt lõi
 
 **Luận điểm.** Một pipeline VLA hướng sản xuất: data curation, action 55D, sparse MoE và future-state feature prediction. Nó không cố chứng minh một kiến trúc đơn lẻ vượt xa π0.5. Contribution nằm ở engineering research: quy trình tuyển lọc dữ liệu hàng chục nghìn giờ, unified biểu diễn cho whole-body, sparse MoE để tăng dung lượng mô hình và auxiliary future-state learning.
@@ -119,6 +123,14 @@ Thay vì bắt VLA sinh toàn bộ future pixels, student học **future đặc 
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/lingbot-vla-2/figure-2.webp)
 
 *Hình 2, trang 3. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2607.06403#page=3).*
+
+#### Đọc hình gốc: từng thành phần và luồng thông tin
+
+Hình 2 trực quan hoá tập dữ liệu nhiều robot, với kinematics và degrees of freedom khác nhau. Chính hình này giải thích vì sao 55D chỉ là schema/padded container: cùng slot 'arm joint' không bảo đảm cùng ý nghĩa cơ học ở hai robot. Masking, action units, frame transforms và mapping từ joint/EEF tới actuator thật phải được thiết kế rõ. Data pipeline càng đa dạng, nguy cơ lệch schema và gán nhãn sai càng đáng sợ; chỉ thêm parameters không sửa được những lỗi đó.
+
+#### Ví dụ từng bước để hiểu cơ chế
+
+Ví dụ xây hai robot giả lập: A có 7D EEF/gripper, B có 14D joint targets. Cả hai được đưa vào 55D có mask theo bộ phận, và target được normalize riêng theo convention. Kiểm tra encode→decode phải khôi phục action hợp lệ trước khi train. Sau đó dùng một action expert dense nhỏ làm baseline, đổi sang shared+routed MoE với active compute tương đương, theo dõi validation action error và router load balance. Cuối cùng mới thêm future-feature prediction bằng teacher cố định và kiểm tra nó có thật sự cải thiện các episode cần dự đoán hậu quả tiếp xúc không. Nếu thay tất cả cùng lúc, con số thành công không thể quy cho MoE.
 
 ### Đào sâu: Chất lượng data + schema + capacity cùng tạo foundation VLA
 
@@ -482,21 +494,5 @@ Một tensor có shape hợp lệ chưa chắc là lệnh vật lý hợp lệ. 
 #### Dense expert và dữ liệu trộn thô có bottleneck về capacity/quality: Kiểm tra tính đúng của action
 
 Một tensor có shape hợp lệ chưa chắc là lệnh vật lý hợp lệ. Hãy kiểm tra số bậc tự do, đơn vị, hệ tọa độ, giới hạn từng chiều và quy trình inverse-normalize. Trong Dense expert và dữ liệu trộn thô có bottleneck về capacity/quality, một lỗi scale ở gripper hoặc thiếu đồng bộ timestamp có thể làm toàn episode thất bại mà loss offline không phát hiện rõ.
-
-#### Chất lượng data + schema + capacity cùng tạo foundation VLA: Kiểm tra tính đúng của action
-
-Một tensor có shape hợp lệ chưa chắc là lệnh vật lý hợp lệ. Hãy kiểm tra số bậc tự do, đơn vị, hệ tọa độ, giới hạn từng chiều và quy trình inverse-normalize. Trong Chất lượng data + schema + capacity cùng tạo foundation VLA, một lỗi scale ở gripper hoặc thiếu đồng bộ timestamp có thể làm toàn episode thất bại mà loss offline không phát hiện rõ.
-
-#### Ba khái niệm để nắm: Kiểm tra tính đúng của action
-
-Một tensor có shape hợp lệ chưa chắc là lệnh vật lý hợp lệ. Hãy kiểm tra số bậc tự do, đơn vị, hệ tọa độ, giới hạn từng chiều và quy trình inverse-normalize. Trong Ba khái niệm để nắm, một lỗi scale ở gripper hoặc thiếu đồng bộ timestamp có thể làm toàn episode thất bại mà loss offline không phát hiện rõ.
-
-#### Kiến trúc trong một sơ đồ: Kiểm tra tính đúng của action
-
-Một tensor có shape hợp lệ chưa chắc là lệnh vật lý hợp lệ. Hãy kiểm tra số bậc tự do, đơn vị, hệ tọa độ, giới hạn từng chiều và quy trình inverse-normalize. Trong Kiến trúc trong một sơ đồ, một lỗi scale ở gripper hoặc thiếu đồng bộ timestamp có thể làm toàn episode thất bại mà loss offline không phát hiện rõ.
-
-#### Mô hình biểu diễn cái gì?: Kiểm tra tính đúng của action
-
-Một tensor có shape hợp lệ chưa chắc là lệnh vật lý hợp lệ. Hãy kiểm tra số bậc tự do, đơn vị, hệ tọa độ, giới hạn từng chiều và quy trình inverse-normalize. Trong Mô hình biểu diễn cái gì?, một lỗi scale ở gripper hoặc thiếu đồng bộ timestamp có thể làm toàn episode thất bại mà loss offline không phát hiện rõ.
 
 <!-- END EXTENDED WALKTHROUGH -->

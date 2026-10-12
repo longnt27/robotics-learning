@@ -8,6 +8,10 @@ Trước RT-1, phần lớn robot learning vẫn theo cách tiếp cận kiểu 
 
 *Hình 1, trang 1. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://www.roboticsproceedings.org/rss19/p025.pdf#page=1).*
 
+#### Đọc hình gốc: bối cảnh và đóng góp
+
+Hình 1 tổng hợp dữ liệu huấn luyện, Transformer policy và phạm vi đánh giá RT-1. Điểm quan trọng là real robot demonstrations được thu cho nhiều nhiệm vụ và instruction, chứ không chỉ mở rộng một kiến trúc network. Người đọc nên đặt câu hỏi cùng backbone nhưng ít đa dạng nhiệm vụ hơn thì thế nào, và data distribution có giới hạn ra sao. Những hình thành công trên robot thật cho biết policy có thể được triển khai trong thiết lập bài báo, không phải chứng minh mọi robot đều sẽ đạt cùng success rate.
+
 ### Đào sâu: Điểm cốt lõi
 
 **Luận điểm.** Một policy có thể học hàng trăm chỉ dẫn robot khi dữ liệu đủ rộng và kiến trúc đủ nhanh. Cái thiếu không chỉ là kiến trúc tốt hơn, mà là bằng chứng rằng cách tiếp cận từng thành công ở NLP/vision - gom dữ liệu lớn, đa dạng rồi huấn luyện một mô hình chung - cũng có thể mở rộng quy mô trong robot học.
@@ -63,6 +67,14 @@ RT-1 huấn luyện một Transformer policy khoảng 35M tham số trên khoả
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/rt-1/figure-2.webp)
 
 *Hình 2, trang 3. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://www.roboticsproceedings.org/rss19/p025.pdf#page=3).*
+
+#### Đọc hình gốc: từng thành phần và luồng thông tin
+
+Hình 2 cho thấy language instruction được mã hóa thành embedding và dùng để điều kiện hóa visual tokens, trước khi sequence modeling sinh action tokens. EfficientNet là phần trích đặc trưng thị giác; Transformer học mối liên hệ giữa các quan sát đã được token hóa và lệnh hành động. Thao tác token hóa output phải khớp với số chiều action, trong đó gripper và termination signal có semantics riêng. Nếu chỉ gọi đây là 'image-to-text' là đã bỏ sót tầng quan trọng nhất: giải mã token thành lệnh điều khiển robot.
+
+#### Ví dụ từng bước để hiểu cơ chế
+
+Ví dụ robot được yêu cầu 'đặt lon đỏ vào ngăn dưới'. Camera cho thấy lon đỏ và lon xanh ở vị trí khác nhau. Nếu encoder và instruction conditioning hoạt động, policy cần tập trung đúng lon đỏ thay vì chỉ phản xạ với vị trí vật thể xuất hiện nhiều nhất trong data. Mã hóa action thành từng chiều, điều khiển tới vật, grasp rồi place. Một phép kiểm thử đáng làm là thay instruction thành lon xanh mà giữ nguyên hình, và quan sát action distribution thay đổi thế nào. Nếu không đổi, có thể model chưa dùng đúng instruction.
 
 ### Đào sâu: Scale dữ liệu robot thật trước khi chỉ scale tham số
 
@@ -260,17 +272,5 @@ Làm một thử nghiệm nhỏ: huấn luyện BC trên ảnh + state với hai
 #### Một lần inference xảy ra ra sao?: Theo dấu một episode
 
 Đặt một quan sát cụ thể gồm ảnh, state và lệnh nhiệm vụ vào đầu pipeline. Với luận điểm 'Một lần inference xảy ra ra sao?', xác định khi nào thông tin mới được đọc, khi nào mô hình tạo action và khi nào phần cứng nhận lệnh. Giả sử lệnh "lấy quả táo đỏ đặt vào bát". EfficientNet mã hoá ảnh có nhiều đồ vật; chỉ dẫn đi vào FiLM để điều chỉnh trọng số các đặc trưng thị giác theo từ "táo đỏ" và "bát". Nếu không viết được chuỗi này, mô tả còn thiếu mắt xích quan trọng giữa mạng và hệ robot.
-
-#### Mathematical Intuition: Theo dấu một episode
-
-Đặt một quan sát cụ thể gồm ảnh, state và lệnh nhiệm vụ vào đầu pipeline. Với luận điểm 'Mathematical Intuition', xác định khi nào thông tin mới được đọc, khi nào mô hình tạo action và khi nào phần cứng nhận lệnh. Các action được lượng tử hóa thành token thay vì hồi quy trực tiếp vector liên tục. Policy chạy ở khoảng 3 Hz, nên đây còn là một bài toán hệ thống chứ không chỉ độ chính xác khi đánh giá offline. Nếu không viết được chuỗi này, mô tả còn thiếu mắt xích quan trọng giữa mạng và hệ robot.
-
-#### Kết quả nói lên điều gì?: Theo dấu một episode
-
-Đặt một quan sát cụ thể gồm ảnh, state và lệnh nhiệm vụ vào đầu pipeline. Với luận điểm 'Kết quả nói lên điều gì?', xác định khi nào thông tin mới được đọc, khi nào mô hình tạo action và khi nào phần cứng nhận lệnh. Trên tập hơn 700 chỉ dẫn đã huấn luyện, RT-1 đạt khoảng 97% thành công. Ở các nhóm kiểm tra khả năng khái quát như nhiệm vụ mới, distractor mới và phông nền mới, tác giả nêu mức cải thiện lớn so với phương pháp đối chứng trước đó, lần lượt khoảng 25, 36 và 18 điểm trong các thiết lập được báo cáo. Nếu không viết được chuỗi này, mô tả còn thiếu mắt xích quan trọng giữa mạng và hệ robot.
-
-#### Ablation và bằng chứng: Theo dấu một episode
-
-Đặt một quan sát cụ thể gồm ảnh, state và lệnh nhiệm vụ vào đầu pipeline. Với luận điểm 'Ablation và bằng chứng', xác định khi nào thông tin mới được đọc, khi nào mô hình tạo action và khi nào phần cứng nhận lệnh. Một thí nghiệm rất đáng nhớ là khi thêm dữ liệu bin-picking từ Kuka vào mixture: khả năng khái quát sang bin-picking tăng gần gấp đôi mà hiệu năng trên tập nhiệm vụ gốc không bị phá đáng kể. Nếu không viết được chuỗi này, mô tả còn thiếu mắt xích quan trọng giữa mạng và hệ robot.
 
 <!-- END EXTENDED WALKTHROUGH -->

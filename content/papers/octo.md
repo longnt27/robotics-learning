@@ -8,6 +8,10 @@ RT-X cho thấy cross-embodiment pretraining có tiềm năng nhưng ecosystem c
 
 *Hình 1, trang 1. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2405.12213#page=1).*
 
+#### Đọc hình gốc: bối cảnh và đóng góp
+
+Hình 1 giới thiệu Octo như một generalist policy pretrained trên nhiều trajectory robot với goal/instruction khác nhau rồi có thể fine-tune. Đọc hình từ phía dữ liệu tới nhiệm vụ đích: lợi ích chính là shared representation và initialization có thể tái sử dụng, không phải giả định rằng một checkpoint chạy ngay được trên mọi robot. Nếu embodiment khác, action adapter và sự khác biệt camera vẫn cần xử lý.
+
 ### Đào sâu: Điểm cốt lõi
 
 **Luận điểm.** Một generalist robot policy mở có thể pretrain trên hỗn hợp robot rồi fine-tune nhanh vào nhiệm vụ mới. Một phòng thí nghiệm nhỏ không muốn huấn luyện foundation policy từ đầu; họ muốn lấy mô hình có vật lý prior sẵn rồi fine-tune bằng 50-100 demonstrations của robot mình.
@@ -61,6 +65,14 @@ Octo là Transformer policy khoảng 93M parameters, pretrain trên khoảng **8
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/octo/figure-2.webp)
 
 *Hình 2, trang 3. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2405.12213#page=3).*
+
+#### Đọc hình gốc: từng thành phần và luồng thông tin
+
+Hình 2 giải thích cách observation và task specification được token hóa rồi đưa qua Transformer trước khi sinh action. Lệnh ngôn ngữ, goal image và proprioception có vai trò khác nhau; không nên gộp thành một cụm 'multimodal' rồi bỏ qua sự khác biệt. Khi kiểm tra code, xác định đầu vào nào optional, token mask thế nào và action horizon được chọn theo task nào.
+
+#### Ví dụ từng bước để hiểu cơ chế
+
+Ví dụ một robot mới có camera đặt cao hơn dữ liệu pretrain và gripper khác chuẩn. Ta chạy frozen encoder trước để xem feature có phản ứng hợp lý với vật thể mới không, kiểm tra action shape/normalization, rồi fine-tune với vài demonstration. So với random initialization, lợi ích cần đo ở sample efficiency và held-out test. Nếu train và test chia theo frame trong cùng episode, success cao sẽ không đáng tin; split đúng episode và environment mới có ý nghĩa.
 
 ### Đào sâu: Biến generalist policy thành một nền tảng có thể fine-tune
 

@@ -8,6 +8,10 @@ RT-2 chứng minh VLA mạnh nhưng mô hình, dữ liệu và quy trình huấn
 
 *Hình 1, trang 1. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2406.09246#page=1).*
 
+#### Đọc hình gốc: bối cảnh và đóng góp
+
+Hình 1 giới thiệu OpenVLA theo cách nên đọc từ dữ liệu huấn luyện tới khả năng sử dụng: VLA 7B học trên gần một triệu robot episodes thuộc tập Open X-Embodiment, rồi được fine-tune cho task và robot đích. Đây là bằng chứng về một recipe mở có khả năng tái sử dụng chứ không phải tuyên bố chỉ tải checkpoint là sẽ điều khiển ngay mọi phần cứng. Ngay trong hình, hãy phân biệt phần học tri thức thị giác-ngôn ngữ trước đó với supervision từ robot, bởi kiến thức nhìn vật thể và khả năng thực sự kẹp/di chuyển vật thể là hai thứ khác nhau.
+
 ### Đào sâu: Điểm cốt lõi
 
 **Luận điểm.** Một VLA mã nguồn mở nối pretrained VLM với action tokens và hỗ trợ fine-tuning robot-specific. Robotics community cần một open checkpoint đủ mạnh để nghiên cứu fine-tuning, parameter-efficient adaptation, quantization và downstream deployment.
@@ -61,6 +65,14 @@ Bài báo đặc biệt quan tâm tới adaptation. Họ thử full fine-tuning,
 ![Hình 2 gốc từ PDF bài báo, trang 4](/paper-figures/openvla/figure-2.webp)
 
 *Hình 2, trang 4. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2406.09246#page=4).*
+
+#### Đọc hình gốc: từng thành phần và luồng thông tin
+
+Hình 2 là chỗ phải hiểu đường đi của action: ảnh quan sát và lệnh ngôn ngữ đi qua VLM, decoder sinh các token tương ứng với những chiều trong action robot, và bước giải mã chuyển token trở lại lệnh điều khiển 7 chiều. Đây không phải sinh văn bản 'nhặt cốc' rồi robot tự biết làm. Action tokenization phải có quy tắc discretization, normalization và thứ tự chiều nhất quán với dataloader lẫn executor. Nếu lẫn giá trị gripper với rotation, mô hình vẫn có thể cho ra token hợp lệ nhưng hành động sẽ sai.
+
+#### Ví dụ từng bước để hiểu cơ chế
+
+Ví dụ dùng một trajectory có delta position xyz, delta rotation ba chiều và gripper. Đầu tiên encode action thật thành token ID theo đúng bin và cách chuẩn hóa của OpenVLA; sau đó decode lại mà chưa chạy model để đo quantization error. Tiếp theo cố định ảnh, thay instruction, xem distribution của action tokens có đổi tương ứng hay không. Cuối cùng fine-tune trên một tập demonstration nhỏ và so với random initialization; so accuracy token, sai số action liên tục sau decode và rollout success. Những phép thử này tách lỗi tokenizer khỏi lỗi semantic grounding và lỗi control.
 
 ### Đào sâu: Tận dụng open VLM rồi fine-tune thành action predictor
 

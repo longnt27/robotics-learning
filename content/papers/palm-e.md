@@ -8,6 +8,10 @@ Robot trước PaLM-E thường có perception, lập kế hoạch và ngôn ng�
 
 *Hình 1, trang 1. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://proceedings.mlr.press/v202/driess23a/driess23a.pdf#page=1).*
 
+#### Đọc hình gốc: bối cảnh và đóng góp
+
+Hình 1 định vị PaLM-E như một mô hình ngôn ngữ đa phương thức nhận dữ liệu cảm biến của thế giới thật cùng văn bản. Ảnh, trạng thái robot và các tín hiệu khác được biến thành embedding có thể điều kiện hóa quá trình sinh ngôn ngữ. Điều cần tránh là nhìn thấy robot trong hình rồi tưởng PaLM-E tự xuất lệnh servo liên tục: paper nhấn mạnh embodied reasoning, planning và khả năng kết hợp tri thức ngôn ngữ với quan sát, không đồng nghĩa một bộ điều khiển torque end-to-end.
+
 ### Đào sâu: Điểm cốt lõi
 
 **Luận điểm.** Biến hình ảnh và trạng thái robot thành đầu vào của LLM để tận dụng reasoning đa phương thức. Vấn đề là LLM thuần text không trực tiếp “nhìn” camera, state robot hay point cloud. PaLM-E đặt câu hỏi: có thể nhét liên tục cảm biến quan sát vào cùng token stream của một mô hình ngôn ngữ đã pretrain để nó reasoning về thế giới vật lý mà vẫn giữ được năng lực ngôn ngữ không?
@@ -61,6 +65,14 @@ Trong robotics, PaLM-E thường đóng vai trò high-level embodied reasoner: �
 ![Hình 2 gốc từ PDF bài báo, trang 6](/paper-figures/palm-e/figure-2.webp)
 
 *Hình 2, trang 6. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://proceedings.mlr.press/v202/driess23a/driess23a.pdf#page=6).*
+
+#### Đọc hình gốc: từng thành phần và luồng thông tin
+
+Hình 2 tập trung vào transfer learning: dùng pretraining thị giác và ngôn ngữ làm điểm khởi đầu, rồi đo khả năng chuyển sang những nhóm bài toán robot khác nhau. Hãy đọc chiều mũi tên giữa các domain thay vì chỉ nhìn tên model lớn. Nếu một model giải thích đúng vị trí đồ vật qua ảnh, nó có thể giúp planner chọn đúng mục tiêu, nhưng policy vận động vẫn cần học từ dữ liệu và hành động thật. Khả năng chuyển tri thức của backbone cần được phân biệt với khả năng chuyển kỹ năng cơ học.
+
+#### Ví dụ từng bước để hiểu cơ chế
+
+Giả sử robot được hỏi 'vật nào dùng để lau bàn?' giữa một cái khăn và một chiếc cốc. Hệ vision-language phải quan sát và dùng tri thức để nhận ra khăn. Đó là bài toán grounding/suy luận. Phần robot còn phải điều khiển gripper cầm khăn rồi tạo đường lau phù hợp. Để kiểm tra vai trò PaLM-E, so kết quả lựa chọn vật thể hoặc kế hoạch theo ảnh/instruction trước, rồi mới nối planner với một controller đã có. Nếu controller fail vì khăn biến dạng, không nên gán lỗi ấy trực tiếp cho kết luận về embodied language reasoning.
 
 ### Đào sâu: Gắn sensory tokens vào cùng không gian với language tokens
 

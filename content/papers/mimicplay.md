@@ -8,6 +8,10 @@ Long-horizon manipulation cần rất nhiều demonstration vì robot phải bi�
 
 *Hình 1, trang 1. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2302.12422#page=1).*
 
+#### Đọc hình gốc: bối cảnh và đóng góp
+
+Hình 1 cho thấy độ chênh giữa thao tác con người bằng tay và thao tác robot qua teleoperation: cùng nhiệm vụ dài, con người có thể thực hiện nhanh hơn và tạo nhiều video hơn. MimicPlay không giả định video tay người lập tức biến thành joint labels. Nó học một dạng định hướng hoặc mục tiêu trung gian từ video người, rồi dùng ít demonstration robot hơn để học cách thực thi mục tiêu đó bằng robot.
+
 ### Đào sâu: Điểm cốt lõi
 
 **Luận điểm.** Video người cung cấp ý đồ dài hạn; robot demos học cách biến ý đồ ấy thành action thực thi. Vấn đề là bàn tay người và robot arm không cùng morphology/action không gian. MimicPlay hỏi: ta có thể lấy cái “plan” từ quá trình con người thao tác tự do mà không cần retarget mọi khung hình thành robot joint action không?
@@ -61,6 +65,14 @@ Bài báo còn dùng multimodal quỹ đạo modeling, vì một người có th
 ![Hình 2 gốc từ PDF bài báo, trang 4](/paper-figures/mimicplay/figure-2.webp)
 
 *Hình 2, trang 4. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2302.12422#page=4).*
+
+#### Đọc hình gốc: từng thành phần và luồng thông tin
+
+Hình 2 tách hai giai đoạn: phần học từ human play gợi ý mục tiêu/chuyển động có cấu trúc; phần policy robot dùng quan sát thực để tạo action phù hợp robot. Đây là hierarchical imitation đúng nghĩa: một hệ dự đoán nên đi tới đâu, hệ còn lại quyết định đi bằng khớp nào và theo quỹ đạo nào. Nếu chỉ fine-tune một flat BC trực tiếp trên video người, thiếu mapping từ tay người sang robot khiến target action không còn chính xác.
+
+#### Ví dụ từng bước để hiểu cơ chế
+
+Hãy nghĩ tới nhiệm vụ kéo ngăn kéo, lấy vật, rồi đóng lại. Một model low-level phải liên tục ra lệnh cho arm/gripper; nếu không có mục tiêu trung gian, lỗi ở bước mở ngăn kéo có thể khiến toàn phần còn lại vô nghĩa. Với MimicPlay, video người có thể giúp nhận dạng tiến trình nhiệm vụ và dự đoán trạng thái mục tiêu ngắn hạn, trong khi dữ liệu robot đảm nhận điều khiển thực. Khi đánh giá, cần phân biệt policy chọn đúng subgoal với policy thật sự đạt được subgoal đó.
 
 ### Đào sâu: Học “đi đâu” từ video người, học “làm thế nào” từ robot
 

@@ -8,6 +8,10 @@ Behavior cloning kiểu regression thường giả định một quan sát có m
 
 *Hình 1, trang 1. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://www.roboticsproceedings.org/rss19/p026.pdf#page=1).*
 
+#### Đọc hình gốc: bối cảnh và đóng góp
+
+Hình 1 đối chiếu cách biểu diễn policy: một ánh xạ tường minh từ observation sang action, một hàm năng lượng ẩn và một quá trình sinh mẫu từ nhiễu. Trường hợp một trạng thái có hai hướng thao tác hợp lệ rất quan trọng: hồi quy MSE có thể tạo action trung bình nằm giữa hai mode và chẳng mode nào thật sự khả thi. Diffusion Policy mô hình hóa cả phân phối trên chuỗi hành động, vì thế có thể sinh một phương án nhất quán thay vì ép mọi demonstration vào một giá trị trung bình.
+
 ### Đào sâu: Điểm cốt lõi
 
 **Luận điểm.** Sinh một quỹ đạo chuyển động đa phương án thay vì học action trung bình dễ va chạm. Behavior cloning kiểu regression thường giả định một quan sát có một action target “trung bình”.
@@ -63,6 +67,14 @@ Diffusion Policy biểu diễn cả **action chuỗi/chunk** như một conditio
 ![Hình 2 gốc từ PDF bài báo, trang 2](/paper-figures/diffusion-policy/figure-2.webp)
 
 *Hình 2, trang 2. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://www.roboticsproceedings.org/rss19/p026.pdf#page=2).*
+
+#### Đọc hình gốc: từng thành phần và luồng thông tin
+
+Hình 2 là ảnh từ các benchmark robot thật. Nó nhắc rằng quality của action không thể chỉ được đánh giá bằng loss trên dataset: cần thực thi trên cơ cấu vật lý, nơi contact, gripper, lực ma sát và sai số calibration làm bài toán khó hơn. Các task dùng UR5 hoặc Franka là bằng chứng trong phạm vi đó, không tự động chứng minh mô hình đã điều khiển tốt mọi loại robot. Khi đọc các ảnh, hãy tách điều policy dự đoán được khỏi điều controller/phần cứng đã xử lý.
+
+#### Ví dụ từng bước để hiểu cơ chế
+
+Ví dụ có hai demonstration mở ngăn kéo: một người đưa gripper tiếp cận từ trái, người khác từ phải. Nếu output là trung bình trực tiếp của hai quỹ đạo, robot có thể đi thẳng vào mép ngăn kéo. Diffusion model bắt đầu từ action trajectory nhiễu, denoise qua nhiều bước để chọn một mode hợp lệ theo ảnh quan sát. Chỉ thực thi một phần đầu chunk, sau đó quan sát lại và replan. Điều này cho phép đóng vòng, nhưng số bước denoising ảnh hưởng latency. Một so sánh tử tế phải nhìn trade-off giữa chất lượng mẫu và tốc độ inference.
 
 ### Đào sâu: Học phân phối của cả action chunk bằng denoising
 
@@ -221,18 +233,3 @@ Dùng Push-T state phương pháp đối chứng trong repo chính thức. Plot 
 
 <!-- END EXTENDED WALKTHROUGH -->
 
-<!-- BEGIN EXTENDED WALKTHROUGH -->
-
-### Sổ tay kiểm chứng: từ giả thuyết tới thử nghiệm
-
-*Đây là các phép thử và ví dụ sư phạm, không phải kết quả thực nghiệm được tác giả báo cáo.*
-
-#### Điểm cốt lõi: Theo dấu một episode
-
-Đặt một quan sát cụ thể gồm ảnh, state và lệnh nhiệm vụ vào đầu pipeline. Với luận điểm 'Điểm cốt lõi', xác định khi nào thông tin mới được đọc, khi nào mô hình tạo action và khi nào phần cứng nhận lệnh. Behavior cloning kiểu regression thường giả định một quan sát có một action target “trung bình”. Nếu không viết được chuỗi này, mô tả còn thiếu mắt xích quan trọng giữa mạng và hệ robot.
-
-#### Một quan sát có thể dẫn đến nhiều đường đi đều đúng: Theo dấu một episode
-
-Đặt một quan sát cụ thể gồm ảnh, state và lệnh nhiệm vụ vào đầu pipeline. Với luận điểm 'Một quan sát có thể dẫn đến nhiều đường đi đều đúng', xác định khi nào thông tin mới được đọc, khi nào mô hình tạo action và khi nào phần cứng nhận lệnh. MSE regression có xu hướng average các mode và tạo ra action chẳng mode nào muốn, một cách khá sáng tạo để robot đâm đúng vào giữa chướng ngại vật. Nếu không viết được chuỗi này, mô tả còn thiếu mắt xích quan trọng giữa mạng và hệ robot.
-
-<!-- END EXTENDED WALKTHROUGH -->
