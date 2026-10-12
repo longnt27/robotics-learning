@@ -176,6 +176,9 @@ def main():
     ap.add_argument("--only",default="")
     args=ap.parse_args()
     manifest=json.loads((ROOT/"content/paper-figures.json").read_text())
+    guides=json.loads((ROOT/"content/figure-guides.json").read_text())
+    if set(guides)!=set(manifest):
+        raise RuntimeError("All paper figures must have an editorial explanation")
     files=sorted((ROOT/"content/papers").glob("*.md"))
     if args.only:files=[ROOT/"content/papers"/(s+".md") for s in args.only.split(",")]
     for path in files:
@@ -185,6 +188,7 @@ def main():
             original=re.sub(re.escape(START)+r"[\s\S]*?"+re.escape(END)+r"\n*","",original)
         slides=json.loads((ROOT/"content/slides"/(slug+".json")).read_text())
         context=evidence(slides)
+        guide=guides[slug]
         figs=manifest.get(slug,[])
         if len(figs)<2: raise RuntimeError(f"No sourced figure pair: {slug}")
         blocks=sections(original)
@@ -195,9 +199,14 @@ def main():
             if not heading:continue
             add=[]
             if heading.startswith("Vì sao"):
-                add.append(format_fig(figs[0]));used.add(0)
+                add.append(format_fig(figs[0]))
+                add.append("#### Đọc hình gốc: bối cảnh và đóng góp\n\n"+guide["overview"]+"\n\n")
+                used.add(0)
             if heading.startswith("Phương pháp"):
-                add.append(format_fig(figs[1]));used.add(1)
+                add.append(format_fig(figs[1]))
+                add.append("#### Đọc hình gốc: từng thành phần và luồng thông tin\n\n"+guide["method"]+"\n\n")
+                add.append("#### Ví dụ từng bước để hiểu cơ chế\n\n"+guide["worked"]+"\n\n")
+                used.add(1)
             for slide in current:add.append(lesson(slide,context))
             if add:enriched.append(START+"\n\n"+"".join(add)+END+"\n\n")
         if used!={0,1}:raise RuntimeError(f"Missing figure placement: {slug}")
