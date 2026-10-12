@@ -11,9 +11,9 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: { default: "ROBOTICS / ATLAS | Understand how robots learn", template: "%s | ROBOTICS / ATLAS" },
-  description: "An interactive research atlas of 22 foundational robotics and VLA papers, with an animated timeline, research DAG, original PDFs and in-depth Vietnamese explanations.",
-  openGraph: { title: "ROBOTICS / ATLAS", description: "Navigate the constellation of embodied intelligence research.", type: "website" },
+  title: { default: "ROBOTICS / ATLAS | Hiểu cách robot học", template: "%s | ROBOTICS / ATLAS" },
+  description: "Thư viện tương tác gồm 22 bài nghiên cứu robot và VLA, với dòng thời gian, sơ đồ liên kết, PDF gốc và diễn giải chuyên sâu bằng tiếng Việt.",
+  openGraph: { title: "ROBOTICS / ATLAS", description: "Khám phá mối liên hệ giữa các công trình nghiên cứu về trí tuệ hiện thân.", type: "website" },
   icons: { icon: "/favicon.svg" },
 };
 
