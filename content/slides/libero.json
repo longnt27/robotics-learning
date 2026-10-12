@@ -6,7 +6,11 @@
     "items": [
       "Thay một bảng điểm bằng nhiều loại chuyển giao kiến thức"
     ],
-    "intuition": "Phân tách object, spatial, goal và long-horizon để biết policy đang chuyển giao kiểu gì."
+    "intuition": "Phân tách object, spatial, goal và long-horizon để biết policy đang chuyển giao kiểu gì.",
+    "detail": {
+      "label": "BỐI CẢNH NGHIÊN CỨU",
+      "text": "LIBERO được xây để kiểm tra chính xác các dạng chuyển giao đó trong môi trường thao tác robot có kiểm soát."
+    }
   },
   {
     "type": "problem",
@@ -15,7 +19,11 @@
     "items": [
       "Benchmark một task không đo được catastrophic forgetting"
     ],
-    "intuition": "Random split trong cùng scene khiến mô hình được đo trên bối cảnh quá giống training."
+    "intuition": "Random split trong cùng scene khiến mô hình được đo trên bối cảnh quá giống training.",
+    "detail": {
+      "label": "NGUYÊN NHÂN CỐT LÕI",
+      "text": "Lifelong learning không chỉ hỏi “nhiệm vụ mới làm được bao nhiêu %”, mà còn hỏi hai câu khó hơn: học nhiệm vụ cũ có giúp học nhiệm vụ mới nhanh hơn không, và học nhiệm vụ mới có làm quên nhiệm vụ cũ không."
+    }
   },
   {
     "type": "contrast",
@@ -25,7 +33,11 @@
       "Thay một bảng điểm bằng nhiều loại chuyển giao kiến thức",
       "Phân tách object, spatial, goal và long-horizon để biết policy đang chuyển giao kiểu gì."
     ],
-    "intuition": "Phân tách object, spatial, goal và long-horizon để biết policy đang chuyển giao kiểu gì."
+    "intuition": "Phân tách object, spatial, goal và long-horizon để biết policy đang chuyển giao kiểu gì.",
+    "detail": {
+      "label": "VÌ SAO CẦN THAY ĐỔI",
+      "text": "Các benchmark robot trước đó không tách rõ kiến thức khai báo như vật thể/quan hệ không gian với kiến thức quy trình như chuyển động/chuỗi mục tiêu."
+    }
   },
   {
     "type": "intuition",
@@ -34,7 +46,11 @@
     "items": [
       "Benchmark kiểm tra robot có giữ được kỹ năng và chuyển giao giữa các nhiệm vụ liên tiếp hay không."
     ],
-    "intuition": "Phân tách object, spatial, goal và long-horizon để biết policy đang chuyển giao kiểu gì."
+    "intuition": "Phân tách object, spatial, goal và long-horizon để biết policy đang chuyển giao kiểu gì.",
+    "detail": {
+      "label": "GIẢI THÍCH CƠ CHẾ",
+      "text": "LIBERO có 130 nhiệm vụ và tạo nhiệm vụ theo quy tắc. Các suite chính gồm LIBERO-Spatial, LIBERO-Object, LIBERO-Goal và LIBERO-100; phần long-horizon dùng một split riêng từ LIBERO-100."
+    }
   },
   {
     "type": "concepts",
@@ -54,7 +70,11 @@
         "value": "Performance trên task cũ giảm sau khi train task mới."
       }
     ],
-    "intuition": "Nhiệm vụ mô phỏng có chỉ dẫn và success predicate rõ."
+    "intuition": "Nhiệm vụ mô phỏng có chỉ dẫn và success predicate rõ.",
+    "detail": {
+      "label": "NỀN TẢNG KỸ THUẬT",
+      "text": "Benchmark phải tách hai câu hỏi: chuyển kiến thức sang nhiệm vụ mới có nhanh hơn không, và sau khi học nhiệm vụ mới mô hình có còn làm được nhiệm vụ cũ không."
+    }
   },
   {
     "type": "pipeline",
@@ -66,37 +86,71 @@
       "Rollout từng task",
       "Transfer + forgetting metrics"
     ],
-    "intuition": "Đưa image/state và task instruction vào policy."
+    "intuition": "Đưa image/state và task instruction vào policy.",
+    "detail": {
+      "label": "ĐIỂM NHẤN TRIỂN KHAI",
+      "text": "Điều kiện hoàn thành nhiệm vụ được được mô tả chính thức bằng predicates kiểu Open, TurnOff, On, In."
+    }
   },
   {
     "type": "representation",
     "title": "Mô hình biểu diễn cái gì?",
     "lead": "Nhiệm vụ mô phỏng có chỉ dẫn và success predicate rõ.",
     "items": [
-      "Nhiều family task đánh giá các năng lực khác nhau.",
-      "Không thể thay toàn bộ conclusion bằng một metric trung bình."
+      {
+        "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
+        "value": "Nhiều family task đánh giá các năng lực khác nhau."
+      },
+      {
+        "label": "ĐÁNH ĐỔI KỸ THUẬT",
+        "value": "Không thể thay toàn bộ conclusion bằng một metric trung bình."
+      }
     ],
-    "intuition": "Không thể thay toàn bộ conclusion bằng một metric trung bình."
+    "intuition": "Không thể thay toàn bộ conclusion bằng một metric trung bình.",
+    "detail": {
+      "label": "CHI TIẾT BIỂU DIỄN",
+      "text": "Bài báo gốc đánh giá các thuật toán học liên tục như sequential fine-tuning, replay, EWC và PackNet."
+    }
   },
   {
     "type": "training",
     "title": "Model học như thế nào?",
     "lead": "BC-RNN/Transformer và các continual-learning baselines.",
     "items": [
-      "Thay task sequence và mức dữ liệu để đo ảnh hưởng.",
-      "Evaluation phải chạy rollout closed-loop chứ không chỉ action prediction loss."
+      {
+        "label": "MỤC TIÊU HỌC",
+        "value": "Thay task sequence và mức dữ liệu để đo ảnh hưởng."
+      },
+      {
+        "label": "DỮ LIỆU / QUY TRÌNH",
+        "value": "Evaluation phải chạy rollout closed-loop chứ không chỉ action prediction loss."
+      }
     ],
-    "intuition": "So cách học theo chuỗi với cách giữ dữ liệu cũ (replay)."
+    "intuition": "So cách học theo chuỗi với cách giữ dữ liệu cũ (replay).",
+    "detail": {
+      "label": "CÁCH HUẤN LUYỆN",
+      "text": "Các chỉ số không chỉ đo tỷ lệ hoàn thành nhiệm vụ mà còn Forward Transfer (FWT), Negative Backward Transfer (NBT) và AUC để đo diễn biến học tập qua chuỗi nhiệm vụ."
+    }
   },
   {
     "type": "inference",
     "title": "Một lần inference xảy ra ra sao?",
     "lead": "Đưa image/state và task instruction vào policy.",
     "items": [
-      "Policy thực thi theo simulator physics.",
-      "Tổng hợp tỷ lệ thành công trước và sau khi học thêm task."
+      {
+        "label": "XỬ LÝ ĐẦU VÀO",
+        "value": "Policy thực thi theo simulator physics."
+      },
+      {
+        "label": "TẠO HÀNH ĐỘNG",
+        "value": "Tổng hợp tỷ lệ thành công trước và sau khi học thêm task."
+      }
     ],
-    "intuition": "Tổng hợp tỷ lệ thành công trước và sau khi học thêm task."
+    "intuition": "Tổng hợp tỷ lệ thành công trước và sau khi học thêm task.",
+    "detail": {
+      "label": "DIỄN BIẾN THỰC THI",
+      "text": "Khi chạy env, thành công phải đến từ closed-loop rollout và điều kiện hoàn thành trong simulator, không phải loss khi huấn luyện."
+    }
   },
   {
     "type": "equation",
@@ -106,26 +160,47 @@
     "items": [
       "Không diễn giải chỉ số tổng hợp thành safety hay khả năng robot thật."
     ],
-    "intuition": "Forgetting âm khi success của task cũ giảm sau quá trình học. Chỉ số này là minh họa hướng đánh giá."
+    "intuition": "Forgetting âm khi success của task cũ giảm sau quá trình học. Chỉ số này là minh họa hướng đánh giá.",
+    "detail": {
+      "label": "Ý NGHĨA CÔNG THỨC",
+      "text": "Các suite chính gồm LIBERO-Spatial, LIBERO-Object, LIBERO-Goal và LIBERO-100; phần long-horizon dùng một split riêng từ LIBERO-100."
+    }
   },
   {
     "type": "results",
     "title": "Kết quả nói lên điều gì?",
     "lead": "LIBERO tổ chức benchmark theo loại tri thức cần chuyển giao.",
     "items": [
-      "Các phương pháp continual learning cho trade-off khác nhau giữa transfer và forgetting.",
-      "Mục tiêu là tạo thước đo lặp lại được thay vì phô một success rate."
+      {
+        "label": "PHÁT HIỆN QUAN TRỌNG",
+        "value": "Các phương pháp continual learning cho trade-off khác nhau giữa transfer và forgetting."
+      },
+      {
+        "label": "CÁCH DIỄN GIẢI",
+        "value": "Mục tiêu là tạo thước đo lặp lại được thay vì phô một success rate."
+      }
     ],
-    "intuition": "success predicate và vật lý mô phỏng không bảo đảm chuyển giao sang robot ngoài đời."
+    "intuition": "success predicate và vật lý mô phỏng không bảo đảm chuyển giao sang robot ngoài đời.",
+    "detail": {
+      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
+      "text": "Một kết quả đáng nhớ khác: pretraining có giám sát trên LIBERO-90 không tự động giúp downstream lifelong learning trên 10 nhiệm vụ long-horizon, thậm chí có thể gây negative chuyển giao."
+    }
   },
   {
     "type": "ablation",
     "title": "Ablation và bằng chứng",
     "lead": "So cách học theo chuỗi với cách giữ dữ liệu cũ (replay).",
     "items": [
-      "So loss huấn luyện với rollout success để thấy lỗi compounding."
+      {
+        "label": "YẾU TỐ ĐƯỢC THỬ",
+        "value": "So loss huấn luyện với rollout success để thấy lỗi compounding."
+      }
     ],
-    "intuition": "Các phương pháp continual learning cho trade-off khác nhau giữa transfer và forgetting."
+    "intuition": "Các phương pháp continual learning cho trade-off khác nhau giữa transfer và forgetting.",
+    "detail": {
+      "label": "BẰNG CHỨNG BỔ SUNG",
+      "text": "Điều đó cảnh báo rất sớm rằng “pretrain nhiều hơn” không đủ; phân phối/mục tiêu huấn luyện phải đúng."
+    }
   },
   {
     "type": "limits",
@@ -141,17 +216,31 @@
         "value": "Phê bình: success predicate và vật lý mô phỏng không bảo đảm chuyển giao sang robot ngoài đời."
       }
     ],
-    "intuition": "Nhiều family task đánh giá các năng lực khác nhau."
+    "intuition": "Nhiều family task đánh giá các năng lực khác nhau.",
+    "detail": {
+      "label": "PHẠM VI KẾT LUẬN",
+      "text": "Bài báo thừa nhận: đây là mô phỏng benchmark với phạm vi vật thể/nhiệm vụ và mô phỏng vật lý có giới hạn; tác giả coi benchmark là nền để cộng đồng tiếp tục mở rộng kiến trúc, thuật toán và pretraining."
+    }
   },
   {
     "type": "relations",
     "title": "Bài này đứng ở đâu trong lĩnh vực?",
     "lead": "Không đọc paper như một hòn đảo riêng.",
     "items": [
-      "RoboCasa mở rộng đánh giá qua nhiều nội thất/nhiệm vụ.",
-      "OpenVLA và π0.5 được đánh giá trên các bộ nhiệm vụ kiểu LIBERO."
+      {
+        "label": "NỀN TẢNG / TIỀN ĐỀ",
+        "value": "RoboCasa mở rộng đánh giá qua nhiều nội thất/nhiệm vụ."
+      },
+      {
+        "label": "HƯỚNG PHÁT TRIỂN",
+        "value": "OpenVLA và π0.5 được đánh giá trên các bộ nhiệm vụ kiểu LIBERO."
+      }
     ],
-    "intuition": "Đánh giá policy phải xác định loại generalization đang đo."
+    "intuition": "Đánh giá policy phải xác định loại generalization đang đo.",
+    "detail": {
+      "label": "CÔNG TRÌNH LIÊN QUAN",
+      "text": "Đọc thêm OpenVLA, RoboCasa. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+    }
   },
   {
     "type": "closing",
@@ -161,6 +250,10 @@
       "Giữ task splits công khai và chạy rollout để so sánh.",
       "Đừng kết luận khả năng học suốt đời từ test loss tốt."
     ],
-    "intuition": "Benchmark kiểm tra robot có giữ được kỹ năng và chuyển giao giữa các nhiệm vụ liên tiếp hay không."
+    "intuition": "Benchmark kiểm tra robot có giữ được kỹ năng và chuyển giao giữa các nhiệm vụ liên tiếp hay không.",
+    "detail": {
+      "label": "THỬ NGHIỆM TIẾP THEO",
+      "text": "Sau đó chạy hai nhiệm vụ theo thứ tự để kiểm tra hiện tượng quên; báo cáo tỷ lệ thành công với nhiều random seed."
+    }
   }
 ]

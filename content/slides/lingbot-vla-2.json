@@ -6,7 +6,11 @@
     "items": [
       "Chất lượng data + schema + capacity cùng tạo foundation VLA"
     ],
-    "intuition": "Curation nghiêm ngặt, unified 55D representation, sparse MoE và predictive distillation góp phần khác nhau."
+    "intuition": "Curation nghiêm ngặt, unified 55D representation, sparse MoE và predictive distillation góp phần khác nhau.",
+    "detail": {
+      "label": "BỐI CẢNH NGHIÊN CỨU",
+      "text": "Nó không cố chứng minh một kiến trúc đơn lẻ vượt xa π0.5. Contribution nằm ở engineering research: quy trình tuyển lọc dữ liệu hàng chục nghìn giờ, unified biểu diễn cho whole-body, sparse MoE để tăng dung lượng mô hình và auxiliary future-state learning."
+    }
   },
   {
     "type": "problem",
@@ -15,7 +19,11 @@
     "items": [
       "Dense expert và dữ liệu trộn thô có bottleneck về capacity/quality"
     ],
-    "intuition": "Canonical action theo một robot không phù hợp humanoid, mobile base và dexterous hand."
+    "intuition": "Canonical action theo một robot không phù hợp humanoid, mobile base và dexterous hand.",
+    "detail": {
+      "label": "NGUYÊN NHÂN CỐT LÕI",
+      "text": "Khi một công ty robot muốn deploy cùng policy lên cả robot hai tay, humanoid và mobile manipulator, họ gặp ít nhất ba vấn đề: (1) dữ liệu không đồng nhất không sạch và không chung schema, (2) một dense action mạng có thể bị nghẽn dung lượng mô hình khi nhiều robot/nhiệm vụ cạnh tranh, (3) robot phải hiểu future consequences thay vì chỉ matching next-action pattern."
+    }
   },
   {
     "type": "contrast",
@@ -25,7 +33,11 @@
       "Chất lượng data + schema + capacity cùng tạo foundation VLA",
       "Curation nghiêm ngặt, unified 55D representation, sparse MoE và predictive distillation góp phần khác nhau."
     ],
-    "intuition": "Curation nghiêm ngặt, unified 55D representation, sparse MoE và predictive distillation góp phần khác nhau."
+    "intuition": "Curation nghiêm ngặt, unified 55D representation, sparse MoE và predictive distillation góp phần khác nhau.",
+    "detail": {
+      "label": "VÌ SAO CẦN THAY ĐỔI",
+      "text": "Contribution nằm ở engineering research: quy trình tuyển lọc dữ liệu hàng chục nghìn giờ, unified biểu diễn cho whole-body, sparse MoE để tăng dung lượng mô hình và auxiliary future-state learning."
+    }
   },
   {
     "type": "intuition",
@@ -34,7 +46,11 @@
     "items": [
       "Một pipeline VLA hướng sản xuất: data curation, action 55D, sparse MoE và future-state feature prediction."
     ],
-    "intuition": "Curation nghiêm ngặt, unified 55D representation, sparse MoE và predictive distillation góp phần khác nhau."
+    "intuition": "Curation nghiêm ngặt, unified 55D representation, sparse MoE và predictive distillation góp phần khác nhau.",
+    "detail": {
+      "label": "GIẢI THÍCH CƠ CHẾ",
+      "text": "Robot không có bộ phận nào thì slots đó padding/masking. Cách này giúp chung mô hình IO schema dù control phần cứng khác nhau."
+    }
   },
   {
     "type": "concepts",
@@ -54,7 +70,11 @@
         "value": "Học future latent features thay vì render future RGB."
       }
     ],
-    "intuition": "Schema 55D gom arm, EEF, gripper, fingers, waist, head và mobile base."
+    "intuition": "Schema 55D gom arm, EEF, gripper, fingers, waist, head và mobile base.",
+    "detail": {
+      "label": "NỀN TẢNG KỸ THUẬT",
+      "text": "Mixture-of-Experts (MoE): router chọn một vài FFN experts mỗi token, nhiều total parameters nhưng activation sparse."
+    }
   },
   {
     "type": "pipeline",
@@ -66,37 +86,71 @@
       "55D + VLM/MoE action expert",
       "Flow actions + future features"
     ],
-    "intuition": "VLM mã hóa instruction, ảnh và robot state."
+    "intuition": "VLM mã hóa instruction, ảnh và robot state.",
+    "detail": {
+      "label": "ĐIỂM NHẤN TRIỂN KHAI",
+      "text": "Thay vì bắt VLA sinh toàn bộ future pixels, student học future đặc trưng latent. Đấy là một proxy mục tiêu huấn luyện để hướng hidden state chứa thông tin về thay đổi bối cảnh."
+    }
   },
   {
     "type": "representation",
     "title": "Mô hình biểu diễn cái gì?",
     "lead": "Schema 55D gom arm, EEF, gripper, fingers, waist, head và mobile base.",
     "items": [
-      "Robot thiếu bộ phận sẽ mask vị trí đó.",
-      "Tensor 55D là interface chung, không đảm bảo kinematics/force tương đương."
+      {
+        "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
+        "value": "Robot thiếu bộ phận sẽ mask vị trí đó."
+      },
+      {
+        "label": "ĐÁNH ĐỔI KỸ THUẬT",
+        "value": "Tensor 55D là interface chung, không đảm bảo kinematics/force tương đương."
+      }
     ],
-    "intuition": "Tensor 55D là interface chung, không đảm bảo kinematics/force tương đương."
+    "intuition": "Tensor 55D là interface chung, không đảm bảo kinematics/force tương đương.",
+    "detail": {
+      "label": "CHI TIẾT BIỂU DIỄN",
+      "text": "Bài báo đề xuất một vector action cố định 55D chia các vùng: arm joints (14), end-effector poses (14), gripper (2), hand joints (12), waist (4), head (2), mobile base (3) và reserved (4)."
+    }
   },
   {
     "type": "training",
     "title": "Model học như thế nào?",
     "lead": "Khoảng 90K giờ robot thô → 50K giờ chọn lọc; thêm 10K giờ human egocentric video.",
     "items": [
-      "Sparse MoE gồm shared expert + routed top-K experts, balancing không thêm auxiliary loss chính.",
-      "Dual-query latent predictions lấy signal từ Depth và DINO-Video teachers."
+      {
+        "label": "MỤC TIÊU HỌC",
+        "value": "Sparse MoE gồm shared expert + routed top-K experts, balancing không thêm auxiliary loss chính."
+      },
+      {
+        "label": "DỮ LIỆU / QUY TRÌNH",
+        "value": "Dual-query latent predictions lấy signal từ Depth và DINO-Video teachers."
+      }
     ],
-    "intuition": "Ablation action normalization: relative joints 55,0% vs absolute 33,7% trong setup được báo cáo."
+    "intuition": "Ablation action normalization: relative joints 55,0% vs absolute 33,7% trong setup được báo cáo.",
+    "detail": {
+      "label": "CÁCH HUẤN LUYỆN",
+      "text": "LingBot thay các FFN bằng sparse Mixture-of-Experts, gồm một shared expert luôn active và routed experts được chọn bằng token-level top-K router."
+    }
   },
   {
     "type": "inference",
     "title": "Một lần inference xảy ra ra sao?",
     "lead": "VLM mã hóa instruction, ảnh và robot state.",
     "items": [
-      "Router chọn expert theo hidden tokens; flow head sinh actions.",
-      "Bắt buộc inverse-normalize và xử lý schema đúng robot đang deploy."
+      {
+        "label": "XỬ LÝ ĐẦU VÀO",
+        "value": "Router chọn expert theo hidden tokens; flow head sinh actions."
+      },
+      {
+        "label": "TẠO HÀNH ĐỘNG",
+        "value": "Bắt buộc inverse-normalize và xử lý schema đúng robot đang deploy."
+      }
     ],
-    "intuition": "Bắt buộc inverse-normalize và xử lý schema đúng robot đang deploy."
+    "intuition": "Bắt buộc inverse-normalize và xử lý schema đúng robot đang deploy.",
+    "detail": {
+      "label": "DIỄN BIẾN THỰC THI",
+      "text": "Khi batch action tokens đi qua action expert, router chọn sparse experts theo đặc trưng token, trong lúc shared expert giữ common dung lượng mô hình."
+    }
   },
   {
     "type": "equation",
@@ -106,26 +160,47 @@
     "items": [
       "Ký hiệu intuition của MoE; số expert/weight cụ thể xem bài gốc."
     ],
-    "intuition": "Shared expert luôn hoạt động; router chọn thêm một ít chuyên gia phù hợp với token, không chạy mọi expert."
+    "intuition": "Shared expert luôn hoạt động; router chọn thêm một ít chuyên gia phù hợp với token, không chạy mọi expert.",
+    "detail": {
+      "label": "Ý NGHĨA CÔNG THỨC",
+      "text": "Router không hard-code robot A → expert 1, tay trái → expert 2. Nó học specialization dựa trên hidden state của từng token."
+    }
   },
   {
     "type": "results",
     "title": "Kết quả nói lên điều gì?",
     "lead": "MoE ~1,6B total / ~0,6B active giảm validation action loss so dense ~0,6B.",
     "items": [
-      "GM-100 Agilex: progress/success 66,2/34,4; π0.5 59,1/32,2 (cùng bảng).",
-      "Refrigerator OOD: success khoảng 13,3%, cho thấy long-horizon transfer vẫn rất khó."
+      {
+        "label": "PHÁT HIỆN QUAN TRỌNG",
+        "value": "GM-100 Agilex: progress/success 66,2/34,4; π0.5 59,1/32,2 (cùng bảng)."
+      },
+      {
+        "label": "CÁCH DIỄN GIẢI",
+        "value": "Refrigerator OOD: success khoảng 13,3%, cho thấy long-horizon transfer vẫn rất khó."
+      }
     ],
-    "intuition": "55D không biểu diễn mọi contact/tactile, sparse experts chưa chắc chuyên biệt theo kỹ năng thật."
+    "intuition": "55D không biểu diễn mọi contact/tactile, sparse experts chưa chắc chuyên biệt theo kỹ năng thật.",
+    "detail": {
+      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
+      "text": "MoE scaling: Figure 7 cho loss khi huấn luyện và lỗi dự đoán action trên tập validation của sparse MoE thấp hơn dense với chi phí tính toán khi chạy gần tương đương."
+    }
   },
   {
     "type": "ablation",
     "title": "Ablation và bằng chứng",
     "lead": "Ablation action normalization: relative joints 55,0% vs absolute 33,7% trong setup được báo cáo.",
     "items": [
-      "Progress khác success; MoE loss gain không tự chứng minh hiệu quả từng module trên real robot."
+      {
+        "label": "YẾU TỐ ĐƯỢC THỬ",
+        "value": "Progress khác success; MoE loss gain không tự chứng minh hiệu quả từng module trên real robot."
+      }
     ],
-    "intuition": "GM-100 Agilex: progress/success 66,2/34,4; π0.5 59,1/32,2 (cùng bảng)."
+    "intuition": "GM-100 Agilex: progress/success 66,2/34,4; π0.5 59,1/32,2 (cùng bảng).",
+    "detail": {
+      "label": "BẰNG CHỨNG BỔ SUNG",
+      "text": "GM-100 bimanual đánh giá: Trên Agilex Cobot Magic, báo cáo average progress/thành công khoảng 66.2 / 34.4 cho LingBot 2.0, so 59.1 / 32.2 cho π0.5 trong cùng bảng."
+    }
   },
   {
     "type": "limits",
@@ -141,17 +216,31 @@
         "value": "Phê bình: 55D không biểu diễn mọi contact/tactile, sparse experts chưa chắc chuyên biệt theo kỹ năng thật."
       }
     ],
-    "intuition": "Robot thiếu bộ phận sẽ mask vị trí đó."
+    "intuition": "Robot thiếu bộ phận sẽ mask vị trí đó.",
+    "detail": {
+      "label": "PHẠM VI KẾT LUẬN",
+      "text": "Canonicalization có mất mát: một 55D padded vector không đủ biểu diễn mọi morphology/contact force tactile dữ liệu; nhiều hands cần DoFs hoặc phản hồi không hiện diện."
+    }
   },
   {
     "type": "relations",
     "title": "Bài này đứng ở đâu trong lĩnh vực?",
     "lead": "Không đọc paper như một hòn đảo riêng.",
     "items": [
-      "GR00T N1 là họ dual-system action experts cho humanoid.",
-      "π0.5 làm baseline mạnh cho long-horizon và cross-environment comparison."
+      {
+        "label": "NỀN TẢNG / TIỀN ĐỀ",
+        "value": "GR00T N1 là họ dual-system action experts cho humanoid."
+      },
+      {
+        "label": "HƯỚNG PHÁT TRIỂN",
+        "value": "π0.5 làm baseline mạnh cho long-horizon và cross-environment comparison."
+      }
     ],
-    "intuition": "Foundation VLA thành công cần data engineering tương đương model engineering."
+    "intuition": "Foundation VLA thành công cần data engineering tương đương model engineering.",
+    "detail": {
+      "label": "CÔNG TRÌNH LIÊN QUAN",
+      "text": "Đọc thêm Open X-Embodiment, GR00T N1, Qwen-VLA, Diffusion Policy, RDT-1B. Nên so sánh cách tiếp cận, dữ liệu huấn luyện và phạm vi khái quát của từng công trình."
+    }
   },
   {
     "type": "closing",
@@ -161,6 +250,10 @@
       "Phân biệt số giờ raw với giờ usable và score progress với score success.",
       "Một schema chung mới là điều kiện cần, không bảo chứng universal control."
     ],
-    "intuition": "Một pipeline VLA hướng sản xuất: data curation, action 55D, sparse MoE và future-state feature prediction."
+    "intuition": "Một pipeline VLA hướng sản xuất: data curation, action 55D, sparse MoE và future-state feature prediction.",
+    "detail": {
+      "label": "THỬ NGHIỆM TIẾP THEO",
+      "text": "Cuối cùng thêm auxiliary loss future đặc trưng thị giác và ablate, nhưng luôn giữ dữ liệu budget, active compute và per-task đánh giá giống nhau."
+    }
   }
 ]
