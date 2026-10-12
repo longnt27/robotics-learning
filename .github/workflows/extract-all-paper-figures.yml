@@ -1,0 +1,34 @@
+name: Extract all figures and translate captions
+on:
+  push:
+    branches: [feat/all-paper-figures-bilingual-captions]
+    paths:
+      - scripts/extract_all_paper_figures.py
+      - .github/workflows/extract-all-paper-figures.yml
+permissions:
+  contents: write
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --disable-pip-version-check pymupdf==1.26.4 pillow==11.3.0 deep-translator==1.11.4
+      - name: Extract and translate every valid PDF figure
+        run: python scripts/extract_all_paper_figures.py
+      - name: Push generated assets and paper sections
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/papers content/paper-figures.json public/paper-figures
+          if ! git diff --cached --quiet; then
+            git commit -m "assets(papers): expand source figures and bilingual captions"
+            git fetch origin feat/all-paper-figures-bilingual-captions
+            git rebase origin/feat/all-paper-figures-bilingual-captions
+            git push origin HEAD:feat/all-paper-figures-bilingual-captions
+          fi
