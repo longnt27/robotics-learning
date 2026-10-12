@@ -62,7 +62,7 @@ test("all twenty-two scientific chapters contain at least five times the prior e
       assert.ok(fig.caption_vi?.trim().length>=12,`${slug}: missing Vietnamese translation for Figure ${fig.number}`);
       assert.ok(/[àáạảãăâđèéẹẻẽêếìíịỉĩòóọỏõôốơớùúụủũưứỳýỵỷỹ]/i.test(fig.caption_vi),
         `${slug}: translation lacks Vietnamese diacritics`);
-      assert.match(fig.translation_method,/opus-mt-en-vi/,`${slug}: translation provenance missing`);
+      assert.match(fig.translation_method,/envit5-translation/,`${slug}: translation provenance missing`);
       assert.match(fig.caption_sha256,/^[a-f0-9]{64}$/,`${slug}: translation source hash missing`);
       assert.ok(!content.includes("Xem caption đầy đủ trong PDF"),`${slug}: redundant fake caption remains`);
     }
