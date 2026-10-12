@@ -1,0 +1,43 @@
+name: Extract adaptive paper figure gallery
+on:
+  push:
+    branches: [feat/paper-figures-adaptive-bilingual]
+    paths:
+      - scripts/extract_paper_figures.py
+      - .github/workflows/extract-adaptive-figures.yml
+permissions:
+  contents: write
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --disable-pip-version-check pymupdf==1.26.4 pillow==11.3.0
+      - name: Find and crop every main-paper numbered figure
+        run: python scripts/extract_paper_figures.py
+      - name: Verify extracted gallery counts
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path("content/paper-figures.json").read_text())
+          counts={slug:len(v) for slug,v in data.items()}
+          assert len(data)==22 and min(counts.values())>=1, counts
+          assert sum(counts.values())>44, "Extractor still capped at 2 figures!"
+          print("COUNTS",counts,"TOTAL",sum(counts.values()),flush=True)
+          PY
+      - name: Commit source images and caption metadata
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/paper-figures.json public/paper-figures
+          if ! git diff --cached --quiet; then
+            git commit -m "assets(papers): extract all usable numbered main-text figures"
+            git fetch origin feat/paper-figures-adaptive-bilingual
+            git rebase origin/feat/paper-figures-adaptive-bilingual
+            git push origin HEAD:feat/paper-figures-adaptive-bilingual
+          fi
