@@ -306,3 +306,25 @@ button,input,select{font:inherit}button{cursor:pointer}a{color:inherit;text-deco
 @media(prefers-reduced-motion:reduce){
   .corpus-glossary-fab,.paper-back-to-top{transition:none}
 }
+
+/* Cleaner paper hero after removing redundant manuscript/category labels. */
+.paper-hero h1{margin-top:26px}
+.paper-hero-meta .paper-hero-pdf-action{
+  display:inline-flex;align-items:center;gap:8px;
+  min-height:35px;padding:8px 11px;margin:-8px 0;
+  border:1px solid rgba(219,235,172,.45);border-radius:5px;
+  background:rgba(218,241,169,.09);color:#dbf3b7;
+  font:750 10px/1.25 var(--font-montserrat),sans-serif;
+  letter-spacing:.015em;cursor:pointer;
+}
+.paper-hero-meta .paper-hero-pdf-action:hover,
+.paper-hero-meta .paper-hero-pdf-action:focus-visible{
+  border-color:var(--acid);background:rgba(218,241,169,.16);
+}
+.paper-hero-meta .paper-hero-pdf-action svg{color:var(--acid)}
+/* PDF now loads from the same origin, using the browser's native PDF viewer. */
+.pdf-frame iframe{height:clamp(620px,78dvh,1100px)}
+@media(max-width:620px){
+  .paper-hero-meta .paper-hero-pdf-action{min-height:40px;margin:0}
+  .pdf-frame iframe{height:75dvh;min-height:480px}
+}
