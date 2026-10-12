@@ -6,7 +6,6 @@ RT-1 học dữ liệu robot rất tốt nhưng chỉ biết những concept mà
 
 ![Hình 1 gốc từ PDF bài báo, trang 2](/paper-figures/rt-2/figure-1.webp)
 
-*Hình 1, trang 2. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2307.15818#page=2).*
 
 #### Đọc hình gốc: bối cảnh và đóng góp
 
@@ -64,7 +63,6 @@ Co-finetuning là chi tiết sống còn. Nếu chỉ fine-tune VLM trên robot 
 
 ![Hình 2 gốc từ PDF bài báo, trang 5](/paper-figures/rt-2/figure-2.webp)
 
-*Hình 2, trang 5. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2307.15818#page=5).*
 
 #### Đọc hình gốc: từng thành phần và luồng thông tin
 

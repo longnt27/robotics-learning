@@ -10,7 +10,6 @@ RTC inference-time chạy được với existing flow action policy, nhưng đ�
 
 ![Hình 1 gốc từ PDF bài báo, trang 2](/paper-figures/rtc-training/figure-1.webp)
 
-*Hình 1, trang 2. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2512.05964#page=2).*
 
 #### Đọc hình gốc: bối cảnh và đóng góp
 
@@ -114,7 +113,6 @@ Do đó huấn luyện randomize `k` không thay thế độ trễ estimator/run
 
 ![Hình 2 gốc từ PDF bài báo, trang 2](/paper-figures/rtc-training/figure-2.webp)
 
-*Hình 2, trang 2. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2512.05964#page=2).*
 
 #### Đọc hình gốc: từng thành phần và luồng thông tin
 

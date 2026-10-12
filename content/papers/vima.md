@@ -6,7 +6,6 @@ Một robot thực tế không phải lúc nào cũng nhận nhiệm vụ dướ
 
 ![Hình 1 gốc từ PDF bài báo, trang 2](/paper-figures/vima/figure-1.webp)
 
-*Hình 1, trang 2. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2210.03094#page=2).*
 
 #### Đọc hình gốc: bối cảnh và đóng góp
 
@@ -64,7 +63,6 @@ Một điểm quan trọng là benchmark cố tách nhiều kiểu OOD: novel pl
 
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/vima/figure-2.webp)
 
-*Hình 2, trang 3. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2210.03094#page=3).*
 
 #### Đọc hình gốc: từng thành phần và luồng thông tin
 

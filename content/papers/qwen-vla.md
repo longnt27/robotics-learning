@@ -14,7 +14,6 @@ Khó khăn là **action semantics không đồng nhất**. Một vector 7 chiề
 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/qwen-vla/figure-1.webp)
 
-*Hình 1, trang 1. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2605.30280#page=1).*
 
 #### Đọc hình gốc: bối cảnh và đóng góp
 
@@ -109,7 +108,6 @@ Khi một mô hình được huấn luyện đa embodiment, phải đánh giá c
 
 ![Hình 2 gốc từ PDF bài báo, trang 6](/paper-figures/qwen-vla/figure-2.webp)
 
-*Hình 2, trang 6. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2605.30280#page=6).*
 
 #### Đọc hình gốc: từng thành phần và luồng thông tin
 

@@ -6,7 +6,6 @@ Dữ liệu robot thật vừa đắt vừa chậm, còn các simulator cũ thư
 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/robocasa/figure-1.webp)
 
-*Hình 1, trang 1. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2406.02523#page=1).*
 
 #### Đọc hình gốc: bối cảnh và đóng góp
 
@@ -64,7 +63,6 @@ RoboCasa xây khoảng **120 kitchen bối cảnh**, hơn **2,500 vật thể as
 
 ![Hình 3 gốc từ PDF bài báo, trang 4](/paper-figures/robocasa/figure-3.webp)
 
-*Hình 3, trang 4. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2406.02523#page=4).*
 
 #### Đọc hình gốc: từng thành phần và luồng thông tin
 

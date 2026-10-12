@@ -6,7 +6,6 @@ Trước RT-1, phần lớn robot learning vẫn theo cách tiếp cận kiểu 
 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/rt-1/figure-1.webp)
 
-*Hình 1, trang 1. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://www.roboticsproceedings.org/rss19/p025.pdf#page=1).*
 
 #### Đọc hình gốc: bối cảnh và đóng góp
 
@@ -66,7 +65,6 @@ RT-1 huấn luyện một Transformer policy khoảng 35M tham số trên khoả
 
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/rt-1/figure-2.webp)
 
-*Hình 2, trang 3. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://www.roboticsproceedings.org/rss19/p025.pdf#page=3).*
 
 #### Đọc hình gốc: từng thành phần và luồng thông tin
 

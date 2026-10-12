@@ -6,7 +6,6 @@ Robot trước PaLM-E thường có perception, lập kế hoạch và ngôn ng�
 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/palm-e/figure-1.webp)
 
-*Hình 1, trang 1. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://proceedings.mlr.press/v202/driess23a/driess23a.pdf#page=1).*
 
 #### Đọc hình gốc: bối cảnh và đóng góp
 
@@ -64,7 +63,6 @@ Trong robotics, PaLM-E thường đóng vai trò high-level embodied reasoner: �
 
 ![Hình 2 gốc từ PDF bài báo, trang 6](/paper-figures/palm-e/figure-2.webp)
 
-*Hình 2, trang 6. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://proceedings.mlr.press/v202/driess23a/driess23a.pdf#page=6).*
 
 #### Đọc hình gốc: từng thành phần và luồng thông tin
 
