@@ -39,7 +39,7 @@ test('repository links are visible in the paper reader including PDF tab',()=>{
   assert.match(ui,/target="_blank"/);
   assert.match(ui,/rel="noopener noreferrer"/);
   assert.match(ui,/paper-resources/);
-  assert.match(ui,/LIÊN KẾT<\/div><\/div>\s*<div className="paper-resources"/, 'Resource panel must not be nested in hero metadata');
+  assert.match(ui,/<button[^>]*className="paper-hero-pdf-action"[\s\S]*?<\/button><\/div>\s*<div className="paper-resources"/, 'Resource panel must remain outside hero metadata');
 });
 
 test('avoid the previously broken FAST GitHub link',()=>{
