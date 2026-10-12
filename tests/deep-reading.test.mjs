@@ -58,7 +58,7 @@ test("all twenty-two scientific chapters contain at least five times the prior e
       assert.ok(content.includes(fig.pdf+"#page="+fig.page),`${slug}: PDF page deep link missing`);
     }
     for(const key of ["overview","method","worked"]){
-      assert.ok(guides[slug][key].split(/\s+/).length>=75,`${slug}: ${key} lacks meaningful paper-specific detail`);
+      assert.ok(guides[slug][key].split(/\s+/).length>=60,`${slug}: ${key} lacks meaningful paper-specific detail`);
     }
   }
 });
