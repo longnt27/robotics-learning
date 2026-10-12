@@ -7,7 +7,7 @@ export async function getPaperChapter(slug: string): Promise<string | null> {
   try {
     const content = await readFile(join(process.cwd(), "content", "papers", `${slug}.md`), "utf8");
     // Hide internal generator markers from HTML; keep them in source for idempotent rebuilds.
-    return content.replace(/^[ \t]*<!-- (?:BEGIN|END) EXTENDED WALKTHROUGH -->[ \t]*$/gm, "");
+    return content.replace(/^[ \t]*<!-- (?:BEGIN|END) (?:EXTENDED WALKTHROUGH|SUPPLEMENTARY FIGURES) -->[ \t]*$/gm, "");
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === "ENOENT") return null;
     throw error;
