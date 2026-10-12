@@ -1,7 +1,7 @@
 "use client";
 import { useMemo, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import ReactFlow, { BackgroundVariant, Background, Controls, MiniMap, Handle, Position, MarkerType, type Node, type Edge, type NodeProps } from "@xyflow/react";
+import { ReactFlow, BackgroundVariant, Background, Controls, MiniMap, Handle, Position, MarkerType, type Node, type Edge, type NodeProps } from "@xyflow/react";
 import { Bookmark, ArrowUpRight, Network, MousePointer2 } from "lucide-react";
 import type { Paper } from "@/lib/papers";
 import type { PaperRelation } from "@/lib/relations";
