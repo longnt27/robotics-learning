@@ -13,6 +13,7 @@
     "test:glossary": "node --test tests/glossary.test.mjs",
     "test:e2e": "node tests/browser.test.mjs",
     "test:resources": "node --test tests/resources.test.mjs",
+    "test:pdf-viewer": "node --test tests/pdf-viewer.test.mjs",
     "test:slides": "node --test tests/slides.test.mjs"
   },
   "dependencies": {
