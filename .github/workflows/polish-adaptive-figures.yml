@@ -53,3 +53,4 @@ jobs:
             git rebase origin/feat/paper-figures-adaptive-bilingual
             git push origin HEAD:feat/paper-figures-adaptive-bilingual
           fi
+# Trigger rerun after fixing precise LingBot Figure 6 top crop.

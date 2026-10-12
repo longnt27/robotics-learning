@@ -75,7 +75,18 @@ def main() -> None:
                         estimated_caption_end = (prev_y +
                             min(115, math.ceil(chars / 100)*11 + 13))
                         top = min(max(old.y0, estimated_caption_end+6), current_y-45)
-                        if top <= old.y0+18 or top >= old.y1-45:
+                        special = slug == "lingbot-vla-2" and fig["number"] == 6
+                        if special:
+                            # Figure 5 has a caption merged with the next word
+                            # cloud in the PDF text stream; its bounding block
+                            # is much taller than the actual caption. Recover
+                            # the Figure 5 final sentence's exact text box.
+                            last_line = page.search_for("omitted here.")
+                            if last_line:
+                                top = max(389.0, min(405.0, last_line[-1].y1+4))
+                            else:
+                                top = 396.0
+                        if (not special and top <= old.y0+18) or top >= old.y1-45:
                             continue
                         new_box = fitz.Rect(old.x0, top, old.x1, old.y1)
                         pix = page.get_pixmap(matrix=fitz.Matrix(3.6,3.6),
