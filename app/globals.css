@@ -38,11 +38,121 @@ button,input,select{font:inherit}button{cursor:pointer}a{color:inherit;text-deco
 
 @media(max-width:620px){.graph-bar{padding:0 9px;gap:8px}.graph-help{gap:6px}.graph-help span{font-size:0}.graph-help svg{min-width:16px}.graph-fit-button{font-size:11px;padding:8px}.graph-bar-actions{gap:6px}.graph-select{max-width:154px}}
 
-/* The long-form research chapters use extracted source figures, never AI redraws. */
-.markdown-body .paper-source-figure{display:flex;flex-direction:column;gap:11px;margin:32px 0 34px;padding:17px;border:1px solid rgba(176,194,224,.34);background:#172235;border-radius:12px}
-.markdown-body .paper-source-figure img{display:block;width:100%;height:auto;max-height:660px;object-fit:contain;border-radius:5px;background:#fff}
-.markdown-body .paper-source-figcaption{color:#c9d5e8;font-size:13px;line-height:1.65;margin:0;font-weight:500}
+/* PDF figures: display the unabridged source caption and enlarge on click. */
+.markdown-body .paper-source-figure {
+  display:flex; flex-direction:column; width:100%; margin:28px 0 35px;
+  border:1px solid #536783; border-radius:11px; overflow:hidden;
+  background:#182438;
+}
+.markdown-body .paper-figure-open {
+  position:relative; display:block; width:100%; padding:15px; margin:0;
+  border:0; background:#223147; border-radius:0;
+  cursor:zoom-in; text-align:center; outline-offset:-4px;
+}
+.markdown-body .paper-figure-open img {
+  display:block; width:100%; height:auto; max-height:670px;
+  object-fit:contain; border-radius:5px; background:white;
+}
+.markdown-body .paper-figure-zoom-label {
+  position:absolute; right:22px; bottom:22px;
+  display:flex; align-items:center; gap:7px;
+  padding:9px 12px; border-radius:6px;
+  color:#fff; background:rgba(8,18,34,.85);
+  font:700 10px/1.2 var(--font-montserrat),sans-serif; letter-spacing:.06em;
+  transition:background .15s ease;
+}
+.markdown-body .paper-figure-open:hover .paper-figure-zoom-label,
+.markdown-body .paper-figure-open:focus-visible .paper-figure-zoom-label {
+  background:#364d70;
+}
+.markdown-body .paper-source-figcaption {
+  display:flex; flex-direction:column; gap:8px; padding:16px 19px 18px;
+  background:#182438; color:#e6eaf2;
+}
+.paper-figure-caption-heading {
+  color:#b4dfaf; font:800 11px/1.4 var(--font-montserrat),sans-serif;
+  letter-spacing:.08em;
+}
+.markdown-body .paper-figure-caption-text {
+  color:#edf1f9; font-size:14px; font-weight:510;
+  line-height:1.7; overflow-wrap:anywhere;
+}
+.markdown-body .paper-figure-source-link,
+.paper-figure-lightbox-caption a {
+  display:inline-flex; width:max-content; max-width:100%;
+  align-items:center; gap:6px; padding-top:4px; color:#d8f7a5;
+  font-size:12px; font-weight:650; text-decoration:underline;
+  text-decoration-color:rgba(216,247,165,.5);
+}
 .markdown-body h4{font:700 16px/1.48 var(--font-montserrat),sans-serif;color:#b9f1d4;letter-spacing:-.01em;margin:25px 0 10px}
 .markdown-body p,.markdown-body li{hyphens:auto}
-.markdown-body p:has(> .paper-source-figure) + p{font-size:14px;color:#bfcddd}
-@media(max-width:620px){.markdown-body .paper-source-figure{padding:9px;margin:23px 0}.markdown-body .paper-source-figcaption{font-size:12px}}
+
+/* Native dialog at document.body avoids Framer Motion's transformed ancestors. */
+.paper-figure-lightbox {
+  position:fixed; inset:0; box-sizing:border-box;
+  width:100vw; max-width:100vw; height:100vh; height:100dvh;
+  max-height:100dvh; margin:0; padding:12px;
+  border:0; border-radius:0; overflow:hidden;
+  color:#f0f5ff; background:#070c16; z-index:9999;
+}
+.paper-figure-lightbox::backdrop{background:rgba(0,0,0,.91)}
+.paper-figure-lightbox-inner{
+  height:100%; display:flex; flex-direction:column; min-height:0; gap:10px;
+  max-width:2200px; margin:auto;
+}
+.paper-figure-lightbox-toolbar {
+  flex:0 0 auto; display:flex; align-items:center; justify-content:space-between;
+  gap:10px; min-height:46px;
+  font-size:15px; line-height:1.3;
+}
+.paper-figure-lightbox-toolbar strong span {
+  font-weight:500; font-size:12px; color:#9eaecb; margin-left:10px;
+}
+.paper-figure-lightbox-actions {display:flex; align-items:center; gap:8px;}
+.paper-figure-lightbox-actions button {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  min-height:40px; border-radius:6px; background:#27344b; color:#f5f8ff;
+  border:1px solid #63738e; padding:8px 12px; cursor:pointer;
+  font:650 12px var(--font-montserrat),sans-serif;
+}
+.paper-figure-lightbox-actions button:hover,
+.paper-figure-lightbox-actions button:focus-visible{background:#3d516d;}
+.paper-figure-lightbox-canvas {
+  flex:1 1 auto; min-height:0; display:flex; align-items:center;
+  justify-content:center; padding:7px; overflow:auto; background:#101928;
+  border-radius:8px;
+}
+.paper-figure-lightbox-canvas img {
+  display:block; max-width:100%; max-height:100%;
+  width:auto; height:auto; object-fit:contain;
+  background:white; flex-shrink:0;
+}
+.paper-figure-lightbox-canvas-actual {
+  justify-content:flex-start; align-items:flex-start;
+}
+.paper-figure-lightbox-canvas-actual img {
+  max-width:none; max-height:none;
+}
+.paper-figure-lightbox-caption {
+  flex:0 0 auto; max-height:min(28vh,225px); overflow:auto;
+  border-top:1px solid #394962; padding:10px 4px 8px;
+}
+.paper-figure-lightbox-caption p {
+  font-size:14px; line-height:1.65; color:#e0e8f7;
+  margin:6px 0; overflow-wrap:anywhere;
+}
+.paper-figure-lightbox-caption a {color:#d8f7a5; font-size:12px;}
+@media(max-width:620px){
+  .markdown-body .paper-source-figure{margin:22px 0 28px}
+  .markdown-body .paper-figure-open{padding:9px}
+  .markdown-body .paper-source-figcaption{padding:12px 13px 15px}
+  .markdown-body .paper-figure-caption-text{font-size:13px;line-height:1.65}
+  .markdown-body .paper-figure-zoom-label{right:15px;bottom:15px;font-size:9px}
+  .paper-figure-lightbox{padding:8px}
+  .paper-figure-lightbox-toolbar strong{font-size:13px}
+  .paper-figure-lightbox-toolbar strong span{display:none}
+  .paper-figure-lightbox-actions button{min-height:44px;padding:9px}
+  .paper-figure-lightbox-actions button span{display:none}
+  .paper-figure-lightbox-caption{max-height:32vh}
+  .paper-figure-lightbox-caption p{font-size:13px}
+}
