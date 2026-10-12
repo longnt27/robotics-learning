@@ -105,8 +105,8 @@ def choose_box(page, caption, nearby):
                 if c["bbox"].y1 < cap.y0 and
                 (is_wide or abs(((c["bbox"].x0 + c["bbox"].x1) / 2) - center) < page_width / 3)]
     top_floor = max(rect.y0 + 18, max(previous, default=rect.y0 + 18) + 7)
-    if pictures:
-        chosen = [b for b in pictures if b.y1 > cap.y0 - 330]
+    chosen = [b for b in pictures if b.y1 > cap.y0 - 330]
+    if chosen:
         top = max(top_floor, min(b.y0 for b in chosen) - 13)
         # Don't clip nearby line-art or image legends: include a little context.
         top = max(top_floor, min(top, cap.y0 - 120))
@@ -174,7 +174,7 @@ def extract_one(slug, url, pdf_cache):
             headings = [
                 fitz.Rect(block[:4]).y0
                 for block in page.get_text("blocks", sort=True)
-                if block[4].strip().splitlines()[0].strip().lower() in
+                if block[4].strip() and block[4].strip().splitlines()[0].strip().lower() in
                 {"references", "bibliography"}
             ]
             if headings:
