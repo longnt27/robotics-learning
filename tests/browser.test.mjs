@@ -79,17 +79,15 @@ try {
   // Verify original paper PDF images actually load in the expanded explanation.
   for(const viewport of [{width:1280,height:800},{width:390,height:844}]){
     const chapterPage=await browser.newPage({viewport});
-    await chapterPage.goto(baseUrl+'/paper/act?tab=explain',{waitUntil:'domcontentloaded'});
+    await chapterPage.goto(baseUrl+'/paper/act',{waitUntil:'networkidle'});
+    await chapterPage.waitForFunction(()=>Boolean(document.querySelector('.paper-source-figure img')));
+    await chapterPage.evaluate(()=>document.querySelector('.paper-source-figure')?.scrollIntoView({block:'center'}));
+    await chapterPage.waitForFunction(()=>{
+      const img=document.querySelector('.paper-source-figure img');
+      return Boolean(img && img.complete && img.naturalWidth>0);
+    },{timeout:20000});
     const sourcedFigure=chapterPage.locator('.paper-source-figure').first();
-    await sourcedFigure.waitFor({state:'attached'});
-    await sourcedFigure.scrollIntoViewIfNeeded();
     const photo=sourcedFigure.locator('img');
-    await photo.evaluate(async img=>{
-      if(!img.complete)await new Promise((resolve,reject)=>{
-        img.addEventListener('load',resolve,{once:true});
-        img.addEventListener('error',reject,{once:true});
-      });
-    });
     const size=await photo.evaluate(img=>({w:img.naturalWidth,h:img.naturalHeight}));
     assert.ok(size.w>=300&&size.h>=130,`Figure must load real image data: ${JSON.stringify(size)}`);
     assert.match(await sourcedFigure.locator('figcaption').innerText(),/Hình 1.*PDF gốc|Hình 1.*trang 1/i);
