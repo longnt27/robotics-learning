@@ -1,0 +1,166 @@
+[
+  {
+    "type": "cover",
+    "title": "Điểm cốt lõi",
+    "lead": "Không để robot dừng mỗi khi model nghĩ: action chunk mới phải khớp phần chuyển động đã cam kết.",
+    "items": [
+      "Giữ committed prefix, chỉ sinh lại tương lai"
+    ],
+    "intuition": "Trong khi inference diễn ra, robot vẫn chạy buffer cũ; chunk mới bị constraint khớp phần chắc chắn đã/đang thực thi."
+  },
+  {
+    "type": "problem",
+    "title": "Policy inference chậm hơn nhịp điều khiển 50 Hz",
+    "lead": "Robot cần action mỗi 20 ms, trong khi VLA có thể mất 76–100 ms để sinh một chunk.",
+    "items": [
+      "Synchronous gây pause; naive asynchronous gây giật ở ranh giới"
+    ],
+    "intuition": "Temporal averaging còn có thể trộn hai quỹ đạo hợp lệ thành chuyển động không hợp lệ."
+  },
+  {
+    "type": "contrast",
+    "title": "Synchronous gây pause; naive asynchronous gây giật ở ranh giới",
+    "lead": "Temporal averaging còn có thể trộn hai quỹ đạo hợp lệ thành chuyển động không hợp lệ.",
+    "items": [
+      "Giữ committed prefix, chỉ sinh lại tương lai",
+      "Trong khi inference diễn ra, robot vẫn chạy buffer cũ; chunk mới bị constraint khớp phần chắc chắn đã/đang thực thi."
+    ],
+    "intuition": "Trong khi inference diễn ra, robot vẫn chạy buffer cũ; chunk mới bị constraint khớp phần chắc chắn đã/đang thực thi."
+  },
+  {
+    "type": "intuition",
+    "title": "Giữ committed prefix, chỉ sinh lại tương lai",
+    "lead": "Trong khi inference diễn ra, robot vẫn chạy buffer cũ; chunk mới bị constraint khớp phần chắc chắn đã/đang thực thi.",
+    "items": [
+      "Không để robot dừng mỗi khi model nghĩ: action chunk mới phải khớp phần chuyển động đã cam kết."
+    ],
+    "intuition": "Trong khi inference diễn ra, robot vẫn chạy buffer cũ; chunk mới bị constraint khớp phần chắc chắn đã/đang thực thi."
+  },
+  {
+    "type": "concepts",
+    "title": "Ba khái niệm để nắm",
+    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "items": [
+      {
+        "label": "Control loop",
+        "value": "Servo chạy nhịp cố định, không chờ model."
+      },
+      {
+        "label": "Committed prefix",
+        "value": "Các action không thể thu hồi trong thời gian inference."
+      },
+      {
+        "label": "Guided inpainting",
+        "value": "Điều chỉnh mẫu flow để khớp prefix đã cam kết."
+      }
+    ],
+    "intuition": "Chuỗi action H×D, chia thành prefix đã cam kết và suffix có thể sinh lại."
+  },
+  {
+    "type": "pipeline",
+    "title": "Kiến trúc trong một sơ đồ",
+    "lead": "Không để robot dừng mỗi khi model nghĩ: action chunk mới phải khớp phần chuyển động đã cam kết.",
+    "items": [
+      "Đọc camera mới",
+      "Robot tiếp tục chunk cũ",
+      "Guided flow inpainting",
+      "Nối chunk mới liên tục"
+    ],
+    "intuition": "Hai loop chạy song song: servo và policy inference."
+  },
+  {
+    "type": "representation",
+    "title": "Mô hình biểu diễn cái gì?",
+    "lead": "Chuỗi action H×D, chia thành prefix đã cam kết và suffix có thể sinh lại.",
+    "items": [
+      "Delay d được quy sang số bước điều khiển.",
+      "Cam kết là theo lệnh servo được gửi, không đảm bảo actuator chạm đúng như dự báo."
+    ],
+    "intuition": "Cam kết là theo lệnh servo được gửi, không đảm bảo actuator chạm đúng như dự báo."
+  },
+  {
+    "type": "training",
+    "title": "Model học như thế nào?",
+    "lead": "RTC inference-time không yêu cầu train lại policy gốc.",
+    "items": [
+      "Biết các steps sẽ chạy khi model còn tính toán.",
+      "Flow guidance/inpainting can thiệp ngay lúc sampling để giữ consistency."
+    ],
+    "intuition": "So synchronous, naive async, temporal ensembling và guided prefix."
+  },
+  {
+    "type": "inference",
+    "title": "Một lần inference xảy ra ra sao?",
+    "lead": "Hai loop chạy song song: servo và policy inference.",
+    "items": [
+      "Estimate latency d rồi cố định committed actions.",
+      "Nối suffix được generate thành chunk tiếp theo; controller không phải pause."
+    ],
+    "intuition": "Nối suffix được generate thành chunk tiếp theo; controller không phải pause."
+  },
+  {
+    "type": "equation",
+    "title": "Mathematical Intuition",
+    "lead": "Inference tốn T_infer; servo có chu kỳ Δt. Trong thời gian đợi, khoảng d action cũ đã phải được thực thi.",
+    "equation": "d\\approx\\left\\lceil\\frac{T_{\\rm infer}}{\\Delta t}\\right\\rceil",
+    "items": [
+      "Đây là phép đổi latency thành số bước điều khiển."
+    ],
+    "intuition": "Inference tốn T_infer; servo có chu kỳ Δt. Trong thời gian đợi, khoảng d action cũ đã phải được thực thi."
+  },
+  {
+    "type": "results",
+    "title": "Kết quả nói lên điều gì?",
+    "lead": "Thí nghiệm 12 nhiệm vụ động trong Kinetix và 6 nhiệm vụ robot thật.",
+    "items": [
+      "Thiết lập 50 Hz: π0.5 khoảng 76 ms, có RTC khoảng 97 ms riêng sampler.",
+      "Dù sampler chậm hơn, overlap giúp giảm pause/jerk và cải thiện throughput ở nhiều tác vụ."
+    ],
+    "intuition": "smooth không có nghĩa force-safe; delay spike lớn hơn buffer vẫn cần fallback controller."
+  },
+  {
+    "type": "ablation",
+    "title": "Ablation và bằng chứng",
+    "lead": "So synchronous, naive async, temporal ensembling và guided prefix.",
+    "items": [
+      "Bơm thêm +100 hoặc +200 ms delay để đo robustness thay vì chỉ success nominal."
+    ],
+    "intuition": "Thiết lập 50 Hz: π0.5 khoảng 76 ms, có RTC khoảng 97 ms riêng sampler."
+  },
+  {
+    "type": "limits",
+    "title": "Hạn chế cần nói thẳng",
+    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "items": [
+      {
+        "label": "Tác giả / phạm vi",
+        "value": "Tác giả: guidance có chi phí runtime; latency estimator ảnh hưởng hiệu năng."
+      },
+      {
+        "label": "Phê bình độc lập",
+        "value": "Phê bình: smooth không có nghĩa force-safe; delay spike lớn hơn buffer vẫn cần fallback controller."
+      }
+    ],
+    "intuition": "Delay d được quy sang số bước điều khiển."
+  },
+  {
+    "type": "relations",
+    "title": "Bài này đứng ở đâu trong lĩnh vực?",
+    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "items": [
+      "ACT khởi đầu action chunking và temporal aggregation.",
+      "RTC training dời chi phí consistency từ inference sang training."
+    ],
+    "intuition": "Real-time VLA là bài toán systems/control, không chỉ model accuracy."
+  },
+  {
+    "type": "closing",
+    "title": "Nếu chỉ nhớ ba điều",
+    "lead": "Real-time VLA là bài toán systems/control, không chỉ model accuracy.",
+    "items": [
+      "Đảm bảo prefix đã gửi không bị thay đổi bởi output mới.",
+      "Benchmark phải đo throughput, jerk, deadline misses và task success."
+    ],
+    "intuition": "Không để robot dừng mỗi khi model nghĩ: action chunk mới phải khớp phần chuyển động đã cam kết."
+  }
+]

@@ -1,0 +1,166 @@
+[
+  {
+    "type": "cover",
+    "title": "Điểm cốt lõi",
+    "lead": "Tăng độ đa dạng của bối cảnh và nhiệm vụ mô phỏng để đánh giá policy thao tác dài hạn.",
+    "items": [
+      "Procedural scene generation tạo nhiều môi trường hợp lệ"
+    ],
+    "intuition": "Mô phỏng có cấu trúc và demonstrations giúp policy phải học kỹ năng có thể chuyển giao."
+  },
+  {
+    "type": "problem",
+    "title": "Benchmark tabletop đơn giản nhanh bão hòa",
+    "lead": "Robot thao tác trong nhà bếp thật gặp nhiều layout, đồ vật, vị trí và multi-step dependencies.",
+    "items": [
+      "Một vài demo trong một scene tạo thành quả OOD quá lạc quan"
+    ],
+    "intuition": "Policy dễ ghi nhớ vị trí đồ vật khi reset/variation hạn chế."
+  },
+  {
+    "type": "contrast",
+    "title": "Một vài demo trong một scene tạo thành quả OOD quá lạc quan",
+    "lead": "Policy dễ ghi nhớ vị trí đồ vật khi reset/variation hạn chế.",
+    "items": [
+      "Procedural scene generation tạo nhiều môi trường hợp lệ",
+      "Mô phỏng có cấu trúc và demonstrations giúp policy phải học kỹ năng có thể chuyển giao."
+    ],
+    "intuition": "Mô phỏng có cấu trúc và demonstrations giúp policy phải học kỹ năng có thể chuyển giao."
+  },
+  {
+    "type": "intuition",
+    "title": "Procedural scene generation tạo nhiều môi trường hợp lệ",
+    "lead": "Mô phỏng có cấu trúc và demonstrations giúp policy phải học kỹ năng có thể chuyển giao.",
+    "items": [
+      "Tăng độ đa dạng của bối cảnh và nhiệm vụ mô phỏng để đánh giá policy thao tác dài hạn."
+    ],
+    "intuition": "Mô phỏng có cấu trúc và demonstrations giúp policy phải học kỹ năng có thể chuyển giao."
+  },
+  {
+    "type": "concepts",
+    "title": "Ba khái niệm để nắm",
+    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "items": [
+      {
+        "label": "Procedural generation",
+        "value": "Sinh nhiều layout nhà bếp khác nhau từ grammar."
+      },
+      {
+        "label": "Task diversity",
+        "value": "Các nhiệm vụ ngắn và nhiều bước dùng đồ vật/thiết bị."
+      },
+      {
+        "label": "Simulation-to-real gap",
+        "value": "Khác biệt vật lý và camera cần kiểm tra riêng."
+      }
+    ],
+    "intuition": "Scene chứa cabinet, đồ vật, kệ bếp, thiết bị và tương tác."
+  },
+  {
+    "type": "pipeline",
+    "title": "Kiến trúc trong một sơ đồ",
+    "lead": "Tăng độ đa dạng của bối cảnh và nhiệm vụ mô phỏng để đánh giá policy thao tác dài hạn.",
+    "items": [
+      "Kitchen assets + layouts",
+      "Procedural task generation",
+      "Robot demonstrations",
+      "Generalization evaluation"
+    ],
+    "intuition": "Policy nhìn scene nhà bếp và lệnh cần hoàn thành."
+  },
+  {
+    "type": "representation",
+    "title": "Mô hình biểu diễn cái gì?",
+    "lead": "Scene chứa cabinet, đồ vật, kệ bếp, thiết bị và tương tác.",
+    "items": [
+      "Instructions gắn với predicate thành công.",
+      "Lỗi perception và contact vẫn khác thực tế dù cảnh đẹp."
+    ],
+    "intuition": "Lỗi perception và contact vẫn khác thực tế dù cảnh đẹp."
+  },
+  {
+    "type": "training",
+    "title": "Model học như thế nào?",
+    "lead": "Cung cấp hạ tầng simulation và imitation-learning pipelines.",
+    "items": [
+      "Sinh nhiều layouts và demonstrations để huấn luyện.",
+      "So test trên scene, object/task configuration chưa gặp."
+    ],
+    "intuition": "Tách generalization qua scene, object và task composition."
+  },
+  {
+    "type": "inference",
+    "title": "Một lần inference xảy ra ra sao?",
+    "lead": "Policy nhìn scene nhà bếp và lệnh cần hoàn thành.",
+    "items": [
+      "Thực hiện chuỗi thao tác dài theo thứ tự phụ thuộc.",
+      "Evaluation kiểm tra predicate của task chứ không chỉ imitation error."
+    ],
+    "intuition": "Evaluation kiểm tra predicate của task chứ không chỉ imitation error."
+  },
+  {
+    "type": "equation",
+    "title": "Mathematical Intuition",
+    "lead": "Thước đo quan trọng là mục tiêu vật lý cuối cùng đạt hay chưa, không phải video nhìn có vẻ hợp lý.",
+    "equation": "\\mathrm{Success}=\\mathbf 1\\{\\mathrm{goal\\ predicate\\ satisfied}\\}",
+    "items": [
+      "Mô tả khái niệm success predicate trong benchmark."
+    ],
+    "intuition": "Thước đo quan trọng là mục tiêu vật lý cuối cùng đạt hay chưa, không phải video nhìn có vẻ hợp lý."
+  },
+  {
+    "type": "results",
+    "title": "Kết quả nói lên điều gì?",
+    "lead": "Nhiều layout, vật thể và nhiệm vụ tạo đánh giá phong phú hơn benchmark cố định.",
+    "items": [
+      "Dữ liệu mô phỏng đa dạng giúp nghiên cứu transfer/long-horizon policy.",
+      "Kết quả vẫn nằm trong simulated environments được thiết kế."
+    ],
+    "intuition": "procedural task grammar không bao phủ toàn bộ open-world complexity; domain randomization không tương đương robot thật."
+  },
+  {
+    "type": "ablation",
+    "title": "Ablation và bằng chứng",
+    "lead": "Tách generalization qua scene, object và task composition.",
+    "items": [
+      "Tránh random splits vô tình dùng cùng layout/asset đã thấy."
+    ],
+    "intuition": "Dữ liệu mô phỏng đa dạng giúp nghiên cứu transfer/long-horizon policy."
+  },
+  {
+    "type": "limits",
+    "title": "Hạn chế cần nói thẳng",
+    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "items": [
+      {
+        "label": "Tác giả / phạm vi",
+        "value": "Tác giả: simulator còn không hoàn hảo về tiếp xúc và thao tác tinh vi."
+      },
+      {
+        "label": "Phê bình độc lập",
+        "value": "Phê bình: procedural task grammar không bao phủ toàn bộ open-world complexity; domain randomization không tương đương robot thật."
+      }
+    ],
+    "intuition": "Instructions gắn với predicate thành công."
+  },
+  {
+    "type": "relations",
+    "title": "Bài này đứng ở đâu trong lĩnh vực?",
+    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "items": [
+      "LIBERO nghiên cứu transfer theo loại tri thức.",
+      "DROID cung cấp dữ liệu môi trường thực làm đối chứng thực dụng."
+    ],
+    "intuition": "Benchmark tốt phải kiểm tra context variation, không chỉ task count."
+  },
+  {
+    "type": "closing",
+    "title": "Nếu chỉ nhớ ba điều",
+    "lead": "Benchmark tốt phải kiểm tra context variation, không chỉ task count.",
+    "items": [
+      "Hữu ích để smoke-test generalization với chi phí thấp.",
+      "Đừng lấy success trong bếp ảo làm kết luận sẵn sàng deploy."
+    ],
+    "intuition": "Tăng độ đa dạng của bối cảnh và nhiệm vụ mô phỏng để đánh giá policy thao tác dài hạn."
+  }
+]

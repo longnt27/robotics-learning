@@ -1,0 +1,166 @@
+[
+  {
+    "type": "cover",
+    "title": "Điểm cốt lõi",
+    "lead": "Biến hình ảnh và trạng thái robot thành đầu vào của LLM để tận dụng reasoning đa phương thức.",
+    "items": [
+      "Gắn sensory tokens vào cùng không gian với language tokens"
+    ],
+    "intuition": "Cho mô hình giải quyết bài toán ngữ nghĩa và không gian trong một chuỗi multimodal chung."
+  },
+  {
+    "type": "problem",
+    "title": "LLM hiểu yêu cầu nhưng không nhìn thấy thế giới vật lý",
+    "lead": "Text thuần không đủ để lập kế hoạch theo vị trí, vật thể và trạng thái cảm biến đang thay đổi.",
+    "items": [
+      "Pipeline mô tả ảnh thành chữ làm mất thông tin"
+    ],
+    "intuition": "Caption hóa toàn bộ state gây đứt liên kết giữa ngôn ngữ và quan sát liên tục."
+  },
+  {
+    "type": "contrast",
+    "title": "Pipeline mô tả ảnh thành chữ làm mất thông tin",
+    "lead": "Caption hóa toàn bộ state gây đứt liên kết giữa ngôn ngữ và quan sát liên tục.",
+    "items": [
+      "Gắn sensory tokens vào cùng không gian với language tokens",
+      "Cho mô hình giải quyết bài toán ngữ nghĩa và không gian trong một chuỗi multimodal chung."
+    ],
+    "intuition": "Cho mô hình giải quyết bài toán ngữ nghĩa và không gian trong một chuỗi multimodal chung."
+  },
+  {
+    "type": "intuition",
+    "title": "Gắn sensory tokens vào cùng không gian với language tokens",
+    "lead": "Cho mô hình giải quyết bài toán ngữ nghĩa và không gian trong một chuỗi multimodal chung.",
+    "items": [
+      "Biến hình ảnh và trạng thái robot thành đầu vào của LLM để tận dụng reasoning đa phương thức."
+    ],
+    "intuition": "Cho mô hình giải quyết bài toán ngữ nghĩa và không gian trong một chuỗi multimodal chung."
+  },
+  {
+    "type": "concepts",
+    "title": "Ba khái niệm để nắm",
+    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "items": [
+      {
+        "label": "Embodied multimodality",
+        "value": "Ảnh, trạng thái robot và text cùng tham gia dự đoán."
+      },
+      {
+        "label": "Projection",
+        "value": "Ánh xạ sensory embeddings sang kích thước token của LLM."
+      },
+      {
+        "label": "Positive transfer",
+        "value": "Huấn luyện nhiều nguồn mà không làm sụt mạnh năng lực có sẵn."
+      }
+    ],
+    "intuition": "Ảnh và state vector được chuyển thành embeddings"
+  },
+  {
+    "type": "pipeline",
+    "title": "Kiến trúc trong một sơ đồ",
+    "lead": "Biến hình ảnh và trạng thái robot thành đầu vào của LLM để tận dụng reasoning đa phương thức.",
+    "items": [
+      "Ảnh + trạng thái robot",
+      "Encoders / projections",
+      "Multimodal LLM",
+      "Đáp án / kế hoạch ở dạng text"
+    ],
+    "intuition": "Model nhận câu hỏi, cảm biến và bối cảnh hiện tại."
+  },
+  {
+    "type": "representation",
+    "title": "Mô hình biểu diễn cái gì?",
+    "lead": "Ảnh và state vector được chuyển thành embeddings",
+    "items": [
+      "Tầng ngôn ngữ xử lý sensory embeddings như phần tử của context.",
+      "Đây không phải một low-level policy trực tiếp xuất torque/action 50 Hz."
+    ],
+    "intuition": "Đây không phải một low-level policy trực tiếp xuất torque/action 50 Hz."
+  },
+  {
+    "type": "training",
+    "title": "Model học như thế nào?",
+    "lead": "Kết hợp embodied tasks với language/vision-language tasks.",
+    "items": [
+      "Giữ vốn kiến thức rộng từ pretraining.",
+      "Điều quan trọng là co-training không gây catastrophic forgetting."
+    ],
+    "intuition": "Điều tra ảnh hưởng tỷ lệ dữ liệu embodied và language."
+  },
+  {
+    "type": "inference",
+    "title": "Một lần inference xảy ra ra sao?",
+    "lead": "Model nhận câu hỏi, cảm biến và bối cảnh hiện tại.",
+    "items": [
+      "Sinh mô tả, lý giải hoặc các bước kế hoạch.",
+      "Robot vẫn cần controller/executor riêng để biến kế hoạch thành động tác."
+    ],
+    "intuition": "Robot vẫn cần controller/executor riêng để biến kế hoạch thành động tác."
+  },
+  {
+    "type": "equation",
+    "title": "Mathematical Intuition",
+    "lead": "Encoder E hiểu cảm biến; projection P đưa kết quả vào không gian embedding mà LLM có thể sử dụng.",
+    "equation": "z_{\\mathrm{sensor}}=P(E(o))",
+    "items": [
+      "Biểu thức khái niệm để đọc kiến trúc, không phải loss mới."
+    ],
+    "intuition": "Encoder E hiểu cảm biến; projection P đưa kết quả vào không gian embedding mà LLM có thể sử dụng."
+  },
+  {
+    "type": "results",
+    "title": "Kết quả nói lên điều gì?",
+    "lead": "Các nhóm embodied reasoning và multimodal benchmarks cho thấy lợi ích của dữ liệu hỗn hợp.",
+    "items": [
+      "Huấn luyện chung giữ được khả năng text/vision-language tương đối tốt.",
+      "Robot task demonstrations vẫn quan trọng; tri thức web không thay thế control."
+    ],
+    "intuition": "pipeline đến action thật phụ thuộc nhiều thành phần bên ngoài, nên không tự chứng minh end-to-end generalist control."
+  },
+  {
+    "type": "ablation",
+    "title": "Ablation và bằng chứng",
+    "lead": "Điều tra ảnh hưởng tỷ lệ dữ liệu embodied và language.",
+    "items": [
+      "Đọc kết quả như khả năng suy luận/planning, không đánh đồng với tỷ lệ thành công motor rollout."
+    ],
+    "intuition": "Huấn luyện chung giữ được khả năng text/vision-language tương đối tốt."
+  },
+  {
+    "type": "limits",
+    "title": "Hạn chế cần nói thẳng",
+    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "items": [
+      {
+        "label": "Tác giả / phạm vi",
+        "value": "Tác giả: model và thí nghiệm đòi compute rất lớn, khả năng low-level manipulation còn hạn chế."
+      },
+      {
+        "label": "Phê bình độc lập",
+        "value": "Phê bình: pipeline đến action thật phụ thuộc nhiều thành phần bên ngoài, nên không tự chứng minh end-to-end generalist control."
+      }
+    ],
+    "intuition": "Tầng ngôn ngữ xử lý sensory embeddings như phần tử của context."
+  },
+  {
+    "type": "relations",
+    "title": "Bài này đứng ở đâu trong lĩnh vực?",
+    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "items": [
+      "RT-2 biến action thành token để đi tiếp từ reasoning đến điều khiển.",
+      "GR00T N1 sử dụng VLM làm phần hiểu ngữ nghĩa trước action expert."
+    ],
+    "intuition": "Sensory tokens khiến LLM có grounding tốt hơn trong thế giới vật lý."
+  },
+  {
+    "type": "closing",
+    "title": "Nếu chỉ nhớ ba điều",
+    "lead": "Sensory tokens khiến LLM có grounding tốt hơn trong thế giới vật lý.",
+    "items": [
+      "Thích hợp làm high-level reasoning/planning module.",
+      "Không suy ra robotics performance chỉ từ điểm benchmark VQA."
+    ],
+    "intuition": "Biến hình ảnh và trạng thái robot thành đầu vào của LLM để tận dụng reasoning đa phương thức."
+  }
+]

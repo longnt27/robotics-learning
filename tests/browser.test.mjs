@@ -56,6 +56,65 @@ try {
     console.log(`PASS: ${viewport.width}x${viewport.height} · 22 nodes · wheel zoom ${before.toFixed(2)} -> ${after.toFixed(2)} · Montserrat VI`);
     await page.close();
   }
+  // Verify resource links in both reading and PDF views, including unavailable official code.
+  const resourcesPage = await browser.newPage({viewport: {width: 1280, height: 800}});
+  for (const example of [
+    {slug: 'fast', platform: 'Hugging Face', url: 'https://huggingface.co/physical-intelligence/fast'},
+    {slug: 'palm-e', platform: 'GitHub', url: 'https://github.com/kyegomez/PALM-E'},
+    {slug: 'qwen-vla', platform: 'GitHub', url: 'https://github.com/QwenLM/Qwen-VLA'},
+    {slug: 'lingbot-vla-2', platform: 'Hugging Face', url: 'https://huggingface.co/robbyant/lingbot-vla-v2-6b'},
+  ]) {
+    await resourcesPage.goto(baseUrl + '/paper/' + example.slug, {waitUntil: 'domcontentloaded'});
+    const link=resourcesPage.locator('.paper-resource-link[href="' + example.url + '"]');
+    assert.equal(await link.count(),1,example.slug + ': expected visible source link');
+    assert.ok(await link.isVisible(),example.slug + ': source link must be visible');
+    assert.equal(await link.getAttribute('target'),'_blank');
+    if (example.slug==='palm-e') assert.match(await link.innerText(),/không chính thức/i);
+    if (example.slug==='qwen-vla') assert.match(await link.innerText(),/Trang dự án/i);
+    await resourcesPage.getByRole('tab', {name: /PDF GỐC/i}).click();
+    assert.ok(await link.isVisible(),example.slug + ': resource link must remain visible on PDF tab');
+  }
+  await resourcesPage.close();
+  console.log('PASS: repository links visible on all reader tabs; official / community provenance labeled');
+
+  // HTML slide-deck acceptance tests: deep links, keyboard navigation, notes and small screens.
+  for (const viewport of [{width:1280,height:800},{width:390,height:844}]) {
+    const page=await browser.newPage({viewport});
+    const slideErrors=[];
+    page.on('pageerror',error=>slideErrors.push(error.message));
+    await page.goto(baseUrl+'/paper/diffusion-policy?tab=slides&slide=10',{waitUntil:'domcontentloaded'});
+    const stage=page.locator('.brief-slide-stage');
+    await stage.waitFor({state:'visible'});
+    // Wait until the deep-linked slide has rendered its math before checking the formula.
+    await stage.locator('.brief-formula').waitFor({state:'visible',timeout:12000});
+    await stage.locator('.katex').first().waitFor({state:'visible',timeout:12000});
+    assert.ok(await page.getByText(/Mathematical Intuition/i).first().isVisible(),'LaTeX/Intuition slide must exist');
+    assert.equal(new URL(page.url()).searchParams.get('slide'),'10');
+    assert.ok(await stage.locator('.katex').count()>0,'Formula rendered as KaTeX');
+
+    await page.getByRole('button',{name:'Slide tiếp theo'}).click();
+    assert.equal(new URL(page.url()).searchParams.get('slide'),'11','next button moves to evidence');
+    await page.keyboard.press('ArrowRight');
+    assert.equal(new URL(page.url()).searchParams.get('slide'),'12','right arrow advances');
+    await page.keyboard.press('Home');
+    assert.equal(new URL(page.url()).searchParams.get('slide'),'1','Home jumps to cover');
+    await page.getByRole('button',{name:'Xem tất cả slide'}).click();
+    const thumbnails=page.locator('.brief-slide-grid-menu button');
+    assert.equal(await thumbnails.count(),15,'Grid should contain fifteen thumbnails');
+    await thumbnails.nth(6).click();
+    assert.equal(new URL(page.url()).searchParams.get('slide'),'7','Grid selection updates deep link');
+    await page.getByRole('button',{name:'Bật tắt ghi chú thuyết trình'}).click();
+    assert.ok(await page.getByText('GHI CHÚ KHI TRÌNH BÀY').isVisible());
+    await page.getByRole('button',{name:'Bật tắt ghi chú thuyết trình'}).click();
+    const stageBox=await stage.boundingBox();
+    assert.ok(stageBox && stageBox.width<=viewport.width,'Slide canvas must fit the viewport');
+    const documentOverflow=await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
+    assert.ok(documentOverflow<=2,'Slide layout must not force horizontal page scrolling');
+    assert.deepEqual(slideErrors,[],`No runtime exceptions in slides at ${viewport.width}px`);
+    console.log(`PASS: HTML slides at ${viewport.width}x${viewport.height}: KaTeX, 15 slides, keys, grid, notes, deep links`);
+    await page.close();
+  }
+
 } finally {
   await browser.close();
 }

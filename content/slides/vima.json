@@ -1,0 +1,166 @@
+[
+  {
+    "type": "cover",
+    "title": "Điểm cốt lõi",
+    "lead": "Robot nhận nhiệm vụ qua prompt có cả text, hình và ví dụ thao tác, chứ không chỉ câu lệnh.",
+    "items": [
+      "Prompt là một chương trình đặc tả nhiệm vụ đa phương thức"
+    ],
+    "intuition": "Transformer cross-attend từ trạng thái thế giới vào text và object tokens của prompt."
+  },
+  {
+    "type": "problem",
+    "title": "Người dùng không luôn mô tả nhiệm vụ bằng một câu",
+    "lead": "Nhiều thao tác cần chỉ đối tượng bằng ảnh, ví dụ hoặc quan hệ không gian.",
+    "items": [
+      "Text-only instruction interface bỏ lỡ thông tin thị giác của prompt"
+    ],
+    "intuition": "Các policy riêng theo prompt format làm việc chuyển giao khó hơn."
+  },
+  {
+    "type": "contrast",
+    "title": "Text-only instruction interface bỏ lỡ thông tin thị giác của prompt",
+    "lead": "Các policy riêng theo prompt format làm việc chuyển giao khó hơn.",
+    "items": [
+      "Prompt là một chương trình đặc tả nhiệm vụ đa phương thức",
+      "Transformer cross-attend từ trạng thái thế giới vào text và object tokens của prompt."
+    ],
+    "intuition": "Transformer cross-attend từ trạng thái thế giới vào text và object tokens của prompt."
+  },
+  {
+    "type": "intuition",
+    "title": "Prompt là một chương trình đặc tả nhiệm vụ đa phương thức",
+    "lead": "Transformer cross-attend từ trạng thái thế giới vào text và object tokens của prompt.",
+    "items": [
+      "Robot nhận nhiệm vụ qua prompt có cả text, hình và ví dụ thao tác, chứ không chỉ câu lệnh."
+    ],
+    "intuition": "Transformer cross-attend từ trạng thái thế giới vào text và object tokens của prompt."
+  },
+  {
+    "type": "concepts",
+    "title": "Ba khái niệm để nắm",
+    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "items": [
+      {
+        "label": "Object-centric tokens",
+        "value": "Mô tả vật thể thay vì toàn ảnh không có cấu trúc."
+      },
+      {
+        "label": "Multimodal prompt",
+        "value": "Chỉ dẫn có thể trộn text, ảnh vật và ví dụ."
+      },
+      {
+        "label": "Generalization levels",
+        "value": "Tách đồ vật mới, tổ hợp mới và template nhiệm vụ mới."
+      }
+    ],
+    "intuition": "Prompt được mã hóa bằng text và visual object tokens."
+  },
+  {
+    "type": "pipeline",
+    "title": "Kiến trúc trong một sơ đồ",
+    "lead": "Robot nhận nhiệm vụ qua prompt có cả text, hình và ví dụ thao tác, chứ không chỉ câu lệnh.",
+    "items": [
+      "Text + ảnh prompt",
+      "Object encoder",
+      "Cross-attention policy",
+      "Pick/place actions"
+    ],
+    "intuition": "Đọc prompt đa phương thức và state hiện tại."
+  },
+  {
+    "type": "representation",
+    "title": "Mô hình biểu diễn cái gì?",
+    "lead": "Prompt được mã hóa bằng text và visual object tokens.",
+    "items": [
+      "Môi trường mô phỏng cung cấp biểu diễn đối tượng/quan hệ khá rõ.",
+      "Sức mạnh object-centric cũng là giả định làm dễ phần perception."
+    ],
+    "intuition": "Sức mạnh object-centric cũng là giả định làm dễ phần perception."
+  },
+  {
+    "type": "training",
+    "title": "Model học như thế nào?",
+    "lead": "VIMA-Bench gồm 17 nhóm nhiệm vụ và hơn 600 nghìn expert trajectories.",
+    "items": [
+      "Train policy trên nhiều tổ hợp prompt/action.",
+      "Scale dữ liệu và tham số đến khoảng 200M để kiểm tra xu hướng."
+    ],
+    "intuition": "Object-centric conditioning mang lại inductive bias hữu ích."
+  },
+  {
+    "type": "inference",
+    "title": "Một lần inference xảy ra ra sao?",
+    "lead": "Đọc prompt đa phương thức và state hiện tại.",
+    "items": [
+      "Chọn object, suy ra quan hệ trong prompt, dự đoán thao tác.",
+      "Đánh giá zero-shot bằng level held-out tăng dần độ khó."
+    ],
+    "intuition": "Đánh giá zero-shot bằng level held-out tăng dần độ khó."
+  },
+  {
+    "type": "equation",
+    "title": "Mathematical Intuition",
+    "lead": "Thay lệnh text đơn nhất bằng prompt kết hợp chữ và hình; action phụ thuộc cả hai.",
+    "equation": "\\pi_\\theta(a\\mid o,\\underbrace{p_{\\rm text},p_{\\rm vision}}_{\\rm prompt})",
+    "items": [
+      "Biểu thức mô tả cách đặt điều kiện, không phải claim về tối ưu."
+    ],
+    "intuition": "Thay lệnh text đơn nhất bằng prompt kết hợp chữ và hình; action phụ thuộc cả hai."
+  },
+  {
+    "type": "results",
+    "title": "Kết quả nói lên điều gì?",
+    "lead": "Ở một số so sánh báo cáo, tỷ lệ thành công cao hơn baseline tới 2,9 lần.",
+    "items": [
+      "Với mức dữ liệu ít hơn đáng kể, có so sánh hiệu năng cao hơn 2,7 lần.",
+      "Các level OOD khó nhất vẫn làm kết quả tụt mạnh."
+    ],
+    "intuition": "thế giới mô phỏng giàu cấu trúc không thay thế được contact dynamics và lỗi cảm biến ngoài đời."
+  },
+  {
+    "type": "ablation",
+    "title": "Ablation và bằng chứng",
+    "lead": "Object-centric conditioning mang lại inductive bias hữu ích.",
+    "items": [
+      "Nhiều dữ liệu và model lớn cải thiện cả các mức generalization khó."
+    ],
+    "intuition": "Với mức dữ liệu ít hơn đáng kể, có so sánh hiệu năng cao hơn 2,7 lần."
+  },
+  {
+    "type": "limits",
+    "title": "Hạn chế cần nói thẳng",
+    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "items": [
+      {
+        "label": "Tác giả / phạm vi",
+        "value": "Tác giả: perception dựa detector; benchmark chủ yếu mô phỏng với action primitive sạch."
+      },
+      {
+        "label": "Phê bình độc lập",
+        "value": "Phê bình: thế giới mô phỏng giàu cấu trúc không thay thế được contact dynamics và lỗi cảm biến ngoài đời."
+      }
+    ],
+    "intuition": "Môi trường mô phỏng cung cấp biểu diễn đối tượng/quan hệ khá rõ."
+  },
+  {
+    "type": "relations",
+    "title": "Bài này đứng ở đâu trong lĩnh vực?",
+    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "items": [
+      "LIBERO kiểm tra chuyển giao và học liên tục ở benchmark manipulation.",
+      "RT-2 mở rộng prompt/image semantics sang robot control."
+    ],
+    "intuition": "Prompt có thể là cấu trúc multimodal thay vì chỉ một chuỗi text."
+  },
+  {
+    "type": "closing",
+    "title": "Nếu chỉ nhớ ba điều",
+    "lead": "Prompt có thể là cấu trúc multimodal thay vì chỉ một chuỗi text.",
+    "items": [
+      "Dùng benchmark phân tầng OOD để đo đúng kiểu tổng quát hóa.",
+      "Đừng extrapolate object-centric simulation sang real robot không có perception ổn định."
+    ],
+    "intuition": "Robot nhận nhiệm vụ qua prompt có cả text, hình và ví dụ thao tác, chứ không chỉ câu lệnh."
+  }
+]

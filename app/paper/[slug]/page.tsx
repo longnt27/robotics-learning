@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { papers, getPaper } from "@/lib/papers";
 import { relations } from "@/lib/relations";
 import { getPaperChapter } from "@/lib/content";
+import { getResearchSlides } from "@/lib/slides";
 import { PaperReader } from "@/components/paper-reader";
 
 export function generateStaticParams() { return papers.map((paper) => ({slug: paper.slug})); }
@@ -18,6 +19,6 @@ export default async function PaperPage({params}: {params: Promise<{slug: string
   const {slug} = await params;
   const paper = getPaper(slug);
   if (!paper) notFound();
-  const chapter = await getPaperChapter(slug);
-  return <PaperReader paper={paper} chapter={chapter} relations={relations} />;
+  const [chapter, slides] = await Promise.all([getPaperChapter(slug), getResearchSlides(slug)]);
+  return <PaperReader paper={paper} chapter={chapter} relations={relations} slides={slides} />;
 }

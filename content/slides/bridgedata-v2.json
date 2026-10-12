@@ -1,0 +1,166 @@
+[
+  {
+    "type": "cover",
+    "title": "Điểm cốt lõi",
+    "lead": "Muốn generalization, dataset phải rộng về nhiệm vụ và môi trường, không chỉ nhiều episode.",
+    "items": [
+      "Đo và chủ động mở rộng coverage của phân phối robot"
+    ],
+    "intuition": "Dữ liệu nhiều môi trường và kỹ năng khiến policy phải học affordance thay vì nhớ nền."
+  },
+  {
+    "type": "problem",
+    "title": "Nhiều dataset robot chỉ phản ánh một phòng thí nghiệm",
+    "lead": "Thu thập nhiều lần cùng thao tác/cùng góc camera tạo ảo giác về scale.",
+    "items": [
+      "Đếm trajectory không đủ để nói về chất lượng dữ liệu"
+    ],
+    "intuition": "Mẫu tăng nhưng vật thể, thao tác và camera vẫn không đổi thì OOD transfer vẫn yếu."
+  },
+  {
+    "type": "contrast",
+    "title": "Đếm trajectory không đủ để nói về chất lượng dữ liệu",
+    "lead": "Mẫu tăng nhưng vật thể, thao tác và camera vẫn không đổi thì OOD transfer vẫn yếu.",
+    "items": [
+      "Đo và chủ động mở rộng coverage của phân phối robot",
+      "Dữ liệu nhiều môi trường và kỹ năng khiến policy phải học affordance thay vì nhớ nền."
+    ],
+    "intuition": "Dữ liệu nhiều môi trường và kỹ năng khiến policy phải học affordance thay vì nhớ nền."
+  },
+  {
+    "type": "intuition",
+    "title": "Đo và chủ động mở rộng coverage của phân phối robot",
+    "lead": "Dữ liệu nhiều môi trường và kỹ năng khiến policy phải học affordance thay vì nhớ nền.",
+    "items": [
+      "Muốn generalization, dataset phải rộng về nhiệm vụ và môi trường, không chỉ nhiều episode."
+    ],
+    "intuition": "Dữ liệu nhiều môi trường và kỹ năng khiến policy phải học affordance thay vì nhớ nền."
+  },
+  {
+    "type": "concepts",
+    "title": "Ba khái niệm để nắm",
+    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "items": [
+      {
+        "label": "Environment diversity",
+        "value": "Số loại background, bàn, bố cục, góc camera."
+      },
+      {
+        "label": "Skill diversity",
+        "value": "Số thao tác và kiểu tương tác khác nhau."
+      },
+      {
+        "label": "Goal-conditioned BC",
+        "value": "Hành động điều kiện theo ảnh mục tiêu hoặc ngôn ngữ."
+      }
+    ],
+    "intuition": "RGB, state, actions và goal image hoặc language."
+  },
+  {
+    "type": "pipeline",
+    "title": "Kiến trúc trong một sơ đồ",
+    "lead": "Muốn generalization, dataset phải rộng về nhiệm vụ và môi trường, không chỉ nhiều episode.",
+    "items": [
+      "24 environments",
+      "60.096 trajectories",
+      "Hỗn hợp 6 methods",
+      "Seen / unseen rollouts"
+    ],
+    "intuition": "Policy quan sát cảnh và mục tiêu trước khi sinh thao tác đã học từ demonstrations."
+  },
+  {
+    "type": "representation",
+    "title": "Mô hình biểu diễn cái gì?",
+    "lead": "RGB, state, actions và goal image hoặc language.",
+    "items": [
+      "13 loại kỹ năng trong demonstrations chính; thêm randomized pick/place.",
+      "Dataset một họ phần cứng không đồng nghĩa cross-embodiment."
+    ],
+    "intuition": "Dataset một họ phần cứng không đồng nghĩa cross-embodiment."
+  },
+  {
+    "type": "training",
+    "title": "Model học như thế nào?",
+    "lead": "50.365 expert demonstrations + 9.731 randomized trajectories.",
+    "items": [
+      "Nhiều baseline gồm BC, goal-conditioned và diffusion-style policies.",
+      "Ablation data size, model size và skill diversity."
+    ],
+    "intuition": "Giữ số mẫu gần tương đương, thay skill diversity."
+  },
+  {
+    "type": "inference",
+    "title": "Một lần inference xảy ra ra sao?",
+    "lead": "Policy quan sát cảnh và mục tiêu trước khi sinh thao tác đã học từ demonstrations.",
+    "items": [
+      "Sinh thao tác learned từ demonstrations.",
+      "Đánh giá transfer qua scenes/institutions không hoàn toàn trùng training."
+    ],
+    "intuition": "Đánh giá transfer qua scenes/institutions không hoàn toàn trùng training."
+  },
+  {
+    "type": "equation",
+    "title": "Mathematical Intuition",
+    "lead": "Nhiều episode không tự tạo dữ liệu đa dạng: hai dataset cùng số mẫu có thể có coverage rất khác.",
+    "equation": "\\operatorname{Coverage}(\\mathcal D)\\ne |\\mathcal D|",
+    "items": [
+      "Đây là shorthand mang tính trực quan, không phải metric do bài báo định nghĩa."
+    ],
+    "intuition": "Nhiều episode không tự tạo dữ liệu đa dạng: hai dataset cùng số mẫu có thể có coverage rất khác."
+  },
+  {
+    "type": "results",
+    "title": "Kết quả nói lên điều gì?",
+    "lead": "60.096 trajectories tại 24 môi trường, hơn 100 vật thể.",
+    "items": [
+      "Policy từ nhiều họ thuật toán đều hưởng lợi từ dữ liệu.",
+      "Khi số mẫu gần nhau, tập có nhiều loại kỹ năng thường generalize tốt hơn."
+    ],
+    "intuition": "một dataset nhiều positive demos vẫn thiếu failure recovery và dynamic contact."
+  },
+  {
+    "type": "ablation",
+    "title": "Ablation và bằng chứng",
+    "lead": "Giữ số mẫu gần tương đương, thay skill diversity.",
+    "items": [
+      "Tăng model/dataset size cũng có lợi nhưng không thay thế coverage."
+    ],
+    "intuition": "Policy từ nhiều họ thuật toán đều hưởng lợi từ dữ liệu."
+  },
+  {
+    "type": "limits",
+    "title": "Hạn chế cần nói thẳng",
+    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "items": [
+      {
+        "label": "Tác giả / phạm vi",
+        "value": "Tác giả: chủ yếu tabletop và một robot family, low-force actions."
+      },
+      {
+        "label": "Phê bình độc lập",
+        "value": "Phê bình: một dataset nhiều positive demos vẫn thiếu failure recovery và dynamic contact."
+      }
+    ],
+    "intuition": "13 loại kỹ năng trong demonstrations chính; thêm randomized pick/place."
+  },
+  {
+    "type": "relations",
+    "title": "Bài này đứng ở đâu trong lĩnh vực?",
+    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "items": [
+      "DROID tăng mạnh diversity của môi trường thật.",
+      "Open X-Embodiment mở rộng thêm chiều khác nhau giữa các robot."
+    ],
+    "intuition": "Thiết kế kế hoạch thu data theo coverage, không theo episode quota."
+  },
+  {
+    "type": "closing",
+    "title": "Nếu chỉ nhớ ba điều",
+    "lead": "Thiết kế kế hoạch thu data theo coverage, không theo episode quota.",
+    "items": [
+      "Cần held-out scene và skill split khi đánh giá.",
+      "Không gọi chuyển giao cùng phần cứng là cross-embodiment."
+    ],
+    "intuition": "Muốn generalization, dataset phải rộng về nhiệm vụ và môi trường, không chỉ nhiều episode."
+  }
+]

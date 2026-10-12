@@ -28,3 +28,23 @@ test('all Vietnamese UI text uses self-hosted Montserrat latin and vietnamese su
   assert.match(styles, /font-family:\s*var\(--font-montserrat\)/);
   assert.doesNotMatch(styles, /DM Sans|Space Grotesk|fonts\.googleapis\.com/);
 });
+
+
+test('visual design uses restrained flat surfaces instead of gradients on every panel', () => {
+  const briefing = fs.readFileSync(path.join(root, 'app/briefing.css'), 'utf8');
+  const count = (s) => [...s.matchAll(/(?:linear|radial|conic)-gradient\(/g)].length;
+  assert.ok(count(styles) <= 6, `Main site uses ${count(styles)} gradients; expected <= 6`);
+  assert.ok(count(briefing) <= 5, `Slides use ${count(briefing)} gradients; expected <= 5`);
+  for (const selector of ['.site-shell', '.timeline-card', '.graph-node', '.paper-hero']) {
+    assert.ok(styles.includes(selector), `Missing core surface ${selector}`);
+  }
+  assert.match(briefing, /\.brief-slide-stage\{[^}]*background:#[0-9a-f]+/i);
+});
+
+test('equations use direct KaTeX rendering with safe defaults', () => {
+  const slideUI=fs.readFileSync(path.join(root,'components/slide-deck.tsx'),'utf8');
+  assert.match(slideUI, /katex\.renderToString\(/);
+  assert.match(slideUI, /trust:false/);
+  assert.match(slideUI, /throwOnError:false/);
+  assert.doesNotMatch(slideUI, /<(?:radial|linear)Gradient\b/);
+});

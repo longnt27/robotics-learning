@@ -1,0 +1,166 @@
+[
+  {
+    "type": "cover",
+    "title": "Điểm cốt lõi",
+    "lead": "Diffusion Transformer quy mô lớn sinh action liên tục với điều kiện thị giác–ngôn ngữ đa robot.",
+    "items": [
+      "Scale action generative modeling bằng Transformer"
+    ],
+    "intuition": "Conditioned diffusion sinh action chunk ở không gian liên tục, tận dụng visual-language knowledge."
+  },
+  {
+    "type": "problem",
+    "title": "Action tokens không biểu diễn tốt mọi chuyển động liên tục",
+    "lead": "Các embodiment khác nhau và high-dimensional actions khó ép vào một scheme autoregressive thô.",
+    "items": [
+      "Discretized autoregression chịu quantization và latency"
+    ],
+    "intuition": "Diffusion nhỏ hoặc robot-specific policy thiếu khả năng scale đa embodiment."
+  },
+  {
+    "type": "contrast",
+    "title": "Discretized autoregression chịu quantization và latency",
+    "lead": "Diffusion nhỏ hoặc robot-specific policy thiếu khả năng scale đa embodiment.",
+    "items": [
+      "Scale action generative modeling bằng Transformer",
+      "Conditioned diffusion sinh action chunk ở không gian liên tục, tận dụng visual-language knowledge."
+    ],
+    "intuition": "Conditioned diffusion sinh action chunk ở không gian liên tục, tận dụng visual-language knowledge."
+  },
+  {
+    "type": "intuition",
+    "title": "Scale action generative modeling bằng Transformer",
+    "lead": "Conditioned diffusion sinh action chunk ở không gian liên tục, tận dụng visual-language knowledge.",
+    "items": [
+      "Diffusion Transformer quy mô lớn sinh action liên tục với điều kiện thị giác–ngôn ngữ đa robot."
+    ],
+    "intuition": "Conditioned diffusion sinh action chunk ở không gian liên tục, tận dụng visual-language knowledge."
+  },
+  {
+    "type": "concepts",
+    "title": "Ba khái niệm để nắm",
+    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "items": [
+      {
+        "label": "Diffusion Transformer",
+        "value": "Transformer học hướng loại nhiễu trên action sequence."
+      },
+      {
+        "label": "Multimodal condition",
+        "value": "Ảnh + instruction tạo context sinh chuyển động."
+      },
+      {
+        "label": "Multi-robot pretraining",
+        "value": "Tận dụng biểu diễn chung nhưng có mask/schema riêng."
+      }
+    ],
+    "intuition": "Action chunk giữ giá trị liên tục thay vì bins từng chiều."
+  },
+  {
+    "type": "pipeline",
+    "title": "Kiến trúc trong một sơ đồ",
+    "lead": "Diffusion Transformer quy mô lớn sinh action liên tục với điều kiện thị giác–ngôn ngữ đa robot.",
+    "items": [
+      "Robot datasets hỗn hợp",
+      "Vision-language features",
+      "RDT-1B diffusion Transformer",
+      "Action chunk liên tục"
+    ],
+    "intuition": "Quan sát và instruction đi qua encoders."
+  },
+  {
+    "type": "representation",
+    "title": "Mô hình biểu diễn cái gì?",
+    "lead": "Action chunk giữ giá trị liên tục thay vì bins từng chiều.",
+    "items": [
+      "Dữ liệu nhiều action semantics đòi chuẩn hóa, mask và alignment.",
+      "Representations thống nhất ở shape chưa đảm bảo các DoF giống nghĩa."
+    ],
+    "intuition": "Representations thống nhất ở shape chưa đảm bảo các DoF giống nghĩa."
+  },
+  {
+    "type": "training",
+    "title": "Model học như thế nào?",
+    "lead": "Pretraining ở quy mô mô hình khoảng 1B parameters.",
+    "items": [
+      "Training denoising/flow-style loss trên robot actions dưới điều kiện multimodal.",
+      "Stage data adaptation cho robot đích."
+    ],
+    "intuition": "Phân biệt đóng góp của pretraining corpus và diffusion Transformer."
+  },
+  {
+    "type": "inference",
+    "title": "Một lần inference xảy ra ra sao?",
+    "lead": "Quan sát và instruction đi qua encoders.",
+    "items": [
+      "Diffusion Transformer iterative denoise action chunk.",
+      "Chunk điều khiển robot; inference cost tăng theo số denoising steps."
+    ],
+    "intuition": "Chunk điều khiển robot; inference cost tăng theo số denoising steps."
+  },
+  {
+    "type": "equation",
+    "title": "Mathematical Intuition",
+    "lead": "Mạng học cách nhận ra nhiễu trong action đang bị xáo trộn theo observation và instruction.",
+    "equation": "\\epsilon_\\theta(A_k, k\\mid o,\\ell)",
+    "items": [
+      "Ký hiệu khái niệm của denoising, không đóng vai trò thay bảng loss trong paper."
+    ],
+    "intuition": "Mạng học cách nhận ra nhiễu trong action đang bị xáo trộn theo observation và instruction."
+  },
+  {
+    "type": "results",
+    "title": "Kết quả nói lên điều gì?",
+    "lead": "Bài báo báo lợi ích khi mở rộng mô hình/dữ liệu cho policy sinh action.",
+    "items": [
+      "Đa nhiệm và multi-robot pretraining tạo prior hữu dụng cho downstream manipulation.",
+      "Lợi thế cần so ở cùng data/compute budget để không nhầm hiệu quả kiến trúc với scale."
+    ],
+    "intuition": "1B active params và iterative sampling vẫn là thách thức cho thiết bị edge."
+  },
+  {
+    "type": "ablation",
+    "title": "Ablation và bằng chứng",
+    "lead": "Phân biệt đóng góp của pretraining corpus và diffusion Transformer.",
+    "items": [
+      "Đánh giá latency theo số denoising steps và horizon."
+    ],
+    "intuition": "Đa nhiệm và multi-robot pretraining tạo prior hữu dụng cho downstream manipulation."
+  },
+  {
+    "type": "limits",
+    "title": "Hạn chế cần nói thẳng",
+    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "items": [
+      {
+        "label": "Tác giả / phạm vi",
+        "value": "Tác giả: cần nhiều GPU/dữ liệu, phụ thuộc action conventions nhất quán."
+      },
+      {
+        "label": "Phê bình độc lập",
+        "value": "Phê bình: 1B active params và iterative sampling vẫn là thách thức cho thiết bị edge."
+      }
+    ],
+    "intuition": "Dữ liệu nhiều action semantics đòi chuẩn hóa, mask và alignment."
+  },
+  {
+    "type": "relations",
+    "title": "Bài này đứng ở đâu trong lĩnh vực?",
+    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "items": [
+      "Diffusion Policy cho công thức nền về action generation.",
+      "π0.5 và GR00T N1 triển khai flow/action expert với cấu trúc khác."
+    ],
+    "intuition": "Continuous generative action giúp tránh lượng tử hóa thô."
+  },
+  {
+    "type": "closing",
+    "title": "Nếu chỉ nhớ ba điều",
+    "lead": "Continuous generative action giúp tránh lượng tử hóa thô.",
+    "items": [
+      "Dùng RDT-1B để nghiên cứu model/data scaling cho action policies.",
+      "Trên robot thật, đo đồng thời success và wall-clock latency."
+    ],
+    "intuition": "Diffusion Transformer quy mô lớn sinh action liên tục với điều kiện thị giác–ngôn ngữ đa robot."
+  }
+]

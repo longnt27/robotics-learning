@@ -9,7 +9,9 @@
     "check:content": "node tests/content.test.mjs",
     "typecheck": "tsc --noEmit",
     "test:ui": "node --test tests/ui-regressions.test.mjs",
-    "test:e2e": "node tests/browser.test.mjs"
+    "test:e2e": "node tests/browser.test.mjs",
+    "test:resources": "node --test tests/resources.test.mjs",
+    "test:slides": "node --test tests/slides.test.mjs"
   },
   "dependencies": {
     "next": "15.5.18",
@@ -33,7 +35,8 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@types/three": "^0.179.0",
-    "playwright": "1.55.0"
+    "playwright": "1.55.0",
+    "@types/katex": "^0.16.7"
   },
   "overrides": {
     "motion-dom": "12.40.0"

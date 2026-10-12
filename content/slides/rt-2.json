@@ -1,0 +1,166 @@
+[
+  {
+    "type": "cover",
+    "title": "Điểm cốt lõi",
+    "lead": "Tri thức thị giác–ngôn ngữ học trên web có thể chuyển thành lựa chọn action của robot.",
+    "items": [
+      "Đối xử action như một dạng token trong VLM"
+    ],
+    "intuition": "Co-training VLM tasks và robotics tasks để kiến thức web sống trong policy điều khiển."
+  },
+  {
+    "type": "problem",
+    "title": "Robot demo dạy được kỹ năng nhưng nghèo tri thức ngữ nghĩa",
+    "lead": "Một policy chỉ nhìn robot dữ liệu khó hiểu những loại vật thể và mệnh lệnh chưa từng được annotate.",
+    "items": [
+      "RT-1 biết thao tác trong các nhiệm vụ đã huấn luyện"
+    ],
+    "intuition": "Nhưng knowledge về vật thể/cấu trúc thế giới kém đa dạng hơn vốn học từ web của VLM."
+  },
+  {
+    "type": "contrast",
+    "title": "RT-1 biết thao tác trong các nhiệm vụ đã huấn luyện",
+    "lead": "Nhưng knowledge về vật thể/cấu trúc thế giới kém đa dạng hơn vốn học từ web của VLM.",
+    "items": [
+      "Đối xử action như một dạng token trong VLM",
+      "Co-training VLM tasks và robotics tasks để kiến thức web sống trong policy điều khiển."
+    ],
+    "intuition": "Co-training VLM tasks và robotics tasks để kiến thức web sống trong policy điều khiển."
+  },
+  {
+    "type": "intuition",
+    "title": "Đối xử action như một dạng token trong VLM",
+    "lead": "Co-training VLM tasks và robotics tasks để kiến thức web sống trong policy điều khiển.",
+    "items": [
+      "Tri thức thị giác–ngôn ngữ học trên web có thể chuyển thành lựa chọn action của robot."
+    ],
+    "intuition": "Co-training VLM tasks và robotics tasks để kiến thức web sống trong policy điều khiển."
+  },
+  {
+    "type": "concepts",
+    "title": "Ba khái niệm để nắm",
+    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "items": [
+      {
+        "label": "VLM",
+        "value": "Mô hình thị giác và ngôn ngữ đã học tri thức web."
+      },
+      {
+        "label": "Action tokenization",
+        "value": "Các chiều action được lượng tử hóa thành token."
+      },
+      {
+        "label": "Co-finetuning",
+        "value": "Giữ lẫn data web và robot để giảm forgetting."
+      }
+    ],
+    "intuition": "Action liên tục được discretize theo dimension rồi token hóa."
+  },
+  {
+    "type": "pipeline",
+    "title": "Kiến trúc trong một sơ đồ",
+    "lead": "Tri thức thị giác–ngôn ngữ học trên web có thể chuyển thành lựa chọn action của robot.",
+    "items": [
+      "Web VLM + robot demos",
+      "Co-finetune chung",
+      "Action tokens",
+      "Decode → robot movement"
+    ],
+    "intuition": "Nhận ảnh robot và một lệnh ngôn ngữ."
+  },
+  {
+    "type": "representation",
+    "title": "Mô hình biểu diễn cái gì?",
+    "lead": "Action liên tục được discretize theo dimension rồi token hóa.",
+    "items": [
+      "Cùng decoder dự đoán từ ngữ và action sequence.",
+      "Cách này tương thích autoregressive nhưng có quantization/latency trade-off."
+    ],
+    "intuition": "Cách này tương thích autoregressive nhưng có quantization/latency trade-off."
+  },
+  {
+    "type": "training",
+    "title": "Model học như thế nào?",
+    "lead": "Trộn robot demonstrations với vision-language web tasks.",
+    "items": [
+      "Fine-tune VLM thành VLA trong cùng interface token.",
+      "Giữ web tasks giúp tránh chỉ học lệnh vận động rồi quên kiến thức."
+    ],
+    "intuition": "Co-finetuning khác fine-tune robot-only: dữ liệu web giúp giữ priors."
+  },
+  {
+    "type": "inference",
+    "title": "Một lần inference xảy ra ra sao?",
+    "lead": "Nhận ảnh robot và một lệnh ngôn ngữ.",
+    "items": [
+      "Sử dụng semantic knowledge từ pretraining để chọn mục tiêu.",
+      "Sinh action tokens để executor điều khiển thao tác đã học."
+    ],
+    "intuition": "Sinh action tokens để executor điều khiển thao tác đã học."
+  },
+  {
+    "type": "equation",
+    "title": "Mathematical Intuition",
+    "lead": "VLM dự đoán chuỗi action như một chuỗi token được điều kiện hóa bởi ảnh I và lệnh ℓ.",
+    "equation": "p_\\theta(a_{1:T}\\mid I,\\ell)",
+    "items": [
+      "Biểu thức mô tả khung tự hồi quy, không khẳng định model học được motor skills từ web."
+    ],
+    "intuition": "VLM dự đoán chuỗi action như một chuỗi token được điều kiện hóa bởi ảnh I và lệnh ℓ."
+  },
+  {
+    "type": "results",
+    "title": "Kết quả nói lên điều gì?",
+    "lead": "Generalization với vật thể hoặc lệnh mới mạnh hơn các baseline robot-only.",
+    "items": [
+      "Một số nhóm emergent semantic reasoning được báo cáo cải thiện trên 3 lần RT-1.",
+      "Kết quả trên các nhóm seen tasks vẫn cạnh tranh với RT-1."
+    ],
+    "intuition": "benchmark semantic tương đối nhỏ và mô hình/dữ liệu không thật sự reproducible công khai."
+  },
+  {
+    "type": "ablation",
+    "title": "Ablation và bằng chứng",
+    "lead": "Co-finetuning khác fine-tune robot-only: dữ liệu web giúp giữ priors.",
+    "items": [
+      "Semantic gain không chứng minh học được động tác vật lý mới không có trong robot demos."
+    ],
+    "intuition": "Một số nhóm emergent semantic reasoning được báo cáo cải thiện trên 3 lần RT-1."
+  },
+  {
+    "type": "limits",
+    "title": "Hạn chế cần nói thẳng",
+    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "items": [
+      {
+        "label": "Tác giả / phạm vi",
+        "value": "Tác giả: inference VLM lớn tốn compute; web knowledge không tự dạy kỹ năng cơ khí."
+      },
+      {
+        "label": "Phê bình độc lập",
+        "value": "Phê bình: benchmark semantic tương đối nhỏ và mô hình/dữ liệu không thật sự reproducible công khai."
+      }
+    ],
+    "intuition": "Cùng decoder dự đoán từ ngữ và action sequence."
+  },
+  {
+    "type": "relations",
+    "title": "Bài này đứng ở đâu trong lĩnh vực?",
+    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "items": [
+      "PaLM-E giải thích sensor grounding trong ngôn ngữ model.",
+      "OpenVLA và Qwen-VLA tiếp tục nghiên cứu open/flow VLA và action representation."
+    ],
+    "intuition": "VLA có thể tận dụng tri thức web để làm rõ “làm gì với cái gì”."
+  },
+  {
+    "type": "closing",
+    "title": "Nếu chỉ nhớ ba điều",
+    "lead": "VLA có thể tận dụng tri thức web để làm rõ “làm gì với cái gì”.",
+    "items": [
+      "Dùng chung web/robot data khi fine-tune để kiểm soát forgetting.",
+      "Đừng nhầm semantic reasoning với thao tác vật lý thành thạo."
+    ],
+    "intuition": "Tri thức thị giác–ngôn ngữ học trên web có thể chuyển thành lựa chọn action của robot."
+  }
+]
