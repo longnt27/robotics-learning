@@ -25,7 +25,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.cache/huggingface
-          key: en-vi-opus-mt-caption-v1
+          key: envit5-caption-translation-model-v1
       - name: Translate all extracted PDF figure captions to Vietnamese
         run: python scripts/translate_paper_captions.py
       - name: Insert extra figures next to relevant paper chapters
@@ -44,7 +44,7 @@ jobs:
             body=Path('content/papers',slug+'.md').read_text()
             for f in figs:
               assert len(f['caption_vi'])>=12, (slug,f['number'])
-              assert f['caption_sha256'] and 'opus-mt-en-vi' in f['translation_method']
+              assert f['caption_sha256'] and 'envit5-translation' in f['translation_method']
               assert f['image'] in body, (slug,f['image'])
               assert body.count(']('+f['image']+')')==1, (slug,f['number'])
           print('FIGURES',counts,'TOTAL',sum(counts.values()),flush=True)
