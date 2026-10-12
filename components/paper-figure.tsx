@@ -76,7 +76,7 @@ export function PaperFigure({paperSlug,src,alt}:{
           <img src={src} alt={alt || title} decoding="async"/>
         </div>
         <div className="paper-figure-lightbox-caption">
-          <span className="paper-figure-caption-heading">BẢN DỊCH CAPTION · TIẾNG VIỆT</span>
+          <span className="paper-figure-caption-heading">BẢN DỊCH THAM KHẢO · TIẾNG VIỆT</span>
           {captionVi && <p lang="vi" className="paper-caption-vietnamese">{captionVi}</p>}
           <span className="paper-caption-english-label">NGUYÊN VĂN TIẾNG ANH</span>
           <p lang="en">{caption}</p>
@@ -98,7 +98,7 @@ export function PaperFigure({paperSlug,src,alt}:{
         <span className="paper-figure-zoom-label"><Maximize2 size={16}/> PHÓNG TO</span>
       </button>
       <span className="paper-source-figcaption">
-        <span className="paper-figure-caption-heading">GIẢI THÍCH HÌNH (TIẾNG VIỆT)</span>
+        <span className="paper-figure-caption-heading">BẢN DỊCH THAM KHẢO · TIẾNG VIỆT</span>
         {captionVi && <span className="paper-figure-caption-text paper-caption-vietnamese" lang="vi">{captionVi}</span>}
         <span className="paper-caption-english-label">CAPTION GỐC · ENGLISH</span>
         <span className="paper-figure-caption-text" lang="en">{caption}</span>

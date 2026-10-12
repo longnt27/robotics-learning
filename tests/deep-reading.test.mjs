@@ -39,6 +39,7 @@ test("all twenty-two scientific chapters contain at least five times the prior e
   assert.equal(Object.keys(baselines).length,22);
   assert.deepEqual(Object.keys(figures).sort(),Object.keys(baselines).sort());
   assert.deepEqual(Object.keys(guides).sort(),Object.keys(baselines).sort());
+  assert.ok(Object.values(figures).some(list=>list.length>2), "Figure extraction is still artificially capped at two");
   for(const [slug,previousWords] of Object.entries(baselines)){
     const content=fs.readFileSync(path.join(root,"content/papers",slug+".md"),"utf8");
     const current=countWords(content);
