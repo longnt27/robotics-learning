@@ -6,7 +6,11 @@
     "items": [
       "Prompt là một chương trình đặc tả nhiệm vụ đa phương thức"
     ],
-    "intuition": "Transformer cross-attend từ trạng thái thế giới vào text và object tokens của prompt."
+    "intuition": "Transformer cross-attend từ trạng thái thế giới vào text và object tokens của prompt.",
+    "detail": {
+      "label": "BỐI CẢNH NGHIÊN CỨU",
+      "text": "Một robot thực tế không phải lúc nào cũng nhận nhiệm vụ dưới một string cố định. User có thể đưa text, ảnh mục tiêu, ảnh vật thể, hoặc một demonstration làm ví dụ."
+    }
   },
   {
     "type": "problem",
@@ -15,7 +19,11 @@
     "items": [
       "Text-only instruction interface bỏ lỡ thông tin thị giác của prompt"
     ],
-    "intuition": "Các policy riêng theo prompt format làm việc chuyển giao khó hơn."
+    "intuition": "Các policy riêng theo prompt format làm việc chuyển giao khó hơn.",
+    "detail": {
+      "label": "NGUYÊN NHÂN CỐT LÕI",
+      "text": "User có thể đưa text, ảnh mục tiêu, ảnh vật thể, hoặc một demonstration làm ví dụ. Những policy cũ thường xây interface riêng cho từng loại conditioning, nên rất khó có một mô hình chung và khó đo khả năng khái quát một cách có hệ thống."
+    }
   },
   {
     "type": "contrast",
@@ -25,7 +33,11 @@
       "Prompt là một chương trình đặc tả nhiệm vụ đa phương thức",
       "Transformer cross-attend từ trạng thái thế giới vào text và object tokens của prompt."
     ],
-    "intuition": "Transformer cross-attend từ trạng thái thế giới vào text và object tokens của prompt."
+    "intuition": "Transformer cross-attend từ trạng thái thế giới vào text và object tokens của prompt.",
+    "detail": {
+      "label": "VÌ SAO CẦN THAY ĐỔI",
+      "text": "Prompt có thể chứa text lẫn token thị giác. Kiến trúc dùng đã pretrain text encoder, object-centric token thị giác và Transformer để cross-attend vào prompt rồi autoregressively sinh action."
+    }
   },
   {
     "type": "intuition",
@@ -34,7 +46,11 @@
     "items": [
       "Robot nhận nhiệm vụ qua prompt có cả text, hình và ví dụ thao tác, chứ không chỉ câu lệnh."
     ],
-    "intuition": "Transformer cross-attend từ trạng thái thế giới vào text và object tokens của prompt."
+    "intuition": "Transformer cross-attend từ trạng thái thế giới vào text và object tokens của prompt.",
+    "detail": {
+      "label": "GIẢI THÍCH CƠ CHẾ",
+      "text": "Kiến trúc dùng đã pretrain text encoder, object-centric token thị giác và Transformer để cross-attend vào prompt rồi autoregressively sinh action."
+    }
   },
   {
     "type": "concepts",
@@ -54,7 +70,11 @@
         "value": "Tách đồ vật mới, tổ hợp mới và template nhiệm vụ mới."
       }
     ],
-    "intuition": "Prompt được mã hóa bằng text và visual object tokens."
+    "intuition": "Prompt được mã hóa bằng text và visual object tokens.",
+    "detail": {
+      "label": "NỀN TẢNG KỸ THUẬT",
+      "text": "Object-centric tokens đưa một inductive bias mạnh: bài toán từ toàn ảnh chuyển thành tập vật thể được nhận diện/segment sẵn."
+    }
   },
   {
     "type": "pipeline",
@@ -66,37 +86,71 @@
       "Cross-attention policy",
       "Pick/place actions"
     ],
-    "intuition": "Đọc prompt đa phương thức và state hiện tại."
+    "intuition": "Đọc prompt đa phương thức và state hiện tại.",
+    "detail": {
+      "label": "ĐIỂM NHẤN TRIỂN KHAI",
+      "text": "Một điểm quan trọng là benchmark cố tách nhiều kiểu OOD: novel placement, vật thể mới combination, novel nhiệm vụ composition và level khó nhất là nhiệm vụ templates mới."
+    }
   },
   {
     "type": "representation",
     "title": "Mô hình biểu diễn cái gì?",
     "lead": "Prompt được mã hóa bằng text và visual object tokens.",
     "items": [
-      "Môi trường mô phỏng cung cấp biểu diễn đối tượng/quan hệ khá rõ.",
-      "Sức mạnh object-centric cũng là giả định làm dễ phần perception."
+      {
+        "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
+        "value": "Môi trường mô phỏng cung cấp biểu diễn đối tượng/quan hệ khá rõ."
+      },
+      {
+        "label": "ĐÁNH ĐỔI KỸ THUẬT",
+        "value": "Sức mạnh object-centric cũng là giả định làm dễ phần perception."
+      }
     ],
-    "intuition": "Sức mạnh object-centric cũng là giả định làm dễ phần perception."
+    "intuition": "Sức mạnh object-centric cũng là giả định làm dễ phần perception.",
+    "detail": {
+      "label": "CHI TIẾT BIỂU DIỄN",
+      "text": "Mô hình được scale từ cỡ nhỏ đến khoảng 200M parameters để xem hiệu năng có obey scaling trend không."
+    }
   },
   {
     "type": "training",
     "title": "Model học như thế nào?",
     "lead": "VIMA-Bench gồm 17 nhóm nhiệm vụ và hơn 600 nghìn expert trajectories.",
     "items": [
-      "Train policy trên nhiều tổ hợp prompt/action.",
-      "Scale dữ liệu và tham số đến khoảng 200M để kiểm tra xu hướng."
+      {
+        "label": "MỤC TIÊU HỌC",
+        "value": "Train policy trên nhiều tổ hợp prompt/action."
+      },
+      {
+        "label": "DỮ LIỆU / QUY TRÌNH",
+        "value": "Scale dữ liệu và tham số đến khoảng 200M để kiểm tra xu hướng."
+      }
     ],
-    "intuition": "Object-centric conditioning mang lại inductive bias hữu ích."
+    "intuition": "Object-centric conditioning mang lại inductive bias hữu ích.",
+    "detail": {
+      "label": "CÁCH HUẤN LUYỆN",
+      "text": "Bài báo giới thiệu VIMA-Bench, gồm 17 nhóm nhiệm vụ, hơn 600 nghìn expert các quỹ đạo và nhiều level khả năng khái quát ngày càng khó."
+    }
   },
   {
     "type": "inference",
     "title": "Một lần inference xảy ra ra sao?",
     "lead": "Đọc prompt đa phương thức và state hiện tại.",
     "items": [
-      "Chọn object, suy ra quan hệ trong prompt, dự đoán thao tác.",
-      "Đánh giá zero-shot bằng level held-out tăng dần độ khó."
+      {
+        "label": "XỬ LÝ ĐẦU VÀO",
+        "value": "Chọn object, suy ra quan hệ trong prompt, dự đoán thao tác."
+      },
+      {
+        "label": "TẠO HÀNH ĐỘNG",
+        "value": "Đánh giá zero-shot bằng level held-out tăng dần độ khó."
+      }
     ],
-    "intuition": "Đánh giá zero-shot bằng level held-out tăng dần độ khó."
+    "intuition": "Đánh giá zero-shot bằng level held-out tăng dần độ khó.",
+    "detail": {
+      "label": "DIỄN BIẾN THỰC THI",
+      "text": "Lúc đánh giá, thay cốc xanh bằng vật mới hoặc đổi quan hệ không gian để đo prompt khả năng khái quát."
+    }
   },
   {
     "type": "equation",
@@ -106,26 +160,47 @@
     "items": [
       "Biểu thức mô tả cách đặt điều kiện, không phải claim về tối ưu."
     ],
-    "intuition": "Thay lệnh text đơn nhất bằng prompt kết hợp chữ và hình; action phụ thuộc cả hai."
+    "intuition": "Thay lệnh text đơn nhất bằng prompt kết hợp chữ và hình; action phụ thuộc cả hai.",
+    "detail": {
+      "label": "Ý NGHĨA CÔNG THỨC",
+      "text": "Trong VIMA, prompt là đặc tả của nhiệm vụ, không chỉ sentence. Nó có thể gồm hình ảnh của mục tiêu và vật thể tham chiếu; những thành phần này cần fusion với quan sát hiện tại."
+    }
   },
   {
     "type": "results",
     "title": "Kết quả nói lên điều gì?",
     "lead": "Ở một số so sánh báo cáo, tỷ lệ thành công cao hơn baseline tới 2,9 lần.",
     "items": [
-      "Với mức dữ liệu ít hơn đáng kể, có so sánh hiệu năng cao hơn 2,7 lần.",
-      "Các level OOD khó nhất vẫn làm kết quả tụt mạnh."
+      {
+        "label": "PHÁT HIỆN QUAN TRỌNG",
+        "value": "Với mức dữ liệu ít hơn đáng kể, có so sánh hiệu năng cao hơn 2,7 lần."
+      },
+      {
+        "label": "CÁCH DIỄN GIẢI",
+        "value": "Các level OOD khó nhất vẫn làm kết quả tụt mạnh."
+      }
     ],
-    "intuition": "thế giới mô phỏng giàu cấu trúc không thay thế được contact dynamics và lỗi cảm biến ngoài đời."
+    "intuition": "thế giới mô phỏng giàu cấu trúc không thay thế được contact dynamics và lỗi cảm biến ngoài đời.",
+    "detail": {
+      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
+      "text": "Bài báo báo có thiết lập tới 2.9x tỷ lệ thành công của nhiệm vụ so với kiến trúc thay thế ở cùng dữ liệu budget, và 2.7x hiệu năng với ít hơn 10x dữ liệu trong một số comparison."
+    }
   },
   {
     "type": "ablation",
     "title": "Ablation và bằng chứng",
     "lead": "Object-centric conditioning mang lại inductive bias hữu ích.",
     "items": [
-      "Nhiều dữ liệu và model lớn cải thiện cả các mức generalization khó."
+      {
+        "label": "YẾU TỐ ĐƯỢC THỬ",
+        "value": "Nhiều dữ liệu và model lớn cải thiện cả các mức generalization khó."
+      }
     ],
-    "intuition": "Với mức dữ liệu ít hơn đáng kể, có so sánh hiệu năng cao hơn 2,7 lần."
+    "intuition": "Với mức dữ liệu ít hơn đáng kể, có so sánh hiệu năng cao hơn 2,7 lần.",
+    "detail": {
+      "label": "BẰNG CHỨNG BỔ SUNG",
+      "text": "Kích thước mô hình và dữ liệu size đều giúp systematic khả năng khái quát, không chỉ memorization huấn luyện nhiệm vụ."
+    }
   },
   {
     "type": "limits",
@@ -141,17 +216,31 @@
         "value": "Phê bình: thế giới mô phỏng giàu cấu trúc không thay thế được contact dynamics và lỗi cảm biến ngoài đời."
       }
     ],
-    "intuition": "Môi trường mô phỏng cung cấp biểu diễn đối tượng/quan hệ khá rõ."
+    "intuition": "Môi trường mô phỏng cung cấp biểu diễn đối tượng/quan hệ khá rõ.",
+    "detail": {
+      "label": "PHẠM VI KẾT LUẬN",
+      "text": "Bài báo thừa nhận: perception dựa vào vật thể detector riêng nên có thể fail khi occlusion/OOD."
+    }
   },
   {
     "type": "relations",
     "title": "Bài này đứng ở đâu trong lĩnh vực?",
     "lead": "Không đọc paper như một hòn đảo riêng.",
     "items": [
-      "LIBERO kiểm tra chuyển giao và học liên tục ở benchmark manipulation.",
-      "RT-2 mở rộng prompt/image semantics sang robot control."
+      {
+        "label": "NỀN TẢNG / TIỀN ĐỀ",
+        "value": "LIBERO kiểm tra chuyển giao và học liên tục ở benchmark manipulation."
+      },
+      {
+        "label": "HƯỚNG PHÁT TRIỂN",
+        "value": "RT-2 mở rộng prompt/image semantics sang robot control."
+      }
     ],
-    "intuition": "Prompt có thể là cấu trúc multimodal thay vì chỉ một chuỗi text."
+    "intuition": "Prompt có thể là cấu trúc multimodal thay vì chỉ một chuỗi text.",
+    "detail": {
+      "label": "CÔNG TRÌNH LIÊN QUAN",
+      "text": "Đọc thêm RT-2, LIBERO. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+    }
   },
   {
     "type": "closing",
@@ -161,6 +250,10 @@
       "Dùng benchmark phân tầng OOD để đo đúng kiểu tổng quát hóa.",
       "Đừng extrapolate object-centric simulation sang real robot không có perception ổn định."
     ],
-    "intuition": "Robot nhận nhiệm vụ qua prompt có cả text, hình và ví dụ thao tác, chứ không chỉ câu lệnh."
+    "intuition": "Robot nhận nhiệm vụ qua prompt có cả text, hình và ví dụ thao tác, chứ không chỉ câu lệnh.",
+    "detail": {
+      "label": "THỬ NGHIỆM TIẾP THEO",
+      "text": "Chạy VIMA-Bench trên một prompt type. Giữ chuyển động primitive không đổi rồi thay modality của prompt: chỉ text, text + vật thể hình ảnh."
+    }
   }
 ]

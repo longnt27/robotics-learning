@@ -6,7 +6,11 @@
     "items": [
       "Đối xử action như một dạng token trong VLM"
     ],
-    "intuition": "Co-training VLM tasks và robotics tasks để kiến thức web sống trong policy điều khiển."
+    "intuition": "Co-training VLM tasks và robotics tasks để kiến thức web sống trong policy điều khiển.",
+    "detail": {
+      "label": "BỐI CẢNH NGHIÊN CỨU",
+      "text": "RT-2 hỏi câu cực tham vọng: có thể chuyển giao web-scale vision-language kiến thức thẳng vào action policy, thay vì huấn luyện khả năng hiểu ngữ nghĩa lại bằng robot demonstrations không?"
+    }
   },
   {
     "type": "problem",
@@ -15,7 +19,11 @@
     "items": [
       "RT-1 biết thao tác trong các nhiệm vụ đã huấn luyện"
     ],
-    "intuition": "Nhưng knowledge về vật thể/cấu trúc thế giới kém đa dạng hơn vốn học từ web của VLM."
+    "intuition": "Nhưng knowledge về vật thể/cấu trúc thế giới kém đa dạng hơn vốn học từ web của VLM.",
+    "detail": {
+      "label": "NGUYÊN NHÂN CỐT LÕI",
+      "text": "Dữ liệu robot đắt và ngữ nghĩa coverage nghèo hơn dữ liệu trên web hàng nghìn lần. Trong khi đó VLM đã biết “banana”, “trash”, “Taylor Swift”, spatial ngôn ngữ, loại vật thể và nhiều abstraction khác mà robot có thể chưa từng thấy."
+    }
   },
   {
     "type": "contrast",
@@ -25,7 +33,11 @@
       "Đối xử action như một dạng token trong VLM",
       "Co-training VLM tasks và robotics tasks để kiến thức web sống trong policy điều khiển."
     ],
-    "intuition": "Co-training VLM tasks và robotics tasks để kiến thức web sống trong policy điều khiển."
+    "intuition": "Co-training VLM tasks và robotics tasks để kiến thức web sống trong policy điều khiển.",
+    "detail": {
+      "label": "VÌ SAO CẦN THAY ĐỔI",
+      "text": "Nếu chỉ fine-tune VLM trên robot action dữ liệu, mô hình dễ quên kiến thức từ web. Nếu chỉ bolt-on một action head, biểu diễn alignment không mạnh bằng việc cùng huấn luyện trong một token interface."
+    }
   },
   {
     "type": "intuition",
@@ -34,7 +46,11 @@
     "items": [
       "Tri thức thị giác–ngôn ngữ học trên web có thể chuyển thành lựa chọn action của robot."
     ],
-    "intuition": "Co-training VLM tasks và robotics tasks để kiến thức web sống trong policy điều khiển."
+    "intuition": "Co-training VLM tasks và robotics tasks để kiến thức web sống trong policy điều khiển.",
+    "detail": {
+      "label": "GIẢI THÍCH CƠ CHẾ",
+      "text": "Co-finetuning là chi tiết sống còn. Nếu chỉ fine-tune VLM trên robot action dữ liệu, mô hình dễ quên kiến thức từ web."
+    }
   },
   {
     "type": "concepts",
@@ -54,7 +70,11 @@
         "value": "Giữ lẫn data web và robot để giảm forgetting."
       }
     ],
-    "intuition": "Action liên tục được discretize theo dimension rồi token hóa."
+    "intuition": "Action liên tục được discretize theo dimension rồi token hóa.",
+    "detail": {
+      "label": "NỀN TẢNG KỸ THUẬT",
+      "text": "VLM đã nhìn lượng ảnh và text rộng hơn robot nhiều bậc độ lớn. RT-2 đưa ra giả thuyết: web ngữ nghĩa priors có thể giúp robot hiểu vật thể/mục tiêu chưa được annotate trong robot tập dữ liệu nếu action được biểu diễn chung như đầu ra tokens."
+    }
   },
   {
     "type": "pipeline",
@@ -66,37 +86,71 @@
       "Action tokens",
       "Decode → robot movement"
     ],
-    "intuition": "Nhận ảnh robot và một lệnh ngôn ngữ."
+    "intuition": "Nhận ảnh robot và một lệnh ngôn ngữ.",
+    "detail": {
+      "label": "ĐIỂM NHẤN TRIỂN KHAI",
+      "text": "Như vậy dự đoán “move x, rotate y, close gripper” về mặt optimization trở thành một dạng ngôn ngữ modeling đặc biệt."
+    }
   },
   {
     "type": "representation",
     "title": "Mô hình biểu diễn cái gì?",
     "lead": "Action liên tục được discretize theo dimension rồi token hóa.",
     "items": [
-      "Cùng decoder dự đoán từ ngữ và action sequence.",
-      "Cách này tương thích autoregressive nhưng có quantization/latency trade-off."
+      {
+        "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
+        "value": "Cùng decoder dự đoán từ ngữ và action sequence."
+      },
+      {
+        "label": "ĐÁNH ĐỔI KỸ THUẬT",
+        "value": "Cách này tương thích autoregressive nhưng có quantization/latency trade-off."
+      }
     ],
-    "intuition": "Cách này tương thích autoregressive nhưng có quantization/latency trade-off."
+    "intuition": "Cách này tương thích autoregressive nhưng có quantization/latency trade-off.",
+    "detail": {
+      "label": "CHI TIẾT BIỂU DIỄN",
+      "text": "Trick đơn giản nhưng quan trọng là robot actions được discretize và biểu diễn như token trong cùng autoregressive vocabulary."
+    }
   },
   {
     "type": "training",
     "title": "Model học như thế nào?",
     "lead": "Trộn robot demonstrations với vision-language web tasks.",
     "items": [
-      "Fine-tune VLM thành VLA trong cùng interface token.",
-      "Giữ web tasks giúp tránh chỉ học lệnh vận động rồi quên kiến thức."
+      {
+        "label": "MỤC TIÊU HỌC",
+        "value": "Fine-tune VLM thành VLA trong cùng interface token."
+      },
+      {
+        "label": "DỮ LIỆU / QUY TRÌNH",
+        "value": "Giữ web tasks giúp tránh chỉ học lệnh vận động rồi quên kiến thức."
+      }
     ],
-    "intuition": "Co-finetuning khác fine-tune robot-only: dữ liệu web giúp giữ priors."
+    "intuition": "Co-finetuning khác fine-tune robot-only: dữ liệu web giúp giữ priors.",
+    "detail": {
+      "label": "CÁCH HUẤN LUYỆN",
+      "text": "RT-2 bắt đầu từ các VLM lớn như PaLI-X/PaLM-E family rồi co-finetune trên hai loại dữ liệu cùng lúc: web vision-language dữ liệu và robot các quỹ đạo."
+    }
   },
   {
     "type": "inference",
     "title": "Một lần inference xảy ra ra sao?",
     "lead": "Nhận ảnh robot và một lệnh ngôn ngữ.",
     "items": [
-      "Sử dụng semantic knowledge từ pretraining để chọn mục tiêu.",
-      "Sinh action tokens để executor điều khiển thao tác đã học."
+      {
+        "label": "XỬ LÝ ĐẦU VÀO",
+        "value": "Sử dụng semantic knowledge từ pretraining để chọn mục tiêu."
+      },
+      {
+        "label": "TẠO HÀNH ĐỘNG",
+        "value": "Sinh action tokens để executor điều khiển thao tác đã học."
+      }
     ],
-    "intuition": "Sinh action tokens để executor điều khiển thao tác đã học."
+    "intuition": "Sinh action tokens để executor điều khiển thao tác đã học.",
+    "detail": {
+      "label": "DIỄN BIẾN THỰC THI",
+      "text": "Điểm cần theo dõi trong source code/diagram là các action dimensions được serialize thành tokens; loss huấn luyện có thể chia sẻ decoder với đầu ra ngôn ngữ, nhưng vật lý meaning đến từ robot examples."
+    }
   },
   {
     "type": "equation",
@@ -106,26 +160,47 @@
     "items": [
       "Biểu thức mô tả khung tự hồi quy, không khẳng định model học được motor skills từ web."
     ],
-    "intuition": "VLM dự đoán chuỗi action như một chuỗi token được điều kiện hóa bởi ảnh I và lệnh ℓ."
+    "intuition": "VLM dự đoán chuỗi action như một chuỗi token được điều kiện hóa bởi ảnh I và lệnh ℓ.",
+    "detail": {
+      "label": "Ý NGHĨA CÔNG THỨC",
+      "text": "Nếu chỉ bolt-on một action head, biểu diễn alignment không mạnh bằng việc cùng huấn luyện trong một token interface."
+    }
   },
   {
     "type": "results",
     "title": "Kết quả nói lên điều gì?",
     "lead": "Generalization với vật thể hoặc lệnh mới mạnh hơn các baseline robot-only.",
     "items": [
-      "Một số nhóm emergent semantic reasoning được báo cáo cải thiện trên 3 lần RT-1.",
-      "Kết quả trên các nhóm seen tasks vẫn cạnh tranh với RT-1."
+      {
+        "label": "PHÁT HIỆN QUAN TRỌNG",
+        "value": "Một số nhóm emergent semantic reasoning được báo cáo cải thiện trên 3 lần RT-1."
+      },
+      {
+        "label": "CÁCH DIỄN GIẢI",
+        "value": "Kết quả trên các nhóm seen tasks vẫn cạnh tranh với RT-1."
+      }
     ],
-    "intuition": "benchmark semantic tương đối nhỏ và mô hình/dữ liệu không thật sự reproducible công khai."
+    "intuition": "benchmark semantic tương đối nhỏ và mô hình/dữ liệu không thật sự reproducible công khai.",
+    "detail": {
+      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
+      "text": "Bài báo báo hiệu năng khái quát gần gấp đôi một số phương pháp đối chứng mạnh và, trong nhóm “emergent suy luận ngữ nghĩa” được thiết kế để test kiến thức từ web chuyển giao, RT-2-PaLI-X đạt tỷ lệ thành công trung bình cao hơn RT-1 nhiều lần, có nhóm hơn 3x."
+    }
   },
   {
     "type": "ablation",
     "title": "Ablation và bằng chứng",
     "lead": "Co-finetuning khác fine-tune robot-only: dữ liệu web giúp giữ priors.",
     "items": [
-      "Semantic gain không chứng minh học được động tác vật lý mới không có trong robot demos."
+      {
+        "label": "YẾU TỐ ĐƯỢC THỬ",
+        "value": "Semantic gain không chứng minh học được động tác vật lý mới không có trong robot demos."
+      }
     ],
-    "intuition": "Một số nhóm emergent semantic reasoning được báo cáo cải thiện trên 3 lần RT-1."
+    "intuition": "Một số nhóm emergent semantic reasoning được báo cáo cải thiện trên 3 lần RT-1.",
+    "detail": {
+      "label": "BẰNG CHỨNG BỔ SUNG",
+      "text": "Điểm thắng nằm ở vật thể mới, unseen chỉ dẫn và khái quát về ngữ nghĩa. Bài báo báo hiệu năng khái quát gần gấp đôi một số phương pháp đối chứng mạnh và, trong nhóm “emergent suy luận ngữ nghĩa” được thiết kế để test kiến thức từ web chuyển giao, RT-2-PaLI-X đạt tỷ lệ thành công trung bình cao hơn RT-1 nhiều lần, có nhóm hơn 3x."
+    }
   },
   {
     "type": "limits",
@@ -141,17 +216,31 @@
         "value": "Phê bình: benchmark semantic tương đối nhỏ và mô hình/dữ liệu không thật sự reproducible công khai."
       }
     ],
-    "intuition": "Cùng decoder dự đoán từ ngữ và action sequence."
+    "intuition": "Cùng decoder dự đoán từ ngữ và action sequence.",
+    "detail": {
+      "label": "PHẠM VI KẾT LUẬN",
+      "text": "Bài báo thừa nhận: kiến thức từ web không tự tạo ra kỹ năng vận động mới. Nếu robot chưa từng học động tác vật lý tương ứng, biết nghĩa của chỉ dẫn không đủ."
+    }
   },
   {
     "type": "relations",
     "title": "Bài này đứng ở đâu trong lĩnh vực?",
     "lead": "Không đọc paper như một hòn đảo riêng.",
     "items": [
-      "PaLM-E giải thích sensor grounding trong ngôn ngữ model.",
-      "OpenVLA và Qwen-VLA tiếp tục nghiên cứu open/flow VLA và action representation."
+      {
+        "label": "NỀN TẢNG / TIỀN ĐỀ",
+        "value": "PaLM-E giải thích sensor grounding trong ngôn ngữ model."
+      },
+      {
+        "label": "HƯỚNG PHÁT TRIỂN",
+        "value": "OpenVLA và Qwen-VLA tiếp tục nghiên cứu open/flow VLA và action representation."
+      }
     ],
-    "intuition": "VLA có thể tận dụng tri thức web để làm rõ “làm gì với cái gì”."
+    "intuition": "VLA có thể tận dụng tri thức web để làm rõ “làm gì với cái gì”.",
+    "detail": {
+      "label": "CÔNG TRÌNH LIÊN QUAN",
+      "text": "Đọc thêm RT-1, OpenVLA, Qwen-VLA. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+    }
   },
   {
     "type": "closing",
@@ -161,6 +250,10 @@
       "Dùng chung web/robot data khi fine-tune để kiểm soát forgetting.",
       "Đừng nhầm semantic reasoning với thao tác vật lý thành thạo."
     ],
-    "intuition": "Tri thức thị giác–ngôn ngữ học trên web có thể chuyển thành lựa chọn action của robot."
+    "intuition": "Tri thức thị giác–ngôn ngữ học trên web có thể chuyển thành lựa chọn action của robot.",
+    "detail": {
+      "label": "THỬ NGHIỆM TIẾP THEO",
+      "text": "Trên một VLM nhỏ tự thêm vocabulary cho 7 action dimensions; so sánh quantization error theo bins."
+    }
   }
 ]
