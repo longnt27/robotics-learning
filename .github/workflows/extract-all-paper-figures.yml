@@ -4,6 +4,8 @@ on:
     branches: [feat/all-paper-figures-bilingual-captions]
     paths:
       - scripts/extract_all_paper_figures.py
+      - scripts/extract_paper_figures.py
+      - scripts/refresh_paper_captions.py
       - .github/workflows/extract-all-paper-figures.yml
 permissions:
   contents: write
