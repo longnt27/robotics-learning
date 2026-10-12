@@ -22,13 +22,13 @@ Nhiều robot tập dữ liệu lớn vẫn được thu thập trong vài phòn
 
 **Tại sao lỗi này có hệ quả lớn?** Dữ liệu nhiều episode nhưng ít environments học shortcut thị giác. Mỗi action làm thay đổi trạng thái môi trường và tạo ra observation tiếp theo. Một dự đoán hơi lệch có thể đẩy robot ra ngoài những trạng thái từng thấy trong demonstration, khiến bước sau khó phục hồi hơn. Bản thân robot giỏi trong lab có thể thất bại ở phòng khác vì thế ảnh hưởng đến toàn bộ rollout, chứ không chỉ một hàng trong bảng accuracy.
 
-**Thử nghĩ một phản ví dụ.** Nếu chỉ test các episode có điểm bắt đầu giống dữ liệu huấn luyện, policy có thể học shortcut về bối cảnh. Đổi nhẹ góc camera, vật thể hoặc thứ tự thao tác sẽ phơi bày liệu nó có dùng tín hiệu nhân quả phù hợp không. Mô hình có thể thấy nhiều các quỹ đạo nhưng bối cảnh statistics gần như giống nhau, nên nó học shortcut về phông nền/camera/table thay vì manipulation invariants. là lý do ta phải xem điều kiện test trước khi đọc con số success.
+**Thử nghĩ một phản ví dụ.** Nếu chỉ test các episode có điểm bắt đầu giống dữ liệu huấn luyện, policy có thể học shortcut về bối cảnh. Đổi nhẹ góc camera, vật thể hoặc thứ tự thao tác sẽ phơi bày liệu nó có dùng tín hiệu nhân quả phù hợp không. Vì vậy phải kiểm tra điều kiện test trước khi đọc tỷ lệ thành công.
 
 ### Đào sâu: Dữ liệu nhiều episode nhưng ít environments học shortcut thị giác
 
 **Luận điểm.** Model có thể nhận dạng màu bàn thay vì affordance của vật cần thao tác. DROID muốn kiểm tra thesis: nếu cùng một robot được mang đi rất nhiều tòa nhà, phòng, operator và vật thể setup, khả năng khái quát có tăng đáng kể không?
 
-**Hai quy trình khác nhau ra sao?** Phương pháp cũ gặp trở ngại: Tăng environment diversity có thể giá trị hơn tăng lặp lại. Thay đổi trọng tâm là: Tăng environment diversity có thể giá trị hơn tăng lặp lại. Câu hỏi có ích nhất không phải mạng mới có bao nhiêu lớp, mà là thông tin nào trước kia bị đánh mất và giờ được chuyển qua đúng mô-đun. Thu thập robot demonstrations ngoài lab bằng protocol và phần cứng tương đối chuẩn hóa.
+**Hai quy trình khác nhau ra sao?** Phương pháp cũ gặp trở ngại: Model có thể nhận dạng màu bàn thay vì affordance của vật cần thao tác.. Thay đổi trọng tâm là: Tăng environment diversity có thể giá trị hơn tăng lặp lại. Câu hỏi có ích nhất không phải mạng mới có bao nhiêu lớp, mà là thông tin nào trước kia bị đánh mất và giờ được chuyển qua đúng mô-đun. Thu thập robot demonstrations ngoài lab bằng protocol và phần cứng tương đối chuẩn hóa.
 
 **Đặt điều kiện đối chứng.** Nếu train hai cách với data budget khác nhau, hoặc một bên dùng pretrained encoder còn bên kia không, chênh lệch không đủ để gán cho cơ chế mới. Một ablation đúng phải giữ càng nhiều yếu tố càng tốt và thay đổi đúng thành phần tác giả muốn chứng minh.
 
@@ -44,7 +44,7 @@ Bottleneck thực tế là thu dữ liệu robot **ngoài phòng phòng thí ngh
 
 **Luận điểm.** Hiểu ba khái niệm này trước khi đọc thuật toán. Bottleneck thực tế là thu dữ liệu robot ngoài phòng phòng thí nghiệm: lighting, vật thể, operator kỹ năng và phông nền thay đổi làm phân phối phức tạp hơn số lượng episode.
 
-**Khái niệm thành cấu trúc tính toán.** In-the-wild collection: Thu dữ liệu qua rất nhiều nơi/điều kiện thật.. Hãy luôn hỏi: input tensor là gì, output tensor là gì, biểu diễn đó mang thông tin thời gian hay không, và vì sao không thể đơn giản thay bằng một vector khác. Bottleneck thực tế là thu dữ liệu robot ngoài phòng phòng thí nghiệm: lighting, vật thể, operator kỹ năng và phông nền thay đổi làm phân phối phức tạp hơn số lượng episode. Một thuật ngữ chỉ hữu ích khi nối được với dữ liệu và hành vi có thể quan sát.
+**Khái niệm thành cấu trúc tính toán.** In-the-wild collection: Thu dữ liệu qua rất nhiều nơi/điều kiện thật. Hãy luôn hỏi: input tensor là gì, output tensor là gì, biểu diễn đó mang thông tin thời gian hay không, và vì sao không thể đơn giản thay bằng một vector khác. Bottleneck thực tế là thu dữ liệu robot ngoài phòng phòng thí nghiệm: lighting, vật thể, operator kỹ năng và phông nền thay đổi làm phân phối phức tạp hơn số lượng episode. Một thuật ngữ chỉ hữu ích khi nối được với dữ liệu và hành vi có thể quan sát.
 
 **Tránh ba sự nhầm lẫn.** Dataset đa dạng chưa phải model khái quát; có latent hoặc token chưa chắc học được semantics; loss offline tốt chưa chắc action thực thi ổn định. Phần kiến thức nền dùng để loại trừ các kết luận quá mạnh đó. Muốn khẳng định model dùng đúng khái niệm, hãy kiểm tra ablation và intermediate representation.
 
@@ -68,7 +68,7 @@ Bài báo huấn luyện diffusion-style policies và làm matched-data ablation
 
 **Giải thích không dùng tên model.** Thu thập robot demonstrations ngoài lab bằng protocol và phần cứng tương đối chuẩn hóa. Thử mô tả bằng một câu chuyện đầu vào và đầu ra, tránh dựa vào từ như Transformer, flow, token hay MoE để thay thế giải thích. Điều quan trọng là hiểu cơ chế ấy biến thông tin quan sát thành điều gì có ích để robot ra quyết định.
 
-**Từ intuition tới phép thử.** Chất lượng dữ liệu robot không chỉ nằm ở số giờ, mà ở độ đa dạng của thế giới thật.. Nếu ta loại bỏ cơ chế đó nhưng giữ nguyên dữ liệu và evaluator, lỗi nào kỳ vọng tăng lên? Nếu không dự đoán được loại lỗi, có thể ta chỉ đang học thuộc mô tả phương pháp mà chưa hiểu tại sao tác giả lựa chọn nó.
+**Từ intuition tới phép thử.** Chất lượng dữ liệu robot không chỉ nằm ở số giờ, mà ở độ đa dạng của thế giới thật. Nếu ta loại bỏ cơ chế đó nhưng giữ nguyên dữ liệu và evaluator, lỗi nào kỳ vọng tăng lên? Nếu không dự đoán được loại lỗi, có thể ta chỉ đang học thuộc mô tả phương pháp mà chưa hiểu tại sao tác giả lựa chọn nó.
 
 ### Đào sâu: Kiến trúc trong một sơ đồ
 
@@ -82,7 +82,7 @@ Bài báo huấn luyện diffusion-style policies và làm matched-data ablation
 
 **Luận điểm.** Observation có góc nhìn/ánh sáng/scene khác nhau. Tập dữ liệu cố tình ưu tiên “in-the-wild” environmental variation thay vì chỉ tăng quỹ đạo count trong một phòng thí nghiệm.
 
-**Action là một hợp đồng kỹ thuật.** ĐẦU RA / DẠNG BIỂU DIỄN: Một họ robot phần cứng giữ action tương đối nhất quán.. Một vector điều khiển có thể là joint angle, delta end-effector, gripper hoặc các token đã lượng tử hoá. Cần biết số chiều, đơn vị, hệ tọa độ, scaling và trục thời gian. Tập dữ liệu cố tình ưu tiên “in-the-wild” environmental variation thay vì chỉ tăng quỹ đạo count trong một phòng thí nghiệm. Không xác định các yếu tố này thì chưa thể nối output model với phần cứng.
+**Action là một hợp đồng kỹ thuật.** ĐẦU RA / DẠNG BIỂU DIỄN: Một họ robot phần cứng giữ action tương đối nhất quán. Một vector điều khiển có thể là joint angle, delta end-effector, gripper hoặc các token đã lượng tử hoá. Cần biết số chiều, đơn vị, hệ tọa độ, scaling và trục thời gian. Tập dữ liệu cố tình ưu tiên “in-the-wild” environmental variation thay vì chỉ tăng quỹ đạo count trong một phòng thí nghiệm. Không xác định các yếu tố này thì chưa thể nối output model với phần cứng.
 
 **Kiểm tra trước khi train.** Lấy một trajectory đúng, encode rồi decode qua representation dự kiến. Đo reconstruction error trên từng chiều và vị trí thời gian quan trọng, nhất là khi tiếp xúc vật thể. Thử đổi horizon hoặc normalization mà giữ nguyên dữ liệu. Một adapter sai có thể phá mọi rollout dù bản thân network vẫn tối ưu được loss.
 
@@ -90,7 +90,7 @@ Bài báo huấn luyện diffusion-style policies và làm matched-data ablation
 
 **Luận điểm.** Khoảng 76.000 trajectories, 350 giờ dữ liệu trong 564 bối cảnh. Bài báo huấn luyện diffusion-style policies và làm matched-data ablation: cùng số demonstrations nhưng chọn từ nhiều bối cảnh hơn hoặc ít bối cảnh hơn.
 
-**Loss phải có nguồn supervision.** MỤC TIÊU HỌC: Training kết hợp DROID và target-task data.. Hãy chỉ ra batch gồm observation, state, instruction, target action hay target đặc trưng nào; rồi xác định mô hình đang học reconstruction, dự đoán chuỗi hay một phân phối có điều kiện. Cùng tên 'training' nhưng cách tạo target ở BC, diffusion, flow matching và mô hình dự đoán đặc trưng khác nhau căn bản.
+**Loss phải có nguồn supervision.** MỤC TIÊU HỌC: Training kết hợp DROID và target-task data. Hãy chỉ ra batch gồm observation, state, instruction, target action hay target đặc trưng nào; rồi xác định mô hình đang học reconstruction, dự đoán chuỗi hay một phân phối có điều kiện. Cùng tên 'training' nhưng cách tạo target ở BC, diffusion, flow matching và mô hình dự đoán đặc trưng khác nhau căn bản.
 
 **Phân tách lỗi dữ liệu và lỗi thuật toán.** Bài báo huấn luyện diffusion-style policies và làm matched-data ablation: cùng số demonstrations nhưng chọn từ nhiều bối cảnh hơn hoặc ít bối cảnh hơn. Kiểm tra episode split trước khi chia thành window, kiểm tra timestamp camera/action, normalization, random seed và khả năng overfit một subset nhỏ. Nếu vài trajectory còn không học được, việc tăng model size hoặc đổi scheduler thường chỉ che lỗi implementation.
 
@@ -108,7 +108,7 @@ $$
 
 **Một phép thử bằng hai trajectory.** Hai lần thao tác có cùng mục tiêu nhưng trạng thái ban đầu khác nhau có thể cần action khác. Công thức này có cho phép output phụ thuộc vào thông tin phân biệt ấy không? Nếu nhiều demonstration hợp lệ khác nhau, model học một mode, average hay một phân phối đa mode? Đây mới là câu hỏi hiểu toán trong robot learning.
 
-**Giới hạn của suy luận từ công thức.** Không phải phương trình gốc hoặc lời hứa rằng càng nhiều cảnh luôn tốt.. Một biểu thức xác suất hoặc phép nội suy không tự chứng minh model đã học vật lý hay robot sẽ thành công. Loss và nguồn target quyết định model có tín hiệu nào, còn evaluation mới cho biết hành vi thực hiện ngoài đời.
+**Giới hạn của suy luận từ công thức.** Không phải phương trình gốc hoặc lời hứa rằng càng nhiều cảnh luôn tốt. Một biểu thức xác suất hoặc phép nội suy không tự chứng minh model đã học vật lý hay robot sẽ thành công. Loss và nguồn target quyết định model có tín hiệu nào, còn evaluation mới cho biết hành vi thực hiện ngoài đời.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -124,7 +124,7 @@ Trong dữ liệu audit, inspect synchronization giữa RGB khung hình timestam
 
 **Luận điểm.** Policy chạy trên các cảnh có độ nhiễu/thay đổi thật. DROID-style collection khiến thị giác encoder phải học affordance thay vì memorize màu bàn.
 
-**Một tick điều khiển xảy ra thế nào?** XỬ LÝ ĐẦU VÀO: Đo success in-domain và out-of-domain.. Ta nhận observation, tính conditioning, sinh action, giải mã và gửi lệnh xuống controller. DROID-style collection khiến thị giác encoder phải học affordance thay vì memorize màu bàn. Hãy ghi lại thời điểm ở mỗi bước vì latency từ ảnh đến actuator khác với thời gian chạy forward của riêng backbone.
+**Một tick điều khiển xảy ra thế nào?** XỬ LÝ ĐẦU VÀO: Đo success in-domain và out-of-domain. Ta nhận observation, tính conditioning, sinh action, giải mã và gửi lệnh xuống controller. DROID-style collection khiến thị giác encoder phải học affordance thay vì memorize màu bàn. Hãy ghi lại thời điểm ở mỗi bước vì latency từ ảnh đến actuator khác với thời gian chạy forward của riêng backbone.
 
 **Khi môi trường đổi giữa hai lần query.** Nếu vật thể dịch chuyển, mô hình có nhận observation mới đủ nhanh không; action nào đã cam kết và action nào có thể sửa? TẠO HÀNH ĐỘNG: Dữ liệu mục tiêu vẫn cần để adapt; không phải zero-shot universal robot. Trả lời được mới hiểu policy có thực sự closed-loop hoặc chỉ phát một quỹ đạo cố định rồi hy vọng robot làm đúng.
 
@@ -144,9 +144,9 @@ Khi thêm DROID vào dữ liệu của nhiệm vụ đích theo mixture, tác gi
 
 **Luận điểm.** Bộ dữ liệu: khoảng 76K trajectories/350 giờ qua 564 scenes và 86 nhiệm vụ. Khi thêm DROID vào dữ liệu của nhiệm vụ đích theo mixture, tác giả báo cáo mức cải thiện khoảng 22 điểm ở in-domain và 17 điểm ở out-of-domain so với thiết lập đối chứng tốt thứ hai trong các nhiệm vụ được đánh giá.
 
-**Cách đọc bảng số liệu.** PHÁT HIỆN QUAN TRỌNG: Một số thiết lập mixture tăng khoảng 22 điểm in-domain và 17 điểm out-of-domain.. Trước khi so score, xác định metric đo thành công cuối hay progress từng bước, baseline dùng dữ liệu gì, số lần lặp, tập test và cách gộp các nhiệm vụ. Khi thêm DROID vào dữ liệu của nhiệm vụ đích theo mixture, tác giả báo cáo mức cải thiện khoảng 22 điểm ở in-domain và 17 điểm ở out-of-domain so với thiết lập đối chứng tốt thứ hai trong các nhiệm vụ được đánh giá. Chênh lệch average đôi khi giấu những task thất bại nghiêm trọng.
+**Cách đọc bảng số liệu.** PHÁT HIỆN QUAN TRỌNG: Một số thiết lập mixture tăng khoảng 22 điểm in-domain và 17 điểm out-of-domain. Trước khi so score, xác định metric đo thành công cuối hay progress từng bước, baseline dùng dữ liệu gì, số lần lặp, tập test và cách gộp các nhiệm vụ. Khi thêm DROID vào dữ liệu của nhiệm vụ đích theo mixture, tác giả báo cáo mức cải thiện khoảng 22 điểm ở in-domain và 17 điểm ở out-of-domain so với thiết lập đối chứng tốt thứ hai trong các nhiệm vụ được đánh giá. Chênh lệch average đôi khi giấu những task thất bại nghiêm trọng.
 
-**Từ số sang kết luận có phạm vi.** CÁCH DIỄN GIẢI: Ở cùng số mẫu, subset trải rộng nhiều scenes tốt hơn subset tập trung.. Một mô hình khái quát tốt trên lệnh mới chưa chắc điều khiển contact-rich tốt; data diversity hiệu quả chưa bảo đảm chuyển được sang morphology lạ; model chạy nhanh chưa có nghĩa tail latency phù hợp servo. Phải kết luận theo đúng chiều mà thí nghiệm đo.
+**Từ số sang kết luận có phạm vi.** CÁCH DIỄN GIẢI: Ở cùng số mẫu, subset trải rộng nhiều scenes tốt hơn subset tập trung. Một mô hình khái quát tốt trên lệnh mới chưa chắc điều khiển contact-rich tốt; data diversity hiệu quả chưa bảo đảm chuyển được sang morphology lạ; model chạy nhanh chưa có nghĩa tail latency phù hợp servo. Phải kết luận theo đúng chiều mà thí nghiệm đo.
 
 **Độ tin cậy của bằng chứng.** Camera placement, calibration, noise, split, seed và budget huấn luyện đều ảnh hưởng outcome. Một kết quả đáng tin cần báo cáo đủ điều kiện để người đọc kiểm tra, và có đối chứng tránh nhiễu. Nếu thiếu, hãy nói rõ mức bất định thay vì tưởng tượng số liệu.
 
@@ -154,9 +154,9 @@ Khi thêm DROID vào dữ liệu của nhiệm vụ đích theo mixture, tác gi
 
 **Luận điểm.** Giữ số trajectories, thay số environments xuất hiện. Đây là một evidence rất trực tiếp cho data-collection strategy mà người đọc đang thấy ở headcam: coverage của phân phối có giá trị độc lập với số giờ.
 
-**Ablation hỏi nguyên nhân, không chỉ điểm số.** YẾU TỐ ĐƯỢC THỬ: Mức cải thiện đến từ environmental diversity không chỉ dataset size.. Loại bỏ một thành phần khiến performance giảm là dấu hiệu hữu ích trong thiết lập đã thử, nhưng chưa chứng minh nó là giải pháp duy nhất. Đây là một evidence rất trực tiếp cho data-collection strategy mà người đọc đang thấy ở headcam: coverage của phân phối có giá trị độc lập với số giờ. Hãy tìm xem các đường baseline có chung dữ liệu, model capacity và ngân sách tối ưu không.
+**Ablation hỏi nguyên nhân, không chỉ điểm số.** YẾU TỐ ĐƯỢC THỬ: Mức cải thiện đến từ environmental diversity không chỉ dataset size. Loại bỏ một thành phần khiến performance giảm là dấu hiệu hữu ích trong thiết lập đã thử, nhưng chưa chứng minh nó là giải pháp duy nhất. Đây là một evidence rất trực tiếp cho data-collection strategy mà người đọc đang thấy ở headcam: coverage của phân phối có giá trị độc lập với số giờ. Hãy tìm xem các đường baseline có chung dữ liệu, model capacity và ngân sách tối ưu không.
 
-**Đọc theo từng failure mode.** Đây là một evidence rất trực tiếp cho data-collection strategy mà người đọc đang thấy ở headcam: coverage của phân phối có giá trị độc lập với số giờ.. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
+**Đọc theo từng failure mode.** Đây là một evidence rất trực tiếp cho data-collection strategy mà người đọc đang thấy ở headcam: coverage của phân phối có giá trị độc lập với số giờ. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -172,9 +172,9 @@ Khi thêm DROID vào dữ liệu của nhiệm vụ đích theo mixture, tác gi
 
 **Luận điểm.** Tách rõ tác giả thừa nhận và nhận định phê bình độc lập. Phê bình thêm: 350 giờ là lớn với real robot 2024 nhưng nhỏ so với 10k-50k giờ pretraining corpora 2026.
 
-**Phân biệt điều tác giả chỉ ra và điều ta suy đoán.** Tác giả / phạm vi: Tác giả: chủ yếu một platform robot; chưa bao phủ mọi tương tác giàu lực.. Câu 'chưa đánh giá' không đồng nghĩa với 'đã thử và thất bại'. Câu 'có thể chịu rủi ro' không được viết thành số liệu âm tính. Phê bình thêm: 350 giờ là lớn với real robot 2024 nhưng nhỏ so với 10k-50k giờ pretraining corpora 2026. Ranh giới đó giúp đọc nghiên cứu nghiêm túc mà không tô hồng hoặc bác bỏ quá mức.
+**Phân biệt điều tác giả chỉ ra và điều ta suy đoán.** Tác giả / phạm vi: Tác giả: chủ yếu một platform robot; chưa bao phủ mọi tương tác giàu lực. Câu 'chưa đánh giá' không đồng nghĩa với 'đã thử và thất bại'. Câu 'có thể chịu rủi ro' không được viết thành số liệu âm tính. Phê bình thêm: 350 giờ là lớn với real robot 2024 nhưng nhỏ so với 10k-50k giờ pretraining corpora 2026. Ranh giới đó giúp đọc nghiên cứu nghiêm túc mà không tô hồng hoặc bác bỏ quá mức.
 
-**Ngoài benchmark còn có hệ thống thật.** Phê bình độc lập: Phê bình: 350 giờ còn nhỏ so với các VLA corpora 2026, nhiều fail/recovery behaviors chưa được mô hình hóa.. Khi chuyển sang robot khác, camera, workspace, DOF, actuator limits và controller đều có thể phá các giả định gốc. Cần kiểm tra safety, valid action range và các tình huống bắt đầu lệch chuẩn trước khi coi một policy là sẵn sàng triển khai.
+**Ngoài benchmark còn có hệ thống thật.** Phê bình độc lập: Phê bình: 350 giờ còn nhỏ so với các VLA corpora 2026, nhiều fail/recovery behaviors chưa được mô hình hóa. Khi chuyển sang robot khác, camera, workspace, DOF, actuator limits và controller đều có thể phá các giả định gốc. Cần kiểm tra safety, valid action range và các tình huống bắt đầu lệch chuẩn trước khi coi một policy là sẵn sàng triển khai.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -191,9 +191,9 @@ Nếu muốn đặt bài này vào bản đồ VLA, hãy xem tiếp các hướn
 
 **Luận điểm.** Không đọc paper như một hòn đảo riêng. Đọc thêm Open X-Embodiment, RoboCasa. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau.
 
-**So sánh theo trục kỹ thuật.** NỀN TẢNG / TIỀN ĐỀ: BridgeData V2 nhấn mạnh skill/environment coverage trước đó.. Hãy xếp các nghiên cứu cạnh nhau theo nguồn dữ liệu, representation, khả năng hiểu lệnh, action generation, embodiment và latency thay vì chỉ theo năm công bố. Một mô hình mạnh về ngữ nghĩa không nhất thiết giỏi điều khiển tốc độ cao.
+**So sánh theo trục kỹ thuật.** NỀN TẢNG / TIỀN ĐỀ: BridgeData V2 nhấn mạnh skill/environment coverage trước đó. Hãy xếp các nghiên cứu cạnh nhau theo nguồn dữ liệu, representation, khả năng hiểu lệnh, action generation, embodiment và latency thay vì chỉ theo năm công bố. Một mô hình mạnh về ngữ nghĩa không nhất thiết giỏi điều khiển tốc độ cao.
 
-**Không trộn quan hệ chủ đề với trích dẫn.** HƯỚNG PHÁT TRIỂN: Open X-Embodiment đưa thêm độ khác biệt giữa các embodiment.. Một công trình có thể là tiền đề kỹ thuật, một biến thể cùng nhiệm vụ hoặc hướng xử lý bottleneck còn bỏ ngỏ; các quan hệ ấy cần trình bày chính xác. Đọc thêm Open X-Embodiment, RoboCasa. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau.
+**Không trộn quan hệ chủ đề với trích dẫn.** HƯỚNG PHÁT TRIỂN: Open X-Embodiment đưa thêm độ khác biệt giữa các embodiment. Một công trình có thể là tiền đề kỹ thuật, một biến thể cùng nhiệm vụ hoặc hướng xử lý bottleneck còn bỏ ngỏ; các quan hệ ấy cần trình bày chính xác. Đọc thêm Open X-Embodiment, RoboCasa. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -209,7 +209,7 @@ Dùng mẫu DROID video + state, plot timestamp delta, quỹ đạo smoothness v
 
 **Luận điểm.** Thiết kế data collection theo scene coverage có thể đáng giá hơn replay. Dùng mẫu DROID video + state, plot timestamp delta, quỹ đạo smoothness và coverage. Xây 1 trang data-quality báo cáo trước khi huấn luyện policy.
 
-**Chọn điều cần mang sang dự án thật.** Cần split held-out environments và đo thật closed-loop.. Đừng cố sao chép toàn bộ hệ thống lớn ngay. Tìm một vấn đề cụ thể của robot mình rồi áp dụng đúng thành phần liên quan, với baseline đơn giản và một phép đo rõ ràng. Thiết kế data collection theo scene coverage có thể đáng giá hơn replay.
+**Chọn điều cần mang sang dự án thật.** Cần split held-out environments và đo thật closed-loop. Đừng cố sao chép toàn bộ hệ thống lớn ngay. Tìm một vấn đề cụ thể của robot mình rồi áp dụng đúng thành phần liên quan, với baseline đơn giản và một phép đo rõ ràng. Thiết kế data collection theo scene coverage có thể đáng giá hơn replay.
 
 **Tái hiện tối thiểu.** Dùng mẫu DROID video + state, plot timestamp delta, quỹ đạo smoothness và coverage. Xây 1 trang data-quality báo cáo trước khi huấn luyện policy. Bắt đầu bằng 1–2 episode kiểm được bằng mắt, ghi shape, unit và timestamp; tiếp theo mới mở rộng dataset, thêm nhiều seed và đánh giá held-out. Viết sẵn điều kiện pass/fail để không biến công việc thành quá trình tune vô tận.
 

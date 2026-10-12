@@ -35,13 +35,13 @@ Vì vậy vấn đề bài báo thật sự giải không phải chỉ **độ t
 
 **Tại sao lỗi này có hệ quả lớn?** Synchronous gây pause; naive asynchronous gây giật ở ranh giới. Mỗi action làm thay đổi trạng thái môi trường và tạo ra observation tiếp theo. Một dự đoán hơi lệch có thể đẩy robot ra ngoài những trạng thái từng thấy trong demonstration, khiến bước sau khó phục hồi hơn. Bản thân policy inference chậm hơn nhịp điều khiển 50 hz vì thế ảnh hưởng đến toàn bộ rollout, chứ không chỉ một hàng trong bảng accuracy.
 
-**Thử nghĩ một phản ví dụ.** Nếu chỉ test các episode có điểm bắt đầu giống dữ liệu huấn luyện, policy có thể học shortcut về bối cảnh. Đổi nhẹ góc camera, vật thể hoặc thứ tự thao tác sẽ phơi bày liệu nó có dùng tín hiệu nhân quả phù hợp không. Naive asynchronous: mô hình sinh B trong lúc robot đang chạy A. Không pause, nhưng B có thể chọn một strategy khác A ngay tại chunk boundary, gây discontinuity, acceleration spike hoặc jerk. là lý do ta phải xem điều kiện test trước khi đọc con số success.
+**Thử nghĩ một phản ví dụ.** Nếu chỉ test các episode có điểm bắt đầu giống dữ liệu huấn luyện, policy có thể học shortcut về bối cảnh. Đổi nhẹ góc camera, vật thể hoặc thứ tự thao tác sẽ phơi bày liệu nó có dùng tín hiệu nhân quả phù hợp không. Vì vậy phải kiểm tra điều kiện test trước khi đọc tỷ lệ thành công.
 
 ### Đào sâu: Synchronous gây pause; naive asynchronous gây giật ở ranh giới
 
 **Luận điểm.** Temporal averaging còn có thể trộn hai quỹ đạo hợp lệ thành chuyển động không hợp lệ. Nối chúng giữa chừng tạo một cú bẻ lái nguy hiểm. Averaging hai quỹ đạo cũng không chắc hữu ích: trung bình giữa “trái” và “phải” có thể là “đi thẳng vào vật cản”.
 
-**Hai quy trình khác nhau ra sao?** Phương pháp cũ gặp trở ngại: Giữ committed prefix, chỉ sinh lại tương lai. Thay đổi trọng tâm là: Giữ committed prefix, chỉ sinh lại tương lai. Câu hỏi có ích nhất không phải mạng mới có bao nhiêu lớp, mà là thông tin nào trước kia bị đánh mất và giờ được chuyển qua đúng mô-đun. Trong khi inference diễn ra, robot vẫn chạy buffer cũ; chunk mới bị constraint khớp phần chắc chắn đã/đang thực thi.
+**Hai quy trình khác nhau ra sao?** Phương pháp cũ gặp trở ngại: Temporal averaging còn có thể trộn hai quỹ đạo hợp lệ thành chuyển động không hợp lệ.. Thay đổi trọng tâm là: Giữ committed prefix, chỉ sinh lại tương lai. Câu hỏi có ích nhất không phải mạng mới có bao nhiêu lớp, mà là thông tin nào trước kia bị đánh mất và giờ được chuyển qua đúng mô-đun. Trong khi inference diễn ra, robot vẫn chạy buffer cũ; chunk mới bị constraint khớp phần chắc chắn đã/đang thực thi.
 
 **Đặt điều kiện đối chứng.** Nếu train hai cách với data budget khác nhau, hoặc một bên dùng pretrained encoder còn bên kia không, chênh lệch không đủ để gán cho cơ chế mới. Một ablation đúng phải giữ càng nhiều yếu tố càng tốt và thay đổi đúng thành phần tác giả muốn chứng minh.
 
@@ -59,7 +59,7 @@ Action chunk là tensor `H × D`. `H` là dự đoán horizon, `D` là số acti
 
 **Luận điểm.** Hiểu ba khái niệm này trước khi đọc thuật toán. Controller timestep Δt là thời gian vật lý giữa action, còn số denoising steps là số vòng thuật toán khi sinh.
 
-**Khái niệm thành cấu trúc tính toán.** Control loop: Servo chạy nhịp cố định, không chờ model.. Hãy luôn hỏi: input tensor là gì, output tensor là gì, biểu diễn đó mang thông tin thời gian hay không, và vì sao không thể đơn giản thay bằng một vector khác. Controller timestep Δt là thời gian vật lý giữa action, còn số denoising steps là số vòng thuật toán khi sinh. Một thuật ngữ chỉ hữu ích khi nối được với dữ liệu và hành vi có thể quan sát.
+**Khái niệm thành cấu trúc tính toán.** Control loop: Servo chạy nhịp cố định, không chờ model. Hãy luôn hỏi: input tensor là gì, output tensor là gì, biểu diễn đó mang thông tin thời gian hay không, và vì sao không thể đơn giản thay bằng một vector khác. Controller timestep Δt là thời gian vật lý giữa action, còn số denoising steps là số vòng thuật toán khi sinh. Một thuật ngữ chỉ hữu ích khi nối được với dữ liệu và hành vi có thể quan sát.
 
 **Tránh ba sự nhầm lẫn.** Dataset đa dạng chưa phải model khái quát; có latent hoặc token chưa chắc học được semantics; loss offline tốt chưa chắc action thực thi ổn định. Phần kiến thức nền dùng để loại trừ các kết luận quá mạnh đó. Muốn khẳng định model dùng đúng khái niệm, hãy kiểm tra ablation và intermediate representation.
 
@@ -130,7 +130,7 @@ Nếu dự đoán `d_est` dài hơn thực tế, robot giữ continuity nhưng b
 
 **Giải thích không dùng tên model.** Trong khi inference diễn ra, robot vẫn chạy buffer cũ; chunk mới bị constraint khớp phần chắc chắn đã/đang thực thi. Thử mô tả bằng một câu chuyện đầu vào và đầu ra, tránh dựa vào từ như Transformer, flow, token hay MoE để thay thế giải thích. Điều quan trọng là hiểu cơ chế ấy biến thông tin quan sát thành điều gì có ích để robot ra quyết định.
 
-**Từ intuition tới phép thử.** Không để robot dừng mỗi khi model nghĩ: action chunk mới phải khớp phần chuyển động đã cam kết.. Nếu ta loại bỏ cơ chế đó nhưng giữ nguyên dữ liệu và evaluator, lỗi nào kỳ vọng tăng lên? Nếu không dự đoán được loại lỗi, có thể ta chỉ đang học thuộc mô tả phương pháp mà chưa hiểu tại sao tác giả lựa chọn nó.
+**Từ intuition tới phép thử.** Không để robot dừng mỗi khi model nghĩ: action chunk mới phải khớp phần chuyển động đã cam kết. Nếu ta loại bỏ cơ chế đó nhưng giữ nguyên dữ liệu và evaluator, lỗi nào kỳ vọng tăng lên? Nếu không dự đoán được loại lỗi, có thể ta chỉ đang học thuộc mô tả phương pháp mà chưa hiểu tại sao tác giả lựa chọn nó.
 
 ### Đào sâu: Kiến trúc trong một sơ đồ
 
@@ -144,7 +144,7 @@ Nếu dự đoán `d_est` dài hơn thực tế, robot giữ continuity nhưng b
 
 **Luận điểm.** Chuỗi action H×D, chia thành prefix đã cam kết và suffix có thể sinh lại. Timing budget d là số bộ điều khiển steps mà mô hình có thể mất trước khi kết quả sẵn sàng, được estimate bảo thủ từ lịch sử độ trễ.
 
-**Action là một hợp đồng kỹ thuật.** ĐẦU RA / DẠNG BIỂU DIỄN: Delay d được quy sang số bước điều khiển.. Một vector điều khiển có thể là joint angle, delta end-effector, gripper hoặc các token đã lượng tử hoá. Cần biết số chiều, đơn vị, hệ tọa độ, scaling và trục thời gian. Timing budget d là số bộ điều khiển steps mà mô hình có thể mất trước khi kết quả sẵn sàng, được estimate bảo thủ từ lịch sử độ trễ. Không xác định các yếu tố này thì chưa thể nối output model với phần cứng.
+**Action là một hợp đồng kỹ thuật.** ĐẦU RA / DẠNG BIỂU DIỄN: Delay d được quy sang số bước điều khiển. Một vector điều khiển có thể là joint angle, delta end-effector, gripper hoặc các token đã lượng tử hoá. Cần biết số chiều, đơn vị, hệ tọa độ, scaling và trục thời gian. Timing budget d là số bộ điều khiển steps mà mô hình có thể mất trước khi kết quả sẵn sàng, được estimate bảo thủ từ lịch sử độ trễ. Không xác định các yếu tố này thì chưa thể nối output model với phần cứng.
 
 **Kiểm tra trước khi train.** Lấy một trajectory đúng, encode rồi decode qua representation dự kiến. Đo reconstruction error trên từng chiều và vị trí thời gian quan trọng, nhất là khi tiếp xúc vật thể. Thử đổi horizon hoặc normalization mà giữ nguyên dữ liệu. Một adapter sai có thể phá mọi rollout dù bản thân network vẫn tối ưu được loss.
 
@@ -152,7 +152,7 @@ Nếu dự đoán `d_est` dài hơn thực tế, robot giữ continuity nhưng b
 
 **Luận điểm.** RTC inference-time không yêu cầu train lại policy gốc. Nếu action policy dùng flow-based v_θ, lấy mẫu cập nhật quỹ đạo từ noise qua các flow-time steps.
 
-**Loss phải có nguồn supervision.** MỤC TIÊU HỌC: Biết các steps sẽ chạy khi model còn tính toán.. Hãy chỉ ra batch gồm observation, state, instruction, target action hay target đặc trưng nào; rồi xác định mô hình đang học reconstruction, dự đoán chuỗi hay một phân phối có điều kiện. Cùng tên 'training' nhưng cách tạo target ở BC, diffusion, flow matching và mô hình dự đoán đặc trưng khác nhau căn bản.
+**Loss phải có nguồn supervision.** MỤC TIÊU HỌC: Biết các steps sẽ chạy khi model còn tính toán. Hãy chỉ ra batch gồm observation, state, instruction, target action hay target đặc trưng nào; rồi xác định mô hình đang học reconstruction, dự đoán chuỗi hay một phân phối có điều kiện. Cùng tên 'training' nhưng cách tạo target ở BC, diffusion, flow matching và mô hình dự đoán đặc trưng khác nhau căn bản.
 
 **Phân tách lỗi dữ liệu và lỗi thuật toán.** Nếu action policy dùng flow-based v_θ, lấy mẫu cập nhật quỹ đạo từ noise qua các flow-time steps. Kiểm tra episode split trước khi chia thành window, kiểm tra timestamp camera/action, normalization, random seed và khả năng overfit một subset nhỏ. Nếu vài trajectory còn không học được, việc tăng model size hoặc đổi scheduler thường chỉ che lỗi implementation.
 
@@ -170,7 +170,7 @@ $$
 
 **Một phép thử bằng hai trajectory.** Hai lần thao tác có cùng mục tiêu nhưng trạng thái ban đầu khác nhau có thể cần action khác. Công thức này có cho phép output phụ thuộc vào thông tin phân biệt ấy không? Nếu nhiều demonstration hợp lệ khác nhau, model học một mode, average hay một phân phối đa mode? Đây mới là câu hỏi hiểu toán trong robot learning.
 
-**Giới hạn của suy luận từ công thức.** Đây là phép đổi latency thành số bước điều khiển.. Một biểu thức xác suất hoặc phép nội suy không tự chứng minh model đã học vật lý hay robot sẽ thành công. Loss và nguồn target quyết định model có tín hiệu nào, còn evaluation mới cho biết hành vi thực hiện ngoài đời.
+**Giới hạn của suy luận từ công thức.** Đây là phép đổi latency thành số bước điều khiển. Một biểu thức xác suất hoặc phép nội suy không tự chứng minh model đã học vật lý hay robot sẽ thành công. Loss và nguồn target quyết định model có tín hiệu nào, còn evaluation mới cho biết hành vi thực hiện ngoài đời.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -186,7 +186,7 @@ Ngược lại, nếu mô hình tự do sinh chunk B mà không nhìn overlap, n
 
 **Luận điểm.** Hai loop chạy song song: servo và policy inference. Chunk A đang tiến lên theo trục X và nghiêng cổ tay nhẹ. Inference bắt đầu khi còn một số bước chưa thực thi, nên RTC khóa các bước A chắc chắn sẽ xảy ra.
 
-**Một tick điều khiển xảy ra thế nào?** XỬ LÝ ĐẦU VÀO: Estimate latency d rồi cố định committed actions.. Ta nhận observation, tính conditioning, sinh action, giải mã và gửi lệnh xuống controller. Chunk A đang tiến lên theo trục X và nghiêng cổ tay nhẹ. Inference bắt đầu khi còn một số bước chưa thực thi, nên RTC khóa các bước A chắc chắn sẽ xảy ra. Hãy ghi lại thời điểm ở mỗi bước vì latency từ ảnh đến actuator khác với thời gian chạy forward của riêng backbone.
+**Một tick điều khiển xảy ra thế nào?** XỬ LÝ ĐẦU VÀO: Estimate latency d rồi cố định committed actions. Ta nhận observation, tính conditioning, sinh action, giải mã và gửi lệnh xuống controller. Chunk A đang tiến lên theo trục X và nghiêng cổ tay nhẹ. Inference bắt đầu khi còn một số bước chưa thực thi, nên RTC khóa các bước A chắc chắn sẽ xảy ra. Hãy ghi lại thời điểm ở mỗi bước vì latency từ ảnh đến actuator khác với thời gian chạy forward của riêng backbone.
 
 **Khi môi trường đổi giữa hai lần query.** Nếu vật thể dịch chuyển, mô hình có nhận observation mới đủ nhanh không; action nào đã cam kết và action nào có thể sửa? TẠO HÀNH ĐỘNG: Nối suffix được generate thành chunk tiếp theo; controller không phải pause. Trả lời được mới hiểu policy có thực sự closed-loop hoặc chỉ phát một quỹ đạo cố định rồi hy vọng robot làm đúng.
 
@@ -210,9 +210,9 @@ Các nhiệm vụ gồm thắp nến bằng que diêm, cắm Ethernet, gấp áo
 
 **Luận điểm.** Thí nghiệm 12 nhiệm vụ động trong Kinetix và 6 nhiệm vụ robot thật. Simulation: Tác giả thiết kế 12 nhiệm vụ động lực học trong Kinetix để khuếch đại tác hại của pause/jerk, thay vì chỉ chọn bench thao tác quasi-static vốn quá dễ bão hòa.
 
-**Cách đọc bảng số liệu.** PHÁT HIỆN QUAN TRỌNG: Thiết lập 50 Hz: π0.5 khoảng 76 ms, có RTC khoảng 97 ms riêng sampler.. Trước khi so score, xác định metric đo thành công cuối hay progress từng bước, baseline dùng dữ liệu gì, số lần lặp, tập test và cách gộp các nhiệm vụ. Simulation: Tác giả thiết kế 12 nhiệm vụ động lực học trong Kinetix để khuếch đại tác hại của pause/jerk, thay vì chỉ chọn bench thao tác quasi-static vốn quá dễ bão hòa. Chênh lệch average đôi khi giấu những task thất bại nghiêm trọng.
+**Cách đọc bảng số liệu.** PHÁT HIỆN QUAN TRỌNG: Thiết lập 50 Hz: π0.5 khoảng 76 ms, có RTC khoảng 97 ms riêng sampler. Trước khi so score, xác định metric đo thành công cuối hay progress từng bước, baseline dùng dữ liệu gì, số lần lặp, tập test và cách gộp các nhiệm vụ. Simulation: Tác giả thiết kế 12 nhiệm vụ động lực học trong Kinetix để khuếch đại tác hại của pause/jerk, thay vì chỉ chọn bench thao tác quasi-static vốn quá dễ bão hòa. Chênh lệch average đôi khi giấu những task thất bại nghiêm trọng.
 
-**Từ số sang kết luận có phạm vi.** CÁCH DIỄN GIẢI: Dù sampler chậm hơn, overlap giúp giảm pause/jerk và cải thiện throughput ở nhiều tác vụ.. Một mô hình khái quát tốt trên lệnh mới chưa chắc điều khiển contact-rich tốt; data diversity hiệu quả chưa bảo đảm chuyển được sang morphology lạ; model chạy nhanh chưa có nghĩa tail latency phù hợp servo. Phải kết luận theo đúng chiều mà thí nghiệm đo.
+**Từ số sang kết luận có phạm vi.** CÁCH DIỄN GIẢI: Dù sampler chậm hơn, overlap giúp giảm pause/jerk và cải thiện throughput ở nhiều tác vụ. Một mô hình khái quát tốt trên lệnh mới chưa chắc điều khiển contact-rich tốt; data diversity hiệu quả chưa bảo đảm chuyển được sang morphology lạ; model chạy nhanh chưa có nghĩa tail latency phù hợp servo. Phải kết luận theo đúng chiều mà thí nghiệm đo.
 
 **Độ tin cậy của bằng chứng.** Camera placement, calibration, noise, split, seed và budget huấn luyện đều ảnh hưởng outcome. Một kết quả đáng tin cần báo cáo đủ điều kiện để người đọc kiểm tra, và có đối chứng tránh nhiễu. Nếu thiếu, hãy nói rõ mức bất định thay vì tưởng tượng số liệu.
 
@@ -220,9 +220,9 @@ Các nhiệm vụ gồm thắp nến bằng que diêm, cắm Ethernet, gấp áo
 
 **Luận điểm.** So synchronous, naive async, temporal ensembling và guided prefix. Họ còn inject +100 ms và +200 ms độ trễ để kiểm tra robustness. Throughput RTC nhìn chung tốt hơn hoặc bền hơn trong các thiết lập này; một số biến thể temporal ensembling có dao động đủ mạnh để trigger protective stop của robot.
 
-**Ablation hỏi nguyên nhân, không chỉ điểm số.** YẾU TỐ ĐƯỢC THỬ: Bơm thêm +100 hoặc +200 ms delay để đo robustness thay vì chỉ success nominal.. Loại bỏ một thành phần khiến performance giảm là dấu hiệu hữu ích trong thiết lập đã thử, nhưng chưa chứng minh nó là giải pháp duy nhất. Họ còn inject +100 ms và +200 ms độ trễ để kiểm tra robustness. Throughput RTC nhìn chung tốt hơn hoặc bền hơn trong các thiết lập này; một số biến thể temporal ensembling có dao động đủ mạnh để trigger protective stop của robot. Hãy tìm xem các đường baseline có chung dữ liệu, model capacity và ngân sách tối ưu không.
+**Ablation hỏi nguyên nhân, không chỉ điểm số.** YẾU TỐ ĐƯỢC THỬ: Bơm thêm +100 hoặc +200 ms delay để đo robustness thay vì chỉ success nominal. Loại bỏ một thành phần khiến performance giảm là dấu hiệu hữu ích trong thiết lập đã thử, nhưng chưa chứng minh nó là giải pháp duy nhất. Họ còn inject +100 ms và +200 ms độ trễ để kiểm tra robustness. Throughput RTC nhìn chung tốt hơn hoặc bền hơn trong các thiết lập này; một số biến thể temporal ensembling có dao động đủ mạnh để trigger protective stop của robot. Hãy tìm xem các đường baseline có chung dữ liệu, model capacity và ngân sách tối ưu không.
 
-**Đọc theo từng failure mode.** Họ còn inject +100 ms và +200 ms độ trễ để kiểm tra robustness. Throughput RTC nhìn chung tốt hơn hoặc bền hơn trong các thiết lập này; một số biến thể temporal ensembling có dao động đủ mạnh để trigger protective stop của robot.. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
+**Đọc theo từng failure mode.** Họ còn inject +100 ms và +200 ms độ trễ để kiểm tra robustness. Throughput RTC nhìn chung tốt hơn hoặc bền hơn trong các thiết lập này; một số biến thể temporal ensembling có dao động đủ mạnh để trigger protective stop của robot. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -244,9 +244,9 @@ Các nhiệm vụ gồm thắp nến bằng que diêm, cắm Ethernet, gấp áo
 
 **Luận điểm.** Tách rõ tác giả thừa nhận và nhận định phê bình độc lập. Tác giả thừa nhận: Runtime thêm overhead do guidance/backprop; cách làm phù hợp các diffusion/flow-based policies chứ không drop-in cho mọi autoregressive policy.
 
-**Phân biệt điều tác giả chỉ ra và điều ta suy đoán.** Tác giả / phạm vi: Tác giả: guidance có chi phí runtime; latency estimator ảnh hưởng hiệu năng.. Câu 'chưa đánh giá' không đồng nghĩa với 'đã thử và thất bại'. Câu 'có thể chịu rủi ro' không được viết thành số liệu âm tính. Tác giả thừa nhận: Runtime thêm overhead do guidance/backprop; cách làm phù hợp các diffusion/flow-based policies chứ không drop-in cho mọi autoregressive policy. Ranh giới đó giúp đọc nghiên cứu nghiêm túc mà không tô hồng hoặc bác bỏ quá mức.
+**Phân biệt điều tác giả chỉ ra và điều ta suy đoán.** Tác giả / phạm vi: Tác giả: guidance có chi phí runtime; latency estimator ảnh hưởng hiệu năng. Câu 'chưa đánh giá' không đồng nghĩa với 'đã thử và thất bại'. Câu 'có thể chịu rủi ro' không được viết thành số liệu âm tính. Tác giả thừa nhận: Runtime thêm overhead do guidance/backprop; cách làm phù hợp các diffusion/flow-based policies chứ không drop-in cho mọi autoregressive policy. Ranh giới đó giúp đọc nghiên cứu nghiêm túc mà không tô hồng hoặc bác bỏ quá mức.
 
-**Ngoài benchmark còn có hệ thống thật.** Phê bình độc lập: Phê bình: smooth không có nghĩa force-safe; delay spike lớn hơn buffer vẫn cần fallback controller.. Khi chuyển sang robot khác, camera, workspace, DOF, actuator limits và controller đều có thể phá các giả định gốc. Cần kiểm tra safety, valid action range và các tình huống bắt đầu lệch chuẩn trước khi coi một policy là sẵn sàng triển khai.
+**Ngoài benchmark còn có hệ thống thật.** Phê bình độc lập: Phê bình: smooth không có nghĩa force-safe; delay spike lớn hơn buffer vẫn cần fallback controller. Khi chuyển sang robot khác, camera, workspace, DOF, actuator limits và controller đều có thể phá các giả định gốc. Cần kiểm tra safety, valid action range và các tình huống bắt đầu lệch chuẩn trước khi coi một policy là sẵn sàng triển khai.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -263,9 +263,9 @@ Các nhiệm vụ gồm thắp nến bằng que diêm, cắm Ethernet, gấp áo
 
 **Luận điểm.** Không đọc paper như một hòn đảo riêng. Đọc thêm ACT / ALOHA, Diffusion Policy, π0.5, Training-time RTC. Nên so sánh cách tiếp cận, dữ liệu huấn luyện và phạm vi khái quát của từng công trình.
 
-**So sánh theo trục kỹ thuật.** NỀN TẢNG / TIỀN ĐỀ: ACT khởi đầu action chunking và temporal aggregation.. Hãy xếp các nghiên cứu cạnh nhau theo nguồn dữ liệu, representation, khả năng hiểu lệnh, action generation, embodiment và latency thay vì chỉ theo năm công bố. Một mô hình mạnh về ngữ nghĩa không nhất thiết giỏi điều khiển tốc độ cao.
+**So sánh theo trục kỹ thuật.** NỀN TẢNG / TIỀN ĐỀ: ACT khởi đầu action chunking và temporal aggregation. Hãy xếp các nghiên cứu cạnh nhau theo nguồn dữ liệu, representation, khả năng hiểu lệnh, action generation, embodiment và latency thay vì chỉ theo năm công bố. Một mô hình mạnh về ngữ nghĩa không nhất thiết giỏi điều khiển tốc độ cao.
 
-**Không trộn quan hệ chủ đề với trích dẫn.** HƯỚNG PHÁT TRIỂN: RTC training dời chi phí consistency từ inference sang training.. Một công trình có thể là tiền đề kỹ thuật, một biến thể cùng nhiệm vụ hoặc hướng xử lý bottleneck còn bỏ ngỏ; các quan hệ ấy cần trình bày chính xác. Đọc thêm ACT / ALOHA, Diffusion Policy, π0.5, Training-time RTC. Nên so sánh cách tiếp cận, dữ liệu huấn luyện và phạm vi khái quát của từng công trình.
+**Không trộn quan hệ chủ đề với trích dẫn.** HƯỚNG PHÁT TRIỂN: RTC training dời chi phí consistency từ inference sang training. Một công trình có thể là tiền đề kỹ thuật, một biến thể cùng nhiệm vụ hoặc hướng xử lý bottleneck còn bỏ ngỏ; các quan hệ ấy cần trình bày chính xác. Đọc thêm ACT / ALOHA, Diffusion Policy, π0.5, Training-time RTC. Nên so sánh cách tiếp cận, dữ liệu huấn luyện và phạm vi khái quát của từng công trình.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -279,7 +279,7 @@ Làm một simulator đơn giản với `H=50`, `Δt=20 ms`, artificial inferenc
 
 **Luận điểm.** Real-time VLA là bài toán systems/control, không chỉ model accuracy. Làm một simulator đơn giản với H=50, Δt=20 ms, artificial inference delay d=5...15. So ba chiến lược: synchronous (có pause), naive async (thay chunk ngay), RTC-style hard-prefix blending (sau đó thêm soft decay).
 
-**Chọn điều cần mang sang dự án thật.** Đảm bảo prefix đã gửi không bị thay đổi bởi output mới.. Đừng cố sao chép toàn bộ hệ thống lớn ngay. Tìm một vấn đề cụ thể của robot mình rồi áp dụng đúng thành phần liên quan, với baseline đơn giản và một phép đo rõ ràng. Real-time VLA là bài toán systems/control, không chỉ model accuracy.
+**Chọn điều cần mang sang dự án thật.** Đảm bảo prefix đã gửi không bị thay đổi bởi output mới. Đừng cố sao chép toàn bộ hệ thống lớn ngay. Tìm một vấn đề cụ thể của robot mình rồi áp dụng đúng thành phần liên quan, với baseline đơn giản và một phép đo rõ ràng. Real-time VLA là bài toán systems/control, không chỉ model accuracy.
 
 **Tái hiện tối thiểu.** Làm một simulator đơn giản với H=50, Δt=20 ms, artificial inference delay d=5...15. So ba chiến lược: synchronous (có pause), naive async (thay chunk ngay), RTC-style hard-prefix blending (sau đó thêm soft decay). Bắt đầu bằng 1–2 episode kiểm được bằng mắt, ghi shape, unit và timestamp; tiếp theo mới mở rộng dataset, thêm nhiều seed và đánh giá held-out. Viết sẵn điều kiện pass/fail để không biến công việc thành quá trình tune vô tận.
 
@@ -452,5 +452,9 @@ Nếu train và test dùng cùng camera, vật thể và background, một mô h
 #### Mathematical Intuition: Dữ liệu và độ lệch phân phối
 
 Nếu train và test dùng cùng camera, vật thể và background, một mô hình có thể học shortcut mà không thật sự khái quát. Hãy tạo held-out scene, held-out object hoặc held-out episode theo đúng mục đích đánh giá của paper. Mấu chốt: mô hình không được pretrain với conditional prefix, nên RTC phải thêm conditioning tại thời gian inference bằng kỹ thuật gần với gradient-based inpainting. Cách chia tập phải làm trước bước cắt sliding windows để tránh cùng một trajectory xuất hiện ở cả train và test.
+
+#### Kết quả nói lên điều gì?: Dữ liệu và độ lệch phân phối
+
+Nếu train và test dùng cùng camera, vật thể và background, một mô hình có thể học shortcut mà không thật sự khái quát. Hãy tạo held-out scene, held-out object hoặc held-out episode theo đúng mục đích đánh giá của paper. Simulation: Tác giả thiết kế 12 nhiệm vụ động lực học trong Kinetix để khuếch đại tác hại của pause/jerk, thay vì chỉ chọn bench thao tác quasi-static vốn quá dễ bão hòa. Cách chia tập phải làm trước bước cắt sliding windows để tránh cùng một trajectory xuất hiện ở cả train và test.
 
 <!-- END EXTENDED WALKTHROUGH -->

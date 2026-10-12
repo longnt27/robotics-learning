@@ -30,13 +30,13 @@ Khó khăn là **action semantics không đồng nhất**. Một vector 7 chiề
 
 **Tại sao lỗi này có hệ quả lớn?** Hardcode expert cho mỗi robot làm mất lợi thế pretraining chung. Mỗi action làm thay đổi trạng thái môi trường và tạo ra observation tiếp theo. Một dự đoán hơi lệch có thể đẩy robot ra ngoài những trạng thái từng thấy trong demonstration, khiến bước sau khó phục hồi hơn. Bản thân robot khác nhau về khớp, camera và command conventions vì thế ảnh hưởng đến toàn bộ rollout, chứ không chỉ một hàng trong bảng accuracy.
 
-**Thử nghĩ một phản ví dụ.** Nếu chỉ test các episode có điểm bắt đầu giống dữ liệu huấn luyện, policy có thể học shortcut về bối cảnh. Đổi nhẹ góc camera, vật thể hoặc thứ tự thao tác sẽ phơi bày liệu nó có dùng tín hiệu nhân quả phù hợp không. Các nhánh embodied learning thường sống trong ba hệ sinh thái tương đối riêng: robot manipulation với gripper/arms, mobile navigation với vị trí/hướng đi và quỹ đạo nhiệm vụ với kiểu trạng thái đầu ra khác nhau. là lý do ta phải xem điều kiện test trước khi đọc con số success.
+**Thử nghĩ một phản ví dụ.** Nếu chỉ test các episode có điểm bắt đầu giống dữ liệu huấn luyện, policy có thể học shortcut về bối cảnh. Đổi nhẹ góc camera, vật thể hoặc thứ tự thao tác sẽ phơi bày liệu nó có dùng tín hiệu nhân quả phù hợp không. Vì vậy phải kiểm tra điều kiện test trước khi đọc tỷ lệ thành công.
 
 ### Đào sâu: Hardcode expert cho mỗi robot làm mất lợi thế pretraining chung
 
 **Luận điểm.** Autoregressive action tokens còn vướng độ chính xác và latency khi output dài. Nó muốn unified không chỉ ở phần perception/understanding mà còn tại action liên tục/quỹ đạo sinh.
 
-**Hai quy trình khác nhau ra sao?** Phương pháp cũ gặp trở ngại: Embodiment-aware prompting + continuous action expert. Thay đổi trọng tâm là: Embodiment-aware prompting + continuous action expert. Câu hỏi có ích nhất không phải mạng mới có bao nhiêu lớp, mà là thông tin nào trước kia bị đánh mất và giờ được chuyển qua đúng mô-đun. Text mô tả robot/control schema điều kiện hóa Qwen backbone; DiT sinh chunk liên tục.
+**Hai quy trình khác nhau ra sao?** Phương pháp cũ gặp trở ngại: Autoregressive action tokens còn vướng độ chính xác và latency khi output dài.. Thay đổi trọng tâm là: Embodiment-aware prompting + continuous action expert. Câu hỏi có ích nhất không phải mạng mới có bao nhiêu lớp, mà là thông tin nào trước kia bị đánh mất và giờ được chuyển qua đúng mô-đun. Text mô tả robot/control schema điều kiện hóa Qwen backbone; DiT sinh chunk liên tục.
 
 **Đặt điều kiện đối chứng.** Nếu train hai cách với data budget khác nhau, hoặc một bên dùng pretrained encoder còn bên kia không, chênh lệch không đủ để gán cho cơ chế mới. Một ablation đúng phải giữ càng nhiều yếu tố càng tốt và thay đổi đúng thành phần tác giả muốn chứng minh.
 
@@ -54,7 +54,7 @@ Một **embodiment prompt** chỉ cung cấp metadata rõ ràng cho mô hình v�
 
 **Luận điểm.** Hiểu ba khái niệm này trước khi đọc thuật toán. DiT là Diffusion Transformer: dùng attention làm action generator thay vì pure MLP/U-Net, cho phép điều kiện trên đặc trưng từ VLM.
 
-**Khái niệm thành cấu trúc tính toán.** Embodiment prompt: Text khai báo thiết bị và quy ước điều khiển.. Hãy luôn hỏi: input tensor là gì, output tensor là gì, biểu diễn đó mang thông tin thời gian hay không, và vì sao không thể đơn giản thay bằng một vector khác. DiT là Diffusion Transformer: dùng attention làm action generator thay vì pure MLP/U-Net, cho phép điều kiện trên đặc trưng từ VLM. Một thuật ngữ chỉ hữu ích khi nối được với dữ liệu và hành vi có thể quan sát.
+**Khái niệm thành cấu trúc tính toán.** Embodiment prompt: Text khai báo thiết bị và quy ước điều khiển. Hãy luôn hỏi: input tensor là gì, output tensor là gì, biểu diễn đó mang thông tin thời gian hay không, và vì sao không thể đơn giản thay bằng một vector khác. DiT là Diffusion Transformer: dùng attention làm action generator thay vì pure MLP/U-Net, cho phép điều kiện trên đặc trưng từ VLM. Một thuật ngữ chỉ hữu ích khi nối được với dữ liệu và hành vi có thể quan sát.
 
 **Tránh ba sự nhầm lẫn.** Dataset đa dạng chưa phải model khái quát; có latent hoặc token chưa chắc học được semantics; loss offline tốt chưa chắc action thực thi ổn định. Phần kiến thức nền dùng để loại trừ các kết luận quá mạnh đó. Muốn khẳng định model dùng đúng khái niệm, hãy kiểm tra ablation và intermediate representation.
 
@@ -113,7 +113,7 @@ Khi một mô hình được huấn luyện đa embodiment, phải đánh giá c
 
 **Giải thích không dùng tên model.** Text mô tả robot/control schema điều kiện hóa Qwen backbone; DiT sinh chunk liên tục. Thử mô tả bằng một câu chuyện đầu vào và đầu ra, tránh dựa vào từ như Transformer, flow, token hay MoE để thay thế giải thích. Điều quan trọng là hiểu cơ chế ấy biến thông tin quan sát thành điều gì có ích để robot ra quyết định.
 
-**Từ intuition tới phép thử.** Kết hợp Qwen VLM, mô tả embodiment và DiT flow expert để điều khiển nhiều loại robot.. Nếu ta loại bỏ cơ chế đó nhưng giữ nguyên dữ liệu và evaluator, lỗi nào kỳ vọng tăng lên? Nếu không dự đoán được loại lỗi, có thể ta chỉ đang học thuộc mô tả phương pháp mà chưa hiểu tại sao tác giả lựa chọn nó.
+**Từ intuition tới phép thử.** Kết hợp Qwen VLM, mô tả embodiment và DiT flow expert để điều khiển nhiều loại robot. Nếu ta loại bỏ cơ chế đó nhưng giữ nguyên dữ liệu và evaluator, lỗi nào kỳ vọng tăng lên? Nếu không dự đoán được loại lỗi, có thể ta chỉ đang học thuộc mô tả phương pháp mà chưa hiểu tại sao tác giả lựa chọn nó.
 
 ### Đào sâu: Kiến trúc trong một sơ đồ
 
@@ -127,7 +127,7 @@ Khi một mô hình được huấn luyện đa embodiment, phải đánh giá c
 
 **Luận điểm.** Dữ liệu gồm context ảnh/video, text, robot state và action format. Điều này hấp dẫn vì cùng backbone có thể nhận nhiều platform. Nhưng text prompt phải chính xác, và các tập dữ liệu vẫn cần đúng normalization, action masks, coordinate transforms, time horizon.
 
-**Action là một hợp đồng kỹ thuật.** ĐẦU RA / DẠNG BIỂU DIỄN: Embodiment text không tự giải dynamics chưa nhìn thấy.. Một vector điều khiển có thể là joint angle, delta end-effector, gripper hoặc các token đã lượng tử hoá. Cần biết số chiều, đơn vị, hệ tọa độ, scaling và trục thời gian. Điều này hấp dẫn vì cùng backbone có thể nhận nhiều platform. Nhưng text prompt phải chính xác, và các tập dữ liệu vẫn cần đúng normalization, action masks, coordinate transforms, time horizon. Không xác định các yếu tố này thì chưa thể nối output model với phần cứng.
+**Action là một hợp đồng kỹ thuật.** ĐẦU RA / DẠNG BIỂU DIỄN: Embodiment text không tự giải dynamics chưa nhìn thấy. Một vector điều khiển có thể là joint angle, delta end-effector, gripper hoặc các token đã lượng tử hoá. Cần biết số chiều, đơn vị, hệ tọa độ, scaling và trục thời gian. Điều này hấp dẫn vì cùng backbone có thể nhận nhiều platform. Nhưng text prompt phải chính xác, và các tập dữ liệu vẫn cần đúng normalization, action masks, coordinate transforms, time horizon. Không xác định các yếu tố này thì chưa thể nối output model với phần cứng.
 
 **Kiểm tra trước khi train.** Lấy một trajectory đúng, encode rồi decode qua representation dự kiến. Đo reconstruction error trên từng chiều và vị trí thời gian quan trọng, nhất là khi tiếp xúc vật thể. Thử đổi horizon hoặc normalization mà giữ nguyên dữ liệu. Một adapter sai có thể phá mọi rollout dù bản thân network vẫn tối ưu được loss.
 
@@ -135,7 +135,7 @@ Khi một mô hình được huấn luyện đa embodiment, phải đánh giá c
 
 **Luận điểm.** Pretraining multimodal trên hỗn hợp robot/nhiệm vụ. Bài báo trộn robot manipulation các quỹ đạo, con người egocentric demonstrations, synthetic/dữ liệu mô phỏng, vision-language dữ liệu navigation, trajectory-centric tín hiệu giám sát và auxiliary vision-language nhiệm vụ.
 
-**Loss phải có nguồn supervision.** MỤC TIÊU HỌC: DiT learns conditional continuous trajectories; adaptation cho ALOHA/robot test.. Hãy chỉ ra batch gồm observation, state, instruction, target action hay target đặc trưng nào; rồi xác định mô hình đang học reconstruction, dự đoán chuỗi hay một phân phối có điều kiện. Cùng tên 'training' nhưng cách tạo target ở BC, diffusion, flow matching và mô hình dự đoán đặc trưng khác nhau căn bản.
+**Loss phải có nguồn supervision.** MỤC TIÊU HỌC: DiT learns conditional continuous trajectories; adaptation cho ALOHA/robot test. Hãy chỉ ra batch gồm observation, state, instruction, target action hay target đặc trưng nào; rồi xác định mô hình đang học reconstruction, dự đoán chuỗi hay một phân phối có điều kiện. Cùng tên 'training' nhưng cách tạo target ở BC, diffusion, flow matching và mô hình dự đoán đặc trưng khác nhau căn bản.
 
 **Phân tách lỗi dữ liệu và lỗi thuật toán.** Bài báo trộn robot manipulation các quỹ đạo, con người egocentric demonstrations, synthetic/dữ liệu mô phỏng, vision-language dữ liệu navigation, trajectory-centric tín hiệu giám sát và auxiliary vision-language nhiệm vụ. Kiểm tra episode split trước khi chia thành window, kiểm tra timestamp camera/action, normalization, random seed và khả năng overfit một subset nhỏ. Nếu vài trajectory còn không học được, việc tăng model size hoặc đổi scheduler thường chỉ che lỗi implementation.
 
@@ -153,7 +153,7 @@ $$
 
 **Một phép thử bằng hai trajectory.** Hai lần thao tác có cùng mục tiêu nhưng trạng thái ban đầu khác nhau có thể cần action khác. Công thức này có cho phép output phụ thuộc vào thông tin phân biệt ấy không? Nếu nhiều demonstration hợp lệ khác nhau, model học một mode, average hay một phân phối đa mode? Đây mới là câu hỏi hiểu toán trong robot learning.
 
-**Giới hạn của suy luận từ công thức.** Ký hiệu mô tả condition của flow action expert.. Một biểu thức xác suất hoặc phép nội suy không tự chứng minh model đã học vật lý hay robot sẽ thành công. Loss và nguồn target quyết định model có tín hiệu nào, còn evaluation mới cho biết hành vi thực hiện ngoài đời.
+**Giới hạn của suy luận từ công thức.** Ký hiệu mô tả condition của flow action expert. Một biểu thức xác suất hoặc phép nội suy không tự chứng minh model đã học vật lý hay robot sẽ thành công. Loss và nguồn target quyết định model có tín hiệu nào, còn evaluation mới cho biết hành vi thực hiện ngoài đời.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -169,7 +169,7 @@ Cùng một từ “left” có thể chỉ camera-left, world-left hoặc robot
 
 **Luận điểm.** VLM lấy visual-language embedding có hiểu robot schema. Cùng một từ “left” có thể chỉ camera-left, world-left hoặc robot base-left. Nếu coordinate convention không rõ, ngay cả một mô hình lý tưởng cũng không thể dự đoán đúng lệnh thực thi.
 
-**Một tick điều khiển xảy ra thế nào?** XỬ LÝ ĐẦU VÀO: Action expert denoise/flow sample một continuous chunk.. Ta nhận observation, tính conditioning, sinh action, giải mã và gửi lệnh xuống controller. Cùng một từ “left” có thể chỉ camera-left, world-left hoặc robot base-left. Nếu coordinate convention không rõ, ngay cả một mô hình lý tưởng cũng không thể dự đoán đúng lệnh thực thi. Hãy ghi lại thời điểm ở mỗi bước vì latency từ ảnh đến actuator khác với thời gian chạy forward của riêng backbone.
+**Một tick điều khiển xảy ra thế nào?** XỬ LÝ ĐẦU VÀO: Action expert denoise/flow sample một continuous chunk. Ta nhận observation, tính conditioning, sinh action, giải mã và gửi lệnh xuống controller. Cùng một từ “left” có thể chỉ camera-left, world-left hoặc robot base-left. Nếu coordinate convention không rõ, ngay cả một mô hình lý tưởng cũng không thể dự đoán đúng lệnh thực thi. Hãy ghi lại thời điểm ở mỗi bước vì latency từ ảnh đến actuator khác với thời gian chạy forward của riêng backbone.
 
 **Khi môi trường đổi giữa hai lần query.** Nếu vật thể dịch chuyển, mô hình có nhận observation mới đủ nhanh không; action nào đã cam kết và action nào có thể sửa? TẠO HÀNH ĐỘNG: Robot-specific adapter xử lý action convention/units khi thực thi. Trả lời được mới hiểu policy có thực sự closed-loop hoặc chỉ phát một quỹ đạo cố định rồi hy vọng robot làm đúng.
 
@@ -191,9 +191,9 @@ Trong benchmark động DOMINO, abstract nhắc **26.6% tỷ lệ thành công z
 
 **Luận điểm.** ALOHA in-domain: báo cáo 83,6% trung bình vs 48,5% baseline trong Table 5. Trong thiết lập ALOHA trên robot thật, Qwen-VLA-ALOHA có pretraining được báo cáo tỷ lệ trung bình 83.6% tỷ lệ thành công in-domain, so với 48.5% cho một phiên bản đối chứng ở Bảng 5; ở OOD manipulations, tác giả nêu average 76.9% ở Bảng 6.
 
-**Cách đọc bảng số liệu.** PHÁT HIỆN QUAN TRỌNG: OOD ALOHA: khoảng 76,9% trong Table 6.. Trước khi so score, xác định metric đo thành công cuối hay progress từng bước, baseline dùng dữ liệu gì, số lần lặp, tập test và cách gộp các nhiệm vụ. Trong thiết lập ALOHA trên robot thật, Qwen-VLA-ALOHA có pretraining được báo cáo tỷ lệ trung bình 83.6% tỷ lệ thành công in-domain, so với 48.5% cho một phiên bản đối chứng ở Bảng 5; ở OOD manipulations, tác giả nêu average 76.9% ở Bảng 6. Chênh lệch average đôi khi giấu những task thất bại nghiêm trọng.
+**Cách đọc bảng số liệu.** PHÁT HIỆN QUAN TRỌNG: OOD ALOHA: khoảng 76,9% trong Table 6. Trước khi so score, xác định metric đo thành công cuối hay progress từng bước, baseline dùng dữ liệu gì, số lần lặp, tập test và cách gộp các nhiệm vụ. Trong thiết lập ALOHA trên robot thật, Qwen-VLA-ALOHA có pretraining được báo cáo tỷ lệ trung bình 83.6% tỷ lệ thành công in-domain, so với 48.5% cho một phiên bản đối chứng ở Bảng 5; ở OOD manipulations, tác giả nêu average 76.9% ở Bảng 6. Chênh lệch average đôi khi giấu những task thất bại nghiêm trọng.
 
-**Từ số sang kết luận có phạm vi.** CÁCH DIỄN GIẢI: Dynamic DOMINO zero-shot: 26,6%, nhắc rằng OOD thực sự còn rất khó.. Một mô hình khái quát tốt trên lệnh mới chưa chắc điều khiển contact-rich tốt; data diversity hiệu quả chưa bảo đảm chuyển được sang morphology lạ; model chạy nhanh chưa có nghĩa tail latency phù hợp servo. Phải kết luận theo đúng chiều mà thí nghiệm đo.
+**Từ số sang kết luận có phạm vi.** CÁCH DIỄN GIẢI: Dynamic DOMINO zero-shot: 26,6%, nhắc rằng OOD thực sự còn rất khó. Một mô hình khái quát tốt trên lệnh mới chưa chắc điều khiển contact-rich tốt; data diversity hiệu quả chưa bảo đảm chuyển được sang morphology lạ; model chạy nhanh chưa có nghĩa tail latency phù hợp servo. Phải kết luận theo đúng chiều mà thí nghiệm đo.
 
 **Độ tin cậy của bằng chứng.** Camera placement, calibration, noise, split, seed và budget huấn luyện đều ảnh hưởng outcome. Một kết quả đáng tin cần báo cáo đủ điều kiện để người đọc kiểm tra, và có đối chứng tránh nhiễu. Nếu thiếu, hãy nói rõ mức bất định thay vì tưởng tượng số liệu.
 
@@ -201,9 +201,9 @@ Trong benchmark động DOMINO, abstract nhắc **26.6% tỷ lệ thành công z
 
 **Luận điểm.** Không gộp 83,6% in-domain có post-training với 26,6% zero-shot khác benchmark. Khi một bảng báo 83.6% cho supervised/post-trained ALOHA và một benchmark khác chỉ 26.6% zero-shot, không nên gộp thành “Qwen-VLA đạt tỷ lệ thành công 80% trên thế giới thật”.
 
-**Ablation hỏi nguyên nhân, không chỉ điểm số.** YẾU TỐ ĐƯỢC THỬ: Pretraining giúp nhưng specialist/generalist vẫn có trade-off theo task.. Loại bỏ một thành phần khiến performance giảm là dấu hiệu hữu ích trong thiết lập đã thử, nhưng chưa chứng minh nó là giải pháp duy nhất. Khi một bảng báo 83.6% cho supervised/post-trained ALOHA và một benchmark khác chỉ 26.6% zero-shot, không nên gộp thành “Qwen-VLA đạt tỷ lệ thành công 80% trên thế giới thật”. Hãy tìm xem các đường baseline có chung dữ liệu, model capacity và ngân sách tối ưu không.
+**Ablation hỏi nguyên nhân, không chỉ điểm số.** YẾU TỐ ĐƯỢC THỬ: Pretraining giúp nhưng specialist/generalist vẫn có trade-off theo task. Loại bỏ một thành phần khiến performance giảm là dấu hiệu hữu ích trong thiết lập đã thử, nhưng chưa chứng minh nó là giải pháp duy nhất. Khi một bảng báo 83.6% cho supervised/post-trained ALOHA và một benchmark khác chỉ 26.6% zero-shot, không nên gộp thành “Qwen-VLA đạt tỷ lệ thành công 80% trên thế giới thật”. Hãy tìm xem các đường baseline có chung dữ liệu, model capacity và ngân sách tối ưu không.
 
-**Đọc theo từng failure mode.** Khi một bảng báo 83.6% cho supervised/post-trained ALOHA và một benchmark khác chỉ 26.6% zero-shot, không nên gộp thành “Qwen-VLA đạt tỷ lệ thành công 80% trên thế giới thật”.. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
+**Đọc theo từng failure mode.** Khi một bảng báo 83.6% cho supervised/post-trained ALOHA và một benchmark khác chỉ 26.6% zero-shot, không nên gộp thành “Qwen-VLA đạt tỷ lệ thành công 80% trên thế giới thật”. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -226,9 +226,9 @@ Trong benchmark động DOMINO, abstract nhắc **26.6% tỷ lệ thành công z
 
 **Luận điểm.** Tách rõ tác giả thừa nhận và nhận định phê bình độc lập. Việc unify interface chưa có nghĩa hỗ trợ bất kỳ embodiment mới nào zero-shot. Inference với large VLM+DiT vẫn có độ trễ và VRAM cost.
 
-**Phân biệt điều tác giả chỉ ra và điều ta suy đoán.** Tác giả / phạm vi: Tác giả: chưa chứng minh zero-shot cho mọi embodiment, cost VLM+DiT còn lớn.. Câu 'chưa đánh giá' không đồng nghĩa với 'đã thử và thất bại'. Câu 'có thể chịu rủi ro' không được viết thành số liệu âm tính. Việc unify interface chưa có nghĩa hỗ trợ bất kỳ embodiment mới nào zero-shot. Inference với large VLM+DiT vẫn có độ trễ và VRAM cost. Ranh giới đó giúp đọc nghiên cứu nghiêm túc mà không tô hồng hoặc bác bỏ quá mức.
+**Phân biệt điều tác giả chỉ ra và điều ta suy đoán.** Tác giả / phạm vi: Tác giả: chưa chứng minh zero-shot cho mọi embodiment, cost VLM+DiT còn lớn. Câu 'chưa đánh giá' không đồng nghĩa với 'đã thử và thất bại'. Câu 'có thể chịu rủi ro' không được viết thành số liệu âm tính. Việc unify interface chưa có nghĩa hỗ trợ bất kỳ embodiment mới nào zero-shot. Inference với large VLM+DiT vẫn có độ trễ và VRAM cost. Ranh giới đó giúp đọc nghiên cứu nghiêm túc mà không tô hồng hoặc bác bỏ quá mức.
 
-**Ngoài benchmark còn có hệ thống thật.** Phê bình độc lập: Phê bình: text robot schema không thay thế dữ liệu vận động; navigation và manipulation có dynamics/latency khác nhau.. Khi chuyển sang robot khác, camera, workspace, DOF, actuator limits và controller đều có thể phá các giả định gốc. Cần kiểm tra safety, valid action range và các tình huống bắt đầu lệch chuẩn trước khi coi một policy là sẵn sàng triển khai.
+**Ngoài benchmark còn có hệ thống thật.** Phê bình độc lập: Phê bình: text robot schema không thay thế dữ liệu vận động; navigation và manipulation có dynamics/latency khác nhau. Khi chuyển sang robot khác, camera, workspace, DOF, actuator limits và controller đều có thể phá các giả định gốc. Cần kiểm tra safety, valid action range và các tình huống bắt đầu lệch chuẩn trước khi coi một policy là sẵn sàng triển khai.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -246,9 +246,9 @@ Trong benchmark động DOMINO, abstract nhắc **26.6% tỷ lệ thành công z
 
 **Luận điểm.** Không đọc paper như một hòn đảo riêng. Đọc thêm PaLM-E, RT-2, OpenVLA, Diffusion Policy, RDT-1B. Nên so sánh cách tiếp cận, dữ liệu huấn luyện và phạm vi khái quát của từng công trình.
 
-**So sánh theo trục kỹ thuật.** NỀN TẢNG / TIỀN ĐỀ: RT-2/OpenVLA là hướng VLM-to-action tokens trước đó.. Hãy xếp các nghiên cứu cạnh nhau theo nguồn dữ liệu, representation, khả năng hiểu lệnh, action generation, embodiment và latency thay vì chỉ theo năm công bố. Một mô hình mạnh về ngữ nghĩa không nhất thiết giỏi điều khiển tốc độ cao.
+**So sánh theo trục kỹ thuật.** NỀN TẢNG / TIỀN ĐỀ: RT-2/OpenVLA là hướng VLM-to-action tokens trước đó. Hãy xếp các nghiên cứu cạnh nhau theo nguồn dữ liệu, representation, khả năng hiểu lệnh, action generation, embodiment và latency thay vì chỉ theo năm công bố. Một mô hình mạnh về ngữ nghĩa không nhất thiết giỏi điều khiển tốc độ cao.
 
-**Không trộn quan hệ chủ đề với trích dẫn.** HƯỚNG PHÁT TRIỂN: GR00T N1 và LingBot có các dạng continuous action experts khác để đối chiếu.. Một công trình có thể là tiền đề kỹ thuật, một biến thể cùng nhiệm vụ hoặc hướng xử lý bottleneck còn bỏ ngỏ; các quan hệ ấy cần trình bày chính xác. Đọc thêm PaLM-E, RT-2, OpenVLA, Diffusion Policy, RDT-1B. Nên so sánh cách tiếp cận, dữ liệu huấn luyện và phạm vi khái quát của từng công trình.
+**Không trộn quan hệ chủ đề với trích dẫn.** HƯỚNG PHÁT TRIỂN: GR00T N1 và LingBot có các dạng continuous action experts khác để đối chiếu. Một công trình có thể là tiền đề kỹ thuật, một biến thể cùng nhiệm vụ hoặc hướng xử lý bottleneck còn bỏ ngỏ; các quan hệ ấy cần trình bày chính xác. Đọc thêm PaLM-E, RT-2, OpenVLA, Diffusion Policy, RDT-1B. Nên so sánh cách tiếp cận, dữ liệu huấn luyện và phạm vi khái quát của từng công trình.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -262,7 +262,7 @@ Vào [Qwen-VLA official code](https://github.com/QwenLM/Qwen-VLA). Đừng huấ
 
 **Luận điểm.** Embodiment description là tín hiệu cần nhưng chưa đủ cho universal transfer. Log shapes tại từng đoạn, rồi thay embodiment prompt nhưng giữ nguyên hình ảnh + chỉ dẫn để kiểm tra mô hình interface và đầu ra conventions.
 
-**Chọn điều cần mang sang dự án thật.** Kiểm tra action frames, masks và units trước khi đo benchmark.. Đừng cố sao chép toàn bộ hệ thống lớn ngay. Tìm một vấn đề cụ thể của robot mình rồi áp dụng đúng thành phần liên quan, với baseline đơn giản và một phép đo rõ ràng. Embodiment description là tín hiệu cần nhưng chưa đủ cho universal transfer.
+**Chọn điều cần mang sang dự án thật.** Kiểm tra action frames, masks và units trước khi đo benchmark. Đừng cố sao chép toàn bộ hệ thống lớn ngay. Tìm một vấn đề cụ thể của robot mình rồi áp dụng đúng thành phần liên quan, với baseline đơn giản và một phép đo rõ ràng. Embodiment description là tín hiệu cần nhưng chưa đủ cho universal transfer.
 
 **Tái hiện tối thiểu.** Log shapes tại từng đoạn, rồi thay embodiment prompt nhưng giữ nguyên hình ảnh + chỉ dẫn để kiểm tra mô hình interface và đầu ra conventions. Bắt đầu bằng 1–2 episode kiểm được bằng mắt, ghi shape, unit và timestamp; tiếp theo mới mở rộng dataset, thêm nhiều seed và đánh giá held-out. Viết sẵn điều kiện pass/fail để không biến công việc thành quá trình tune vô tận.
 
