@@ -37,3 +37,12 @@ button,input,select{font:inherit}button{cursor:pointer}a{color:inherit;text-deco
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.starfield{display:none}}
 
 @media(max-width:620px){.graph-bar{padding:0 9px;gap:8px}.graph-help{gap:6px}.graph-help span{font-size:0}.graph-help svg{min-width:16px}.graph-fit-button{font-size:11px;padding:8px}.graph-bar-actions{gap:6px}.graph-select{max-width:154px}}
+
+/* The long-form research chapters use extracted source figures, never AI redraws. */
+.markdown-body .paper-source-figure{display:flex;flex-direction:column;gap:11px;margin:32px 0 34px;padding:17px;border:1px solid rgba(176,194,224,.34);background:#172235;border-radius:12px}
+.markdown-body .paper-source-figure img{display:block;width:100%;height:auto;max-height:660px;object-fit:contain;border-radius:5px;background:#fff}
+.markdown-body .paper-source-figure figcaption{color:#c9d5e8;font-size:13px;line-height:1.65;margin:0;font-weight:500}
+.markdown-body h4{font:700 16px/1.48 var(--font-montserrat),sans-serif;color:#b9f1d4;letter-spacing:-.01em;margin:25px 0 10px}
+.markdown-body p,.markdown-body li{hyphens:auto}
+.markdown-body .paper-source-figure + p{font-size:14px;color:#bfcddd}
+@media(max-width:620px){.markdown-body .paper-source-figure{padding:9px;margin:23px 0}.markdown-body .paper-source-figure figcaption{font-size:12px}}
