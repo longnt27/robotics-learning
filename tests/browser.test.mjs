@@ -83,8 +83,63 @@ try {
     console.log(`PASS: ${viewport.width}x${viewport.height} · 22 nodes · wheel zoom ${before.toFixed(2)} -> ${after.toFixed(2)} · Montserrat VI`);
     await page.close();
   }
+  // Hero cleanup and native, first-party PDF preview (desktop + mobile).
+  for (const viewport of [{width:1280,height:800},{width:390,height:844}]) {
+    const pdfPage=await browser.newPage({viewport});
+    const pdfErrors=[];
+    pdfPage.on("pageerror",error=>pdfErrors.push(error.message));
+    // Keep browser tests independent of arXiv uptime. Unit tests separately
+    // verify that the PDF proxy streams the original bytes and byte ranges.
+    await pdfPage.route("**/api/papers/*/pdf**",route=>route.fulfill({
+      status:200,contentType:"application/pdf",body:"%PDF-1.7\n"
+    }));
+    await pdfPage.goto(baseUrl+"/paper/vima",{waitUntil:"domcontentloaded"});
+    const hero=pdfPage.locator(".paper-hero");
+    await hero.waitFor({state:"visible"});
+    const visibleText=await hero.innerText();
+    assert.ok(visibleText.includes("VIMA") && visibleText.includes("ICML 2023"),
+      "Keep real title and publication");
+    assert.ok(!visibleText.includes("BÀI NGHIÊN CỨU /"),
+      "Remove redundant manuscript/year counter");
+    assert.ok(!visibleText.includes("DIỄN GIẢI TIẾNG VIỆT"),
+      "Remove redundant Vietnamese explanation metadata");
+    assert.ok(!visibleText.includes("Nền tảng và suy luận"),
+      "Remove purple category label from the hero");
+    assert.ok(!visibleText.includes("BÀI\nNGHIÊN CỨU"),
+      "Remove decorative paper label beneath the orb");
+
+    await hero.getByRole("button",{name:/XEM PDF TẠI ĐÂY/i}).click();
+    const pdfTab=pdfPage.getByRole("tab",{name:/PDF GỐC/i});
+    assert.equal(await pdfTab.getAttribute("aria-selected"),"true");
+    assert.equal(new URL(pdfPage.url()).searchParams.get("tab"),"pdf");
+    const pdfIframe=pdfPage.locator(".pdf-frame iframe");
+    await pdfIframe.waitFor({state:"attached"});
+    const pdfSrc=await pdfIframe.getAttribute("src");
+    assert.equal(pdfSrc,"/api/papers/vima/pdf#toolbar=1&navpanes=0");
+    assert.equal(new URL(pdfSrc,baseUrl).origin,new URL(baseUrl).origin,
+      "Embedded original PDF should be same-origin");
+    assert.equal(await pdfIframe.getAttribute("title"),"VIMA – PDF bài báo gốc");
+    assert.equal(await pdfPage.getByRole("link",{name:/MỞ TOÀN BỘ PDF/i}).getAttribute("href"),
+      "https://arxiv.org/pdf/2210.03094",
+      "Preserve access to the verified publisher original");
+
+    // Direct links can open the same PDF tab without visiting the hero CTA.
+    await pdfPage.goto(baseUrl+"/paper/vima?tab=pdf",{waitUntil:"domcontentloaded"});
+    await pdfPage.waitForFunction(()=>{
+      const tab=document.getElementById("reader-tab-pdf");
+      return tab?.getAttribute("aria-selected")==="true";
+    });
+    const overflow=await pdfPage.evaluate(
+      ()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
+    assert.ok(overflow<=2,"PDF embed must not overflow on "+viewport.width+"px");
+    assert.deepEqual(pdfErrors,[],"No JS/hydration errors in PDF reader");
+    await pdfPage.close();
+  }
+  console.log("PASS: inline original PDF route, cleaned hero and deep-linked PDF tab");
+
   // Verify resource links in both reading and PDF views, including unavailable official code.
   const resourcesPage = await browser.newPage({viewport: {width: 1280, height: 800}});
+  await resourcesPage.route("**/api/papers/*/pdf**",route=>route.fulfill({status:200,contentType:"application/pdf",body:"%PDF-1.7\\n"}));
   for (const example of [
     {slug: 'fast', platform: 'Hugging Face', url: 'https://huggingface.co/physical-intelligence/fast'},
     {slug: 'palm-e', platform: 'GitHub', url: 'https://github.com/kyegomez/PALM-E'},

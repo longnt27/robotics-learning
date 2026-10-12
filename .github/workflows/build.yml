@@ -18,6 +18,7 @@ jobs:
       - run: npm run check:content
       - run: npm run test:deep-reading
       - run: npm run test:resources
+      - run: npm run test:pdf-viewer
       - run: npm run test:slides
       - run: npm run test:ui
       - run: npm run test:glossary
