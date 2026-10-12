@@ -39,6 +39,9 @@ test("all twenty-two scientific chapters contain at least five times the prior e
   assert.equal(Object.keys(baselines).length,22);
   assert.deepEqual(Object.keys(figures).sort(),Object.keys(baselines).sort());
   assert.deepEqual(Object.keys(guides).sort(),Object.keys(baselines).sort());
+  const counts=Object.values(figures).map(items=>items.length);
+  assert.ok(counts.reduce((total,n)=>total+n,0)>44,'No more fixed two-figure cutoff');
+  assert.ok(new Set(counts).size>=3,'Number of figures must depend on source paper');
   for(const [slug,previousWords] of Object.entries(baselines)){
     const content=fs.readFileSync(path.join(root,"content/papers",slug+".md"),"utf8");
     const current=countWords(content);
@@ -46,7 +49,7 @@ test("all twenty-two scientific chapters contain at least five times the prior e
     assert.ok(content.includes("#### Đọc hình gốc:"),`${slug}: no illustrated source explanation`);
     assert.ok(content.includes("#### Ví dụ từng bước để hiểu cơ chế"),`${slug}: missing worked example`);
     assert.ok(content.includes("### Đào sâu:"),`${slug}: missing technical walkthrough`);
-    assert.equal(figures[slug].length,2,`${slug}: expected two verified source figures`);
+    assert.ok(figures[slug].length>=2,`${slug}: fewer than two verified paper figures`);
     for(const fig of figures[slug]){
       assert.match(fig.caption,/^fig(?:ure)?\.?\s*\d+/i,`${slug}: unverified PDF caption`);
       assert.ok(fig.pdf.startsWith("https://"),`${slug}: missing PDF provenance`);
@@ -56,6 +59,11 @@ test("all twenty-two scientific chapters contain at least five times the prior e
       assert.ok(fs.existsSync(path.join(root,"public",fig.image)),`${slug}: missing image bytes ${fig.image}`);
       assert.ok(content.includes("]("+fig.image+")"),`${slug}: figure not embedded`);
       assert.ok(fig.caption.trim().length>=35,`${slug}: source author caption is missing`);
+      assert.ok(fig.caption_vi?.trim().length>=12,`${slug}: missing Vietnamese translation for Figure ${fig.number}`);
+      assert.ok(/[àáạảãăâđèéẹẻẽêếìíịỉĩòóọỏõôốơớùúụủũưứỳýỵỷỹ]/i.test(fig.caption_vi),
+        `${slug}: translation lacks Vietnamese diacritics`);
+      assert.match(fig.translation_method,/opus-mt-en-vi/,`${slug}: translation provenance missing`);
+      assert.match(fig.caption_sha256,/^[a-f0-9]{64}$/,`${slug}: translation source hash missing`);
       assert.ok(!content.includes("Xem caption đầy đủ trong PDF"),`${slug}: redundant fake caption remains`);
     }
     for(const key of ["overview","method","worked"]){
@@ -68,6 +76,7 @@ test("Markdown hides generator markers without discarding real explanatory secti
   const source=fs.readFileSync(path.join(root,"lib/content.ts"),"utf8");
   assert.match(source,/BEGIN\|END/);
   assert.match(source,/EXTENDED WALKTHROUGH/);
+  assert.match(source,/ADDITIONAL PDF FIGURES/);
 });
 
 test("Paper figures have original source captions, PDF deep links and native fullscreen dialog",()=>{
@@ -83,6 +92,8 @@ test("Paper figures have original source captions, PDF deep links and native ful
   assert.ok(code.includes("onCancel"));
   assert.match(code,/aria-label="Đóng ảnh phóng to"/);
   assert.match(code,/paper-source-figcaption/);
+  assert.match(code,/paper-figure-caption-vi/);
+  assert.match(code,/captionVi/);
   assert.match(code,/role="figure"/);
   assert.match(css,/\.paper-figure-lightbox/);
 });
