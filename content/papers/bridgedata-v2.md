@@ -37,6 +37,19 @@ Hình 1 nên đọc theo ba trục: lượng dữ liệu, số môi trường v�
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 3 từ PDF gốc, trang 5](/paper-figures/bridgedata-v2/figure-3.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Kiến thức nền cần nắm
 
 Tập dữ liệu robotics thường bị giới hạn trong phòng phòng thí nghiệm, vật thể set, camera angle và nhiệm vụ collection protocol; số lượng episode lớn chưa chắc làm phân phối đủ rộng. **Sự đa dạng** cần định nghĩa ở nhiều trục: phông nền, vật thể đích, primitive, bối cảnh geometry và demonstrator.
@@ -122,6 +135,22 @@ $$
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 5 từ PDF gốc, trang 8](/paper-figures/bridgedata-v2/figure-5.webp)
+
+
+![Hình 6 từ PDF gốc, trang 13](/paper-figures/bridgedata-v2/figure-6.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Ví dụ từng bước
 
 Nếu huấn luyện pick-place 20 nghìn lần trên đúng một bàn sạch, policy có thể thành chuyên gia của... chiếc bàn đó. BridgeData V2 cho nhiều bối cảnh/nhiệm vụ, để policy cần nhận ra affordance dù phông nền thay đổi. Chia huấn luyện/test theo episode ngẫu nhiên có thể leak environment; một phép thử mạnh hơn là bối cảnh trong tập kiểm tra/nhiệm vụ.
@@ -169,6 +198,19 @@ Một ablation đáng nhớ là khi giữ mẫu count gần nhau nhưng tăng s�
 **Đọc theo từng failure mode.** Điều này echo RT-1: thêm hàng chục nghìn replay của cùng hành vi không thay thế được coverage của nhiều hành vi khác nhau. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
 
 <!-- END EXTENDED WALKTHROUGH -->
+
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 7 từ PDF gốc, trang 14](/paper-figures/bridgedata-v2/figure-7.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
 
 ## Hạn chế và câu hỏi còn mở
 

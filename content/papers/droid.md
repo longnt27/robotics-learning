@@ -37,6 +37,22 @@ Hình 1 giới thiệu một chiến lược thu dữ liệu khác việc dựng
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 9 từ PDF gốc, trang 10](/paper-figures/droid/figure-9.webp)
+
+
+![Hình 12 từ PDF gốc, trang 17](/paper-figures/droid/figure-12.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Kiến thức nền cần nắm
 
 Bottleneck thực tế là thu dữ liệu robot **ngoài phòng phòng thí nghiệm**: lighting, vật thể, operator kỹ năng và phông nền thay đổi làm phân phối phức tạp hơn số lượng episode. DROID tập trung vào protocol thu thập để policy học từ nhiều cảnh đời thực.
@@ -122,6 +138,49 @@ $$
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 3 từ PDF gốc, trang 5](/paper-figures/droid/figure-3.webp)
+
+
+![Hình 4 từ PDF gốc, trang 6](/paper-figures/droid/figure-4.webp)
+
+
+![Hình 5 từ PDF gốc, trang 6](/paper-figures/droid/figure-5.webp)
+
+
+![Hình 6 từ PDF gốc, trang 7](/paper-figures/droid/figure-6.webp)
+
+
+![Hình 8 từ PDF gốc, trang 9](/paper-figures/droid/figure-8.webp)
+
+
+![Hình 10 từ PDF gốc, trang 10](/paper-figures/droid/figure-10.webp)
+
+
+![Hình 11 từ PDF gốc, trang 16](/paper-figures/droid/figure-11.webp)
+
+
+![Hình 16 từ PDF gốc, trang 22](/paper-figures/droid/figure-16.webp)
+
+
+![Hình 18 từ PDF gốc, trang 24](/paper-figures/droid/figure-18.webp)
+
+
+![Hình 19 từ PDF gốc, trang 25](/paper-figures/droid/figure-19.webp)
+
+
+![Hình 20 từ PDF gốc, trang 26](/paper-figures/droid/figure-20.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Ví dụ từng bước
 
 Ở cùng nhiệm vụ pick-place, một bối cảnh có bàn kính phản quang, bối cảnh khác có khăn và đồ vật cluttered. DROID-style collection khiến thị giác encoder phải học affordance thay vì memorize màu bàn. Nhưng dữ liệu còn phụ thuộc vào con người operator và phần cứng robot; action frequency/camera alignment có thể trở thành confound.
@@ -170,6 +229,28 @@ Khi thêm DROID vào dữ liệu của nhiệm vụ đích theo mixture, tác gi
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 7 từ PDF gốc, trang 8](/paper-figures/droid/figure-7.webp)
+
+
+![Hình 13 từ PDF gốc, trang 19](/paper-figures/droid/figure-13.webp)
+
+
+![Hình 14 từ PDF gốc, trang 20](/paper-figures/droid/figure-14.webp)
+
+
+![Hình 15 từ PDF gốc, trang 21](/paper-figures/droid/figure-15.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Hạn chế và câu hỏi còn mở
 
 **Bài báo thừa nhận:** DROID vẫn dùng một main robot phần cứng, nên chủ yếu giải bối cảnh/độ đa dạng nhiệm vụ chứ không giải cross-embodiment. Scope manipulation vẫn tabletop-ish và chưa chạm hết dynamic/deformable/contact-rich world.
@@ -187,6 +268,19 @@ Khi thêm DROID vào dữ liệu của nhiệm vụ đích theo mixture, tác gi
 **Ngoài benchmark còn có hệ thống thật.** Phê bình độc lập: Phê bình: 350 giờ còn nhỏ so với các VLA corpora 2026, nhiều fail/recovery behaviors chưa được mô hình hóa. Khi chuyển sang robot khác, camera, workspace, DOF, actuator limits và controller đều có thể phá các giả định gốc. Cần kiểm tra safety, valid action range và các tình huống bắt đầu lệch chuẩn trước khi coi một policy là sẵn sàng triển khai.
 
 <!-- END EXTENDED WALKTHROUGH -->
+
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 17 từ PDF gốc, trang 22](/paper-figures/droid/figure-17.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
 
 ## Liên hệ với nghiên cứu khác
 

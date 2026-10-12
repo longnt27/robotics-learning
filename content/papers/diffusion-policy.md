@@ -124,6 +124,43 @@ $$
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 3 từ PDF gốc, trang 3](/paper-figures/diffusion-policy/figure-3.webp)
+
+
+![Hình 4 từ PDF gốc, trang 4](/paper-figures/diffusion-policy/figure-4.webp)
+
+
+![Hình 6 từ PDF gốc, trang 5](/paper-figures/diffusion-policy/figure-6.webp)
+
+
+![Hình 8 từ PDF gốc, trang 9](/paper-figures/diffusion-policy/figure-8.webp)
+
+
+![Hình 9 từ PDF gốc, trang 9](/paper-figures/diffusion-policy/figure-9.webp)
+
+
+![Hình 10 từ PDF gốc, trang 9](/paper-figures/diffusion-policy/figure-10.webp)
+
+
+![Hình 11 từ PDF gốc, trang 10](/paper-figures/diffusion-policy/figure-11.webp)
+
+
+![Hình 12 từ PDF gốc, trang 14](/paper-figures/diffusion-policy/figure-12.webp)
+
+
+![Hình 13 từ PDF gốc, trang 14](/paper-figures/diffusion-policy/figure-13.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Ví dụ từng bước
 
 Tạo demo Push-T: quan sát gồm tọa độ pusher và vật T. Với cùng start state, demonstrator có thể đi từ bên trái hoặc bên phải. Lúc huấn luyện, lấy ground truth action chuỗi `A_0`, thêm nhiễu Gaussian để có `A_k`, cho mạng dự đoán noise hoặc denoised quỹ đạo. Inference bắt đầu từ noise, lặp nhiều bước đến action chunk hợp lệ. Robot chỉ thực thi `a_0...a_m`, chụp quan sát mới, rồi replan.
@@ -171,6 +208,22 @@ Kết quả có sức ảnh hưởng nhất là qualitative: quỹ đạo mượ
 **Đọc theo từng failure mode.** Với nhiệm vụ trên robot thật như mug flipping, sauce pouring/spreading, diffusion policy đạt thành công cao trong khi một số phương pháp đối chứng LSTM-GMM hoặc hồi quy thất bại hoặc kém rõ rệt. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
 
 <!-- END EXTENDED WALKTHROUGH -->
+
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 5 từ PDF gốc, trang 5](/paper-figures/diffusion-policy/figure-5.webp)
+
+
+![Hình 7 từ PDF gốc, trang 6](/paper-figures/diffusion-policy/figure-7.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
 
 ## Hạn chế và câu hỏi còn mở
 

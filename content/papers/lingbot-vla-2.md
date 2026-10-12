@@ -43,6 +43,19 @@ Hình 1 tóm bốn mảnh ghép trong LingBot-VLA 2.0: tuyển lọc dữ liệu
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 11 từ PDF gốc, trang 15](/paper-figures/lingbot-vla-2/figure-11.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Kiến thức nền
 
 **Dense Transformer FFN:** mọi token đi qua cùng mạng; nhiều nhiệm vụ/embodiments có thể tranh chấp weights. **Mixture-of-Experts (MoE):** router chọn một vài FFN experts mỗi token, nhiều total parameters nhưng activation sparse. **Load balancing:** chống router dồn toàn bộ tokens vào một expert. **Body/DoF canonicalization:** ánh xạ những cơ cấu chấp hành khác nhau vào một schema chung và mask slots không dùng. **World-model proxy:** dự đoán future đặc trưng latent không nhất thiết reconstruct future RGB pixel.
@@ -180,6 +193,34 @@ $$
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 3 từ PDF gốc, trang 4](/paper-figures/lingbot-vla-2/figure-3.webp)
+
+
+![Hình 4 từ PDF gốc, trang 6](/paper-figures/lingbot-vla-2/figure-4.webp)
+
+
+![Hình 5 từ PDF gốc, trang 8](/paper-figures/lingbot-vla-2/figure-5.webp)
+
+
+![Hình 6 từ PDF gốc, trang 8](/paper-figures/lingbot-vla-2/figure-6.webp)
+
+
+![Hình 7 từ PDF gốc, trang 9](/paper-figures/lingbot-vla-2/figure-7.webp)
+
+
+![Hình 12 từ PDF gốc, trang 16](/paper-figures/lingbot-vla-2/figure-12.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Ví dụ từng bước
 
 Giả sử công ty có Franka arm, dual-arm Magic và humanoid với mobile base. Dữ liệu từ mỗi robot đi qua adapter riêng: camera calibration, joints/EEF conventions và normalization. Episode dài được chia hành động `move`, `open`, `close`, `wipe`, `transit`... với ngôn ngữ labels. Robot/con người các quỹ đạo được map vào canonical biểu diễn kèm mask slots không hợp lệ. Khi batch action tokens đi qua action expert, router chọn sparse experts theo đặc trưng token, trong lúc shared expert giữ common dung lượng mô hình. Auxiliary queries còn học target đặc trưng latent cho hiện tại/tương lai.
@@ -231,6 +272,28 @@ Giả sử công ty có Franka arm, dual-arm Magic và humanoid với mobile bas
 **Đọc theo từng failure mode.** GM-100 bimanual đánh giá: Trên Agilex Cobot Magic, báo cáo average progress/thành công khoảng 66.2 / 34.4 cho LingBot 2.0, so 59.1 / 32.2 cho π0.5 trong cùng bảng. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
 
 <!-- END EXTENDED WALKTHROUGH -->
+
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 8 từ PDF gốc, trang 13](/paper-figures/lingbot-vla-2/figure-8.webp)
+
+
+![Hình 9 từ PDF gốc, trang 14](/paper-figures/lingbot-vla-2/figure-9.webp)
+
+
+![Hình 10 từ PDF gốc, trang 15](/paper-figures/lingbot-vla-2/figure-10.webp)
+
+
+![Hình 13 từ PDF gốc, trang 17](/paper-figures/lingbot-vla-2/figure-13.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
 
 ## Hạn chế và câu hỏi còn mở
 
@@ -494,3 +557,4 @@ Một tensor có shape hợp lệ chưa chắc là lệnh vật lý hợp lệ. 
 Một tensor có shape hợp lệ chưa chắc là lệnh vật lý hợp lệ. Hãy kiểm tra số bậc tự do, đơn vị, hệ tọa độ, giới hạn từng chiều và quy trình inverse-normalize. Trong Dense expert và dữ liệu trộn thô có bottleneck về capacity/quality, một lỗi scale ở gripper hoặc thiếu đồng bộ timestamp có thể làm toàn episode thất bại mà loss offline không phát hiện rõ.
 
 <!-- END EXTENDED WALKTHROUGH -->
+

@@ -122,6 +122,43 @@ $$
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 3 từ PDF gốc, trang 3](/paper-figures/fast/figure-3.webp)
+
+
+![Hình 4 từ PDF gốc, trang 5](/paper-figures/fast/figure-4.webp)
+
+
+![Hình 6 từ PDF gốc, trang 8](/paper-figures/fast/figure-6.webp)
+
+
+![Hình 7 từ PDF gốc, trang 8](/paper-figures/fast/figure-7.webp)
+
+
+![Hình 8 từ PDF gốc, trang 8](/paper-figures/fast/figure-8.webp)
+
+
+![Hình 9 từ PDF gốc, trang 9](/paper-figures/fast/figure-9.webp)
+
+
+![Hình 10 từ PDF gốc, trang 10](/paper-figures/fast/figure-10.webp)
+
+
+![Hình 12 từ PDF gốc, trang 16](/paper-figures/fast/figure-12.webp)
+
+
+![Hình 15 từ PDF gốc, trang 18](/paper-figures/fast/figure-15.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Ví dụ từng bước
 
 Tạo action tensor `(T=50, D=7)`. Normalize, biến mỗi dimension theo DCT từ time domain sang frequency coefficients, giữ coefficients mang nhiều năng lượng và lượng tử hóa thành token chuỗi. Decode đảo quy trình để reconstruct actions. Với quỹ đạo mượt, high-frequency coefficients nhỏ; với quỹ đạo giật, compression khó hơn.
@@ -169,6 +206,28 @@ FAST+ gần dataset-specific tokenizers dù phải cover nhiều robot/action sp
 **Đọc theo từng failure mode.** Gains rõ nhất ở high-frequency và dexterous thiết lập, nơi per-timestep binning tạo chuỗi quá dài. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
 
 <!-- END EXTENDED WALKTHROUGH -->
+
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 5 từ PDF gốc, trang 6](/paper-figures/fast/figure-5.webp)
+
+
+![Hình 11 từ PDF gốc, trang 10](/paper-figures/fast/figure-11.webp)
+
+
+![Hình 13 từ PDF gốc, trang 17](/paper-figures/fast/figure-13.webp)
+
+
+![Hình 14 từ PDF gốc, trang 18](/paper-figures/fast/figure-14.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
 
 ## Hạn chế và câu hỏi còn mở
 

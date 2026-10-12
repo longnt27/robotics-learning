@@ -37,6 +37,19 @@ Hình 1 cho thấy độ chênh giữa thao tác con người bằng tay và tha
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 8 từ PDF gốc, trang 17](/paper-figures/mimicplay/figure-8.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Kiến thức nền cần nắm
 
 Video con người rẻ hơn robot demo nhưng **không trực tiếp có robot actions**. Một video cho biết mục tiêu và chuỗi trạng thái trung gian; robot actions vẫn cần robot demos và bộ điều khiển. Tách high-level plan và thực thi ở cấp độ thấp giúp chuyển giao phần biết "làm gì tiếp" qua embodiment.
@@ -122,6 +135,28 @@ $$
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 4 từ PDF gốc, trang 7](/paper-figures/mimicplay/figure-4.webp)
+
+
+![Hình 5 từ PDF gốc, trang 8](/paper-figures/mimicplay/figure-5.webp)
+
+
+![Hình 6 từ PDF gốc, trang 16](/paper-figures/mimicplay/figure-6.webp)
+
+
+![Hình 7 từ PDF gốc, trang 16](/paper-figures/mimicplay/figure-7.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Ví dụ từng bước
 
 Trong video người mở ngăn kéo rồi lấy khăn, một mô hình có thể học latent progress: tiến tới ngăn kéo → mở → lấy khăn. Policy robot thấy cùng thị giác mục tiêu rồi dùng một số ít robot các quỹ đạo để học manipulation primitive. Đây không phải đơn giản copy 3D khớp của con người chuyển động vào robot joint không gian.
@@ -169,6 +204,19 @@ Kết quả quan trọng về mặt ý tưởng là: dữ liệu thu từ con ng
 **Đọc theo từng failure mode.** Nó có thể cung cấp nhiệm vụ geometry, subgoal sequencing và prior về chuyển động, rồi dữ liệu robot chỉ cần dạy phần embodiment-specific thực thi. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
 
 <!-- END EXTENDED WALKTHROUGH -->
+
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 3 từ PDF gốc, trang 5](/paper-figures/mimicplay/figure-3.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
 
 ## Hạn chế và câu hỏi còn mở
 

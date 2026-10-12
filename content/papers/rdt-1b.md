@@ -122,6 +122,25 @@ $$
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 3 từ PDF gốc, trang 4](/paper-figures/rdt-1b/figure-3.webp)
+
+
+![Hình 4 từ PDF gốc, trang 6](/paper-figures/rdt-1b/figure-4.webp)
+
+
+![Hình 8 từ PDF gốc, trang 26](/paper-figures/rdt-1b/figure-8.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Ví dụ từng bước
 
 Với một bimanual folding kỹ năng, mạng điều kiện hình ảnh + ngôn ngữ + trạng thái robot rồi mẫu cả action chunk cho hai tay. Đồng thời, tập dữ liệu robot khác có DoF/coordinate các khung hình khác; preprocessing phải quyết định joint/EEF conventions và mask cho dimension vắng.
@@ -170,6 +189,22 @@ Kết quả khiến diffusion foundation policy trở thành một hướng nghi
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 5 từ PDF gốc, trang 8](/paper-figures/rdt-1b/figure-5.webp)
+
+
+![Hình 10 từ PDF gốc, trang 28](/paper-figures/rdt-1b/figure-10.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Hạn chế và câu hỏi còn mở
 
 **Bài báo thừa nhận:** bài báo không có một limitations section mạnh, nhưng phạm vi thí nghiệm chủ yếu vẫn quanh bimanual manipulation và target phần cứng family; general long-horizon/mobile hành vi chưa phải trọng tâm.
@@ -187,6 +222,19 @@ Kết quả khiến diffusion foundation policy trở thành một hướng nghi
 **Ngoài benchmark còn có hệ thống thật.** Phê bình độc lập: Phê bình: 1B active params và iterative sampling vẫn là thách thức cho thiết bị edge. Khi chuyển sang robot khác, camera, workspace, DOF, actuator limits và controller đều có thể phá các giả định gốc. Cần kiểm tra safety, valid action range và các tình huống bắt đầu lệch chuẩn trước khi coi một policy là sẵn sàng triển khai.
 
 <!-- END EXTENDED WALKTHROUGH -->
+
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 6 từ PDF gốc, trang 23](/paper-figures/rdt-1b/figure-6.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
 
 ## Liên hệ với nghiên cứu khác
 

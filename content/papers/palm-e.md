@@ -37,6 +37,22 @@ Hình 1 định vị PaLM-E như một mô hình ngôn ngữ đa phương thức
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 7 từ PDF gốc, trang 15](/paper-figures/palm-e/figure-7.webp)
+
+
+![Hình 8 từ PDF gốc, trang 17](/paper-figures/palm-e/figure-8.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Kiến thức nền cần nắm
 
 Phân biệt **embodied reasoning** với **low-level motor policy**. Một LLM hiểu câu "cốc nằm trong ngăn kéo" có thể suy ra trình tự tìm cốc, nhưng chưa có nghĩa nó đã học torque hay gripper velocity. Sensor tokens là vector liên tục được project vào không gian embedding của mô hình ngôn ngữ; chúng không trở thành từ thật, chỉ dùng chung attention stream.
@@ -121,6 +137,28 @@ $$
 **Giới hạn của suy luận từ công thức.** Biểu thức khái niệm để đọc kiến trúc, không phải loss mới. Một biểu thức xác suất hoặc phép nội suy không tự chứng minh model đã học vật lý hay robot sẽ thành công. Loss và nguồn target quyết định model có tín hiệu nào, còn evaluation mới cho biết hành vi thực hiện ngoài đời.
 
 <!-- END EXTENDED WALKTHROUGH -->
+
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 3 từ PDF gốc, trang 7](/paper-figures/palm-e/figure-3.webp)
+
+
+![Hình 4 từ PDF gốc, trang 8](/paper-figures/palm-e/figure-4.webp)
+
+
+![Hình 5 từ PDF gốc, trang 9](/paper-figures/palm-e/figure-5.webp)
+
+
+![Hình 6 từ PDF gốc, trang 14](/paper-figures/palm-e/figure-6.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
 
 ## Ví dụ từng bước
 

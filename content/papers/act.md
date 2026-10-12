@@ -37,6 +37,25 @@ Hình 1 không chỉ khoe một cánh tay robot. Phần bên trái cho thấy c�
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 10 từ PDF gốc, trang 16](/paper-figures/act/figure-10.webp)
+
+
+![Hình 11 từ PDF gốc, trang 17](/paper-figures/act/figure-11.webp)
+
+
+![Hình 12 từ PDF gốc, trang 18](/paper-figures/act/figure-12.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Kiến thức nền cần nắm
 
 Một lần dự đoán `a_t` ở 50 Hz nghĩa là 50 decisions/giây, dễ sai số tích luỹ. **Action chunking** chuyển thành dự đoán `A_{t:t+H}`, giảm tần suất query nhưng vẫn có khả năng đóng vòng nếu overlap. **CVAE** mã hoá style của demonstration; latent `z` giúp phân biệt những chuyển động hai tay khác nhau cùng đạt mục đích.
@@ -122,6 +141,34 @@ $$
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 5 từ PDF gốc, trang 5](/paper-figures/act/figure-5.webp)
+
+
+![Hình 6 từ PDF gốc, trang 5](/paper-figures/act/figure-6.webp)
+
+
+![Hình 7 từ PDF gốc, trang 7](/paper-figures/act/figure-7.webp)
+
+
+![Hình 8 từ PDF gốc, trang 8](/paper-figures/act/figure-8.webp)
+
+
+![Hình 9 từ PDF gốc, trang 11](/paper-figures/act/figure-9.webp)
+
+
+![Hình 13 từ PDF gốc, trang 19](/paper-figures/act/figure-13.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Ví dụ từng bước
 
 Hai tay cầm mép áo và kéo. Policy stepwise dễ rung khi hai tay chỉ cần lệch pha một chút; ACT sinh 50 actions tương quan để tay trái và phải di chuyển cùng nhịp. Ở mỗi quan sát, ACT tạo chunk mới chồng lên chunk cũ. **Temporal ensembling** dùng weighted average cho các action dự đoán cùng timestep.
@@ -187,6 +234,19 @@ Một điểm thực dụng là nhiều nhiệm vụ chỉ cần khoảng **10-2
 **Ngoài benchmark còn có hệ thống thật.** Phê bình độc lập: Phê bình: ensemble của hai action mode đôi khi tạo chuyển động không hợp lệ, dẫn tới bài toán RTC. Khi chuyển sang robot khác, camera, workspace, DOF, actuator limits và controller đều có thể phá các giả định gốc. Cần kiểm tra safety, valid action range và các tình huống bắt đầu lệch chuẩn trước khi coi một policy là sẵn sàng triển khai.
 
 <!-- END EXTENDED WALKTHROUGH -->
+
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 4 từ PDF gốc, trang 4](/paper-figures/act/figure-4.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
 
 ## Liên hệ với nghiên cứu khác
 

@@ -37,6 +37,19 @@ Hình 1 trình bày các trụ cột của RoboCasa: nhiều căn bếp, nhiều
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 4 từ PDF gốc, trang 4](/paper-figures/robocasa/figure-4.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Kiến thức nền cần nắm
 
 Robot deployment tốn kém, còn đánh giá ngoài đời không dễ chạy hàng trăm random seed. Simulators như RoboCasa cho procedural variation: layout, texture, vật thể placement, nhiệm vụ. Tuy vậy **simulator realism** khác **policy robustness ngoài đời**.
@@ -122,6 +135,31 @@ $$
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 5 từ PDF gốc, trang 5](/paper-figures/robocasa/figure-5.webp)
+
+
+![Hình 6 từ PDF gốc, trang 6](/paper-figures/robocasa/figure-6.webp)
+
+
+![Hình 8 từ PDF gốc, trang 7](/paper-figures/robocasa/figure-8.webp)
+
+
+![Hình 10 từ PDF gốc, trang 8](/paper-figures/robocasa/figure-10.webp)
+
+
+![Hình 12 từ PDF gốc, trang 15](/paper-figures/robocasa/figure-12.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Ví dụ từng bước
 
 Một nhiệm vụ mở ngăn kéo trong nhà bếp có thể randomize chất liệu tủ, hướng nhìn camera, vị trí robot, friction và vật thể instances. Huấn luyện trên một số house layouts, test trên held-out layout. Thành tích cao trong domain randomization chưa đảm bảo sim-to-real nếu camera, contact động lực học hoặc robot calibration sai.
@@ -169,6 +207,25 @@ RoboCasa cũng phơi ra một fact quan trọng: các **composite/longer-horizon
 **Đọc theo từng failure mode.** Tuy absolute thành công còn thấp, relative gains cho thấy sim dữ liệu không chỉ làm đẹp benchmark mô phỏng. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
 
 <!-- END EXTENDED WALKTHROUGH -->
+
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 7 từ PDF gốc, trang 7](/paper-figures/robocasa/figure-7.webp)
+
+
+![Hình 9 từ PDF gốc, trang 8](/paper-figures/robocasa/figure-9.webp)
+
+
+![Hình 13 từ PDF gốc, trang 16](/paper-figures/robocasa/figure-13.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
 
 ## Hạn chế và câu hỏi còn mở
 

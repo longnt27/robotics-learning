@@ -184,6 +184,28 @@ $$
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 3 từ PDF gốc, trang 4](/paper-figures/rtc-inference/figure-3.webp)
+
+
+![Hình 4 từ PDF gốc, trang 5](/paper-figures/rtc-inference/figure-4.webp)
+
+
+![Hình 6 từ PDF gốc, trang 8](/paper-figures/rtc-inference/figure-6.webp)
+
+
+![Hình 7 từ PDF gốc, trang 23](/paper-figures/rtc-inference/figure-7.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Ví dụ từng bước
 
 Robot đang cắm cáp Ethernet vào port. Chunk A đang tiến lên theo trục X và nghiêng cổ tay nhẹ. Inference bắt đầu khi còn một số bước chưa thực thi, nên RTC khóa các bước A chắc chắn sẽ xảy ra. Camera mới cho thấy đầu cáp hơi lệch phải: phần future của B nên hiệu chỉnh nhẹ về phải, nhưng không được thay tức thời các bước vừa được robot commit. Soft mask cho phép gradient chỉnh góc tiếp cận dần dần. Kết quả mong muốn: không pause, không snap quỹ đạo, vẫn responsive với quan sát mới.
@@ -235,6 +257,22 @@ Các nhiệm vụ gồm thắp nến bằng que diêm, cắm Ethernet, gấp áo
 **Đọc theo từng failure mode.** Họ còn inject +100 ms và +200 ms độ trễ để kiểm tra robustness. Throughput RTC nhìn chung tốt hơn hoặc bền hơn trong các thiết lập này; một số biến thể temporal ensembling có dao động đủ mạnh để trigger protective stop của robot. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
 
 <!-- END EXTENDED WALKTHROUGH -->
+
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 5 từ PDF gốc, trang 7](/paper-figures/rtc-inference/figure-5.webp)
+
+
+![Hình 8 từ PDF gốc, trang 25](/paper-figures/rtc-inference/figure-8.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
 
 ## Hạn chế và câu hỏi còn mở
 
@@ -456,3 +494,4 @@ Nếu train và test dùng cùng camera, vật thể và background, một mô h
 Nếu train và test dùng cùng camera, vật thể và background, một mô hình có thể học shortcut mà không thật sự khái quát. Hãy tạo held-out scene, held-out object hoặc held-out episode theo đúng mục đích đánh giá của paper. Nếu action policy dùng flow-based v_θ, lấy mẫu cập nhật quỹ đạo từ noise qua các flow-time steps. Cách chia tập phải làm trước bước cắt sliding windows để tránh cùng một trajectory xuất hiện ở cả train và test.
 
 <!-- END EXTENDED WALKTHROUGH -->
+

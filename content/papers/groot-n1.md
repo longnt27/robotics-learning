@@ -45,6 +45,19 @@ Hình 1 là tháp dữ liệu, không phải sơ đồ network. Ở đáy có nh
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 14 từ PDF gốc, trang 25](/paper-figures/groot-n1/figure-14.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Kiến thức nền
 
 **Mô hình thị giác-ngôn ngữ (VLM)** học biểu diễn từ hình ảnh và text. Nó mạnh ở bối cảnh understanding, nhận dạng vật thể, chỉ dẫn following nhưng không tự có quỹ đạo control prior chính xác. **Diffusion/flow action policy** học phân phối nhiều quỹ đạo liên tục khả thi từ demonstrations; một quan sát có thể tương ứng nhiều cách grasp khác nhau. **Action chunk** là tensor `A ∈ R^{H × D}`, trong đó H là số bước tương lai dự đoán, D là action dimensions; không phải một token duy nhất.
@@ -169,6 +182,43 @@ $$
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 3 từ PDF gốc, trang 4](/paper-figures/groot-n1/figure-3.webp)
+
+
+![Hình 4 từ PDF gốc, trang 6](/paper-figures/groot-n1/figure-4.webp)
+
+
+![Hình 5 từ PDF gốc, trang 7](/paper-figures/groot-n1/figure-5.webp)
+
+
+![Hình 6 từ PDF gốc, trang 10](/paper-figures/groot-n1/figure-6.webp)
+
+
+![Hình 8 từ PDF gốc, trang 13](/paper-figures/groot-n1/figure-8.webp)
+
+
+![Hình 10 từ PDF gốc, trang 20](/paper-figures/groot-n1/figure-10.webp)
+
+
+![Hình 11 từ PDF gốc, trang 21](/paper-figures/groot-n1/figure-11.webp)
+
+
+![Hình 12 từ PDF gốc, trang 21](/paper-figures/groot-n1/figure-12.webp)
+
+
+![Hình 13 từ PDF gốc, trang 22](/paper-figures/groot-n1/figure-13.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Ví dụ từng bước
 
 Giả sử robot hai tay cần **gấp áo trên bàn**. Observation ban đầu cho thấy hai mép áo lệch vị trí; chỉ dẫn “fold the shirt” xác định mục tiêu. VLM trích xuất context gồm áo, bàn, tay robot và từ khóa nhiệm vụ. Action expert lấy robot trạng thái khớp hiện tại, sampled action noise và context rồi sinh chunk chứa các bước đưa hai tay xuống, kẹp mép, kéo và đặt. Robot thực thi một phần, observe lại và sinh chunk mới. Nếu áo trượt, đầu ra cần thay đổi dựa trên khung hình mới.
@@ -218,6 +268,22 @@ Bài báo cũng nêu phiên bản GR00T N1-2B gồm khoảng 2B parameters và �
 **Đọc theo từng failure mode.** Một cách đọc kết quả có trách nhiệm: xem biểu đồ pretraining vs scratch theo từng dữ liệu regime. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
 
 <!-- END EXTENDED WALKTHROUGH -->
+
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 7 từ PDF gốc, trang 11](/paper-figures/groot-n1/figure-7.webp)
+
+
+![Hình 9 từ PDF gốc, trang 16](/paper-figures/groot-n1/figure-9.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
 
 ## Hạn chế và câu hỏi còn mở
 
@@ -435,3 +501,4 @@ Nếu train và test dùng cùng camera, vật thể và background, một mô h
 Nếu train và test dùng cùng camera, vật thể và background, một mô hình có thể học shortcut mà không thật sự khái quát. Hãy tạo held-out scene, held-out object hoặc held-out episode theo đúng mục đích đánh giá của paper. Vì action quỹ đạo bao gồm nhiều bước, mô hình có thể phối hợp chuyển động tay trái/tay phải và giữ tính liên tục về thời gian trong chunk. Cách chia tập phải làm trước bước cắt sliding windows để tránh cùng một trajectory xuất hiện ở cả train và test.
 
 <!-- END EXTENDED WALKTHROUGH -->
+

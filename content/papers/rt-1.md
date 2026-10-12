@@ -37,6 +37,22 @@ Hình 1 tổng hợp dữ liệu huấn luyện, Transformer policy và phạm v
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 5 từ PDF gốc, trang 7](/paper-figures/rt-1/figure-5.webp)
+
+
+![Hình 7 từ PDF gốc, trang 15](/paper-figures/rt-1/figure-7.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Kiến thức nền cần nắm
 
 RT-1 là **behavior cloning có điều kiện ngôn ngữ**: mạng nhận khung hình `o_t` và chỉ dẫn `l`, xuất action `a_t`. Khác phân loại có giám sát thông thường, lỗi dự đoán tự làm thay đổi quan sát về sau: khi gripper lệch 2 cm, camera nhìn một bối cảnh khác với demo, dẫn tới **compounding error**. Một policy đa nhiệm phải giải cả grounding (chỉ dẫn ám chỉ vật nào), perception và điều khiển trong một lần chạy forward.
@@ -124,6 +140,25 @@ $$
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 11 từ PDF gốc, trang 17](/paper-figures/rt-1/figure-11.webp)
+
+
+![Hình 12 từ PDF gốc, trang 18](/paper-figures/rt-1/figure-12.webp)
+
+
+![Hình 13 từ PDF gốc, trang 21](/paper-figures/rt-1/figure-13.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Ví dụ từng bước
 
 Giả sử lệnh **"lấy quả táo đỏ đặt vào bát"**. `EfficientNet` mã hoá ảnh có nhiều đồ vật; chỉ dẫn đi vào FiLM để điều chỉnh trọng số các đặc trưng thị giác theo từ "táo đỏ" và "bát". `TokenLearner` rút gọn token không gian. Transformer dự đoán các thành phần action như dịch chuyển gripper, góc quay, độ mở kẹp và terminate. Sau khi thực thi, robot chụp khung hình mới và lặp lại. Đây là **behavior cloning trong vòng lặp kín** chứ không phải việc lập kế hoạch cho chuỗi hành động dài.
@@ -171,6 +206,34 @@ Các thí nghiệm ablation cũng cho thấy giảm **độ đa dạng nhiệm v
 **Đọc theo từng failure mode.** Một thí nghiệm rất đáng nhớ là khi thêm dữ liệu bin-picking từ Kuka vào mixture: khả năng khái quát sang bin-picking tăng gần gấp đôi mà hiệu năng trên tập nhiệm vụ gốc không bị phá đáng kể. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
 
 <!-- END EXTENDED WALKTHROUGH -->
+
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 3 từ PDF gốc, trang 6](/paper-figures/rt-1/figure-3.webp)
+
+
+![Hình 4 từ PDF gốc, trang 6](/paper-figures/rt-1/figure-4.webp)
+
+
+![Hình 6 từ PDF gốc, trang 9](/paper-figures/rt-1/figure-6.webp)
+
+
+![Hình 8 từ PDF gốc, trang 15](/paper-figures/rt-1/figure-8.webp)
+
+
+![Hình 9 từ PDF gốc, trang 16](/paper-figures/rt-1/figure-9.webp)
+
+
+![Hình 10 từ PDF gốc, trang 17](/paper-figures/rt-1/figure-10.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
 
 ## Hạn chế và câu hỏi còn mở
 
@@ -272,3 +335,4 @@ Làm một thử nghiệm nhỏ: huấn luyện BC trên ảnh + state với hai
 Đặt một quan sát cụ thể gồm ảnh, state và lệnh nhiệm vụ vào đầu pipeline. Với luận điểm 'Một lần inference xảy ra ra sao?', xác định khi nào thông tin mới được đọc, khi nào mô hình tạo action và khi nào phần cứng nhận lệnh. Giả sử lệnh "lấy quả táo đỏ đặt vào bát". EfficientNet mã hoá ảnh có nhiều đồ vật; chỉ dẫn đi vào FiLM để điều chỉnh trọng số các đặc trưng thị giác theo từ "táo đỏ" và "bát". Nếu không viết được chuỗi này, mô tả còn thiếu mắt xích quan trọng giữa mạng và hệ robot.
 
 <!-- END EXTENDED WALKTHROUGH -->
+

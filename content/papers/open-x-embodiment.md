@@ -122,6 +122,22 @@ $$
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 3 từ PDF gốc, trang 4](/paper-figures/open-x-embodiment/figure-3.webp)
+
+
+![Hình 4 từ PDF gốc, trang 5](/paper-figures/open-x-embodiment/figure-4.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Ví dụ từng bước
 
 Robot A điều khiển EEF delta XYZ + gripper, robot B điều khiển joint angles; trộn thô vectors sẽ khiến action channel 1 mang hai nghĩa. RT-X-style huấn luyện phải gắn embodiment, normalize, map hoặc giữ schema tương ứng; inference cần biết policy đầu ra được robot nhận theo convention nào.
@@ -169,6 +185,19 @@ Bài báo này không chứng minh “mọi robot đều học lẫn nhau”, nh
 **Đọc theo từng failure mode.** Bài báo này không chứng minh “mọi robot đều học lẫn nhau”, nhưng nó chứng minh đủ để thay đổi hướng field: cross-embodiment pretraining từ đó trở thành một assumption hợp lý để đầu tư thay vì một fantasy. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
 
 <!-- END EXTENDED WALKTHROUGH -->
+
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 5 từ PDF gốc, trang 6](/paper-figures/open-x-embodiment/figure-5.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
 
 ## Hạn chế và câu hỏi còn mở
 

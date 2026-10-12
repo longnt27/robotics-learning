@@ -122,6 +122,28 @@ $$
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 6 từ PDF gốc, trang 10](/paper-figures/openvla/figure-6.webp)
+
+
+![Hình 7 từ PDF gốc, trang 22](/paper-figures/openvla/figure-7.webp)
+
+
+![Hình 9 từ PDF gốc, trang 27](/paper-figures/openvla/figure-9.webp)
+
+
+![Hình 10 từ PDF gốc, trang 29](/paper-figures/openvla/figure-10.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Ví dụ từng bước
 
 Đầu vào gồm hình ảnh và chỉ dẫn, backbone VLM tạo hidden đặc trưng, decoder sinh discrete tokens mã hóa các action dimensions. Tại inference, tokenizer decode token IDs về giá trị action đã normalize; phía robot phải unnormalize theo statistics của tập dữ liệu/phần cứng. Sai normalizer có thể tạo action vô lý dù token độ chính xác cao.
@@ -169,6 +191,31 @@ PEFT là phần rất thực dụng: **LoRA rank 32** đạt khoảng **68.2%** 
 **Đọc theo từng failure mode.** Sau task-specific/multi-task fine-tuning, OpenVLA vượt Octo và Diffusion Policy đáng kể trên những thiết lập thao tác robot cần hiểu nhiều chỉ dẫn ngôn ngữ, tác giả nêu mức cải thiện tổng hợp khoảng 20.4%. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
 
 <!-- END EXTENDED WALKTHROUGH -->
+
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 3 từ PDF gốc, trang 7](/paper-figures/openvla/figure-3.webp)
+
+
+![Hình 4 từ PDF gốc, trang 8](/paper-figures/openvla/figure-4.webp)
+
+
+![Hình 5 từ PDF gốc, trang 9](/paper-figures/openvla/figure-5.webp)
+
+
+![Hình 8 từ PDF gốc, trang 25](/paper-figures/openvla/figure-8.webp)
+
+
+![Hình 11 từ PDF gốc, trang 31](/paper-figures/openvla/figure-11.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
 
 ## Hạn chế và câu hỏi còn mở
 

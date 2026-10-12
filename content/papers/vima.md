@@ -122,6 +122,28 @@ $$
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 3 từ PDF gốc, trang 4](/paper-figures/vima/figure-3.webp)
+
+
+![Hình 4 từ PDF gốc, trang 5](/paper-figures/vima/figure-4.webp)
+
+
+![Hình 6 từ PDF gốc, trang 7](/paper-figures/vima/figure-6.webp)
+
+
+![Hình 7 từ PDF gốc, trang 8](/paper-figures/vima/figure-7.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Ví dụ từng bước
 
 Prompt kiểu `Put [ảnh cốc xanh] next to [ảnh hộp đỏ]` tách thành đoạn text và vật thể tokens. Transformer nhìn bối cảnh hiện tại, cross-attend vào prompt và sinh thao tác pick/place. Lúc đánh giá, thay cốc xanh bằng vật mới hoặc đổi quan hệ không gian để đo prompt khả năng khái quát.
@@ -169,6 +191,19 @@ Quan trọng hơn, level khả năng khái quát càng xa huấn luyện grammar
 **Đọc theo từng failure mode.** Kích thước mô hình và dữ liệu size đều giúp systematic khả năng khái quát, không chỉ memorization huấn luyện nhiệm vụ. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
 
 <!-- END EXTENDED WALKTHROUGH -->
+
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 5 từ PDF gốc, trang 6](/paper-figures/vima/figure-5.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
 
 ## Hạn chế và câu hỏi còn mở
 

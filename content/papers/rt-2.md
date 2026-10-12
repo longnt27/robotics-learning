@@ -37,6 +37,28 @@ Hình 1 là câu trả lời trực quan cho ý tưởng trung tâm của RT-2: 
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 3 từ PDF gốc, trang 7](/paper-figures/rt-2/figure-3.webp)
+
+
+![Hình 8 từ PDF gốc, trang 22](/paper-figures/rt-2/figure-8.webp)
+
+
+![Hình 9 từ PDF gốc, trang 23](/paper-figures/rt-2/figure-9.webp)
+
+
+![Hình 10 từ PDF gốc, trang 25](/paper-figures/rt-2/figure-10.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Kiến thức nền cần nắm
 
 RT-1 học image-to-action theo demonstration. VLM đã nhìn lượng ảnh và text rộng hơn robot nhiều bậc độ lớn. RT-2 đưa ra giả thuyết: **web ngữ nghĩa priors** có thể giúp robot hiểu vật thể/mục tiêu chưa được annotate trong robot tập dữ liệu nếu action được biểu diễn chung như đầu ra tokens.
@@ -122,6 +144,22 @@ $$
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 5 từ PDF gốc, trang 9](/paper-figures/rt-2/figure-5.webp)
+
+
+![Hình 7 từ PDF gốc, trang 11](/paper-figures/rt-2/figure-7.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Ví dụ từng bước
 
 Yêu cầu robot "bỏ rác vào thùng" trong khi robot demos có pick/place nhưng không có vật thể tên "rác" cụ thể. VLM biết một lon rỗng và giấy vụn liên quan đến khái niệm rác; robotics action tín hiệu giám sát dạy cách pick/place. Khi text/web examples và robot các quỹ đạo co-train, mô hình có thể dùng prior để chọn mục tiêu. Tuy nhiên, chuyển giao ngữ nghĩa không đảm bảo kẹp được vật lạ.
@@ -169,6 +207,22 @@ Các qualitative examples gây ảnh hưởng lớn vì robot có thể hiểu n
 **Đọc theo từng failure mode.** Điểm thắng nằm ở vật thể mới, unseen chỉ dẫn và khái quát về ngữ nghĩa. Bài báo báo hiệu năng khái quát gần gấp đôi một số phương pháp đối chứng mạnh và, trong nhóm “emergent suy luận ngữ nghĩa” được thiết kế để test kiến thức từ web chuyển giao, RT-2-PaLI-X đạt tỷ lệ thành công trung bình cao hơn RT-1 nhiều lần, có nhóm hơn 3x. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
 
 <!-- END EXTENDED WALKTHROUGH -->
+
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 4 từ PDF gốc, trang 8](/paper-figures/rt-2/figure-4.webp)
+
+
+![Hình 6 từ PDF gốc, trang 10](/paper-figures/rt-2/figure-6.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
 
 ## Hạn chế và câu hỏi còn mở
 

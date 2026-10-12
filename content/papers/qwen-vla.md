@@ -45,6 +45,22 @@ Hình 1 là bản đồ của một mô hình embodied chung có cả manipulati
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 3 từ PDF gốc, trang 11](/paper-figures/qwen-vla/figure-3.webp)
+
+
+![Hình 4 từ PDF gốc, trang 17](/paper-figures/qwen-vla/figure-4.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Kiến thức nền
 
 **Embodiment** là cấu hình vật lý và control interface: joints, gripper, camera mounts, coordinates, proprioception. **End-effector (EEF) action** mô tả thao tác trong Cartesian không gian; **joint action** mô tả góc/velocity của từng khớp; hai loại cần inverse kinematics hoặc bộ điều khiển khác nhau để thực thi. **DiT** là Diffusion Transformer: dùng attention làm action generator thay vì pure MLP/U-Net, cho phép điều kiện trên đặc trưng từ VLM. **Flow matching** là cách huấn luyện generative động lực học from noise to clean quỹ đạo; lấy mẫu qua vài Euler steps để sinh chuỗi action liên tục.
@@ -167,6 +183,19 @@ $$
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 5 từ PDF gốc, trang 21](/paper-figures/qwen-vla/figure-5.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Ví dụ từng bước
 
 Giả sử quan sát chứa một đĩa trên bàn, chỉ dẫn **“đưa chiếc đĩa vào bồn rửa”**. Với robot hai tay, mô hình cần các quỹ đạo đầu ra cho EEF/joints và grippers. Với robot mobile-base, cùng mục tiêu có thể yêu cầu base navigation, căn camera vào sink, rồi thao tác arm. Thông tin bối cảnh và mục tiêu huấn luyện có thể chia sẻ; action schema và horizon không thể coi là cùng một vector đơn giản. Embodiment prompt giúp mô hình biết dự đoán target, DiT action decoder sinh các quỹ đạo conditional trên quan sát và prompt.
@@ -216,6 +245,22 @@ Trong benchmark động DOMINO, abstract nhắc **26.6% tỷ lệ thành công z
 **Đọc theo từng failure mode.** Khi một bảng báo 83.6% cho supervised/post-trained ALOHA và một benchmark khác chỉ 26.6% zero-shot, không nên gộp thành “Qwen-VLA đạt tỷ lệ thành công 80% trên thế giới thật”. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
 
 <!-- END EXTENDED WALKTHROUGH -->
+
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 6 từ PDF gốc, trang 22](/paper-figures/qwen-vla/figure-6.webp)
+
+
+![Hình 7 từ PDF gốc, trang 24](/paper-figures/qwen-vla/figure-7.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
 
 ## Hạn chế và câu hỏi còn mở
 
@@ -443,3 +488,4 @@ Nếu train và test dùng cùng camera, vật thể và background, một mô h
 Nếu train và test dùng cùng camera, vật thể và background, một mô hình có thể học shortcut mà không thật sự khái quát. Hãy tạo held-out scene, held-out object hoặc held-out episode theo đúng mục đích đánh giá của paper. Cùng một từ “left” có thể chỉ camera-left, world-left hoặc robot base-left. Nếu coordinate convention không rõ, ngay cả một mô hình lý tưởng cũng không thể dự đoán đúng lệnh thực thi. Cách chia tập phải làm trước bước cắt sliding windows để tránh cùng một trajectory xuất hiện ở cả train và test.
 
 <!-- END EXTENDED WALKTHROUGH -->
+

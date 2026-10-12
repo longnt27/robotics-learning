@@ -122,6 +122,43 @@ $$
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 5 từ PDF gốc, trang 9](/paper-figures/libero/figure-5.webp)
+
+
+![Hình 6 từ PDF gốc, trang 17](/paper-figures/libero/figure-6.webp)
+
+
+![Hình 7 từ PDF gốc, trang 17](/paper-figures/libero/figure-7.webp)
+
+
+![Hình 21 từ PDF gốc, trang 37](/paper-figures/libero/figure-21.webp)
+
+
+![Hình 22 từ PDF gốc, trang 39](/paper-figures/libero/figure-22.webp)
+
+
+![Hình 23 từ PDF gốc, trang 40](/paper-figures/libero/figure-23.webp)
+
+
+![Hình 24 từ PDF gốc, trang 41](/paper-figures/libero/figure-24.webp)
+
+
+![Hình 25 từ PDF gốc, trang 42](/paper-figures/libero/figure-25.webp)
+
+
+![Hình 26 từ PDF gốc, trang 43](/paper-figures/libero/figure-26.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Ví dụ từng bước
 
 Huấn luyện một policy lần lượt trên mở ngăn kéo, nhặt mug, đặt mug vào bát. Sau mỗi nhiệm vụ, chạy đánh giá trên tất cả nhiệm vụ trước. Nếu nhiệm vụ mới được 90% nhưng nhiệm vụ cũ tụt về 10%, mô hình đang **catastrophically forgetting**. LIBERO cung cấp nhóm nhiệm vụ và thước đo chuyển giao/retention, nhưng thành tích benchmark không tự chứng minh robot generalist ngoài đời.
@@ -169,6 +206,46 @@ Một kết quả đáng nhớ khác: pretraining có giám sát trên LIBERO-90
 **Đọc theo từng failure mode.** Điều đó cảnh báo rất sớm rằng “pretrain nhiều hơn” không đủ; phân phối/mục tiêu huấn luyện phải đúng. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
 
 <!-- END EXTENDED WALKTHROUGH -->
+
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 4 từ PDF gốc, trang 9](/paper-figures/libero/figure-4.webp)
+
+
+![Hình 12 từ PDF gốc, trang 27](/paper-figures/libero/figure-12.webp)
+
+
+![Hình 13 từ PDF gốc, trang 27](/paper-figures/libero/figure-13.webp)
+
+
+![Hình 14 từ PDF gốc, trang 28](/paper-figures/libero/figure-14.webp)
+
+
+![Hình 15 từ PDF gốc, trang 28](/paper-figures/libero/figure-15.webp)
+
+
+![Hình 16 từ PDF gốc, trang 29](/paper-figures/libero/figure-16.webp)
+
+
+![Hình 17 từ PDF gốc, trang 29](/paper-figures/libero/figure-17.webp)
+
+
+![Hình 18 từ PDF gốc, trang 31](/paper-figures/libero/figure-18.webp)
+
+
+![Hình 19 từ PDF gốc, trang 32](/paper-figures/libero/figure-19.webp)
+
+
+![Hình 20 từ PDF gốc, trang 33](/paper-figures/libero/figure-20.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
 
 ## Hạn chế và câu hỏi còn mở
 

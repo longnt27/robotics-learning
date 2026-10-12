@@ -37,6 +37,19 @@ Hình 1 giới thiệu Octo như một generalist policy pretrained trên nhiề
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 7 từ PDF gốc, trang 16](/paper-figures/octo/figure-7.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Kiến thức nền cần nắm
 
 Mục tiêu của Octo là **generalist đã pretrain policy có thể fine-tune**, không nhất thiết một mô hình zero-shot làm mọi robot. Nó học reusable behaviors từ đa tập dữ liệu rồi điều chỉnh lại theo embodiment mới. Đây là khác biệt quan trọng với claim "universal robot bộ điều khiển".
@@ -122,6 +135,25 @@ $$
 
 <!-- END EXTENDED WALKTHROUGH -->
 
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 3 từ PDF gốc, trang 4](/paper-figures/octo/figure-3.webp)
+
+
+![Hình 5 từ PDF gốc, trang 6](/paper-figures/octo/figure-5.webp)
+
+
+![Hình 6 từ PDF gốc, trang 8](/paper-figures/octo/figure-6.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
+
 ## Ví dụ từng bước
 
 Một policy đã pretrain thấy nhiều kiểu pick-place. Khi có robot mới với gripper/camera geometry khác, fine-tune một subset episodes thay vì huấn luyện scratch. Policy nhận vision, nhiệm vụ conditioning (ngôn ngữ/mục tiêu) và state rồi dự đoán chunks. Thí nghiệm nên đo **dữ liệu efficiency** theo số demos tại target phần cứng; chỉ đo huấn luyện thành công sẽ đánh giá sai ý nghĩa pretraining.
@@ -169,6 +201,19 @@ Phần mạnh nhất là adaptation: với cỡ **100 demonstrations**, fine-tun
 **Đọc theo từng failure mode.** Goal-image conditioning trên một số WidowX thiết lập tốt hơn ngôn ngữ khoảng 25 điểm, phản ánh hỗn hợp dữ liệu huấn luyện của Octo. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
 
 <!-- END EXTENDED WALKTHROUGH -->
+
+<!-- BEGIN SUPPLEMENTARY FIGURES -->
+
+### Hình minh hoạ bổ sung từ bài báo
+
+
+Các hình dưới đây được trích từ PDF gốc. Chạm vào hình để phóng to; bản dịch tiếng Việt và caption tiếng Anh được giữ cạnh nhau.
+
+
+![Hình 4 từ PDF gốc, trang 6](/paper-figures/octo/figure-4.webp)
+
+
+<!-- END SUPPLEMENTARY FIGURES -->
 
 ## Hạn chế và câu hỏi còn mở
 
