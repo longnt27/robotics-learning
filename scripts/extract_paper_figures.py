@@ -67,7 +67,7 @@ def captions(page):
             number = int(match.group(1))
         except ValueError:
             continue
-        if number > 15 or len(line) < 18:
+        if number > 99 or len(line) < 18:
             continue
         result.append({"num": number, "bbox": fitz.Rect(x0, y0, x1, y1),
                        "caption": " ".join(line.split())})
@@ -146,14 +146,14 @@ def extract_one(slug, url, pdf_cache):
     download_pdf(url, dest)
     with fitz.open(dest) as doc:
         found = []
-        for page_index in range(min(len(doc), 11)):
+        for page_index in range(len(doc)):
             for item in captions(doc[page_index]):
                 found.append((page_index, item))
         # Prefer numbered figures in the front of the paper, with one figure per number.
         by_number = {}
         for page_index, item in found:
             by_number.setdefault(item["num"], (page_index, item))
-        candidates = sorted(by_number.items(), key=lambda kv: (kv[0] != 1, kv[0]))
+        candidates = sorted(by_number.items(), key=lambda kv: kv[0])
         output = []
         for number, (page_idx, item) in candidates:
             output_path = ASSETS / slug / f"figure-{number}.webp"
@@ -164,8 +164,7 @@ def extract_one(slug, url, pdf_cache):
             result.update({"number": number, "image": f"/paper-figures/{slug}/figure-{number}.webp",
                            "caption": item["caption"], "pdf": url})
             output.append(result)
-            if len(output) >= 2:
-                break
+            
         return output
 
 

@@ -11,6 +11,7 @@ type SourceFigure = {
   page: number;
   pdf: string;
   caption: string;
+  caption_vi?: string;
 };
 
 const figures = figureManifest as Record<string, SourceFigure[]>;
@@ -29,6 +30,7 @@ export function PaperFigure({paperSlug,src,alt}:{
   const meta = figures[paperSlug]?.find(figure => figure.image === src);
   const title = meta ? "Hình " + meta.number : alt || "Hình minh họa";
   const caption = meta?.caption || alt || "Chưa có caption gốc cho hình này.";
+  const captionVi = meta?.caption_vi;
   const source = meta ? meta.pdf + "#page=" + meta.page : undefined;
 
   useEffect(()=>{
@@ -74,8 +76,10 @@ export function PaperFigure({paperSlug,src,alt}:{
           <img src={src} alt={alt || title} decoding="async"/>
         </div>
         <div className="paper-figure-lightbox-caption">
-          <span className="paper-figure-caption-heading">CAPTION GỐC CỦA TÁC GIẢ</span>
-          <p>{caption}</p>
+          <span className="paper-figure-caption-heading">BẢN DỊCH CAPTION · TIẾNG VIỆT</span>
+          {captionVi && <p lang="vi" className="paper-caption-vietnamese">{captionVi}</p>}
+          <span className="paper-caption-english-label">NGUYÊN VĂN TIẾNG ANH</span>
+          <p lang="en">{caption}</p>
           {source && <a href={source} target="_blank" rel="noopener noreferrer">
             PDF GỐC · TRANG {meta?.page}<ExternalLink size={15}/>
           </a>}
@@ -94,8 +98,10 @@ export function PaperFigure({paperSlug,src,alt}:{
         <span className="paper-figure-zoom-label"><Maximize2 size={16}/> PHÓNG TO</span>
       </button>
       <span className="paper-source-figcaption">
-        <span className="paper-figure-caption-heading">CAPTION GỐC CỦA TÁC GIẢ</span>
-        <span className="paper-figure-caption-text">{caption}</span>
+        <span className="paper-figure-caption-heading">GIẢI THÍCH HÌNH (TIẾNG VIỆT)</span>
+        {captionVi && <span className="paper-figure-caption-text paper-caption-vietnamese" lang="vi">{captionVi}</span>}
+        <span className="paper-caption-english-label">CAPTION GỐC · ENGLISH</span>
+        <span className="paper-figure-caption-text" lang="en">{caption}</span>
         {source && <a className="paper-figure-source-link" href={source}
           target="_blank" rel="noopener noreferrer">
           {title} · PDF trang {meta?.page} <ExternalLink size={14}/>

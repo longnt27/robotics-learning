@@ -92,10 +92,11 @@ try {
     });
 
     assert.equal(await chapterPage.locator('.paper-source-figure').count(),2,'Two original figures');
-    const originalCaption=await figure.locator('.paper-figure-caption-text').innerText();
+    const originalCaption=await figure.locator('.paper-figure-caption-text[lang="en"]').innerText();
     assert.match(originalCaption,/^Figure 1: Top: LIBERO has four procedurally-generated task suites/i);
     assert.ok(originalCaption.length>280,'Show the complete original research caption, not the alt text');
-    assert.ok(await figure.getByText('CAPTION GỐC CỦA TÁC GIẢ').isVisible());
+    assert.ok(await figure.getByText('CAPTION GỐC · ENGLISH').isVisible());
+    assert.ok((await figure.locator('.paper-caption-vietnamese').innerText()).length>50);
     assert.equal(await figure.locator('.paper-figure-source-link').getAttribute('href'),
       'https://arxiv.org/pdf/2306.03310#page=2');
     const prose=await chapterPage.locator('.markdown-body').innerText();
@@ -116,7 +117,7 @@ try {
       const img=document.querySelector('.paper-figure-lightbox-canvas img');
       return Boolean(img && img.complete && img.naturalWidth>0);
     });
-    assert.match(await dialog.locator('.paper-figure-lightbox-caption p').innerText(),
+    assert.match(await dialog.locator('.paper-figure-lightbox-caption p[lang="en"]').innerText(),
       /^Figure 1: Top: LIBERO has four procedurally-generated task suites/i);
     await dialog.getByRole('button',{name:'Xem ảnh ở kích thước gốc'}).click();
     assert.equal(await dialog.getByRole('button',{name:'Vừa màn hình'}).getAttribute('aria-pressed'),'true');

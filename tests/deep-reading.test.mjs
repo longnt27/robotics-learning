@@ -46,7 +46,7 @@ test("all twenty-two scientific chapters contain at least five times the prior e
     assert.ok(content.includes("#### Đọc hình gốc:"),`${slug}: no illustrated source explanation`);
     assert.ok(content.includes("#### Ví dụ từng bước để hiểu cơ chế"),`${slug}: missing worked example`);
     assert.ok(content.includes("### Đào sâu:"),`${slug}: missing technical walkthrough`);
-    assert.equal(figures[slug].length,2,`${slug}: expected two verified source figures`);
+    assert.ok(figures[slug].length>=2,`${slug}: missing PDF figures`);
     for(const fig of figures[slug]){
       assert.match(fig.caption,/^fig(?:ure)?\.?\s*\d+/i,`${slug}: unverified PDF caption`);
       assert.ok(fig.pdf.startsWith("https://"),`${slug}: missing PDF provenance`);
@@ -56,6 +56,7 @@ test("all twenty-two scientific chapters contain at least five times the prior e
       assert.ok(fs.existsSync(path.join(root,"public",fig.image)),`${slug}: missing image bytes ${fig.image}`);
       assert.ok(content.includes("]("+fig.image+")"),`${slug}: figure not embedded`);
       assert.ok(fig.caption.trim().length>=35,`${slug}: source author caption is missing`);
+      assert.ok(fig.caption_vi?.trim().length>=30,`${slug}: missing Vietnamese translation`);
       assert.ok(!content.includes("Xem caption đầy đủ trong PDF"),`${slug}: redundant fake caption remains`);
     }
     for(const key of ["overview","method","worked"]){
@@ -77,6 +78,7 @@ test("Paper figures have original source captions, PDF deep links and native ful
   assert.ok(reader.includes("<PaperFigure paperSlug={paper.slug}"));
   assert.ok(code.includes('className="paper-source-figure"'));
   assert.ok(code.includes("meta?.caption"));
+  assert.ok(code.includes("meta?.caption_vi"));
   assert.ok(code.includes("meta.pdf"));
   assert.ok(code.includes("createPortal"));
   assert.ok(code.includes("showModal"));
