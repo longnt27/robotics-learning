@@ -6,7 +6,6 @@ Bimanual manipulation khó ở hai phía cùng lúc: phần cứng teleoperation
 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/act/figure-1.webp)
 
-*Hình 1, trang 1. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://www.roboticsproceedings.org/rss19/p016.pdf#page=1).*
 
 #### Đọc hình gốc: bối cảnh và đóng góp
 
@@ -64,7 +63,6 @@ Khi chạy, ACT query policy lặp lại và dùng **temporal ensembling** giữ
 
 ![Hình 3 gốc từ PDF bài báo, trang 3](/paper-figures/act/figure-3.webp)
 
-*Hình 3, trang 3. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://www.roboticsproceedings.org/rss19/p016.pdf#page=3).*
 
 #### Đọc hình gốc: từng thành phần và luồng thông tin
 

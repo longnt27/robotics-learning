@@ -6,7 +6,6 @@ Nhiều robot tập dữ liệu lớn vẫn được thu thập trong vài phòn
 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/droid/figure-1.webp)
 
-*Hình 1, trang 1. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2403.12945#page=1).*
 
 #### Đọc hình gốc: bối cảnh và đóng góp
 
@@ -64,7 +63,6 @@ Bài báo huấn luyện diffusion-style policies và làm matched-data ablation
 
 ![Hình 2 gốc từ PDF bài báo, trang 4](/paper-figures/droid/figure-2.webp)
 
-*Hình 2, trang 4. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2403.12945#page=4).*
 
 #### Đọc hình gốc: từng thành phần và luồng thông tin
 

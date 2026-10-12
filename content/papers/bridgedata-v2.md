@@ -6,7 +6,6 @@ Một trong những lý do robotics chậm hơn vision/NLP là tập dữ liệu
 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/bridgedata-v2/figure-1.webp)
 
-*Hình 1, trang 1. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2308.12952#page=1).*
 
 #### Đọc hình gốc: bối cảnh và đóng góp
 
@@ -64,7 +63,6 @@ Bài báo không ép một thuật toán duy nhất mà huấn luyện **6 imita
 
 ![Hình 2 gốc từ PDF bài báo, trang 4](/paper-figures/bridgedata-v2/figure-2.webp)
 
-*Hình 2, trang 4. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2308.12952#page=4).*
 
 #### Đọc hình gốc: từng thành phần và luồng thông tin
 

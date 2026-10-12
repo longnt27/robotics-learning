@@ -6,7 +6,6 @@ Long-horizon manipulation cần rất nhiều demonstration vì robot phải bi�
 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/mimicplay/figure-1.webp)
 
-*Hình 1, trang 1. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2302.12422#page=1).*
 
 #### Đọc hình gốc: bối cảnh và đóng góp
 
@@ -64,7 +63,6 @@ Bài báo còn dùng multimodal quỹ đạo modeling, vì một người có th
 
 ![Hình 2 gốc từ PDF bài báo, trang 4](/paper-figures/mimicplay/figure-2.webp)
 
-*Hình 2, trang 4. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2302.12422#page=4).*
 
 #### Đọc hình gốc: từng thành phần và luồng thông tin
 

@@ -6,7 +6,6 @@ Behavior cloning kiểu regression thường giả định một quan sát có m
 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/diffusion-policy/figure-1.webp)
 
-*Hình 1, trang 1. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://www.roboticsproceedings.org/rss19/p026.pdf#page=1).*
 
 #### Đọc hình gốc: bối cảnh và đóng góp
 
@@ -66,7 +65,6 @@ Diffusion Policy biểu diễn cả **action chuỗi/chunk** như một conditio
 
 ![Hình 2 gốc từ PDF bài báo, trang 2](/paper-figures/diffusion-policy/figure-2.webp)
 
-*Hình 2, trang 2. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://www.roboticsproceedings.org/rss19/p026.pdf#page=2).*
 
 #### Đọc hình gốc: từng thành phần và luồng thông tin
 

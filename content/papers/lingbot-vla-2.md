@@ -12,7 +12,6 @@ Nó không cố chứng minh một kiến trúc magic nào đập tan π0.5. Con
 
 ![Hình 1 gốc từ PDF bài báo, trang 2](/paper-figures/lingbot-vla-2/figure-1.webp)
 
-*Hình 1, trang 2. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2607.06403#page=2).*
 
 #### Đọc hình gốc: bối cảnh và đóng góp
 
@@ -122,7 +121,6 @@ Thay vì bắt VLA sinh toàn bộ future pixels, student học **future đặc 
 
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/lingbot-vla-2/figure-2.webp)
 
-*Hình 2, trang 3. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2607.06403#page=3).*
 
 #### Đọc hình gốc: từng thành phần và luồng thông tin
 
