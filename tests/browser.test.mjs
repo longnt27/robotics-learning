@@ -85,7 +85,10 @@ try {
     await page.goto(baseUrl+'/paper/diffusion-policy?tab=slides&slide=10',{waitUntil:'domcontentloaded'});
     const stage=page.locator('.brief-slide-stage');
     await stage.waitFor({state:'visible'});
-    // The stage mounts before the deep-link effect selects slide 10; wait for the content, not the container.\n    await stage.locator('.brief-formula').waitFor({state:'visible',timeout:12000});\n    assert.ok(await page.getByText(/Mathematical Intuition/i).first().isVisible(),'LaTeX/Intuition slide must exist');
+    // Wait until the deep-linked slide has rendered its math before checking the formula.
+    await stage.locator('.brief-formula').waitFor({state:'visible',timeout:12000});
+    await stage.locator('.katex').first().waitFor({state:'visible',timeout:12000});
+    assert.ok(await page.getByText(/Mathematical Intuition/i).first().isVisible(),'LaTeX/Intuition slide must exist');
     assert.equal(new URL(page.url()).searchParams.get('slide'),'10');
     assert.ok(await stage.locator('.katex').count()>0,'Formula rendered as KaTeX');
 

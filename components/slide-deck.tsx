@@ -4,9 +4,7 @@ import {useCallback,useEffect,useMemo,useRef,useState} from "react";
 import Link from "next/link";
 import {AnimatePresence,motion} from "framer-motion";
 import {ArrowLeft,ArrowRight,ArrowUpRight,BookOpen,Check,ChevronLeft,ChevronRight,ExternalLink,Grid2X2,HelpCircle,Maximize2,Minimize2,NotebookText,Orbit,PlayCircle,X} from "lucide-react";
-import ReactMarkdown from "react-markdown";
-import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
+import katex from "katex";
 import type {Paper} from "@/lib/papers";
 import type {ResearchSlide,ResearchSlideItem} from "@/lib/slide-types";
 
@@ -67,13 +65,10 @@ function DisplayCard({item,index,variant="plain"}:{item:ResearchSlideItem,index:
 function OrbitalArt({paper,displayIndex}:{paper:Paper;displayIndex:number}){
   return <div className="brief-orbital" aria-hidden="true">
     <svg viewBox="0 0 440 330" preserveAspectRatio="xMidYMid meet" role="img">
-      <defs>
-        <radialGradient id="briefCore"><stop offset="0" stopColor="var(--brief-accent)" stopOpacity=".65"/><stop offset=".4" stopColor="var(--brief-accent)" stopOpacity=".15"/><stop offset="1" stopColor="var(--brief-accent)" stopOpacity="0"/></radialGradient>
-        <linearGradient id="briefOrbit"><stop stopColor="var(--brief-accent)" stopOpacity=".12"/><stop offset=".55" stopColor="var(--brief-accent)" stopOpacity=".86"/><stop offset="1" stopColor="var(--brief-accent)" stopOpacity=".1"/></linearGradient>
-      </defs>
-      <circle cx="220" cy="167" r="110" fill="url(#briefCore)"/>
+      
+      <circle cx="220" cy="167" r="110" fill="var(--brief-accent)" opacity=".065"/>
       {[68,115,161].map((r,i)=><circle key={i} cx="220" cy="165" r={r} fill="none" stroke="var(--brief-accent)" strokeWidth={i===2?.8:1.4} strokeDasharray={i===1?"8 12":undefined} opacity={i===2?.35:.65}/>)}
-      <ellipse cx="220" cy="165" rx="182" ry="58" fill="none" transform="rotate(-28 220 165)" stroke="url(#briefOrbit)" strokeWidth="2.5"/>
+      <ellipse cx="220" cy="165" rx="182" ry="58" fill="none" transform="rotate(-28 220 165)" stroke="var(--brief-accent)" strokeOpacity=".48" strokeWidth="1.75"/>
       <ellipse cx="220" cy="165" rx="150" ry="78" fill="none" transform="rotate(34 220 165)" stroke="var(--brief-accent)" strokeOpacity=".31" strokeWidth="1.1"/>
       <circle cx="220" cy="165" r="29" fill="#101526" stroke="var(--brief-accent)" strokeWidth="2"/>
       <path d="M205 165h30m-15-15v30" stroke="var(--brief-accent)" strokeWidth="1.5" opacity=".95"/>
@@ -101,7 +96,7 @@ function SlideVisual({paper,slide,index}:{paper:Paper;slide:ResearchSlide;index:
   </div>;
   if(slide.type==="equation")return <div className="brief-formula">
       <div className="brief-formula-overline"><span className="brief-signal"/> TOÁN HỌC ĐƯỢC GIẢI THÍCH BẰNG LỜI</div>
-      <div className="brief-formula-math"><ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>{`$$\n${slide.equation||""}\n$$`}</ReactMarkdown></div>
+      <div className="brief-formula-math"><span className="brief-rendered-math" dangerouslySetInnerHTML={{__html:katex.renderToString(slide.equation||"", {displayMode:true,throwOnError:false,strict:"ignore",trust:false})}} /></div>
       <div className="brief-formula-caption"><span>INTUITION</span><p>{slide.lead}</p></div>
       {items[0]&&<p className="brief-formula-disclaimer">{getItemText(items[0])}</p>}
     </div>;

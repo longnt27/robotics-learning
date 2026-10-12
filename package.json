@@ -35,7 +35,8 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@types/three": "^0.179.0",
-    "playwright": "1.55.0"
+    "playwright": "1.55.0",
+    "@types/katex": "^0.16.7"
   },
   "overrides": {
     "motion-dom": "12.40.0"
