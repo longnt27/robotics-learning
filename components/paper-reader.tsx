@@ -1,0 +1,57 @@
+"use client";
+
+import {useEffect,useMemo,useRef,useState} from "react";
+import Link from "next/link";
+import { ArrowLeft, ArrowRight, ArrowUpRight, BookMarked, BookOpen, Bookmark, Check, ChevronDown, Clock3, Code2, ExternalLink, FileText, GitFork, GraduationCap, Menu, Orbit, PanelLeftClose, PanelLeftOpen, Rocket, Share2, Sparkles, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import type { Paper } from "@/lib/papers";
+import { categoryLabels } from "@/lib/papers";
+import type { PaperRelation } from "@/lib/relations";
+import {relationTypeLabel} from "@/lib/relations";
+
+const TABS = ["explain","pdf","slides"] as const;
+type ReaderTab=typeof TABS[number];
+const titleSlug = (s:string) => s.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/[^a-z0-9\s-]/g,"").trim().replace(/\s+/g,"-");
+const titleDisplay = (s:string) => ({Why:"01 / WHY · Vấn đề",How:"03 / HOW · Phương pháp",Results:"05 / RESULTS · Kết quả",Limitations:"06 / LIMITS · Hạn chế",Connections:"07 / CONNECTIONS · Liên hệ"}[s]||s);
+
+export function PaperReader({paper,chapter,relations}: {paper:Paper;chapter:string|null;relations:PaperRelation[]}) {
+  const [tab,setTab]=useState<ReaderTab>("explain");
+  const [tocVisible,setTocVisible]=useState(true);
+  const [copySuccess,setCopySuccess]=useState(false);
+  const [activeSection,setActiveSection]=useState("");
+  const readerRef=useRef<HTMLDivElement>(null);
+  const toc=useMemo(()=>[...(chapter||"").matchAll(/^## (.+)$/gm)].map(x=>({title:x[1],id:titleSlug(x[1])})),[chapter]);
+  const links=useMemo(()=>relations.filter(r=>r.from===paper.slug||r.to===paper.slug),[relations,paper.slug]);
+  const [progress,setProgress]=useState(0);
+  useEffect(()=>{const update=()=>{const h=document.documentElement.scrollHeight-window.innerHeight;setProgress(h>0?Math.min(100,Math.round(window.scrollY/h*100)):0);};window.addEventListener("scroll",update,{passive:true});update();return()=>window.removeEventListener("scroll",update)},[]);
+  const selectTab=(next:ReaderTab)=>{setTab(next);setTimeout(()=>readerRef.current?.scrollIntoView({behavior:"smooth",block:"start"}),20);};
+  const copy=async()=>{try{await navigator.clipboard.writeText(window.location.href);setCopySuccess(true);setTimeout(()=>setCopySuccess(false),1800);}catch{/* clipboard permission denied; no false claim */}};
+  const jump=(id:string)=>{document.getElementById(id)?.scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth",block:"start"});setActiveSection(id);};
+  return <main className="reader-root">
+    <div className="reading-progress" style={{width:`${progress}%`}} aria-hidden="true"/>
+    <div className="reader-ambient" aria-hidden="true"/>
+    <header className="reader-header"><Link href="/" className="reader-brand"><Orbit size={20}/> ROBOTICS <span>/</span> ATLAS</Link><nav aria-label="Paper navigation"><Link href="/" className="reader-back"><ArrowLeft size={15}/> ALL RESEARCH</Link><span className="header-reader-dot"/><span className="reader-header-current">{paper.shortTitle}</span></nav><button className="reader-share" onClick={copy} aria-label="Copy paper link">{copySuccess?<Check size={16}/>:<Share2 size={16}/>}<span>{copySuccess?"COPIED":"SHARE"}</span></button></header>
+    <div className="reader-container">
+      <div className="reader-breadcrumbs"><Link href="/">THE ATLAS</Link><span>/</span><span>{categoryLabels[paper.category]}</span><span>/</span><strong>{paper.shortTitle}</strong></div>
+      <section className="paper-hero"><div className="paper-hero-content"><div className="paper-kicker"><span className="paper-kicker-dot"/>{paper.venue}<span className="kicker-divider">/</span>{new Date(`${paper.date}T12:00:00`).getFullYear()}<span className="kicker-divider">/</span>{paper.category}{paper.userPick&&<span className="reader-pick"><Bookmark size={13} fill="currentColor"/> YOUR COLLECTION</span>}</div><div className="reader-paper-counter">RESEARCH OBJECT / {paper.date.slice(0,4)}</div><h1>{paper.shortTitle}<span className="reader-title-point">.</span></h1><h2>{paper.title}</h2><p className="paper-hero-subtitle">{paper.subtitle}</p><p className="paper-hero-description">{paper.abstract.replace(/ Một trong sáu PDF ban đầu của người đọc\./g,"").replace(/ Một trong sáu PDF gốc( của người đọc)?\./g,"")}</p><div className="paper-hero-meta"><div><Clock3 size={15}/>{paper.readingMinutes} MIN DEEP DIVE</div><div><BookOpen size={15}/> VIETNAMESE EXPLAINER</div><div><GitFork size={15}/>{links.length} CONNECTIONS</div></div></div><div className="paper-hero-art" aria-hidden="true"><div className="paper-orb"><div className="paper-orb-middle"/><div className="paper-orb-inner"/></div><div className="paper-hero-art-label">RESEARCH<br/>OBJECT</div></div></section>
+      <div ref={readerRef} className="reader-section-top"><div className="reader-tabs" role="tablist" aria-label="Paper material"><button id="reader-tab-explain" role="tab" aria-controls="reader-tab-content" aria-selected={tab==="explain"} className={tab==="explain"?"selected":""} onClick={()=>selectTab("explain")}><BookOpen size={16}/> DIỄN GIẢI CHI TIẾT</button><button id="reader-tab-pdf" role="tab" aria-controls="reader-tab-content" aria-selected={tab==="pdf"} className={tab==="pdf"?"selected":""} onClick={()=>selectTab("pdf")}><FileText size={16}/> PDF GỐC</button><button id="reader-tab-slides" role="tab" aria-controls="reader-tab-content" aria-selected={tab==="slides"} className={tab==="slides"?"selected":""} onClick={()=>selectTab("slides")}><Rocket size={16}/> SLIDES <span className="tab-soon">SOON</span></button></div><a className="reader-original-link" href={paper.source} target="_blank" rel="noopener noreferrer">PAPER SOURCE <ArrowUpRight size={15}/></a></div>
+      <div id="reader-tab-content" role="tabpanel" aria-labelledby={`reader-tab-${tab}`} className="reader-content-shell"><AnimatePresence mode="wait" initial={false}>
+      {tab==="explain"&&<motion.div key="explain" initial={{opacity:0,y:9}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-9}} className={`reader-grid ${tocVisible?"":"reader-grid-notoc"}`}>
+        <aside className="reader-toc" aria-label="Nội dung bài"><div className="toc-title"><span>ON THIS PAGE</span><button onClick={()=>setTocVisible(false)} aria-label="Ẩn mục lục"><PanelLeftClose size={16}/></button></div><div className="toc-content">{toc.map((item,idx)=><button key={item.id} className={activeSection===item.id?"toc-active":""} onClick={()=>jump(item.id)}><span>{(idx+1).toString().padStart(2,"0")}</span>{titleDisplay(item.title)}</button>)}</div><div className="toc-footer">YOUR READING MAP<span className="toc-footer-dots">● ● ● ●</span></div></aside>
+        <article className="paper-article">{!tocVisible &&<button className="restore-toc" onClick={()=>setTocVisible(true)}><PanelLeftOpen size={16}/> HIỆN MỤC LỤC</button>}<div className="article-intro"><span className="article-eyebrow">DEEP RESEARCH BREAKDOWN / {paper.shortTitle.toUpperCase()}</span><h2>Giải mã <em>the paper.</em></h2><p>Đi từ vấn đề, kiến thức nền, phương pháp, kết quả đến giới hạn và các nghiên cứu liên quan. Các nhận định độc lập được tách khỏi kết luận của tác giả.</p></div>
+          {chapter?<div className="markdown-body"><ReactMarkdown remarkPlugins={[remarkGfm,remarkMath]} rehypePlugins={[rehypeKatex]} components={{h2:({children,...props})=><h2 id={titleSlug(String(children))} {...props}>{titleDisplay(String(children))}</h2>,a:({href,children,...props})=><a {...props} href={href} target={href?.startsWith("http")?"_blank":undefined} rel={href?.startsWith("http")?"noopener noreferrer":undefined}>{children}</a>}}>{chapter}</ReactMarkdown></div>:<div className="missing-chapter"><h2>Chưa tải được nội dung.</h2><p>Nguồn Markdown của bài này đang thiếu. Hãy xem bản PDF gốc.</p></div>}
+          <div className="reader-next"><span className="mono-label">KEEP FOLLOWING THE THREAD</span><h3>Ý tưởng tiếp theo</h3><div className="next-links">{links.slice(0,5).map((r,i)=><Link key={i} href={`/paper/${r.from===paper.slug?r.to:r.from}`}><span>{relationTypeLabel[r.type]}</span><strong>{r.from===paper.slug?r.to:r.from}</strong><ArrowUpRight size={17}/></Link>)}</div></div>
+        </article>
+        <aside className="reader-context"><div className="context-card"><span className="mono-label">DOCUMENT META</span><div><small>VENUE</small><strong>{paper.venue}</strong></div><div><small>FIRST RELEASE*</small><strong>{paper.date.slice(0,7)}</strong></div><div><small>DOMAIN</small><strong>{categoryLabels[paper.category]}</strong></div><div><small>KEY CONCEPTS</small><div className="context-tags">{paper.concepts.map(t=><span key={t}>{t}</span>)}</div></div><small className="date-note">*Ngày đầu / tháng gần đúng nếu bản gốc không cung cấp ngày chính xác.</small></div><div className="context-cta"><BookMarked size={21}/><h4>Go to the source.</h4><p>Đọc phương trình và bảng gốc khi cần xác thực claim.</p><a href={paper.pdf} target="_blank" rel="noopener noreferrer">OPEN ORIGINAL PDF <ArrowUpRight size={15}/></a></div></aside>
+      </motion.div>}
+      {tab==="pdf"&&<motion.div key="pdf" initial={{opacity:0,y:9}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-9}} className="pdf-view"><div className="pdf-view-header"><div><span className="mono-label">PRIMARY SOURCE / {paper.venue}</span><h2>Original <em>paper</em></h2><p>PDF được tải từ nơi xuất bản hoặc arXiv. Một số nhà xuất bản chặn nhúng PDF, khi đó hãy dùng nút mở bản gốc.</p></div><a className="button button-primary" href={paper.pdf} target="_blank" rel="noopener noreferrer">OPEN FULL PDF <ExternalLink size={16}/></a></div><div className="pdf-frame"><div className="pdf-frame-title"><FileText size={16}/>{paper.shortTitle}.pdf<span>REMOTE DOCUMENT</span></div><iframe title={`${paper.shortTitle} original paper PDF`} src={`${paper.pdf}#toolbar=1&navpanes=0`} loading="lazy" referrerPolicy="no-referrer"/><div className="pdf-frame-fallback"><span>PREVIEW NOT LOADING?</span><a href={paper.pdf} target="_blank" rel="noopener noreferrer">OPEN IN NEW TAB <ArrowUpRight size={14}/></a></div></div></motion.div>}
+      {tab==="slides"&&<motion.div key="slides" initial={{opacity:0,y:9}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-9}} className="slide-placeholder"><span className="slide-visual"><GraduationCap size={52}/></span><div className="mono-label">MODULE 03 / SCHEDULED</div><h2>Slides are <em>coming next.</em></h2><p>Phần trình bày dạng slide sẽ được phát triển sau để giữ chất lượng cho nội dung nghiên cứu và bản PDF trước.</p><button onClick={()=>selectTab("explain")} className="button button-primary">ĐỌC DIỄN GIẢI <ArrowRight size={17}/></button></motion.div>}
+      </AnimatePresence></div>
+      <footer className="reader-footer"><Link href="/"><Orbit size={20}/> ROBOTICS / ATLAS</Link><span>Research belongs to its authors. Explanations are independent learning notes.</span><a href={paper.source} target="_blank" rel="noopener noreferrer">CITE ORIGINAL WORK <ArrowUpRight size={15}/></a></footer>
+    </div>
+  </main>;
+}
