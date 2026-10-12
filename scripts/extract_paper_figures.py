@@ -174,7 +174,7 @@ def extract_one(slug, url, pdf_cache):
             headings = [
                 fitz.Rect(block[:4]).y0
                 for block in page.get_text("blocks", sort=True)
-                if block[4].strip().split("\\n")[0].strip().lower() in
+                if block[4].strip().splitlines()[0].strip().lower() in
                 {"references", "bibliography"}
             ]
             if headings:
