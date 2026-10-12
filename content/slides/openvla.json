@@ -1,0 +1,166 @@
+[
+  {
+    "type": "cover",
+    "title": "Điểm cốt lõi",
+    "lead": "Một VLA mã nguồn mở nối pretrained VLM với action tokens và hỗ trợ fine-tuning robot-specific.",
+    "items": [
+      "Tận dụng open VLM rồi fine-tune thành action predictor"
+    ],
+    "intuition": "Đưa ảnh và instruction vào VLM; dự đoán discretized action tokens và giải mã sang motor space."
+  },
+  {
+    "type": "problem",
+    "title": "Các VLA mạnh thường khó tải và fine-tune",
+    "lead": "Đọc RT-2 mà không có weights/code làm cộng đồng khó thử ablation và evaluation thực sự.",
+    "items": [
+      "Policy robot-only thiếu world knowledge"
+    ],
+    "intuition": "VLM-to-action đóng khó tái hiện experiment và không dễ phục vụ robot mới."
+  },
+  {
+    "type": "contrast",
+    "title": "Policy robot-only thiếu world knowledge",
+    "lead": "VLM-to-action đóng khó tái hiện experiment và không dễ phục vụ robot mới.",
+    "items": [
+      "Tận dụng open VLM rồi fine-tune thành action predictor",
+      "Đưa ảnh và instruction vào VLM; dự đoán discretized action tokens và giải mã sang motor space."
+    ],
+    "intuition": "Đưa ảnh và instruction vào VLM; dự đoán discretized action tokens và giải mã sang motor space."
+  },
+  {
+    "type": "intuition",
+    "title": "Tận dụng open VLM rồi fine-tune thành action predictor",
+    "lead": "Đưa ảnh và instruction vào VLM; dự đoán discretized action tokens và giải mã sang motor space.",
+    "items": [
+      "Một VLA mã nguồn mở nối pretrained VLM với action tokens và hỗ trợ fine-tuning robot-specific."
+    ],
+    "intuition": "Đưa ảnh và instruction vào VLM; dự đoán discretized action tokens và giải mã sang motor space."
+  },
+  {
+    "type": "concepts",
+    "title": "Ba khái niệm để nắm",
+    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "items": [
+      {
+        "label": "Prismatic VLM",
+        "value": "Vision backbone và language model kết hợp."
+      },
+      {
+        "label": "Discretized action",
+        "value": "Đổi từng action chiều liên tục thành token theo bins."
+      },
+      {
+        "label": "LoRA",
+        "value": "Fine-tune ít weights hơn full checkpoint."
+      }
+    ],
+    "intuition": "7D action thường bao gồm translation/rotation/gripper."
+  },
+  {
+    "type": "pipeline",
+    "title": "Kiến trúc trong một sơ đồ",
+    "lead": "Một VLA mã nguồn mở nối pretrained VLM với action tokens và hỗ trợ fine-tuning robot-specific.",
+    "items": [
+      "Ảnh + instruction",
+      "Vision encoder",
+      "LLM action tokens",
+      "De-normalize → robot action"
+    ],
+    "intuition": "Ảnh đi qua vision backbone trước khi kết hợp instruction trong language backbone."
+  },
+  {
+    "type": "representation",
+    "title": "Mô hình biểu diễn cái gì?",
+    "lead": "7D action thường bao gồm translation/rotation/gripper.",
+    "items": [
+      "Token bins lượng tử hóa normalized action.",
+      "Norm statistics theo dataset/robot là tối quan trọng khi decode."
+    ],
+    "intuition": "Norm statistics theo dataset/robot là tối quan trọng khi decode."
+  },
+  {
+    "type": "training",
+    "title": "Model học như thế nào?",
+    "lead": "Sử dụng Open X robot data và VLM pretraining.",
+    "items": [
+      "Fine-tune VLM theo autoregressive action prediction.",
+      "Có recipe LoRA để thích nghi vào data robot riêng."
+    ],
+    "intuition": "Kiểm tra gains của fine-tuning theo robot và lượng dữ liệu."
+  },
+  {
+    "type": "inference",
+    "title": "Một lần inference xảy ra ra sao?",
+    "lead": "Ảnh đi qua vision backbone trước khi kết hợp instruction trong language backbone.",
+    "items": [
+      "Instruction + image tokens được language backbone xử lý.",
+      "Sinh action tokens rồi áp inverse normalization trước điều khiển."
+    ],
+    "intuition": "Sinh action tokens rồi áp inverse normalization trước điều khiển."
+  },
+  {
+    "type": "equation",
+    "title": "Mathematical Intuition",
+    "lead": "Token trong VLM không tự có đơn vị mét/radian: phải giải mã và phục hồi scale action của robot đích.",
+    "equation": "\\hat a=\\mathrm{Denorm}\\!\\big(\\mathrm{Decode}(z_{\\rm action})\\big)",
+    "items": [
+      "Biểu thức hệ thống hóa bước decode, không phải loss."
+    ],
+    "intuition": "Token trong VLM không tự có đơn vị mét/radian: phải giải mã và phục hồi scale action của robot đích."
+  },
+  {
+    "type": "results",
+    "title": "Kết quả nói lên điều gì?",
+    "lead": "OpenVLA 7B trở thành baseline mở để chạy inference và fine-tune.",
+    "items": [
+      "Đánh giá đa nhiệm cho thấy tiềm năng transfer từ VLM sang robot control.",
+      "Tương quan giữa chất lượng checkpoint và normalization/dataset rất lớn."
+    ],
+    "intuition": "7B không phải lựa chọn tốt cho low-cost 50 Hz control; quantization làm tăng sai số."
+  },
+  {
+    "type": "ablation",
+    "title": "Ablation và bằng chứng",
+    "lead": "Kiểm tra gains của fine-tuning theo robot và lượng dữ liệu.",
+    "items": [
+      "So LoRA, quantized inference với precision/latency/memory thực tế."
+    ],
+    "intuition": "Đánh giá đa nhiệm cho thấy tiềm năng transfer từ VLM sang robot control."
+  },
+  {
+    "type": "limits",
+    "title": "Hạn chế cần nói thẳng",
+    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "items": [
+      {
+        "label": "Tác giả / phạm vi",
+        "value": "Tác giả: action tokenization và hardware/memory vẫn là bottleneck."
+      },
+      {
+        "label": "Phê bình độc lập",
+        "value": "Phê bình: 7B không phải lựa chọn tốt cho low-cost 50 Hz control; quantization làm tăng sai số."
+      }
+    ],
+    "intuition": "Token bins lượng tử hóa normalized action."
+  },
+  {
+    "type": "relations",
+    "title": "Bài này đứng ở đâu trong lĩnh vực?",
+    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "items": [
+      "RT-2 là tiền đề VLM-to-action autoregression.",
+      "FAST giảm token length của action sequence; π0.5 chuyển sang continuous flow."
+    ],
+    "intuition": "OpenVLA là nơi nên mở code để học VLA pipeline."
+  },
+  {
+    "type": "closing",
+    "title": "Nếu chỉ nhớ ba điều",
+    "lead": "OpenVLA là nơi nên mở code để học VLA pipeline.",
+    "items": [
+      "Luôn inspect action tokenizer và normalization trước rollout.",
+      "Thành công inference không đồng nghĩa model chạy được real-time trên robot."
+    ],
+    "intuition": "Một VLA mã nguồn mở nối pretrained VLM với action tokens và hỗ trợ fine-tuning robot-specific."
+  }
+]

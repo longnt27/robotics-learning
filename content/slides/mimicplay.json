@@ -1,0 +1,166 @@
+[
+  {
+    "type": "cover",
+    "title": "Điểm cốt lõi",
+    "lead": "Video người cung cấp ý đồ dài hạn; robot demos học cách biến ý đồ ấy thành action thực thi.",
+    "items": [
+      "Học “đi đâu” từ video người, học “làm thế nào” từ robot"
+    ],
+    "intuition": "Phân tách high-level plan/latent goal khỏi low-level motor control."
+  },
+  {
+    "type": "problem",
+    "title": "Để dạy robot nhiệm vụ dài, demonstration robot rất đắt",
+    "lead": "Thu dữ liệu cho từng chuỗi thao tác nhiều bước gây bottleneck cả thời gian lẫn coverage.",
+    "items": [
+      "Behavior cloning theo từng bước khó giữ long-horizon intent"
+    ],
+    "intuition": "Chỉ quan sát action cục bộ dễ mất định hướng giữa các subgoals."
+  },
+  {
+    "type": "contrast",
+    "title": "Behavior cloning theo từng bước khó giữ long-horizon intent",
+    "lead": "Chỉ quan sát action cục bộ dễ mất định hướng giữa các subgoals.",
+    "items": [
+      "Học “đi đâu” từ video người, học “làm thế nào” từ robot",
+      "Phân tách high-level plan/latent goal khỏi low-level motor control."
+    ],
+    "intuition": "Phân tách high-level plan/latent goal khỏi low-level motor control."
+  },
+  {
+    "type": "intuition",
+    "title": "Học “đi đâu” từ video người, học “làm thế nào” từ robot",
+    "lead": "Phân tách high-level plan/latent goal khỏi low-level motor control.",
+    "items": [
+      "Video người cung cấp ý đồ dài hạn; robot demos học cách biến ý đồ ấy thành action thực thi."
+    ],
+    "intuition": "Phân tách high-level plan/latent goal khỏi low-level motor control."
+  },
+  {
+    "type": "concepts",
+    "title": "Ba khái niệm để nắm",
+    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "items": [
+      {
+        "label": "Human play video",
+        "value": "Clip người tương tác, không có action của robot."
+      },
+      {
+        "label": "High-level policy",
+        "value": "Suy ra mục tiêu, pha và diễn tiến dài hạn."
+      },
+      {
+        "label": "Low-level controller",
+        "value": "Thực hiện thao tác khả thi trong robot action space."
+      }
+    ],
+    "intuition": "Video người đóng vai trò nguồn supervision cho ý đồ chuyển động."
+  },
+  {
+    "type": "pipeline",
+    "title": "Kiến trúc trong một sơ đồ",
+    "lead": "Video người cung cấp ý đồ dài hạn; robot demos học cách biến ý đồ ấy thành action thực thi.",
+    "items": [
+      "Video người",
+      "Học latent plan",
+      "Robot demonstration",
+      "Hierarchical execution"
+    ],
+    "intuition": "Quan sát bối cảnh và current progress."
+  },
+  {
+    "type": "representation",
+    "title": "Mô hình biểu diễn cái gì?",
+    "lead": "Video người đóng vai trò nguồn supervision cho ý đồ chuyển động.",
+    "items": [
+      "Robot state/action xác định khả năng motor thật của policy.",
+      "Cross-domain transfer vẫn đòi alignment giữa thao tác người và robot."
+    ],
+    "intuition": "Cross-domain transfer vẫn đòi alignment giữa thao tác người và robot."
+  },
+  {
+    "type": "training",
+    "title": "Model học như thế nào?",
+    "lead": "Pretrain phần dự đoán kế hoạch trên play videos của con người.",
+    "items": [
+      "Huấn luyện controller bằng số lượng robot demonstrations nhỏ hơn.",
+      "Giữ tầng high-level tương đối tách biệt khỏi action dynamics."
+    ],
+    "intuition": "Phân biệt đóng góp của human play pretraining với robot demos."
+  },
+  {
+    "type": "inference",
+    "title": "Một lần inference xảy ra ra sao?",
+    "lead": "Quan sát bối cảnh và current progress.",
+    "items": [
+      "High-level module đề xuất subgoal/latent plan.",
+      "Low-level module bám mục tiêu qua nhiều bước robot control."
+    ],
+    "intuition": "Low-level module bám mục tiêu qua nhiều bước robot control."
+  },
+  {
+    "type": "equation",
+    "title": "Mathematical Intuition",
+    "lead": "Controller không cần tự suy luận lại toàn bộ nhiệm vụ; nó nhận tín hiệu mục tiêu z_plan từ tầng kế hoạch.",
+    "equation": "\\pi(a\\mid o,\\underbrace{z_{\\rm plan}}_{\\rm high\\ level})",
+    "items": [
+      "Đây là sơ đồ điều kiện khái niệm của hierarchical policy."
+    ],
+    "intuition": "Controller không cần tự suy luận lại toàn bộ nhiệm vụ; nó nhận tín hiệu mục tiêu z_plan từ tầng kế hoạch."
+  },
+  {
+    "type": "results",
+    "title": "Kết quả nói lên điều gì?",
+    "lead": "Các nhiệm vụ thao tác dài nhiều bước hưởng lợi từ tín hiệu human play.",
+    "items": [
+      "Kiến trúc phân tầng cải thiện việc giữ hướng đi khi robot không có nhiều demos.",
+      "Đóng góp chính là learning setup, không phải phép thế video người cho action labels."
+    ],
+    "intuition": "thao tác người và robot khác embodiment; tracking/visual mismatch có thể làm latent plan không khả thi."
+  },
+  {
+    "type": "ablation",
+    "title": "Ablation và bằng chứng",
+    "lead": "Phân biệt đóng góp của human play pretraining với robot demos.",
+    "items": [
+      "Đo success đến cuối chuỗi, không chỉ thành công từng subgoal."
+    ],
+    "intuition": "Kiến trúc phân tầng cải thiện việc giữ hướng đi khi robot không có nhiều demos."
+  },
+  {
+    "type": "limits",
+    "title": "Hạn chế cần nói thẳng",
+    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "items": [
+      {
+        "label": "Tác giả / phạm vi",
+        "value": "Tác giả: quality và diversity của video người chi phối học mục tiêu."
+      },
+      {
+        "label": "Phê bình độc lập",
+        "value": "Phê bình: thao tác người và robot khác embodiment; tracking/visual mismatch có thể làm latent plan không khả thi."
+      }
+    ],
+    "intuition": "Robot state/action xác định khả năng motor thật của policy."
+  },
+  {
+    "type": "relations",
+    "title": "Bài này đứng ở đâu trong lĩnh vực?",
+    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "items": [
+      "GR00T N1 và LingBot-VLA 2.0 tiếp tục khai thác video người cho pretraining.",
+      "Open X-Embodiment cung cấp kênh robot data bổ sung."
+    ],
+    "intuition": "Video người giá rẻ có thể dạy cấu trúc nhiệm vụ trước khi dạy motor."
+  },
+  {
+    "type": "closing",
+    "title": "Nếu chỉ nhớ ba điều",
+    "lead": "Video người giá rẻ có thể dạy cấu trúc nhiệm vụ trước khi dạy motor.",
+    "items": [
+      "Giữ rõ ranh giới planning supervision và robot action supervision.",
+      "Kiểm tra các thất bại khi high-level plan không khả thi cho robot."
+    ],
+    "intuition": "Video người cung cấp ý đồ dài hạn; robot demos học cách biến ý đồ ấy thành action thực thi."
+  }
+]

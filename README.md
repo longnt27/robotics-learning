@@ -12,6 +12,8 @@ Next.js App Router · TypeScript · React Three Fiber / Three.js · React Flow �
 npm install
 npm run dev
 npm run check:content
+npm run test:resources
+npm run test:slides
 npm run test:ui
 npm run typecheck
 npm run build
@@ -20,13 +22,16 @@ npm run build
 ## Cấu trúc nội dung
 
 - `lib/papers.ts`: thông tin của 22 bài báo, tiêu đề gốc, mô tả ngắn và liên kết đến nguồn chính thức.
+- `lib/paper-resources.json`: 26 liên kết GitHub/Hugging Face cho 22 bài; ghi rõ code, checkpoint, dataset hoặc trang dự án, phân biệt chính thức và cộng đồng.
 - `lib/relations.ts`: các quan hệ có phân loại giữa những bài nghiên cứu, kèm giải thích bằng tiếng Việt.
 - `content/papers/{slug}.md`: bài diễn giải dài, có thể chỉnh sửa trực tiếp trong Git.
+- `content/slides/{slug}.json`: 22 bộ slide HTML được biên tập riêng (15 slide/bài).
+- `components/slide-deck.tsx`: khung thuyết trình, keyboard, fullscreen, lưới slide và ghi chú.
 - `components/`: giao diện dòng thời gian, DAG và trang đọc.
 - `docs/superpowers/`: đặc tả kỹ thuật và kế hoạch triển khai.
 
 Tên bài báo, từ viết tắt, tên mô hình, thuật toán và những thuật ngữ kỹ thuật quen dùng như *prompt*, *action chunking*, *flow matching*, *benchmark* được giữ theo cách dùng phổ biến trong ngành. Các câu giải thích, nút điều hướng và chú thích được viết bằng tiếng Việt.
 
-PDF được hiển thị từ nguồn xuất bản chính thức khi trình duyệt cho phép. Nếu nhà xuất bản chặn nhúng, vẫn có thể mở PDF trực tiếp. Phần slide được dành cho giai đoạn phát triển sau.
+PDF được hiển thị từ nguồn xuất bản chính thức khi trình duyệt cho phép. Nếu nhà xuất bản chặn nhúng, vẫn có thể mở PDF trực tiếp. Tab **SLIDE** có 15 trang cho mỗi paper, gồm sơ đồ quy trình, công thức kèm **Intuition**, đối chứng kết quả, giới hạn và ghi chú thuyết trình. Dùng phím trái/phải, Space, Home/End, G, N, F và Esc để điều khiển.
 
 Website không yêu cầu tài khoản, cơ sở dữ liệu, API trả phí hay theo dõi người dùng.

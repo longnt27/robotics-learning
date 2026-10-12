@@ -1,0 +1,166 @@
+[
+  {
+    "type": "cover",
+    "title": "Điểm cốt lõi",
+    "lead": "Một Transformer sinh cả action chunk giúp hai tay phối hợp ổn định hơn dự đoán từng bước.",
+    "items": [
+      "Dự đoán một đoạn chuyển động, không phải từng frame"
+    ],
+    "intuition": "Transformer học action chunk có điều kiện theo ảnh và state; CVAE giữ được các style demonstration khác nhau."
+  },
+  {
+    "type": "problem",
+    "title": "Thao tác hai tay đòi sự phối hợp theo thời gian",
+    "lead": "Mỗi bước dự đoán sai một chút có thể làm hai tay lệch nhịp khi gấp áo, mở túi hoặc lắp ráp.",
+    "items": [
+      "Stepwise behavior cloning tích lũy lỗi"
+    ],
+    "intuition": "Teleoperation hai tay từng đắt và dữ liệu ít; hỏi mạng mỗi timestep làm chuyển động thiếu nhất quán."
+  },
+  {
+    "type": "contrast",
+    "title": "Stepwise behavior cloning tích lũy lỗi",
+    "lead": "Teleoperation hai tay từng đắt và dữ liệu ít; hỏi mạng mỗi timestep làm chuyển động thiếu nhất quán.",
+    "items": [
+      "Dự đoán một đoạn chuyển động, không phải từng frame",
+      "Transformer học action chunk có điều kiện theo ảnh và state; CVAE giữ được các style demonstration khác nhau."
+    ],
+    "intuition": "Transformer học action chunk có điều kiện theo ảnh và state; CVAE giữ được các style demonstration khác nhau."
+  },
+  {
+    "type": "intuition",
+    "title": "Dự đoán một đoạn chuyển động, không phải từng frame",
+    "lead": "Transformer học action chunk có điều kiện theo ảnh và state; CVAE giữ được các style demonstration khác nhau.",
+    "items": [
+      "Một Transformer sinh cả action chunk giúp hai tay phối hợp ổn định hơn dự đoán từng bước."
+    ],
+    "intuition": "Transformer học action chunk có điều kiện theo ảnh và state; CVAE giữ được các style demonstration khác nhau."
+  },
+  {
+    "type": "concepts",
+    "title": "Ba khái niệm để nắm",
+    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "items": [
+      {
+        "label": "Action chunking",
+        "value": "Một lần dự đoán H action liên tiếp."
+      },
+      {
+        "label": "CVAE latent",
+        "value": "Biểu diễn khác biệt chiến lược giữa demos."
+      },
+      {
+        "label": "Temporal ensembling",
+        "value": "Hòa thông tin giữa các chunk overlap để giảm giật."
+      }
+    ],
+    "intuition": "Action joint-space của hai tay được xếp thành chuỗi H × D."
+  },
+  {
+    "type": "pipeline",
+    "title": "Kiến trúc trong một sơ đồ",
+    "lead": "Một Transformer sinh cả action chunk giúp hai tay phối hợp ổn định hơn dự đoán từng bước.",
+    "items": [
+      "ALOHA thu demo",
+      "Ảnh + trạng thái khớp",
+      "ACT + CVAE",
+      "Chunk → temporal ensemble"
+    ],
+    "intuition": "Nhận ảnh và state tại thời điểm hiện tại."
+  },
+  {
+    "type": "representation",
+    "title": "Mô hình biểu diễn cái gì?",
+    "lead": "Action joint-space của hai tay được xếp thành chuỗi H × D.",
+    "items": [
+      "CVAE code đại diện biến thiên không quan sát trực tiếp trong demonstration.",
+      "Chunk dài mượt hơn nhưng phản ứng chậm với biến cố mới."
+    ],
+    "intuition": "Chunk dài mượt hơn nhưng phản ứng chậm với biến cố mới."
+  },
+  {
+    "type": "training",
+    "title": "Model học như thế nào?",
+    "lead": "ALOHA leader–follower thu teleoperation 50 Hz với chi phí thấp.",
+    "items": [
+      "Transformer tối ưu reconstruction action chunk + regularization latent.",
+      "Một số nhiệm vụ chỉ cần khoảng 10–20 phút demo để học được hành vi."
+    ],
+    "intuition": "Sửa chunk length: quá ngắn thì rung, quá dài thì stale."
+  },
+  {
+    "type": "inference",
+    "title": "Một lần inference xảy ra ra sao?",
+    "lead": "Nhận ảnh và state tại thời điểm hiện tại.",
+    "items": [
+      "Xuất cả chuỗi hành động hai tay.",
+      "Temporal ensembling dùng các dự đoán overlapping để giảm discontinuity."
+    ],
+    "intuition": "Temporal ensembling dùng các dự đoán overlapping để giảm discontinuity."
+  },
+  {
+    "type": "equation",
+    "title": "Mathematical Intuition",
+    "lead": "Thay một quyết định aₜ bằng kế hoạch chuyển động H bước; người học thấy rõ tác dụng của horizon.",
+    "equation": "A_t=\\big(a_t,a_{t+1},\\ldots,a_{t+H-1}\\big)",
+    "items": [
+      "Đây là ký hiệu action chunk, không phải hàm loss."
+    ],
+    "intuition": "Thay một quyết định aₜ bằng kế hoạch chuyển động H bước; người học thấy rõ tác dụng của horizon."
+  },
+  {
+    "type": "results",
+    "title": "Kết quả nói lên điều gì?",
+    "lead": "ACT vượt các baseline imitation learning trong simulation và thao tác hai tay thật.",
+    "items": [
+      "Trong một số setup mô phỏng, khoảng cách với baseline mạnh thứ hai lên tới hàng chục điểm.",
+      "Ablation cho thấy bỏ chunking hoặc CVAE có thể làm performance giảm lớn."
+    ],
+    "intuition": "ensemble của hai action mode đôi khi tạo chuyển động không hợp lệ, dẫn tới bài toán RTC."
+  },
+  {
+    "type": "ablation",
+    "title": "Ablation và bằng chứng",
+    "lead": "Sửa chunk length: quá ngắn thì rung, quá dài thì stale.",
+    "items": [
+      "Bỏ CVAE làm yếu khả năng học từ nhiều style teleoperation."
+    ],
+    "intuition": "Trong một số setup mô phỏng, khoảng cách với baseline mạnh thứ hai lên tới hàng chục điểm."
+  },
+  {
+    "type": "limits",
+    "title": "Hạn chế cần nói thẳng",
+    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "items": [
+      {
+        "label": "Tác giả / phạm vi",
+        "value": "Tác giả: ALOHA chưa phù hợp lực cao hoặc manipulation nhiều ngón tinh vi."
+      },
+      {
+        "label": "Phê bình độc lập",
+        "value": "Phê bình: ensemble của hai action mode đôi khi tạo chuyển động không hợp lệ, dẫn tới bài toán RTC."
+      }
+    ],
+    "intuition": "CVAE code đại diện biến thiên không quan sát trực tiếp trong demonstration."
+  },
+  {
+    "type": "relations",
+    "title": "Bài này đứng ở đâu trong lĩnh vực?",
+    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "items": [
+      "Diffusion Policy cung cấp action generation đa mode theo chunk.",
+      "RTC xử lý nối action chunk khi policy chạy chậm hơn control loop."
+    ],
+    "intuition": "Action chunking là một thay đổi lớn trong imitation learning control."
+  },
+  {
+    "type": "closing",
+    "title": "Nếu chỉ nhớ ba điều",
+    "lead": "Action chunking là một thay đổi lớn trong imitation learning control.",
+    "items": [
+      "Bắt đầu với mô phỏng ALOHA và sweep chunk_size/ensemble.",
+      "Đánh giá cả khả năng phản ứng trước thay đổi trong lúc đang thực thi chunk."
+    ],
+    "intuition": "Một Transformer sinh cả action chunk giúp hai tay phối hợp ổn định hơn dự đoán từng bước."
+  }
+]

@@ -1,0 +1,166 @@
+[
+  {
+    "type": "cover",
+    "title": "Điểm cốt lõi",
+    "lead": "Một generalist robot policy mở có thể pretrain trên hỗn hợp robot rồi fine-tune nhanh vào nhiệm vụ mới.",
+    "items": [
+      "Biến generalist policy thành một nền tảng có thể fine-tune"
+    ],
+    "intuition": "Học shared Transformer với observation, language/goal conditioning và action head có thể thích nghi."
+  },
+  {
+    "type": "problem",
+    "title": "VLA và policy đa robot thiếu checkpoint dễ tái dùng",
+    "lead": "Dataset lớn không đủ nếu các nhóm khác không thể reproduce và adapt policy.",
+    "items": [
+      "Train policy từ đầu cho từng nhiệm vụ tiêu tốn demonstrations"
+    ],
+    "intuition": "Closed foundation policy gây khó kiểm tra các giả thuyết về data mixture và generalization."
+  },
+  {
+    "type": "contrast",
+    "title": "Train policy từ đầu cho từng nhiệm vụ tiêu tốn demonstrations",
+    "lead": "Closed foundation policy gây khó kiểm tra các giả thuyết về data mixture và generalization.",
+    "items": [
+      "Biến generalist policy thành một nền tảng có thể fine-tune",
+      "Học shared Transformer với observation, language/goal conditioning và action head có thể thích nghi."
+    ],
+    "intuition": "Học shared Transformer với observation, language/goal conditioning và action head có thể thích nghi."
+  },
+  {
+    "type": "intuition",
+    "title": "Biến generalist policy thành một nền tảng có thể fine-tune",
+    "lead": "Học shared Transformer với observation, language/goal conditioning và action head có thể thích nghi.",
+    "items": [
+      "Một generalist robot policy mở có thể pretrain trên hỗn hợp robot rồi fine-tune nhanh vào nhiệm vụ mới."
+    ],
+    "intuition": "Học shared Transformer với observation, language/goal conditioning và action head có thể thích nghi."
+  },
+  {
+    "type": "concepts",
+    "title": "Ba khái niệm để nắm",
+    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "items": [
+      {
+        "label": "Generalist pretraining",
+        "value": "Học pattern điều khiển chung trên hỗn hợp dữ liệu."
+      },
+      {
+        "label": "Action head",
+        "value": "Biến hidden representation thành hành động."
+      },
+      {
+        "label": "Fine-tuning",
+        "value": "Tận dụng prior để học robot/nhiệm vụ đích nhanh."
+      }
+    ],
+    "intuition": "Transformer nhận image và goal/language conditioning."
+  },
+  {
+    "type": "pipeline",
+    "title": "Kiến trúc trong một sơ đồ",
+    "lead": "Một generalist robot policy mở có thể pretrain trên hỗn hợp robot rồi fine-tune nhanh vào nhiệm vụ mới.",
+    "items": [
+      "Open X robot datasets",
+      "Shared Transformer",
+      "Diffusion action head",
+      "Robot-specific fine-tuning"
+    ],
+    "intuition": "Nhận quan sát và goal trên robot đích."
+  },
+  {
+    "type": "representation",
+    "title": "Mô hình biểu diễn cái gì?",
+    "lead": "Transformer nhận image và goal/language conditioning.",
+    "items": [
+      "Action head diffusion biểu diễn chuyển động liên tục theo thời gian.",
+      "Adapt state/action conventions là khâu cần làm cho target robot."
+    ],
+    "intuition": "Adapt state/action conventions là khâu cần làm cho target robot."
+  },
+  {
+    "type": "training",
+    "title": "Model học như thế nào?",
+    "lead": "Huấn luyện trên hỗn hợp robot data quy mô lớn.",
+    "items": [
+      "Checkpoint mở để nhóm khác tiếp tục training.",
+      "Đánh giá few-shot adaptation qua nhiệm vụ/robot."
+    ],
+    "intuition": "Test nhiều conditioning dạng language và goal image."
+  },
+  {
+    "type": "inference",
+    "title": "Một lần inference xảy ra ra sao?",
+    "lead": "Nhận quan sát và goal trên robot đích.",
+    "items": [
+      "Transformer mã hóa context; action head sinh chunk.",
+      "Thực thi và replan từ quan sát mới."
+    ],
+    "intuition": "Thực thi và replan từ quan sát mới."
+  },
+  {
+    "type": "equation",
+    "title": "Mathematical Intuition",
+    "lead": "Dựa vào observation o và mục tiêu g, model sinh cả đoạn chuyển động chứ không chỉ quyết định tức thì.",
+    "equation": "\\pi_\\theta(A_{t:t+H}\\mid o_t,\\,g)",
+    "items": [
+      "Một cách nhìn gọn về policy interface."
+    ],
+    "intuition": "Dựa vào observation o và mục tiêu g, model sinh cả đoạn chuyển động chứ không chỉ quyết định tức thì."
+  },
+  {
+    "type": "results",
+    "title": "Kết quả nói lên điều gì?",
+    "lead": "Octo là baseline mở có thể kiểm tra fine-tuning, thay vì chỉ inference demo.",
+    "items": [
+      "Các thiết lập thích nghi ít dữ liệu hưởng lợi từ pretraining robot mixture.",
+      "Hướng đóng góp là khả năng reuse và empirical transfer, không phải một architecture mới hoàn toàn."
+    ],
+    "intuition": "fine-tune success không chứng minh zero-shot universal control; diffusion head cũng có latency."
+  },
+  {
+    "type": "ablation",
+    "title": "Ablation và bằng chứng",
+    "lead": "Test nhiều conditioning dạng language và goal image.",
+    "items": [
+      "So from-scratch với fine-tune checkpoint; chú ý action normalization."
+    ],
+    "intuition": "Các thiết lập thích nghi ít dữ liệu hưởng lợi từ pretraining robot mixture."
+  },
+  {
+    "type": "limits",
+    "title": "Hạn chế cần nói thẳng",
+    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "items": [
+      {
+        "label": "Tác giả / phạm vi",
+        "value": "Tác giả: nhiều robot/action space vẫn khó đồng bộ và dataset mixture không cân bằng."
+      },
+      {
+        "label": "Phê bình độc lập",
+        "value": "Phê bình: fine-tune success không chứng minh zero-shot universal control; diffusion head cũng có latency."
+      }
+    ],
+    "intuition": "Action head diffusion biểu diễn chuyển động liên tục theo thời gian."
+  },
+  {
+    "type": "relations",
+    "title": "Bài này đứng ở đâu trong lĩnh vực?",
+    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "items": [
+      "Open X-Embodiment cung cấp data đa robot cho Octo.",
+      "OpenVLA chuyển sang hướng VLM-to-action tokens."
+    ],
+    "intuition": "Open checkpoint thay đổi khả năng tái hiện nghiên cứu robotics."
+  },
+  {
+    "type": "closing",
+    "title": "Nếu chỉ nhớ ba điều",
+    "lead": "Open checkpoint thay đổi khả năng tái hiện nghiên cứu robotics.",
+    "items": [
+      "Dùng Octo làm baseline cho robot-specific fine-tuning.",
+      "Luôn tách pretraining benefit khỏi chất lượng demo của robot đích."
+    ],
+    "intuition": "Một generalist robot policy mở có thể pretrain trên hỗn hợp robot rồi fine-tune nhanh vào nhiệm vụ mới."
+  }
+]

@@ -1,0 +1,166 @@
+[
+  {
+    "type": "cover",
+    "title": "Điểm cốt lõi",
+    "lead": "Nén action chunk trong miền tần số để autoregressive VLA cần ít token hơn nhiều.",
+    "items": [
+      "Chuyển trajectory sang frequency domain để giữ cái thay đổi chậm"
+    ],
+    "intuition": "DCT gom chuyển động trơn vào vài hệ số tần số thấp, rồi token hóa chúng."
+  },
+  {
+    "type": "problem",
+    "title": "Một action stream có thể phình thành hàng nghìn tokens",
+    "lead": "Tần số robot cao và nhiều DoF làm next-token action decoding cực đắt.",
+    "items": [
+      "Quantize từng chiều ở từng timestep gây sequence rất dài"
+    ],
+    "intuition": "Phần lớn robot trajectories mượt; cách biểu diễn cũ lặp lại thông tin thời gian."
+  },
+  {
+    "type": "contrast",
+    "title": "Quantize từng chiều ở từng timestep gây sequence rất dài",
+    "lead": "Phần lớn robot trajectories mượt; cách biểu diễn cũ lặp lại thông tin thời gian.",
+    "items": [
+      "Chuyển trajectory sang frequency domain để giữ cái thay đổi chậm",
+      "DCT gom chuyển động trơn vào vài hệ số tần số thấp, rồi token hóa chúng."
+    ],
+    "intuition": "DCT gom chuyển động trơn vào vài hệ số tần số thấp, rồi token hóa chúng."
+  },
+  {
+    "type": "intuition",
+    "title": "Chuyển trajectory sang frequency domain để giữ cái thay đổi chậm",
+    "lead": "DCT gom chuyển động trơn vào vài hệ số tần số thấp, rồi token hóa chúng.",
+    "items": [
+      "Nén action chunk trong miền tần số để autoregressive VLA cần ít token hơn nhiều."
+    ],
+    "intuition": "DCT gom chuyển động trơn vào vài hệ số tần số thấp, rồi token hóa chúng."
+  },
+  {
+    "type": "concepts",
+    "title": "Ba khái niệm để nắm",
+    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "items": [
+      {
+        "label": "DCT",
+        "value": "Đổi chuỗi thời gian thành các thành phần tần số."
+      },
+      {
+        "label": "Temporal redundancy",
+        "value": "Nhiều action liên tiếp gần giống nhau."
+      },
+      {
+        "label": "FAST+",
+        "value": "Action tokenizer dùng chung trên nhiều robot và tần số."
+      }
+    ],
+    "intuition": "Thay chuỗi action thô bằng compressed frequency coefficients."
+  },
+  {
+    "type": "pipeline",
+    "title": "Kiến trúc trong một sơ đồ",
+    "lead": "Nén action chunk trong miền tần số để autoregressive VLA cần ít token hơn nhiều.",
+    "items": [
+      "Action chunk T × D",
+      "Discrete Cosine Transform",
+      "Quantize hệ số",
+      "Ít autoregressive tokens"
+    ],
+    "intuition": "VLM sinh chuỗi action tokens đã nén."
+  },
+  {
+    "type": "representation",
+    "title": "Mô hình biểu diễn cái gì?",
+    "lead": "Thay chuỗi action thô bằng compressed frequency coefficients.",
+    "items": [
+      "Hệ số thấp mô tả xu hướng chuyển động mượt; hệ số cao mang biến động nhanh.",
+      "Compression quá mạnh có thể bỏ qua va chạm/động tác đột ngột."
+    ],
+    "intuition": "Compression quá mạnh có thể bỏ qua va chạm/động tác đột ngột."
+  },
+  {
+    "type": "training",
+    "title": "Model học như thế nào?",
+    "lead": "Huấn luyện FAST+ trên khoảng 1 triệu robot trajectories.",
+    "items": [
+      "Tokenizer cung cấp targets ngắn hơn cho autoregressive VLA.",
+      "Đánh giá reconstruction quality và downstream action success."
+    ],
+    "intuition": "So smooth vs noisy trajectories theo rate/distortion."
+  },
+  {
+    "type": "inference",
+    "title": "Một lần inference xảy ra ra sao?",
+    "lead": "VLM sinh chuỗi action tokens đã nén.",
+    "items": [
+      "FAST decoder khôi phục trajectory liên tục.",
+      "Autoregressive generation vẫn phải sinh token theo thứ tự."
+    ],
+    "intuition": "Autoregressive generation vẫn phải sinh token theo thứ tự."
+  },
+  {
+    "type": "equation",
+    "title": "Mathematical Intuition",
+    "lead": "Không dự đoán mọi timestep riêng: nén các hệ số DCT quan trọng thành M token, thường M nhỏ hơn nhiều T×D.",
+    "equation": "A_{1:T}\\xrightarrow{\\mathrm{DCT}}c_{1:K}\\xrightarrow{\\mathrm{tokenize}}z_{1:M}",
+    "items": [
+      "Sơ đồ biểu diễn; M không phải hằng số chung cho mọi dữ liệu."
+    ],
+    "intuition": "Không dự đoán mọi timestep riêng: nén các hệ số DCT quan trọng thành M token, thường M nhỏ hơn nhiều T×D."
+  },
+  {
+    "type": "results",
+    "title": "Kết quả nói lên điều gì?",
+    "lead": "FAST/FAST+ được áp dụng trên robot data ở quy mô tới khoảng 10 nghìn giờ.",
+    "items": [
+      "Một số thiết lập training nhanh hơn tới khoảng 5 lần so với tokenization thô.",
+      "Hiệu quả của autoregressive action modeling tiến gần generative flow baseline trong các benchmark tác giả dùng."
+    ],
+    "intuition": "nén tần số có thể làm mờ motion hiếm nhưng contact-critical, autoregressive inference vẫn có latency."
+  },
+  {
+    "type": "ablation",
+    "title": "Ablation và bằng chứng",
+    "lead": "So smooth vs noisy trajectories theo rate/distortion.",
+    "items": [
+      "Số token giảm phải đối chiếu với sai số reconstruct và success thực."
+    ],
+    "intuition": "Một số thiết lập training nhanh hơn tới khoảng 5 lần so với tokenization thô."
+  },
+  {
+    "type": "limits",
+    "title": "Hạn chế cần nói thẳng",
+    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "items": [
+      {
+        "label": "Tác giả / phạm vi",
+        "value": "Tác giả: evaluation chưa bao phủ đủ mobile/dexterous dynamic tasks."
+      },
+      {
+        "label": "Phê bình độc lập",
+        "value": "Phê bình: nén tần số có thể làm mờ motion hiếm nhưng contact-critical, autoregressive inference vẫn có latency."
+      }
+    ],
+    "intuition": "Hệ số thấp mô tả xu hướng chuyển động mượt; hệ số cao mang biến động nhanh."
+  },
+  {
+    "type": "relations",
+    "title": "Bài này đứng ở đâu trong lĩnh vực?",
+    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "items": [
+      "OpenVLA biểu diễn per-dimension action tokens.",
+      "π0.5/π0-FAST dùng FAST làm một hướng so sánh với flow action head."
+    ],
+    "intuition": "Action tokenizer là một quyết định modeling quan trọng, không chỉ preprocess."
+  },
+  {
+    "type": "closing",
+    "title": "Nếu chỉ nhớ ba điều",
+    "lead": "Action tokenizer là một quyết định modeling quan trọng, không chỉ preprocess.",
+    "items": [
+      "Chạy FAST trên Mac M4 để hiểu DCT–compression–reconstruction.",
+      "Đo trade-off rate, fidelity và closed-loop success."
+    ],
+    "intuition": "Nén action chunk trong miền tần số để autoregressive VLA cần ít token hơn nhiều."
+  }
+]

@@ -1,0 +1,166 @@
+[
+  {
+    "type": "cover",
+    "title": "Điểm cốt lõi",
+    "lead": "Kết hợp Qwen VLM, mô tả embodiment và DiT flow expert để điều khiển nhiều loại robot.",
+    "items": [
+      "Embodiment-aware prompting + continuous action expert"
+    ],
+    "intuition": "Text mô tả robot/control schema điều kiện hóa Qwen backbone; DiT sinh chunk liên tục."
+  },
+  {
+    "type": "problem",
+    "title": "Robot khác nhau về khớp, camera và command conventions",
+    "lead": "Một VLA chung phải biết action nào mang nghĩa gì khi chuyển giữa arm, mobile manipulator và navigation.",
+    "items": [
+      "Hardcode expert cho mỗi robot làm mất lợi thế pretraining chung"
+    ],
+    "intuition": "Autoregressive action tokens còn vướng độ chính xác và latency khi output dài."
+  },
+  {
+    "type": "contrast",
+    "title": "Hardcode expert cho mỗi robot làm mất lợi thế pretraining chung",
+    "lead": "Autoregressive action tokens còn vướng độ chính xác và latency khi output dài.",
+    "items": [
+      "Embodiment-aware prompting + continuous action expert",
+      "Text mô tả robot/control schema điều kiện hóa Qwen backbone; DiT sinh chunk liên tục."
+    ],
+    "intuition": "Text mô tả robot/control schema điều kiện hóa Qwen backbone; DiT sinh chunk liên tục."
+  },
+  {
+    "type": "intuition",
+    "title": "Embodiment-aware prompting + continuous action expert",
+    "lead": "Text mô tả robot/control schema điều kiện hóa Qwen backbone; DiT sinh chunk liên tục.",
+    "items": [
+      "Kết hợp Qwen VLM, mô tả embodiment và DiT flow expert để điều khiển nhiều loại robot."
+    ],
+    "intuition": "Text mô tả robot/control schema điều kiện hóa Qwen backbone; DiT sinh chunk liên tục."
+  },
+  {
+    "type": "concepts",
+    "title": "Ba khái niệm để nắm",
+    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "items": [
+      {
+        "label": "Embodiment prompt",
+        "value": "Text khai báo thiết bị và quy ước điều khiển."
+      },
+      {
+        "label": "DiT",
+        "value": "Diffusion Transformer sinh action trajectory."
+      },
+      {
+        "label": "Flow expert",
+        "value": "Sinh continuous actions từ noise dưới VLM condition."
+      }
+    ],
+    "intuition": "Dữ liệu gồm context ảnh/video, text, robot state và action format."
+  },
+  {
+    "type": "pipeline",
+    "title": "Kiến trúc trong một sơ đồ",
+    "lead": "Kết hợp Qwen VLM, mô tả embodiment và DiT flow expert để điều khiển nhiều loại robot.",
+    "items": [
+      "Ảnh + lệnh + robot schema",
+      "Qwen vision-language backbone",
+      "DiT / flow action expert",
+      "Action adapter robot cụ thể"
+    ],
+    "intuition": "VLM lấy visual-language embedding có hiểu robot schema."
+  },
+  {
+    "type": "representation",
+    "title": "Mô hình biểu diễn cái gì?",
+    "lead": "Dữ liệu gồm context ảnh/video, text, robot state và action format.",
+    "items": [
+      "Embodiment text không tự giải dynamics chưa nhìn thấy.",
+      "Action masks, coordinate frames và normalization vẫn phải đúng tuyệt đối."
+    ],
+    "intuition": "Action masks, coordinate frames và normalization vẫn phải đúng tuyệt đối."
+  },
+  {
+    "type": "training",
+    "title": "Model học như thế nào?",
+    "lead": "Pretraining multimodal trên hỗn hợp robot/nhiệm vụ.",
+    "items": [
+      "DiT learns conditional continuous trajectories; adaptation cho ALOHA/robot test.",
+      "Quan tâm balance giữa manipulation, navigation và VLM data."
+    ],
+    "intuition": "Không gộp 83,6% in-domain có post-training với 26,6% zero-shot khác benchmark."
+  },
+  {
+    "type": "inference",
+    "title": "Một lần inference xảy ra ra sao?",
+    "lead": "VLM lấy visual-language embedding có hiểu robot schema.",
+    "items": [
+      "Action expert denoise/flow sample một continuous chunk.",
+      "Robot-specific adapter xử lý action convention/units khi thực thi."
+    ],
+    "intuition": "Robot-specific adapter xử lý action convention/units khi thực thi."
+  },
+  {
+    "type": "equation",
+    "title": "Mathematical Intuition",
+    "lead": "Trajectory phụ thuộc camera I, lệnh ℓ và mô tả embodiment e; expert học hướng cập nhật action Aτ.",
+    "equation": "v_\\theta(A_\\tau\\mid I,\\ell,e,\\tau)",
+    "items": [
+      "Ký hiệu mô tả condition của flow action expert."
+    ],
+    "intuition": "Trajectory phụ thuộc camera I, lệnh ℓ và mô tả embodiment e; expert học hướng cập nhật action Aτ."
+  },
+  {
+    "type": "results",
+    "title": "Kết quả nói lên điều gì?",
+    "lead": "ALOHA in-domain: báo cáo 83,6% trung bình vs 48,5% baseline trong Table 5.",
+    "items": [
+      "OOD ALOHA: khoảng 76,9% trong Table 6.",
+      "Dynamic DOMINO zero-shot: 26,6%, nhắc rằng OOD thực sự còn rất khó."
+    ],
+    "intuition": "text robot schema không thay thế dữ liệu vận động; navigation và manipulation có dynamics/latency khác nhau."
+  },
+  {
+    "type": "ablation",
+    "title": "Ablation và bằng chứng",
+    "lead": "Không gộp 83,6% in-domain có post-training với 26,6% zero-shot khác benchmark.",
+    "items": [
+      "Pretraining giúp nhưng specialist/generalist vẫn có trade-off theo task."
+    ],
+    "intuition": "OOD ALOHA: khoảng 76,9% trong Table 6."
+  },
+  {
+    "type": "limits",
+    "title": "Hạn chế cần nói thẳng",
+    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "items": [
+      {
+        "label": "Tác giả / phạm vi",
+        "value": "Tác giả: chưa chứng minh zero-shot cho mọi embodiment, cost VLM+DiT còn lớn."
+      },
+      {
+        "label": "Phê bình độc lập",
+        "value": "Phê bình: text robot schema không thay thế dữ liệu vận động; navigation và manipulation có dynamics/latency khác nhau."
+      }
+    ],
+    "intuition": "Embodiment text không tự giải dynamics chưa nhìn thấy."
+  },
+  {
+    "type": "relations",
+    "title": "Bài này đứng ở đâu trong lĩnh vực?",
+    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "items": [
+      "RT-2/OpenVLA là hướng VLM-to-action tokens trước đó.",
+      "GR00T N1 và LingBot có các dạng continuous action experts khác để đối chiếu."
+    ],
+    "intuition": "Embodiment description là tín hiệu cần nhưng chưa đủ cho universal transfer."
+  },
+  {
+    "type": "closing",
+    "title": "Nếu chỉ nhớ ba điều",
+    "lead": "Embodiment description là tín hiệu cần nhưng chưa đủ cho universal transfer.",
+    "items": [
+      "Kiểm tra action frames, masks và units trước khi đo benchmark.",
+      "Trình bày kết quả luôn kèm domain và post-training regime."
+    ],
+    "intuition": "Kết hợp Qwen VLM, mô tả embodiment và DiT flow expert để điều khiển nhiều loại robot."
+  }
+]

@@ -1,0 +1,166 @@
+[
+  {
+    "type": "cover",
+    "title": "Điểm cốt lõi",
+    "lead": "Benchmark kiểm tra robot có giữ được kỹ năng và chuyển giao giữa các nhiệm vụ liên tiếp hay không.",
+    "items": [
+      "Thay một bảng điểm bằng nhiều loại chuyển giao kiến thức"
+    ],
+    "intuition": "Phân tách object, spatial, goal và long-horizon để biết policy đang chuyển giao kiểu gì."
+  },
+  {
+    "type": "problem",
+    "title": "Học nhiệm vụ mới có thể làm policy quên nhiệm vụ cũ",
+    "lead": "Một điểm success trên một task không phản ánh lifelong learning hay transfer.",
+    "items": [
+      "Benchmark một task không đo được catastrophic forgetting"
+    ],
+    "intuition": "Random split trong cùng scene khiến mô hình được đo trên bối cảnh quá giống training."
+  },
+  {
+    "type": "contrast",
+    "title": "Benchmark một task không đo được catastrophic forgetting",
+    "lead": "Random split trong cùng scene khiến mô hình được đo trên bối cảnh quá giống training.",
+    "items": [
+      "Thay một bảng điểm bằng nhiều loại chuyển giao kiến thức",
+      "Phân tách object, spatial, goal và long-horizon để biết policy đang chuyển giao kiểu gì."
+    ],
+    "intuition": "Phân tách object, spatial, goal và long-horizon để biết policy đang chuyển giao kiểu gì."
+  },
+  {
+    "type": "intuition",
+    "title": "Thay một bảng điểm bằng nhiều loại chuyển giao kiến thức",
+    "lead": "Phân tách object, spatial, goal và long-horizon để biết policy đang chuyển giao kiểu gì.",
+    "items": [
+      "Benchmark kiểm tra robot có giữ được kỹ năng và chuyển giao giữa các nhiệm vụ liên tiếp hay không."
+    ],
+    "intuition": "Phân tách object, spatial, goal và long-horizon để biết policy đang chuyển giao kiểu gì."
+  },
+  {
+    "type": "concepts",
+    "title": "Ba khái niệm để nắm",
+    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "items": [
+      {
+        "label": "Continual learning",
+        "value": "Học lần lượt và giữ lại kỹ năng trước."
+      },
+      {
+        "label": "Forward transfer",
+        "value": "Kiến thức cũ giúp nhiệm vụ mới học nhanh hơn."
+      },
+      {
+        "label": "Forgetting",
+        "value": "Performance trên task cũ giảm sau khi train task mới."
+      }
+    ],
+    "intuition": "Nhiệm vụ mô phỏng có chỉ dẫn và success predicate rõ."
+  },
+  {
+    "type": "pipeline",
+    "title": "Kiến trúc trong một sơ đồ",
+    "lead": "Benchmark kiểm tra robot có giữ được kỹ năng và chuyển giao giữa các nhiệm vụ liên tiếp hay không.",
+    "items": [
+      "Task suite + demos",
+      "Huấn luyện theo thứ tự",
+      "Rollout từng task",
+      "Transfer + forgetting metrics"
+    ],
+    "intuition": "Đưa image/state và task instruction vào policy."
+  },
+  {
+    "type": "representation",
+    "title": "Mô hình biểu diễn cái gì?",
+    "lead": "Nhiệm vụ mô phỏng có chỉ dẫn và success predicate rõ.",
+    "items": [
+      "Nhiều family task đánh giá các năng lực khác nhau.",
+      "Không thể thay toàn bộ conclusion bằng một metric trung bình."
+    ],
+    "intuition": "Không thể thay toàn bộ conclusion bằng một metric trung bình."
+  },
+  {
+    "type": "training",
+    "title": "Model học như thế nào?",
+    "lead": "BC-RNN/Transformer và các continual-learning baselines.",
+    "items": [
+      "Thay task sequence và mức dữ liệu để đo ảnh hưởng.",
+      "Evaluation phải chạy rollout closed-loop chứ không chỉ action prediction loss."
+    ],
+    "intuition": "So cách học theo chuỗi với cách giữ dữ liệu cũ (replay)."
+  },
+  {
+    "type": "inference",
+    "title": "Một lần inference xảy ra ra sao?",
+    "lead": "Đưa image/state và task instruction vào policy.",
+    "items": [
+      "Policy thực thi theo simulator physics.",
+      "Tổng hợp tỷ lệ thành công trước và sau khi học thêm task."
+    ],
+    "intuition": "Tổng hợp tỷ lệ thành công trước và sau khi học thêm task."
+  },
+  {
+    "type": "equation",
+    "title": "Mathematical Intuition",
+    "lead": "Forgetting âm khi success của task cũ giảm sau quá trình học. Chỉ số này là minh họa hướng đánh giá.",
+    "equation": "F=\\frac{1}{N-1}\\sum_{i=1}^{N-1}\\Big(S_i^{\\mathrm{after}}-S_i^{\\mathrm{before}}\\Big)",
+    "items": [
+      "Không diễn giải chỉ số tổng hợp thành safety hay khả năng robot thật."
+    ],
+    "intuition": "Forgetting âm khi success của task cũ giảm sau quá trình học. Chỉ số này là minh họa hướng đánh giá."
+  },
+  {
+    "type": "results",
+    "title": "Kết quả nói lên điều gì?",
+    "lead": "LIBERO tổ chức benchmark theo loại tri thức cần chuyển giao.",
+    "items": [
+      "Các phương pháp continual learning cho trade-off khác nhau giữa transfer và forgetting.",
+      "Mục tiêu là tạo thước đo lặp lại được thay vì phô một success rate."
+    ],
+    "intuition": "success predicate và vật lý mô phỏng không bảo đảm chuyển giao sang robot ngoài đời."
+  },
+  {
+    "type": "ablation",
+    "title": "Ablation và bằng chứng",
+    "lead": "So cách học theo chuỗi với cách giữ dữ liệu cũ (replay).",
+    "items": [
+      "So loss huấn luyện với rollout success để thấy lỗi compounding."
+    ],
+    "intuition": "Các phương pháp continual learning cho trade-off khác nhau giữa transfer và forgetting."
+  },
+  {
+    "type": "limits",
+    "title": "Hạn chế cần nói thẳng",
+    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "items": [
+      {
+        "label": "Tác giả / phạm vi",
+        "value": "Tác giả: benchmark vẫn là simulator, chủ yếu tabletop manipulation."
+      },
+      {
+        "label": "Phê bình độc lập",
+        "value": "Phê bình: success predicate và vật lý mô phỏng không bảo đảm chuyển giao sang robot ngoài đời."
+      }
+    ],
+    "intuition": "Nhiều family task đánh giá các năng lực khác nhau."
+  },
+  {
+    "type": "relations",
+    "title": "Bài này đứng ở đâu trong lĩnh vực?",
+    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "items": [
+      "RoboCasa mở rộng đánh giá qua nhiều nội thất/nhiệm vụ.",
+      "OpenVLA và π0.5 được đánh giá trên các bộ nhiệm vụ kiểu LIBERO."
+    ],
+    "intuition": "Đánh giá policy phải xác định loại generalization đang đo."
+  },
+  {
+    "type": "closing",
+    "title": "Nếu chỉ nhớ ba điều",
+    "lead": "Đánh giá policy phải xác định loại generalization đang đo.",
+    "items": [
+      "Giữ task splits công khai và chạy rollout để so sánh.",
+      "Đừng kết luận khả năng học suốt đời từ test loss tốt."
+    ],
+    "intuition": "Benchmark kiểm tra robot có giữ được kỹ năng và chuyển giao giữa các nhiệm vụ liên tiếp hay không."
+  }
+]

@@ -1,0 +1,166 @@
+[
+  {
+    "type": "cover",
+    "title": "Điểm cốt lõi",
+    "lead": "Một policy có thể học hàng trăm chỉ dẫn robot khi dữ liệu đủ rộng và kiến trúc đủ nhanh.",
+    "items": [
+      "Scale dữ liệu robot thật trước khi chỉ scale tham số"
+    ],
+    "intuition": "Học chung nhiều chỉ dẫn bằng một Transformer nhỏ, conditioned theo ngôn ngữ và hình ảnh."
+  },
+  {
+    "type": "problem",
+    "title": "Một nhiệm vụ, một policy không thể mở rộng",
+    "lead": "Robot cần chia sẻ kỹ năng giữa nhiều công việc thay vì huấn luyện lại từ đầu cho từng yêu cầu.",
+    "items": [
+      "Policy chuyên biệt nhớ môi trường, không học được kỹ năng chung"
+    ],
+    "intuition": "Nhiều demo giống nhau không bù được thiếu đa dạng nhiệm vụ; control còn phải chạy đủ nhanh."
+  },
+  {
+    "type": "contrast",
+    "title": "Policy chuyên biệt nhớ môi trường, không học được kỹ năng chung",
+    "lead": "Nhiều demo giống nhau không bù được thiếu đa dạng nhiệm vụ; control còn phải chạy đủ nhanh.",
+    "items": [
+      "Scale dữ liệu robot thật trước khi chỉ scale tham số",
+      "Học chung nhiều chỉ dẫn bằng một Transformer nhỏ, conditioned theo ngôn ngữ và hình ảnh."
+    ],
+    "intuition": "Học chung nhiều chỉ dẫn bằng một Transformer nhỏ, conditioned theo ngôn ngữ và hình ảnh."
+  },
+  {
+    "type": "intuition",
+    "title": "Scale dữ liệu robot thật trước khi chỉ scale tham số",
+    "lead": "Học chung nhiều chỉ dẫn bằng một Transformer nhỏ, conditioned theo ngôn ngữ và hình ảnh.",
+    "items": [
+      "Một policy có thể học hàng trăm chỉ dẫn robot khi dữ liệu đủ rộng và kiến trúc đủ nhanh."
+    ],
+    "intuition": "Học chung nhiều chỉ dẫn bằng một Transformer nhỏ, conditioned theo ngôn ngữ và hình ảnh."
+  },
+  {
+    "type": "concepts",
+    "title": "Ba khái niệm để nắm",
+    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "items": [
+      {
+        "label": "Behavior cloning",
+        "value": "Học action từ demonstration, không tự khám phá kỹ năng mới."
+      },
+      {
+        "label": "FiLM",
+        "value": "Dùng chỉ dẫn để điều chỉnh đặc trưng thị giác."
+      },
+      {
+        "label": "TokenLearner",
+        "value": "Gom đặc trưng ảnh thành ít token để inference nhanh hơn."
+      }
+    ],
+    "intuition": "Đầu vào: chuỗi ảnh camera + câu lệnh"
+  },
+  {
+    "type": "pipeline",
+    "title": "Kiến trúc trong một sơ đồ",
+    "lead": "Một policy có thể học hàng trăm chỉ dẫn robot khi dữ liệu đủ rộng và kiến trúc đủ nhanh.",
+    "items": [
+      "Ảnh + chỉ dẫn",
+      "EfficientNet + FiLM",
+      "TokenLearner + Transformer",
+      "Action đã lượng tử hóa"
+    ],
+    "intuition": "Mỗi bước: ảnh mới và lệnh đi qua cùng policy."
+  },
+  {
+    "type": "representation",
+    "title": "Mô hình biểu diễn cái gì?",
+    "lead": "Đầu vào: chuỗi ảnh camera + câu lệnh",
+    "items": [
+      "Đầu ra: các chiều chuyển động, quay và gripper dưới dạng action token.",
+      "Token hóa giúp dự đoán bằng phân loại nhưng introduce quantization error."
+    ],
+    "intuition": "Token hóa giúp dự đoán bằng phân loại nhưng introduce quantization error."
+  },
+  {
+    "type": "training",
+    "title": "Model học như thế nào?",
+    "lead": "Khoảng 130.000 episode robot thật trong 17 tháng.",
+    "items": [
+      "Một policy học hơn 700 chỉ dẫn/nhiệm vụ.",
+      "Giữ diversity nhiệm vụ quan trọng hơn chỉ lặp thêm demo."
+    ],
+    "intuition": "Bớt diversity nhiệm vụ gây tổn thất đáng kể."
+  },
+  {
+    "type": "inference",
+    "title": "Một lần inference xảy ra ra sao?",
+    "lead": "Mỗi bước: ảnh mới và lệnh đi qua cùng policy.",
+    "items": [
+      "Model sinh action discrete, giải mã thành lệnh điều khiển.",
+      "Thiết kế nhỏ gọn để kịp vòng điều khiển thực tế."
+    ],
+    "intuition": "Thiết kế nhỏ gọn để kịp vòng điều khiển thực tế."
+  },
+  {
+    "type": "equation",
+    "title": "Mathematical Intuition",
+    "lead": "Policy chọn action dựa trên những gì camera đã thấy và yêu cầu bằng ngôn ngữ.",
+    "equation": "p_\\theta(a_t\\mid o_{\\le t},\\ell)",
+    "items": [
+      "Đây là cách mô tả điều kiện của behavior cloning, không phải phương trình mới của tác giả."
+    ],
+    "intuition": "Policy chọn action dựa trên những gì camera đã thấy và yêu cầu bằng ngôn ngữ."
+  },
+  {
+    "type": "results",
+    "title": "Kết quả nói lên điều gì?",
+    "lead": "Khoảng 97% thành công trên nhóm chỉ dẫn đã huấn luyện trong thiết lập báo cáo.",
+    "items": [
+      "Các nhóm đánh giá khả năng khái quát mới, distractor và background có cải thiện đáng kể.",
+      "Thêm dữ liệu Kuka bin-picking có thể giúp kỹ năng mới mà không phá mạnh kỹ năng cũ."
+    ],
+    "intuition": "thành công ở các tổ hợp đã thấy không chứng minh robot biết thao tác mới ngoài support của dữ liệu."
+  },
+  {
+    "type": "ablation",
+    "title": "Ablation và bằng chứng",
+    "lead": "Bớt diversity nhiệm vụ gây tổn thất đáng kể.",
+    "items": [
+      "Hiệu quả phụ thuộc dữ liệu + cấu trúc điều kiện hóa thị giác/ngôn ngữ; không chỉ kích thước model."
+    ],
+    "intuition": "Các nhóm đánh giá khả năng khái quát mới, distractor và background có cải thiện đáng kể."
+  },
+  {
+    "type": "limits",
+    "title": "Hạn chế cần nói thẳng",
+    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "items": [
+      {
+        "label": "Tác giả / phạm vi",
+        "value": "Tác giả: policy vẫn học từ imitation và chỉ thấy một họ robot/cấu hình tương đối gần nhau."
+      },
+      {
+        "label": "Phê bình độc lập",
+        "value": "Phê bình: thành công ở các tổ hợp đã thấy không chứng minh robot biết thao tác mới ngoài support của dữ liệu."
+      }
+    ],
+    "intuition": "Đầu ra: các chiều chuyển động, quay và gripper dưới dạng action token."
+  },
+  {
+    "type": "relations",
+    "title": "Bài này đứng ở đâu trong lĩnh vực?",
+    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "items": [
+      "RT-2 tận dụng pretraining VLM để mở rộng tri thức ngữ nghĩa.",
+      "OpenVLA đưa thiết kế VLA token-based sang hướng open-weight."
+    ],
+    "intuition": "Đa dạng nhiệm vụ và dữ liệu thật là điều kiện khởi đầu của generalist policy."
+  },
+  {
+    "type": "closing",
+    "title": "Nếu chỉ nhớ ba điều",
+    "lead": "Đa dạng nhiệm vụ và dữ liệu thật là điều kiện khởi đầu của generalist policy.",
+    "items": [
+      "Bắt đầu bằng một shared policy rồi đo transfer theo nhiệm vụ.",
+      "Đừng gọi thành công in-distribution là khả năng khái quát mở."
+    ],
+    "intuition": "Một policy có thể học hàng trăm chỉ dẫn robot khi dữ liệu đủ rộng và kiến trúc đủ nhanh."
+  }
+]

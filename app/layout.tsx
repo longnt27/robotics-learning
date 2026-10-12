@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
+import "./briefing.css";
 import "katex/dist/katex.min.css";
 import "@xyflow/react/dist/style.css";
 

@@ -1,0 +1,228 @@
+{
+  "vima": [
+    {
+      "platform": "github",
+      "url": "https://github.com/vimalabs/VIMA",
+      "kind": "code",
+      "origin": "official",
+      "note": "Mã nguồn tác giả, demo, script đánh giá và checkpoint."
+    },
+    {
+      "platform": "huggingface",
+      "url": "https://huggingface.co/VIMA/VIMA",
+      "kind": "model",
+      "origin": "official",
+      "note": "Các checkpoint VIMA từ 2M đến 200M tham số."
+    }
+  ],
+  "rt-1": [
+    {
+      "platform": "github",
+      "url": "https://github.com/google-research/robotics_transformer",
+      "kind": "code",
+      "origin": "official",
+      "note": "Mã nguồn RT-1 và checkpoint của Google Research; repo đã được lưu trữ."
+    }
+  ],
+  "diffusion-policy": [
+    {
+      "platform": "github",
+      "url": "https://github.com/real-stanford/diffusion_policy",
+      "kind": "code",
+      "origin": "official",
+      "note": "Code huấn luyện, đánh giá và ví dụ Push-T từ nhóm tác giả."
+    }
+  ],
+  "palm-e": [
+    {
+      "platform": "github",
+      "url": "https://github.com/kyegomez/PALM-E",
+      "kind": "code",
+      "origin": "community",
+      "note": "Triển khai cộng đồng, không chính thức; chỉ mô phỏng kiến trúc, không có checkpoint gốc."
+    }
+  ],
+  "act": [
+    {
+      "platform": "github",
+      "url": "https://github.com/tonyzhaozh/act",
+      "kind": "code",
+      "origin": "official",
+      "note": "Code ACT, mô phỏng Transfer Cube, Insertion và pipeline ALOHA."
+    }
+  ],
+  "libero": [
+    {
+      "platform": "github",
+      "url": "https://github.com/Lifelong-Robot-Learning/LIBERO",
+      "kind": "code",
+      "origin": "official",
+      "note": "Benchmark LIBERO, các môi trường, demonstration và baseline."
+    }
+  ],
+  "rt-2": [
+    {
+      "platform": "github",
+      "url": "https://github.com/kyegomez/RT-2",
+      "kind": "code",
+      "origin": "community",
+      "note": "Triển khai cộng đồng, không chính thức; không phải code hoặc checkpoint RT-2 của Google."
+    }
+  ],
+  "bridgedata-v2": [
+    {
+      "platform": "github",
+      "url": "https://github.com/rail-berkeley/bridge_data_v2",
+      "kind": "dataset",
+      "origin": "official",
+      "note": "Dataset BridgeData V2, script tiền xử lý, TFDS và ví dụ huấn luyện."
+    }
+  ],
+  "mimicplay": [
+    {
+      "platform": "github",
+      "url": "https://github.com/j96w/MimicPlay",
+      "kind": "code",
+      "origin": "official",
+      "note": "Code gốc, thử nghiệm mô phỏng, evaluation và script xử lý video người."
+    }
+  ],
+  "open-x-embodiment": [
+    {
+      "platform": "github",
+      "url": "https://github.com/google-deepmind/open_x_embodiment",
+      "kind": "dataset",
+      "origin": "official",
+      "note": "Dữ liệu và pipeline RLDS hợp nhất, kèm tài nguyên RT-X."
+    }
+  ],
+  "droid": [
+    {
+      "platform": "github",
+      "url": "https://github.com/droid-dataset/droid",
+      "kind": "dataset",
+      "origin": "official",
+      "note": "Dataset DROID, mã thu thập và tiền xử lý demonstration."
+    }
+  ],
+  "octo": [
+    {
+      "platform": "github",
+      "url": "https://github.com/octo-models/octo",
+      "kind": "code",
+      "origin": "official",
+      "note": "Policy Octo mã nguồn mở và hướng dẫn fine-tune."
+    }
+  ],
+  "robocasa": [
+    {
+      "platform": "github",
+      "url": "https://github.com/robocasa/robocasa",
+      "kind": "code",
+      "origin": "official",
+      "note": "Môi trường mô phỏng RoboCasa, benchmark và các task."
+    }
+  ],
+  "openvla": [
+    {
+      "platform": "github",
+      "url": "https://github.com/openvla/openvla",
+      "kind": "code",
+      "origin": "official",
+      "note": "Code train, fine-tune và inference OpenVLA từ nhóm tác giả."
+    },
+    {
+      "platform": "huggingface",
+      "url": "https://huggingface.co/openvla/openvla-7b",
+      "kind": "model",
+      "origin": "official",
+      "note": "Checkpoint OpenVLA 7B chính thức, kèm processor và mô tả cách chạy."
+    }
+  ],
+  "rdt-1b": [
+    {
+      "platform": "github",
+      "url": "https://github.com/thu-ml/RoboticsDiffusionTransformer",
+      "kind": "code",
+      "origin": "official",
+      "note": "Code RDT-1B từ nhóm nghiên cứu Tsinghua."
+    }
+  ],
+  "fast": [
+    {
+      "platform": "huggingface",
+      "url": "https://huggingface.co/physical-intelligence/fast",
+      "kind": "model",
+      "origin": "official",
+      "note": "FAST+ tokenizer chính thức trên Hugging Face, dùng được qua AutoProcessor."
+    }
+  ],
+  "groot-n1": [
+    {
+      "platform": "github",
+      "url": "https://github.com/NVIDIA/Isaac-GR00T",
+      "kind": "code",
+      "origin": "official",
+      "note": "Code inference, fine-tune và công cụ cho GR00T N1."
+    },
+    {
+      "platform": "huggingface",
+      "url": "https://huggingface.co/nvidia/GR00T-N1-2B",
+      "kind": "model",
+      "origin": "official",
+      "note": "Checkpoint GR00T N1 2B chính thức của NVIDIA."
+    }
+  ],
+  "pi-0-5": [
+    {
+      "platform": "github",
+      "url": "https://github.com/Physical-Intelligence/openpi",
+      "kind": "code",
+      "origin": "official",
+      "note": "Code công bố cho họ model pi0 và pi0.5; checkpoint được tải theo hướng dẫn repo."
+    }
+  ],
+  "rtc-inference": [
+    {
+      "platform": "github",
+      "url": "https://github.com/Physical-Intelligence/real-time-chunking-kinetix",
+      "kind": "code",
+      "origin": "official",
+      "note": "Repo tác giả chứa thử nghiệm RTC trên Kinetix; không phải toàn bộ runtime robot thật."
+    }
+  ],
+  "rtc-training": [
+    {
+      "platform": "github",
+      "url": "https://github.com/Physical-Intelligence/real-time-chunking-kinetix",
+      "kind": "code",
+      "origin": "official",
+      "note": "Cùng repo Kinetix của tác giả: có hướng dẫn simulated-delay fine-tuning cho training-time RTC."
+    }
+  ],
+  "qwen-vla": [
+    {
+      "platform": "github",
+      "url": "https://github.com/QwenLM/Qwen-VLA",
+      "kind": "project",
+      "origin": "official",
+      "note": "Repo dự án Qwen-VLA chính thức; hiện chủ yếu gồm báo cáo, demo và thông tin, chưa phải code huấn luyện đầy đủ."
+    }
+  ],
+  "lingbot-vla-2": [
+    {
+      "platform": "github",
+      "url": "https://github.com/Robbyant/lingbot-vla-v2",
+      "kind": "code",
+      "origin": "official",
+      "note": "Code LingBot-VLA 2.0 từ nhóm phát triển, kèm cấu hình và script."
+    },
+    {
+      "platform": "huggingface",
+      "url": "https://huggingface.co/robbyant/lingbot-vla-v2-6b",
+      "kind": "model",
+      "origin": "official",
+      "note": "Checkpoint LingBot-VLA 2.0 6B chính thức."
+    }
+  ]
+}

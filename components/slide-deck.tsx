@@ -1,0 +1,252 @@
+"use client";
+
+import {useCallback,useEffect,useMemo,useRef,useState} from "react";
+import Link from "next/link";
+import {AnimatePresence,motion} from "framer-motion";
+import {ArrowLeft,ArrowRight,ArrowUpRight,BookOpen,Check,ChevronLeft,ChevronRight,ExternalLink,Grid2X2,HelpCircle,Maximize2,Minimize2,NotebookText,Orbit,PlayCircle,X} from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import type {Paper} from "@/lib/papers";
+import type {ResearchSlide,ResearchSlideItem} from "@/lib/slide-types";
+
+const SECTIONS: Record<ResearchSlide["type"],string> = {
+  cover:"TỔNG QUAN",problem:"BÀI TOÁN",contrast:"ĐIỂM NGHẼN",intuition:"CORE INTUITION",
+  concepts:"KIẾN THỨC NỀN",pipeline:"KIẾN TRÚC",representation:"BIỂU DIỄN",
+  training:"HUẤN LUYỆN",inference:"SUY LUẬN",equation:"MATHEMATICAL INTUITION",
+  results:"BẰNG CHỨNG",ablation:"ĐÁNH GIÁ THÀNH PHẦN",limits:"GIỚI HẠN",
+  relations:"LIÊN HỆ",closing:"KẾT LUẬN",
+};
+
+const SECTION_HEADINGS: Record<ResearchSlide["type"],string> = {
+  cover:"Vì sao cần nghiên cứu này?",problem:"Vì sao cần nghiên cứu này?",contrast:"Vì sao cần nghiên cứu này?",
+  intuition:"Phương pháp thực hiện",concepts:"Kiến thức nền cần nắm",pipeline:"Phương pháp thực hiện",
+  representation:"Phương pháp thực hiện",training:"Phương pháp thực hiện",inference:"Ví dụ từng bước",
+  equation:"Phương pháp thực hiện",results:"Kết quả thực nghiệm",ablation:"Kết quả thực nghiệm",
+  limits:"Hạn chế và câu hỏi còn mở",relations:"Liên hệ với nghiên cứu khác",closing:"Hạn chế và câu hỏi còn mở",
+};
+
+const PALETTE: Record<Paper["category"],{primary:string;glow:string;word:string}> = {
+  FOUNDATIONS:{primary:"#a6caff",glow:"rgba(102,155,255,.20)",word:"TRI THỨC"},
+  POLICIES:{primary:"#c5a7ff",glow:"rgba(168,115,255,.21)",word:"CHÍNH SÁCH"},
+  DATA:{primary:"#83e8c4",glow:"rgba(85,208,165,.19)",word:"DỮ LIỆU"},
+  CONTROL:{primary:"#ffe29a",glow:"rgba(241,173,89,.16)",word:"ĐIỀU KHIỂN"},
+  SYSTEMS:{primary:"#ffb7d4",glow:"rgba(244,101,167,.17)",word:"HỆ THỐNG"},
+};
+
+function getItemText(item:ResearchSlideItem){return typeof item==="string"?item:`${item.label}: ${item.value}`;}
+function stripMarkdown(value:string){
+  return value.replace(/```[\s\S]*?```/g," ").replace(/\$\$[\s\S]*?\$\$/g," ")
+    .replace(/!\[[^\]]*\]\([^)]*\)/g,"").replace(/\[([^\]]+)\]\([^)]*\)/g,"$1")
+    .replace(/[\*`#>]/g,"").replace(/\s+/g," ").trim();
+}
+function chapterContext(chapter:string|null,kind:ResearchSlide["type"]){
+  if(!chapter)return "";
+  const name=SECTION_HEADINGS[kind];
+  const sections=chapter.split(/^## /m).slice(1);
+  const selected=sections.find(part=>part.startsWith(name));
+  if(!selected)return "";
+  const body=selected.substring(selected.indexOf("\n")+1);
+  const paragraphs=body.split(/\n\s*\n/).map(stripMarkdown).filter(p=>p.length>85);
+  const result=paragraphs.slice(0,2).join(" ");
+  const max=850;
+  if(result.length<=max)return result;
+  const part=result.slice(0,max);
+  return part.slice(0,Math.max(part.lastIndexOf(". "),part.lastIndexOf("; "),680)+1)+"…";
+}
+
+function DisplayCard({item,index,variant="plain"}:{item:ResearchSlideItem,index:number;variant?:string}){
+  const label=typeof item==="string"?`0${index+1}`:item.label;
+  const text=typeof item==="string"?item:item.value;
+  return <div className={`brief-card brief-card-${variant}`}>
+    <div className="brief-card-kicker"><span className="brief-card-sequence">{label}</span><span className="brief-card-tick"/></div>
+    <p>{text}</p>
+  </div>;
+}
+
+function OrbitalArt({paper,displayIndex}:{paper:Paper;displayIndex:number}){
+  return <div className="brief-orbital" aria-hidden="true">
+    <svg viewBox="0 0 440 330" preserveAspectRatio="xMidYMid meet" role="img">
+      <defs>
+        <radialGradient id="briefCore"><stop offset="0" stopColor="var(--brief-accent)" stopOpacity=".65"/><stop offset=".4" stopColor="var(--brief-accent)" stopOpacity=".15"/><stop offset="1" stopColor="var(--brief-accent)" stopOpacity="0"/></radialGradient>
+        <linearGradient id="briefOrbit"><stop stopColor="var(--brief-accent)" stopOpacity=".12"/><stop offset=".55" stopColor="var(--brief-accent)" stopOpacity=".86"/><stop offset="1" stopColor="var(--brief-accent)" stopOpacity=".1"/></linearGradient>
+      </defs>
+      <circle cx="220" cy="167" r="110" fill="url(#briefCore)"/>
+      {[68,115,161].map((r,i)=><circle key={i} cx="220" cy="165" r={r} fill="none" stroke="var(--brief-accent)" strokeWidth={i===2?.8:1.4} strokeDasharray={i===1?"8 12":undefined} opacity={i===2?.35:.65}/>)}
+      <ellipse cx="220" cy="165" rx="182" ry="58" fill="none" transform="rotate(-28 220 165)" stroke="url(#briefOrbit)" strokeWidth="2.5"/>
+      <ellipse cx="220" cy="165" rx="150" ry="78" fill="none" transform="rotate(34 220 165)" stroke="var(--brief-accent)" strokeOpacity=".31" strokeWidth="1.1"/>
+      <circle cx="220" cy="165" r="29" fill="#101526" stroke="var(--brief-accent)" strokeWidth="2"/>
+      <path d="M205 165h30m-15-15v30" stroke="var(--brief-accent)" strokeWidth="1.5" opacity=".95"/>
+      <circle cx="365" cy="99" r="5" fill="var(--brief-accent)"/>
+      <circle cx="68" cy="233" r="4" fill="var(--brief-accent)" opacity=".7"/>
+      <text x="220" y="19" fill="var(--brief-accent)" textAnchor="middle" fontSize="11" fontFamily="monospace" letterSpacing="4">RESEARCH VECTOR</text>
+      <text x="220" y="317" fill="#aab6cb" textAnchor="middle" fontSize="11" fontFamily="monospace" letterSpacing="2">{paper.shortTitle.toUpperCase().slice(0,25)} / {String(displayIndex).padStart(2,"0")}</text>
+    </svg>
+    <span className="brief-orbital-glare"/>
+  </div>;
+}
+
+function SlideVisual({paper,slide,index}:{paper:Paper;slide:ResearchSlide;index:number}){
+  const items=slide.items;
+  if(slide.type==="cover")return <div className="brief-cover-main">
+    <div className="brief-cover-copy"><div className="brief-overline"><span className="brief-signal"/> RESEARCH BRIEFING / {paper.date.slice(0,4)}</div>
+      <span className="brief-cover-ordinal">{String(index+1).padStart(2,"0")} / 15</span>
+      <h2>{paper.shortTitle}<span className="brief-title-dot">.</span></h2>
+      <p className="brief-cover-message">{slide.lead}</p>
+      <div className="brief-cover-pill"><span/> {paper.venue} · {paper.userPick?"BÀI BẠN CHỌN":"BÀI NGHIÊN CỨU NỀN TẢNG"}</div>
+    </div><OrbitalArt paper={paper} displayIndex={index+1}/>
+  </div>;
+  if(slide.type==="pipeline")return <div className="brief-flow" role="img" aria-label={items.map(getItemText).join(" rồi đến ")}>
+    {items.map((item,i)=><div className="brief-flow-stage" key={i}><div className="brief-flow-stage-head"><span>{String(i+1).padStart(2,"0")}</span><span className="brief-flow-mark"/></div><strong>{getItemText(item)}</strong><span className="brief-flow-stage-foot">{i===0?"INPUT":i===items.length-1?"OUTPUT":"PROCESS"}</span></div>)}
+  </div>;
+  if(slide.type==="equation")return <div className="brief-formula">
+      <div className="brief-formula-overline"><span className="brief-signal"/> TOÁN HỌC ĐƯỢC GIẢI THÍCH BẰNG LỜI</div>
+      <div className="brief-formula-math"><ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>{`$$\n${slide.equation||""}\n$$`}</ReactMarkdown></div>
+      <div className="brief-formula-caption"><span>INTUITION</span><p>{slide.lead}</p></div>
+      {items[0]&&<p className="brief-formula-disclaimer">{getItemText(items[0])}</p>}
+    </div>;
+  if(slide.type==="intuition")return <div className="brief-thesis">
+    <div className="brief-thesis-light"><span>i</span></div>
+    <p className="brief-thesis-word">{slide.lead}</p>
+    <div className="brief-thesis-bottom"><span>CORE INTUITION</span><span className="brief-thesis-line"/><span>KHÁC BIỆT NẰM Ở CƠ CHẾ</span></div>
+  </div>;
+  if(slide.type==="contrast")return <div className="brief-contrast">
+      <div className="brief-contrast-old"><span className="brief-card-tag">CÁCH TIẾP CẬN TRƯỚC</span><div className="brief-viz-circle">×</div><h3>{slide.title}</h3><p>{slide.lead}</p></div>
+      <div className="brief-contrast-divider">→</div>
+      <div className="brief-contrast-new"><span className="brief-card-tag">ĐIỂM MỚI</span><div className="brief-viz-circle">↗</div><h3>{getItemText(items[0])}</h3><p>{getItemText(items[1])}</p></div>
+    </div>;
+  if(slide.type==="limits")return <div className="brief-limit-grid">{items.map((item,i)=><DisplayCard key={i} item={item} index={i} variant={i===0?"author":"critique"}/>)}</div>;
+  if(slide.type==="concepts")return <div className="brief-concept-grid">{items.map((item,i)=><DisplayCard key={i} item={item} index={i} variant="concept"/>)}</div>;
+  if(slide.type==="problem")return <div className="brief-problem-visual"><span className="brief-problem-icon">!</span><p>{slide.lead}</p><div className="brief-problem-fact"><span>BẾ TẮC HIỆN TẠI</span>{items.map(getItemText).join(" ")}</div></div>;
+  if(slide.type==="closing")return <div className="brief-takeaways">
+    {[slide.lead,...items.map(getItemText)].map((text,i)=><div key={i} className="brief-takeaway"><span>0{i+1}</span><strong>{text}</strong></div>)}
+  </div>;
+  const numbered = slide.type==="inference"||slide.type==="training"||slide.type==="relations";
+  return <div className={`brief-fact-grid brief-fact-${slide.type}`}>
+    {items.map((item,i)=><DisplayCard key={i} item={item} index={i} variant={numbered?"sequence":"fact"}/>)}
+    <div className="brief-fact-decoration" aria-hidden="true"><span/><span/><span/><span/></div>
+  </div>;
+}
+
+function updateDeepLink(index:number){
+  if(typeof window==="undefined")return;
+  const url=new URL(window.location.href);
+  url.searchParams.set("tab","slides");url.searchParams.set("slide",String(index+1));
+  window.history.replaceState(window.history.state,"",url.pathname+url.search+url.hash);
+}
+
+export function SlideDeck({paper,slides,chapter,onRead}:{paper:Paper;slides:ResearchSlide[];chapter:string|null;onRead:()=>void}){
+  const [index,setIndex]=useState(0);
+  const [overview,setOverview]=useState(false);
+  const [notes,setNotes]=useState(false);
+  const [help,setHelp]=useState(false);
+  const [full,setFull]=useState(false);
+  const [copied,setCopied]=useState(false);
+  const stageRef=useRef<HTMLDivElement>(null);
+  const gridRef=useRef<HTMLDivElement>(null);
+  const palette=PALETTE[paper.category];
+
+  useEffect(()=>{
+    const n=Number(new URLSearchParams(window.location.search).get("slide"));
+    const initial=Number.isInteger(n)&&n>=1&&n<=slides.length?n-1:0;
+    setIndex(initial);
+    updateDeepLink(initial);
+  },[paper.slug,slides.length]);
+
+  const go=useCallback((next:number)=>{
+    setIndex(previous=>{
+      const target=Math.max(0,Math.min(slides.length-1,next));
+      if(previous!==target)updateDeepLink(target);
+      return target;
+    });
+    setOverview(false);
+  },[slides.length]);
+
+  const toggleFullscreen=useCallback(async()=>{
+    const el=stageRef.current;
+    if(!el)return;
+    try{
+      if(document.fullscreenElement)await document.exitFullscreen();
+      else await el.requestFullscreen();
+    }catch{/* User or browser may deny fullscreen; keep normal reader usable. */}
+  },[]);
+
+  useEffect(()=>{
+    const update=()=>setFull(Boolean(document.fullscreenElement));
+    document.addEventListener("fullscreenchange",update);
+    return()=>document.removeEventListener("fullscreenchange",update);
+  },[]);
+
+  useEffect(()=>{
+    const handler=(event:KeyboardEvent)=>{
+      const el=event.target as HTMLElement;
+      if(["INPUT","TEXTAREA","SELECT"].includes(el?.tagName)||el?.isContentEditable||event.altKey||event.ctrlKey||event.metaKey)return;
+      // Do not steal Space/Enter from keyboard-focused interactive controls.
+      if((event.key===" "||event.key==="Enter")&&["BUTTON","A"].includes(el?.tagName))return;
+      if(event.key==="Escape"){
+        setOverview(false);setHelp(false);
+        return;
+      }
+      if(overview){if(event.key==="Enter")setOverview(false);return;}
+      if(help){if(event.key==="?"||event.key==="h")setHelp(false);return;}
+      if(["ArrowRight","ArrowDown"," ","PageDown"].includes(event.key)){
+        event.preventDefault();setIndex(i=>{const next=Math.min(i+1,slides.length-1);updateDeepLink(next);return next;});
+      } else if(["ArrowLeft","ArrowUp","PageUp"].includes(event.key)){
+        event.preventDefault();setIndex(i=>{const next=Math.max(0,i-1);updateDeepLink(next);return next;});
+      } else if(event.key==="Home"){
+        event.preventDefault();setIndex(0);updateDeepLink(0);
+      } else if(event.key==="End"){
+        event.preventDefault();setIndex(slides.length-1);updateDeepLink(slides.length-1);
+      } else if(event.key.toLowerCase()==="g")setOverview(v=>!v);
+      else if(event.key.toLowerCase()==="n")setNotes(v=>!v);
+      else if(event.key.toLowerCase()==="f")void toggleFullscreen();
+      else if(event.key==="?")setHelp(v=>!v);
+    };
+    window.addEventListener("keydown",handler);
+    return()=>window.removeEventListener("keydown",handler);
+  },[help,overview,slides.length,toggleFullscreen]);
+
+  useEffect(()=>{if(overview)gridRef.current?.querySelector<HTMLButtonElement>(`button[data-slide-index="${index}"]`)?.focus();},[overview,index]);
+
+  const slide=slides[index];
+  const speakerText=useMemo(()=>chapterContext(chapter,slide.type),[chapter,slide.type]);
+  const copy=async()=>{
+    try{await navigator.clipboard.writeText(window.location.href);setCopied(true);setTimeout(()=>setCopied(false),1400);}catch{}
+  };
+  if(!slide)return null;
+  return <section className="brief-deck-root" aria-label={`Slide nghiên cứu ${paper.shortTitle}`} style={{"--brief-accent":palette.primary,"--brief-glow":palette.glow} as React.CSSProperties}>
+    <div className="brief-deck-toolbar">
+      <div className="brief-deck-id"><span className="brief-deck-id-light"/> BẢN TRÌNH BÀY NGHIÊN CỨU <span className="brief-deck-id-sep">/</span> {paper.shortTitle.toUpperCase()}</div>
+      <div className="brief-deck-actions"><button onClick={()=>setOverview(v=>!v)} aria-label="Xem tất cả slide" aria-pressed={overview}><Grid2X2 size={16}/> <span>XEM LƯỚI</span></button><button onClick={()=>setNotes(v=>!v)} aria-label="Bật tắt ghi chú thuyết trình" aria-pressed={notes}><NotebookText size={16}/> <span>GHI CHÚ</span></button><button onClick={toggleFullscreen} aria-label={full?"Thoát toàn màn hình":"Trình chiếu toàn màn hình"}>{full?<Minimize2 size={16}/>:<Maximize2 size={16}/>} <span>{full?"THU NHỎ":"TOÀN MÀN HÌNH"}</span></button><button onClick={()=>setHelp(v=>!v)} aria-label="Phím tắt trình chiếu" aria-pressed={help}><HelpCircle size={17}/></button></div>
+    </div>
+    <div className="brief-slide-stage" ref={stageRef} tabIndex={-1}>
+      <div className="brief-slide-halo" aria-hidden="true"/>
+      <div className="brief-slide-grid" aria-hidden="true"/>
+      <div className="brief-slide-rail" aria-hidden="true"/>
+      <header className="brief-slide-masthead"><div><Orbit size={19}/><strong>ROBOTICS <span>/</span> ATLAS</strong><span className="brief-mast-divider"/> {palette.word}</div><span>{paper.venue} <b>·</b> {paper.date.slice(0,4)}</span></header>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div key={`${paper.slug}-${index}`} className={`brief-slide-content brief-layout-${slide.type}`} initial={{opacity:0,y:14,filter:"blur(4px)"}} animate={{opacity:1,y:0,filter:"blur(0px)"}} exit={{opacity:0,y:-10,filter:"blur(3px)"}} transition={{duration:.23,ease:"easeOut"}}>
+          {slide.type!=="cover"&&<div className="brief-slide-heading"><div className="brief-chapter-label"><span className="brief-signal"/> {SECTIONS[slide.type]} <span className="brief-heading-rule"/> {String(index+1).padStart(2,"0")}</div><h2>{slide.title}</h2>{!["intuition","equation","problem","contrast"].includes(slide.type)&&<p className="brief-slide-description">{slide.lead}</p>}</div>}
+          <div className="brief-slide-art"><SlideVisual slide={slide} paper={paper} index={index}/></div>
+          {slide.type!=="cover"&&slide.type!=="equation"&&slide.type!=="intuition"&&<div className="brief-slide-intuition"><span>INTUITION <i>→</i></span><p>{slide.intuition}</p></div>}
+        </motion.div>
+      </AnimatePresence>
+      <div className="brief-stage-index"><span>SCENE {String(index+1).padStart(2,"0")}</span><span>{String(index+1).padStart(2,"0")} / {String(slides.length).padStart(2,"0")}</span></div>
+      {overview&&<div className="brief-stage-overlay" role="dialog" aria-modal="true" aria-label="Lưới các slide">
+        <div className="brief-overlay-top"><div><span className="brief-chapter-label">TOÀN BỘ NỘI DUNG</span><h3>Chọn phần cần trình bày</h3></div><button aria-label="Đóng lưới slide" onClick={()=>setOverview(false)}><X size={22}/></button></div>
+        <div className="brief-slide-grid-menu" ref={gridRef}>{slides.map((s,i)=><button key={i} data-slide-index={i} aria-current={i===index?"step":undefined} className={i===index?"brief-thumbnail-active":""} onClick={()=>go(i)}><span>{String(i+1).padStart(2,"0")} / {SECTIONS[s.type]}</span><strong>{s.title}</strong><small>{s.lead}</small></button>)}</div>
+      </div>}
+      {help&&<div className="brief-stage-overlay brief-shortcuts" role="dialog" aria-modal="true" aria-label="Hướng dẫn phím tắt">
+        <div className="brief-overlay-top"><div><span className="brief-chapter-label">ĐIỀU KHIỂN</span><h3>Trình chiếu bằng bàn phím</h3></div><button aria-label="Đóng hướng dẫn" onClick={()=>setHelp(false)}><X size={22}/></button></div>
+        <div className="brief-shortcuts-grid">{[["← / →","Slide trước / sau"],["Space","Slide tiếp theo"],["Home / End","Đầu / cuối"],["G","Xem lưới"],["N","Ghi chú"],["F","Toàn màn hình"],["Esc","Đóng lớp phủ"]].map(([key,value])=><div key={key}><kbd>{key}</kbd><span>{value}</span></div>)}</div>
+      </div>}
+    </div>
+    <div className="brief-progress-rail" role="progressbar" aria-valuemin={1} aria-valuemax={slides.length} aria-valuenow={index+1} aria-label="Tiến độ slide"><span style={{width:`${(index+1)/slides.length*100}%`}}/></div>
+    <div className="brief-player-footer">
+      <div className="brief-player-control"><button className="brief-nav-button" onClick={()=>go(index-1)} disabled={index===0} aria-label="Slide trước"><ChevronLeft size={20}/><span>TRƯỚC</span></button><button className="brief-nav-button brief-nav-next" onClick={()=>go(index+1)} disabled={index===slides.length-1} aria-label="Slide tiếp theo"><span>TIẾP</span><ChevronRight size={20}/></button><span className="brief-player-count">{String(index+1).padStart(2,"0")} <span>/</span> {slides.length}</span></div>
+      <div className="brief-player-utils"><button onClick={copy}>{copied?<Check size={16}/>:<ArrowUpRight size={16}/>}<span>{copied?"ĐÃ SAO CHÉP":"LINK SLIDE"}</span></button><a href={paper.pdf} target="_blank" rel="noopener noreferrer"><ExternalLink size={15}/><span>PDF GỐC</span></a><button onClick={onRead}><BookOpen size={16}/><span>DIỄN GIẢI</span></button></div>
+    </div>
+    {notes&&<div className="brief-speaker-notes"><div className="brief-notes-title"><NotebookText size={17}/><strong>GHI CHÚ KHI TRÌNH BÀY</strong><span>NỘI DUNG ĐỐI CHIẾU TỪ BÀI DIỄN GIẢI</span></div><p className="brief-notes-intuition"><strong>Intuition.</strong> {slide.intuition}</p>{speakerText&&<p>{speakerText}</p>}<button onClick={onRead}>ĐỌC CHƯƠNG ĐẦY ĐỦ <ArrowRight size={14}/></button></div>}
+    <div className="brief-slide-disclaimer"><span>Slide tóm lược để thuyết trình; metric/nhận định cần đối chiếu với PDF gốc.</span><span>Nhấn <kbd>?</kbd> để xem phím tắt.</span></div>
+  </section>;
+}

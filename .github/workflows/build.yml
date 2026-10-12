@@ -16,6 +16,8 @@ jobs:
           node-version: '22'
       - run: npm install --no-audit --no-fund
       - run: npm run check:content
+      - run: npm run test:resources
+      - run: npm run test:slides
       - run: npm run test:ui
       - run: npm run typecheck
       - run: npm run build
