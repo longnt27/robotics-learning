@@ -18,7 +18,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install --disable-pip-version-check pymupdf==1.26.4 pillow==11.3.0 'transformers>=4.45,<5' 'torch>=2.4,<3' sentencepiece
+      - name: Install CPU-only PyTorch
+        run: pip install --disable-pip-version-check torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: Install figure extraction and translation dependencies
+        run: pip install --disable-pip-version-check pymupdf==1.26.4 pillow==11.3.0 'transformers>=4.45,<5' sentencepiece
       - name: Extract and translate every valid PDF figure
         run: python scripts/extract_all_paper_figures.py
       - name: Push generated assets and paper sections
