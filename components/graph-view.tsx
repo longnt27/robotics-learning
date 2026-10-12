@@ -1,8 +1,8 @@
 "use client";
-import { useMemo, useState, useCallback } from "react";
+import { useMemo, useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { ReactFlow, BackgroundVariant, Background, Controls, MiniMap, Handle, Position, MarkerType, type Node, type Edge, type NodeProps } from "@xyflow/react";
-import { Bookmark, ArrowUpRight, Network, MousePointer2 } from "lucide-react";
+import { ReactFlow, BackgroundVariant, Background, Controls, MiniMap, Handle, Position, MarkerType, type Node, type Edge, type NodeProps, type ReactFlowInstance } from "@xyflow/react";
+import { Bookmark, ArrowUpRight, Network, MousePointer2, Maximize2 } from "lucide-react";
 import type { Paper } from "@/lib/papers";
 import type { PaperRelation } from "@/lib/relations";
 import { relationTypeLabel } from "@/lib/relations";
@@ -26,6 +26,7 @@ const nodeTypes = { paper: PaperNode };
 
 export function GraphView({papers, allPapers, relations}: {papers:Paper[]; allPapers:Paper[]; relations:PaperRelation[]}) {
   const router = useRouter();
+  const flowRef = useRef<ReactFlowInstance<AtlasNode, Edge> | null>(null);
   const [hovered, setHovered] = useState<string|null>(null);
   const [typeFilter, setTypeFilter] = useState<string>("all");
   const selectedIds = useMemo(() => {
@@ -52,11 +53,12 @@ export function GraphView({papers, allPapers, relations}: {papers:Paper[]; allPa
   const chosen=allPapers.find(p=>p.slug===hovered);
   const incident=hovered?visibleRelations.filter(r=>r.from===hovered||r.to===hovered):[];
   const onNodeClick=useCallback((_:React.MouseEvent,node:AtlasNode)=>router.push(`/paper/${node.id}`),[router]);
+  const fitToView = useCallback(() => { void flowRef.current?.fitView({padding:0.16,minZoom:0.15,maxZoom:0.98,duration:350}); }, []);
   if (!papers.length) return <div className="empty-state"><span>NO SIGNAL</span><h3>Không có node nào phù hợp.</h3><p>Đổi bộ lọc để hiển thị bản đồ.</p></div>;
   return <div className="graph-workspace">
-    <div className="graph-bar"><div className="graph-help"><MousePointer2 size={15}/><span>Kéo để di chuyển · Cuộn để zoom · Nhấn node để mở paper</span></div><select value={typeFilter} onChange={e=>setTypeFilter(e.target.value)} aria-label="Lọc quan hệ" className="graph-select"><option value="all">Tất cả quan hệ</option>{Object.entries(relationTypeLabel).map(([value,label])=><option key={value} value={value}>{label}</option>)}</select></div>
+    <div className="graph-bar"><div className="graph-help"><MousePointer2 size={15}/><span>Kéo để di chuyển · Cuộn để zoom · Nhấn node để mở paper</span></div><div className="graph-bar-actions"><button className="graph-fit-button" type="button" aria-label="Hiện toàn bộ sơ đồ" onClick={fitToView}><Maximize2 size={14}/> Vừa khung</button><select value={typeFilter} onChange={e=>setTypeFilter(e.target.value)} aria-label="Lọc quan hệ" className="graph-select"><option value="all">Tất cả quan hệ</option>{Object.entries(relationTypeLabel).map(([value,label])=><option key={value} value={value}>{label}</option>)}</select></div></div>
     <div className="graph-canvas">
-      <ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes} onNodeClick={onNodeClick} onNodeMouseEnter={(_,node)=>setHovered(node.id)} onNodeMouseLeave={()=>setHovered(null)} fitView fitViewOptions={{padding:.15,minZoom:.45,maxZoom:.85}} minZoom={0.2} maxZoom={2.1} panOnScroll zoomOnPinch proOptions={{hideAttribution:true}} onlyRenderVisibleElements nodesDraggable={false} nodesConnectable={false} elementsSelectable={true} colorMode="dark" attributionPosition="bottom-left">
+      <ReactFlow key={papers.map(p=>p.slug).join("|")} nodes={nodes} edges={edges} nodeTypes={nodeTypes} onInit={(flow)=>{flowRef.current=flow;}} onNodeClick={onNodeClick} onNodeMouseEnter={(_,node)=>setHovered(node.id)} onNodeMouseLeave={()=>setHovered(null)} fitView fitViewOptions={{padding:.16,minZoom:.15,maxZoom:.98}} minZoom={0.15} maxZoom={1.8} panOnDrag panOnScroll={false} zoomOnScroll={true} zoomOnPinch proOptions={{hideAttribution:true}} nodesDraggable={false} nodesConnectable={false} elementsSelectable={true} colorMode="dark" attributionPosition="bottom-left">
         <Background variant={BackgroundVariant.Dots} color="#35405c" gap={25} size={1.1}/><Controls position="bottom-left" showInteractive={false}/><MiniMap position="bottom-right" nodeStrokeColor={n=>CATEGORIES[(n.data as GraphDatum).category]||"#9460ef"} nodeColor="#111828" nodeBorderRadius={6} pannable zoomable maskColor="rgba(2,4,13,.8)"/>
       </ReactFlow>
       <div className="graph-glow-corner" aria-hidden="true"/>
