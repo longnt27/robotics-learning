@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install --disable-pip-version-check pymupdf==1.26.4 pillow==11.3.0 deep-translator==1.11.4
+      - run: pip install --disable-pip-version-check pymupdf==1.26.4 pillow==11.3.0 'transformers>=4.45,<5' 'torch>=2.4,<3' sentencepiece
       - name: Extract and translate every valid PDF figure
         run: python scripts/extract_all_paper_figures.py
       - name: Push generated assets and paper sections

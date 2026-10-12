@@ -11,7 +11,8 @@ import time
 from pathlib import Path
 
 import fitz
-from deep_translator import GoogleTranslator
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+import torch
 from extract_paper_figures import (
     ROOT, MANIFEST, ASSETS, sources, download_pdf,
     captions, crop
@@ -21,7 +22,12 @@ from refresh_paper_captions import ALTERNATE_PDFS
 PAPERS = ROOT / "content" / "papers"
 BEGIN = "<!-- BEGIN SUPPLEMENTARY FIGURES -->"
 END = "<!-- END SUPPLEMENTARY FIGURES -->"
-TRANSLATOR = GoogleTranslator(source="en", target="vi")
+# Local translation avoids IP-based rate limits on public translation APIs.
+MODEL_NAME = "Helsinki-NLP/opus-mt-en-vi"
+torch.set_num_threads(4)
+TOKENIZER = AutoTokenizer.from_pretrained(MODEL_NAME)
+MODEL = AutoModelForSeq2SeqLM.from_pretrained(MODEL_NAME)
+MODEL.eval()
 HEADING_HINTS = {
     "why": ["motivation", "overview", "framework", "architecture", "system", "main", "example"],
     "method": ["framework", "architecture", "pipeline", "training", "network", "policy", "model", "method", "attention", "token"],
@@ -46,19 +52,10 @@ def translate(text, slug, number, previous):
         chunks.append(current.strip())
     translated = []
     for chunk in chunks:
-        last_error = None
-        for attempt in range(4):
-            try:
-                result = TRANSLATOR.translate(chunk)
-                if result and len(result.strip()) >= 20:
-                    translated.append(result.strip())
-                    break
-                raise ValueError("Empty/implausible translation")
-            except Exception as err:
-                last_error = err
-                time.sleep(2 * (attempt + 1))
-        else:
-            raise RuntimeError(f"{slug} figure {number}: translate failed: {last_error}")
+        inputs = TOKENIZER(">>vie<< " + chunk, return_tensors="pt", truncation=True, max_length=480)
+        with torch.inference_mode():
+            ids = MODEL.generate(**inputs, num_beams=2, max_new_tokens=480)
+        translated.append(TOKENIZER.decode(ids[0], skip_special_tokens=True).strip())
     result = " ".join(translated)
     if not result or result == text:
         raise RuntimeError(f"{slug} figure {number}: untranslated caption")
