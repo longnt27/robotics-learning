@@ -11,6 +11,8 @@ type SourceFigure = {
   page: number;
   pdf: string;
   caption: string;
+  caption_vi?: string;
+  translation_method?: string;
 };
 
 const figures = figureManifest as Record<string, SourceFigure[]>;
@@ -29,6 +31,8 @@ export function PaperFigure({paperSlug,src,alt}:{
   const meta = figures[paperSlug]?.find(figure => figure.image === src);
   const title = meta ? "Hình " + meta.number : alt || "Hình minh họa";
   const caption = meta?.caption || alt || "Chưa có caption gốc cho hình này.";
+  const captionVi = meta?.caption_vi?.trim() || "Chưa có bản dịch tiếng Việt.";
+  const isTranslated = Boolean(meta?.caption_vi?.trim());
   const source = meta ? meta.pdf + "#page=" + meta.page : undefined;
 
   useEffect(()=>{
@@ -74,8 +78,10 @@ export function PaperFigure({paperSlug,src,alt}:{
           <img src={src} alt={alt || title} decoding="async"/>
         </div>
         <div className="paper-figure-lightbox-caption">
-          <span className="paper-figure-caption-heading">CAPTION GỐC CỦA TÁC GIẢ</span>
-          <p>{caption}</p>
+          <span className="paper-figure-caption-heading">BẢN DỊCH TIẾNG VIỆT {isTranslated ? "(TỰ ĐỘNG)" : ""}</span>
+          <p className="paper-figure-modal-vi">{captionVi}</p>
+          <span className="paper-figure-caption-heading">CAPTION GỐC (EN)</span>
+          <p className="paper-figure-modal-en">{caption}</p>
           {source && <a href={source} target="_blank" rel="noopener noreferrer">
             PDF GỐC · TRANG {meta?.page}<ExternalLink size={15}/>
           </a>}
@@ -94,7 +100,9 @@ export function PaperFigure({paperSlug,src,alt}:{
         <span className="paper-figure-zoom-label"><Maximize2 size={16}/> PHÓNG TO</span>
       </button>
       <span className="paper-source-figcaption">
-        <span className="paper-figure-caption-heading">CAPTION GỐC CỦA TÁC GIẢ</span>
+        <span className="paper-figure-caption-heading">BẢN DỊCH TIẾNG VIỆT {isTranslated ? "(TỰ ĐỘNG)" : ""}</span>
+        <span className="paper-figure-caption-vi">{captionVi}</span>
+        <span className="paper-figure-caption-heading">CAPTION GỐC (EN)</span>
         <span className="paper-figure-caption-text">{caption}</span>
         {source && <a className="paper-figure-source-link" href={source}
           target="_blank" rel="noopener noreferrer">
