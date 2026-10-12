@@ -28,9 +28,12 @@ try {
     assert.equal(nodeCount, 22, 'Expected all 22 DAG nodes at ' + viewport.width + 'px');
 
     const getZoom = () => page.locator('.react-flow__viewport').evaluate(el => new DOMMatrixReadOnly(getComputedStyle(el).transform).a);
+    await page.locator('.graph-canvas').scrollIntoViewIfNeeded();
     const before = await getZoom();
     const box = await page.locator('.graph-canvas').boundingBox();
     assert.ok(box, 'Graph canvas is displayed');
+    const target = await page.evaluate(({x,y}) => ({tag: document.elementFromPoint(x,y)?.tagName, className: String(document.elementFromPoint(x,y)?.className || ''), viewportHeight: window.innerHeight, scrollY: window.scrollY}), {x:box.x + box.width/2, y:box.y + box.height/2});
+    console.log('DAG wheel target', {viewport, canvas:box, target});
     await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
     await page.mouse.wheel(0, -450);
     await page.waitForTimeout(350);
