@@ -1626,5 +1626,34 @@
       "episode rollout",
       "chạy thử policy"
     ]
+  },
+  {
+    "id": "embodied-reasoning",
+    "term": "Embodied reasoning",
+    "category": "foundation",
+    "definition": "Suy luận dựa trên quan sát và ràng buộc của tác thể trong môi trường, ví dụ chọn vật thể phù hợp và lập kế hoạch thao tác. Hiểu đúng mục tiêu chưa đủ: execution còn cần policy motor và khả năng điều khiển chính xác.",
+    "papers": [
+      "palm-e",
+      "rt-2"
+    ],
+    "aliases": [
+      "lập luận hiện thân"
+    ]
+  },
+  {
+    "id": "multi-task-policy",
+    "term": "Multi-task policy",
+    "category": "foundation",
+    "definition": "Một policy học xử lý nhiều nhiệm vụ hoặc instruction trong cùng hệ thống tham số, thay vì huấn luyện riêng một model cho từng task. Cần đánh giá theo từng nhiệm vụ, khả năng chuyển giao và những task bị suy giảm.",
+    "papers": [
+      "octo",
+      "rt-1",
+      "openvla"
+    ],
+    "aliases": [
+      "policy đa nhiệm",
+      "multi-task learning",
+      "chính sách đa nhiệm"
+    ]
   }
 ]
