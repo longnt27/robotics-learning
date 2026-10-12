@@ -24,9 +24,24 @@ jobs:
             with urllib.request.urlopen(req,timeout=60) as f:
               body=f.read().decode("utf-8","replace")
               print("RESPONSE",f.status,f.headers.get("content-type"),"length",len(body),"preview",repr(body[:600]))
-              payload=json.loads(body)
-              print("MODEL_OK",payload["model"],payload["choices"][0]["message"]["content"][:320])
+              if body.startswith("{"):
+                payload=json.loads(body)
+                print("MODEL_OK",payload["model"],payload["choices"][0]["message"]["content"][:320])
+              else:
+                print("MODEL_ENDPOINT_DID_NOT_RETURN_JSON")
           except urllib.error.HTTPError as e:
             print("MODEL_UNAVAILABLE",e.code,e.read().decode()[:450])
             raise SystemExit(1)
+          PY
+      - name: Probe direct original PDF download
+        run: |
+          python - <<'PY'
+          import urllib.request
+          for u in ["https://www.roboticsproceedings.org/rss19/p016.pdf","https://arxiv.org/pdf/2210.03094","https://raw.githubusercontent.com/longnt27/robotics-learning/main/README.md"]:
+            try:
+              with urllib.request.urlopen(u,timeout=20) as r:
+                chunk=r.read(50)
+                print(u, r.status, r.headers.get("content-type"),repr(chunk))
+            except Exception as e:
+              print(u,type(e).__name__,str(e)[:100])
           PY
