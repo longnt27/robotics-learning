@@ -52,6 +52,33 @@ try {
       return [...document.fonts].some(font => font.family.toLowerCase().includes('montserrat') && font.status === 'loaded');
     });
     assert.ok(vietnameseFontLoaded, 'Montserrat Vietnamese glyph range must be loaded');
+    // The dictionary is available site-wide; the back-to-top belongs only to paper pages.
+    assert.equal(await page.getByRole("button",{name:"Về đầu trang"}).count(),0,"Do not show scroll-top on homepage");
+    const trigger=page.getByRole("button",{name:"Mở từ điển thuật ngữ"});
+    const launcherBox=await trigger.boundingBox();
+    assert.ok(launcherBox && launcherBox.x<viewport.width/3,"Glossary trigger stays on the left");
+    await trigger.click();
+    const glossary=page.getByRole("dialog",{name:"Từ điển robotics"});
+    await glossary.waitFor({state:"visible"});
+    const field=glossary.getByRole("searchbox",{name:"Tìm thuật ngữ"});
+    await field.fill("flow matching");
+    assert.ok(await glossary.getByRole("heading",{name:"Flow matching"}).isVisible());
+    await field.fill("RTC");
+    assert.equal(await glossary.locator(".corpus-glossary-entry h3").first().innerText(),"RTC",
+      "Acronym match must outrank incidental definition matches");
+    assert.equal(await glossary.locator('.corpus-glossary-entry').first().locator('a[href="/paper/rtc-inference"]').count(),1);
+    await field.fill("hoc lien tuc");
+    assert.ok(await glossary.getByRole("heading",{name:"Continual learning"}).isVisible(),
+      "Vietnamese searches without diacritics work");
+    await field.fill("khongcotuthuatngunay");
+    assert.ok(await glossary.getByText("Không tìm thấy thuật ngữ").isVisible());
+    await page.keyboard.press("Escape");
+    await glossary.waitFor({state:"hidden"});
+    assert.equal(await page.evaluate(()=>document.body.style.overflow),"","Glossary unlocks document scrolling");
+    assert.equal(await trigger.getAttribute("aria-expanded"),"false");
+    assert.ok(await trigger.evaluate(el=>document.activeElement===el),"Focus returns to glossary trigger");
+    const xOverflow=await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
+    assert.ok(xOverflow<=2,"Floating glossary must not overflow "+viewport.width+"px viewport");
     assert.deepEqual(errors, [], `No browser JS runtime errors at ${viewport.width}px`);
     console.log(`PASS: ${viewport.width}x${viewport.height} · 22 nodes · wheel zoom ${before.toFixed(2)} -> ${after.toFixed(2)} · Montserrat VI`);
     await page.close();
@@ -136,6 +163,17 @@ try {
     assert.ok(overflow<=2,'Figure and caption must not force horizontal page scrolling');
     assert.deepEqual(runtimeErrors,[],'No hydration or runtime errors in figure viewer');
     console.log('PASS: original PDF caption, hidden generator markers and fullscreen viewer at '+viewport.width+'px');
+    await chapterPage.emulateMedia({reducedMotion:"reduce"});
+    await chapterPage.evaluate(()=>window.scrollTo({top:1250,behavior:"instant"}));
+    const up=chapterPage.getByRole("button",{name:"Về đầu trang"});
+    await up.waitFor({state:"visible"});
+    const rightBox=await up.boundingBox();
+    assert.ok(rightBox && rightBox.x>viewport.width/2,"Back-to-top button stays on the right");
+    assert.equal(await chapterPage.getByRole("button",{name:"Mở từ điển thuật ngữ"}).count(),1);
+    await up.click();
+    await chapterPage.waitForFunction(()=>window.scrollY<30);
+    await up.waitFor({state:"hidden"});
+    assert.deepEqual(runtimeErrors,[],"Reader toolbar adds no browser exceptions");
     await chapterPage.close();
   }
 

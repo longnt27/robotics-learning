@@ -5,6 +5,7 @@ import { relations } from "@/lib/relations";
 import { getPaperChapter } from "@/lib/content";
 import { getResearchSlides } from "@/lib/slides";
 import { PaperReader } from "@/components/paper-reader";
+import { ReadingScrollTop } from "@/components/reading-scroll-top";
 
 export function generateStaticParams() { return papers.map((paper) => ({slug: paper.slug})); }
 
@@ -20,5 +21,5 @@ export default async function PaperPage({params}: {params: Promise<{slug: string
   const paper = getPaper(slug);
   if (!paper) notFound();
   const [chapter, slides] = await Promise.all([getPaperChapter(slug), getResearchSlides(slug)]);
-  return <PaperReader paper={paper} chapter={chapter} relations={relations} slides={slides} />;
+  return <><PaperReader paper={paper} chapter={chapter} relations={relations} slides={slides}/><ReadingScrollTop/></>;
 }

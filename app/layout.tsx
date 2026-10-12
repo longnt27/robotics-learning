@@ -4,6 +4,7 @@ import "./globals.css";
 import "./briefing.css";
 import "katex/dist/katex.min.css";
 import "@xyflow/react/dist/style.css";
+import { GlossaryLauncher } from "@/components/glossary-launcher";
 
 const montserrat = Montserrat({
   subsets: ["latin", "vietnamese"],
@@ -21,5 +22,5 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#080911" };
 
 export default function RootLayout({ children }: Readonly<{children: React.ReactNode}>) {
-  return <html lang="vi"><body className={montserrat.variable}>{children}</body></html>;
+  return <html lang="vi"><body className={montserrat.variable}>{children}<GlossaryLauncher/></body></html>;
 }

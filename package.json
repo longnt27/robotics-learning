@@ -10,6 +10,7 @@
     "test:deep-reading": "node --test tests/deep-reading.test.mjs",
     "typecheck": "tsc --noEmit",
     "test:ui": "node --test tests/ui-regressions.test.mjs",
+    "test:glossary": "node --test tests/glossary.test.mjs",
     "test:e2e": "node tests/browser.test.mjs",
     "test:resources": "node --test tests/resources.test.mjs",
     "test:slides": "node --test tests/slides.test.mjs"
