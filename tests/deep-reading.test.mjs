@@ -68,6 +68,7 @@ test("Markdown figure renderer provides images, context and accessible captions"
   const css=fs.readFileSync(path.join(root,"app/globals.css"),"utf8");
   assert.ok(code.includes('className="paper-source-figure"'));
   assert.match(code,/loading="lazy"/);
-  assert.match(code,/<figcaption>/);
+  assert.match(code,/paper-source-figcaption/);
+  assert.match(code,/role="figure"/);
   assert.match(css,/\.paper-source-figure/);
 });

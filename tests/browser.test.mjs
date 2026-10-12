@@ -90,7 +90,7 @@ try {
     const photo=sourcedFigure.locator('img');
     const size=await photo.evaluate(img=>({w:img.naturalWidth,h:img.naturalHeight}));
     assert.ok(size.w>=300&&size.h>=130,`Figure must load real image data: ${JSON.stringify(size)}`);
-    assert.match(await sourcedFigure.locator('figcaption').innerText(),/Hình 1.*PDF gốc|Hình 1.*trang 1/i);
+    assert.match(await sourcedFigure.locator('.paper-source-figcaption').innerText(),/Hình 1.*PDF gốc|Hình 1.*trang 1/i);
     assert.equal(await chapterPage.locator('.paper-source-figure').count(),2);
     const overflow=await chapterPage.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
     assert.ok(overflow<=2,`Expanded paper must not horizontally overflow on ${viewport.width}`);
