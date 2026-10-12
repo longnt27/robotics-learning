@@ -22,7 +22,9 @@ jobs:
           req=urllib.request.Request(url,data=data,headers={"Authorization":"Bearer "+os.environ["GH_TOKEN"],"Content-Type":"application/json","Accept":"application/vnd.github+json"})
           try:
             with urllib.request.urlopen(req,timeout=60) as f:
-              payload=json.load(f)
+              body=f.read().decode("utf-8","replace")
+              print("RESPONSE",f.status,f.headers.get("content-type"),"length",len(body),"preview",repr(body[:600]))
+              payload=json.loads(body)
               print("MODEL_OK",payload["model"],payload["choices"][0]["message"]["content"][:320])
           except urllib.error.HTTPError as e:
             print("MODEL_UNAVAILABLE",e.code,e.read().decode()[:450])
