@@ -19,7 +19,6 @@ Vì vậy vấn đề bài báo thật sự giải không phải chỉ **độ t
 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/rtc-inference/figure-1.webp)
 
-*Hình 1, trang 1. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2506.07339#page=1).*
 
 #### Đọc hình gốc: bối cảnh và đóng góp
 
@@ -126,7 +125,6 @@ Nếu dự đoán `d_est` dài hơn thực tế, robot giữ continuity nhưng b
 
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/rtc-inference/figure-2.webp)
 
-*Hình 2, trang 3. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2506.07339#page=3).*
 
 #### Đọc hình gốc: từng thành phần và luồng thông tin
 

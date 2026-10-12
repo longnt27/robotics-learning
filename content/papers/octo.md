@@ -6,7 +6,6 @@ RT-X cho thấy cross-embodiment pretraining có tiềm năng nhưng ecosystem c
 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/octo/figure-1.webp)
 
-*Hình 1, trang 1. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2405.12213#page=1).*
 
 #### Đọc hình gốc: bối cảnh và đóng góp
 
@@ -64,7 +63,6 @@ Octo là Transformer policy khoảng 93M parameters, pretrain trên khoảng **8
 
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/octo/figure-2.webp)
 
-*Hình 2, trang 3. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2405.12213#page=3).*
 
 #### Đọc hình gốc: từng thành phần và luồng thông tin
 

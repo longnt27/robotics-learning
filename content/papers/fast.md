@@ -6,7 +6,6 @@ Autoregressive VLA có một vấn đề hơi ngu nhưng chí mạng: action li�
 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/fast/figure-1.webp)
 
-*Hình 1, trang 1. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2501.09747#page=1).*
 
 #### Đọc hình gốc: bối cảnh và đóng góp
 
@@ -64,7 +63,6 @@ Sau đó FAST được ghép với π-style autoregressive VLA. Vì mỗi chunk 
 
 ![Hình 2 gốc từ PDF bài báo, trang 2](/paper-figures/fast/figure-2.webp)
 
-*Hình 2, trang 2. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2501.09747#page=2).*
 
 #### Đọc hình gốc: từng thành phần và luồng thông tin
 

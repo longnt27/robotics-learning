@@ -70,7 +70,7 @@ def captions(page):
         if number > 15 or len(line) < 18:
             continue
         result.append({"num": number, "bbox": fitz.Rect(x0, y0, x1, y1),
-                       "caption": " ".join(line.split())[:400]})
+                       "caption": " ".join(line.split())})
     return result
 
 
@@ -125,7 +125,7 @@ def crop(doc, output, page_idx, item, others):
     box = choose_box(page, item, others)
     if box is None:
         return None
-    pix = page.get_pixmap(matrix=fitz.Matrix(2.2, 2.2), clip=box,
+    pix = page.get_pixmap(matrix=fitz.Matrix(3.6, 3.6), clip=box,
                           alpha=False, colorspace=fitz.csRGB)
     from io import BytesIO
     img = Image.open(BytesIO(pix.tobytes("png"))).convert("RGB")
@@ -133,10 +133,10 @@ def crop(doc, output, page_idx, item, others):
     stat = ImageStat.Stat(img)
     if max(stat.stddev) < 9:
         return None
-    if img.width > 1550:
-        img.thumbnail((1550, 2000), Image.Resampling.LANCZOS)
+    if img.width > 2300 or img.height > 2600:
+        img.thumbnail((2300, 2600), Image.Resampling.LANCZOS)
     output.parent.mkdir(parents=True, exist_ok=True)
-    img.save(output, "WEBP", quality=87, method=5)
+    img.save(output, "WEBP", quality=91, method=5)
     return {"page": page_idx + 1, "bbox": [round(v, 1) for v in box],
             "width": img.width, "height": img.height, "bytes": output.stat().st_size}
 

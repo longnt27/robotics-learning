@@ -14,7 +14,6 @@ NVIDIA chọn kiến trúc hai hệ thống: một phần hiểu thông tin và 
 
 ![Hình 1 gốc từ PDF bài báo, trang 2](/paper-figures/groot-n1/figure-1.webp)
 
-*Hình 1, trang 2. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2503.14734#page=2).*
 
 #### Đọc hình gốc: bối cảnh và đóng góp
 
@@ -111,7 +110,6 @@ Một mạng đã pretrain chưa hiểu chắc robot target. Post-training dùng
 
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/groot-n1/figure-2.webp)
 
-*Hình 2, trang 3. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2503.14734#page=3).*
 
 #### Đọc hình gốc: từng thành phần và luồng thông tin
 

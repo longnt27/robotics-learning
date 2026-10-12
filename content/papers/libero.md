@@ -6,7 +6,6 @@ Lifelong learning không chỉ hỏi “nhiệm vụ mới làm được bao nhi
 
 ![Hình 1 gốc từ PDF bài báo, trang 2](/paper-figures/libero/figure-1.webp)
 
-*Hình 1, trang 2. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2306.03310#page=2).*
 
 #### Đọc hình gốc: bối cảnh và đóng góp
 
@@ -64,7 +63,6 @@ Bài báo gốc đánh giá các thuật toán học liên tục như sequential
 
 ![Hình 2 gốc từ PDF bài báo, trang 4](/paper-figures/libero/figure-2.webp)
 
-*Hình 2, trang 4. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. [Xem caption đầy đủ trong PDF](https://arxiv.org/pdf/2306.03310#page=4).*
 
 #### Đọc hình gốc: từng thành phần và luồng thông tin
 

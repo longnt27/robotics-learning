@@ -55,7 +55,8 @@ test("all twenty-two scientific chapters contain at least five times the prior e
       assert.ok(fig.image.startsWith("/paper-figures/"+slug+"/"),`${slug}: bad image location`);
       assert.ok(fs.existsSync(path.join(root,"public",fig.image)),`${slug}: missing image bytes ${fig.image}`);
       assert.ok(content.includes("]("+fig.image+")"),`${slug}: figure not embedded`);
-      assert.ok(content.includes(fig.pdf+"#page="+fig.page),`${slug}: PDF page deep link missing`);
+      assert.ok(fig.caption.trim().length>=35,`${slug}: source author caption is missing`);
+      assert.ok(!content.includes("Xem caption đầy đủ trong PDF"),`${slug}: redundant fake caption remains`);
     }
     for(const key of ["overview","method","worked"]){
       assert.ok(guides[slug][key].split(/\s+/).length>=60,`${slug}: ${key} lacks meaningful paper-specific detail`);
@@ -63,12 +64,25 @@ test("all twenty-two scientific chapters contain at least five times the prior e
   }
 });
 
-test("Markdown figure renderer provides images, context and accessible captions",()=>{
-  const code=fs.readFileSync(path.join(root,"components/paper-reader.tsx"),"utf8");
+test("Markdown hides generator markers without discarding real explanatory sections",()=>{
+  const source=fs.readFileSync(path.join(root,"lib/content.ts"),"utf8");
+  assert.match(source,/BEGIN\|END/);
+  assert.match(source,/EXTENDED WALKTHROUGH/);
+});
+
+test("Paper figures have original source captions, PDF deep links and native fullscreen dialog",()=>{
+  const code=fs.readFileSync(path.join(root,"components/paper-figure.tsx"),"utf8");
+  const reader=fs.readFileSync(path.join(root,"components/paper-reader.tsx"),"utf8");
   const css=fs.readFileSync(path.join(root,"app/globals.css"),"utf8");
+  assert.ok(reader.includes("<PaperFigure paperSlug={paper.slug}"));
   assert.ok(code.includes('className="paper-source-figure"'));
-  assert.match(code,/loading="lazy"/);
+  assert.ok(code.includes("meta?.caption"));
+  assert.ok(code.includes("meta.pdf"));
+  assert.ok(code.includes("createPortal"));
+  assert.ok(code.includes("showModal"));
+  assert.ok(code.includes("onCancel"));
+  assert.match(code,/aria-label="Đóng ảnh phóng to"/);
   assert.match(code,/paper-source-figcaption/);
   assert.match(code,/role="figure"/);
-  assert.match(css,/\.paper-source-figure/);
+  assert.match(css,/\.paper-figure-lightbox/);
 });
