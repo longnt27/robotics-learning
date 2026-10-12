@@ -1,0 +1,30 @@
+name: Paper enrichment tooling probe
+on:
+  push:
+    branches: [feat/deep-paper-explanations-figures]
+    paths: [.github/workflows/paper-enrichment-probe.yml]
+permissions:
+  contents: read
+  models: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Verify model-based explanatory draft availability
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import json,os,urllib.request,urllib.error
+          url="https://models.github.ai/inference/chat/completions"
+          data=json.dumps({"model":"openai/gpt-4.1-mini","messages":[{"role":"user","content":"Giải thích ngắn bằng tiếng Việt: action chunking trong robot là gì?"}],"temperature":0.2,"max_tokens":240}).encode()
+          req=urllib.request.Request(url,data=data,headers={"Authorization":"Bearer "+os.environ["GH_TOKEN"],"Content-Type":"application/json","Accept":"application/vnd.github+json"})
+          try:
+            with urllib.request.urlopen(req,timeout=60) as f:
+              payload=json.load(f)
+              print("MODEL_OK",payload["model"],payload["choices"][0]["message"]["content"][:320])
+          except urllib.error.HTTPError as e:
+            print("MODEL_UNAVAILABLE",e.code,e.read().decode()[:450])
+            raise SystemExit(1)
+          PY
