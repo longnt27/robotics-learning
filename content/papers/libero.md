@@ -57,6 +57,11 @@ Học liên tục (lifelong/continual learning) khác học đa nhiệm (multi-t
 
 LIBERO có **130 nhiệm vụ** và tạo nhiệm vụ theo quy tắc. Các suite chính gồm **LIBERO-Spatial**, **LIBERO-Object**, **LIBERO-Goal** và **LIBERO-100**; phần long-horizon dùng một split riêng từ LIBERO-100. Mỗi nhiệm vụ có khoảng **50 demonstration chất lượng cao do con người điều khiển từ xa**. Điều kiện hoàn thành nhiệm vụ được được mô tả chính thức bằng predicates kiểu `Open`, `TurnOff`, `On`, `In`.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 5 từ PDF gốc, trang 9](/paper-figures/libero/figure-5.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Bài báo gốc đánh giá các thuật toán học liên tục như sequential fine-tuning, replay, EWC và PackNet. Các chỉ số không chỉ đo tỷ lệ hoàn thành nhiệm vụ mà còn **Forward Transfer (FWT)**, **Negative Backward Transfer (NBT)** và AUC để đo diễn biến học tập qua chuỗi nhiệm vụ.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -146,6 +151,11 @@ Khi chạy env, thành công phải đến từ **closed-loop rollout và điề
 
 Một kết quả khá trái trực giác là **naive sequential fine-tuning có FWT tốt**, tức biểu diễn học từ nhiệm vụ trước đôi khi giúp nhiệm vụ sau, dù nó quên nhiệm vụ cũ. PackNet bảo vệ retention khá tốt nhưng đổi lại dung lượng biểu diễn của mô hình bị chia nhỏ. Experience Replay là lựa chọn tương đối ổn định, còn EWC không nổi bật trong thiết lập này. Bài báo cũng thử BERT/CLIP/GPT-style embedding của nhiệm vụ và thấy **không có khác biệt lớn so với TaskID** trong nhiều thiết lập.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 4 từ PDF gốc, trang 9](/paper-figures/libero/figure-4.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Một kết quả đáng nhớ khác: pretraining có giám sát trên LIBERO-90 **không tự động giúp** downstream lifelong learning trên 10 nhiệm vụ long-horizon, thậm chí có thể gây negative chuyển giao. Điều đó cảnh báo rất sớm rằng “pretrain nhiều hơn” không đủ; phân phối/mục tiêu huấn luyện phải đúng.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->

@@ -91,11 +91,16 @@ try {
       return Boolean(img && img.complete && img.naturalWidth>0);
     });
 
-    assert.equal(await chapterPage.locator('.paper-source-figure').count(),2,'Two original figures');
+    assert.ok(await chapterPage.locator('.paper-source-figure').count()>2,
+      'LIBERO should show more figures than the old two-figure hard-coded limit');
     const originalCaption=await figure.locator('.paper-figure-caption-text').innerText();
     assert.match(originalCaption,/^Figure 1: Top: LIBERO has four procedurally-generated task suites/i);
     assert.ok(originalCaption.length>280,'Show the complete original research caption, not the alt text');
-    assert.ok(await figure.getByText('CAPTION GỐC CỦA TÁC GIẢ').isVisible());
+    assert.ok(await figure.getByText('CAPTION GỐC (EN)').isVisible());
+    assert.ok(await figure.getByText(/BẢN DỊCH TIẾNG VIỆT/).isVisible());
+    const translated=await figure.locator('.paper-figure-caption-vi').innerText();
+    assert.ok(translated.length>=75,'Vietnamese figure explanation must be substantive');
+    assert.match(translated,/[àáạảãăâđèéẹẻẽêếìíịỉĩòóọỏõôốơớùúụủũưứỳýỵỷỹ]/i);
     assert.equal(await figure.locator('.paper-figure-source-link').getAttribute('href'),
       'https://arxiv.org/pdf/2306.03310#page=2');
     const prose=await chapterPage.locator('.markdown-body').innerText();
@@ -116,8 +121,9 @@ try {
       const img=document.querySelector('.paper-figure-lightbox-canvas img');
       return Boolean(img && img.complete && img.naturalWidth>0);
     });
-    assert.match(await dialog.locator('.paper-figure-lightbox-caption p').innerText(),
+    assert.match(await dialog.locator('.paper-figure-modal-en').innerText(),
       /^Figure 1: Top: LIBERO has four procedurally-generated task suites/i);
+    assert.equal(await dialog.locator('.paper-figure-modal-vi').innerText(),translated);
     await dialog.getByRole('button',{name:'Xem ảnh ở kích thước gốc'}).click();
     assert.equal(await dialog.getByRole('button',{name:'Vừa màn hình'}).getAttribute('aria-pressed'),'true');
     await chapterPage.keyboard.press('Escape');

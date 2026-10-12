@@ -77,6 +77,25 @@ button,input,select{font:inherit}button{cursor:pointer}a{color:inherit;text-deco
   color:#edf1f9; font-size:14px; font-weight:510;
   line-height:1.7; overflow-wrap:anywhere;
 }
+.markdown-body .paper-figure-caption-vi {
+  color:#f2f6ff; font-size:15px; font-weight:550;
+  line-height:1.7; overflow-wrap:anywhere;
+}
+.markdown-body .paper-source-figcaption .paper-figure-caption-heading:not(:first-child) {
+  margin-top:11px; padding-top:13px; border-top:1px solid #40506b;
+}
+.paper-figure-lightbox-caption .paper-figure-caption-heading {
+  display:block; margin-top:10px;
+}
+.paper-figure-lightbox-caption .paper-figure-caption-heading:first-child {
+  margin-top:0;
+}
+.paper-figure-lightbox-caption .paper-figure-modal-vi {
+  color:#f5f8ff; font-weight:560;
+}
+.paper-figure-lightbox-caption .paper-figure-modal-en {
+  color:#ccd6e8; font-weight:450;
+}
 .markdown-body .paper-figure-source-link,
 .paper-figure-lightbox-caption a {
   display:inline-flex; width:max-content; max-width:100%;

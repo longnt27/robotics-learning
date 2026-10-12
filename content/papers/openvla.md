@@ -57,6 +57,11 @@ RT-2 gợi ý VLM-to-action là khả thi nhưng không phải open reproducible
 
 OpenVLA dùng **Llama 2 7B** làm ngôn ngữ backbone và fuse đặc trưng thị giác từ **DINOv2 + SigLIP**, sau đó pretrain/fine-tune trên khoảng **970 nghìn robot demonstrations** từ Open X-Embodiment. Liên tục robot actions được discretize thành tokens để mô hình dùng cùng autoregressive next-token mục tiêu huấn luyện với VLM.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 6 từ PDF gốc, trang 10](/paper-figures/openvla/figure-6.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Bài báo đặc biệt quan tâm tới adaptation. Họ thử full fine-tuning, LoRA với nhiều rank, quantization 4-bit/8-bit và evaluate memory/throughput/hiệu năng trade-off. Đây là lý do OpenVLA hữu ích như research substrate hơn là chỉ một leaderboard entry.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -146,6 +151,13 @@ OpenVLA là contrast hữu ích với π0.5: OpenVLA thường autoregressive **
 
 Trên bộ 29 nhiệm vụ dùng để so generalist policies, OpenVLA báo tỷ lệ thành công trung bình cao hơn **RT-2-X khoảng 16.5 điểm** trong đánh giá của họ. Sau task-specific/multi-task fine-tuning, OpenVLA vượt Octo và Diffusion Policy đáng kể trên những thiết lập thao tác robot cần hiểu nhiều chỉ dẫn ngôn ngữ, tác giả nêu mức cải thiện tổng hợp khoảng **20.4%**.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 3 từ PDF gốc, trang 7](/paper-figures/openvla/figure-3.webp)
+![Hình 4 từ PDF gốc, trang 8](/paper-figures/openvla/figure-4.webp)
+![Hình 5 từ PDF gốc, trang 9](/paper-figures/openvla/figure-5.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 PEFT là phần rất thực dụng: **LoRA rank 32** đạt khoảng **68.2%** so với **69.7%** full fine-tuning nhưng chỉ huấn luyện khoảng **1.4% parameters** và memory giảm mạnh. 4-bit quantization trong một thiết lập giữ hiệu năng gần bf16, thậm chí số đo dao động **71.9 vs 71.3**, trong khi mô hình memory giảm từ khoảng 16.8 GB xuống 7 GB. Điều đó chứng minh VLA adaptation không nhất thiết cần một cụm H100.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->

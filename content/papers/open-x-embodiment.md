@@ -57,6 +57,11 @@ Cross-embodiment không phải chỉ concat mọi `action` vào một tensor. C�
 
 Dự án gom dữ liệu từ **22 robot embodiments và 21 tổ chức**, tổng cộng hơn **1 triệu các quỹ đạo/episodes**, hàng trăm kỹ năng và nhiệm vụ instances. Các tập dữ liệu khác nhau được chuyển về một interface chuẩn, trong khi vẫn giữ metadata/action semantics cần thiết. Trên corpus đó, consortium huấn luyện **RT-1-X** và **RT-2-X**, tức các phiên bản cross-embodiment của RT-1/RT-2.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 3 từ PDF gốc, trang 4](/paper-figures/open-x-embodiment/figure-3.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Quan trọng về mặt infrastructure là bài báo không cố ép mọi robot thành cùng một phần cứng. Nó xây một format và hỗn hợp dữ liệu huấn luyện để mô hình có thể học biểu diễn dùng chung, rồi đo xem dữ liệu từ robot A có giúp robot B hay không.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -146,6 +151,12 @@ So sánh multi-dataset checkpoint với single-dataset checkpoint trên cùng ro
 
 RT-1-X đạt tỷ lệ thành công trung bình cao hơn khoảng **50%** so với việc chỉ dùng phương pháp/tập dữ liệu riêng lẻ trong aggregate comparison của bài báo. RT-2-X cho khả năng khái quát mạnh hơn rất rõ, có thiết lập khoảng **3x** so với mô hình chỉ huấn luyện trên embodiment được đánh giá. Ablation trên Bridge và các subsets cho thấy dữ liệu từ embodiment khác có thể tạo **positive chuyển giao**, và gains tăng khi mô hình đủ dung lượng mô hình để hấp thụ heterogeneity.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 4 từ PDF gốc, trang 5](/paper-figures/open-x-embodiment/figure-4.webp)
+![Hình 5 từ PDF gốc, trang 6](/paper-figures/open-x-embodiment/figure-5.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Bài báo này không chứng minh “mọi robot đều học lẫn nhau”, nhưng nó chứng minh đủ để thay đổi hướng field: cross-embodiment pretraining từ đó trở thành một assumption hợp lý để đầu tư thay vì một fantasy.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->

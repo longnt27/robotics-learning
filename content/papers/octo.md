@@ -2,6 +2,11 @@
 
 RT-X cho thấy cross-embodiment pretraining có tiềm năng nhưng ecosystem còn thiếu một checkpoint mở, practical và adaptation-friendly. Một phòng thí nghiệm nhỏ không muốn huấn luyện foundation policy từ đầu; họ muốn lấy mô hình có vật lý prior sẵn rồi fine-tune bằng 50-100 demonstrations của robot mình. Octo sinh ra để trả lời đúng use case đó.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 3 từ PDF gốc, trang 4](/paper-figures/octo/figure-3.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/octo/figure-1.webp)
@@ -41,6 +46,11 @@ Hình 1 giới thiệu Octo như một generalist policy pretrained trên nhiề
 
 Mục tiêu của Octo là **generalist đã pretrain policy có thể fine-tune**, không nhất thiết một mô hình zero-shot làm mọi robot. Nó học reusable behaviors từ đa tập dữ liệu rồi điều chỉnh lại theo embodiment mới. Đây là khác biệt quan trọng với claim "universal robot bộ điều khiển".
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 4 từ PDF gốc, trang 6](/paper-figures/octo/figure-4.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
 ### Đào sâu: Ba khái niệm để nắm
@@ -57,6 +67,11 @@ Mục tiêu của Octo là **generalist đã pretrain policy có thể fine-tune
 
 Octo là Transformer policy khoảng 93M parameters, pretrain trên khoảng **800 nghìn episodes** từ **25 các tập dữ liệu** trong Open X-Embodiment. Kiến trúc được thiết kế modular: nhận ngôn ngữ hoặc mục tiêu hình ảnh, nhiều camera, proprioception và có readout/action heads thay được. Sinh action dùng diffusion-style head, tránh phải ép mọi action liên tục thành autoregressive text tokens.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 5 từ PDF gốc, trang 6](/paper-figures/octo/figure-5.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Điểm đáng giá là tác giả coi **fine-tuning interface** là first-class design mục tiêu. Người dùng có thể thay quan sát/action head và adapt mô hình sang new embodiment mà không huấn luyện toàn bộ stack từ zero.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -146,6 +161,11 @@ Octo tách khái niệm `task token` và biểu diễn action; đọc code cần
 
 Ở zero-shot evaluations qua nhiều platform, Octo đạt tỷ lệ thành công trung bình cao hơn **RT-1-X khoảng 29%** trong comparison của bài báo và có thiết lập cạnh tranh với RT-2-X 55B dù mô hình nhỏ hơn rất nhiều. Goal-image conditioning trên một số WidowX thiết lập tốt hơn ngôn ngữ khoảng **25 điểm**, phản ánh hỗn hợp dữ liệu huấn luyện của Octo.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 6 từ PDF gốc, trang 8](/paper-figures/octo/figure-6.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Phần mạnh nhất là adaptation: với cỡ **100 demonstrations**, fine-tuned Octo vượt các phương pháp đối chứng huấn luyện từ đầu hoặc chuyên biệt mạnh trên nhiều domain, có mức cải thiện tổng hợp mà tác giả nêu lên đến **52%** so với phương pháp đối chứng tốt nhất tiếp theo. Ablations cho thấy độ đa dạng dữ liệu pretraining, dung lượng biểu diễn của mô hình và diffusion action head đều đóng góp.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->

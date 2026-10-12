@@ -57,6 +57,13 @@ Trong VIMA, **prompt** là đặc tả của nhiệm vụ, không chỉ sentence
 
 Bài báo giới thiệu **VIMA-Bench**, gồm 17 nhóm nhiệm vụ, hơn **600 nghìn expert các quỹ đạo** và nhiều level khả năng khái quát ngày càng khó. Prompt có thể chứa text lẫn token thị giác. Kiến trúc dùng đã pretrain text encoder, object-centric token thị giác và Transformer để cross-attend vào prompt rồi autoregressively sinh action.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 3 từ PDF gốc, trang 4](/paper-figures/vima/figure-3.webp)
+![Hình 4 từ PDF gốc, trang 5](/paper-figures/vima/figure-4.webp)
+![Hình 7 từ PDF gốc, trang 8](/paper-figures/vima/figure-7.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Một điểm quan trọng là benchmark cố tách nhiều kiểu OOD: novel placement, vật thể mới combination, novel nhiệm vụ composition và level khó nhất là nhiệm vụ templates mới. Mô hình được scale từ cỡ nhỏ đến khoảng 200M parameters để xem hiệu năng có obey scaling trend không.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -146,6 +153,12 @@ Level khó nhất của VIMA-Bench không đồng nghĩa open-world: nhiệm v�
 
 VIMA outperform các alternative kiến trúc cùng dữ liệu khá mạnh trên hard zero-shot splits. Bài báo báo có thiết lập **tới 2.9x tỷ lệ thành công của nhiệm vụ** so với kiến trúc thay thế ở cùng dữ liệu budget, và **2.7x hiệu năng với ít hơn 10x dữ liệu** trong một số comparison. Kích thước mô hình và dữ liệu size đều giúp systematic khả năng khái quát, không chỉ memorization huấn luyện nhiệm vụ.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 5 từ PDF gốc, trang 6](/paper-figures/vima/figure-5.webp)
+![Hình 6 từ PDF gốc, trang 7](/paper-figures/vima/figure-6.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Quan trọng hơn, level khả năng khái quát càng xa huấn luyện grammar thì hiệu năng vẫn tụt rõ. Điều đó vừa là kết quả tốt vừa là warning: multimodal prompting giúp rất nhiều, nhưng không biến robot thành GPT cho vật lý chỉ sau một đêm.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->

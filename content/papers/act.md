@@ -2,6 +2,11 @@
 
 Bimanual manipulation khó ở hai phía cùng lúc: phần cứng teleoperation đắt và imitation learning có horizon rất dài. Nếu dự đoán từng action 50 Hz, một nhiệm vụ vài chục giây có hàng nghìn decision, nên chỉ cần policy hơi lệch một chút là compounding error đủ giết cả episode. Bài báo muốn chứng minh rằng **low-cost phần cứng + một biểu diễn theo thời gian tốt hơn** có thể học các kỹ năng hai tay khá tinh vi với lượng demo nhỏ.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 4 từ PDF gốc, trang 4](/paper-figures/act/figure-4.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/act/figure-1.webp)
@@ -57,6 +62,11 @@ Một lần dự đoán `a_t` ở 50 Hz nghĩa là 50 decisions/giây, dễ sai 
 
 ALOHA là hệ leader-follower giá thấp cho teleoperation hai tay ở **50 Hz**. Về learning, bài báo đưa ra **Action chunking with Transformers (ACT)**. Thay vì dự đoán một action, ACT dự đoán một chunk `a_t ... a_{t+k}`. CVAE latent variable hấp thụ multimodality/style variation giữa demonstrations, còn Transformer xử lý hình ảnh/state và sinh cả chuỗi.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 5 từ PDF gốc, trang 5](/paper-figures/act/figure-5.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Khi chạy, ACT query policy lặp lại và dùng **temporal ensembling** giữa các chunk overlap để làm chuyển động mượt. Đây chính là ancestor của vấn đề mà RTC bài báo sau này nghiên cứu: chunk giúp theo thời gian coherence nhưng tạo câu hỏi “khi chunk mới đến thì nối với chunk cũ thế nào?”.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -126,6 +136,11 @@ $$
 
 Hai tay cầm mép áo và kéo. Policy stepwise dễ rung khi hai tay chỉ cần lệch pha một chút; ACT sinh 50 actions tương quan để tay trái và phải di chuyển cùng nhịp. Ở mỗi quan sát, ACT tạo chunk mới chồng lên chunk cũ. **Temporal ensembling** dùng weighted average cho các action dự đoán cùng timestep.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 7 từ PDF gốc, trang 7](/paper-figures/act/figure-7.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Đây cũng là nơi xuất hiện vấn đề RTC sẽ sửa: average nhiều action modes đôi khi tạo action sai; nếu mô hình chạy chậm, chunk stitching có thể gây jerk.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -146,6 +161,13 @@ Hai tay cầm mép áo và kéo. Policy stepwise dễ rung khi hai tay chỉ c�
 
 ACT vượt các phương pháp đối chứng imitation-learning trước đó rất mạnh trong mô phỏng lẫn real bimanual nhiệm vụ. Bài báo báo second-best các phương pháp đối chứng có thể kém ACT tới hàng chục điểm, với chênh lệch khoảng **59, 49 và 29 điểm** ở một số thiết lập mô phỏng. Ablation cho thấy action chunking là yếu tố cực lớn: khi horizon tăng hợp lý, thành công có thể nhảy từ gần như không làm được lên mức đáng kể. Trên con người demonstration dữ liệu, bỏ CVAE cũng làm hiệu năng rơi rất mạnh, cho thấy multimodality của teleoperation không phải chuyện trang trí.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 6 từ PDF gốc, trang 5](/paper-figures/act/figure-6.webp)
+![Hình 8 từ PDF gốc, trang 8](/paper-figures/act/figure-8.webp)
+![Hình 9 từ PDF gốc, trang 11](/paper-figures/act/figure-9.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Một điểm thực dụng là nhiều nhiệm vụ chỉ cần khoảng **10-20 phút demonstration** thay vì hàng giờ. Điều đó khiến ALOHA + ACT trở thành một recipe cực kỳ phổ biến cho phòng thí nghiệm nhỏ.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->

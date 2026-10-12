@@ -2,6 +2,11 @@
 
 Trước RT-1, phần lớn robot learning vẫn theo cách tiếp cận kiểu “một nhiệm vụ, một policy”, hoặc cùng lắm là một nhóm nhiệm vụ tương đối gần nhau. Cái thiếu không chỉ là kiến trúc tốt hơn, mà là bằng chứng rằng cách tiếp cận từng thành công ở NLP/vision - gom dữ liệu lớn, đa dạng rồi huấn luyện một mô hình chung - cũng có thể mở rộng quy mô trong robot học. Khó ở chỗ action của robot phải được tính và thực thi theo thời gian thực, dữ liệu đắt hơn Internet rất nhiều, và dịch chuyển phân phối dữ liệu giữa vật thể, phông nền, nhiệm vụ và bối cảnh dễ làm policy thất bại ngay. RT-1 vì thế hỏi một câu rất nền tảng: **nếu ta thật sự mở rộng quy mô dữ liệu robot thật và dùng một Transformer đủ lớn, khả năng khái quát có tăng một cách có hệ thống không?**
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 3 từ PDF gốc, trang 6](/paper-figures/rt-1/figure-3.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/rt-1/figure-1.webp)
@@ -128,6 +133,11 @@ $$
 
 Giả sử lệnh **"lấy quả táo đỏ đặt vào bát"**. `EfficientNet` mã hoá ảnh có nhiều đồ vật; chỉ dẫn đi vào FiLM để điều chỉnh trọng số các đặc trưng thị giác theo từ "táo đỏ" và "bát". `TokenLearner` rút gọn token không gian. Transformer dự đoán các thành phần action như dịch chuyển gripper, góc quay, độ mở kẹp và terminate. Sau khi thực thi, robot chụp khung hình mới và lặp lại. Đây là **behavior cloning trong vòng lặp kín** chứ không phải việc lập kế hoạch cho chuỗi hành động dài.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 4 từ PDF gốc, trang 6](/paper-figures/rt-1/figure-4.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Khi chuyển robot sang một căn bếp khác, thất bại có thể do điều kiện chiếu sáng, vị trí đặt vật, hình học thao tác gắp hoặc hiểu biết về nhiệm vụ. Không thể chỉ nhìn tổng tỷ lệ thành công để biết nút thắt nằm ở đâu.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -148,6 +158,12 @@ Khi chuyển robot sang một căn bếp khác, thất bại có thể do điề
 
 Trên tập hơn 700 chỉ dẫn đã huấn luyện, RT-1 đạt khoảng **97% thành công**. Ở các nhóm kiểm tra khả năng khái quát như nhiệm vụ mới, distractor mới và phông nền mới, tác giả nêu mức cải thiện lớn so với phương pháp đối chứng trước đó, lần lượt khoảng **25, 36 và 18 điểm** trong các thiết lập được báo cáo. Một thí nghiệm rất đáng nhớ là khi thêm dữ liệu bin-picking từ Kuka vào mixture: khả năng khái quát sang bin-picking tăng gần gấp đôi mà hiệu năng trên tập nhiệm vụ gốc không bị phá đáng kể.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 5 từ PDF gốc, trang 7](/paper-figures/rt-1/figure-5.webp)
+![Hình 6 từ PDF gốc, trang 9](/paper-figures/rt-1/figure-6.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Các thí nghiệm ablation cũng cho thấy giảm **độ đa dạng nhiệm vụ** gây hại khả năng khái quát rất mạnh. Có những thiết lập mà bỏ 25% số nhiệm vụ gây tổn thất tương tự hoặc lớn hơn việc bỏ một lượng mẫu đáng kể nhưng vẫn giữ sự đa dạng. Đây là lý do RT-1 thường được nhắc như một bằng chứng sớm cho câu: **robotics cần mở rộng độ bao phủ nhiệm vụ, không chỉ lặp lại cùng một kỹ năng 100 nghìn lần**.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->

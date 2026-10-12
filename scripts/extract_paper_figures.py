@@ -67,7 +67,7 @@ def captions(page):
             number = int(match.group(1))
         except ValueError:
             continue
-        if number > 15 or len(line) < 18:
+        if len(line) < 32:
             continue
         result.append({"num": number, "bbox": fitz.Rect(x0, y0, x1, y1),
                        "caption": " ".join(line.split())})
@@ -105,8 +105,8 @@ def choose_box(page, caption, nearby):
                 if c["bbox"].y1 < cap.y0 and
                 (is_wide or abs(((c["bbox"].x0 + c["bbox"].x1) / 2) - center) < page_width / 3)]
     top_floor = max(rect.y0 + 18, max(previous, default=rect.y0 + 18) + 7)
-    if pictures:
-        chosen = [b for b in pictures if b.y1 > cap.y0 - 330]
+    chosen = [b for b in pictures if b.y1 > cap.y0 - 330]
+    if chosen:
         top = max(top_floor, min(b.y0 for b in chosen) - 13)
         # Don't clip nearby line-art or image legends: include a little context.
         top = max(top_floor, min(top, cap.y0 - 120))
@@ -141,31 +141,71 @@ def crop(doc, output, page_idx, item, others):
             "width": img.width, "height": img.height, "bytes": output.stat().st_size}
 
 
+# If a publisher rejects automated PDF requests, use the matching author's
+# arXiv paper. Every extracted figure records the PDF version actually used.
+PUBLISHER_FALLBACKS = {
+    "act": "https://arxiv.org/pdf/2304.13705",
+    "rt-1": "https://arxiv.org/pdf/2212.06817",
+    "diffusion-policy": "https://arxiv.org/pdf/2303.04137",
+}
+
+
 def extract_one(slug, url, pdf_cache):
     dest = pdf_cache / f"{slug}.pdf"
-    download_pdf(url, dest)
+    try:
+        download_pdf(url, dest)
+    except RuntimeError as exc:
+        alternate = PUBLISHER_FALLBACKS.get(slug)
+        if not alternate:
+            raise
+        print(f"WARN {slug}: primary source unavailable ({exc}); using {alternate}", flush=True)
+        url = alternate
+        dest = pdf_cache / f"{slug}-arxiv.pdf"
+        download_pdf(url, dest)
+
     with fitz.open(dest) as doc:
         found = []
-        for page_index in range(min(len(doc), 11)):
-            for item in captions(doc[page_index]):
-                found.append((page_index, item))
-        # Prefer numbered figures in the front of the paper, with one figure per number.
+        references_y = None
+        # Traverse the full main paper rather than the first 11 pages. Stop at
+        # the bibliography, not at an arbitrary number of figures or pages.
+        for page_index, page in enumerate(doc):
+            if references_y is not None:
+                break
+            headings = [
+                fitz.Rect(block[:4]).y0
+                for block in page.get_text("blocks", sort=True)
+                if block[4].strip() and block[4].strip().splitlines()[0].strip().lower() in
+                {"references", "bibliography"}
+            ]
+            if headings:
+                references_y = min(headings)
+            for item in captions(page):
+                if references_y is None or item["bbox"].y0 < references_y:
+                    found.append((page_index, item))
+
+        # Many papers have numbered figure captions in non-sequential columns;
+        # record each figure only once in the source's numerical order.
         by_number = {}
         for page_index, item in found:
             by_number.setdefault(item["num"], (page_index, item))
-        candidates = sorted(by_number.items(), key=lambda kv: (kv[0] != 1, kv[0]))
         output = []
-        for number, (page_idx, item) in candidates:
+        skipped = []
+        for number, (page_idx, item) in sorted(by_number.items()):
             output_path = ASSETS / slug / f"figure-{number}.webp"
             peer_captions = [c for idx, c in found if idx == page_idx]
             result = crop(doc, output_path, page_idx, item, peer_captions)
             if not result:
+                skipped.append(number)
                 continue
-            result.update({"number": number, "image": f"/paper-figures/{slug}/figure-{number}.webp",
+            result.update({"number": number,
+                           "image": f"/paper-figures/{slug}/figure-{number}.webp",
                            "caption": item["caption"], "pdf": url})
             output.append(result)
-            if len(output) >= 2:
-                break
+        if skipped:
+            print(f"WARN {slug}: skipped unreadable/collapsed figures {skipped}", flush=True)
+        print(f"COUNT {slug}: {len(output)} usable of {len(by_number)} captioned figures "
+              f"across {len(doc)} PDF pages (numbers {[x['number'] for x in output]})",
+              flush=True)
         return output
 
 
@@ -187,6 +227,15 @@ def main():
             figures = extract_one(slug, available[slug], cache)
             if not figures:
                 errors[slug] = "No printable figure caption or crop found"
+            # Keep human corrections/verified translations when source text has
+            # not changed across an extractor rerun.
+            previous={(x["number"],x["caption"]):x
+                      for x in manifest.get(slug,[])}
+            for fig in figures:
+                prior=previous.get((fig["number"],fig["caption"]),{})
+                for key in ("caption_vi","translation_method","caption_sha256"):
+                    if key in prior:
+                        fig[key]=prior[key]
             manifest[slug] = figures
             for fig in figures:
                 print(f"{slug} FIG {fig['number']} PDF page {fig['page']} {fig['width']}x{fig['height']} -> {fig['image']}", flush=True)
@@ -194,7 +243,8 @@ def main():
             errors[slug] = str(exc)
             print(f"WARN {slug}: {exc}", flush=True)
     MANIFEST.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
-    print(f"SUMMARY: {sum(bool(v) for v in manifest.values())}/{len(manifest)} papers with figures; errors={errors}", flush=True)
+    print(f"SUMMARY: {sum(len(v) for v in manifest.values())} figures from "
+          f"{sum(bool(v) for v in manifest.values())}/{len(manifest)} papers; errors={errors}", flush=True)
     if errors:
         raise SystemExit(1)
 

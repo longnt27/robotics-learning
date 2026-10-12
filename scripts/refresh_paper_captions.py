@@ -78,6 +78,10 @@ def main() -> None:
                 if len(full) < len(figure["caption"]) or len(full) < 35:
                     raise RuntimeError(f"{slug} fig {figure['number']}: caption unexpectedly shortened")
 
+                if figure["caption"] != full:
+                    # Never display a translation of a stale original caption.
+                    for key in ("caption_vi","translation_method","caption_sha256"):
+                        figure.pop(key,None)
                 figure["caption"] = full
                 # Bboxes are from the publisher version; never blindly reuse
                 # them to crop a different-pagination arXiv revision.
@@ -98,8 +102,9 @@ def main() -> None:
                       + (" [caption matched in arXiv revision]" if fallback else
                          f", {figure['width']}x{figure['height']}px, {figure['bytes']} bytes"), flush=True)
 
-    if updated != 44:
-        raise RuntimeError(f"Expected 44 figures, refreshed {updated}")
+    expected = sum(len(figures) for figures in manifest.values())
+    if updated != expected:
+        raise RuntimeError(f"Expected {expected} figures, refreshed {updated}")
     MANIFEST.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
     print(f"Refreshed {updated} full original captions and high-resolution figure crops", flush=True)
 

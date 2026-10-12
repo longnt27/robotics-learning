@@ -4,6 +4,11 @@
 
 ### Một mô hình cho manipulation, navigation và quỹ đạo dự đoán?
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 4 từ PDF gốc, trang 17](/paper-figures/qwen-vla/figure-4.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Các nhánh embodied learning thường sống trong ba hệ sinh thái tương đối riêng: robot manipulation với gripper/arms, mobile navigation với vị trí/hướng đi và quỹ đạo nhiệm vụ với kiểu trạng thái đầu ra khác nhau. Ngay trong manipulation, mỗi robot có số DoF, hệ toạ độ, action frequency và convention riêng. Nếu phải huấn luyện một checkpoint cho mỗi robot/nhiệm vụ, **dữ liệu không chia sẻ prior** một cách hiệu quả; sự hiểu biết về cái cốc ở một robot không dễ sang robot khác.
 
 Trong khi đó, đã pretrain Qwen VLM đã học nhận diện vật, ngôn ngữ, không gian và nhiều quan hệ ngữ nghĩa. Câu hỏi của Qwen-VLA là liệu có thể **dùng chung một vision-language-action foundation** cho các dạng embodied decision-making khác nhau, thay vì duy trì riêng robot policy, mô hình navigation và quỹ đạo predictor. Nó muốn unified không chỉ ở phần perception/understanding mà còn tại **action liên tục/quỹ đạo sinh**.
@@ -171,6 +176,12 @@ $$
 
 Giả sử quan sát chứa một đĩa trên bàn, chỉ dẫn **“đưa chiếc đĩa vào bồn rửa”**. Với robot hai tay, mô hình cần các quỹ đạo đầu ra cho EEF/joints và grippers. Với robot mobile-base, cùng mục tiêu có thể yêu cầu base navigation, căn camera vào sink, rồi thao tác arm. Thông tin bối cảnh và mục tiêu huấn luyện có thể chia sẻ; action schema và horizon không thể coi là cùng một vector đơn giản. Embodiment prompt giúp mô hình biết dự đoán target, DiT action decoder sinh các quỹ đạo conditional trên quan sát và prompt.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 3 từ PDF gốc, trang 11](/paper-figures/qwen-vla/figure-3.webp)
+![Hình 5 từ PDF gốc, trang 21](/paper-figures/qwen-vla/figure-5.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Cùng một từ “left” có thể chỉ camera-left, world-left hoặc robot base-left. Nếu coordinate convention không rõ, ngay cả một mô hình lý tưởng cũng không thể dự đoán đúng lệnh thực thi. Đây là lý do khi đọc code phải nhìn **action preprocessing**, không chỉ backbone Transformer.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -191,6 +202,12 @@ Cùng một từ “left” có thể chỉ camera-left, world-left hoặc robot
 
 Bài báo báo kết quả manipulation, navigation và benchmark liên quan đến dự đoán quỹ đạo. Trong thiết lập ALOHA trên robot thật, **Qwen-VLA-ALOHA có pretraining** được báo cáo tỷ lệ trung bình **83.6%** tỷ lệ thành công in-domain, so với **48.5%** cho một phiên bản đối chứng ở Bảng 5; ở OOD manipulations, tác giả nêu average **76.9%** ở Bảng 6. Đó là kết quả **trong các nhiệm vụ và quy trình của tác giả**, không chứng minh một mô hình ngẫu nhiên tải về sẽ đạt tương tự trên robot khác.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 6 từ PDF gốc, trang 22](/paper-figures/qwen-vla/figure-6.webp)
+![Hình 7 từ PDF gốc, trang 24](/paper-figures/qwen-vla/figure-7.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Trong benchmark động DOMINO, abstract nhắc **26.6% tỷ lệ thành công zero-shot**, một con số hữu ích vì nhắc ta rằng nhiệm vụ phân phối mới có thể vẫn rất khó. Khi một bảng báo 83.6% cho supervised/post-trained ALOHA và một benchmark khác chỉ 26.6% zero-shot, không nên gộp thành “Qwen-VLA đạt tỷ lệ thành công 80% trên thế giới thật”.
 
 **So sánh specialist/generalist:** bài báo có các phép so với specialized các phương pháp đối chứng và những kiến trúc gần như GR00T. Một mô hình đa nhiệm không đương nhiên hơn mô hình chuyên biệt ở từng thiết lập. Điều đáng nghiên cứu là **đường trade-off** giữa shared dữ liệu pretraining, dữ liệu thích nghi robot và tỷ lệ thành công theo từng nhiệm vụ. Nếu một generalist thắng ở vài nhiệm vụ nhưng thua ở nhiệm vụ đòi hỏi tiếp xúc vật lý phức tạp, chúng ta cần xem biểu diễn action và token/flow budget.

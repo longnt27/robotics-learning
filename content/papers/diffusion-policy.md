@@ -2,6 +2,11 @@
 
 Behavior cloning kiểu regression thường giả định một quan sát có một action target “trung bình”. Nhưng robot demonstrations rất hay **multimodal**: cùng một bối cảnh có thể vòng obstacle bên trái hoặc bên phải, grasp vật thể từ nhiều hướng, hoặc có nhiều quỹ đạo đều hợp lệ. MSE regression có xu hướng average các mode và tạo ra action chẳng mode nào muốn, một cách khá sáng tạo để robot đâm đúng vào giữa chướng ngại vật. Ngoài ra actions có theo thời gian correlation mạnh, nên dự đoán từng timestep độc lập làm quỹ đạo rung và dễ tích lũy lỗi.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 7 từ PDF gốc, trang 6](/paper-figures/diffusion-policy/figure-7.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/diffusion-policy/figure-1.webp)
@@ -59,6 +64,12 @@ Mô hình diffusion học loại noise từ quỹ đạo. **Denoising timestep**
 
 Diffusion Policy biểu diễn cả **action chuỗi/chunk** như một conditional diffusion process. Mô hình bắt đầu từ noise rồi denoise thành một quỹ đạo, điều kiện trên thị giác quan sát và state. Nó dùng receding-horizon control: dự đoán một horizon tương đối dài, thực thi một đoạn ngắn, rồi observe và replan. Bài báo thử cả CNN và Transformer theo thời gian backbone.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 3 từ PDF gốc, trang 3](/paper-figures/diffusion-policy/figure-3.webp)
+![Hình 8 từ PDF gốc, trang 9](/paper-figures/diffusion-policy/figure-8.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Điểm bản chất không phải chỉ “dùng diffusion vì đang hot”, mà là diffusion có thể đại diện nhiều mode của phân phối action và vẫn tạo quỹ đạo temporal-coherent. Chính recipe này sau đó xuất hiện với biến thể flow matching trong π-series, RDT, GR00T, Qwen-VLA và một đống mô hình khác.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -128,6 +139,12 @@ $$
 
 Tạo demo Push-T: quan sát gồm tọa độ pusher và vật T. Với cùng start state, demonstrator có thể đi từ bên trái hoặc bên phải. Lúc huấn luyện, lấy ground truth action chuỗi `A_0`, thêm nhiễu Gaussian để có `A_k`, cho mạng dự đoán noise hoặc denoised quỹ đạo. Inference bắt đầu từ noise, lặp nhiều bước đến action chunk hợp lệ. Robot chỉ thực thi `a_0...a_m`, chụp quan sát mới, rồi replan.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 4 từ PDF gốc, trang 4](/paper-figures/diffusion-policy/figure-4.webp)
+![Hình 9 từ PDF gốc, trang 9](/paper-figures/diffusion-policy/figure-9.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Điểm quan trọng: `prediction horizon` và `action horizon` **không giống nhau**. Tăng horizon dự đoán giúp theo thời gian coherence nhưng có thể làm lập kế hoạch bị stale.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -148,6 +165,14 @@ Tạo demo Push-T: quan sát gồm tọa độ pusher và vật T. Với cùng s
 
 Trên **12 nhiệm vụ thuộc 4 benchmark families**, tác giả nêu cải thiện trung bình rất lớn so với các phương pháp đối chứng điều khiển từ thị giác, khoảng **46.9%** theo cách tổng hợp của tác giả. Với nhiệm vụ trên robot thật như mug flipping, sauce pouring/spreading, diffusion policy đạt thành công cao trong khi một số phương pháp đối chứng LSTM-GMM hoặc hồi quy thất bại hoặc kém rõ rệt. Huấn luyện cũng ổn định hơn các energy-based alternatives mà bài báo so sánh.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 5 từ PDF gốc, trang 5](/paper-figures/diffusion-policy/figure-5.webp)
+![Hình 6 từ PDF gốc, trang 5](/paper-figures/diffusion-policy/figure-6.webp)
+![Hình 10 từ PDF gốc, trang 9](/paper-figures/diffusion-policy/figure-10.webp)
+![Hình 11 từ PDF gốc, trang 10](/paper-figures/diffusion-policy/figure-11.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Kết quả có sức ảnh hưởng nhất là qualitative: quỹ đạo mượt nhưng vẫn giữ được nhiều mode, thay vì biến multimodality thành average chuyển động. Từ sau bài báo này, câu hỏi của field đổi từ “diffusion có dùng được cho robot không?” sang “action diffusion/flow nên được ghép vào VLA thế nào và làm sao giảm độ trễ?”.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->

@@ -126,6 +126,13 @@ $$
 
 Yêu cầu robot "bỏ rác vào thùng" trong khi robot demos có pick/place nhưng không có vật thể tên "rác" cụ thể. VLM biết một lon rỗng và giấy vụn liên quan đến khái niệm rác; robotics action tín hiệu giám sát dạy cách pick/place. Khi text/web examples và robot các quỹ đạo co-train, mô hình có thể dùng prior để chọn mục tiêu. Tuy nhiên, chuyển giao ngữ nghĩa không đảm bảo kẹp được vật lạ.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 3 từ PDF gốc, trang 7](/paper-figures/rt-2/figure-3.webp)
+![Hình 5 từ PDF gốc, trang 9](/paper-figures/rt-2/figure-5.webp)
+![Hình 7 từ PDF gốc, trang 11](/paper-figures/rt-2/figure-7.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Điểm cần theo dõi trong source code/diagram là các action dimensions được **serialize** thành tokens; loss huấn luyện có thể chia sẻ decoder với đầu ra ngôn ngữ, nhưng vật lý meaning đến từ robot examples.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -146,6 +153,12 @@ Yêu cầu robot "bỏ rác vào thùng" trong khi robot demos có pick/place nh
 
 Trên seen nhiệm vụ thao tác, RT-2 vẫn giữ hiệu năng cạnh tranh với RT-1. Điểm thắng nằm ở **vật thể mới, unseen chỉ dẫn và khái quát về ngữ nghĩa**. Bài báo báo hiệu năng khái quát gần **gấp đôi** một số phương pháp đối chứng mạnh và, trong nhóm “emergent suy luận ngữ nghĩa” được thiết kế để test kiến thức từ web chuyển giao, RT-2-PaLI-X đạt tỷ lệ thành công trung bình cao hơn RT-1 nhiều lần, có nhóm hơn **3x**.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 4 từ PDF gốc, trang 8](/paper-figures/rt-2/figure-4.webp)
+![Hình 6 từ PDF gốc, trang 10](/paper-figures/rt-2/figure-6.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Các qualitative examples gây ảnh hưởng lớn vì robot có thể hiểu những concept không xuất hiện rõ trong dữ liệu robot, như chọn vật thể theo ngữ nghĩa category hoặc kết hợp kiến thức từ web với action. Đây là proof-of-concept khiến cả field tin rằng VLM không chỉ làm planner phía trên mà có thể trở thành chính policy backbone.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
