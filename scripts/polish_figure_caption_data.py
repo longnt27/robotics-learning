@@ -15,6 +15,19 @@ FILE = ROOT / "content" / "paper-figures.json"
 
 
 def update(en: str, vi: str) -> str:
+    # Restore symbols that Vietnamese NMT models frequently replace by "??".
+    for notation in ("π0.5", "π0.6", "π0"):
+        if notation in en:
+            escaped = re.escape(notation[1:])
+            vi = re.sub(r"\?\?\s*" + escaped.replace(r"\.", "[.,]"),
+                        notation, vi, flags=re.I)
+    if "π0" in en:
+        vi = re.sub(r"(?:\?\?\s*0|\?\?0)(?![\d.])", "π0", vi)
+    if re.search(r"Open X-Embodiment", en, re.I):
+        vi = re.sub(r"(?:bộ dữ liệu\s+)?hồn vía X mở",
+                    "bộ dữ liệu Open X-Embodiment", vi, flags=re.I)
+    if re.search(r"bimanual", en, re.I):
+        vi = vi.replace("thao tác lưỡng cực", "thao tác hai tay")
     if re.search(r"\bzero[- ]shot\b", en, re.I):
         vi = re.sub(r"không có điểm dừng|không có điểm bắn|không có phát bắn",
                     "zero-shot (không huấn luyện bổ sung)", vi, flags=re.I)
@@ -24,6 +37,7 @@ def update(en: str, vi: str) -> str:
         vi = re.sub(r"bộ (công việc|nhiệm vụ)", "bộ tác vụ", vi, flags=re.I)
     if re.search(r"joint and EEF action spaces", en, re.I):
         vi = vi.replace("không gian hành động chung", "không gian hành động theo khớp")
+        vi = vi.replace("không gian hoạt động chung", "không gian hành động theo khớp")
     if "GR00T" in en:
         vi = re.sub(r"\bG0{2}T\b", "GR00T", vi, flags=re.I)
     if re.match(r"(?i)^fig(?:ure)?\.?\s*(\d+)", en):
@@ -58,6 +72,18 @@ def main():
                     "được hiển thị tại đây."
                 )
                 fig["translation_method"] += "; editor correction of PDF text overlap"
+            if slug == "libero" and fig["number"] == 1:
+                vi = (
+                    "Hình 1. Phía trên: LIBERO có bốn bộ tác vụ được tạo theo quy trình. "
+                    "LIBERO-SPATIAL, LIBERO-OBJECT và LIBERO-GOAL, mỗi bộ gồm 10 tác vụ, "
+                    "nhằm kiểm tra chuyển giao kiến thức về quan hệ không gian, đối tượng "
+                    "và mục tiêu tác vụ. LIBERO-100 gồm 100 tác vụ, yêu cầu chuyển giao "
+                    "những kiến thức kết hợp nhiều yếu tố. Phía dưới: nhóm tác giả khảo "
+                    "sát năm vấn đề nghiên cứu quan trọng của học robot suốt đời (LLDM) "
+                    "trên benchmark LIBERO."
+                )
+                if "manual terminology correction" not in fig["translation_method"]:
+                    fig["translation_method"] += "; manual terminology correction"
             polished = update(en,vi)
             if polished != fig["caption_vi"]:
                 fig["caption_vi"] = polished
