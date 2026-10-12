@@ -3067,13 +3067,13 @@
       "page": 8,
       "bbox": [
         22.0,
-        419.9,
+        391.9,
         590.0,
         500.8
       ],
       "width": 2045,
-      "height": 292,
-      "bytes": 122810,
+      "height": 393,
+      "bytes": 157188,
       "number": 6,
       "image": "/paper-figures/lingbot-vla-2/figure-6.webp",
       "caption": "Figure 6. Word cloud of the manipulated objects in the subtask annotations, sized by frequency.",
