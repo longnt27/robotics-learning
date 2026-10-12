@@ -17,11 +17,11 @@ export type Paper = {
 };
 
 export const categoryLabels: Record<PaperCategory, string> = {
-  FOUNDATIONS: "Foundations & reasoning",
-  POLICIES: "Generalist policies",
-  DATA: "Data & benchmarks",
-  CONTROL: "Action & control",
-  SYSTEMS: "Real-time systems",
+  FOUNDATIONS: "Nền tảng và suy luận",
+  POLICIES: "Policy đa nhiệm",
+  DATA: "Dữ liệu và benchmark",
+  CONTROL: "Action và điều khiển",
+  SYSTEMS: "Hệ thống thời gian thực",
 };
 
 // Timeline dates are research release/first-preprint dates when identifiable, and approximate
@@ -29,25 +29,25 @@ export const categoryLabels: Record<PaperCategory, string> = {
 export const papers: Paper[] = [
   {
     slug: "vima", shortTitle: "VIMA", title: "VIMA: General Robot Manipulation with Multimodal Prompts",
-    subtitle: "Manipulation follows a prompt, not a hard-coded task ID.",
-    abstract: "Một prompt có thể chứa ngôn ngữ, ảnh mẫu và ví dụ thao tác. VIMA biến prompt đa phương thức thành giao diện chung để điều khiển robot trong môi trường giả lập.",
+    subtitle: "Robot thực hiện nhiệm vụ theo prompt đa phương thức, không theo mã nhiệm vụ viết sẵn.",
+    abstract: "VIMA dùng prompt chứa ngôn ngữ, hình ảnh và ví dụ thao tác để chỉ dẫn robot. Mục tiêu là khái quát sang những tổ hợp nhiệm vụ mới trong môi trường mô phỏng.",
     date: "2022-10-01", venue: "ICML 2023", category: "FOUNDATIONS", userPick: false,
     pdf: "https://arxiv.org/pdf/2210.03094", source: "https://proceedings.mlr.press/v202/jiang23b.html",
     code: "https://github.com/vimalabs/VIMA", readingMinutes: 17,
-    concepts: ["multimodal prompting", "object-centric", "generalization"]
+    concepts: ["multimodal prompting", "biểu diễn theo vật thể", "khả năng khái quát"]
   },
   {
     slug: "rt-1", shortTitle: "RT-1", title: "RT-1: Robotics Transformer for Real-World Control at Scale",
-    subtitle: "Robotic behavior begins to scale with data and task diversity.",
-    abstract: "Transformer điều khiển robot trực tiếp từ camera và lệnh ngôn ngữ. RT-1 đưa ra bằng chứng sớm về lợi ích của dữ liệu thật, đa dạng task và khả năng generalize.",
+    subtitle: "Quy mô và độ đa dạng dữ liệu mở đường cho một policy điều khiển robot đa nhiệm.",
+    abstract: "RT-1 điều khiển robot từ ảnh camera và chỉ dẫn ngôn ngữ. Bài báo cho thấy dữ liệu robot thật, nhiều nhiệm vụ và kiến trúc Transformer giúp cải thiện khả năng khái quát.",
     date: "2022-12-01", venue: "RSS 2023", category: "POLICIES", userPick: false,
     pdf: "https://www.roboticsproceedings.org/rss19/p025.pdf", source: "https://www.roboticsproceedings.org/rss19/p025.html",
     readingMinutes: 17, concepts: ["behavior cloning", "action tokens", "scaling"]
   },
   {
     slug: "diffusion-policy", shortTitle: "Diffusion Policy", title: "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion",
-    subtitle: "From predicting one action to sampling an entire plausible future.",
-    abstract: "Diffusion model sinh cả một chuỗi hành động liên tục, giữ được nhiều phương án hợp lệ thay vì trung bình hoá các demonstration khác nhau.",
+    subtitle: "Thay vì dự đoán từng action, mô hình sinh cả chuỗi chuyển động khả thi.",
+    abstract: "Diffusion Policy sinh một chuỗi action liên tục bằng quá trình khử nhiễu. Cách này giữ được nhiều phương án thao tác hợp lệ thay vì lấy trung bình các demonstration khác nhau.",
     date: "2023-03-01", venue: "RSS 2023", category: "CONTROL", userPick: false,
     pdf: "https://www.roboticsproceedings.org/rss19/p026.pdf", source: "https://diffusion-policy.cs.columbia.edu/",
     code: "https://github.com/real-stanford/diffusion_policy", readingMinutes: 24,
@@ -55,16 +55,16 @@ export const papers: Paper[] = [
   },
   {
     slug: "palm-e", shortTitle: "PaLM-E", title: "PaLM-E: An Embodied Multimodal Language Model",
-    subtitle: "Language reasoning meets real-world sensor streams.",
-    abstract: "Đưa image và robot state vào ngữ cảnh của language model để reasoning với cảm biến mà vẫn tận dụng kiến thức đã pretrain từ ngôn ngữ.",
+    subtitle: "Kết hợp tri thức ngôn ngữ với dữ liệu cảm biến từ thế giới thực.",
+    abstract: "PaLM-E đưa hình ảnh và trạng thái robot vào mô hình ngôn ngữ, kết hợp khả năng suy luận với dữ liệu cảm biến mà vẫn tận dụng tri thức từ pretraining.",
     date: "2023-03-06", venue: "ICML 2023", category: "FOUNDATIONS", userPick: false,
     pdf: "https://proceedings.mlr.press/v202/driess23a/driess23a.pdf", source: "https://proceedings.mlr.press/v202/driess23a.html",
     readingMinutes: 18, concepts: ["embodied reasoning", "multimodal tokens", "transfer"]
   },
   {
     slug: "act", shortTitle: "ACT / ALOHA", title: "Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware",
-    subtitle: "One prediction can contain fifty coordinated movements.",
-    abstract: "ALOHA hạ chi phí teleoperation, còn Action Chunking with Transformers (ACT) giúp robot học thao tác hai tay bằng cách dự đoán một chuỗi action thay vì từng bước.",
+    subtitle: "Một lần dự đoán có thể tạo ra cả chuỗi chuyển động phối hợp của hai tay.",
+    abstract: "ALOHA cung cấp hệ thống teleoperation chi phí thấp. ACT dùng Transformer dự đoán action chunk để học các thao tác hai tay chính xác từ demonstration.",
     date: "2023-04-01", venue: "RSS 2023", category: "CONTROL", userPick: false,
     pdf: "https://www.roboticsproceedings.org/rss19/p016.pdf", source: "https://www.roboticsproceedings.org/rss19/p016.html",
     code: "https://github.com/tonyzhaozh/act", readingMinutes: 22,
@@ -72,41 +72,41 @@ export const papers: Paper[] = [
   },
   {
     slug: "libero", shortTitle: "LIBERO", title: "LIBERO: Benchmarking Knowledge Transfer for Lifelong Robot Learning",
-    subtitle: "A benchmark that asks what a robot retains when tasks keep changing.",
-    abstract: "Benchmark thao tác robot để đo transfer, lifelong learning và khả năng giữ kỹ năng cũ trong lúc học các task mới. Thuộc bộ sưu tập bài do người dùng cung cấp.",
+    subtitle: "Robot học nhiệm vụ mới có giữ được kiến thức và kỹ năng cũ không?",
+    abstract: "LIBERO là bộ benchmark kiểm tra khả năng học liên tục, chuyển giao kiến thức và giữ lại kỹ năng cũ khi robot liên tiếp học nhiệm vụ mới.",
     date: "2023-06-01", venue: "NeurIPS 2023", category: "DATA", userPick: true,
     pdf: "https://arxiv.org/pdf/2306.03310", source: "https://libero-project.github.io/",
     code: "https://github.com/Lifelong-Robot-Learning/LIBERO", readingMinutes: 22,
-    concepts: ["benchmark", "continual learning", "task transfer"]
+    concepts: ["benchmark", "continual learning", "chuyển giao nhiệm vụ"]
   },
   {
     slug: "rt-2", shortTitle: "RT-2", title: "RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control",
-    subtitle: "A vision-language model starts speaking in robot actions.",
-    abstract: "RT-2 tận dụng kiến thức web của VLM, biến robot action thành token và đồng huấn luyện robot trajectories với vision-language tasks.",
+    subtitle: "Chuyển kiến thức thị giác-ngôn ngữ thành các action để điều khiển robot.",
+    abstract: "RT-2 tận dụng tri thức đã học từ dữ liệu hình ảnh-ngôn ngữ trên web, mã hóa action thành token và đồng huấn luyện dữ liệu robot với các nhiệm vụ thị giác-ngôn ngữ.",
     date: "2023-07-01", venue: "CoRL 2023", category: "POLICIES", userPick: false,
     pdf: "https://arxiv.org/pdf/2307.15818", source: "https://robotics-transformer2.github.io/",
     readingMinutes: 23, concepts: ["VLA", "co-training", "semantic transfer"]
   },
   {
     slug: "bridgedata-v2", shortTitle: "BridgeData V2", title: "BridgeData V2: A Dataset for Robot Learning at Scale",
-    subtitle: "Generalization starts with a dataset that actually changes.",
-    abstract: "Dataset robot manipulation với nhiều task, môi trường và đối tượng để huấn luyện policy có khả năng transfer mạnh hơn giữa scene và nhiệm vụ.",
+    subtitle: "Dữ liệu đa dạng hơn giúp robot thích nghi với nhiều nhiệm vụ và bối cảnh.",
+    abstract: "BridgeData V2 tập hợp demonstration thao tác robot qua nhiều nhiệm vụ, đồ vật và môi trường, tạo điều kiện nghiên cứu khả năng chuyển giao của policy.",
     date: "2023-08-01", venue: "CoRL 2023", category: "DATA", userPick: false,
     pdf: "https://arxiv.org/pdf/2308.12952", source: "https://rail-berkeley.github.io/bridgedata-v2/",
-    readingMinutes: 15, concepts: ["data diversity", "demonstrations", "generalization"]
+    readingMinutes: 15, concepts: ["đa dạng dữ liệu", "demonstration", "khả năng khái quát"]
   },
   {
     slug: "mimicplay", shortTitle: "MimicPlay", title: "MimicPlay: Long-Horizon Imitation Learning by Watching Human Play",
-    subtitle: "Human play offers cheap hints about what should happen next.",
-    abstract: "Dùng video chơi/tương tác của người để học kế hoạch ở tầng cao, rồi kết hợp robot demonstrations nhằm điều khiển long-horizon manipulation.",
+    subtitle: "Khai thác video người thao tác để định hướng những hành động tiếp theo.",
+    abstract: "MimicPlay học thông tin định hướng hành động từ video người tương tác với đồ vật, sau đó kết hợp demonstration của robot để xử lý các nhiệm vụ nhiều bước.",
     date: "2023-08-15", venue: "CoRL 2023", category: "CONTROL", userPick: false,
     pdf: "https://arxiv.org/pdf/2302.12422", source: "https://mimic-play.github.io/",
-    readingMinutes: 21, concepts: ["human videos", "hierarchical imitation", "long horizon"]
+    readingMinutes: 21, concepts: ["video người", "hierarchical imitation", "nhiệm vụ dài"]
   },
   {
     slug: "open-x-embodiment", shortTitle: "Open X-Embodiment", title: "Open X-Embodiment: Robotic Learning Datasets and RT-X Models",
-    subtitle: "One hundred datasets, one question: can experience travel between robots?",
-    abstract: "Gộp dữ liệu nhiều robot, morphology và lab để kiểm tra liệu một policy lớn có thể tận dụng kinh nghiệm từ các embodiment khác hay không.",
+    subtitle: "Kinh nghiệm từ robot này có chuyển giao được sang robot khác không?",
+    abstract: "Open X-Embodiment kết hợp dữ liệu từ nhiều nền tảng robot nhằm kiểm tra khả năng học chung và chuyển giao kinh nghiệm qua khác biệt về cấu trúc cơ khí.",
     date: "2023-10-01", venue: "ICRA 2024", category: "DATA", userPick: false,
     pdf: "https://arxiv.org/pdf/2310.08864", source: "https://robotics-transformer-x.github.io/",
     code: "https://github.com/google-deepmind/open_x_embodiment", readingMinutes: 21,
@@ -114,26 +114,26 @@ export const papers: Paper[] = [
   },
   {
     slug: "droid", shortTitle: "DROID", title: "DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset",
-    subtitle: "A robot corpus gathered outside one carefully controlled laboratory.",
-    abstract: "DROID mở rộng dữ liệu thao tác bằng teleoperation trên nhiều môi trường đời thực, đặt nền cho nghiên cứu robust policy và cross-scene transfer.",
+    subtitle: "Đưa dữ liệu thao tác robot ra khỏi môi trường phòng thí nghiệm khép kín.",
+    abstract: "DROID thu thập demonstration từ thao tác robot ở nhiều môi trường ngoài phòng thí nghiệm, phục vụ huấn luyện policy bền vững trước thay đổi bối cảnh.",
     date: "2024-03-01", venue: "RSS 2024", category: "DATA", userPick: false,
     pdf: "https://arxiv.org/pdf/2403.12945", source: "https://droid-dataset.github.io/",
     code: "https://github.com/droid-dataset/droid", readingMinutes: 17,
-    concepts: ["in-the-wild data", "teleoperation", "dataset quality"]
+    concepts: ["dữ liệu ngoài phòng thí nghiệm", "teleoperation", "chất lượng dữ liệu"]
   },
   {
     slug: "octo", shortTitle: "Octo", title: "Octo: An Open-Source Generalist Robot Policy",
-    subtitle: "A shared policy that you can actually fine-tune.",
-    abstract: "Octo phát hành open-source generalist robot policy, train trên dữ liệu Open X-Embodiment và hỗ trợ thích nghi sang robot/task mới.",
+    subtitle: "Một policy robot đa nhiệm có thể mở rộng và fine-tune cho nhiệm vụ mới.",
+    abstract: "Octo là policy robot đa nhiệm mã nguồn mở, được pretrain trên tập dữ liệu Open X-Embodiment và có thể fine-tune cho robot hoặc nhiệm vụ mới.",
     date: "2024-05-01", venue: "RSS 2024", category: "POLICIES", userPick: false,
     pdf: "https://arxiv.org/pdf/2405.12213", source: "https://octo-models.github.io/",
     code: "https://github.com/octo-models/octo", readingMinutes: 20,
-    concepts: ["generalist policy", "fine-tuning", "cross-embodiment"]
+    concepts: ["policy đa nhiệm", "fine-tuning", "cross-embodiment"]
   },
   {
     slug: "robocasa", shortTitle: "RoboCasa", title: "RoboCasa: Large-Scale Simulation of Everyday Tasks for Generalist Robots",
-    subtitle: "A procedural universe of homes where robot policies can fail safely.",
-    abstract: "Môi trường mô phỏng nhà bếp và household tasks có procedural variation để học và đo khả năng generalize trong robot manipulation.",
+    subtitle: "Mô phỏng nhiều căn bếp và nhiệm vụ để robot học trong môi trường an toàn.",
+    abstract: "RoboCasa tạo nhiều căn bếp và nhiệm vụ gia đình trong mô phỏng bằng các biến đổi có quy tắc, giúp huấn luyện và đánh giá khả năng khái quát của robot.",
     date: "2024-06-01", venue: "RSS 2024", category: "DATA", userPick: false,
     pdf: "https://arxiv.org/pdf/2406.02523", source: "https://robocasa.ai/",
     code: "https://github.com/robocasa/robocasa", readingMinutes: 18,
@@ -141,8 +141,8 @@ export const papers: Paper[] = [
   },
   {
     slug: "openvla", shortTitle: "OpenVLA", title: "OpenVLA: An Open-Source Vision-Language-Action Model",
-    subtitle: "Seven billion parameters, an open route from pixels to action tokens.",
-    abstract: "VLA open-source kết hợp pretrained VLM với robot action discretization, cho phép fine-tuning sang embodiment và nhiệm vụ mới.",
+    subtitle: "Mô hình 7 tỷ tham số mở đường từ hình ảnh đến action token.",
+    abstract: "OpenVLA kết hợp VLM đã pretrain với cách mã hóa action thành token, công bố một VLA mã nguồn mở có thể fine-tune cho nhiệm vụ và cấu trúc robot mới.",
     date: "2024-06-15", venue: "CoRL 2024", category: "POLICIES", userPick: false,
     pdf: "https://arxiv.org/pdf/2406.09246", source: "https://openvla.github.io/",
     code: "https://github.com/openvla/openvla", readingMinutes: 22,
@@ -150,8 +150,8 @@ export const papers: Paper[] = [
   },
   {
     slug: "rdt-1b", shortTitle: "RDT-1B", title: "RDT-1B: A Diffusion Foundation Model for Bimanual Manipulation",
-    subtitle: "A billion-parameter diffusion prior for coordinated robot hands.",
-    abstract: "Diffusion Transformer quy mô lớn với unified physical action representation nhằm học behavior hai tay từ nhiều robot dataset.",
+    subtitle: "Học prior chuyển động phối hợp hai tay bằng diffusion model quy mô lớn.",
+    abstract: "RDT-1B dùng diffusion Transformer cùng biểu diễn action thống nhất theo ý nghĩa vật lý để học thao tác hai tay từ dữ liệu nhiều robot.",
     date: "2024-10-01", venue: "ICLR 2025", category: "POLICIES", userPick: false,
     pdf: "https://arxiv.org/pdf/2410.07864", source: "https://rdt-robotics.github.io/rdt-robotics/",
     code: "https://github.com/thu-ml/RoboticsDiffusionTransformer", readingMinutes: 21,
@@ -159,8 +159,8 @@ export const papers: Paper[] = [
   },
   {
     slug: "fast", shortTitle: "FAST", title: "FAST: Efficient Action Tokenization for Vision-Language-Action Models",
-    subtitle: "Action tokenization is not an implementation detail.",
-    abstract: "Nén smooth robot action trajectory thành các token thuận tiện cho autoregressive VLA, dựa vào frequency-domain transform và tokenization.",
+    subtitle: "Cách mã hóa action thành token ảnh hưởng trực tiếp đến hiệu quả của VLA.",
+    abstract: "FAST mã hóa các chuỗi action trơn thành token nhờ biến đổi miền tần số, giúp VLA autoregressive sinh chuyển động hiệu quả hơn.",
     date: "2025-01-01", venue: "RSS 2025", category: "CONTROL", userPick: false,
     pdf: "https://arxiv.org/pdf/2501.09747", source: "https://www.roboticsproceedings.org/rss21/p012.html",
     code: "https://github.com/Physical-Intelligence/fast", readingMinutes: 19,
@@ -168,8 +168,8 @@ export const papers: Paper[] = [
   },
   {
     slug: "groot-n1", shortTitle: "GR00T N1", title: "GR00T N1: An Open Foundation Model for Generalist Humanoid Robots",
-    subtitle: "System 2 understands. System 1 moves.",
-    abstract: "NVIDIA kết hợp VLM System 2 và diffusion action expert System 1, pretrain bằng robot trajectories, video người và dữ liệu tổng hợp. Thuộc bộ sưu tập bài do người dùng cung cấp.",
+    subtitle: "System 2 xử lý ngữ cảnh; System 1 tạo chuyển động liên tục.",
+    abstract: "GR00T N1 kết hợp VLM ở System 2 với diffusion action expert ở System 1, tận dụng quỹ đạo robot, video con người và dữ liệu tổng hợp để học chính sách điều khiển.",
     date: "2025-03-27", venue: "arXiv 2025", category: "POLICIES", userPick: true,
     pdf: "https://arxiv.org/pdf/2503.14734", source: "https://arxiv.org/abs/2503.14734",
     code: "https://github.com/NVIDIA/Isaac-GR00T", readingMinutes: 33,
@@ -177,33 +177,33 @@ export const papers: Paper[] = [
   },
   {
     slug: "pi-0-5", shortTitle: "π0.5", title: "π0.5: A Vision-Language-Action Model with Open-World Generalization",
-    subtitle: "What does it take to leave the lab and complete long tasks?",
-    abstract: "Kết hợp VLA continuous action với training recipe hướng tới open-world generalization, long-horizon behavior và dữ liệu đa dạng.",
+    subtitle: "Làm sao để robot rời phòng thí nghiệm và thực hiện nhiệm vụ dài?",
+    abstract: "π0.5 kết hợp VLA sinh action liên tục với quy trình huấn luyện nhằm cải thiện khả năng khái quát ở môi trường mới và thực hiện nhiệm vụ dài.",
     date: "2025-04-01", venue: "CoRL 2025", category: "POLICIES", userPick: false,
     pdf: "https://arxiv.org/pdf/2504.16054", source: "https://www.pi.website/blog/pi05",
     code: "https://github.com/Physical-Intelligence/openpi", readingMinutes: 26,
-    concepts: ["flow matching", "open-world generalization", "hierarchy"]
+    concepts: ["flow matching", "khái quát trong môi trường mở", "hierarchy"]
   },
   {
     slug: "rtc-inference", shortTitle: "RTC · Inference", title: "Real-Time Execution of Action Chunking Flow Policies",
-    subtitle: "The world keeps moving while your model thinks.",
-    abstract: "Inference-time real-time chunking: trong lúc execute chunk cũ, model generate chunk mới với inpainting constraints để tránh giật ở boundary. Một trong sáu PDF gốc.",
+    subtitle: "Robot phải tiếp tục hành động trong lúc mô hình tính toán chunk tiếp theo.",
+    abstract: "RTC cho phép robot thực thi chunk cũ trong lúc tính chunk mới, dùng inpainting để ràng buộc các action đã cam kết và giảm gián đoạn ở điểm nối.",
     date: "2025-06-05", venue: "NeurIPS 2025", category: "SYSTEMS", userPick: true,
     pdf: "https://arxiv.org/pdf/2506.07339", source: "https://www.pi.website/research/real_time_chunking",
     readingMinutes: 29, concepts: ["asynchronous", "inpainting", "latency"]
   },
   {
     slug: "rtc-training", shortTitle: "RTC · Training", title: "Training-Time Action Conditioning for Efficient Real-Time Chunking",
-    subtitle: "Teach a policy about latency instead of correcting it with backprop.",
-    abstract: "Train policy condition trực tiếp lên prefix action đã commit để tạo postfix, giảm overhead inference-time gradient guidance. Một trong sáu PDF gốc.",
+    subtitle: "Dạy policy xử lý độ trễ ngay khi huấn luyện thay vì sửa output lúc inference.",
+    abstract: "Training-time RTC huấn luyện policy có điều kiện theo prefix action đã cam kết để sinh postfix liên tục, tránh chi phí gradient guidance ở inference.",
     date: "2025-12-09", venue: "arXiv 2025", category: "SYSTEMS", userPick: true,
     pdf: "https://arxiv.org/pdf/2512.05964", source: "https://arxiv.org/abs/2512.05964",
     readingMinutes: 27, concepts: ["prefix conditioning", "flow matching", "runtime delay"]
   },
   {
     slug: "qwen-vla", shortTitle: "Qwen-VLA", title: "Qwen-VLA: Unifying Vision-Language-Action Modeling across Tasks, Environments, and Robot Embodiments",
-    subtitle: "One vision-language-action stack across many kinds of robots.",
-    abstract: "Qwen mở rộng VLM bằng DiT action decoder, joint pretraining từ manipulation, egocentric videos, navigation và dữ liệu trajectory đa embodiment. Một trong sáu PDF gốc.",
+    subtitle: "Một kiến trúc VLA chung để học từ nhiều nhiệm vụ và nhiều loại robot.",
+    abstract: "Qwen-VLA mở rộng VLM bằng action decoder dạng DiT, kết hợp pretraining trên thao tác robot, video góc nhìn thứ nhất, navigation và dữ liệu từ nhiều cấu trúc robot.",
     date: "2026-06-01", venue: "arXiv 2026", category: "POLICIES", userPick: true,
     pdf: "https://arxiv.org/pdf/2605.30280", source: "https://github.com/QwenLM/Qwen-VLA",
     code: "https://github.com/QwenLM/Qwen-VLA", readingMinutes: 35,
@@ -211,8 +211,8 @@ export const papers: Paper[] = [
   },
   {
     slug: "lingbot-vla-2", shortTitle: "LingBot-VLA 2.0", title: "From Foundation to Application: Improving VLA Models in Practice",
-    subtitle: "Foundation models collide with the practical complexity of real robots.",
-    abstract: "Tập trung vào scale dữ liệu đa embodiment, sparse MoE action expert, unified whole-body action và future-aware visual/depth distillation. Một trong sáu PDF gốc.",
+    subtitle: "Từ mô hình nền tảng đến hệ thống robot thực tế có nhiều phần cứng khác nhau.",
+    abstract: "LingBot-VLA 2.0 mở rộng dữ liệu đa robot, dùng action expert dạng sparse MoE, biểu diễn action toàn thân thống nhất và distillation từ đặc trưng thị giác/độ sâu tương lai.",
     date: "2026-07-07", venue: "arXiv 2026", category: "POLICIES", userPick: true,
     pdf: "https://arxiv.org/pdf/2607.06403", source: "https://arxiv.org/abs/2607.06403",
     readingMinutes: 37, concepts: ["MoE", "55D action", "predictive dynamics"]
