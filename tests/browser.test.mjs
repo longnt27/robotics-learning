@@ -22,7 +22,7 @@ try {
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
     await page.goto(baseUrl, {waitUntil: 'networkidle'});
-    await page.getByRole('tab', {name: /KNOWLEDGE DAG/i}).click();
+    await page.getByRole('tab', {name: /SƠ ĐỒ DAG/i}).click();
     await page.locator('.react-flow__node').first().waitFor();
     const nodeCount = await page.locator('.react-flow__node').count();
     assert.equal(nodeCount, 22, `Expected all 22 DAG nodes at ${viewport.width}px`);
