@@ -194,7 +194,7 @@ def main():
         # the first two entries in the manifest). All remaining figures are
         # placed contextually by scripts/place_paper_figures.py.
         def guide_figure(guide_text, fallback_index):
-            match=re.search(r"Hình\\s*(\\d+)",guide_text)
+            match=re.search(r"Hình\s*(\d+)",guide_text)
             number=int(match.group(1)) if match else figs[fallback_index]["number"]
             return next((fig for fig in figs if fig["number"]==number),
                         figs[fallback_index])
