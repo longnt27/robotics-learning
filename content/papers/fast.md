@@ -2,6 +2,12 @@
 
 Autoregressive VLA có một vấn đề hơi ngu nhưng chí mạng: action liên tục stream ở 20-50 Hz tạo quá nhiều tokens nếu discretize từng dimension từng timestep. Sequence dài làm huấn luyện chậm, inference chậm và đặc biệt tệ ở dexterous/high-frequency các quỹ đạo. Nếu nén action quá mạnh thì lại mất độ chính xác. FAST hỏi: **có biểu diễn nào nén smooth robot các quỹ đạo thành ít tokens mà vẫn bảo toàn motor detail đủ tốt không?**
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 4 từ PDF gốc, trang 5](/paper-figures/fast/figure-4.webp)
+![Hình 7 từ PDF gốc, trang 8](/paper-figures/fast/figure-7.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/fast/figure-1.webp)
@@ -41,6 +47,12 @@ Hình 1 giải thích lý do FAST tồn tại: action liên tục có tần số
 
 Autoregressive VLA thường token hóa mỗi action dimension mỗi timestep. Nếu horizon 50 và robot có nhiều DoF, số tokens tăng cực nhanh, độ trễ/memory tệ. Nhưng robot các quỹ đạo khá mượt, nên có **theo thời gian redundancy** có thể khai thác.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 8 từ PDF gốc, trang 8](/paper-figures/fast/figure-8.webp)
+![Hình 9 từ PDF gốc, trang 9](/paper-figures/fast/figure-9.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
 ### Đào sâu: Ba khái niệm để nắm
@@ -57,6 +69,12 @@ Autoregressive VLA thường token hóa mỗi action dimension mỗi timestep. N
 
 FAST lợi dụng fact rằng robot các quỹ đạo thường smooth theo thời gian. Nó dùng **Discrete Cosine Transform (DCT)** để chuyển action chunk sang frequency domain, nơi phần lớn năng lượng nằm ở ít low-frequency coefficients, rồi tokenize/entropy-code các coefficients đó. **FAST+** là universal action tokenizer được huấn luyện trên khoảng **1 triệu robot các quỹ đạo** thuộc nhiều action spaces và frequencies thay vì huấn luyện tokenizer riêng cho mỗi tập dữ liệu.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 3 từ PDF gốc, trang 3](/paper-figures/fast/figure-3.webp)
+![Hình 6 từ PDF gốc, trang 8](/paper-figures/fast/figure-6.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Sau đó FAST được ghép với π-style autoregressive VLA. Vì mỗi chunk dùng ít tokens hơn rất nhiều, dự đoán action không còn kéo chuỗi length lên phi lý.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -126,6 +144,11 @@ $$
 
 Tạo action tensor `(T=50, D=7)`. Normalize, biến mỗi dimension theo DCT từ time domain sang frequency coefficients, giữ coefficients mang nhiều năng lượng và lượng tử hóa thành token chuỗi. Decode đảo quy trình để reconstruct actions. Với quỹ đạo mượt, high-frequency coefficients nhỏ; với quỹ đạo giật, compression khó hơn.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 10 từ PDF gốc, trang 10](/paper-figures/fast/figure-10.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Đây không phải thần kỳ: DCT chỉ là thay basis. Việc tokenizer giữ đủ thông tin về những chuyển động contact-critical mới quyết định policy thành công.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -146,6 +169,12 @@ Tạo action tensor `(T=50, D=7)`. Normalize, biến mỗi dimension theo DCT t�
 
 Bài báo cho thấy FAST/FAST+ cho phép autoregressive VLA scale tới cỡ **10 nghìn giờ dữ liệu robot** và đạt hiệu năng gần hoặc ngang flow/diffusion VLA trong các benchmark của họ, trong khi **huấn luyện có thể nhanh hơn tới khoảng 5x** so với naive action tokenization. Gains rõ nhất ở high-frequency và dexterous thiết lập, nơi per-timestep binning tạo chuỗi quá dài.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 5 từ PDF gốc, trang 6](/paper-figures/fast/figure-5.webp)
+![Hình 11 từ PDF gốc, trang 10](/paper-figures/fast/figure-11.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 FAST+ gần dataset-specific tokenizers dù phải cover nhiều robot/action spaces. Đây là kết quả quan trọng vì nó biến tokenizer thành một reusable foundation component chứ không phải thứ phải hand-tune cho từng arm.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->

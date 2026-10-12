@@ -2,6 +2,11 @@
 
 Dữ liệu robot thật vừa đắt vừa chậm, còn các simulator cũ thường nghèo bối cảnh, vật thể và độ đa dạng nhiệm vụ. Nếu foundation robot policy cần hàng trăm nghìn hay hàng triệu các quỹ đạo thì con người không thể teleoperate tất cả. RoboCasa đặt câu hỏi: **có thể dùng mô phỏng để tạo một phân phối household manipulation đủ rộng và đủ tự động để dữ liệu tổng hợp thật sự giúp generalist policy không?**
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 9 từ PDF gốc, trang 8](/paper-figures/robocasa/figure-9.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/robocasa/figure-1.webp)
@@ -57,6 +62,12 @@ Robot deployment tốn kém, còn đánh giá ngoài đời không dễ chạy h
 
 RoboCasa xây khoảng **120 kitchen bối cảnh**, hơn **2,500 vật thể assets** thuộc hơn 150 categories và khoảng **100 nhiệm vụ**. Hệ thống dùng MimicGen-style sinh để biến một lượng nhỏ con người demonstrations thành số lượng lớn synthetic các quỹ đạo, kết hợp bối cảnh tạo theo quy tắc sinh, generative textures/assets và LLM-assisted tạo nhiệm vụ. Release ban đầu có hơn **100 nghìn các quỹ đạo**.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 4 từ PDF gốc, trang 4](/paper-figures/robocasa/figure-4.webp)
+![Hình 6 từ PDF gốc, trang 6](/paper-figures/robocasa/figure-6.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Điểm đáng chú ý là RoboCasa không chỉ là benchmark. Nó là **dữ liệu generator**: cùng nhiệm vụ có thể được render ở nhiều kitchen layout, vật thể instance, lighting và geometry, tạo phân phối randomization để policy học invariance.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -126,6 +137,12 @@ $$
 
 Một nhiệm vụ mở ngăn kéo trong nhà bếp có thể randomize chất liệu tủ, hướng nhìn camera, vị trí robot, friction và vật thể instances. Huấn luyện trên một số house layouts, test trên held-out layout. Thành tích cao trong domain randomization chưa đảm bảo sim-to-real nếu camera, contact động lực học hoặc robot calibration sai.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 8 từ PDF gốc, trang 7](/paper-figures/robocasa/figure-8.webp)
+![Hình 10 từ PDF gốc, trang 8](/paper-figures/robocasa/figure-10.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 RoboCasa nên được xem vừa là dữ liệu generator vừa là stress-test environment, không phải một mô hình VLA.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -146,6 +163,12 @@ RoboCasa nên được xem vừa là dữ liệu generator vừa là stress-test
 
 Các thí nghiệm cho thấy synthetic scaling giúp imitation hiệu năng và có chuyển giao sang real robot. Trong một real-kitchen comparison, mixture **Real + Sim** đạt khoảng **24.4%** trên seen vật thể so với **13.6%** của Real-only, và khoảng **9.3%** trên vật thể chưa xuất hiện khi huấn luyện so với **2.6%**. Tuy absolute thành công còn thấp, relative gains cho thấy sim dữ liệu không chỉ làm đẹp benchmark mô phỏng.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 5 từ PDF gốc, trang 5](/paper-figures/robocasa/figure-5.webp)
+![Hình 7 từ PDF gốc, trang 7](/paper-figures/robocasa/figure-7.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 RoboCasa cũng phơi ra một fact quan trọng: các **composite/longer-horizon nhiệm vụ** khó hơn atomic nhiệm vụ rất nhiều dù dữ liệu sinh scale được. Điều đó nhắc rằng số các quỹ đạo không tự giải nhiệm vụ lập kế hoạch/phục hồi.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->

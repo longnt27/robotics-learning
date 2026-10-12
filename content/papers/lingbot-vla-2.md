@@ -4,6 +4,11 @@
 
 ### Foundation VLA đẹp trên benchmark nhưng khó triển khai robot thật
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 8 từ PDF gốc, trang 13](/paper-figures/lingbot-vla-2/figure-8.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Khi một công ty robot muốn deploy cùng policy lên cả robot hai tay, humanoid và mobile manipulator, họ gặp ít nhất ba vấn đề: (1) dữ liệu không đồng nhất không sạch và không chung schema, (2) một dense action mạng có thể bị nghẽn dung lượng mô hình khi nhiều robot/nhiệm vụ cạnh tranh, (3) robot phải hiểu **future consequences** thay vì chỉ matching next-action pattern. LingBot-VLA 2.0 chọn giải cả ba, trong một pipeline phù hợp cho production fleet.
 
 Nó không cố chứng minh một kiến trúc magic nào đập tan π0.5. Contribution nằm ở **engineering research**: quy trình tuyển lọc dữ liệu hàng chục nghìn giờ, unified biểu diễn cho whole-body, sparse MoE để tăng dung lượng mô hình và auxiliary future-state learning. Đây rất gần công việc của một team VLA pretraining nội bộ.
@@ -47,6 +52,12 @@ Hình 1 tóm bốn mảnh ghép trong LingBot-VLA 2.0: tuyển lọc dữ liệu
 
 **Dense Transformer FFN:** mọi token đi qua cùng mạng; nhiều nhiệm vụ/embodiments có thể tranh chấp weights. **Mixture-of-Experts (MoE):** router chọn một vài FFN experts mỗi token, nhiều total parameters nhưng activation sparse. **Load balancing:** chống router dồn toàn bộ tokens vào một expert. **Body/DoF canonicalization:** ánh xạ những cơ cấu chấp hành khác nhau vào một schema chung và mask slots không dùng. **World-model proxy:** dự đoán future đặc trưng latent không nhất thiết reconstruct future RGB pixel.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 4 từ PDF gốc, trang 6](/paper-figures/lingbot-vla-2/figure-4.webp)
+![Hình 11 từ PDF gốc, trang 15](/paper-figures/lingbot-vla-2/figure-11.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Cần phân biệt **cross-embodiment representational alignment** và **actual vật lý chuyển giao**. Hai robot có shared 55D vector chưa có nghĩa một chuyển động trong robot A áp dụng hợp lệ cho robot B. Còn khi MoE route token đến expert 3, không thể tự khẳng định expert 3 chuyên grasping nếu chưa phân tích routing statistics.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -65,6 +76,13 @@ Cần phân biệt **cross-embodiment representational alignment** và **actual 
 
 ### 1. Quy trình xử lý dữ liệu: từ 90.000 giờ thô robot còn 50.000 giờ usable
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 3 từ PDF gốc, trang 4](/paper-figures/lingbot-vla-2/figure-3.webp)
+![Hình 5 từ PDF gốc, trang 8](/paper-figures/lingbot-vla-2/figure-5.webp)
+![Hình 7 từ PDF gốc, trang 9](/paper-figures/lingbot-vla-2/figure-7.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Bài báo mô tả khoảng **90.000 giờ thô dữ liệu robot**, sau curation còn **50.000 giờ** trên **20 robot configurations**. Nguồn trải dài single arm, dual arm, half/full humanoid, dexterous hand và mobile setups. Họ bổ sung khoảng **10.000 giờ egocentric video con người** sau lọc từ khoảng 20.000 giờ thô. Tổng pretraining corpus được mô tả khoảng **60.000 giờ**.
 
 Curation không phải dọn tên file. Filter video no interaction, walking-only, third-person, irrelevant hands hoặc tracking lỗi; tự động chia subtasks; align camera and hand các quỹ đạo. Nếu không làm, mô hình học quá nhiều idle/transit các khung hình, còn contact-rich events hiếm. **Figure 5** cho thấy phân phối nguyên thủy lệch rất mạnh vào *move* và *transit*, trong khi *cut/stir/detach* cực ít. Đây là long-tail bias phải giải bằng lấy mẫu, weighting hoặc task-specific downstream stages.
@@ -204,6 +222,15 @@ Giả sử công ty có Franka arm, dual-arm Magic và humanoid với mobile bas
 
 **MoE scaling:** Figure 7 cho loss khi huấn luyện và lỗi dự đoán action trên tập validation của sparse MoE thấp hơn dense với chi phí tính toán khi chạy gần tương đương. Đây là bằng chứng hữu ích về hiệu quả của việc tăng dung lượng mô hình, chưa trực tiếp tách toàn bộ gain trong thế giới thực thành contribution của MoE.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 6 từ PDF gốc, trang 8](/paper-figures/lingbot-vla-2/figure-6.webp)
+![Hình 9 từ PDF gốc, trang 14](/paper-figures/lingbot-vla-2/figure-9.webp)
+![Hình 10 từ PDF gốc, trang 15](/paper-figures/lingbot-vla-2/figure-10.webp)
+![Hình 12 từ PDF gốc, trang 16](/paper-figures/lingbot-vla-2/figure-12.webp)
+![Hình 13 từ PDF gốc, trang 17](/paper-figures/lingbot-vla-2/figure-13.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 **GM-100 bimanual đánh giá:** Trên Agilex Cobot Magic, báo cáo average *progress/thành công* khoảng **66.2 / 34.4** cho LingBot 2.0, so **59.1 / 32.2** cho π0.5 trong cùng bảng. Galaxea có khoảng **34.6 / 15.6** so π0.5 **27.4 / 8.9**. Gain thành công hiện hữu nhưng không phải thắng tuyệt đối mọi nhiệm vụ; một số nhiệm vụ vẫn thành công **0%**.
 
 **Long-horizon mobile manipulation:** bài báo thử refrigerator organization và stove cleaning, đo cả in-domain/out-of-domain (OOD). OOD thành công thấp hơn nhiều in-domain. Ví dụ refrigerator OOD LingBot khoảng **13.3%**, π0.5 khoảng **6.7%**. Đây là một con số rất đáng để nhớ vì nó cho thấy generalist vẫn cực nhạy khi đổi vật thể/start configuration.

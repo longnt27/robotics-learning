@@ -41,6 +41,11 @@ Hình 1 là sơ đồ diffusion Transformer khoảng một tỷ tham số có đ
 
 Autoregressive discrete action có thể mất độ chính xác khi thao tác hai tay phức tạp. Diffusion Transformer đưa một prior action liên tục mạnh hơn, nhưng cần giải nghĩa heterogeneous trạng thái robot/action. Canonical vật lý biểu diễn chính là nỗ lực quản lý sự đa dạng đó.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 3 từ PDF gốc, trang 4](/paper-figures/rdt-1b/figure-3.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
 ### Đào sâu: Ba khái niệm để nắm
@@ -57,6 +62,11 @@ Autoregressive discrete action có thể mất độ chính xác khi thao tác h
 
 RDT-1B là khoảng **1.2B-parameter diffusion Transformer**. Bài báo đưa ra **Physically Interpretable Unified Action Space** để chuẩn hóa state/action từ nhiều robot sources, rồi pretrain trên dữ liệu không đồng nhất robot và post-train bằng hơn **6 nghìn bimanual episodes** cho target platform. Vision, ngôn ngữ và state được điều kiện vào diffusion action generator thay vì bắt action đi qua ngôn ngữ token vocabulary.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 4 từ PDF gốc, trang 6](/paper-figures/rdt-1b/figure-4.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Kiến trúc được thiết kế để scale width/depth và exploit multimodal conditioning. Với few-shot adaptation, mô hình tận dụng đã pretrain prior về chuyển động rồi chỉ cần một lượng demonstration rất nhỏ cho nhiệm vụ mới.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -146,6 +156,11 @@ Phải đọc riêng **vật lý of action schema** và **DiT kiến trúc**. N�
 
 Bài báo báo RDT-1B cải thiện tỷ lệ thành công của nhiệm vụ trung bình khoảng **56%** so với các các phương pháp đối chứng được dùng trong đánh giá. Nó thể hiện zero-shot robustness tốt hơn trước vật thể chưa xuất hiện khi huấn luyện/bối cảnh và đặc biệt mạnh trong bimanual kỹ năng. Ở một số few-shot thí nghiệm chỉ **1-5 demonstrations**, RDT-1B đã làm được các hành vi như handover/folding mà scratch hoặc smaller các phương pháp đối chứng gần như không làm được.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 5 từ PDF gốc, trang 8](/paper-figures/rdt-1b/figure-5.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Kết quả khiến diffusion foundation policy trở thành một hướng nghiêm túc song song với autoregressive VLA. Nó cũng cho thấy **motor scaling** có thể cần kiến trúc khác ngữ nghĩa VLM scaling.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->

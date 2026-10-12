@@ -69,6 +69,11 @@ Trong convention của bài báo, flow time `τ=0` là noise và `τ=1` là clea
 
 ### 1. Randomize prefix length trong huấn luyện
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 3 từ PDF gốc, trang 3](/paper-figures/rtc-training/figure-3.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Với mỗi huấn luyện example gồm quan sát và demo action chunk ground-truth, mẫu một delay `k` từ phân phối đã định. Chẳng hạn cho robot 50 Hz:
 
 ```text
@@ -176,6 +181,11 @@ $$
 
 Robot đang dựng một hộp carton. Observation tại thời điểm `t` cho thấy tay đang ép một mép hộp; chunk cũ còn 8 actions chưa thực thi. Network server estimate sẽ mất khoảng 100 ms, tức `k=5` ở 50 Hz. Robot sẽ thực thi 5 actions của chunk cũ trong lúc mạng sinh chunk mới. Inference đầu vào nhận `a_1...a_5` sạch. Mô hình chỉ phải sinh `a_6...a_H` sao cho điều kiện trên quan sát và prefix; khi kết quả tới, robot tiếp tục quỹ đạo hợp lý mà không hard switch sang một mode khác.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 4 từ PDF gốc, trang 3](/paper-figures/rtc-training/figure-4.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Trong huấn luyện, mô hình đã thấy các mẫu với k=0,1,2,...10 (không chỉ 5), nên forward call với `k=5` không phải trường hợp đặc biệt. Nếu độ trễ hôm sau lên `k=7`, policy vẫn làm được trong phân phối đã huấn luyện. Đây là **domain randomization trên inference delay**, tương tự sim-to-real randomize mass/friction, nhưng uncertainty nằm trong hệ thống computing.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -196,6 +206,11 @@ Trong huấn luyện, mô hình đã thấy các mẫu với k=0,1,2,...10 (khô
 
 **Simulation:** Tác giả dùng 12 nhiệm vụ động trong Kinetix từ RTC trước. So inference-time RTC với training-time RTC theo delay. Kết quả báo cáo cho thấy training-time method có lợi thế rõ khi delay tăng (`d≥2` trong mô phỏng được mô tả), trong khi ở delay rất nhỏ đôi khi không mạnh bằng phương pháp đối chứng. Đây không phải một chiến thắng tuyệt đối trên mọi k.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 5 từ PDF gốc, trang 3](/paper-figures/rtc-training/figure-5.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 **Robot thật:** Fine-tune từ **π0.6** cho box building và espresso making, so synchronous, inference-time RTC và training-time RTC. Bài báo báo training-time approach giữ thành công/duration gần với inference-time RTC, nhưng độ trễ end-to-end khoảng **108 ms** so với **135 ms** trong thiết lập được đo. Chênh lệch 27 ms lớn hơn một bộ điều khiển step 20 ms. Tuy vậy, không nên suy từ hai số đo đó rằng mọi GPU/robot đều tiết kiệm đúng 27 ms.
 
 **Điểm quan trọng:** đây là trade-off giữa một ít huấn luyện adaptation và việc tránh compute gradient tại runtime. Nếu ứng dụng lặp inference hàng triệu lần, chi phí huấn luyện thêm có thể dễ chấp nhận hơn chi phí trả thêm trong mọi action chunk.

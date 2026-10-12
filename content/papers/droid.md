@@ -2,6 +2,14 @@
 
 Nhiều robot tập dữ liệu lớn vẫn được thu thập trong vài phòng thí nghiệm setup được dựng cẩn thận. Mô hình có thể thấy nhiều các quỹ đạo nhưng bối cảnh statistics gần như giống nhau, nên nó học shortcut về phông nền/camera/table thay vì manipulation invariants. DROID muốn kiểm tra thesis: **nếu cùng một robot được mang đi rất nhiều tòa nhà, phòng, operator và vật thể setup, khả năng khái quát có tăng đáng kể không?**
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 3 từ PDF gốc, trang 5](/paper-figures/droid/figure-3.webp)
+![Hình 4 từ PDF gốc, trang 6](/paper-figures/droid/figure-4.webp)
+![Hình 6 từ PDF gốc, trang 7](/paper-figures/droid/figure-6.webp)
+![Hình 7 từ PDF gốc, trang 8](/paper-figures/droid/figure-7.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/droid/figure-1.webp)
@@ -57,6 +65,11 @@ Bottleneck thực tế là thu dữ liệu robot **ngoài phòng phòng thí ngh
 
 DROID thu khoảng **76 nghìn các quỹ đạo / 350 giờ**, trong **564 bối cảnh**, **86 nhiệm vụ**, **52 buildings** với khoảng **50 collectors**. Hardware được chuẩn hóa quanh Franka + camera setup để nhiều institution có thể thu dữ liệu nhưng action không gian vẫn thống nhất. Tập dữ liệu cố tình ưu tiên “in-the-wild” environmental variation thay vì chỉ tăng quỹ đạo count trong một phòng thí nghiệm.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 10 từ PDF gốc, trang 10](/paper-figures/droid/figure-10.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Bài báo huấn luyện diffusion-style policies và làm matched-data ablation: cùng số demonstrations nhưng chọn từ nhiều bối cảnh hơn hoặc ít bối cảnh hơn. Điều này cho phép tách **quantity** khỏi **environment sự đa dạng**.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -126,6 +139,11 @@ $$
 
 Ở cùng nhiệm vụ pick-place, một bối cảnh có bàn kính phản quang, bối cảnh khác có khăn và đồ vật cluttered. DROID-style collection khiến thị giác encoder phải học affordance thay vì memorize màu bàn. Nhưng dữ liệu còn phụ thuộc vào con người operator và phần cứng robot; action frequency/camera alignment có thể trở thành confound.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 9 từ PDF gốc, trang 10](/paper-figures/droid/figure-9.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Trong dữ liệu audit, inspect synchronization giữa RGB khung hình timestamps và proprioception/action timestamps; lệch vài khung hình cũng có thể tạo label noise rất lớn.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -146,6 +164,12 @@ Trong dữ liệu audit, inspect synchronization giữa RGB khung hình timestam
 
 Khi thêm DROID vào dữ liệu của nhiệm vụ đích theo mixture, tác giả báo cáo mức cải thiện khoảng **22 điểm ở in-domain** và **17 điểm ở out-of-domain** so với thiết lập đối chứng tốt thứ hai trong các nhiệm vụ được đánh giá. Toàn bộ DROID tốt hơn subset nhỏ, nhưng điểm quan trọng hơn là **tập con có nhiều bối cảnh tốt hơn tập con ít đa dạng với cùng số mẫu**. Nói cách khác, 7 nghìn quỹ đạo đi khắp nơi có thể đáng hơn 7 nghìn quỹ đạo quay đi quay lại trong 20 bối cảnh.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 5 từ PDF gốc, trang 6](/paper-figures/droid/figure-5.webp)
+![Hình 8 từ PDF gốc, trang 9](/paper-figures/droid/figure-8.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Đây là một evidence rất trực tiếp cho data-collection strategy mà người đọc đang thấy ở headcam: coverage của phân phối có giá trị độc lập với số giờ.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->

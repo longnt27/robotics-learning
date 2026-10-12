@@ -2,6 +2,11 @@
 
 Long-horizon manipulation cần rất nhiều demonstration vì robot phải biết cả **cấu trúc nhiệm vụ** lẫn **low-level control**. Thu hàng giờ teleoperation cho từng environment rất tốn. Trong khi đó một người có thể đứng trước bối cảnh và “chơi” với đồ vật cực nhanh, tạo ra hành vi ở cấp độ cao coverage rẻ hơn nhiều. Vấn đề là bàn tay người và robot arm không cùng morphology/action không gian. MimicPlay hỏi: **ta có thể lấy cái “plan” từ quá trình con người thao tác tự do mà không cần retarget mọi khung hình thành robot joint action không?**
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 3 từ PDF gốc, trang 5](/paper-figures/mimicplay/figure-3.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/mimicplay/figure-1.webp)
@@ -57,6 +62,11 @@ Video con người rẻ hơn robot demo nhưng **không trực tiếp có robot 
 
 Method tách policy thành hai tầng. Tầng high-level học một **latent plan** từ quá trình con người thao tác tự do video, dựa trên future human-hand quỹ đạo/thị giác động lực học. Tầng low-level nhận robot quan sát + latent plan rồi học robot action từ một lượng nhỏ teleoperation. Để xử lý human-robot gap, biểu diễn được align sao cho plan chứa task-relevant chuyển động intention thay vì joint-specific details.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 4 từ PDF gốc, trang 7](/paper-figures/mimicplay/figure-4.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Bài báo còn dùng multimodal quỹ đạo modeling, vì một người có thể hoàn thành cùng subgoal bằng nhiều đường khác nhau. Quan trọng là high-level prior được học từ dữ liệu thu từ con người, còn embodiment grounding vẫn để robot demonstrations đảm nhiệm.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -126,6 +136,11 @@ $$
 
 Trong video người mở ngăn kéo rồi lấy khăn, một mô hình có thể học latent progress: tiến tới ngăn kéo → mở → lấy khăn. Policy robot thấy cùng thị giác mục tiêu rồi dùng một số ít robot các quỹ đạo để học manipulation primitive. Đây không phải đơn giản copy 3D khớp của con người chuyển động vào robot joint không gian.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 5 từ PDF gốc, trang 8](/paper-figures/mimicplay/figure-5.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Nếu video người chứa viewpoint riêng, key obstacle là cross-domain alignment. Không nên gọi đặc trưng similarity là action equivalence.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->

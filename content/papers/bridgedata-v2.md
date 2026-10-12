@@ -2,6 +2,11 @@
 
 Một trong những lý do robotics chậm hơn vision/NLP là tập dữ liệu thường nhỏ, đóng và gắn chết với một phòng thí nghiệm. Nếu một nhóm khác không có đúng robot, đúng table, đúng camera và đúng vật thể thì gần như không tái sử dụng được. BridgeData V2 muốn xây một tập dữ liệu mà policy được huấn luyện ở Berkeley vẫn có cơ hội làm được việc ở setup khác, đồng thời đủ đa nhiệm vụ để mô hình phải thật sự đọc mục tiêu/ngôn ngữ thay vì đoán nhiệm vụ từ bối cảnh.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 3 từ PDF gốc, trang 5](/paper-figures/bridgedata-v2/figure-3.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/bridgedata-v2/figure-1.webp)
@@ -57,6 +62,11 @@ Tập dữ liệu robotics thường bị giới hạn trong phòng phòng thí 
 
 Tập dữ liệu có **60,096 các quỹ đạo** trên **24 environments**, hơn 100 vật thể và nhiều kỹ năng như pick-place, push, sweep, stack, fold. Trong đó 50,365 các quỹ đạo là demonstrations của 13 kỹ năng và thêm 9,731 các quỹ đạo từ một randomized pick-and-place policy để tăng robustness. Robot là một platform low-cost công khai, giúp các phòng thí nghiệm khác có thể dựng phần cứng gần tương thích. Dữ liệu hỗ trợ cả **goal-image conditioning** và **natural-language conditioning**.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 5 từ PDF gốc, trang 8](/paper-figures/bridgedata-v2/figure-5.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Bài báo không ép một thuật toán duy nhất mà huấn luyện **6 imitation/offline-RL methods** để xem tập dữ liệu có hữu ích xuyên kiến trúc không. Họ còn làm scaling ablations về kích thước mô hình, tập dữ liệu size và kỹ năng sự đa dạng.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->

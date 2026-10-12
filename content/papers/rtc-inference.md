@@ -4,6 +4,11 @@
 
 ### Mô hình nghĩ 100 ms, robot cần action mỗi 20 ms
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 5 từ PDF gốc, trang 7](/paper-figures/rtc-inference/figure-5.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Một VLA có thể dự đoán action rất tốt nhưng vẫn điều khiển robot tệ vì quá chậm. Ví dụ bộ điều khiển chạy 50 Hz, cứ 20 ms cần action mới. Trong khi đó, mạng gồm VLM và flow action expert có thể mất 80–300 ms cho một forward/lấy mẫu. Một chatbot có thể chờ, nhưng robot đang giữ vật, cân bằng hay đẩy một vật ma sát **không có nút pause cho GPU**.
 
 **Action chunking** giải được một nửa: thay vì dự đoán `a_t` rồi query mô hình ở timestep tiếp theo, policy trả về `A_t = (a_t,...,a_{t+H-1})`. Robot có thể liên tục thực thi các action đã có trong buffer. Nhưng có hai kiểu scheduling đều có vấn đề:
@@ -72,6 +77,12 @@ Action chunk là tensor `H × D`. `H` là dự đoán horizon, `D` là số acti
 
 ### 1. Hai loop chạy đồng thời
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 3 từ PDF gốc, trang 4](/paper-figures/rtc-inference/figure-3.webp)
+![Hình 6 từ PDF gốc, trang 8](/paper-figures/rtc-inference/figure-6.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 ```text
 CONTROL LOOP (50 Hz)                  INFERENCE LOOP
   observe current state                receive observation
@@ -208,6 +219,11 @@ Ngược lại, nếu mô hình tự do sinh chunk B mà không nhìn overlap, n
 
 **Simulation:** Tác giả thiết kế 12 nhiệm vụ động lực học trong Kinetix để khuếch đại tác hại của pause/jerk, thay vì chỉ chọn bench thao tác quasi-static vốn quá dễ bão hòa. RTC được so với synchronous, naive asynchronous, temporal ensembling và các cách inpainting/consistency khác. Các plot cho thấy RTC có độ bền cao hơn khi delay tăng; temporal ensembling có thể thất bại vì averaging giữa hai mode hợp lệ.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 4 từ PDF gốc, trang 5](/paper-figures/rtc-inference/figure-4.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 **Robot thật:** Sử dụng π0.5 điều khiển hai arm 6-DoF với grippers, 50 Hz (`Δt=20 ms`), horizon khoảng 50 actions và 5 denoising steps. Bài báo báo vanilla π0.5 lấy mẫu độ trễ khoảng **76 ms**, RTC lấy mẫu khoảng **97 ms** trong thiết lập tương ứng, chưa tính mạng 10–20 ms. Tức bản thân lấy mẫu **chậm hơn**, nhưng vì overlap computation với thực thi nên robot có thể hoàn thành nhiệm vụ hiệu quả hơn.
 
 Các nhiệm vụ gồm thắp nến bằng que diêm, cắm Ethernet, gấp áo, gấp đồ nhàu, dọn bát và dọn giường. Họ còn inject **+100 ms và +200 ms** độ trễ để kiểm tra robustness. Throughput RTC nhìn chung tốt hơn hoặc bền hơn trong các thiết lập này; một số biến thể temporal ensembling có dao động đủ mạnh để trigger protective stop của robot. Một điểm quan trọng là ngay cả khi tách thời gian pause ra khỏi metric, ít lỗi/retry hơn vẫn giúp RTC.

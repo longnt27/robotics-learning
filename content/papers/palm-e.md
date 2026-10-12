@@ -57,6 +57,12 @@ Phân biệt **embodied reasoning** với **low-level motor policy**. Một LLM 
 
 PaLM-E lấy đã pretrain PaLM rồi biến hình ảnh embeddings, 3D/cảm biến embeddings và trạng thái robot thành những “multimodal tokens” có thể được interleave cùng text. Thay vì xây một planner riêng, mô hình được huấn luyện end-to-end trên mixture gồm robotics, VQA, captioning và ngôn ngữ nhiệm vụ. Phiên bản lớn nhất lên tới **562B parameters**. Điều đáng chú ý là bài báo không chỉ huấn luyện embodied dữ liệu, mà cố giữ web-scale prior bằng multi-task co-training, một pattern sau này quay lại rất nhiều trong RT-2, OpenVLA và Qwen-VLA.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 3 từ PDF gốc, trang 7](/paper-figures/palm-e/figure-3.webp)
+![Hình 4 từ PDF gốc, trang 8](/paper-figures/palm-e/figure-4.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Trong robotics, PaLM-E thường đóng vai trò high-level embodied reasoner: đọc bối cảnh + chỉ dẫn, phân tích mục tiêu, rồi gọi/điều kiện các low-level kỹ năng đã có. Vì vậy nó không giống π0 hay Qwen-VLA hiện tại, nơi sinh action được nhét thẳng vào mô hình nền tảng stack.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -146,6 +152,11 @@ Robot được hỏi "mang đồ uống ở phía sau cái hộp tới đây". C
 
 Bài báo cho thấy một mô hình duy nhất xử lý được nhiều robot platform lẫn các nhiệm vụ VQA/captioning/ngôn ngữ. Khi tăng scale, catastrophic forgetting của ngôn ngữ capability giảm rõ, và bản 562B vẫn giữ được năng lực general ngôn ngữ tốt dù đã học thêm embodied inputs. Huấn luyện chung giữa vision-language và robotics tạo **positive chuyển giao**, thay vì robotics làm hỏng kiến thức nền tảng như người ta có thể lo.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 5 từ PDF gốc, trang 9](/paper-figures/palm-e/figure-5.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Một kết quả có ý nghĩa lịch sử hơn cả metric là: đã pretrain ngôn ngữ/kiến thức thị giác thực sự giúp embodied reasoning. Đây là tiền đề trực tiếp cho thesis của RT-2 rằng kiến thức trên Internet có thể đi xa hơn, từ reasoning sang cả sinh action.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->

@@ -4,6 +4,13 @@
 
 ### Một mô hình biết nhìn chưa chắc biết điều khiển
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 5 từ PDF gốc, trang 7](/paper-figures/groot-n1/figure-5.webp)
+![Hình 6 từ PDF gốc, trang 10](/paper-figures/groot-n1/figure-6.webp)
+![Hình 14 từ PDF gốc, trang 25](/paper-figures/groot-n1/figure-14.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Robot humanoid có thể sở hữu camera, hai cánh tay, thân, cổ tay và gripper, nhưng việc biến lời nói “gấp chiếc áo này” thành hàng trăm lệnh điều khiển vẫn rất khó. Truyền thống, mỗi robot/nhiệm vụ được huấn luyện bằng behavior cloning trên một tập demonstrations tương ứng. Cách này đắt: tạo một kỹ năng mới lại cần thu video, ghi joint actions, tune policy, sửa integration. Trong khi đó, trên Internet có vô số video con người thao tác, và VLM đã học được rất nhiều tri thức về vật, bối cảnh và ngôn ngữ.
 
 Mâu thuẫn là **video người không có nhãn motor command của robot**. Người cầm cốc bằng tay năm ngón, robot dùng gripper; người có thân và camera thay đổi; robot có joint limits và kinematics khác. Không thể copy khớp của con người angles sang robot joints một cách trực tiếp. Do đó bài toán của GR00T N1 là: làm sao tận dụng **đa nguồn dữ liệu** để xây dựng một policy có khả năng hiểu ngữ nghĩa lẫn khả năng sinh liên tục motor actions, sau đó thích nghi nhanh cho robot thật?
@@ -49,6 +56,12 @@ Hình 1 là tháp dữ liệu, không phải sơ đồ network. Ở đáy có nh
 
 **Mô hình thị giác-ngôn ngữ (VLM)** học biểu diễn từ hình ảnh và text. Nó mạnh ở bối cảnh understanding, nhận dạng vật thể, chỉ dẫn following nhưng không tự có quỹ đạo control prior chính xác. **Diffusion/flow action policy** học phân phối nhiều quỹ đạo liên tục khả thi từ demonstrations; một quan sát có thể tương ứng nhiều cách grasp khác nhau. **Action chunk** là tensor `A ∈ R^{H × D}`, trong đó H là số bước tương lai dự đoán, D là action dimensions; không phải một token duy nhất.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 3 từ PDF gốc, trang 4](/paper-figures/groot-n1/figure-3.webp)
+![Hình 4 từ PDF gốc, trang 6](/paper-figures/groot-n1/figure-4.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 **Pretraining** nhằm tích lũy biểu diễn/hành vi priors từ nhiều nguồn. **Post-training** thích nghi vào robot và nhiệm vụ đích bằng demonstrations chuyên biệt. Hai bước này cần phân biệt vì thành công ở robot cuối không chỉ do foundation pretraining, mà còn do dữ liệu và setup ở downstream.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -67,6 +80,13 @@ Hình 1 là tháp dữ liệu, không phải sơ đồ network. Ở đáy có nh
 
 ### 1. Kiến trúc dual-system
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 8 từ PDF gốc, trang 13](/paper-figures/groot-n1/figure-8.webp)
+![Hình 11 từ PDF gốc, trang 21](/paper-figures/groot-n1/figure-11.webp)
+![Hình 12 từ PDF gốc, trang 21](/paper-figures/groot-n1/figure-12.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Bài báo gọi tầng hiểu là **Hệ thống 2**, tầng sinh action là **Hệ thống 1**. Đầu vào gồm khung hình camera, chỉ dẫn và trạng thái robot/proprioception tuỳ embodiment. Hệ thống 2 dùng VLM encode ảnh và ngôn ngữ thành context, rồi cung cấp context cho Hệ thống 1; Hệ thống 1 là một Transformer chuyên sinh action quỹ đạo bằng quá trình flow-based sinh. Hai phần có thể joint huấn luyện, vì gradient của bài toán control ảnh hưởng tới biểu diễn của context.
 
 ```text
@@ -173,6 +193,12 @@ $$
 
 Giả sử robot hai tay cần **gấp áo trên bàn**. Observation ban đầu cho thấy hai mép áo lệch vị trí; chỉ dẫn “fold the shirt” xác định mục tiêu. VLM trích xuất context gồm áo, bàn, tay robot và từ khóa nhiệm vụ. Action expert lấy robot trạng thái khớp hiện tại, sampled action noise và context rồi sinh chunk chứa các bước đưa hai tay xuống, kẹp mép, kéo và đặt. Robot thực thi một phần, observe lại và sinh chunk mới. Nếu áo trượt, đầu ra cần thay đổi dựa trên khung hình mới.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 7 từ PDF gốc, trang 11](/paper-figures/groot-n1/figure-7.webp)
+![Hình 13 từ PDF gốc, trang 22](/paper-figures/groot-n1/figure-13.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Với video con người, ta có thể thấy người nắm mép áo và fold theo cách tương tự, nhưng **tay người không đồng nghĩa với gripper action**. Representation phải tách ngữ nghĩa/theo thời gian structure dùng chung khỏi chi tiết chuyển động bộ điều khiển phụ thuộc embodiment. Đây là lý do biểu diễn action và quy trình xử lý dữ liệu đáng học ngang kiến trúc VLM.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -193,6 +219,12 @@ Với video con người, ta có thể thấy người nắm mép áo và fold t
 
 Bài báo đánh giá nhiều môi trường mô phỏng và trên humanoid thật. Phần công bố báo GR00T N1 đã pretrain thường tốt hơn các phương pháp imitation learning đối chứng được huấn luyện từ đầu ở những chế độ ít demonstrations, và cho thấy adaptation trên Fourier GR-1. **Table 2** so sánh mô phỏng theo số demonstrations, **Table 3** là các nhiệm vụ trên GR-1 ngoài đời thực. Abstract không có nghĩa policy có thể làm mọi việc zero-shot; cần đọc từng nhiệm vụ, metric, split và lượng dữ liệu post-training.
 
+<!-- BEGIN ADDITIONAL PDF FIGURES -->
+
+![Hình 9 từ PDF gốc, trang 16](/paper-figures/groot-n1/figure-9.webp)
+![Hình 10 từ PDF gốc, trang 20](/paper-figures/groot-n1/figure-10.webp)
+
+<!-- END ADDITIONAL PDF FIGURES -->
 Bài báo cũng nêu phiên bản GR00T N1-2B gồm khoảng 2B parameters và độ trễ sampled chunk khoảng 63.9 ms trên một GPU L40 trong thiết lập được báo cáo. Đây là measurement của một cấu hình cụ thể, không phải realtime guarantee trên consumer GPU và mọi robot. Vì vậy khi so hiệu năng với Qwen-VLA hoặc π0.5, bắt buộc giữ cố định nhiệm vụ, benchmark và target phần cứng.
 
 **Một cách đọc kết quả có trách nhiệm:** xem biểu đồ pretraining vs scratch theo từng dữ liệu regime. Nếu gain lớn ở 30 demos nhưng nhỏ dần ở 300 demos, đóng góp nổi bật là dữ liệu efficiency, chưa chắc policy ceiling cao hơn trong mọi trường hợp.
