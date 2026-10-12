@@ -109,8 +109,9 @@ try {
     assert.equal(await thumbnails.count(),15,'Grid should contain fifteen thumbnails');
     await thumbnails.nth(6).click();
     assert.equal(new URL(page.url()).searchParams.get('slide'),'7','Grid selection updates deep link');
-    await stage.locator('.brief-slide-detail').waitFor({state:'visible'});
-    const visualHierarchy=await stage.evaluate(el=>{
+    const representationSlide=stage.locator('.brief-layout-representation');
+    await representationSlide.locator('.brief-slide-detail').waitFor({state:'visible'});
+    const visualHierarchy=await representationSlide.evaluate(el=>{
       const size=(selector)=>parseFloat(getComputedStyle(el.querySelector(selector)).fontSize);
       return {title:size('.brief-slide-heading h2'),lead:size('.brief-slide-description'),card:size('.brief-card p'),detail:size('.brief-slide-detail p')};
     });
