@@ -76,6 +76,27 @@ try {
   }
   await resourcesPage.close();
   console.log('PASS: repository links visible on all reader tabs; official / community provenance labeled');
+  // Verify original paper PDF images actually load in the expanded explanation.
+  for(const viewport of [{width:1280,height:800},{width:390,height:844}]){
+    const chapterPage=await browser.newPage({viewport});
+    await chapterPage.goto(baseUrl+'/paper/act',{waitUntil:'networkidle'});
+    await chapterPage.waitForFunction(()=>Boolean(document.querySelector('.paper-source-figure img')));
+    await chapterPage.evaluate(()=>document.querySelector('.paper-source-figure')?.scrollIntoView({block:'center'}));
+    await chapterPage.waitForFunction(()=>{
+      const img=document.querySelector('.paper-source-figure img');
+      return Boolean(img && img.complete && img.naturalWidth>0);
+    },{timeout:20000});
+    const sourcedFigure=chapterPage.locator('.paper-source-figure').first();
+    const photo=sourcedFigure.locator('img');
+    const size=await photo.evaluate(img=>({w:img.naturalWidth,h:img.naturalHeight}));
+    assert.ok(size.w>=300&&size.h>=130,`Figure must load real image data: ${JSON.stringify(size)}`);
+    assert.match(await sourcedFigure.locator('.paper-source-figcaption').innerText(),/Hình 1.*PDF gốc|Hình 1.*trang 1/i);
+    assert.equal(await chapterPage.locator('.paper-source-figure').count(),2);
+    const overflow=await chapterPage.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
+    assert.ok(overflow<=2,`Expanded paper must not horizontally overflow on ${viewport.width}`);
+    await chapterPage.close();
+  }
+  console.log('PASS: source PDF figure crops load with captions on desktop/mobile');
 
   // HTML slide-deck acceptance tests: deep links, keyboard navigation, notes and small screens.
   for (const viewport of [{width:1280,height:800},{width:390,height:844}]) {

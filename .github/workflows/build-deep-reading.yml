@@ -1,0 +1,40 @@
+name: Build expanded research chapters
+on:
+  push:
+    branches: [feat/deep-paper-explanations-figures]
+    paths:
+      - scripts/build_deep_reading.py
+      - .github/workflows/build-deep-reading.yml
+permissions:
+  contents: write
+jobs:
+  expand:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Expand 22 paper explanations and add extracted figures
+        run: python scripts/build_deep_reading.py
+      - name: Verify 22 chapters have original PDF figure references
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          for f in Path("content/papers").glob("*.md"):
+              contents=f.read_text()
+              assert contents.count("public/paper-figures/")==0
+              assert contents.count("](/paper-figures/")>=2, f
+          PY
+      - name: Commit authored chapters
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/papers
+          if ! git diff --cached --quiet; then
+            git commit -m "docs(papers): expand all 22 explanations fivefold and embed original figures"
+            git push origin HEAD:feat/deep-paper-explanations-figures
+          fi

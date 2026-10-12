@@ -1,0 +1,750 @@
+{
+  "vima": [
+    {
+      "page": 2,
+      "bbox": [
+        22.0,
+        72.4,
+        590.0,
+        317.6
+      ],
+      "width": 1250,
+      "height": 540,
+      "bytes": 59420,
+      "number": 1,
+      "image": "/paper-figures/vima/figure-1.webp",
+      "caption": "Figure 1: Multimodal prompts for task specification. We observe that many robot manipulation tasks can be expressed as multimodal prompts that interleave language and image/video frames. We introduce VIMA, an embodied agent capable of processing mulitimodal prompts (left) and controlling a robot arm to solve the task (right).",
+      "pdf": "https://arxiv.org/pdf/2210.03094"
+    },
+    {
+      "page": 3,
+      "bbox": [
+        22.0,
+        68.3,
+        590.0,
+        183.3
+      ],
+      "width": 1250,
+      "height": 254,
+      "bytes": 31600,
+      "number": 2,
+      "image": "/paper-figures/vima/figure-2.webp",
+      "caption": "Figure 2: Evaluation Protocol in VIMA-BENCH. We design 4 levels of evaluation settings to systematically measure the zero-shot generalization capability of an agent. Each level deviates more from the training distribution, and thus is strictly more challenging than the previous level.",
+      "pdf": "https://arxiv.org/pdf/2210.03094"
+    }
+  ],
+  "rt-1": [
+    {
+      "page": 1,
+      "bbox": [
+        21.0,
+        312.2,
+        301.0,
+        708.7
+      ],
+      "width": 617,
+      "height": 874,
+      "bytes": 104534,
+      "number": 1,
+      "image": "/paper-figures/rt-1/figure-1.webp",
+      "caption": "Fig. 1: A high-level overview of RT-1’s architecture, dataset, and evaluation.",
+      "pdf": "https://www.roboticsproceedings.org/rss19/p025.pdf"
+    },
+    {
+      "page": 3,
+      "bbox": [
+        311.0,
+        359.0,
+        591.0,
+        474.0
+      ],
+      "width": 617,
+      "height": 254,
+      "bytes": 9232,
+      "number": 2,
+      "image": "/paper-figures/rt-1/figure-2.webp",
+      "caption": "Fig. 2: The architecture diagram of RT-1. The instruction is trans- formed into a USE embedding and used to condition a pre-trained EfﬁcientNet via FiLM layers. The resulting vision-language tokens are reduced by the TokenLearner and fed into a decoder-only Trans- former, which outputs tokenized actions.",
+      "pdf": "https://www.roboticsproceedings.org/rss19/p025.pdf"
+    }
+  ],
+  "diffusion-policy": [
+    {
+      "page": 1,
+      "bbox": [
+        22.0,
+        163.0,
+        590.0,
+        294.4
+      ],
+      "width": 1250,
+      "height": 290,
+      "bytes": 50506,
+      "number": 1,
+      "image": "/paper-figures/diffusion-policy/figure-1.webp",
+      "caption": "Fig. 1: Policy Representations. a) Explicit policy with different types of action representations. b) Implicit policy learns an energy function conditioned on both action and observation and optimizes for actions that minimize the energy landscape c) Diffusion policy refines noise into actions via a learned gradient field. This formulation provides stable training, allows the learned policy to acc",
+      "pdf": "https://www.roboticsproceedings.org/rss19/p026.pdf"
+    },
+    {
+      "page": 2,
+      "bbox": [
+        311.0,
+        25.0,
+        591.0,
+        250.8
+      ],
+      "width": 617,
+      "height": 497,
+      "bytes": 40972,
+      "number": 2,
+      "image": "/paper-figures/diffusion-policy/figure-2.webp",
+      "caption": "Fig. 2: Realworld Benchmarks. We deployed Diffusion Policy on two different robot platforms (UR5 and Franka) for 4 challenging tasks: under-actuate precise pushing (Push-T), 6DoF mug flipping, 6DoF sauce pouring, and periodic sauce spreading. Please check out the supplementary material for the resulting robot videos.",
+      "pdf": "https://www.roboticsproceedings.org/rss19/p026.pdf"
+    }
+  ],
+  "palm-e": [
+    {
+      "page": 1,
+      "bbox": [
+        22.0,
+        208.1,
+        590.0,
+        375.2
+      ],
+      "width": 1250,
+      "height": 369,
+      "bytes": 65638,
+      "number": 1,
+      "image": "/paper-figures/palm-e/figure-1.webp",
+      "caption": "Figure 1: PaLM-E is a single general-purpose multimodal language model for embodied reasoning tasks, visual-language tasks, and language tasks. PaLM-E transfers knowledge from visual-language domains into embodied reasoning – from robot planning in environments with complex dynamics and physical constraints, to answering questions about the observable world. PaLM-E operates on multimodal sentences",
+      "pdf": "https://proceedings.mlr.press/v202/driess23a/driess23a.pdf"
+    },
+    {
+      "page": 6,
+      "bbox": [
+        21.0,
+        93.6,
+        301.0,
+        208.6
+      ],
+      "width": 617,
+      "height": 254,
+      "bytes": 15276,
+      "number": 2,
+      "image": "/paper-figures/palm-e/figure-2.webp",
+      "caption": "Figure 2: Overview of transfer learning demonstrated by PaLM- E: across three different robotics domains, using PaLM and ViT pretraining together with the full mixture of robotics and general visual-language data provides a signiﬁcant performance increase compared to only training on the respective in-domain data. See Tab. 1, Fig. 3, Tab. 2, Tab. 4 for additional data in each domain.",
+      "pdf": "https://proceedings.mlr.press/v202/driess23a/driess23a.pdf"
+    }
+  ],
+  "act": [
+    {
+      "page": 1,
+      "bbox": [
+        22.0,
+        63.8,
+        590.0,
+        328.8
+      ],
+      "width": 1250,
+      "height": 584,
+      "bytes": 74420,
+      "number": 1,
+      "image": "/paper-figures/act/figure-1.webp",
+      "caption": "Fig. 1: ALOHA : A Low-cost Open-source Hardware System for Bimanual Teleoperation. The whole system costs <$20k with off-the-shelf robots and 3D printed components. Left: The user teleoperates by backdriving the leader robots, with the follower robots mirroring the motion. Right: ALOHA is capable of precise, contact-rich, and dynamic tasks. We show examples of both teleoperated and learned skills.",
+      "pdf": "https://www.roboticsproceedings.org/rss19/p016.pdf"
+    },
+    {
+      "page": 3,
+      "bbox": [
+        22.0,
+        25.0,
+        590.0,
+        188.0
+      ],
+      "width": 1250,
+      "height": 359,
+      "bytes": 39688,
+      "number": 3,
+      "image": "/paper-figures/act/figure-3.webp",
+      "caption": "Fig. 3: Left: Camera viewpoints of the front, top, and two wrist cameras, together with an illustration of the bimanual workspace of ALOHA. Middle: Detailed view of the “handle and scissor” mechanism and custom grippers. Right: Technical spec of the ViperX 6dof robot [1].",
+      "pdf": "https://www.roboticsproceedings.org/rss19/p016.pdf"
+    }
+  ],
+  "libero": [
+    {
+      "page": 2,
+      "bbox": [
+        22.0,
+        63.4,
+        590.0,
+        290.0
+      ],
+      "width": 1250,
+      "height": 500,
+      "bytes": 50196,
+      "number": 1,
+      "image": "/paper-figures/libero/figure-1.webp",
+      "caption": "Figure 1: Top: LIBERO has four procedurally-generated task suites: LIBERO-SPATIAL, LIBERO- OBJECT, and LIBERO-GOAL have 10 tasks each and require transferring knowledge about spatial relationships, objects, and task goals; LIBERO-100 has 100 tasks and requires the transfer of entangled knowledge. Bottom: we investigate five key research topics in LLDM on LIBERO.",
+      "pdf": "https://arxiv.org/pdf/2306.03310"
+    },
+    {
+      "page": 4,
+      "bbox": [
+        22.0,
+        59.0,
+        590.0,
+        226.3
+      ],
+      "width": 1250,
+      "height": 369,
+      "bytes": 36750,
+      "number": 2,
+      "image": "/paper-figures/libero/figure-2.webp",
+      "caption": "Figure 2: LIBERO’s procedural generation pipeline: Extracting behavioral templates from a large- scale human activity dataset (1), Ego4D, for generating task instructions (2); Based on the task description, selecting the scene and generating the PDDL description file (3) that specifies the objects and layouts (A), the initial object configurations (B), and the task goal (C).",
+      "pdf": "https://arxiv.org/pdf/2306.03310"
+    }
+  ],
+  "rt-2": [
+    {
+      "page": 2,
+      "bbox": [
+        22.0,
+        77.3,
+        573.3,
+        256.5
+      ],
+      "width": 1214,
+      "height": 396,
+      "bytes": 56090,
+      "number": 1,
+      "image": "/paper-figures/rt-2/figure-1.webp",
+      "caption": "Figure 1 | RT-2 overview: we represent robot actions as another language, which can be cast into text tokens and trained together with Internet-scale vision-language datasets. During inference, the text tokens are de-tokenized into robot actions, enabling closed loop control. This allows us to leverage the backbone and pretraining of vision-language models in learning robotic policies, transferrin",
+      "pdf": "https://arxiv.org/pdf/2307.15818"
+    },
+    {
+      "page": 5,
+      "bbox": [
+        22.0,
+        151.5,
+        573.3,
+        529.5
+      ],
+      "width": 1214,
+      "height": 832,
+      "bytes": 103066,
+      "number": 2,
+      "image": "/paper-figures/rt-2/figure-2.webp",
+      "caption": "Figure 2 | RT-2 is able to generalize to a variety of real-world situations that require reasoning, symbol understanding, and human recognition. We study these challenging scenarios in detail in Section 4.",
+      "pdf": "https://arxiv.org/pdf/2307.15818"
+    }
+  ],
+  "bridgedata-v2": [
+    {
+      "page": 1,
+      "bbox": [
+        22.0,
+        419.5,
+        590.0,
+        632.1
+      ],
+      "width": 1250,
+      "height": 469,
+      "bytes": 84608,
+      "number": 1,
+      "image": "/paper-figures/bridgedata-v2/figure-1.webp",
+      "caption": "Figure 1 (BridgeData V2) We propose a large-scale robotic manipulation dataset containing 60,096 trajectories across 24 environments. The dataset includes skills such as pick-and-place, pushing, sweeping, stacking, folding, and more. Portions of the data include multiple camera views and depth data, and all of the data includes natural language labels.",
+      "pdf": "https://arxiv.org/pdf/2308.12952"
+    },
+    {
+      "page": 4,
+      "bbox": [
+        311.0,
+        25.0,
+        591.0,
+        170.4
+      ],
+      "width": 617,
+      "height": 320,
+      "bytes": 10972,
+      "number": 2,
+      "image": "/paper-figures/bridgedata-v2/figure-2.webp",
+      "caption": "Figure 2 (System setup) A picture of our robot setup showing the WidowX 250 robot arm and various cameras. For sensing, we use an RGBD camera that is fixed in an over-the-shoulder view, two RGB cameras with poses that are randomized during data collection, and an RGB camera attached to the robot’s wrist. The images are saved at a 640x480 resolution and the control frequency is 5 Hz. We collect dem",
+      "pdf": "https://arxiv.org/pdf/2308.12952"
+    }
+  ],
+  "mimicplay": [
+    {
+      "page": 1,
+      "bbox": [
+        22.0,
+        398.5,
+        590.0,
+        535.4
+      ],
+      "width": 1250,
+      "height": 302,
+      "bytes": 54534,
+      "number": 1,
+      "image": "/paper-figures/mimicplay/figure-1.webp",
+      "caption": "Figure 1: Human is able to complete a long-horizon task much faster than a teleoperated robot. This observation inspires us to develop MIMICPLAY, a hierarchical imitation learning algorithm that learns a high-level planner from cheap human play data and a low-level control policy from a small amount of multi-task teleoperated robot demonstrations. We show that MIMICPLAY significantly improves samp",
+      "pdf": "https://arxiv.org/pdf/2302.12422"
+    },
+    {
+      "page": 4,
+      "bbox": [
+        22.0,
+        82.3,
+        590.0,
+        197.3
+      ],
+      "width": 1250,
+      "height": 254,
+      "bytes": 39858,
+      "number": 2,
+      "image": "/paper-figures/mimicplay/figure-2.webp",
+      "caption": "Figure 2: Overview of MIMICPLAY. (a) Training Stage 1: using cheap human play data to train a goal-conditioned trajectory generation model to build a latent plan space that contains high-level guidance for diverse task goals. (b) Training Stage 2: using a small amount of teleoperation data to train a low-level robot controller conditioned on the latent plans generated by the pre-trained (frozen) p",
+      "pdf": "https://arxiv.org/pdf/2302.12422"
+    }
+  ],
+  "open-x-embodiment": [
+    {
+      "page": 1,
+      "bbox": [
+        22.0,
+        475.1,
+        590.0,
+        643.3
+      ],
+      "width": 1250,
+      "height": 371,
+      "bytes": 92486,
+      "number": 1,
+      "image": "/paper-figures/open-x-embodiment/figure-1.webp",
+      "caption": "Fig. 1: We propose an open, large-scale dataset for robot learning curated from 21 institutions across the globe. The dataset represents diverse behaviors, robot embodiments and environments, and enables learning generalized robotic policies.",
+      "pdf": "https://arxiv.org/pdf/2310.08864"
+    },
+    {
+      "page": 3,
+      "bbox": [
+        22.0,
+        25.3,
+        590.0,
+        274.5
+      ],
+      "width": 1250,
+      "height": 549,
+      "bytes": 53068,
+      "number": 2,
+      "image": "/paper-figures/open-x-embodiment/figure-2.webp",
+      "caption": "Fig. 2: The Open X-Embodiment Dataset. (a): the dataset consists of 60 individual datasets across 22 embodiments. (b): the Franka robot has the largest diversity in visually distinct scenes due to the large number of Franka datasets, (c): xArm and Google Robot contribute the most number of trajectories due to a few large datasets, (d, e): the dataset contains a great diversity of skills and common",
+      "pdf": "https://arxiv.org/pdf/2310.08864"
+    }
+  ],
+  "droid": [
+    {
+      "page": 1,
+      "bbox": [
+        22.0,
+        352.5,
+        590.0,
+        579.5
+      ],
+      "width": 1250,
+      "height": 501,
+      "bytes": 115152,
+      "number": 1,
+      "image": "/paper-figures/droid/figure-1.webp",
+      "caption": "Fig. 1: We introduce DROID (Distributed Robot Interaction Dataset), an “in-the-wild” robot manipulation dataset with 76k trajectories or 350 hours of interaction data, collected across 564 scenes, 86 tasks, and 52 buildings over the course of 12 months. Each DROID episode contains three synchronized RGB camera streams, camera calibration, depth information, and natural language instructions. We de",
+      "pdf": "https://arxiv.org/pdf/2403.12945"
+    },
+    {
+      "page": 4,
+      "bbox": [
+        21.0,
+        66.7,
+        301.0,
+        245.6
+      ],
+      "width": 617,
+      "height": 395,
+      "bytes": 25246,
+      "number": 2,
+      "image": "/paper-figures/droid/figure-2.webp",
+      "caption": "Fig. 2: The DROID robot platform. We use the same hardware setup across all 13 institutions to streamline data collection while maximizing portability and flexibility. The setup consists of a Franka Panda 7DoF robot arm, two adjustable Zed 2 stereo cameras, a wrist- mounted Zed Mini stereo camera, and an Oculus Quest 2 headset with controllers for teleoperation. Everything is mounted on a portable",
+      "pdf": "https://arxiv.org/pdf/2403.12945"
+    }
+  ],
+  "octo": [
+    {
+      "page": 1,
+      "bbox": [
+        22.0,
+        167.4,
+        590.0,
+        505.1
+      ],
+      "width": 1250,
+      "height": 744,
+      "bytes": 87492,
+      "number": 1,
+      "image": "/paper-figures/octo/figure-1.webp",
+      "caption": "Fig. 1: We introduce Octo, an open-source, generalist policy for robotic manipulation. Octo is a transformer-based policy pretrained on 800k diverse robot episodes from the Open X-Embodiment dataset [67]. It supports flexible task and observation definitions and can be quickly finetuned to new observation and action spaces.",
+      "pdf": "https://arxiv.org/pdf/2405.12213"
+    },
+    {
+      "page": 3,
+      "bbox": [
+        22.0,
+        148.1,
+        590.0,
+        304.5
+      ],
+      "width": 1250,
+      "height": 345,
+      "bytes": 31932,
+      "number": 2,
+      "image": "/paper-figures/octo/figure-2.webp",
+      "caption": "Fig. 2: Model architecture. Left: Octo tokenizes task descriptions (green) and input observations (blue) using a pretrained language model and a lightweight CNN, respectively. Top: The transformer backbone processes the sequence of task and observation tokens and produces readout tokens (purple) that get passed to output heads to produce actions. Bottom: The block-wise attention structure of the t",
+      "pdf": "https://arxiv.org/pdf/2405.12213"
+    }
+  ],
+  "robocasa": [
+    {
+      "page": 1,
+      "bbox": [
+        22.0,
+        210.4,
+        590.0,
+        441.4
+      ],
+      "width": 1250,
+      "height": 510,
+      "bytes": 105812,
+      "number": 1,
+      "image": "/paper-figures/robocasa/figure-1.webp",
+      "caption": "Fig. 1: Overview of RoboCasa. RoboCasa is a simulation framework for training generalist robot agents. Four pillars underlie RoboCasa: (1) Diverse assets, including 120 kitchen scenes and 2,500+ 3D objects, created with the aid of generative AI tools; (2) Cross-embodiment support for mobile manipulators and humanoid robots; (3) Diverse tasks created with the guidance of large language models; (4) ",
+      "pdf": "https://arxiv.org/pdf/2406.02523"
+    },
+    {
+      "page": 4,
+      "bbox": [
+        22.0,
+        54.0,
+        590.0,
+        218.2
+      ],
+      "width": 1250,
+      "height": 363,
+      "bytes": 41912,
+      "number": 3,
+      "image": "/paper-figures/robocasa/figure-3.webp",
+      "caption": "Fig. 3: Kitchen Floor Plans. We consult home planning and architecture magazines and compile a list of common kitchen floor plans. Our floor plans take on a variety of shapes and sizes, from basic designs (e.g., one wall) to high-end ones (e.g., U-shaped w/ island).",
+      "pdf": "https://arxiv.org/pdf/2406.02523"
+    }
+  ],
+  "openvla": [
+    {
+      "page": 1,
+      "bbox": [
+        22.0,
+        192.0,
+        590.0,
+        418.4
+      ],
+      "width": 1250,
+      "height": 499,
+      "bytes": 57646,
+      "number": 1,
+      "image": "/paper-figures/openvla/figure-1.webp",
+      "caption": "Figure 1: We present OpenVLA, a 7B-parameter open-source vision-language-action model (VLA), trained on 970k robot episodes from the Open X-Embodiment dataset [1]. OpenVLA sets a new state of the art for generalist robot manipulation policies. It supports controlling multiple robots out of the box and can be quickly adapted to new robot domains via parameter-efficient fine-tuning. The OpenVLA chec",
+      "pdf": "https://arxiv.org/pdf/2406.09246"
+    },
+    {
+      "page": 4,
+      "bbox": [
+        22.0,
+        83.3,
+        590.0,
+        221.0
+      ],
+      "width": 1250,
+      "height": 304,
+      "bytes": 23964,
+      "number": 2,
+      "image": "/paper-figures/openvla/figure-2.webp",
+      "caption": "Figure 2: OpenVLA model architecture. Given an image observation and a language instruction, the model predicts 7-dimensional robot control actions. The architecture consists of three key components: (1) a vision encoder that concatenates Dino V2 [25] and SigLIP [79] features, (2) a projector that maps visual features to the language embedding space, and (3) the LLM backbone, a Llama 2 7B-paramete",
+      "pdf": "https://arxiv.org/pdf/2406.09246"
+    }
+  ],
+  "rdt-1b": [
+    {
+      "page": 2,
+      "bbox": [
+        22.0,
+        97.0,
+        590.0,
+        263.1
+      ],
+      "width": 1250,
+      "height": 366,
+      "bytes": 57616,
+      "number": 1,
+      "image": "/paper-figures/rdt-1b/figure-1.webp",
+      "caption": "Figure 1: Overview of Robotics Diffusion Transformer with 1B-Parameters (RDT-1B), a language-conditioned visuomotor policy for bimanual manipulation,with state-of-the-art generaliz- ability to unseen scenarios (See App. H for metric calculation details).",
+      "pdf": "https://arxiv.org/pdf/2410.07864"
+    },
+    {
+      "page": 3,
+      "bbox": [
+        22.0,
+        47.6,
+        590.0,
+        170.3
+      ],
+      "width": 1250,
+      "height": 271,
+      "bytes": 21008,
+      "number": 2,
+      "image": "/paper-figures/rdt-1b/figure-2.webp",
+      "caption": "Figure 2: (a) Schematic diagram of the ALOHA dual-arm robot. (b) A toy example of grasping a cube. Compared with unimanual manipulation, bimanual manipulation has more possible action modes, leading to stronger multi-modality. Colors from light to dark indicate that time goes forward.",
+      "pdf": "https://arxiv.org/pdf/2410.07864"
+    }
+  ],
+  "fast": [
+    {
+      "page": 1,
+      "bbox": [
+        311.0,
+        210.8,
+        591.0,
+        622.0
+      ],
+      "width": 617,
+      "height": 906,
+      "bytes": 49608,
+      "number": 1,
+      "image": "/paper-figures/fast/figure-1.webp",
+      "caption": "Fig. 1: We propose FAST, a simple yet effective approach for tokenization of robot action trajectories via time-series compression. FAST enables training of autoregressive VLAs that solve complex dexterous manipulation tasks and gener- alize broadly to new scenes. We use it to train π0-FAST, a generalist robot policy that matches the performance of the state-of-the-art π0 diffusion VLA on dexterou",
+      "pdf": "https://arxiv.org/pdf/2501.09747"
+    },
+    {
+      "page": 2,
+      "bbox": [
+        311.0,
+        177.2,
+        591.0,
+        292.2
+      ],
+      "width": 617,
+      "height": 254,
+      "bytes": 9366,
+      "number": 2,
+      "image": "/paper-figures/fast/figure-2.webp",
+      "caption": "Fig. 2: Left: FAST tokenization enables training of autoregres- sive Transformers for dexterous robot control via simple next token prediction. Right: FAST outperforms popular binning tokenization schemes, e.g., used in OpenVLA [39], particu- larly for high-frequency robot data.",
+      "pdf": "https://arxiv.org/pdf/2501.09747"
+    }
+  ],
+  "groot-n1": [
+    {
+      "page": 2,
+      "bbox": [
+        302.6,
+        114.4,
+        574.3,
+        270.4
+      ],
+      "width": 599,
+      "height": 344,
+      "bytes": 20944,
+      "number": 1,
+      "image": "/paper-figures/groot-n1/figure-1.webp",
+      "caption": "Figure 1: Data Pyramid for Robot Foundation Model Training. GR00T N1’s heterogeneous training corpora can be represented as a pyramid: data quantity de- creases, and embodiment-specificity increases, moving from the bottom to the top.",
+      "pdf": "https://arxiv.org/pdf/2503.14734"
+    },
+    {
+      "page": 3,
+      "bbox": [
+        22.0,
+        83.1,
+        573.3,
+        335.8
+      ],
+      "width": 1214,
+      "height": 557,
+      "bytes": 36882,
+      "number": 2,
+      "image": "/paper-figures/groot-n1/figure-2.webp",
+      "caption": "Figure 2: GR00T N1 Model Overview. Our model is a Vision-Language-Action (VLA) model that adopts a dual-system design. We convert the image observation and language instruction into a sequence of tokens to be processed by the Vision-Language Model (VLM) backbone. The VLM outputs, together with robot state and action encodings, are passed to the Diffusion Transformer module to generate motor action",
+      "pdf": "https://arxiv.org/pdf/2503.14734"
+    }
+  ],
+  "pi-0-5": [
+    {
+      "page": 1,
+      "bbox": [
+        22.0,
+        230.7,
+        590.0,
+        499.4
+      ],
+      "width": 1250,
+      "height": 592,
+      "bytes": 114038,
+      "number": 1,
+      "image": "/paper-figures/pi-0-5/figure-1.webp",
+      "caption": "Fig. 1: The π0.5 model transfers knowledge from a heterogeneous range of data sources, including other robots, high-level subtask prediction, verbal instructions, and data from the web, in order to enable broad generalization across environments and objects. π0.5 can control a mobile manipulator to clean kitchens and bedrooms in new homes that were not present in the training data, performing comp",
+      "pdf": "https://arxiv.org/pdf/2504.16054"
+    },
+    {
+      "page": 2,
+      "bbox": [
+        22.0,
+        32.4,
+        590.0,
+        147.4
+      ],
+      "width": 1250,
+      "height": 254,
+      "bytes": 41142,
+      "number": 2,
+      "image": "/paper-figures/pi-0-5/figure-2.webp",
+      "caption": "Fig. 2: π0.5 cleaning a new kitchen. The robot is tasked with cleaning a kitchen in a home that was not in the training data. The model is given general tasks (close the cabinets, put the items in the drawer, wipe the spill, and put the dishes in the sink), which it performs by both predicting subtasks to accomplish (e.g., pick up the plate) and emitting low-level actions.",
+      "pdf": "https://arxiv.org/pdf/2504.16054"
+    }
+  ],
+  "rtc-inference": [
+    {
+      "page": 1,
+      "bbox": [
+        22.0,
+        441.1,
+        590.0,
+        631.8
+      ],
+      "width": 1250,
+      "height": 420,
+      "bytes": 55150,
+      "number": 1,
+      "image": "/paper-figures/rtc-inference/figure-1.webp",
+      "caption": "Figure 1: Top: Real-time chunking (RTC) enables the robot to perform highly dexterous and dynamic tasks, such as lighting a match—even in the presence of inference delays in excess of 300 milliseconds, corresponding to more than 30% of the model’s prediction horizon. Bottom: RTC performs the same robot motion 20% faster than synchronous inference [5, 30, 8, 24, 31, 59], and smoother than all compe",
+      "pdf": "https://arxiv.org/pdf/2506.07339"
+    },
+    {
+      "page": 3,
+      "bbox": [
+        311.0,
+        133.8,
+        591.0,
+        353.8
+      ],
+      "width": 617,
+      "height": 485,
+      "bytes": 23874,
+      "number": 2,
+      "image": "/paper-figures/rtc-inference/figure-2.webp",
+      "caption": "Figure 2: An illustration of a typical bifurcation be- tween consecutive chunks. Inference is started between timesteps 3 and 4. The original chunk that was execut- ing, {at} (black), had planned to go above the obstacle while the newly generated chunk {a′ t} (red) goes be- low the obstacle. However, {a′ t} is not available until d = 7 steps later. A naive asynchronous algorithm might jump from a1",
+      "pdf": "https://arxiv.org/pdf/2506.07339"
+    }
+  ],
+  "rtc-training": [
+    {
+      "page": 2,
+      "bbox": [
+        21.0,
+        25.0,
+        301.0,
+        116.8
+      ],
+      "width": 617,
+      "height": 202,
+      "bytes": 3904,
+      "number": 1,
+      "image": "/paper-figures/rtc-training/figure-1.webp",
+      "caption": "Fig. 1: A diagram illustrating two overlapping action chunks. The d actions between t and t + d, taken from the previous chunk, are the action prefix (red). From the diagram, we can easily see that we must satisfy the constraint t + d ≤t −s + H →d ≤H −s to have a valid action prefix. Note that inference-time RTC uses all H −s overlapping actions (red and yellow) to guide the generation of the curr",
+      "pdf": "https://arxiv.org/pdf/2512.05964"
+    },
+    {
+      "page": 2,
+      "bbox": [
+        311.0,
+        63.4,
+        591.0,
+        283.4
+      ],
+      "width": 617,
+      "height": 485,
+      "bytes": 17666,
+      "number": 2,
+      "image": "/paper-figures/rtc-training/figure-2.webp",
+      "caption": "Fig. 2: An illustration of our conditioning architecture, as applied to a standard diffusion transformer such as the π0.6 action expert. We always feed in ground-truth, non-noisy prefix actions, while learning to denoise the postfix actions. The flow matching timestep differs between tokens, which indicates the inference delay to the model.",
+      "pdf": "https://arxiv.org/pdf/2512.05964"
+    }
+  ],
+  "qwen-vla": [
+    {
+      "page": 1,
+      "bbox": [
+        22.0,
+        491.9,
+        573.3,
+        735.5
+      ],
+      "width": 1214,
+      "height": 537,
+      "bytes": 79036,
+      "number": 1,
+      "image": "/paper-figures/qwen-vla/figure-1.webp",
+      "caption": "Figure 1: Overview of Qwen-VLA, a unified embodied model trained on mixed manipulation, navigation, and vision-language understanding data to generate both robot actions and textual responses.",
+      "pdf": "https://arxiv.org/pdf/2605.30280"
+    },
+    {
+      "page": 6,
+      "bbox": [
+        22.0,
+        65.5,
+        573.3,
+        235.2
+      ],
+      "width": 1214,
+      "height": 374,
+      "bytes": 23694,
+      "number": 2,
+      "image": "/paper-figures/qwen-vla/figure-2.webp",
+      "caption": "Figure 2: Training recipe of Qwen-VLA. Stage I (T2A) trains the DiT action decoder to reconstruct actions from text alone, building a structured action prior without visual input. Stage II (CPT) unfreezes both modules to ground this prior in visual observations. Stage III (SFT) branches into multi-task and real-robot tracks, and Stage IV (RL) optimizes closed-loop task success via environment rewa",
+      "pdf": "https://arxiv.org/pdf/2605.30280"
+    }
+  ],
+  "lingbot-vla-2": [
+    {
+      "page": 2,
+      "bbox": [
+        22.0,
+        58.0,
+        590.0,
+        268.1
+      ],
+      "width": 1250,
+      "height": 463,
+      "bytes": 75196,
+      "number": 1,
+      "image": "/paper-figures/lingbot-vla-2/figure-1.webp",
+      "caption": "Figure 1. Overview of LingBot-VLA 2.0. We revamp the data processing pipeline and curate 60,000 hours of pretraining data, including 50,000 hours of robot trajectories across 20 robot configurations and 10,000 hours of egocentric human videos. Moreover, our model supports degrees of freedom for the head, waist, mobile base, and dexterous hands, enabling robots to handle more complex real-world tas",
+      "pdf": "https://arxiv.org/pdf/2607.06403"
+    },
+    {
+      "page": 3,
+      "bbox": [
+        22.0,
+        70.2,
+        590.0,
+        454.4
+      ],
+      "width": 1250,
+      "height": 846,
+      "bytes": 132808,
+      "number": 2,
+      "image": "/paper-figures/lingbot-vla-2/figure-2.webp",
+      "caption": "Figure 2. Visualization of the pre-training dataset used by LingBot-VLA-2.0. The dataset includes 20 robot embodiments with degrees of freedom in the arms, heads, waists, mobile bases, and dexterous hands.",
+      "pdf": "https://arxiv.org/pdf/2607.06403"
+    }
+  ]
+}

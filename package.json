@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "check:content": "node tests/content.test.mjs",
+    "test:deep-reading": "node --test tests/deep-reading.test.mjs",
     "typecheck": "tsc --noEmit",
     "test:ui": "node --test tests/ui-regressions.test.mjs",
     "test:e2e": "node tests/browser.test.mjs",
