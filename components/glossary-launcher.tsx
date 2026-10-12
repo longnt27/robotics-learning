@@ -63,6 +63,7 @@ export function GlossaryLauncher() {
       className="corpus-glossary-dialog"
       aria-labelledby="corpus-glossary-title"
       onCancel={close}
+      onKeyDown={(event)=>{if(event.key==="Escape"){event.preventDefault();event.stopPropagation();close();}}}
       onClick={(event)=>{if(event.target===event.currentTarget) close();}}
     >
       <div className="corpus-glossary-inner">
