@@ -46,9 +46,8 @@ def sections(md):
 
 def format_fig(fig):
     n,p=fig["number"],fig["page"]
-    return (f"![Hình {n} gốc từ PDF bài báo, trang {p}]({fig['image']})\n\n"
-      f"*Hình {n}, trang {p}. Ảnh được cắt từ PDF gốc, không phải hình AI tái tạo. "
-      f"[Xem caption đầy đủ trong PDF]({fig['pdf']}#page={p}).*\n\n")
+    # Full source captions and PDF links are rendered from paper-figures.json.
+    return f"![Hình {n} gốc từ PDF bài báo, trang {p}]({fig['image']})\n\n"
 
 def lesson(slide,c):
     kind=slide["type"]; title=slide["title"]; lead=slide["lead"]

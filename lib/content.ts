@@ -5,7 +5,9 @@ import { join } from "node:path";
 export async function getPaperChapter(slug: string): Promise<string | null> {
   if (!/^[a-z0-9-]+$/.test(slug)) return null;
   try {
-    return await readFile(join(process.cwd(), "content", "papers", `${slug}.md`), "utf8");
+    const content = await readFile(join(process.cwd(), "content", "papers", `${slug}.md`), "utf8");
+    // Hide internal generator markers from HTML; keep them in source for idempotent rebuilds.
+    return content.replace(/^[ \t]*<!-- (?:BEGIN|END) EXTENDED WALKTHROUGH -->[ \t]*$/gm, "");
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === "ENOENT") return null;
     throw error;
