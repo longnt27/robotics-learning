@@ -189,7 +189,17 @@ def main():
         context=evidence(slides)
         guide=guides[slug]
         figs=manifest.get(slug,[])
-        if len(figs)<2: raise RuntimeError(f"No sourced figure pair: {slug}")
+        if len(figs)<2: raise RuntimeError(f"Missing figure sources: {slug}")
+        # These two pedagogical commentaries refer to named figures (not to
+        # the first two entries in the manifest). All remaining figures are
+        # placed contextually by scripts/place_paper_figures.py.
+        def guide_figure(guide_text, fallback_index):
+            match=re.search(r"Hình\\s*(\\d+)",guide_text)
+            number=int(match.group(1)) if match else figs[fallback_index]["number"]
+            return next((fig for fig in figs if fig["number"]==number),
+                        figs[fallback_index])
+        intro_figure=guide_figure(guide["overview"],0)
+        method_figure=guide_figure(guide["method"],min(1,len(figs)-1))
         blocks=sections(original)
         enriched=[];used=set()
         for heading,body in blocks:
@@ -198,11 +208,11 @@ def main():
             if not heading:continue
             add=[]
             if heading.startswith("Vì sao"):
-                add.append(format_fig(figs[0]))
+                add.append(format_fig(intro_figure))
                 add.append("#### Đọc hình gốc: bối cảnh và đóng góp\n\n"+guide["overview"]+"\n\n")
                 used.add(0)
             if heading.startswith("Phương pháp"):
-                add.append(format_fig(figs[1]))
+                add.append(format_fig(method_figure))
                 add.append("#### Đọc hình gốc: từng thành phần và luồng thông tin\n\n"+guide["method"]+"\n\n")
                 add.append("#### Ví dụ từng bước để hiểu cơ chế\n\n"+guide["worked"]+"\n\n")
                 used.add(1)

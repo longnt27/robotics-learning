@@ -67,7 +67,7 @@ def captions(page):
             number = int(match.group(1))
         except ValueError:
             continue
-        if number > 60 or len(line) < 32:
+        if len(line) < 32:
             continue
         result.append({"num": number, "bbox": fitz.Rect(x0, y0, x1, y1),
                        "caption": " ".join(line.split())})
@@ -227,6 +227,15 @@ def main():
             figures = extract_one(slug, available[slug], cache)
             if not figures:
                 errors[slug] = "No printable figure caption or crop found"
+            # Keep human corrections/verified translations when source text has
+            # not changed across an extractor rerun.
+            previous={(x["number"],x["caption"]):x
+                      for x in manifest.get(slug,[])}
+            for fig in figures:
+                prior=previous.get((fig["number"],fig["caption"]),{})
+                for key in ("caption_vi","translation_method","caption_sha256"):
+                    if key in prior:
+                        fig[key]=prior[key]
             manifest[slug] = figures
             for fig in figures:
                 print(f"{slug} FIG {fig['number']} PDF page {fig['page']} {fig['width']}x{fig['height']} -> {fig['image']}", flush=True)
