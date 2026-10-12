@@ -8,7 +8,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -16,5 +16,15 @@ jobs:
           node-version: '22'
       - run: npm install --no-audit --no-fund
       - run: npm run check:content
+      - run: npm run test:ui
       - run: npm run typecheck
       - run: npm run build
+      - name: Install browser
+        run: npx playwright install --with-deps chromium
+      - name: Browser verification (13-inch laptop and mobile)
+        shell: bash
+        run: |
+          npm run start > /tmp/robotics-atlas-next.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" || true' EXIT
+          npm run test:e2e

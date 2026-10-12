@@ -1,7 +1,14 @@
 import type { Metadata, Viewport } from "next";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
 import "katex/dist/katex.min.css";
 import "@xyflow/react/dist/style.css";
+
+const montserrat = Montserrat({
+  subsets: ["latin", "vietnamese"],
+  display: "swap",
+  variable: "--font-montserrat",
+});
 
 export const metadata: Metadata = {
   title: { default: "ROBOTICS / ATLAS | Understand how robots learn", template: "%s | ROBOTICS / ATLAS" },
@@ -13,5 +20,5 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#080911" };
 
 export default function RootLayout({ children }: Readonly<{children: React.ReactNode}>) {
-  return <html lang="vi"><body>{children}</body></html>;
+  return <html lang="vi"><body className={montserrat.variable}>{children}</body></html>;
 }
