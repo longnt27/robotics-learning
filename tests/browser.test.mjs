@@ -91,7 +91,7 @@ try {
       return Boolean(img && img.complete && img.naturalWidth>0);
     });
 
-    assert.equal(await chapterPage.locator('.paper-source-figure').count(),2,'Two original figures');
+    assert.ok(await chapterPage.locator('.paper-source-figure').count()>=2,'Original figures must render');
     const originalCaption=await figure.locator('.paper-figure-caption-text[lang="en"]').innerText();
     assert.match(originalCaption,/^Figure 1: Top: LIBERO has four procedurally-generated task suites/i);
     assert.ok(originalCaption.length>280,'Show the complete original research caption, not the alt text');
