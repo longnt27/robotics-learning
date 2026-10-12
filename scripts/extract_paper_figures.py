@@ -19,7 +19,7 @@ from PIL import Image, ImageStat
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "public" / "paper-figures"
 MANIFEST = ROOT / "content" / "paper-figures.json"
-CAPTION_RE = re.compile(r"^(?:fig(?:ure)?\.?)\s*(\d{1,2})\s*[:.\-–]", re.I)
+CAPTION_RE = re.compile(r"^(?:fig(?:ure)?\.?)\s*(\d{1,2})(?=\s|[:.\-–])", re.I)
 UA = "RoboticsAtlas-EducationalFigureExtractor/1.0"
 
 
