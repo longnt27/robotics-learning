@@ -88,6 +88,7 @@ function SlideVisual({paper,slide,index}:{paper:Paper;slide:ResearchSlide;index:
       <span className="brief-cover-ordinal">{String(index+1).padStart(2,"0")} / 15</span>
       <h2>{paper.shortTitle}<span className="brief-title-dot">.</span></h2>
       <p className="brief-cover-message">{slide.lead}</p>
+      <div className="brief-cover-key"><span>LUẬN ĐIỂM CHÍNH</span><strong>{getItemText(items[0])}</strong><p>{slide.intuition}</p></div>
       <div className="brief-cover-pill"><span/> {paper.venue} · {paper.userPick?"BÀI BẠN CHỌN":"BÀI NGHIÊN CỨU NỀN TẢNG"}</div>
     </div><OrbitalArt paper={paper} displayIndex={index+1}/>
   </div>;
@@ -103,6 +104,7 @@ function SlideVisual({paper,slide,index}:{paper:Paper;slide:ResearchSlide;index:
   if(slide.type==="intuition")return <div className="brief-thesis">
     <div className="brief-thesis-light"><span>i</span></div>
     <p className="brief-thesis-word">{slide.lead}</p>
+    {items[0]&&<div className="brief-thesis-key"><span>Ý NGHĨA CỦA CƠ CHẾ</span><p>{getItemText(items[0])}</p></div>}
     <div className="brief-thesis-bottom"><span>CORE INTUITION</span><span className="brief-thesis-line"/><span>KHÁC BIỆT NẰM Ở CƠ CHẾ</span></div>
   </div>;
   if(slide.type==="contrast")return <div className="brief-contrast">
@@ -117,7 +119,7 @@ function SlideVisual({paper,slide,index}:{paper:Paper;slide:ResearchSlide;index:
     {[slide.lead,...items.map(getItemText)].map((text,i)=><div key={i} className="brief-takeaway"><span>0{i+1}</span><strong>{text}</strong></div>)}
   </div>;
   const numbered = slide.type==="inference"||slide.type==="training"||slide.type==="relations";
-  return <div className={`brief-fact-grid brief-fact-${slide.type}`}>
+  return <div className={`brief-fact-grid brief-fact-${slide.type} brief-card-count-${items.length}`}>
     {items.map((item,i)=><DisplayCard key={i} item={item} index={i} variant={numbered?"sequence":"fact"}/>)}
     <div className="brief-fact-decoration" aria-hidden="true"><span/><span/><span/><span/></div>
   </div>;
@@ -223,6 +225,7 @@ export function SlideDeck({paper,slides,chapter,onRead}:{paper:Paper;slides:Rese
         <motion.div key={`${paper.slug}-${index}`} className={`brief-slide-content brief-layout-${slide.type}`} initial={{opacity:0,y:14,filter:"blur(4px)"}} animate={{opacity:1,y:0,filter:"blur(0px)"}} exit={{opacity:0,y:-10,filter:"blur(3px)"}} transition={{duration:.23,ease:"easeOut"}}>
           {slide.type!=="cover"&&<div className="brief-slide-heading"><div className="brief-chapter-label"><span className="brief-signal"/> {SECTIONS[slide.type]} <span className="brief-heading-rule"/> {String(index+1).padStart(2,"0")}</div><h2>{slide.title}</h2>{!["intuition","equation","problem","contrast"].includes(slide.type)&&<p className="brief-slide-description">{slide.lead}</p>}</div>}
           <div className="brief-slide-art"><SlideVisual slide={slide} paper={paper} index={index}/></div>
+          {slide.detail&&<aside className={`brief-slide-detail brief-slide-detail-${slide.type}`}><span className="brief-slide-detail-label"><span className="brief-signal"/> {slide.detail.label}</span><p>{slide.detail.text}</p></aside>}
           {slide.type!=="cover"&&slide.type!=="equation"&&slide.type!=="intuition"&&<div className="brief-slide-intuition"><span>INTUITION <i>→</i></span><p>{slide.intuition}</p></div>}
         </motion.div>
       </AnimatePresence>
@@ -241,7 +244,7 @@ export function SlideDeck({paper,slides,chapter,onRead}:{paper:Paper;slides:Rese
       <div className="brief-player-control"><button className="brief-nav-button" onClick={()=>go(index-1)} disabled={index===0} aria-label="Slide trước"><ChevronLeft size={20}/><span>TRƯỚC</span></button><button className="brief-nav-button brief-nav-next" onClick={()=>go(index+1)} disabled={index===slides.length-1} aria-label="Slide tiếp theo"><span>TIẾP</span><ChevronRight size={20}/></button><span className="brief-player-count">{String(index+1).padStart(2,"0")} <span>/</span> {slides.length}</span></div>
       <div className="brief-player-utils"><button onClick={copy}>{copied?<Check size={16}/>:<ArrowUpRight size={16}/>}<span>{copied?"ĐÃ SAO CHÉP":"LINK SLIDE"}</span></button><a href={paper.pdf} target="_blank" rel="noopener noreferrer"><ExternalLink size={15}/><span>PDF GỐC</span></a><button onClick={onRead}><BookOpen size={16}/><span>DIỄN GIẢI</span></button></div>
     </div>
-    {notes&&<div className="brief-speaker-notes"><div className="brief-notes-title"><NotebookText size={17}/><strong>GHI CHÚ KHI TRÌNH BÀY</strong><span>NỘI DUNG ĐỐI CHIẾU TỪ BÀI DIỄN GIẢI</span></div><p className="brief-notes-intuition"><strong>Intuition.</strong> {slide.intuition}</p>{speakerText&&<p>{speakerText}</p>}<button onClick={onRead}>ĐỌC CHƯƠNG ĐẦY ĐỦ <ArrowRight size={14}/></button></div>}
+    {notes&&<div className="brief-speaker-notes"><div className="brief-notes-title"><NotebookText size={17}/><strong>GHI CHÚ KHI TRÌNH BÀY</strong><span>NỘI DUNG ĐỐI CHIẾU TỪ BÀI DIỄN GIẢI</span></div><p className="brief-notes-intuition"><strong>Intuition.</strong> {slide.intuition}</p>{slide.detail&&<p><strong>{slide.detail.label}.</strong> {slide.detail.text}</p>}{speakerText&&<p>{speakerText}</p>}<button onClick={onRead}>ĐỌC CHƯƠNG ĐẦY ĐỦ <ArrowRight size={14}/></button></div>}
     <div className="brief-slide-disclaimer"><span>Slide tóm lược để thuyết trình; metric/nhận định cần đối chiếu với PDF gốc.</span><span>Nhấn <kbd>?</kbd> để xem phím tắt.</span></div>
   </section>;
 }

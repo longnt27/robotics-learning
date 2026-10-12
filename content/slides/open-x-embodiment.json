@@ -6,7 +6,11 @@
     "items": [
       "Tập hợp dữ liệu nhiều robot trước khi học cross-embodiment"
     ],
-    "intuition": "Dùng thống nhất giao diện dữ liệu và co-training để test transfer thật."
+    "intuition": "Dùng thống nhất giao diện dữ liệu và co-training để test transfer thật.",
+    "detail": {
+      "label": "BỐI CẢNH NGHIÊN CỨU",
+      "text": "Open X-Embodiment hỏi: có thể chuẩn hóa kinh nghiệm của nhiều robot đủ để huấn luyện một policy chung và tạo positive chuyển giao hay không?"
+    }
   },
   {
     "type": "problem",
@@ -15,7 +19,11 @@
     "items": [
       "Train theo từng embodiment không tận dụng được kinh nghiệm cộng đồng"
     ],
-    "intuition": "Nối các dataset không thôi có thể làm model học sai units, frame và action convention."
+    "intuition": "Nối các dataset không thôi có thể làm model học sai units, frame và action convention.",
+    "detail": {
+      "label": "NGUYÊN NHÂN CỐT LÕI",
+      "text": "Mỗi robotics phòng thí nghiệm thường có một robot, một bộ điều khiển, một schema action và một tập dữ liệu riêng."
+    }
   },
   {
     "type": "contrast",
@@ -25,7 +33,11 @@
       "Tập hợp dữ liệu nhiều robot trước khi học cross-embodiment",
       "Dùng thống nhất giao diện dữ liệu và co-training để test transfer thật."
     ],
-    "intuition": "Dùng thống nhất giao diện dữ liệu và co-training để test transfer thật."
+    "intuition": "Dùng thống nhất giao diện dữ liệu và co-training để test transfer thật.",
+    "detail": {
+      "label": "VÌ SAO CẦN THAY ĐỔI",
+      "text": "Nếu dữ liệu của Franka không giúp WidowX và dữ liệu của Kuka không giúp mobile manipulator thì robotics không thể scale kiểu foundation mô hình; mỗi embodiment sẽ mãi là một silo."
+    }
   },
   {
     "type": "intuition",
@@ -34,7 +46,11 @@
     "items": [
       "Robot từ nhiều phòng thí nghiệm có thể chia sẻ dữ liệu để huấn luyện policy tổng quát hơn."
     ],
-    "intuition": "Dùng thống nhất giao diện dữ liệu và co-training để test transfer thật."
+    "intuition": "Dùng thống nhất giao diện dữ liệu và co-training để test transfer thật.",
+    "detail": {
+      "label": "GIẢI THÍCH CƠ CHẾ",
+      "text": "Nó xây một format và hỗn hợp dữ liệu huấn luyện để mô hình có thể học biểu diễn dùng chung, rồi đo xem dữ liệu từ robot A có giúp robot B hay không."
+    }
   },
   {
     "type": "concepts",
@@ -54,7 +70,11 @@
         "value": "Học chung nhiều dataset thay vì một robot duy nhất."
       }
     ],
-    "intuition": "Các dataset được quy đổi về cấu trúc lưu trữ/thời gian chung."
+    "intuition": "Các dataset được quy đổi về cấu trúc lưu trữ/thời gian chung.",
+    "detail": {
+      "label": "NỀN TẢNG KỸ THUẬT",
+      "text": "Cross-embodiment không phải chỉ concat mọi action vào một tensor. Các robot khác nhau về degrees of freedom, tần số điều khiển, camera convention, proprioception và gripper command semantics."
+    }
   },
   {
     "type": "pipeline",
@@ -66,37 +86,71 @@
       "RT-X training",
       "Đánh giá across embodiments"
     ],
-    "intuition": "Nhận observation và instruction theo giao diện robot mục tiêu."
+    "intuition": "Nhận observation và instruction theo giao diện robot mục tiêu.",
+    "detail": {
+      "label": "ĐIỂM NHẤN TRIỂN KHAI",
+      "text": "Dự án gom dữ liệu từ 22 robot embodiments và 21 tổ chức, tổng cộng hơn 1 triệu các quỹ đạo/episodes, hàng trăm kỹ năng và nhiệm vụ instances."
+    }
   },
   {
     "type": "representation",
     "title": "Mô hình biểu diễn cái gì?",
     "lead": "Các dataset được quy đổi về cấu trúc lưu trữ/thời gian chung.",
     "items": [
-      "Policy cần phân biệt robot nào và action có nghĩa gì.",
-      "Shared tensor shape không đảm bảo sự tương đương về chuyển động vật lý."
+      {
+        "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
+        "value": "Policy cần phân biệt robot nào và action có nghĩa gì."
+      },
+      {
+        "label": "ĐÁNH ĐỔI KỸ THUẬT",
+        "value": "Shared tensor shape không đảm bảo sự tương đương về chuyển động vật lý."
+      }
     ],
-    "intuition": "Shared tensor shape không đảm bảo sự tương đương về chuyển động vật lý."
+    "intuition": "Shared tensor shape không đảm bảo sự tương đương về chuyển động vật lý.",
+    "detail": {
+      "label": "CHI TIẾT BIỂU DIỄN",
+      "text": "Các tập dữ liệu khác nhau được chuyển về một interface chuẩn, trong khi vẫn giữ metadata/action semantics cần thiết."
+    }
   },
   {
     "type": "training",
     "title": "Model học như thế nào?",
     "lead": "Open X-Embodiment tập hợp nhiều loại robot và tổ chức.",
     "items": [
-      "RT-X models huấn luyện trên hỗn hợp datasets thay vì một nguồn.",
-      "Đánh giá lợi ích tiền huấn luyện/transfer trên robot mới."
+      {
+        "label": "MỤC TIÊU HỌC",
+        "value": "RT-X models huấn luyện trên hỗn hợp datasets thay vì một nguồn."
+      },
+      {
+        "label": "DỮ LIỆU / QUY TRÌNH",
+        "value": "Đánh giá lợi ích tiền huấn luyện/transfer trên robot mới."
+      }
     ],
-    "intuition": "So single-robot training với hỗn hợp cross-embodiment."
+    "intuition": "So single-robot training với hỗn hợp cross-embodiment.",
+    "detail": {
+      "label": "CÁCH HUẤN LUYỆN",
+      "text": "Trên corpus đó, consortium huấn luyện RT-1-X và RT-2-X, tức các phiên bản cross-embodiment của RT-1/RT-2."
+    }
   },
   {
     "type": "inference",
     "title": "Một lần inference xảy ra ra sao?",
     "lead": "Nhận observation và instruction theo giao diện robot mục tiêu.",
     "items": [
-      "Policy đã nhìn nhiều cách thao tác trong pretraining.",
-      "Đầu ra cần giải mã đúng schema của robot đang điều khiển."
+      {
+        "label": "XỬ LÝ ĐẦU VÀO",
+        "value": "Policy đã nhìn nhiều cách thao tác trong pretraining."
+      },
+      {
+        "label": "TẠO HÀNH ĐỘNG",
+        "value": "Đầu ra cần giải mã đúng schema của robot đang điều khiển."
+      }
     ],
-    "intuition": "Đầu ra cần giải mã đúng schema của robot đang điều khiển."
+    "intuition": "Đầu ra cần giải mã đúng schema của robot đang điều khiển.",
+    "detail": {
+      "label": "DIỄN BIẾN THỰC THI",
+      "text": "RT-X-style huấn luyện phải gắn embodiment, normalize, map hoặc giữ schema tương ứng; inference cần biết policy đầu ra được robot nhận theo convention nào."
+    }
   },
   {
     "type": "equation",
@@ -106,26 +160,47 @@
     "items": [
       "Biểu thức tập hợp dữ liệu mang tính khái niệm."
     ],
-    "intuition": "Trộn dữ liệu nhiều robot e để tăng coverage; chính phần align action/camera mới quyết định hỗn hợp có học được hay không."
+    "intuition": "Trộn dữ liệu nhiều robot e để tăng coverage; chính phần align action/camera mới quyết định hỗn hợp có học được hay không.",
+    "detail": {
+      "label": "Ý NGHĨA CÔNG THỨC",
+      "text": "Quan trọng về mặt infrastructure là bài báo không cố ép mọi robot thành cùng một phần cứng."
+    }
   },
   {
     "type": "results",
     "title": "Kết quả nói lên điều gì?",
     "lead": "RT-X cho thấy lợi ích từ co-training nhiều robot so với một phần các phương pháp đối chứng single-domain.",
     "items": [
-      "Chuyển giao hiệu quả khác nhau tùy mức tương đồng robot và nhiệm vụ.",
-      "Tập dữ liệu chung trở thành nền cho Octo, OpenVLA và nhiều VLA hậu kỳ."
+      {
+        "label": "PHÁT HIỆN QUAN TRỌNG",
+        "value": "Chuyển giao hiệu quả khác nhau tùy mức tương đồng robot và nhiệm vụ."
+      },
+      {
+        "label": "CÁCH DIỄN GIẢI",
+        "value": "Tập dữ liệu chung trở thành nền cho Octo, OpenVLA và nhiều VLA hậu kỳ."
+      }
     ],
-    "intuition": "dataset imbalance có thể làm robot nhiều dữ liệu lấn át robot hiếm; schema là một phần khó nhất của scale."
+    "intuition": "dataset imbalance có thể làm robot nhiều dữ liệu lấn át robot hiếm; schema là một phần khó nhất của scale.",
+    "detail": {
+      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
+      "text": "Ablation trên Bridge và các subsets cho thấy dữ liệu từ embodiment khác có thể tạo positive chuyển giao, và gains tăng khi mô hình đủ dung lượng mô hình để hấp thụ heterogeneity."
+    }
   },
   {
     "type": "ablation",
     "title": "Ablation và bằng chứng",
     "lead": "So single-robot training với hỗn hợp cross-embodiment.",
     "items": [
-      "Không thể suy mọi kỹ năng có thể chuyển giao bằng cùng mức lợi ích."
+      {
+        "label": "YẾU TỐ ĐƯỢC THỬ",
+        "value": "Không thể suy mọi kỹ năng có thể chuyển giao bằng cùng mức lợi ích."
+      }
     ],
-    "intuition": "Chuyển giao hiệu quả khác nhau tùy mức tương đồng robot và nhiệm vụ."
+    "intuition": "Chuyển giao hiệu quả khác nhau tùy mức tương đồng robot và nhiệm vụ.",
+    "detail": {
+      "label": "BẰNG CHỨNG BỔ SUNG",
+      "text": "Bài báo này không chứng minh “mọi robot đều học lẫn nhau”, nhưng nó chứng minh đủ để thay đổi hướng field: cross-embodiment pretraining từ đó trở thành một assumption hợp lý để đầu tư thay vì một fantasy."
+    }
   },
   {
     "type": "limits",
@@ -141,17 +216,31 @@
         "value": "Phê bình: dataset imbalance có thể làm robot nhiều dữ liệu lấn át robot hiếm; schema là một phần khó nhất của scale."
       }
     ],
-    "intuition": "Policy cần phân biệt robot nào và action có nghĩa gì."
+    "intuition": "Policy cần phân biệt robot nào và action có nghĩa gì.",
+    "detail": {
+      "label": "PHẠM VI KẾT LUẬN",
+      "text": "Phê bình thêm: tập dữ liệu contribution rất lệch về quantity và phân phối nhiệm vụ giữa các phòng thí nghiệm."
+    }
   },
   {
     "type": "relations",
     "title": "Bài này đứng ở đâu trong lĩnh vực?",
     "lead": "Không đọc paper như một hòn đảo riêng.",
     "items": [
-      "Octo kiểm tra generalist policy mở trên mixture.",
-      "OpenVLA học VLA token-based từ nguồn Open X."
+      {
+        "label": "NỀN TẢNG / TIỀN ĐỀ",
+        "value": "Octo kiểm tra generalist policy mở trên mixture."
+      },
+      {
+        "label": "HƯỚNG PHÁT TRIỂN",
+        "value": "OpenVLA học VLA token-based từ nguồn Open X."
+      }
     ],
-    "intuition": "Mỗi robot không nên phải học lại mọi kỹ năng từ đầu."
+    "intuition": "Mỗi robot không nên phải học lại mọi kỹ năng từ đầu.",
+    "detail": {
+      "label": "CÔNG TRÌNH LIÊN QUAN",
+      "text": "Đọc thêm Octo, OpenVLA, LingBot-VLA 2.0. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+    }
   },
   {
     "type": "closing",
@@ -161,6 +250,10 @@
       "Đầu tư pipeline curation/normalization trước khi trộn dữ liệu.",
       "Đừng đánh giá cross-embodiment bằng cách train/test cùng platform."
     ],
-    "intuition": "Robot từ nhiều phòng thí nghiệm có thể chia sẻ dữ liệu để huấn luyện policy tổng quát hơn."
+    "intuition": "Robot từ nhiều phòng thí nghiệm có thể chia sẻ dữ liệu để huấn luyện policy tổng quát hơn.",
+    "detail": {
+      "label": "THỬ NGHIỆM TIẾP THEO",
+      "text": "Đọc schema RLDS của hai embodiments, liệt kê từng field/units/action khung hình và viết validator."
+    }
   }
 ]

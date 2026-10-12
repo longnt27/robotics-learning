@@ -6,7 +6,11 @@
     "items": [
       "Tận dụng open VLM rồi fine-tune thành action predictor"
     ],
-    "intuition": "Đưa ảnh và instruction vào VLM; dự đoán discretized action tokens và giải mã sang motor space."
+    "intuition": "Đưa ảnh và instruction vào VLM; dự đoán discretized action tokens và giải mã sang motor space.",
+    "detail": {
+      "label": "BỐI CẢNH NGHIÊN CỨU",
+      "text": "Robotics community cần một open checkpoint đủ mạnh để nghiên cứu fine-tuning, parameter-efficient adaptation, quantization và downstream deployment."
+    }
   },
   {
     "type": "problem",
@@ -15,7 +19,11 @@
     "items": [
       "Policy robot-only thiếu world knowledge"
     ],
-    "intuition": "VLM-to-action đóng khó tái hiện experiment và không dễ phục vụ robot mới."
+    "intuition": "VLM-to-action đóng khó tái hiện experiment và không dễ phục vụ robot mới.",
+    "detail": {
+      "label": "NGUYÊN NHÂN CỐT LÕI",
+      "text": "OpenVLA đặt mục tiêu tạo một 7B VLA open-source cạnh tranh với các closed VLAs nhưng practical hơn cho phòng thí nghiệm bình thường."
+    }
   },
   {
     "type": "contrast",
@@ -25,7 +33,11 @@
       "Tận dụng open VLM rồi fine-tune thành action predictor",
       "Đưa ảnh và instruction vào VLM; dự đoán discretized action tokens và giải mã sang motor space."
     ],
-    "intuition": "Đưa ảnh và instruction vào VLM; dự đoán discretized action tokens và giải mã sang motor space."
+    "intuition": "Đưa ảnh và instruction vào VLM; dự đoán discretized action tokens và giải mã sang motor space.",
+    "detail": {
+      "label": "VÌ SAO CẦN THAY ĐỔI",
+      "text": "OpenVLA dùng Llama 2 7B làm ngôn ngữ backbone và fuse đặc trưng thị giác từ DINOv2 + SigLIP, sau đó pretrain/fine-tune trên khoảng 970 nghìn robot demonstrations từ Open X-Embodiment."
+    }
   },
   {
     "type": "intuition",
@@ -34,7 +46,11 @@
     "items": [
       "Một VLA mã nguồn mở nối pretrained VLM với action tokens và hỗ trợ fine-tuning robot-specific."
     ],
-    "intuition": "Đưa ảnh và instruction vào VLM; dự đoán discretized action tokens và giải mã sang motor space."
+    "intuition": "Đưa ảnh và instruction vào VLM; dự đoán discretized action tokens và giải mã sang motor space.",
+    "detail": {
+      "label": "GIẢI THÍCH CƠ CHẾ",
+      "text": "Liên tục robot actions được discretize thành tokens để mô hình dùng cùng autoregressive next-token mục tiêu huấn luyện với VLM."
+    }
   },
   {
     "type": "concepts",
@@ -54,7 +70,11 @@
         "value": "Fine-tune ít weights hơn full checkpoint."
       }
     ],
-    "intuition": "7D action thường bao gồm translation/rotation/gripper."
+    "intuition": "7D action thường bao gồm translation/rotation/gripper.",
+    "detail": {
+      "label": "NỀN TẢNG KỸ THUẬT",
+      "text": "OpenVLA cung cấp implementation, weights và LoRA fine-tuning, giúp mở phần lớn hệ thống để kiểm chứng ở mức mô hình code."
+    }
   },
   {
     "type": "pipeline",
@@ -66,37 +86,71 @@
       "LLM action tokens",
       "De-normalize → robot action"
     ],
-    "intuition": "Ảnh đi qua vision backbone trước khi kết hợp instruction trong language backbone."
+    "intuition": "Ảnh đi qua vision backbone trước khi kết hợp instruction trong language backbone.",
+    "detail": {
+      "label": "ĐIỂM NHẤN TRIỂN KHAI",
+      "text": "Bài báo đặc biệt quan tâm tới adaptation. Họ thử full fine-tuning, LoRA với nhiều rank, quantization 4-bit/8-bit và evaluate memory/throughput/hiệu năng trade-off."
+    }
   },
   {
     "type": "representation",
     "title": "Mô hình biểu diễn cái gì?",
     "lead": "7D action thường bao gồm translation/rotation/gripper.",
     "items": [
-      "Token bins lượng tử hóa normalized action.",
-      "Norm statistics theo dataset/robot là tối quan trọng khi decode."
+      {
+        "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
+        "value": "Token bins lượng tử hóa normalized action."
+      },
+      {
+        "label": "ĐÁNH ĐỔI KỸ THUẬT",
+        "value": "Norm statistics theo dataset/robot là tối quan trọng khi decode."
+      }
     ],
-    "intuition": "Norm statistics theo dataset/robot là tối quan trọng khi decode."
+    "intuition": "Norm statistics theo dataset/robot là tối quan trọng khi decode.",
+    "detail": {
+      "label": "CHI TIẾT BIỂU DIỄN",
+      "text": "Họ thử full fine-tuning, LoRA với nhiều rank, quantization 4-bit/8-bit và evaluate memory/throughput/hiệu năng trade-off."
+    }
   },
   {
     "type": "training",
     "title": "Model học như thế nào?",
     "lead": "Sử dụng Open X robot data và VLM pretraining.",
     "items": [
-      "Fine-tune VLM theo autoregressive action prediction.",
-      "Có recipe LoRA để thích nghi vào data robot riêng."
+      {
+        "label": "MỤC TIÊU HỌC",
+        "value": "Fine-tune VLM theo autoregressive action prediction."
+      },
+      {
+        "label": "DỮ LIỆU / QUY TRÌNH",
+        "value": "Có recipe LoRA để thích nghi vào data robot riêng."
+      }
     ],
-    "intuition": "Kiểm tra gains của fine-tuning theo robot và lượng dữ liệu."
+    "intuition": "Kiểm tra gains của fine-tuning theo robot và lượng dữ liệu.",
+    "detail": {
+      "label": "CÁCH HUẤN LUYỆN",
+      "text": "PEFT là phần rất thực dụng: LoRA rank 32 đạt khoảng 68.2% so với 69.7% full fine-tuning nhưng chỉ huấn luyện khoảng 1.4% parameters và memory giảm mạnh."
+    }
   },
   {
     "type": "inference",
     "title": "Một lần inference xảy ra ra sao?",
     "lead": "Ảnh đi qua vision backbone trước khi kết hợp instruction trong language backbone.",
     "items": [
-      "Instruction + image tokens được language backbone xử lý.",
-      "Sinh action tokens rồi áp inverse normalization trước điều khiển."
+      {
+        "label": "XỬ LÝ ĐẦU VÀO",
+        "value": "Instruction + image tokens được language backbone xử lý."
+      },
+      {
+        "label": "TẠO HÀNH ĐỘNG",
+        "value": "Sinh action tokens rồi áp inverse normalization trước điều khiển."
+      }
     ],
-    "intuition": "Sinh action tokens rồi áp inverse normalization trước điều khiển."
+    "intuition": "Sinh action tokens rồi áp inverse normalization trước điều khiển.",
+    "detail": {
+      "label": "DIỄN BIẾN THỰC THI",
+      "text": "Đầu vào gồm hình ảnh và chỉ dẫn, backbone VLM tạo hidden đặc trưng, decoder sinh discrete tokens mã hóa các action dimensions."
+    }
   },
   {
     "type": "equation",
@@ -106,26 +160,47 @@
     "items": [
       "Biểu thức hệ thống hóa bước decode, không phải loss."
     ],
-    "intuition": "Token trong VLM không tự có đơn vị mét/radian: phải giải mã và phục hồi scale action của robot đích."
+    "intuition": "Token trong VLM không tự có đơn vị mét/radian: phải giải mã và phục hồi scale action của robot đích.",
+    "detail": {
+      "label": "Ý NGHĨA CÔNG THỨC",
+      "text": "RT-2 gợi ý VLM-to-action là khả thi nhưng không phải open reproducible mô hình cho nhiều phòng thí nghiệm."
+    }
   },
   {
     "type": "results",
     "title": "Kết quả nói lên điều gì?",
     "lead": "OpenVLA 7B trở thành baseline mở để chạy inference và fine-tune.",
     "items": [
-      "Đánh giá đa nhiệm cho thấy tiềm năng transfer từ VLM sang robot control.",
-      "Tương quan giữa chất lượng checkpoint và normalization/dataset rất lớn."
+      {
+        "label": "PHÁT HIỆN QUAN TRỌNG",
+        "value": "Đánh giá đa nhiệm cho thấy tiềm năng transfer từ VLM sang robot control."
+      },
+      {
+        "label": "CÁCH DIỄN GIẢI",
+        "value": "Tương quan giữa chất lượng checkpoint và normalization/dataset rất lớn."
+      }
     ],
-    "intuition": "7B không phải lựa chọn tốt cho low-cost 50 Hz control; quantization làm tăng sai số."
+    "intuition": "7B không phải lựa chọn tốt cho low-cost 50 Hz control; quantization làm tăng sai số.",
+    "detail": {
+      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
+      "text": "Trên bộ 29 nhiệm vụ dùng để so generalist policies, OpenVLA báo tỷ lệ thành công trung bình cao hơn RT-2-X khoảng 16.5 điểm trong đánh giá của họ."
+    }
   },
   {
     "type": "ablation",
     "title": "Ablation và bằng chứng",
     "lead": "Kiểm tra gains của fine-tuning theo robot và lượng dữ liệu.",
     "items": [
-      "So LoRA, quantized inference với precision/latency/memory thực tế."
+      {
+        "label": "YẾU TỐ ĐƯỢC THỬ",
+        "value": "So LoRA, quantized inference với precision/latency/memory thực tế."
+      }
     ],
-    "intuition": "Đánh giá đa nhiệm cho thấy tiềm năng transfer từ VLM sang robot control."
+    "intuition": "Đánh giá đa nhiệm cho thấy tiềm năng transfer từ VLM sang robot control.",
+    "detail": {
+      "label": "BẰNG CHỨNG BỔ SUNG",
+      "text": "Sau task-specific/multi-task fine-tuning, OpenVLA vượt Octo và Diffusion Policy đáng kể trên những thiết lập thao tác robot cần hiểu nhiều chỉ dẫn ngôn ngữ, tác giả nêu mức cải thiện tổng hợp khoảng 20.4%."
+    }
   },
   {
     "type": "limits",
@@ -141,17 +216,31 @@
         "value": "Phê bình: 7B không phải lựa chọn tốt cho low-cost 50 Hz control; quantization làm tăng sai số."
       }
     ],
-    "intuition": "Token bins lượng tử hóa normalized action."
+    "intuition": "Token bins lượng tử hóa normalized action.",
+    "detail": {
+      "label": "PHẠM VI KẾT LUẬN",
+      "text": "Phê bình thêm: action tokenization là một nút thắt kép: quantization làm mất độ chính xác, autoregression làm mất speed."
+    }
   },
   {
     "type": "relations",
     "title": "Bài này đứng ở đâu trong lĩnh vực?",
     "lead": "Không đọc paper như một hòn đảo riêng.",
     "items": [
-      "RT-2 là tiền đề VLM-to-action autoregression.",
-      "FAST giảm token length của action sequence; π0.5 chuyển sang continuous flow."
+      {
+        "label": "NỀN TẢNG / TIỀN ĐỀ",
+        "value": "RT-2 là tiền đề VLM-to-action autoregression."
+      },
+      {
+        "label": "HƯỚNG PHÁT TRIỂN",
+        "value": "FAST giảm token length của action sequence; π0.5 chuyển sang continuous flow."
+      }
     ],
-    "intuition": "OpenVLA là nơi nên mở code để học VLA pipeline."
+    "intuition": "OpenVLA là nơi nên mở code để học VLA pipeline.",
+    "detail": {
+      "label": "CÔNG TRÌNH LIÊN QUAN",
+      "text": "Đọc thêm RT-2, FAST, Qwen-VLA. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+    }
   },
   {
     "type": "closing",
@@ -161,6 +250,10 @@
       "Luôn inspect action tokenizer và normalization trước rollout.",
       "Thành công inference không đồng nghĩa model chạy được real-time trên robot."
     ],
-    "intuition": "Một VLA mã nguồn mở nối pretrained VLM với action tokens và hỗ trợ fine-tuning robot-specific."
+    "intuition": "Một VLA mã nguồn mở nối pretrained VLM với action tokens và hỗ trợ fine-tuning robot-specific.",
+    "detail": {
+      "label": "THỬ NGHIỆM TIẾP THEO",
+      "text": "Chỉ chạy 4-bit inference T4, log processor đầu vào, token thị giác, logits/token IDs, decoded normalized action và unnormalized action."
+    }
   }
 ]

@@ -6,7 +6,11 @@
     "items": [
       "Đo và chủ động mở rộng coverage của phân phối robot"
     ],
-    "intuition": "Dữ liệu nhiều môi trường và kỹ năng khiến policy phải học affordance thay vì nhớ nền."
+    "intuition": "Dữ liệu nhiều môi trường và kỹ năng khiến policy phải học affordance thay vì nhớ nền.",
+    "detail": {
+      "label": "BỐI CẢNH NGHIÊN CỨU",
+      "text": "BridgeData V2 muốn xây một tập dữ liệu mà policy được huấn luyện ở Berkeley vẫn có cơ hội làm được việc ở setup khác, đồng thời đủ đa nhiệm vụ để mô hình phải thật sự đọc mục tiêu/ngôn ngữ thay vì đoán nhiệm vụ từ bối cảnh."
+    }
   },
   {
     "type": "problem",
@@ -15,7 +19,11 @@
     "items": [
       "Đếm trajectory không đủ để nói về chất lượng dữ liệu"
     ],
-    "intuition": "Mẫu tăng nhưng vật thể, thao tác và camera vẫn không đổi thì OOD transfer vẫn yếu."
+    "intuition": "Mẫu tăng nhưng vật thể, thao tác và camera vẫn không đổi thì OOD transfer vẫn yếu.",
+    "detail": {
+      "label": "NGUYÊN NHÂN CỐT LÕI",
+      "text": "Một trong những lý do robotics chậm hơn vision/NLP là tập dữ liệu thường nhỏ, đóng và gắn chết với một phòng thí nghiệm."
+    }
   },
   {
     "type": "contrast",
@@ -25,7 +33,11 @@
       "Đo và chủ động mở rộng coverage của phân phối robot",
       "Dữ liệu nhiều môi trường và kỹ năng khiến policy phải học affordance thay vì nhớ nền."
     ],
-    "intuition": "Dữ liệu nhiều môi trường và kỹ năng khiến policy phải học affordance thay vì nhớ nền."
+    "intuition": "Dữ liệu nhiều môi trường và kỹ năng khiến policy phải học affordance thay vì nhớ nền.",
+    "detail": {
+      "label": "VÌ SAO CẦN THAY ĐỔI",
+      "text": "Nếu một nhóm khác không có đúng robot, đúng table, đúng camera và đúng vật thể thì gần như không tái sử dụng được."
+    }
   },
   {
     "type": "intuition",
@@ -34,7 +46,11 @@
     "items": [
       "Muốn generalization, dataset phải rộng về nhiệm vụ và môi trường, không chỉ nhiều episode."
     ],
-    "intuition": "Dữ liệu nhiều môi trường và kỹ năng khiến policy phải học affordance thay vì nhớ nền."
+    "intuition": "Dữ liệu nhiều môi trường và kỹ năng khiến policy phải học affordance thay vì nhớ nền.",
+    "detail": {
+      "label": "GIẢI THÍCH CƠ CHẾ",
+      "text": "Tập dữ liệu có 60,096 các quỹ đạo trên 24 environments, hơn 100 vật thể và nhiều kỹ năng như pick-place, push, sweep, stack, fold."
+    }
   },
   {
     "type": "concepts",
@@ -54,7 +70,11 @@
         "value": "Hành động điều kiện theo ảnh mục tiêu hoặc ngôn ngữ."
       }
     ],
-    "intuition": "RGB, state, actions và goal image hoặc language."
+    "intuition": "RGB, state, actions và goal image hoặc language.",
+    "detail": {
+      "label": "NỀN TẢNG KỸ THUẬT",
+      "text": "Tập dữ liệu robotics thường bị giới hạn trong phòng phòng thí nghiệm, vật thể set, camera angle và nhiệm vụ collection protocol; số lượng episode lớn chưa chắc làm phân phối đủ rộng."
+    }
   },
   {
     "type": "pipeline",
@@ -66,37 +86,71 @@
       "Hỗn hợp 6 methods",
       "Seen / unseen rollouts"
     ],
-    "intuition": "Policy quan sát cảnh và mục tiêu trước khi sinh thao tác đã học từ demonstrations."
+    "intuition": "Policy quan sát cảnh và mục tiêu trước khi sinh thao tác đã học từ demonstrations.",
+    "detail": {
+      "label": "ĐIỂM NHẤN TRIỂN KHAI",
+      "text": "Bài báo không ép một thuật toán duy nhất mà huấn luyện 6 imitation/offline-RL methods để xem tập dữ liệu có hữu ích xuyên kiến trúc không."
+    }
   },
   {
     "type": "representation",
     "title": "Mô hình biểu diễn cái gì?",
     "lead": "RGB, state, actions và goal image hoặc language.",
     "items": [
-      "13 loại kỹ năng trong demonstrations chính; thêm randomized pick/place.",
-      "Dataset một họ phần cứng không đồng nghĩa cross-embodiment."
+      {
+        "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
+        "value": "13 loại kỹ năng trong demonstrations chính; thêm randomized pick/place."
+      },
+      {
+        "label": "ĐÁNH ĐỔI KỸ THUẬT",
+        "value": "Dataset một họ phần cứng không đồng nghĩa cross-embodiment."
+      }
     ],
-    "intuition": "Dataset một họ phần cứng không đồng nghĩa cross-embodiment."
+    "intuition": "Dataset một họ phần cứng không đồng nghĩa cross-embodiment.",
+    "detail": {
+      "label": "CHI TIẾT BIỂU DIỄN",
+      "text": "Trong đó 50,365 các quỹ đạo là demonstrations của 13 kỹ năng và thêm 9,731 các quỹ đạo từ một randomized pick-and-place policy để tăng robustness."
+    }
   },
   {
     "type": "training",
     "title": "Model học như thế nào?",
     "lead": "50.365 expert demonstrations + 9.731 randomized trajectories.",
     "items": [
-      "Nhiều baseline gồm BC, goal-conditioned và diffusion-style policies.",
-      "Ablation data size, model size và skill diversity."
+      {
+        "label": "MỤC TIÊU HỌC",
+        "value": "Nhiều baseline gồm BC, goal-conditioned và diffusion-style policies."
+      },
+      {
+        "label": "DỮ LIỆU / QUY TRÌNH",
+        "value": "Ablation data size, model size và skill diversity."
+      }
     ],
-    "intuition": "Giữ số mẫu gần tương đương, thay skill diversity."
+    "intuition": "Giữ số mẫu gần tương đương, thay skill diversity.",
+    "detail": {
+      "label": "CÁCH HUẤN LUYỆN",
+      "text": "Họ còn làm scaling ablations về kích thước mô hình, tập dữ liệu size và kỹ năng sự đa dạng."
+    }
   },
   {
     "type": "inference",
     "title": "Một lần inference xảy ra ra sao?",
     "lead": "Policy quan sát cảnh và mục tiêu trước khi sinh thao tác đã học từ demonstrations.",
     "items": [
-      "Sinh thao tác learned từ demonstrations.",
-      "Đánh giá transfer qua scenes/institutions không hoàn toàn trùng training."
+      {
+        "label": "XỬ LÝ ĐẦU VÀO",
+        "value": "Sinh thao tác learned từ demonstrations."
+      },
+      {
+        "label": "TẠO HÀNH ĐỘNG",
+        "value": "Đánh giá transfer qua scenes/institutions không hoàn toàn trùng training."
+      }
     ],
-    "intuition": "Đánh giá transfer qua scenes/institutions không hoàn toàn trùng training."
+    "intuition": "Đánh giá transfer qua scenes/institutions không hoàn toàn trùng training.",
+    "detail": {
+      "label": "DIỄN BIẾN THỰC THI",
+      "text": "BridgeData V2 cho nhiều bối cảnh/nhiệm vụ, để policy cần nhận ra affordance dù phông nền thay đổi."
+    }
   },
   {
     "type": "equation",
@@ -106,26 +160,47 @@
     "items": [
       "Đây là shorthand mang tính trực quan, không phải metric do bài báo định nghĩa."
     ],
-    "intuition": "Nhiều episode không tự tạo dữ liệu đa dạng: hai dataset cùng số mẫu có thể có coverage rất khác."
+    "intuition": "Nhiều episode không tự tạo dữ liệu đa dạng: hai dataset cùng số mẫu có thể có coverage rất khác.",
+    "detail": {
+      "label": "Ý NGHĨA CÔNG THỨC",
+      "text": "Robot là một platform low-cost công khai, giúp các phòng thí nghiệm khác có thể dựng phần cứng gần tương thích."
+    }
   },
   {
     "type": "results",
     "title": "Kết quả nói lên điều gì?",
     "lead": "60.096 trajectories tại 24 môi trường, hơn 100 vật thể.",
     "items": [
-      "Policy từ nhiều họ thuật toán đều hưởng lợi từ dữ liệu.",
-      "Khi số mẫu gần nhau, tập có nhiều loại kỹ năng thường generalize tốt hơn."
+      {
+        "label": "PHÁT HIỆN QUAN TRỌNG",
+        "value": "Policy từ nhiều họ thuật toán đều hưởng lợi từ dữ liệu."
+      },
+      {
+        "label": "CÁCH DIỄN GIẢI",
+        "value": "Khi số mẫu gần nhau, tập có nhiều loại kỹ năng thường generalize tốt hơn."
+      }
     ],
-    "intuition": "một dataset nhiều positive demos vẫn thiếu failure recovery và dynamic contact."
+    "intuition": "một dataset nhiều positive demos vẫn thiếu failure recovery và dynamic contact.",
+    "detail": {
+      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
+      "text": "Điểm chính không phải một con số SOTA đơn lẻ mà là xu hướng nhất quán: nhiều dữ liệu hơn, mô hình lớn hơn và kỹ năng sự đa dạng cao hơn đều cải thiện khả năng khái quát."
+    }
   },
   {
     "type": "ablation",
     "title": "Ablation và bằng chứng",
     "lead": "Giữ số mẫu gần tương đương, thay skill diversity.",
     "items": [
-      "Tăng model/dataset size cũng có lợi nhưng không thay thế coverage."
+      {
+        "label": "YẾU TỐ ĐƯỢC THỬ",
+        "value": "Tăng model/dataset size cũng có lợi nhưng không thay thế coverage."
+      }
     ],
-    "intuition": "Policy từ nhiều họ thuật toán đều hưởng lợi từ dữ liệu."
+    "intuition": "Policy từ nhiều họ thuật toán đều hưởng lợi từ dữ liệu.",
+    "detail": {
+      "label": "BẰNG CHỨNG BỔ SUNG",
+      "text": "Điều này echo RT-1: thêm hàng chục nghìn replay của cùng hành vi không thay thế được coverage của nhiều hành vi khác nhau."
+    }
   },
   {
     "type": "limits",
@@ -141,17 +216,31 @@
         "value": "Phê bình: một dataset nhiều positive demos vẫn thiếu failure recovery và dynamic contact."
       }
     ],
-    "intuition": "13 loại kỹ năng trong demonstrations chính; thêm randomized pick/place."
+    "intuition": "13 loại kỹ năng trong demonstrations chính; thêm randomized pick/place.",
+    "detail": {
+      "label": "PHẠM VI KẾT LUẬN",
+      "text": "Bài báo thừa nhận: tập dữ liệu vẫn là một robot family, thao tác chủ yếu tabletop, low-force và tương đối ít động lực học phức tạp."
+    }
   },
   {
     "type": "relations",
     "title": "Bài này đứng ở đâu trong lĩnh vực?",
     "lead": "Không đọc paper như một hòn đảo riêng.",
     "items": [
-      "DROID tăng mạnh diversity của môi trường thật.",
-      "Open X-Embodiment mở rộng thêm chiều khác nhau giữa các robot."
+      {
+        "label": "NỀN TẢNG / TIỀN ĐỀ",
+        "value": "DROID tăng mạnh diversity của môi trường thật."
+      },
+      {
+        "label": "HƯỚNG PHÁT TRIỂN",
+        "value": "Open X-Embodiment mở rộng thêm chiều khác nhau giữa các robot."
+      }
     ],
-    "intuition": "Thiết kế kế hoạch thu data theo coverage, không theo episode quota."
+    "intuition": "Thiết kế kế hoạch thu data theo coverage, không theo episode quota.",
+    "detail": {
+      "label": "CÔNG TRÌNH LIÊN QUAN",
+      "text": "Đọc thêm Octo, Open X-Embodiment. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+    }
   },
   {
     "type": "closing",
@@ -161,6 +250,10 @@
       "Cần held-out scene và skill split khi đánh giá.",
       "Không gọi chuyển giao cùng phần cứng là cross-embodiment."
     ],
-    "intuition": "Muốn generalization, dataset phải rộng về nhiệm vụ và môi trường, không chỉ nhiều episode."
+    "intuition": "Muốn generalization, dataset phải rộng về nhiệm vụ và môi trường, không chỉ nhiều episode.",
+    "detail": {
+      "label": "THỬ NGHIỆM TIẾP THEO",
+      "text": "Tải một subset nhỏ, xem RGB/state/action các quỹ đạo, tạo split random và held-out scene rồi so sánh khả năng khái quát gap."
+    }
   }
 ]

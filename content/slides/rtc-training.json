@@ -6,7 +6,11 @@
     "items": [
       "Condition policy theo prefix ngay từ huấn luyện"
     ],
-    "intuition": "Randomize độ dài prefix k; khóa phần đã committed, flow loss chỉ học suffix còn lại."
+    "intuition": "Randomize độ dài prefix k; khóa phần đã committed, flow loss chỉ học suffix còn lại.",
+    "detail": {
+      "label": "BỐI CẢNH NGHIÊN CỨU",
+      "text": "Nó đặc biệt bất lợi khi inference delay lớn vì committed prefix dài hơn. Tác giả hỏi: nếu policy đã được huấn luyện để biết rằng một đoạn quỹ đạo có thể được cho trước, liệu có thể loại bỏ guidance ở runtime không?"
+    }
   },
   {
     "type": "problem",
@@ -15,7 +19,11 @@
     "items": [
       "Model flow thông thường không biết action prefix đã cam kết"
     ],
-    "intuition": "Runtime phải ép mẫu sinh khớp chunk cũ; rút ngắn latency bằng hack serving có giới hạn."
+    "intuition": "Runtime phải ép mẫu sinh khớp chunk cũ; rút ngắn latency bằng hack serving có giới hạn.",
+    "detail": {
+      "label": "NGUYÊN NHÂN CỐT LÕI",
+      "text": "RTC inference-time chạy được với existing flow action policy, nhưng để ép chunk mới khớp prefix đã commit, sampler phải thêm guided inpainting."
+    }
   },
   {
     "type": "contrast",
@@ -25,7 +33,11 @@
       "Condition policy theo prefix ngay từ huấn luyện",
       "Randomize độ dài prefix k; khóa phần đã committed, flow loss chỉ học suffix còn lại."
     ],
-    "intuition": "Randomize độ dài prefix k; khóa phần đã committed, flow loss chỉ học suffix còn lại."
+    "intuition": "Randomize độ dài prefix k; khóa phần đã committed, flow loss chỉ học suffix còn lại.",
+    "detail": {
+      "label": "VÌ SAO CẦN THAY ĐỔI",
+      "text": "Đây là biến thể của một nguyên lý ML rộng hơn: biến deployment constraint thành phân phối dữ liệu huấn luyện, thay vì sửa đầu ra bằng heuristic sau khi huấn luyện xong."
+    }
   },
   {
     "type": "intuition",
@@ -34,7 +46,11 @@
     "items": [
       "Dạy model ngay lúc training cách tiếp nối committed prefix để inference không cần guidance đắt đỏ."
     ],
-    "intuition": "Randomize độ dài prefix k; khóa phần đã committed, flow loss chỉ học suffix còn lại."
+    "intuition": "Randomize độ dài prefix k; khóa phần đã committed, flow loss chỉ học suffix còn lại.",
+    "detail": {
+      "label": "GIẢI THÍCH CƠ CHẾ",
+      "text": "Do đó huấn luyện randomize k không thay thế độ trễ estimator/runtime scheduling. Nó chỉ giúp mạng biết cách xử lý nhiều loại prefix mà estimator đưa ra."
+    }
   },
   {
     "type": "concepts",
@@ -54,7 +70,11 @@
         "value": "Sinh phần tương lai phù hợp actions đã cam kết."
       }
     ],
-    "intuition": "Tensor chunk có mask chia committed vs future positions."
+    "intuition": "Tensor chunk có mask chia committed vs future positions.",
+    "detail": {
+      "label": "NỀN TẢNG KỸ THUẬT",
+      "text": "Mô hình flow vẫn map noise → phân phối dữ liệu sạch action, nhưng chỉ đối với phần postfix chưa biết; prefix đã có giá trị."
+    }
   },
   {
     "type": "pipeline",
@@ -66,37 +86,71 @@
       "Noise + train suffix flow",
       "Inference completion trực tiếp"
     ],
-    "intuition": "Servo tiếp tục chạy buffer cũ trong khi model sinh suffix phù hợp committed prefix."
+    "intuition": "Servo tiếp tục chạy buffer cũ trong khi model sinh suffix phù hợp committed prefix.",
+    "detail": {
+      "label": "ĐIỂM NHẤN TRIỂN KHAI",
+      "text": "Vì τ=1 tương đương dữ liệu sạch, prefix đưa vào mạng nguyên bản, không nhiễu. Trong mỗi flow lấy mẫu vòng lặp inference, prefix cũng được overwrite bằng các action đã commit để đảm bảo chính xác."
+    }
   },
   {
     "type": "representation",
     "title": "Mô hình biểu diễn cái gì?",
     "lead": "Tensor chunk có mask chia committed vs future positions.",
     "items": [
-      "Prefix trong train lấy từ ground-truth demonstration.",
-      "Khi deploy prefix đến từ policy cũ, có thể xuất hiện distribution shift."
+      {
+        "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
+        "value": "Prefix trong train lấy từ ground-truth demonstration."
+      },
+      {
+        "label": "ĐÁNH ĐỔI KỸ THUẬT",
+        "value": "Khi deploy prefix đến từ policy cũ, có thể xuất hiện distribution shift."
+      }
     ],
-    "intuition": "Khi deploy prefix đến từ policy cũ, có thể xuất hiện distribution shift."
+    "intuition": "Khi deploy prefix đến từ policy cũ, có thể xuất hiện distribution shift.",
+    "detail": {
+      "label": "CHI TIẾT BIỂU DIỄN",
+      "text": "k_est > k_real: mô hình bị buộc giữ lâu hơn cần thiết, thường giảm reactivity nhưng continuity tương đối dễ giữ. k_est < k_real: robot đã thực thi thêm action chưa được điều kiện vào prefix của chunk mới."
+    }
   },
   {
     "type": "training",
     "title": "Model học như thế nào?",
     "lead": "Mẫu ngẫu nhiên k theo delay distribution.",
     "items": [
-      "Trong real robot experiment, k được train trong khoảng 0–10 steps (0–200 ms ở 50 Hz).",
-      "Loss tập trung suffix, không lặp error penalty lên action cố định."
+      {
+        "label": "MỤC TIÊU HỌC",
+        "value": "Trong real robot experiment, k được train trong khoảng 0–10 steps (0–200 ms ở 50 Hz)."
+      },
+      {
+        "label": "DỮ LIỆU / QUY TRÌNH",
+        "value": "Loss tập trung suffix, không lặp error penalty lên action cố định."
+      }
     ],
-    "intuition": "Train k cố định vs sampled trên dải delay."
+    "intuition": "Train k cố định vs sampled trên dải delay.",
+    "detail": {
+      "label": "CÁCH HUẤN LUYỆN",
+      "text": "Trong thí nghiệm trên robot thật, tác giả huấn luyện với delay phân bố đều từ 0 đến 10 bước điều khiển, bao phủ khoảng độ trễ dự kiến đến 200 ms ở 50 Hz."
+    }
   },
   {
     "type": "inference",
     "title": "Một lần inference xảy ra ra sao?",
     "lead": "Servo tiếp tục chạy buffer cũ trong khi model sinh suffix phù hợp committed prefix.",
     "items": [
-      "Model nhận prefix và observation, sinh suffix phù hợp ngay trong forward sampling.",
-      "Không cần gradient-based guidance ở runtime như RTC inference-time."
+      {
+        "label": "XỬ LÝ ĐẦU VÀO",
+        "value": "Model nhận prefix và observation, sinh suffix phù hợp ngay trong forward sampling."
+      },
+      {
+        "label": "TẠO HÀNH ĐỘNG",
+        "value": "Không cần gradient-based guidance ở runtime như RTC inference-time."
+      }
     ],
-    "intuition": "Không cần gradient-based guidance ở runtime như RTC inference-time."
+    "intuition": "Không cần gradient-based guidance ở runtime như RTC inference-time.",
+    "detail": {
+      "label": "DIỄN BIẾN THỰC THI",
+      "text": "Inference đầu vào nhận a_1...a_5 sạch. Mô hình chỉ phải sinh a_6...a_H sao cho điều kiện trên quan sát và prefix; khi kết quả tới, robot tiếp tục quỹ đạo hợp lý mà không hard switch sang một mode khác."
+    }
   },
   {
     "type": "equation",
@@ -106,26 +160,47 @@
     "items": [
       "Đây là intuition của masked flow loss; xem bài gốc để biết chính xác parametrization."
     ],
-    "intuition": "Chỉ tối ưu các action tương lai i>k; prefix a₁:k là phần không được sửa."
+    "intuition": "Chỉ tối ưu các action tương lai i>k; prefix a₁:k là phần không được sửa.",
+    "detail": {
+      "label": "Ý NGHĨA CÔNG THỨC",
+      "text": "Trong mỗi flow lấy mẫu vòng lặp inference, prefix cũng được overwrite bằng các action đã commit để đảm bảo chính xác."
+    }
   },
   {
     "type": "results",
     "title": "Kết quả nói lên điều gì?",
     "lead": "Simulation Kinetix: tốt hơn rõ trong nhiều thiết lập delay cao, không thắng mọi k.",
     "items": [
-      "Real robot box building/espresso với π0.6: latency khoảng 108 ms so 135 ms RTC inference-time.",
-      "Chênh 27 ms đáng kể với servo 50 Hz (chu kỳ 20 ms)."
+      {
+        "label": "PHÁT HIỆN QUAN TRỌNG",
+        "value": "Real robot box building/espresso với π0.6: latency khoảng 108 ms so 135 ms RTC inference-time."
+      },
+      {
+        "label": "CÁCH DIỄN GIẢI",
+        "value": "Chênh 27 ms đáng kể với servo 50 Hz (chu kỳ 20 ms)."
+      }
     ],
-    "intuition": "output policy cũ có sai số; committed command khác actual actuator state khi contact."
+    "intuition": "output policy cũ có sai số; committed command khác actual actuator state khi contact.",
+    "detail": {
+      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
+      "text": "Simulation: Tác giả dùng 12 nhiệm vụ động trong Kinetix từ RTC trước. So inference-time RTC với training-time RTC theo delay."
+    }
   },
   {
     "type": "ablation",
     "title": "Ablation và bằng chứng",
     "lead": "Train k cố định vs sampled trên dải delay.",
     "items": [
-      "So outcome và runtime overhead, không chỉ flow validation loss."
+      {
+        "label": "YẾU TỐ ĐƯỢC THỬ",
+        "value": "So outcome và runtime overhead, không chỉ flow validation loss."
+      }
     ],
-    "intuition": "Real robot box building/espresso với π0.6: latency khoảng 108 ms so 135 ms RTC inference-time."
+    "intuition": "Real robot box building/espresso với π0.6: latency khoảng 108 ms so 135 ms RTC inference-time.",
+    "detail": {
+      "label": "BẰNG CHỨNG BỔ SUNG",
+      "text": "So inference-time RTC với training-time RTC theo delay. Kết quả báo cáo cho thấy training-time method có lợi thế rõ khi delay tăng (d≥2 trong mô phỏng được mô tả), trong khi ở delay rất nhỏ đôi khi không mạnh bằng phương pháp đối chứng."
+    }
   },
   {
     "type": "limits",
@@ -141,17 +216,31 @@
         "value": "Phê bình: output policy cũ có sai số; committed command khác actual actuator state khi contact."
       }
     ],
-    "intuition": "Prefix trong train lấy từ ground-truth demonstration."
+    "intuition": "Prefix trong train lấy từ ground-truth demonstration.",
+    "detail": {
+      "label": "PHẠM VI KẾT LUẬN",
+      "text": "Error trong prefix sẽ đưa mô hình vào phân phối khác huấn luyện. Action commitment phụ thuộc robot thực: sensor-feedback và servo bộ điều khiển có thể khác lệnh đã gửi; committed action command không đảm bảo actuator thực hiện chính xác do contact/saturation."
+    }
   },
   {
     "type": "relations",
     "title": "Bài này đứng ở đâu trong lĩnh vực?",
     "lead": "Không đọc paper như một hòn đảo riêng.",
     "items": [
-      "RTC inference-time dùng sampler guidance để giữ prefix.",
-      "Diffusion Policy và π0.5 đặt nền generative action chunks."
+      {
+        "label": "NỀN TẢNG / TIỀN ĐỀ",
+        "value": "RTC inference-time dùng sampler guidance để giữ prefix."
+      },
+      {
+        "label": "HƯỚNG PHÁT TRIỂN",
+        "value": "Diffusion Policy và π0.5 đặt nền generative action chunks."
+      }
     ],
-    "intuition": "Chuyển runtime constraint thành training condition có thể giảm serving cost."
+    "intuition": "Chuyển runtime constraint thành training condition có thể giảm serving cost.",
+    "detail": {
+      "label": "CÔNG TRÌNH LIÊN QUAN",
+      "text": "Đọc thêm RTC inference-time, ACT, Diffusion Policy, π0.5. Nên so sánh cách tiếp cận, dữ liệu huấn luyện và phạm vi khái quát của từng công trình."
+    }
   },
   {
     "type": "closing",
@@ -161,6 +250,10 @@
       "Train dải delay phản ánh thực tế hệ thống inference.",
       "Cần stress-test OOD latency và out-of-distribution prefixes."
     ],
-    "intuition": "Dạy model ngay lúc training cách tiếp nối committed prefix để inference không cần guidance đắt đỏ."
+    "intuition": "Dạy model ngay lúc training cách tiếp nối committed prefix để inference không cần guidance đắt đỏ.",
+    "detail": {
+      "label": "THỬ NGHIỆM TIẾP THEO",
+      "text": "Đánh giá MSE/thành công theo từng k, không chỉ average. Thêm artificial under-/over-estimated delays ở runtime và đo jerk."
+    }
   }
 ]

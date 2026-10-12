@@ -91,6 +91,10 @@ try {
     assert.ok(await page.getByText(/Mathematical Intuition/i).first().isVisible(),'LaTeX/Intuition slide must exist');
     assert.equal(new URL(page.url()).searchParams.get('slide'),'10');
     assert.ok(await stage.locator('.katex').count()>0,'Formula rendered as KaTeX');
+    await stage.locator('.brief-slide-detail').waitFor({state:'visible'});
+    assert.ok((await stage.locator('.brief-slide-detail p').innerText()).length>=80,'Equation slide exposes useful source-grounded explanation');
+    const detailFont=await stage.locator('.brief-slide-detail p').evaluate(el=>parseFloat(getComputedStyle(el).fontSize));
+    assert.ok(detailFont>=15,`Detailed explanation should be readable (${detailFont}px)`);
 
     await page.getByRole('button',{name:'Slide tiếp theo'}).click();
     assert.equal(new URL(page.url()).searchParams.get('slide'),'11','next button moves to evidence');
@@ -98,11 +102,22 @@ try {
     assert.equal(new URL(page.url()).searchParams.get('slide'),'12','right arrow advances');
     await page.keyboard.press('Home');
     assert.equal(new URL(page.url()).searchParams.get('slide'),'1','Home jumps to cover');
+    await stage.locator('.brief-cover-key').waitFor({state:'visible'});
+    assert.ok(await stage.locator('.brief-cover-key strong').isVisible(),'Cover explains the paper mechanism instead of presenting only a title');
     await page.getByRole('button',{name:'Xem tất cả slide'}).click();
     const thumbnails=page.locator('.brief-slide-grid-menu button');
     assert.equal(await thumbnails.count(),15,'Grid should contain fifteen thumbnails');
     await thumbnails.nth(6).click();
     assert.equal(new URL(page.url()).searchParams.get('slide'),'7','Grid selection updates deep link');
+    const representationSlide=stage.locator('.brief-layout-representation');
+    await representationSlide.locator('.brief-slide-detail').waitFor({state:'visible'});
+    const visualHierarchy=await representationSlide.evaluate(el=>{
+      const size=(selector)=>parseFloat(getComputedStyle(el.querySelector(selector)).fontSize);
+      return {title:size('.brief-slide-heading h2'),lead:size('.brief-slide-description'),card:size('.brief-card p'),detail:size('.brief-slide-detail p')};
+    });
+    assert.ok(visualHierarchy.title>visualHierarchy.lead+7,`Title must stand out: ${JSON.stringify(visualHierarchy)}`);
+    assert.ok(visualHierarchy.card>=15&&visualHierarchy.detail>=15,`Card and explanation should remain legible: ${JSON.stringify(visualHierarchy)}`);
+    assert.ok(await stage.getByText('ĐẦU RA / DẠNG BIỂU DIỄN').isVisible(),'Fact cards use meaningful headings');
     await page.getByRole('button',{name:'Bật tắt ghi chú thuyết trình'}).click();
     assert.ok(await page.getByText('GHI CHÚ KHI TRÌNH BÀY').isVisible());
     await page.getByRole('button',{name:'Bật tắt ghi chú thuyết trình'}).click();

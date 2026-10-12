@@ -11,5 +11,7 @@ export interface ResearchSlide {
   lead: string;
   items: ResearchSlideItem[];
   intuition: string;
+  /** Specific, paper-grounded explanation displayed on the slide itself. */
+  detail?: { label: string; text: string };
   equation?: string;
 }

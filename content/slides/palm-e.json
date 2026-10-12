@@ -6,7 +6,11 @@
     "items": [
       "Gắn sensory tokens vào cùng không gian với language tokens"
     ],
-    "intuition": "Cho mô hình giải quyết bài toán ngữ nghĩa và không gian trong một chuỗi multimodal chung."
+    "intuition": "Cho mô hình giải quyết bài toán ngữ nghĩa và không gian trong một chuỗi multimodal chung.",
+    "detail": {
+      "label": "BỐI CẢNH NGHIÊN CỨU",
+      "text": "Vấn đề là LLM thuần text không trực tiếp “nhìn” camera, state robot hay point cloud. PaLM-E đặt câu hỏi: có thể nhét liên tục cảm biến quan sát vào cùng token stream của một mô hình ngôn ngữ đã pretrain để nó reasoning về thế giới vật lý mà vẫn giữ được năng lực ngôn ngữ không?"
+    }
   },
   {
     "type": "problem",
@@ -15,7 +19,11 @@
     "items": [
       "Pipeline mô tả ảnh thành chữ làm mất thông tin"
     ],
-    "intuition": "Caption hóa toàn bộ state gây đứt liên kết giữa ngôn ngữ và quan sát liên tục."
+    "intuition": "Caption hóa toàn bộ state gây đứt liên kết giữa ngôn ngữ và quan sát liên tục.",
+    "detail": {
+      "label": "NGUYÊN NHÂN CỐT LÕI",
+      "text": "PaLM-E đặt câu hỏi: có thể nhét liên tục cảm biến quan sát vào cùng token stream của một mô hình ngôn ngữ đã pretrain để nó reasoning về thế giới vật lý mà vẫn giữ được năng lực ngôn ngữ không?"
+    }
   },
   {
     "type": "contrast",
@@ -25,7 +33,11 @@
       "Gắn sensory tokens vào cùng không gian với language tokens",
       "Cho mô hình giải quyết bài toán ngữ nghĩa và không gian trong một chuỗi multimodal chung."
     ],
-    "intuition": "Cho mô hình giải quyết bài toán ngữ nghĩa và không gian trong một chuỗi multimodal chung."
+    "intuition": "Cho mô hình giải quyết bài toán ngữ nghĩa và không gian trong một chuỗi multimodal chung.",
+    "detail": {
+      "label": "VÌ SAO CẦN THAY ĐỔI",
+      "text": "Trong khi đó, LLM đã chứng minh một mô hình lớn có thể gom nhiều loại kiến thức và chuyển giao giữa nhiệm vụ."
+    }
   },
   {
     "type": "intuition",
@@ -34,7 +46,11 @@
     "items": [
       "Biến hình ảnh và trạng thái robot thành đầu vào của LLM để tận dụng reasoning đa phương thức."
     ],
-    "intuition": "Cho mô hình giải quyết bài toán ngữ nghĩa và không gian trong một chuỗi multimodal chung."
+    "intuition": "Cho mô hình giải quyết bài toán ngữ nghĩa và không gian trong một chuỗi multimodal chung.",
+    "detail": {
+      "label": "GIẢI THÍCH CƠ CHẾ",
+      "text": "PaLM-E lấy đã pretrain PaLM rồi biến hình ảnh embeddings, 3D/cảm biến embeddings và trạng thái robot thành những “multimodal tokens” có thể được interleave cùng text."
+    }
   },
   {
     "type": "concepts",
@@ -54,7 +70,11 @@
         "value": "Huấn luyện nhiều nguồn mà không làm sụt mạnh năng lực có sẵn."
       }
     ],
-    "intuition": "Ảnh và state vector được chuyển thành embeddings"
+    "intuition": "Ảnh và state vector được chuyển thành embeddings",
+    "detail": {
+      "label": "NỀN TẢNG KỸ THUẬT",
+      "text": "Phân biệt embodied reasoning với low-level motor policy. Một LLM hiểu câu \"cốc nằm trong ngăn kéo\" có thể suy ra trình tự tìm cốc, nhưng chưa có nghĩa nó đã học torque hay gripper velocity."
+    }
   },
   {
     "type": "pipeline",
@@ -66,37 +86,71 @@
       "Multimodal LLM",
       "Đáp án / kế hoạch ở dạng text"
     ],
-    "intuition": "Model nhận câu hỏi, cảm biến và bối cảnh hiện tại."
+    "intuition": "Model nhận câu hỏi, cảm biến và bối cảnh hiện tại.",
+    "detail": {
+      "label": "ĐIỂM NHẤN TRIỂN KHAI",
+      "text": "Vì vậy nó không giống π0 hay Qwen-VLA hiện tại, nơi sinh action được nhét thẳng vào mô hình nền tảng stack."
+    }
   },
   {
     "type": "representation",
     "title": "Mô hình biểu diễn cái gì?",
     "lead": "Ảnh và state vector được chuyển thành embeddings",
     "items": [
-      "Tầng ngôn ngữ xử lý sensory embeddings như phần tử của context.",
-      "Đây không phải một low-level policy trực tiếp xuất torque/action 50 Hz."
+      {
+        "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
+        "value": "Tầng ngôn ngữ xử lý sensory embeddings như phần tử của context."
+      },
+      {
+        "label": "ĐÁNH ĐỔI KỸ THUẬT",
+        "value": "Đây không phải một low-level policy trực tiếp xuất torque/action 50 Hz."
+      }
     ],
-    "intuition": "Đây không phải một low-level policy trực tiếp xuất torque/action 50 Hz."
+    "intuition": "Đây không phải một low-level policy trực tiếp xuất torque/action 50 Hz.",
+    "detail": {
+      "label": "CHI TIẾT BIỂU DIỄN",
+      "text": "Thay vì xây một planner riêng, mô hình được huấn luyện end-to-end trên mixture gồm robotics, VQA, captioning và ngôn ngữ nhiệm vụ."
+    }
   },
   {
     "type": "training",
     "title": "Model học như thế nào?",
     "lead": "Kết hợp embodied tasks với language/vision-language tasks.",
     "items": [
-      "Giữ vốn kiến thức rộng từ pretraining.",
-      "Điều quan trọng là co-training không gây catastrophic forgetting."
+      {
+        "label": "MỤC TIÊU HỌC",
+        "value": "Giữ vốn kiến thức rộng từ pretraining."
+      },
+      {
+        "label": "DỮ LIỆU / QUY TRÌNH",
+        "value": "Điều quan trọng là co-training không gây catastrophic forgetting."
+      }
     ],
-    "intuition": "Điều tra ảnh hưởng tỷ lệ dữ liệu embodied và language."
+    "intuition": "Điều tra ảnh hưởng tỷ lệ dữ liệu embodied và language.",
+    "detail": {
+      "label": "CÁCH HUẤN LUYỆN",
+      "text": "Phiên bản lớn nhất lên tới 562B parameters. Điều đáng chú ý là bài báo không chỉ huấn luyện embodied dữ liệu, mà cố giữ web-scale prior bằng multi-task co-training, một pattern sau này quay lại rất nhiều trong RT-2, OpenVLA và Qwen-VLA."
+    }
   },
   {
     "type": "inference",
     "title": "Một lần inference xảy ra ra sao?",
     "lead": "Model nhận câu hỏi, cảm biến và bối cảnh hiện tại.",
     "items": [
-      "Sinh mô tả, lý giải hoặc các bước kế hoạch.",
-      "Robot vẫn cần controller/executor riêng để biến kế hoạch thành động tác."
+      {
+        "label": "XỬ LÝ ĐẦU VÀO",
+        "value": "Sinh mô tả, lý giải hoặc các bước kế hoạch."
+      },
+      {
+        "label": "TẠO HÀNH ĐỘNG",
+        "value": "Robot vẫn cần controller/executor riêng để biến kế hoạch thành động tác."
+      }
     ],
-    "intuition": "Robot vẫn cần controller/executor riêng để biến kế hoạch thành động tác."
+    "intuition": "Robot vẫn cần controller/executor riêng để biến kế hoạch thành động tác.",
+    "detail": {
+      "label": "DIỄN BIẾN THỰC THI",
+      "text": "Nếu vật mới xuất hiện sau một lần quan sát, mô hình cần grounding lại; phần action thường phụ thuộc kỹ năng primitive đã có."
+    }
   },
   {
     "type": "equation",
@@ -106,26 +160,47 @@
     "items": [
       "Biểu thức khái niệm để đọc kiến trúc, không phải loss mới."
     ],
-    "intuition": "Encoder E hiểu cảm biến; projection P đưa kết quả vào không gian embedding mà LLM có thể sử dụng."
+    "intuition": "Encoder E hiểu cảm biến; projection P đưa kết quả vào không gian embedding mà LLM có thể sử dụng.",
+    "detail": {
+      "label": "Ý NGHĨA CÔNG THỨC",
+      "text": "Trong robotics, PaLM-E thường đóng vai trò high-level embodied reasoner: đọc bối cảnh + chỉ dẫn, phân tích mục tiêu, rồi gọi/điều kiện các low-level kỹ năng đã có."
+    }
   },
   {
     "type": "results",
     "title": "Kết quả nói lên điều gì?",
     "lead": "Các nhóm embodied reasoning và multimodal benchmarks cho thấy lợi ích của dữ liệu hỗn hợp.",
     "items": [
-      "Huấn luyện chung giữ được khả năng text/vision-language tương đối tốt.",
-      "Robot task demonstrations vẫn quan trọng; tri thức web không thay thế control."
+      {
+        "label": "PHÁT HIỆN QUAN TRỌNG",
+        "value": "Huấn luyện chung giữ được khả năng text/vision-language tương đối tốt."
+      },
+      {
+        "label": "CÁCH DIỄN GIẢI",
+        "value": "Robot task demonstrations vẫn quan trọng; tri thức web không thay thế control."
+      }
     ],
-    "intuition": "pipeline đến action thật phụ thuộc nhiều thành phần bên ngoài, nên không tự chứng minh end-to-end generalist control."
+    "intuition": "pipeline đến action thật phụ thuộc nhiều thành phần bên ngoài, nên không tự chứng minh end-to-end generalist control.",
+    "detail": {
+      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
+      "text": "Huấn luyện chung giữa vision-language và robotics tạo positive chuyển giao, thay vì robotics làm hỏng kiến thức nền tảng như người ta có thể lo."
+    }
   },
   {
     "type": "ablation",
     "title": "Ablation và bằng chứng",
     "lead": "Điều tra ảnh hưởng tỷ lệ dữ liệu embodied và language.",
     "items": [
-      "Đọc kết quả như khả năng suy luận/planning, không đánh đồng với tỷ lệ thành công motor rollout."
+      {
+        "label": "YẾU TỐ ĐƯỢC THỬ",
+        "value": "Đọc kết quả như khả năng suy luận/planning, không đánh đồng với tỷ lệ thành công motor rollout."
+      }
     ],
-    "intuition": "Huấn luyện chung giữ được khả năng text/vision-language tương đối tốt."
+    "intuition": "Huấn luyện chung giữ được khả năng text/vision-language tương đối tốt.",
+    "detail": {
+      "label": "BẰNG CHỨNG BỔ SUNG",
+      "text": "Khi tăng scale, catastrophic forgetting của ngôn ngữ capability giảm rõ, và bản 562B vẫn giữ được năng lực general ngôn ngữ tốt dù đã học thêm embodied inputs."
+    }
   },
   {
     "type": "limits",
@@ -141,17 +216,31 @@
         "value": "Phê bình: pipeline đến action thật phụ thuộc nhiều thành phần bên ngoài, nên không tự chứng minh end-to-end generalist control."
       }
     ],
-    "intuition": "Tầng ngôn ngữ xử lý sensory embeddings như phần tử của context."
+    "intuition": "Tầng ngôn ngữ xử lý sensory embeddings như phần tử của context.",
+    "detail": {
+      "label": "PHẠM VI KẾT LUẬN",
+      "text": "Bài báo thừa nhận: PaLM-E vẫn phụ thuộc mạnh vào low-level policy library. Nếu robot chưa có kỹ năng vật lý tương ứng, ví dụ một chuyển động mới hoàn toàn, mô hình ngôn ngữ không thể chỉ “nghĩ ra” bộ điều khiển đáng tin cậy."
+    }
   },
   {
     "type": "relations",
     "title": "Bài này đứng ở đâu trong lĩnh vực?",
     "lead": "Không đọc paper như một hòn đảo riêng.",
     "items": [
-      "RT-2 biến action thành token để đi tiếp từ reasoning đến điều khiển.",
-      "GR00T N1 sử dụng VLM làm phần hiểu ngữ nghĩa trước action expert."
+      {
+        "label": "NỀN TẢNG / TIỀN ĐỀ",
+        "value": "RT-2 biến action thành token để đi tiếp từ reasoning đến điều khiển."
+      },
+      {
+        "label": "HƯỚNG PHÁT TRIỂN",
+        "value": "GR00T N1 sử dụng VLM làm phần hiểu ngữ nghĩa trước action expert."
+      }
     ],
-    "intuition": "Sensory tokens khiến LLM có grounding tốt hơn trong thế giới vật lý."
+    "intuition": "Sensory tokens khiến LLM có grounding tốt hơn trong thế giới vật lý.",
+    "detail": {
+      "label": "CÔNG TRÌNH LIÊN QUAN",
+      "text": "Đọc thêm RT-2, Qwen-VLA. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+    }
   },
   {
     "type": "closing",
@@ -161,6 +250,10 @@
       "Thích hợp làm high-level reasoning/planning module.",
       "Không suy ra robotics performance chỉ từ điểm benchmark VQA."
     ],
-    "intuition": "Biến hình ảnh và trạng thái robot thành đầu vào của LLM để tận dụng reasoning đa phương thức."
+    "intuition": "Biến hình ảnh và trạng thái robot thành đầu vào của LLM để tận dụng reasoning đa phương thức.",
+    "detail": {
+      "label": "THỬ NGHIỆM TIẾP THEO",
+      "text": "Tự dựng một multimodal prompt encoder toy: project vectors ảnh 512D và state 12D vào cùng hidden dimension rồi xen kẽ token vào Transformer."
+    }
   }
 ]

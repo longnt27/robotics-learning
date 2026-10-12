@@ -6,7 +6,11 @@
     "items": [
       "Đồng huấn luyện semantics, decomposition và motor control"
     ],
-    "intuition": "Cho flow action expert nhận cả bối cảnh ngôn ngữ và tín hiệu subtask, rồi học trên dữ liệu nhiều vị trí thật."
+    "intuition": "Cho flow action expert nhận cả bối cảnh ngôn ngữ và tín hiệu subtask, rồi học trên dữ liệu nhiều vị trí thật.",
+    "detail": {
+      "label": "BỐI CẢNH NGHIÊN CỨU",
+      "text": "Robot household thật phải làm multi-minute chores, di chuyển giữa vị trí, gặp vật thể/house mới và hiểu cả subtask structure."
+    }
   },
   {
     "type": "problem",
@@ -15,7 +19,11 @@
     "items": [
       "Policy ngắn hạn dễ thiếu hướng đi cho long-horizon chores"
     ],
-    "intuition": "Train ở vài căn nhà tạo prior thị giác quá hẹp để sang nhà khác."
+    "intuition": "Train ở vài căn nhà tạo prior thị giác quá hẹp để sang nhà khác.",
+    "detail": {
+      "label": "NGUYÊN NHÂN CỐT LÕI",
+      "text": "π0.5 hỏi: làm sao chuyển từ generalist manipulation sang open-world nhiệm vụ thực thi trong những environment chưa thấy?"
+    }
   },
   {
     "type": "contrast",
@@ -25,7 +33,11 @@
       "Đồng huấn luyện semantics, decomposition và motor control",
       "Cho flow action expert nhận cả bối cảnh ngôn ngữ và tín hiệu subtask, rồi học trên dữ liệu nhiều vị trí thật."
     ],
-    "intuition": "Cho flow action expert nhận cả bối cảnh ngôn ngữ và tín hiệu subtask, rồi học trên dữ liệu nhiều vị trí thật."
+    "intuition": "Cho flow action expert nhận cả bối cảnh ngôn ngữ và tín hiệu subtask, rồi học trên dữ liệu nhiều vị trí thật.",
+    "detail": {
+      "label": "VÌ SAO CẦN THAY ĐỔI",
+      "text": "Conceptually, π0.5 không cố bắt một mục tiêu huấn luyện làm tất cả. Nó co-train web semantics + nhiệm vụ decomposition + motor control, cho phép mô hình dùng kiến thức ở cấp độ cao để chọn hành vi rồi flow action expert thực thi."
+    }
   },
   {
     "type": "intuition",
@@ -34,7 +46,11 @@
     "items": [
       "Generalist VLA không chỉ hiểu vật thể, mà còn phải phân rã việc nhà thành các subtask rồi thực thi."
     ],
-    "intuition": "Cho flow action expert nhận cả bối cảnh ngôn ngữ và tín hiệu subtask, rồi học trên dữ liệu nhiều vị trí thật."
+    "intuition": "Cho flow action expert nhận cả bối cảnh ngôn ngữ và tín hiệu subtask, rồi học trên dữ liệu nhiều vị trí thật.",
+    "detail": {
+      "label": "GIẢI THÍCH CƠ CHẾ",
+      "text": "π0.5 giữ flow-matching action expert của π-family nhưng mở rộng hỗn hợp dữ liệu rất mạnh: nhiều robot embodiments, mobile-manipulation các quỹ đạo, static manipulation, web/VLM dữ liệu, object-detection style tín hiệu giám sát và các high-level subtask labels."
+    }
   },
   {
     "type": "concepts",
@@ -54,7 +70,11 @@
         "value": "Chuyển context thành action chunk liên tục."
       }
     ],
-    "intuition": "High-level task text đi kèm low-level action chunks."
+    "intuition": "High-level task text đi kèm low-level action chunks.",
+    "detail": {
+      "label": "NỀN TẢNG KỸ THUẬT",
+      "text": "π0.5 tập trung vào open-world khả năng khái quát: khả năng điều chỉnh theo nhà/cảnh/vật lạ, phối hợp high-level understanding với low-level action liên tục."
+    }
   },
   {
     "type": "pipeline",
@@ -66,37 +86,71 @@
       "Flow action expert",
       "Household rollout"
     ],
-    "intuition": "Quan sát trạng thái hiện tại trong nhà lạ."
+    "intuition": "Quan sát trạng thái hiện tại trong nhà lạ.",
+    "detail": {
+      "label": "ĐIỂM NHẤN TRIỂN KHAI",
+      "text": "Nó co-train web semantics + nhiệm vụ decomposition + motor control, cho phép mô hình dùng kiến thức ở cấp độ cao để chọn hành vi rồi flow action expert thực thi."
+    }
   },
   {
     "type": "representation",
     "title": "Mô hình biểu diễn cái gì?",
     "lead": "High-level task text đi kèm low-level action chunks.",
     "items": [
-      "Dữ liệu robot đa embodiment và đa nhà được co-trained.",
-      "Không phải một objective đơn lẻ đã học toàn bộ memory/planning."
+      {
+        "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
+        "value": "Dữ liệu robot đa embodiment và đa nhà được co-trained."
+      },
+      {
+        "label": "ĐÁNH ĐỔI KỸ THUẬT",
+        "value": "Không phải một objective đơn lẻ đã học toàn bộ memory/planning."
+      }
     ],
-    "intuition": "Không phải một objective đơn lẻ đã học toàn bộ memory/planning."
+    "intuition": "Không phải một objective đơn lẻ đã học toàn bộ memory/planning.",
+    "detail": {
+      "label": "CHI TIẾT BIỂU DIỄN",
+      "text": "Mô hình vừa dự đoán/hiểu ngữ nghĩa subtask vừa sinh low-level action chunks. Dữ liệu từ nhiều locations được dùng để nghiên cứu scaling theo environmental sự đa dạng."
+    }
   },
   {
     "type": "training",
     "title": "Model học như thế nào?",
     "lead": "Trộn web semantic tasks, object-detection signals và robot demonstrations.",
     "items": [
-      "Huấn luyện cả high-level subtask supervision.",
-      "Mở rộng số địa điểm từ 3 tới 104 trong ablation data scaling."
+      {
+        "label": "MỤC TIÊU HỌC",
+        "value": "Huấn luyện cả high-level subtask supervision."
+      },
+      {
+        "label": "DỮ LIỆU / QUY TRÌNH",
+        "value": "Mở rộng số địa điểm từ 3 tới 104 trong ablation data scaling."
+      }
     ],
-    "intuition": "Phân biệt tín hiệu giúp chọn bước với tín hiệu giúp điều khiển tay."
+    "intuition": "Phân biệt tín hiệu giúp chọn bước với tín hiệu giúp điều khiển tay.",
+    "detail": {
+      "label": "CÁCH HUẤN LUYỆN",
+      "text": "Hiệu năng tăng khá đều khi số địa điểm dùng để huấn luyện tăng từ 3 → 12 → 22 → 53 → 82 → 104; ở scale lớn, mô hình khái quát sang ngôi nhà trong tập kiểm tra gần mức một policy điều khiển được huấn luyện trực tiếp trong ngôi nhà đó trong một số thiết lập nhiệm vụ."
+    }
   },
   {
     "type": "inference",
     "title": "Một lần inference xảy ra ra sao?",
     "lead": "Quan sát trạng thái hiện tại trong nhà lạ.",
     "items": [
-      "Suy ra subtask hoặc nhận supervision về bước kế tiếp.",
-      "Flow expert sinh chunks, robot thực thi qua chuỗi thao tác dài."
+      {
+        "label": "XỬ LÝ ĐẦU VÀO",
+        "value": "Suy ra subtask hoặc nhận supervision về bước kế tiếp."
+      },
+      {
+        "label": "TẠO HÀNH ĐỘNG",
+        "value": "Flow expert sinh chunks, robot thực thi qua chuỗi thao tác dài."
+      }
     ],
-    "intuition": "Flow expert sinh chunks, robot thực thi qua chuỗi thao tác dài."
+    "intuition": "Flow expert sinh chunks, robot thực thi qua chuỗi thao tác dài.",
+    "detail": {
+      "label": "DIỄN BIẾN THỰC THI",
+      "text": "Chỉ dẫn \"dọn bàn ăn\" yêu cầu nhiều lượt pick, move, place, mở ngăn và quay lại. High-level policy cần duy trì mục tiêu, low-level flow action expert tạo chunk cục bộ dựa vào camera/state."
+    }
   },
   {
     "type": "equation",
@@ -106,26 +160,47 @@
     "items": [
       "Đây là cách diễn đạt điều kiện của policy, không phải loss trong paper."
     ],
-    "intuition": "Để sinh đúng action A, policy không chỉ cần camera và lệnh, mà còn cần biết nó đang làm bước nào của công việc."
+    "intuition": "Để sinh đúng action A, policy không chỉ cần camera và lệnh, mà còn cần biết nó đang làm bước nào của công việc.",
+    "detail": {
+      "label": "Ý NGHĨA CÔNG THỨC",
+      "text": "Thành tích robot một nhiệm vụ trong phòng thí nghiệm không đảm bảo hoàn thành một yêu cầu dài với nhiều trạng thái trung gian."
+    }
   },
   {
     "type": "results",
     "title": "Kết quả nói lên điều gì?",
     "lead": "Bài báo trình diễn nhiều việc nhà kéo dài nhiều phút trong nhà chưa từng thấy.",
     "items": [
-      "Success tăng có hệ thống khi số nhà trong training tăng từ 3 → 12 → … → 104.",
-      "Bỏ web/high-level supervision thường làm generalization kém đi."
+      {
+        "label": "PHÁT HIỆN QUAN TRỌNG",
+        "value": "Success tăng có hệ thống khi số nhà trong training tăng từ 3 → 12 → … → 104."
+      },
+      {
+        "label": "CÁCH DIỄN GIẢI",
+        "value": "Bỏ web/high-level supervision thường làm generalization kém đi."
+      }
     ],
-    "intuition": "hệ thống dữ liệu đắt và khép kín; thành công trên ontology household được thử chưa có nghĩa bất kỳ nhà nào."
+    "intuition": "hệ thống dữ liệu đắt và khép kín; thành công trên ontology household được thử chưa có nghĩa bất kỳ nhà nào.",
+    "detail": {
+      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
+      "text": "Trong các phép đánh giá nhiệm vụ gia đình trên robot thật, π0.5 làm được nhiều multi-minute chores ở homes chưa thấy."
+    }
   },
   {
     "type": "ablation",
     "title": "Ablation và bằng chứng",
     "lead": "Phân biệt tín hiệu giúp chọn bước với tín hiệu giúp điều khiển tay.",
     "items": [
-      "Scale diversity địa điểm giúp nhưng không làm mất hoàn toàn OOD gap."
+      {
+        "label": "YẾU TỐ ĐƯỢC THỬ",
+        "value": "Scale diversity địa điểm giúp nhưng không làm mất hoàn toàn OOD gap."
+      }
     ],
-    "intuition": "Success tăng có hệ thống khi số nhà trong training tăng từ 3 → 12 → … → 104."
+    "intuition": "Success tăng có hệ thống khi số nhà trong training tăng từ 3 → 12 → … → 104.",
+    "detail": {
+      "label": "BẰNG CHỨNG BỔ SUNG",
+      "text": "Một variant tự infer high-level subtask vẫn là phương pháp đối chứng mạnh, cho thấy biểu diễn đã học được cấu trúc nhiệm vụ phần nào thay vì chỉ copy labels."
+    }
   },
   {
     "type": "limits",
@@ -141,17 +216,31 @@
         "value": "Phê bình: hệ thống dữ liệu đắt và khép kín; thành công trên ontology household được thử chưa có nghĩa bất kỳ nhà nào."
       }
     ],
-    "intuition": "Dữ liệu robot đa embodiment và đa nhà được co-trained."
+    "intuition": "Dữ liệu robot đa embodiment và đa nhà được co-trained.",
+    "detail": {
+      "label": "PHẠM VI KẾT LUẬN",
+      "text": "Bài báo thừa nhận: các thất bại còn nhiều ở handles/cabinets khó, occlusion, partial observability và high-level loops/repetition."
+    }
   },
   {
     "type": "relations",
     "title": "Bài này đứng ở đâu trong lĩnh vực?",
     "lead": "Không đọc paper như một hòn đảo riêng.",
     "items": [
-      "GR00T N1 cung cấp cách nhìn System 2 + action expert.",
-      "RTC bàn về runtime khi flow-based chunks có inference delay."
+      {
+        "label": "NỀN TẢNG / TIỀN ĐỀ",
+        "value": "GR00T N1 cung cấp cách nhìn System 2 + action expert."
+      },
+      {
+        "label": "HƯỚNG PHÁT TRIỂN",
+        "value": "RTC bàn về runtime khi flow-based chunks có inference delay."
+      }
     ],
-    "intuition": "VLA scale cần cả task decomposition chứ không chỉ model motor lớn hơn."
+    "intuition": "VLA scale cần cả task decomposition chứ không chỉ model motor lớn hơn.",
+    "detail": {
+      "label": "CÔNG TRÌNH LIÊN QUAN",
+      "text": "Đọc thêm Diffusion Policy, RTC (inference), RTC (training). Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+    }
   },
   {
     "type": "closing",
@@ -161,6 +250,10 @@
       "Đo chất lượng theo địa điểm chưa thấy và tỷ lệ hoàn thành chuỗi.",
       "Long-horizon memory và recovery vẫn là bottleneck triển khai."
     ],
-    "intuition": "Generalist VLA không chỉ hiểu vật thể, mà còn phải phân rã việc nhà thành các subtask rồi thực thi."
+    "intuition": "Generalist VLA không chỉ hiểu vật thể, mà còn phải phân rã việc nhà thành các subtask rồi thực thi.",
+    "detail": {
+      "label": "THỬ NGHIỆM TIẾP THEO",
+      "text": "Nếu có GPU >8GB, chạy openpi inference với một quan sát example; dump observation_history, action normalizer, flow steps và action chunk."
+    }
   }
 ]

@@ -6,7 +6,11 @@
     "items": [
       "Procedural scene generation tạo nhiều môi trường hợp lệ"
     ],
-    "intuition": "Mô phỏng có cấu trúc và demonstrations giúp policy phải học kỹ năng có thể chuyển giao."
+    "intuition": "Mô phỏng có cấu trúc và demonstrations giúp policy phải học kỹ năng có thể chuyển giao.",
+    "detail": {
+      "label": "BỐI CẢNH NGHIÊN CỨU",
+      "text": "Dữ liệu robot thật vừa đắt vừa chậm, còn các simulator cũ thường nghèo bối cảnh, vật thể và độ đa dạng nhiệm vụ."
+    }
   },
   {
     "type": "problem",
@@ -15,7 +19,11 @@
     "items": [
       "Một vài demo trong một scene tạo thành quả OOD quá lạc quan"
     ],
-    "intuition": "Policy dễ ghi nhớ vị trí đồ vật khi reset/variation hạn chế."
+    "intuition": "Policy dễ ghi nhớ vị trí đồ vật khi reset/variation hạn chế.",
+    "detail": {
+      "label": "NGUYÊN NHÂN CỐT LÕI",
+      "text": "Nếu foundation robot policy cần hàng trăm nghìn hay hàng triệu các quỹ đạo thì con người không thể teleoperate tất cả."
+    }
   },
   {
     "type": "contrast",
@@ -25,7 +33,11 @@
       "Procedural scene generation tạo nhiều môi trường hợp lệ",
       "Mô phỏng có cấu trúc và demonstrations giúp policy phải học kỹ năng có thể chuyển giao."
     ],
-    "intuition": "Mô phỏng có cấu trúc và demonstrations giúp policy phải học kỹ năng có thể chuyển giao."
+    "intuition": "Mô phỏng có cấu trúc và demonstrations giúp policy phải học kỹ năng có thể chuyển giao.",
+    "detail": {
+      "label": "VÌ SAO CẦN THAY ĐỔI",
+      "text": "RoboCasa đặt câu hỏi: có thể dùng mô phỏng để tạo một phân phối household manipulation đủ rộng và đủ tự động để dữ liệu tổng hợp thật sự giúp generalist policy không?"
+    }
   },
   {
     "type": "intuition",
@@ -34,7 +46,11 @@
     "items": [
       "Tăng độ đa dạng của bối cảnh và nhiệm vụ mô phỏng để đánh giá policy thao tác dài hạn."
     ],
-    "intuition": "Mô phỏng có cấu trúc và demonstrations giúp policy phải học kỹ năng có thể chuyển giao."
+    "intuition": "Mô phỏng có cấu trúc và demonstrations giúp policy phải học kỹ năng có thể chuyển giao.",
+    "detail": {
+      "label": "GIẢI THÍCH CƠ CHẾ",
+      "text": "Hệ thống dùng MimicGen-style sinh để biến một lượng nhỏ con người demonstrations thành số lượng lớn synthetic các quỹ đạo, kết hợp bối cảnh tạo theo quy tắc sinh, generative textures/assets và LLM-assisted tạo nhiệm vụ."
+    }
   },
   {
     "type": "concepts",
@@ -54,7 +70,11 @@
         "value": "Khác biệt vật lý và camera cần kiểm tra riêng."
       }
     ],
-    "intuition": "Scene chứa cabinet, đồ vật, kệ bếp, thiết bị và tương tác."
+    "intuition": "Scene chứa cabinet, đồ vật, kệ bếp, thiết bị và tương tác.",
+    "detail": {
+      "label": "NỀN TẢNG KỸ THUẬT",
+      "text": "Simulators như RoboCasa cho procedural variation: layout, texture, vật thể placement, nhiệm vụ."
+    }
   },
   {
     "type": "pipeline",
@@ -66,37 +86,71 @@
       "Robot demonstrations",
       "Generalization evaluation"
     ],
-    "intuition": "Policy nhìn scene nhà bếp và lệnh cần hoàn thành."
+    "intuition": "Policy nhìn scene nhà bếp và lệnh cần hoàn thành.",
+    "detail": {
+      "label": "ĐIỂM NHẤN TRIỂN KHAI",
+      "text": "RoboCasa xây khoảng 120 kitchen bối cảnh, hơn 2,500 vật thể assets thuộc hơn 150 categories và khoảng 100 nhiệm vụ."
+    }
   },
   {
     "type": "representation",
     "title": "Mô hình biểu diễn cái gì?",
     "lead": "Scene chứa cabinet, đồ vật, kệ bếp, thiết bị và tương tác.",
     "items": [
-      "Instructions gắn với predicate thành công.",
-      "Lỗi perception và contact vẫn khác thực tế dù cảnh đẹp."
+      {
+        "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
+        "value": "Instructions gắn với predicate thành công."
+      },
+      {
+        "label": "ĐÁNH ĐỔI KỸ THUẬT",
+        "value": "Lỗi perception và contact vẫn khác thực tế dù cảnh đẹp."
+      }
     ],
-    "intuition": "Lỗi perception và contact vẫn khác thực tế dù cảnh đẹp."
+    "intuition": "Lỗi perception và contact vẫn khác thực tế dù cảnh đẹp.",
+    "detail": {
+      "label": "CHI TIẾT BIỂU DIỄN",
+      "text": "Nó là dữ liệu generator: cùng nhiệm vụ có thể được render ở nhiều kitchen layout, vật thể instance, lighting và geometry, tạo phân phối randomization để policy học invariance."
+    }
   },
   {
     "type": "training",
     "title": "Model học như thế nào?",
     "lead": "Cung cấp hạ tầng simulation và imitation-learning pipelines.",
     "items": [
-      "Sinh nhiều layouts và demonstrations để huấn luyện.",
-      "So test trên scene, object/task configuration chưa gặp."
+      {
+        "label": "MỤC TIÊU HỌC",
+        "value": "Sinh nhiều layouts và demonstrations để huấn luyện."
+      },
+      {
+        "label": "DỮ LIỆU / QUY TRÌNH",
+        "value": "So test trên scene, object/task configuration chưa gặp."
+      }
     ],
-    "intuition": "Tách generalization qua scene, object và task composition."
+    "intuition": "Tách generalization qua scene, object và task composition.",
+    "detail": {
+      "label": "CÁCH HUẤN LUYỆN",
+      "text": "Điểm đáng chú ý là RoboCasa không chỉ là benchmark. Nó là dữ liệu generator: cùng nhiệm vụ có thể được render ở nhiều kitchen layout, vật thể instance, lighting và geometry, tạo phân phối randomization để policy học invariance."
+    }
   },
   {
     "type": "inference",
     "title": "Một lần inference xảy ra ra sao?",
     "lead": "Policy nhìn scene nhà bếp và lệnh cần hoàn thành.",
     "items": [
-      "Thực hiện chuỗi thao tác dài theo thứ tự phụ thuộc.",
-      "Evaluation kiểm tra predicate của task chứ không chỉ imitation error."
+      {
+        "label": "XỬ LÝ ĐẦU VÀO",
+        "value": "Thực hiện chuỗi thao tác dài theo thứ tự phụ thuộc."
+      },
+      {
+        "label": "TẠO HÀNH ĐỘNG",
+        "value": "Evaluation kiểm tra predicate của task chứ không chỉ imitation error."
+      }
     ],
-    "intuition": "Evaluation kiểm tra predicate của task chứ không chỉ imitation error."
+    "intuition": "Evaluation kiểm tra predicate của task chứ không chỉ imitation error.",
+    "detail": {
+      "label": "DIỄN BIẾN THỰC THI",
+      "text": "Huấn luyện trên một số house layouts, test trên held-out layout. Thành tích cao trong domain randomization chưa đảm bảo sim-to-real nếu camera, contact động lực học hoặc robot calibration sai."
+    }
   },
   {
     "type": "equation",
@@ -106,26 +160,47 @@
     "items": [
       "Mô tả khái niệm success predicate trong benchmark."
     ],
-    "intuition": "Thước đo quan trọng là mục tiêu vật lý cuối cùng đạt hay chưa, không phải video nhìn có vẻ hợp lý."
+    "intuition": "Thước đo quan trọng là mục tiêu vật lý cuối cùng đạt hay chưa, không phải video nhìn có vẻ hợp lý.",
+    "detail": {
+      "label": "Ý NGHĨA CÔNG THỨC",
+      "text": "Một nhiệm vụ mở ngăn kéo trong nhà bếp có thể randomize chất liệu tủ, hướng nhìn camera, vị trí robot, friction và vật thể instances."
+    }
   },
   {
     "type": "results",
     "title": "Kết quả nói lên điều gì?",
     "lead": "Nhiều layout, vật thể và nhiệm vụ tạo đánh giá phong phú hơn benchmark cố định.",
     "items": [
-      "Dữ liệu mô phỏng đa dạng giúp nghiên cứu transfer/long-horizon policy.",
-      "Kết quả vẫn nằm trong simulated environments được thiết kế."
+      {
+        "label": "PHÁT HIỆN QUAN TRỌNG",
+        "value": "Dữ liệu mô phỏng đa dạng giúp nghiên cứu transfer/long-horizon policy."
+      },
+      {
+        "label": "CÁCH DIỄN GIẢI",
+        "value": "Kết quả vẫn nằm trong simulated environments được thiết kế."
+      }
     ],
-    "intuition": "procedural task grammar không bao phủ toàn bộ open-world complexity; domain randomization không tương đương robot thật."
+    "intuition": "procedural task grammar không bao phủ toàn bộ open-world complexity; domain randomization không tương đương robot thật.",
+    "detail": {
+      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
+      "text": "RoboCasa cũng phơi ra một fact quan trọng: các composite/longer-horizon nhiệm vụ khó hơn atomic nhiệm vụ rất nhiều dù dữ liệu sinh scale được."
+    }
   },
   {
     "type": "ablation",
     "title": "Ablation và bằng chứng",
     "lead": "Tách generalization qua scene, object và task composition.",
     "items": [
-      "Tránh random splits vô tình dùng cùng layout/asset đã thấy."
+      {
+        "label": "YẾU TỐ ĐƯỢC THỬ",
+        "value": "Tránh random splits vô tình dùng cùng layout/asset đã thấy."
+      }
     ],
-    "intuition": "Dữ liệu mô phỏng đa dạng giúp nghiên cứu transfer/long-horizon policy."
+    "intuition": "Dữ liệu mô phỏng đa dạng giúp nghiên cứu transfer/long-horizon policy.",
+    "detail": {
+      "label": "BẰNG CHỨNG BỔ SUNG",
+      "text": "Tuy absolute thành công còn thấp, relative gains cho thấy sim dữ liệu không chỉ làm đẹp benchmark mô phỏng."
+    }
   },
   {
     "type": "limits",
@@ -141,17 +216,31 @@
         "value": "Phê bình: procedural task grammar không bao phủ toàn bộ open-world complexity; domain randomization không tương đương robot thật."
       }
     ],
-    "intuition": "Instructions gắn với predicate thành công."
+    "intuition": "Instructions gắn với predicate thành công.",
+    "detail": {
+      "label": "PHẠM VI KẾT LUẬN",
+      "text": "Bài báo thừa nhận: được tạo ra các quỹ đạo có thể jerky/collision-prone dù simulator đánh dấu thành công."
+    }
   },
   {
     "type": "relations",
     "title": "Bài này đứng ở đâu trong lĩnh vực?",
     "lead": "Không đọc paper như một hòn đảo riêng.",
     "items": [
-      "LIBERO nghiên cứu transfer theo loại tri thức.",
-      "DROID cung cấp dữ liệu môi trường thực làm đối chứng thực dụng."
+      {
+        "label": "NỀN TẢNG / TIỀN ĐỀ",
+        "value": "LIBERO nghiên cứu transfer theo loại tri thức."
+      },
+      {
+        "label": "HƯỚNG PHÁT TRIỂN",
+        "value": "DROID cung cấp dữ liệu môi trường thực làm đối chứng thực dụng."
+      }
     ],
-    "intuition": "Benchmark tốt phải kiểm tra context variation, không chỉ task count."
+    "intuition": "Benchmark tốt phải kiểm tra context variation, không chỉ task count.",
+    "detail": {
+      "label": "CÔNG TRÌNH LIÊN QUAN",
+      "text": "Đọc thêm LIBERO, Qwen-VLA. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+    }
   },
   {
     "type": "closing",
@@ -161,6 +250,10 @@
       "Hữu ích để smoke-test generalization với chi phí thấp.",
       "Đừng lấy success trong bếp ảo làm kết luận sẵn sàng deploy."
     ],
-    "intuition": "Tăng độ đa dạng của bối cảnh và nhiệm vụ mô phỏng để đánh giá policy thao tác dài hạn."
+    "intuition": "Tăng độ đa dạng của bối cảnh và nhiệm vụ mô phỏng để đánh giá policy thao tác dài hạn.",
+    "detail": {
+      "label": "THỬ NGHIỆM TIẾP THEO",
+      "text": "Sinh 20 episodes hai bối cảnh variants, visualize variation axes. Với policy đơn giản, so sánh huấn luyện random textures vs fixed textures và held-out layout thành công."
+    }
   }
 ]
