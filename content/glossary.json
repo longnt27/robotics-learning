@@ -589,5 +589,1042 @@
       "nhiệm vụ dài",
       "long horizon"
     ]
+  },
+  {
+    "id": "behavior-cloning",
+    "term": "Behavior cloning (BC)",
+    "category": "learning",
+    "definition": "Học bắt chước hành vi expert bằng cách tối ưu policy dự đoán action từ observation trong demonstration. BC đơn giản nhưng dễ gặp lỗi tích luỹ khi rollout đi tới trạng thái không có trong dữ liệu huấn luyện.",
+    "papers": [
+      "rt-1",
+      "act",
+      "octo"
+    ],
+    "aliases": [
+      "behavior cloning",
+      "BC",
+      "học bắt chước hành vi"
+    ]
+  },
+  {
+    "id": "imitation-learning",
+    "term": "Imitation learning",
+    "category": "learning",
+    "definition": "Nhóm phương pháp học điều khiển từ ví dụ hành vi của người hoặc policy expert, thay vì chỉ tối ưu reward khi tự khám phá. Behavior cloning là một trường hợp phổ biến của imitation learning.",
+    "papers": [
+      "act",
+      "mimicplay",
+      "octo"
+    ],
+    "aliases": [
+      "học bắt chước",
+      "học mô phỏng"
+    ]
+  },
+  {
+    "id": "demo",
+    "term": "Demonstration",
+    "category": "learning",
+    "definition": "Một đoạn ghi lại quá trình expert thực hiện nhiệm vụ, thường gồm ảnh, state, instruction và action theo thời gian. Số lượng demonstration không tự nói lên sự đa dạng hoặc chất lượng của tập dữ liệu.",
+    "papers": [
+      "act",
+      "bridgedata-v2",
+      "droid"
+    ],
+    "aliases": [
+      "demo",
+      "demonstrations",
+      "expert trajectory"
+    ]
+  },
+  {
+    "id": "teleoperation",
+    "term": "Teleoperation",
+    "category": "learning",
+    "definition": "Điều khiển robot từ xa hoặc qua hệ leader–follower để thu những trajectory do người tạo ra. Độ trễ, cách điều khiển và thiết lập camera ảnh hưởng trực tiếp đến chất lượng demonstration.",
+    "papers": [
+      "act",
+      "droid"
+    ],
+    "aliases": [
+      "điều khiển từ xa",
+      "leader-follower"
+    ]
+  },
+  {
+    "id": "fine-tuning",
+    "term": "Fine-tuning",
+    "category": "learning",
+    "definition": "Tiếp tục huấn luyện một mô hình đã pretrained trên dữ liệu nhiệm vụ/robot đích. Cần kiểm tra input, normalization và action head tương thích, không chỉ thay checkpoint rồi chạy inference.",
+    "papers": [
+      "octo",
+      "openvla",
+      "pi-0-5"
+    ],
+    "aliases": [
+      "finetune",
+      "fine tune"
+    ]
+  },
+  {
+    "id": "lora",
+    "term": "LoRA",
+    "category": "learning",
+    "definition": "Low-Rank Adaptation: cập nhật các ma trận trọng số hạng thấp gắn vào mô hình nền, giúp fine-tune ít tham số hơn. LoRA giảm chi phí tham số huấn luyện nhưng không tự giải quyết lỗi domain shift hay action mapping.",
+    "papers": [
+      "openvla"
+    ],
+    "aliases": [
+      "Low-Rank Adaptation"
+    ]
+  },
+  {
+    "id": "pretraining",
+    "term": "Pretraining",
+    "category": "learning",
+    "definition": "Giai đoạn học ban đầu trên dữ liệu lớn hoặc nhiều nhiệm vụ để xây biểu diễn có thể tái sử dụng. Trong robotics, cần phân biệt pretraining VLM trên web và pretraining policy trên action robot.",
+    "papers": [
+      "octo",
+      "openvla",
+      "groot-n1"
+    ],
+    "aliases": [
+      "pre-train",
+      "huấn luyện trước"
+    ]
+  },
+  {
+    "id": "co-training",
+    "term": "Co-training",
+    "category": "learning",
+    "definition": "Huấn luyện bằng cách kết hợp nhiều nguồn supervision, chẳng hạn dữ liệu web thị giác–ngôn ngữ và robot actions. Mục tiêu là tận dụng tri thức ngữ nghĩa có sẵn mà vẫn giữ năng lực sinh action điều khiển.",
+    "papers": [
+      "rt-2"
+    ],
+    "aliases": [
+      "co-finetuning",
+      "co-fine-tuning",
+      "đồng huấn luyện"
+    ]
+  },
+  {
+    "id": "joint-pretraining",
+    "term": "Joint pretraining",
+    "category": "learning",
+    "definition": "Huấn luyện chung các nhóm dữ liệu hoặc mục tiêu khác nhau để các thành phần chia sẻ representation. Cần cân bằng data mixture vì gradient từ một miền có thể lấn át miền khác.",
+    "papers": [
+      "qwen-vla"
+    ],
+    "aliases": [
+      "joint pretraining",
+      "huấn luyện chung"
+    ]
+  },
+  {
+    "id": "flow-matching",
+    "term": "Flow matching",
+    "category": "learning",
+    "definition": "Huấn luyện vector field vận chuyển mẫu từ phân phối nhiễu sang phân phối dữ liệu mục tiêu, chẳng hạn chuỗi action. Flow-time trong quá trình sinh mẫu không phải thời gian vật lý của robot.",
+    "papers": [
+      "pi-0-5",
+      "rtc-inference",
+      "rtc-training",
+      "qwen-vla"
+    ],
+    "aliases": [
+      "conditional flow matching",
+      "rectified flow"
+    ]
+  },
+  {
+    "id": "diffusion",
+    "term": "Diffusion model",
+    "category": "learning",
+    "definition": "Mô hình sinh dữ liệu bằng việc học đảo ngược một quá trình thêm nhiễu; với robot, dữ liệu được sinh có thể là cả action trajectory. Chất lượng mẫu và số bước suy luận là hai yếu tố cần đánh đổi.",
+    "papers": [
+      "diffusion-policy",
+      "rdt-1b"
+    ],
+    "aliases": [
+      "diffusion",
+      "denoising diffusion",
+      "khử nhiễu"
+    ]
+  },
+  {
+    "id": "cvae",
+    "term": "CVAE",
+    "category": "learning",
+    "definition": "Conditional Variational Autoencoder: mô hình latent có điều kiện cho phép biểu diễn nhiều kiểu demonstration hợp lệ ứng với cùng observation. Trong ACT, latent hỗ trợ học biến thiên về phong cách và quỹ đạo hành động.",
+    "papers": [
+      "act"
+    ],
+    "aliases": [
+      "Conditional Variational Autoencoder",
+      "conditional VAE"
+    ]
+  },
+  {
+    "id": "latent",
+    "term": "Latent variable",
+    "category": "learning",
+    "definition": "Biến hoặc vector ẩn chứa thông tin không được biểu diễn trực tiếp trong observation, chẳng hạn kiểu hành động hoặc biến thiên demonstration. Cần biết latent được học, lấy mẫu và sử dụng tại inference ra sao.",
+    "papers": [
+      "act",
+      "mimicplay"
+    ],
+    "aliases": [
+      "latent",
+      "biến ẩn",
+      "latent space"
+    ]
+  },
+  {
+    "id": "supervision",
+    "term": "Supervision signal",
+    "category": "learning",
+    "definition": "Tín hiệu mục tiêu dùng để huấn luyện như action expert, token label, noise target hoặc feature tương lai. Hai mô hình có kiến trúc giống nhau nhưng target khác có thể học những năng lực rất khác.",
+    "papers": [
+      "act",
+      "fast",
+      "lingbot-vla-2"
+    ],
+    "aliases": [
+      "supervision",
+      "tín hiệu giám sát",
+      "training target"
+    ]
+  },
+  {
+    "id": "objective",
+    "term": "Training objective",
+    "category": "learning",
+    "definition": "Hàm mục tiêu mà quá trình tối ưu thực sự giảm hoặc tăng, chẳng hạn action reconstruction loss hay flow matching loss. Loss offline tốt không đồng nghĩa tỷ lệ thành công khi rollout chắc chắn cao.",
+    "papers": [
+      "diffusion-policy",
+      "act",
+      "rtc-training"
+    ],
+    "aliases": [
+      "loss function",
+      "hàm mất mát",
+      "loss"
+    ]
+  },
+  {
+    "id": "predictive-dynamics",
+    "term": "Predictive dynamics",
+    "category": "learning",
+    "definition": "Mục tiêu học đặc trưng hoặc trạng thái tương lai từ trạng thái và hành động hiện tại, giúp biểu diễn nhận biết hậu quả chuyển động. Cần đánh giá riêng liệu tín hiệu dự đoán có cải thiện task success hay không.",
+    "papers": [
+      "lingbot-vla-2"
+    ],
+    "aliases": [
+      "future-state feature prediction",
+      "động lực học dự đoán"
+    ]
+  },
+  {
+    "id": "distillation",
+    "term": "Knowledge distillation",
+    "category": "learning",
+    "definition": "Chuyển tri thức từ teacher sang student bằng cách buộc mô hình nhỏ hoặc nhánh action học gần output/feature của teacher. Có thể giảm chi phí nhưng dễ làm mất thông tin hoặc thiên lệch nếu teacher không phù hợp.",
+    "papers": [
+      "lingbot-vla-2",
+      "groot-n1"
+    ],
+    "aliases": [
+      "distillation",
+      "teacher student",
+      "chưng cất tri thức"
+    ]
+  },
+  {
+    "id": "teacher-student",
+    "term": "Teacher–student training",
+    "category": "learning",
+    "definition": "Thiết lập một teacher tạo mục tiêu để student bắt chước trong training. Khi suy luận thường chỉ cần student, nhưng phải xác định tín hiệu teacher cung cấp và liệu nó có dùng thông tin không có lúc deployment.",
+    "papers": [
+      "lingbot-vla-2"
+    ],
+    "aliases": [
+      "teacher",
+      "student",
+      "teacher-student"
+    ]
+  },
+  {
+    "id": "data-mixture",
+    "term": "Data mixture",
+    "category": "learning",
+    "definition": "Cách phối trộn nhiều nguồn demonstration, video hoặc robot trong quá trình train, gồm cả trọng số sampling từng nguồn. Một nguồn quá lớn có thể áp đảo và làm mô hình kém trên robot hiếm.",
+    "papers": [
+      "open-x-embodiment",
+      "qwen-vla",
+      "groot-n1"
+    ],
+    "aliases": [
+      "data mixture",
+      "trộn dữ liệu"
+    ]
+  },
+  {
+    "id": "human-video",
+    "term": "Human video",
+    "category": "learning",
+    "definition": "Video người thao tác cung cấp tín hiệu về đối tượng, trình tự và mục tiêu nhưng thường không có joint action tương ứng với robot. Muốn dùng cho policy cần biểu diễn trung gian hoặc supervision từ robot.",
+    "papers": [
+      "mimicplay",
+      "groot-n1"
+    ],
+    "aliases": [
+      "video người",
+      "human play"
+    ]
+  },
+  {
+    "id": "action-chunking",
+    "term": "Action chunking",
+    "category": "control",
+    "definition": "Thay vì dự đoán một action, policy sinh một đoạn gồm nhiều action liên tiếp. Điều này hỗ trợ phối hợp theo thời gian nhưng sinh bài toán nối chunk và xử lý quan sát mới khi suy luận có độ trễ.",
+    "papers": [
+      "act",
+      "diffusion-policy",
+      "rtc-inference",
+      "rtc-training"
+    ],
+    "aliases": [
+      "action chunk",
+      "chunk hành động"
+    ]
+  },
+  {
+    "id": "temporal-ensembling",
+    "term": "Temporal ensembling",
+    "category": "control",
+    "definition": "Tổng hợp những dự đoán từ các action chunk chồng nhau tại cùng một timestep để giảm dao động chuyển động. Nó làm output mượt hơn nhưng không tự giải quyết mọi vấn đề delay hoặc cam kết action đã thực thi.",
+    "papers": [
+      "act",
+      "rtc-inference"
+    ],
+    "aliases": [
+      "temporal ensembling",
+      "trung bình theo thời gian"
+    ]
+  },
+  {
+    "id": "receding-horizon",
+    "term": "Receding-horizon control",
+    "category": "control",
+    "definition": "Liên tục dự đoán một chuỗi hành động tương lai nhưng chỉ thực thi phần đầu, sau đó nhận observation mới và lập kế hoạch lại. Đây là khác biệt quan trọng giữa closed-loop chunk execution và chạy nguyên quỹ đạo mở.",
+    "papers": [
+      "diffusion-policy",
+      "rtc-inference"
+    ],
+    "aliases": [
+      "receding horizon",
+      "model predictive control",
+      "MPC"
+    ]
+  },
+  {
+    "id": "closed-loop",
+    "term": "Closed-loop control",
+    "category": "control",
+    "definition": "Điều khiển có phản hồi: mỗi quyết định mới sử dụng observation/state cập nhật sau tác động trước đó. Khác với open-loop, nó có cơ hội sửa sai khi vật thể hoặc robot thay đổi giữa các bước.",
+    "papers": [
+      "rt-1",
+      "act",
+      "rtc-inference"
+    ],
+    "aliases": [
+      "closed loop",
+      "feedback control",
+      "điều khiển vòng kín"
+    ]
+  },
+  {
+    "id": "open-loop",
+    "term": "Open-loop execution",
+    "category": "control",
+    "definition": "Chạy một chuỗi lệnh mà không điều chỉnh theo quan sát mới trong lúc thực thi. Đơn giản hơn nhưng dễ thất bại khi có disturbance, lỗi calibration hoặc tương tác tiếp xúc bất ngờ.",
+    "papers": [
+      "act",
+      "rtc-inference"
+    ],
+    "aliases": [
+      "open loop",
+      "điều khiển vòng hở"
+    ]
+  },
+  {
+    "id": "async",
+    "term": "Asynchronous inference",
+    "category": "control",
+    "definition": "Model tạo action mới song song với việc robot thực thi lệnh hiện có, tránh phải dừng hoàn toàn chờ GPU. Tuy nhiên lệnh đến muộn phải khớp với trạng thái và các action đã cam kết.",
+    "papers": [
+      "rtc-inference",
+      "rtc-training"
+    ],
+    "aliases": [
+      "asynchronous",
+      "async inference",
+      "suy luận bất đồng bộ"
+    ]
+  },
+  {
+    "id": "inpainting",
+    "term": "Action inpainting",
+    "category": "control",
+    "definition": "Giữ cố định những phần action đã biết hoặc đã cam kết, rồi sinh phần còn lại tương thích bằng mô hình sinh. RTC ứng dụng cơ chế này để nối chunk mới với chuyển động đang thực hiện.",
+    "papers": [
+      "rtc-inference",
+      "rtc-training"
+    ],
+    "aliases": [
+      "inpainting",
+      "guided inpainting",
+      "action prefix inpainting"
+    ]
+  },
+  {
+    "id": "prefix-conditioning",
+    "term": "Prefix conditioning",
+    "category": "control",
+    "definition": "Điều kiện hoá model trên đoạn action đầu đã cam kết để dự đoán phần postfix hợp lệ. Training-time RTC đưa ràng buộc này vào huấn luyện, giảm nhu cầu sửa output bằng gradient ở inference.",
+    "papers": [
+      "rtc-training",
+      "rtc-inference"
+    ],
+    "aliases": [
+      "prefix conditioning",
+      "committed prefix",
+      "điều kiện tiền tố"
+    ]
+  },
+  {
+    "id": "committed-actions",
+    "term": "Committed actions",
+    "category": "control",
+    "definition": "Những action đã gửi hoặc chắc chắn sẽ được controller thực thi trước khi một chunk mới đến. Không thể thay chúng bằng một dự đoán mới từ thời điểm cũ; policy phải nối phần tiếp theo phù hợp.",
+    "papers": [
+      "rtc-inference",
+      "rtc-training"
+    ],
+    "aliases": [
+      "action đã cam kết",
+      "committed prefix"
+    ]
+  },
+  {
+    "id": "latency",
+    "term": "Inference latency",
+    "category": "control",
+    "definition": "Thời gian từ lúc bắt đầu lấy observation hoặc gọi mô hình đến khi action sẵn sàng thực thi. Phải phân biệt latency end-to-end với thời gian forward của mạng và xem cả độ trễ dài bất thường (tail latency).",
+    "papers": [
+      "rtc-inference",
+      "rtc-training",
+      "fast"
+    ],
+    "aliases": [
+      "latency",
+      "runtime delay",
+      "độ trễ"
+    ]
+  },
+  {
+    "id": "control-frequency",
+    "term": "Control frequency",
+    "category": "control",
+    "definition": "Tần số bộ điều khiển phát lệnh cho robot, thường đo bằng Hz. Tần số điều khiển và tần số model inference khác nhau; policy chậm vẫn có thể dùng chunk/async để duy trì luồng lệnh.",
+    "papers": [
+      "rtc-inference",
+      "act"
+    ],
+    "aliases": [
+      "control Hz",
+      "servo frequency",
+      "tần số điều khiển"
+    ]
+  },
+  {
+    "id": "action-space",
+    "term": "Action space",
+    "category": "control",
+    "definition": "Tập hoặc cấu trúc lệnh robot có thể nhận, ví dụ joint position, joint velocity, delta EEF pose và gripper command. Cần xác định đơn vị và hệ quy chiếu trước khi so sánh mô hình.",
+    "papers": [
+      "openvla",
+      "open-x-embodiment",
+      "lingbot-vla-2"
+    ],
+    "aliases": [
+      "action space",
+      "không gian hành động"
+    ]
+  },
+  {
+    "id": "action-horizon",
+    "term": "Action horizon",
+    "category": "control",
+    "definition": "Số bước action mà policy dự đoán hoặc tối ưu trong một lần suy luận. Horizon dài giảm số lần hỏi model nhưng cũng có thể giảm khả năng phản ứng với thay đổi bất ngờ.",
+    "papers": [
+      "act",
+      "diffusion-policy",
+      "rtc-inference"
+    ],
+    "aliases": [
+      "prediction horizon",
+      "chunk length",
+      "horizon"
+    ]
+  },
+  {
+    "id": "action-normalization",
+    "term": "Action normalization",
+    "category": "control",
+    "definition": "Chuẩn hoá biên độ từng chiều action trong training, rồi giải chuẩn hoá chính xác trước khi gửi xuống controller. Sai thống kê hoặc sai đơn vị có thể tạo hành động nguy hiểm dù output mạng nhìn hợp lệ.",
+    "papers": [
+      "openvla",
+      "lingbot-vla-2",
+      "open-x-embodiment"
+    ],
+    "aliases": [
+      "normalizer",
+      "normalization",
+      "MeanStd normalization"
+    ]
+  },
+  {
+    "id": "55d-action",
+    "term": "55D action",
+    "category": "control",
+    "definition": "Schema action gồm 55 chiều được dùng để thống nhất dữ liệu đa robot trong LingBot-VLA 2.0. Đây là vùng chứa có mask/adapter chứ không có nghĩa mọi robot đều có 55 bậc tự do vật lý.",
+    "papers": [
+      "lingbot-vla-2"
+    ],
+    "aliases": [
+      "55D",
+      "55-dimensional action"
+    ]
+  },
+  {
+    "id": "physical-action",
+    "term": "Physical action",
+    "category": "control",
+    "definition": "Lệnh chuyển động vật lý cho robot như vị trí khớp, delta pose, velocity hoặc gripper command. Khác với câu trả lời bằng ngôn ngữ, nó cần đúng hệ tọa độ, giới hạn cơ cấu và nhịp điều khiển.",
+    "papers": [
+      "rdt-1b",
+      "openvla"
+    ],
+    "aliases": [
+      "physical action",
+      "robot action",
+      "hành động vật lý"
+    ]
+  },
+  {
+    "id": "contact-rich",
+    "term": "Contact-rich manipulation",
+    "category": "control",
+    "definition": "Thao tác chịu tác động mạnh của tiếp xúc, ma sát và ràng buộc giữa gripper/vật/môi trường, ví dụ chèn vật hoặc mở ngăn kéo. Một action sai vài milimét có thể gây lỗi ngay dù dự đoán ảnh có vẻ đúng.",
+    "papers": [
+      "diffusion-policy",
+      "rdt-1b",
+      "act"
+    ],
+    "aliases": [
+      "contact-rich",
+      "thao tác có tiếp xúc"
+    ]
+  },
+  {
+    "id": "trajectory",
+    "term": "Trajectory",
+    "category": "control",
+    "definition": "Chuỗi trạng thái hoặc hành động theo thời gian, thường tương ứng với một lần robot thực hiện nhiệm vụ. Trong imitation learning, trajectory có thể chứa cả observation và action target ở mỗi timestep.",
+    "papers": [
+      "act",
+      "fast",
+      "droid"
+    ],
+    "aliases": [
+      "quỹ đạo",
+      "action trajectory"
+    ]
+  },
+  {
+    "id": "autoregressive",
+    "term": "Autoregressive decoding",
+    "category": "architecture",
+    "definition": "Sinh phần tử hoặc token tiếp theo dựa trên các token đã có, thay vì xuất toàn bộ chuỗi trong một bước. Token sequence dài có thể tăng độ trễ inference, là một động lực cho các cách nén action như FAST.",
+    "papers": [
+      "rt-1",
+      "openvla",
+      "fast"
+    ],
+    "aliases": [
+      "autoregressive",
+      "AR",
+      "tự hồi quy"
+    ]
+  },
+  {
+    "id": "action-token",
+    "term": "Action tokens",
+    "category": "architecture",
+    "definition": "Các token rời rạc mã hoá giá trị hoặc đoạn action để mô hình dự đoán qua giao diện tương tự language model. Cần giải mã đúng discretization, thứ tự chiều và normalization để thu lệnh liên tục.",
+    "papers": [
+      "rt-1",
+      "rt-2",
+      "openvla",
+      "fast"
+    ],
+    "aliases": [
+      "action tokens",
+      "token hành động"
+    ]
+  },
+  {
+    "id": "tokenization",
+    "term": "Action tokenization",
+    "category": "architecture",
+    "definition": "Quá trình chuyển action liên tục/chuỗi action thành các token phù hợp decoder; có thể dùng bin lượng tử hoá hoặc nén miền tần số. Mất mát tái tạo và chiều dài token ảnh hưởng trực tiếp chất lượng/tốc độ.",
+    "papers": [
+      "fast",
+      "openvla",
+      "rt-2"
+    ],
+    "aliases": [
+      "tokenization",
+      "action tokenizer",
+      "token hóa"
+    ]
+  },
+  {
+    "id": "quantization",
+    "term": "Quantization",
+    "category": "architecture",
+    "definition": "Ánh xạ giá trị liên tục về tập giá trị hoặc mã rời rạc hữu hạn. Giảm độ phức tạp biểu diễn nhưng gây sai số lượng tử hoá, đặc biệt rõ khi robot cần động tác rất chính xác.",
+    "papers": [
+      "fast",
+      "openvla"
+    ],
+    "aliases": [
+      "discretization",
+      "lượng tử hóa"
+    ]
+  },
+  {
+    "id": "dct",
+    "term": "DCT",
+    "category": "architecture",
+    "definition": "Discrete Cosine Transform: biến đổi một chuỗi theo thời gian sang các hệ số tần số. Với action mượt, nhiều thông tin tập trung ở tần số thấp, giúp FAST nén chuỗi bằng ít token hơn.",
+    "papers": [
+      "fast"
+    ],
+    "aliases": [
+      "Discrete Cosine Transform",
+      "biến đổi cosin rời rạc"
+    ]
+  },
+  {
+    "id": "compression",
+    "term": "Action compression",
+    "category": "architecture",
+    "definition": "Giảm lượng thông tin/token cần để biểu diễn một action trajectory. Cần kiểm tra sai số khi giải nén, nhất là ở chuyển động có tiếp xúc, thay vì chỉ đo tỷ lệ nén.",
+    "papers": [
+      "fast"
+    ],
+    "aliases": [
+      "compression",
+      "nén action",
+      "frequency compression"
+    ]
+  },
+  {
+    "id": "dit",
+    "term": "DiT",
+    "category": "architecture",
+    "definition": "Diffusion Transformer: dùng Transformer làm mạng dự đoán trong quy trình diffusion hoặc flow-based generation. Trong VLA, DiT thường là action expert có điều kiện theo feature từ VLM và robot state.",
+    "papers": [
+      "rdt-1b",
+      "qwen-vla",
+      "rtc-training"
+    ],
+    "aliases": [
+      "diffusion Transformer",
+      "Diffusion Transformer"
+    ]
+  },
+  {
+    "id": "transformer",
+    "term": "Transformer",
+    "category": "architecture",
+    "definition": "Kiến trúc mạng attention cho phép token tương tác theo nội dung và vị trí trong chuỗi. Trong robot learning, token có thể đến từ ảnh, instruction, trạng thái hoặc action theo thời gian.",
+    "papers": [
+      "rt-1",
+      "act",
+      "octo"
+    ],
+    "aliases": [
+      "self-attention",
+      "attention network"
+    ]
+  },
+  {
+    "id": "moe",
+    "term": "MoE",
+    "category": "architecture",
+    "definition": "Mixture-of-Experts: nhiều mạng expert con với router chọn expert phù hợp cho từng token/trạng thái. Sparse MoE chỉ kích hoạt một phần expert khi chạy nên tổng tham số và compute hoạt động không nhất thiết tăng cùng tỷ lệ.",
+    "papers": [
+      "lingbot-vla-2"
+    ],
+    "aliases": [
+      "Mixture of Experts",
+      "Mixture-of-Experts",
+      "sparse MoE"
+    ]
+  },
+  {
+    "id": "shared-expert",
+    "term": "Shared expert",
+    "category": "architecture",
+    "definition": "Expert luôn hoạt động cho mọi đầu vào trong một kiến trúc MoE, hỗ trợ giữ kiến thức chung giữa nhiệm vụ. Các routed experts đảm nhiệm những mẫu được router chọn, nhưng phải kiểm tra cân bằng tải và tác dụng qua ablation.",
+    "papers": [
+      "lingbot-vla-2"
+    ],
+    "aliases": [
+      "shared expert",
+      "routed expert"
+    ]
+  },
+  {
+    "id": "dual-system",
+    "term": "Dual-system architecture",
+    "category": "architecture",
+    "definition": "Thiết kế tách thành mô-đun hiểu/diễn giải thông tin cấp cao và mô-đun sinh hành động vận động, ví dụ VLM và action expert của GR00T N1. Không nên hiểu System 2 ở đây như chatbot tự suy luận ra torque.",
+    "papers": [
+      "groot-n1"
+    ],
+    "aliases": [
+      "dual-system",
+      "system 1 system 2"
+    ]
+  },
+  {
+    "id": "action-expert",
+    "term": "Action expert",
+    "category": "architecture",
+    "definition": "Nhánh mạng chuyên sinh action robot từ observation/state và conditioning thị giác–ngôn ngữ. Có thể dùng diffusion hoặc flow matching để tạo quỹ đạo liên tục thay vì tự hồi quy action token.",
+    "papers": [
+      "groot-n1",
+      "pi-0-5",
+      "qwen-vla"
+    ],
+    "aliases": [
+      "action expert",
+      "motor expert"
+    ]
+  },
+  {
+    "id": "embodiment-prompt",
+    "term": "Embodiment prompt",
+    "category": "architecture",
+    "definition": "Phần điều kiện mô tả đặc tính robot được truyền vào mô hình để phân biệt các loại embodiment. Nó giúp định hướng decoder nhưng không tự thay thế chuyển đổi hệ tọa độ và action adapter.",
+    "papers": [
+      "qwen-vla"
+    ],
+    "aliases": [
+      "embodiment prompt",
+      "robot embodiment metadata"
+    ]
+  },
+  {
+    "id": "7b-vla",
+    "term": "7B VLA",
+    "category": "architecture",
+    "definition": "Cách nói về một VLA có quy mô khoảng bảy tỷ tham số, thường dùng để mô tả OpenVLA. 7B là cỡ mạng, không phải số bậc tự do robot hay số lượng action token.",
+    "papers": [
+      "openvla"
+    ],
+    "aliases": [
+      "7B VLA",
+      "7 billion parameters"
+    ]
+  },
+  {
+    "id": "cross-embodiment",
+    "term": "Cross-embodiment learning",
+    "category": "data",
+    "definition": "Học hoặc chuyển policy giữa nhiều kiểu robot có kinematics/camera/action khác nhau. Đòi hỏi biểu diễn, adapter và protocol đánh giá không vô tình đánh đồng các lệnh có cùng số nhưng khác ý nghĩa.",
+    "papers": [
+      "open-x-embodiment",
+      "octo",
+      "qwen-vla"
+    ],
+    "aliases": [
+      "cross-embodiment",
+      "cross embodiment",
+      "đa robot"
+    ]
+  },
+  {
+    "id": "rtx",
+    "term": "RT-X",
+    "category": "data",
+    "definition": "Tên nhóm/generalist policy được nghiên cứu trong bối cảnh Open X-Embodiment với dữ liệu và nền tảng nhiều robot. Không phải một action space vật lý duy nhất dùng y hệt trên mọi embodiment.",
+    "papers": [
+      "open-x-embodiment"
+    ],
+    "aliases": [
+      "RT-X",
+      "RTX"
+    ]
+  },
+  {
+    "id": "dataset",
+    "term": "Robot dataset",
+    "category": "data",
+    "definition": "Tập ghi chép episode/demonstration hoặc dữ liệu cảm biến để train/evaluate. Nên phân biệt số frame, số trajectory, số task và số environment thay vì quy chúng về một con số duy nhất.",
+    "papers": [
+      "bridgedata-v2",
+      "droid",
+      "open-x-embodiment"
+    ],
+    "aliases": [
+      "robot dataset",
+      "dataset"
+    ]
+  },
+  {
+    "id": "diverse-data",
+    "term": "Data diversity",
+    "category": "data",
+    "definition": "Mức đa dạng môi trường, đồ vật, nhiệm vụ, người vận hành và cấu hình camera trong bộ dữ liệu. Nhiều trajectory gần trùng nhau không đảm bảo đa dạng cao.",
+    "papers": [
+      "bridgedata-v2",
+      "droid"
+    ],
+    "aliases": [
+      "đa dạng dữ liệu",
+      "data diversity"
+    ]
+  },
+  {
+    "id": "out-of-lab",
+    "term": "In-the-wild data",
+    "category": "data",
+    "definition": "Dữ liệu ghi trong nhiều môi trường đời thực thay vì một setup phòng thí nghiệm cố định. Hữu ích để thử robustness khi thay đổi background, ánh sáng, object và bố cục.",
+    "papers": [
+      "droid"
+    ],
+    "aliases": [
+      "dữ liệu ngoài phòng thí nghiệm",
+      "in the wild"
+    ]
+  },
+  {
+    "id": "data-quality",
+    "term": "Data quality",
+    "category": "data",
+    "definition": "Độ tin cậy, đồng bộ thời gian, action label, calibration và mức hoàn thành nhiệm vụ trong demonstration. Thêm dữ liệu lỗi hoặc lệch timestamp có thể làm policy kém dù dataset lớn hơn.",
+    "papers": [
+      "droid",
+      "lingbot-vla-2"
+    ],
+    "aliases": [
+      "chất lượng dữ liệu",
+      "data curation"
+    ]
+  },
+  {
+    "id": "simulation",
+    "term": "Simulation",
+    "category": "data",
+    "definition": "Môi trường giả lập mô phỏng vật thể, robot và nhiệm vụ để tạo dữ liệu hoặc kiểm thử policy. Kết quả trong simulation phải được phân biệt với hiệu quả trên robot thật do sim-to-real gap.",
+    "papers": [
+      "robocasa",
+      "libero",
+      "vima"
+    ],
+    "aliases": [
+      "mô phỏng",
+      "sim"
+    ]
+  },
+  {
+    "id": "procedural-generation",
+    "term": "Procedural generation",
+    "category": "data",
+    "definition": "Sinh tự động những layout, vật thể hay nhiệm vụ theo quy tắc và tham số thay đổi. Giúp benchmark có nhiều tổ hợp test hơn nhưng cần đảm bảo các split thực sự tách biệt.",
+    "papers": [
+      "robocasa",
+      "libero"
+    ],
+    "aliases": [
+      "procedural generation",
+      "sinh theo quy tắc"
+    ]
+  },
+  {
+    "id": "benchmark",
+    "term": "Benchmark",
+    "category": "data",
+    "definition": "Tập nhiệm vụ kèm giao thức đánh giá và metric giúp so sánh phương pháp. Kết quả chỉ có ý nghĩa trong phạm vi split, số lượt thử và điều kiện mà benchmark quy định.",
+    "papers": [
+      "libero",
+      "robocasa",
+      "vima"
+    ],
+    "aliases": [
+      "benchmark",
+      "bộ đánh giá"
+    ]
+  },
+  {
+    "id": "continual-learning",
+    "term": "Continual learning",
+    "category": "data",
+    "definition": "Học thêm nhiệm vụ theo thời gian trong khi cố giữ kỹ năng cũ và khai thác chuyển giao. Đánh giá phải đo lại task trước sau khi train task mới để phát hiện forgetting.",
+    "papers": [
+      "libero"
+    ],
+    "aliases": [
+      "lifelong learning",
+      "continual learning",
+      "học liên tục"
+    ]
+  },
+  {
+    "id": "catastrophic-forgetting",
+    "term": "Catastrophic forgetting",
+    "category": "data",
+    "definition": "Hiện tượng mô hình mất hiệu quả trên nhiệm vụ đã học khi được cập nhật cho nhiệm vụ mới. Đây là vấn đề trọng tâm của continual learning và cần đo qua ma trận hiệu năng theo chuỗi task.",
+    "papers": [
+      "libero"
+    ],
+    "aliases": [
+      "quên thảm họa",
+      "forgetting"
+    ]
+  },
+  {
+    "id": "fwt",
+    "term": "Forward transfer (FWT)",
+    "category": "data",
+    "definition": "Chỉ số đo mức kiến thức từ các nhiệm vụ đã học giúp hoặc cản trở hiệu quả trên nhiệm vụ tiếp theo. Phải dùng đúng protocol LIBERO/continual learning vì định nghĩa baseline có thể khác giữa bài.",
+    "papers": [
+      "libero"
+    ],
+    "aliases": [
+      "FWT",
+      "forward transfer"
+    ]
+  },
+  {
+    "id": "nbt",
+    "term": "Negative backward transfer",
+    "category": "data",
+    "definition": "Sự suy giảm hiệu quả trên nhiệm vụ cũ sau khi học thêm nhiệm vụ mới. Thường thể hiện bằng điểm backward transfer âm; cần phân biệt với việc chỉ đo success trên task cuối.",
+    "papers": [
+      "libero"
+    ],
+    "aliases": [
+      "negative backward transfer",
+      "NBT",
+      "BWT âm"
+    ]
+  },
+  {
+    "id": "heldout",
+    "term": "Held-out evaluation",
+    "category": "data",
+    "definition": "Đánh giá trên episode, object hoặc environment đã được giữ ngoài training. Phải chia theo đúng đơn vị cần khái quát, tránh rò rỉ khi cắt nhiều window từ cùng một trajectory.",
+    "papers": [
+      "libero",
+      "droid",
+      "robocasa"
+    ],
+    "aliases": [
+      "held-out",
+      "unseen environment",
+      "test split"
+    ]
+  },
+  {
+    "id": "domain-shift",
+    "term": "Domain shift",
+    "category": "data",
+    "definition": "Sự thay đổi phân phối giữa dữ liệu training và lúc triển khai như vị trí camera, ánh sáng, vật thể hoặc robot. Domain shift giúp kiểm tra robustness nhưng không tự nói nguyên nhân policy thất bại.",
+    "papers": [
+      "bridgedata-v2",
+      "droid",
+      "robocasa"
+    ],
+    "aliases": [
+      "distribution shift",
+      "OOD",
+      "out-of-distribution"
+    ]
+  },
+  {
+    "id": "success-rate",
+    "term": "Success rate",
+    "category": "data",
+    "definition": "Tỷ lệ lượt thực thi hoàn thành tiêu chí nhiệm vụ đã định. Phải đọc cùng số episode, mức độ khó, random seeds và protocol để tránh diễn giải sai một tỷ lệ thành công cao.",
+    "papers": [
+      "libero",
+      "robocasa",
+      "pi-0-5"
+    ],
+    "aliases": [
+      "tỷ lệ thành công",
+      "task success"
+    ]
+  },
+  {
+    "id": "ablation",
+    "term": "Ablation study",
+    "category": "data",
+    "definition": "Thí nghiệm bỏ hoặc thay riêng một thành phần để ước lượng đóng góp của nó trong cấu hình đang xét. Nếu thay nhiều yếu tố cùng lúc, không thể gán mọi cải thiện cho một module.",
+    "papers": [
+      "lingbot-vla-2",
+      "rt-1",
+      "diffusion-policy"
+    ],
+    "aliases": [
+      "ablation",
+      "thử nghiệm bóc tách"
+    ]
+  },
+  {
+    "id": "offline-eval",
+    "term": "Offline evaluation",
+    "category": "data",
+    "definition": "Đánh giá trên dữ liệu đã ghi lại mà không chạy policy thật trong môi trường. Loss hoặc action error offline có thể thấp dù rollout thất bại do lỗi tích luỹ, tiếp xúc hoặc mất phản hồi.",
+    "papers": [
+      "act",
+      "openvla",
+      "droid"
+    ],
+    "aliases": [
+      "offline eval",
+      "offline metrics"
+    ]
+  },
+  {
+    "id": "rollout",
+    "term": "Rollout",
+    "category": "data",
+    "definition": "Một lần thực thi policy từ trạng thái ban đầu qua nhiều bước cho đến khi kết thúc hoặc thất bại. Rollout cho thấy lỗi tích luỹ theo thời gian mà đánh giá từng action độc lập không bắt được.",
+    "papers": [
+      "act",
+      "libero",
+      "pi-0-5"
+    ],
+    "aliases": [
+      "episode rollout",
+      "chạy thử policy"
+    ]
   }
 ]
