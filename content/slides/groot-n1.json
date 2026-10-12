@@ -6,7 +6,11 @@
     "items": [
       "Dual-system architecture chia việc theo bản chất"
     ],
-    "intuition": "System 2 mã hóa image/language thành condition; System 1 là flow-based action expert sinh quỹ đạo."
+    "intuition": "System 2 mã hóa image/language thành condition; System 1 là flow-based action expert sinh quỹ đạo.",
+    "detail": {
+      "label": "BỐI CẢNH NGHIÊN CỨU",
+      "text": "Không thể copy khớp của con người angles sang robot joints một cách trực tiếp. Do đó bài toán của GR00T N1 là: làm sao tận dụng đa nguồn dữ liệu để xây dựng một policy có khả năng hiểu ngữ nghĩa lẫn khả năng sinh liên tục motor actions, sau đó thích nghi nhanh cho robot thật?"
+    }
   },
   {
     "type": "problem",
@@ -15,7 +19,11 @@
     "items": [
       "VLM giỏi nghĩa nhưng không sẵn sàng điều khiển khớp"
     ],
-    "intuition": "Robot-only BC thiếu dữ liệu quy mô và khó mở rộng ra nhiều thiết bị."
+    "intuition": "Robot-only BC thiếu dữ liệu quy mô và khó mở rộng ra nhiều thiết bị.",
+    "detail": {
+      "label": "NGUYÊN NHÂN CỐT LÕI",
+      "text": "Truyền thống, mỗi robot/nhiệm vụ được huấn luyện bằng behavior cloning trên một tập demonstrations tương ứng."
+    }
   },
   {
     "type": "contrast",
@@ -25,7 +33,11 @@
       "Dual-system architecture chia việc theo bản chất",
       "System 2 mã hóa image/language thành condition; System 1 là flow-based action expert sinh quỹ đạo."
     ],
-    "intuition": "System 2 mã hóa image/language thành condition; System 1 là flow-based action expert sinh quỹ đạo."
+    "intuition": "System 2 mã hóa image/language thành condition; System 1 là flow-based action expert sinh quỹ đạo.",
+    "detail": {
+      "label": "VÌ SAO CẦN THAY ĐỔI",
+      "text": "Robot humanoid có thể sở hữu camera, hai cánh tay, thân, cổ tay và gripper, nhưng việc biến lời nói “gấp chiếc áo này” thành hàng trăm lệnh điều khiển vẫn rất khó."
+    }
   },
   {
     "type": "intuition",
@@ -34,7 +46,11 @@
     "items": [
       "VLM lo hiểu ngữ nghĩa, action expert lo chuyển động: pretraining video người bổ sung kinh nghiệm cho robot."
     ],
-    "intuition": "System 2 mã hóa image/language thành condition; System 1 là flow-based action expert sinh quỹ đạo."
+    "intuition": "System 2 mã hóa image/language thành condition; System 1 là flow-based action expert sinh quỹ đạo.",
+    "detail": {
+      "label": "GIẢI THÍCH CƠ CHẾ",
+      "text": "Hệ thống 2 dùng VLM encode ảnh và ngôn ngữ thành context, rồi cung cấp context cho Hệ thống 1; Hệ thống 1 là một Transformer chuyên sinh action quỹ đạo bằng quá trình flow-based sinh."
+    }
   },
   {
     "type": "concepts",
@@ -54,7 +70,11 @@
         "value": "Học velocity field để biến nhiễu thành action chunk."
       }
     ],
-    "intuition": "Thông tin robot state, embodiment và images được đưa vào condition."
+    "intuition": "Thông tin robot state, embodiment và images được đưa vào condition.",
+    "detail": {
+      "label": "NỀN TẢNG KỸ THUẬT",
+      "text": "Post-training thích nghi vào robot và nhiệm vụ đích bằng demonstrations chuyên biệt. Hai bước này cần phân biệt vì thành công ở robot cuối không chỉ do foundation pretraining, mà còn do dữ liệu và setup ở downstream."
+    }
   },
   {
     "type": "pipeline",
@@ -66,37 +86,71 @@
       "Flow action expert / System 1",
       "Quỹ đạo H × D"
     ],
-    "intuition": "System 2 xử lý ngữ nghĩa và context ảnh."
+    "intuition": "System 2 xử lý ngữ nghĩa và context ảnh.",
+    "detail": {
+      "label": "ĐIỂM NHẤN TRIỂN KHAI",
+      "text": "Đây là điểm liên hệ mạnh nhất với hoạt động thu headcam video: đầu vào người đa dạng có giá trị, nhưng value phụ thuộc vào filtering, chuyển động/hand state reconstruction và mapping sang biểu diễn mà action expert học được."
+    }
   },
   {
     "type": "representation",
     "title": "Mô hình biểu diễn cái gì?",
     "lead": "Thông tin robot state, embodiment và images được đưa vào condition.",
     "items": [
-      "Output là continuous action chunk, không phải token text.",
-      "Human video cung cấp action prior gián tiếp chứ không có ground truth robot torque."
+      {
+        "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
+        "value": "Output là continuous action chunk, không phải token text."
+      },
+      {
+        "label": "ĐÁNH ĐỔI KỸ THUẬT",
+        "value": "Human video cung cấp action prior gián tiếp chứ không có ground truth robot torque."
+      }
     ],
-    "intuition": "Human video cung cấp action prior gián tiếp chứ không có ground truth robot torque."
+    "intuition": "Human video cung cấp action prior gián tiếp chứ không có ground truth robot torque.",
+    "detail": {
+      "label": "CHI TIẾT BIỂU DIỄN",
+      "text": "Vì action quỹ đạo bao gồm nhiều bước, mô hình có thể phối hợp chuyển động tay trái/tay phải và giữ tính liên tục về thời gian trong chunk."
+    }
   },
   {
     "type": "training",
     "title": "Model học như thế nào?",
     "lead": "Mixture robot demonstrations, video con người và vision-language data.",
     "items": [
-      "Flow matching học biến noisy action thành motor trajectory.",
-      "Post-training/adaptation để phù hợp robot và kỹ năng đích."
+      {
+        "label": "MỤC TIÊU HỌC",
+        "value": "Flow matching học biến noisy action thành motor trajectory."
+      },
+      {
+        "label": "DỮ LIỆU / QUY TRÌNH",
+        "value": "Post-training/adaptation để phù hợp robot và kỹ năng đích."
+      }
     ],
-    "intuition": "So pretraining + adaptation với train từ đầu ở từng demo budget."
+    "intuition": "So pretraining + adaptation với train từ đầu ở từng demo budget.",
+    "detail": {
+      "label": "CÁCH HUẤN LUYỆN",
+      "text": "Một mạng đã pretrain chưa hiểu chắc robot target. Post-training dùng demonstrations đặc thù để calibrate action scaling, gripper convention, camera viewpoint và kinematics."
+    }
   },
   {
     "type": "inference",
     "title": "Một lần inference xảy ra ra sao?",
     "lead": "System 2 xử lý ngữ nghĩa và context ảnh.",
     "items": [
-      "System 1 chạy vài bước flow sampling để sinh chunk.",
-      "Robot servo thực thi chunk; độ trễ còn phụ thuộc phần cứng và runtime."
+      {
+        "label": "XỬ LÝ ĐẦU VÀO",
+        "value": "System 1 chạy vài bước flow sampling để sinh chunk."
+      },
+      {
+        "label": "TẠO HÀNH ĐỘNG",
+        "value": "Robot servo thực thi chunk; độ trễ còn phụ thuộc phần cứng và runtime."
+      }
     ],
-    "intuition": "Robot servo thực thi chunk; độ trễ còn phụ thuộc phần cứng và runtime."
+    "intuition": "Robot servo thực thi chunk; độ trễ còn phụ thuộc phần cứng và runtime.",
+    "detail": {
+      "label": "DIỄN BIẾN THỰC THI",
+      "text": "VLM trích xuất context gồm áo, bàn, tay robot và từ khóa nhiệm vụ. Action expert lấy robot trạng thái khớp hiện tại, sampled action noise và context rồi sinh chunk chứa các bước đưa hai tay xuống, kẹp mép, kéo và đặt."
+    }
   },
   {
     "type": "equation",
@@ -106,26 +160,47 @@
     "items": [
       "Cách viết intuition của linear flow interpolation."
     ],
-    "intuition": "Tưởng tượng chuyển từ nhiễu ε sang một trajectory A*: flow model học hướng di chuyển trong không gian action."
+    "intuition": "Tưởng tượng chuyển từ nhiễu ε sang một trajectory A*: flow model học hướng di chuyển trong không gian action.",
+    "detail": {
+      "label": "Ý NGHĨA CÔNG THỨC",
+      "text": "Ở inference, bắt đầu noise, tích phân qua nhiều flow time steps để lấy một plausible chunk."
+    }
   },
   {
     "type": "results",
     "title": "Kết quả nói lên điều gì?",
     "lead": "Pretrain rồi adapt cho thấy lợi ích khi số demos đích ít hơn.",
     "items": [
-      "Báo cáo GR00T N1-2B khoảng 2B parameters.",
-      "Chunk sampling khoảng 63,9 ms trên một GPU L40 trong setup cụ thể của bài báo."
+      {
+        "label": "PHÁT HIỆN QUAN TRỌNG",
+        "value": "Báo cáo GR00T N1-2B khoảng 2B parameters."
+      },
+      {
+        "label": "CÁCH DIỄN GIẢI",
+        "value": "Chunk sampling khoảng 63,9 ms trên một GPU L40 trong setup cụ thể của bài báo."
+      }
     ],
-    "intuition": "success rate không bao gồm mọi jerk/collision, và bài toán mapping cross-embodiment còn mở."
+    "intuition": "success rate không bao gồm mọi jerk/collision, và bài toán mapping cross-embodiment còn mở.",
+    "detail": {
+      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
+      "text": "Bài báo đánh giá nhiều môi trường mô phỏng và trên humanoid thật. Phần công bố báo GR00T N1 đã pretrain thường tốt hơn các phương pháp imitation learning đối chứng được huấn luyện từ đầu ở những chế độ ít demonstrations, và cho thấy adaptation trên Fourier GR-1."
+    }
   },
   {
     "type": "ablation",
     "title": "Ablation và bằng chứng",
     "lead": "So pretraining + adaptation với train từ đầu ở từng demo budget.",
     "items": [
-      "Cần tách gain do architecture khỏi gain do tuyển lọc data mixture."
+      {
+        "label": "YẾU TỐ ĐƯỢC THỬ",
+        "value": "Cần tách gain do architecture khỏi gain do tuyển lọc data mixture."
+      }
     ],
-    "intuition": "Báo cáo GR00T N1-2B khoảng 2B parameters."
+    "intuition": "Báo cáo GR00T N1-2B khoảng 2B parameters.",
+    "detail": {
+      "label": "BẰNG CHỨNG BỔ SUNG",
+      "text": "Một cách đọc kết quả có trách nhiệm: xem biểu đồ pretraining vs scratch theo từng dữ liệu regime."
+    }
   },
   {
     "type": "limits",
@@ -141,17 +216,31 @@
         "value": "Phê bình: success rate không bao gồm mọi jerk/collision, và bài toán mapping cross-embodiment còn mở."
       }
     ],
-    "intuition": "Output là continuous action chunk, không phải token text."
+    "intuition": "Output là continuous action chunk, không phải token text.",
+    "detail": {
+      "label": "PHẠM VI KẾT LUẬN",
+      "text": "Phạm vi tác giả thể hiện: Kết quả tập trung trên các embodiment/nhiệm vụ đã chọn; foundation policy vẫn cần post-training cho phần cứng/kỹ năng cụ thể."
+    }
   },
   {
     "type": "relations",
     "title": "Bài này đứng ở đâu trong lĩnh vực?",
     "lead": "Không đọc paper như một hòn đảo riêng.",
     "items": [
-      "π0.5 cũng kết hợp vision-language condition và flow action expert.",
-      "LingBot-VLA 2.0 thêm action canonicalization, sparse MoE và predictive features."
+      {
+        "label": "NỀN TẢNG / TIỀN ĐỀ",
+        "value": "π0.5 cũng kết hợp vision-language condition và flow action expert."
+      },
+      {
+        "label": "HƯỚNG PHÁT TRIỂN",
+        "value": "LingBot-VLA 2.0 thêm action canonicalization, sparse MoE và predictive features."
+      }
     ],
-    "intuition": "Tách ngữ nghĩa khỏi motor generation là cấu trúc hữu ích."
+    "intuition": "Tách ngữ nghĩa khỏi motor generation là cấu trúc hữu ích.",
+    "detail": {
+      "label": "CÔNG TRÌNH LIÊN QUAN",
+      "text": "Đọc thêm RT-2, Diffusion Policy, Open X-Embodiment, Qwen-VLA, LingBot-VLA 2.0. Nên so sánh cách tiếp cận, dữ liệu huấn luyện và phạm vi khái quát của từng công trình."
+    }
   },
   {
     "type": "closing",
@@ -161,6 +250,10 @@
       "Dùng GR00T để nghiên cứu robot+human video pretraining.",
       "Phân biệt latency action sampler với tốc độ/độ ổn định của controller."
     ],
-    "intuition": "VLM lo hiểu ngữ nghĩa, action expert lo chuyển động: pretraining video người bổ sung kinh nghiệm cho robot."
+    "intuition": "VLM lo hiểu ngữ nghĩa, action expert lo chuyển động: pretraining video người bổ sung kinh nghiệm cho robot.",
+    "detail": {
+      "label": "THỬ NGHIỆM TIẾP THEO",
+      "text": "Bắt đầu từ NVIDIA Isaac GR00T. Trước khi huấn luyện, đọc observation schema, normalization và policy đầu vào/đầu ra shapes; lập một bảng robot state / image / language / action."
+    }
   }
 ]

@@ -6,7 +6,11 @@
     "items": [
       "Học phân phối của cả action chunk bằng denoising"
     ],
-    "intuition": "Khởi đầu từ nhiễu, lặp bước chỉnh để tạo một quỹ đạo khả thi nhất quán theo thời gian."
+    "intuition": "Khởi đầu từ nhiễu, lặp bước chỉnh để tạo một quỹ đạo khả thi nhất quán theo thời gian.",
+    "detail": {
+      "label": "BỐI CẢNH NGHIÊN CỨU",
+      "text": "Behavior cloning kiểu regression thường giả định một quan sát có một action target “trung bình”."
+    }
   },
   {
     "type": "problem",
@@ -15,7 +19,11 @@
     "items": [
       "MSE action regression gom nhiều mode thành trung bình"
     ],
-    "intuition": "Dự đoán độc lập từng bước cũng dễ khiến quỹ đạo giật và sai số tích lũy."
+    "intuition": "Dự đoán độc lập từng bước cũng dễ khiến quỹ đạo giật và sai số tích lũy.",
+    "detail": {
+      "label": "NGUYÊN NHÂN CỐT LÕI",
+      "text": "MSE regression có xu hướng average các mode và tạo ra action chẳng mode nào muốn, một cách khá sáng tạo để robot đâm đúng vào giữa chướng ngại vật."
+    }
   },
   {
     "type": "contrast",
@@ -25,7 +33,11 @@
       "Học phân phối của cả action chunk bằng denoising",
       "Khởi đầu từ nhiễu, lặp bước chỉnh để tạo một quỹ đạo khả thi nhất quán theo thời gian."
     ],
-    "intuition": "Khởi đầu từ nhiễu, lặp bước chỉnh để tạo một quỹ đạo khả thi nhất quán theo thời gian."
+    "intuition": "Khởi đầu từ nhiễu, lặp bước chỉnh để tạo một quỹ đạo khả thi nhất quán theo thời gian.",
+    "detail": {
+      "label": "VÌ SAO CẦN THAY ĐỔI",
+      "text": "Ngoài ra actions có theo thời gian correlation mạnh, nên dự đoán từng timestep độc lập làm quỹ đạo rung và dễ tích lũy lỗi."
+    }
   },
   {
     "type": "intuition",
@@ -34,7 +46,11 @@
     "items": [
       "Sinh một quỹ đạo chuyển động đa phương án thay vì học action trung bình dễ va chạm."
     ],
-    "intuition": "Khởi đầu từ nhiễu, lặp bước chỉnh để tạo một quỹ đạo khả thi nhất quán theo thời gian."
+    "intuition": "Khởi đầu từ nhiễu, lặp bước chỉnh để tạo một quỹ đạo khả thi nhất quán theo thời gian.",
+    "detail": {
+      "label": "GIẢI THÍCH CƠ CHẾ",
+      "text": "Điểm bản chất không phải chỉ “dùng diffusion vì đang hot”, mà là diffusion có thể đại diện nhiều mode của phân phối action và vẫn tạo quỹ đạo temporal-coherent."
+    }
   },
   {
     "type": "concepts",
@@ -54,7 +70,11 @@
         "value": "Dự đoán dài, chỉ thực thi ngắn rồi quan sát lại."
       }
     ],
-    "intuition": "Một chunk A có kích thước horizon × action DoF."
+    "intuition": "Một chunk A có kích thước horizon × action DoF.",
+    "detail": {
+      "label": "NỀN TẢNG KỸ THUẬT",
+      "text": "Mô hình diffusion học loại noise từ quỹ đạo. Denoising timestep hoàn toàn khác timestep robot: một cái là số vòng sinh, cái kia là thời gian vật lý trong action horizon."
+    }
   },
   {
     "type": "pipeline",
@@ -66,37 +86,71 @@
       "Conditional denoiser",
       "Quỹ đạo → thực thi ngắn"
     ],
-    "intuition": "Bắt đầu từ noise, model khử nhiễu theo nhiều vòng để sinh một chunk có điều kiện theo quan sát."
+    "intuition": "Bắt đầu từ noise, model khử nhiễu theo nhiều vòng để sinh một chunk có điều kiện theo quan sát.",
+    "detail": {
+      "label": "ĐIỂM NHẤN TRIỂN KHAI",
+      "text": "Mô hình bắt đầu từ noise rồi denoise thành một quỹ đạo, điều kiện trên thị giác quan sát và state."
+    }
   },
   {
     "type": "representation",
     "title": "Mô hình biểu diễn cái gì?",
     "lead": "Một chunk A có kích thước horizon × action DoF.",
     "items": [
-      "Denoiser dự đoán nhiễu hoặc quỹ đạo sạch theo observation.",
-      "Ghi nhớ: denoising steps không phải số control steps."
+      {
+        "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
+        "value": "Denoiser dự đoán nhiễu hoặc quỹ đạo sạch theo observation."
+      },
+      {
+        "label": "ĐÁNH ĐỔI KỸ THUẬT",
+        "value": "Ghi nhớ: denoising steps không phải số control steps."
+      }
     ],
-    "intuition": "Ghi nhớ: denoising steps không phải số control steps."
+    "intuition": "Ghi nhớ: denoising steps không phải số control steps.",
+    "detail": {
+      "label": "CHI TIẾT BIỂU DIỄN",
+      "text": "Nó dùng receding-horizon control: dự đoán một horizon tương đối dài, thực thi một đoạn ngắn, rồi observe và replan."
+    }
   },
   {
     "type": "training",
     "title": "Model học như thế nào?",
     "lead": "Lấy ground-truth action sequences từ demonstrations.",
     "items": [
-      "Thêm Gaussian noise ở mức k và học loại nhiễu.",
-      "Mô hình hóa action multimodality theo cả chiều không gian lẫn thời gian."
+      {
+        "label": "MỤC TIÊU HỌC",
+        "value": "Thêm Gaussian noise ở mức k và học loại nhiễu."
+      },
+      {
+        "label": "DỮ LIỆU / QUY TRÌNH",
+        "value": "Mô hình hóa action multimodality theo cả chiều không gian lẫn thời gian."
+      }
     ],
-    "intuition": "Sự khác nhau giữa CNN và Transformer action backbones và các horizon."
+    "intuition": "Sự khác nhau giữa CNN và Transformer action backbones và các horizon.",
+    "detail": {
+      "label": "CÁCH HUẤN LUYỆN",
+      "text": "Chính recipe này sau đó xuất hiện với biến thể flow matching trong π-series, RDT, GR00T, Qwen-VLA và một đống mô hình khác."
+    }
   },
   {
     "type": "inference",
     "title": "Một lần inference xảy ra ra sao?",
     "lead": "Bắt đầu từ noise, model khử nhiễu theo nhiều vòng để sinh một chunk có điều kiện theo quan sát.",
     "items": [
-      "Chạy denoising nhiều vòng dưới điều kiện observation.",
-      "Chạy vài action, đọc camera mới và replan; đổi lại có inference latency."
+      {
+        "label": "XỬ LÝ ĐẦU VÀO",
+        "value": "Chạy denoising nhiều vòng dưới điều kiện observation."
+      },
+      {
+        "label": "TẠO HÀNH ĐỘNG",
+        "value": "Chạy vài action, đọc camera mới và replan; đổi lại có inference latency."
+      }
     ],
-    "intuition": "Chạy vài action, đọc camera mới và replan; đổi lại có inference latency."
+    "intuition": "Chạy vài action, đọc camera mới và replan; đổi lại có inference latency.",
+    "detail": {
+      "label": "DIỄN BIẾN THỰC THI",
+      "text": "Inference bắt đầu từ noise, lặp nhiều bước đến action chunk hợp lệ. Robot chỉ thực thi a_0...a_m, chụp quan sát mới, rồi replan."
+    }
   },
   {
     "type": "equation",
@@ -106,26 +160,47 @@
     "items": [
       "Ký hiệu mô tả forward noise thường gặp trong diffusion."
     ],
-    "intuition": "Trộn action thật A với nhiễu ε; khi học, mạng biết cách đảo quá trình để tìm quỹ đạo hợp lệ."
+    "intuition": "Trộn action thật A với nhiễu ε; khi học, mạng biết cách đảo quá trình để tìm quỹ đạo hợp lệ.",
+    "detail": {
+      "label": "Ý NGHĨA CÔNG THỨC",
+      "text": "Regress với MSE một action trung bình có thể tạo con đường đi thẳng vào chướng ngại. Generative mô hình dự đoán phân phối có nhiều đỉnh sẽ lấy mẫu thuộc một mode thay vì average."
+    }
   },
   {
     "type": "results",
     "title": "Kết quả nói lên điều gì?",
     "lead": "Đánh giá 12 nhiệm vụ thuộc 4 nhóm benchmark.",
     "items": [
-      "Bài báo báo trung bình cải thiện khoảng 46,9% theo cách tổng hợp của tác giả.",
-      "Nhiệm vụ thực như mug flipping và sauce pouring cho thấy lợi thế trên nhiều baseline."
+      {
+        "label": "PHÁT HIỆN QUAN TRỌNG",
+        "value": "Bài báo báo trung bình cải thiện khoảng 46,9% theo cách tổng hợp của tác giả."
+      },
+      {
+        "label": "CÁCH DIỄN GIẢI",
+        "value": "Nhiệm vụ thực như mug flipping và sauce pouring cho thấy lợi thế trên nhiều baseline."
+      }
     ],
-    "intuition": "multi-modality không phải nút thắt của mọi nhiệm vụ; cần cân nhắc latency khi triển khai 50 Hz."
+    "intuition": "multi-modality không phải nút thắt của mọi nhiệm vụ; cần cân nhắc latency khi triển khai 50 Hz.",
+    "detail": {
+      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
+      "text": "Trên 12 nhiệm vụ thuộc 4 benchmark families, tác giả nêu cải thiện trung bình rất lớn so với các phương pháp đối chứng điều khiển từ thị giác, khoảng 46.9% theo cách tổng hợp của tác giả."
+    }
   },
   {
     "type": "ablation",
     "title": "Ablation và bằng chứng",
     "lead": "Sự khác nhau giữa CNN và Transformer action backbones và các horizon.",
     "items": [
-      "Cải thiện không chỉ đến từ diffusion: receding horizon và tuning đều góp phần."
+      {
+        "label": "YẾU TỐ ĐƯỢC THỬ",
+        "value": "Cải thiện không chỉ đến từ diffusion: receding horizon và tuning đều góp phần."
+      }
     ],
-    "intuition": "Bài báo báo trung bình cải thiện khoảng 46,9% theo cách tổng hợp của tác giả."
+    "intuition": "Bài báo báo trung bình cải thiện khoảng 46,9% theo cách tổng hợp của tác giả.",
+    "detail": {
+      "label": "BẰNG CHỨNG BỔ SUNG",
+      "text": "Với nhiệm vụ trên robot thật như mug flipping, sauce pouring/spreading, diffusion policy đạt thành công cao trong khi một số phương pháp đối chứng LSTM-GMM hoặc hồi quy thất bại hoặc kém rõ rệt."
+    }
   },
   {
     "type": "limits",
@@ -141,17 +216,31 @@
         "value": "Phê bình: multi-modality không phải nút thắt của mọi nhiệm vụ; cần cân nhắc latency khi triển khai 50 Hz."
       }
     ],
-    "intuition": "Denoiser dự đoán nhiễu hoặc quỹ đạo sạch theo observation."
+    "intuition": "Denoiser dự đoán nhiễu hoặc quỹ đạo sạch theo observation.",
+    "detail": {
+      "label": "PHẠM VI KẾT LUẬN",
+      "text": "Iterative denoising làm inference đắt hơn one-shot regression, gây khó cho high-frequency control."
+    }
   },
   {
     "type": "relations",
     "title": "Bài này đứng ở đâu trong lĩnh vực?",
     "lead": "Không đọc paper như một hòn đảo riêng.",
     "items": [
-      "RDT-1B và π0.5 phát triển action generative modeling ở quy mô VLA.",
-      "RTC giải quyết chuyện nối chunk và delay của generative policies."
+      {
+        "label": "NỀN TẢNG / TIỀN ĐỀ",
+        "value": "RDT-1B và π0.5 phát triển action generative modeling ở quy mô VLA."
+      },
+      {
+        "label": "HƯỚNG PHÁT TRIỂN",
+        "value": "RTC giải quyết chuyện nối chunk và delay của generative policies."
+      }
     ],
-    "intuition": "Generative action model tránh bình quân hóa những quỹ đạo đúng khác nhau."
+    "intuition": "Generative action model tránh bình quân hóa những quỹ đạo đúng khác nhau.",
+    "detail": {
+      "label": "CÔNG TRÌNH LIÊN QUAN",
+      "text": "Đọc thêm RDT-1B, GR00T N1, π0.5, RTC (inference). Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+    }
   },
   {
     "type": "closing",
@@ -161,6 +250,10 @@
       "Ưu tiên khi thao tác có multimodal action và chunk consistency.",
       "Đo closed-loop success, smoothness và inference latency cùng nhau."
     ],
-    "intuition": "Sinh một quỹ đạo chuyển động đa phương án thay vì học action trung bình dễ va chạm."
+    "intuition": "Sinh một quỹ đạo chuyển động đa phương án thay vì học action trung bình dễ va chạm.",
+    "detail": {
+      "label": "THỬ NGHIỆM TIẾP THEO",
+      "text": "Dùng Push-T state phương pháp đối chứng trong repo chính thức. Plot 10 sampled các quỹ đạo cho cùng quan sát; thay số denoising steps 100/20/5, horizon và action horizon, đo thành công và độ trễ."
+    }
   }
 ]
