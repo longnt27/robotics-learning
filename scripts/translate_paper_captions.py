@@ -14,12 +14,12 @@ import re
 from pathlib import Path
 
 import torch
-from transformers import MarianMTModel, MarianTokenizer
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "content" / "paper-figures.json"
-MODEL_ID = "Helsinki-NLP/opus-mt-en-vi"
-TRANSLATOR_ID = "Helsinki-NLP/opus-mt-en-vi (machine translation)"
+MODEL_ID = "VietAI/envit5-translation"
+TRANSLATOR_ID = "VietAI/envit5-translation (machine translation; requires review for jargon)"
 VIETNAMESE = re.compile(r"[àáạảãăắằặẳẵâấầậẩẫđèéẹẻẽêếềệểễ"
                         r"ìíịỉĩòóọỏõôốồộổỗơớờợởỡ"
                         r"ùúụủũưứừựửữỳýỵỷỹ"
@@ -33,18 +33,19 @@ def source_digest(s: str) -> str:
 
 
 def chunks(text: str) -> list[str]:
-    """Split long figure descriptions without cutting in the middle of a word."""
-    sentences = re.split(r"(?<=[.!?;])\s+(?=[A-Z0-9(])", text.strip())
+    """Use small, coherent fragments so the model cannot silently omit a sentence."""
+    text = re.sub(r"(?<=[A-Za-z])-\s+(?=[a-z])", "", text.strip())
+    sentences = re.split(r"(?<=[.!?;])\s+(?=[A-Z0-9(])", text)
     result: list[str] = []
     current = ""
     for sentence in sentences:
         sentence = sentence.strip()
-        if len(sentence) > 360:
+        if len(sentence) > 235:
             words = sentence.split()
             lines: list[str] = []
             pending = ""
             for word in words:
-                if len(pending) + len(word) + 1 > 300 and pending:
+                if len(pending) + len(word) + 1 > 195 and pending:
                     lines.append(pending)
                     pending = word
                 else:
@@ -54,7 +55,7 @@ def chunks(text: str) -> list[str]:
         else:
             lines = [sentence]
         for part in lines:
-            if current and len(current) + len(part) + 1 > 340:
+            if current and len(current) + len(part) + 1 > 220:
                 result.append(current)
                 current = part
             else:
@@ -65,16 +66,17 @@ def chunks(text: str) -> list[str]:
 
 
 @torch.inference_mode()
-def translate_batch(model, tokenizer, texts: list[str], language_prefix: str) -> list[str]:
+def translate_batch(model, tokenizer, texts: list[str]) -> list[str]:
     translated = []
     for at in range(0, len(texts), 8):
         batch = texts[at: at + 8]
         data = tokenizer(
-            [language_prefix + sentence for sentence in batch],
+            ["en: " + sentence for sentence in batch],
             return_tensors="pt", padding=True, truncation=True, max_length=500
         )
         tokens = model.generate(**data, num_beams=3, max_new_tokens=256)
-        translated.extend(tokenizer.batch_decode(tokens, skip_special_tokens=True))
+        translated.extend(re.sub(r"^\s*vi:\s*", "", item, flags=re.I).strip()
+                          for item in tokenizer.batch_decode(tokens, skip_special_tokens=True))
     return translated
 
 
@@ -108,15 +110,10 @@ def main():
     print(f"Translating {len(pending)} figures as {len(sentences)} segments "
           f"({MODEL_ID}); no paid or runtime inference service", flush=True)
     torch.set_num_threads(3)
-    tokenizer = MarianTokenizer.from_pretrained(MODEL_ID)
-    model = MarianMTModel.from_pretrained(MODEL_ID)
+    tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
+    model = AutoModelForSeq2SeqLM.from_pretrained(MODEL_ID)
     model.eval()
-    codes = getattr(tokenizer, "supported_language_codes", []) or []
-    code = ">>vie<<" if ">>vie<<" in codes else (
-        ">>vie_Hani<<" if ">>vie_Hani<<" in codes else ""
-    )
-    print("Language code:", repr(code), "available", codes[:10], flush=True)
-    translations = translate_batch(model, tokenizer, sentences, code + " " if code else "")
+    translations = translate_batch(model, tokenizer, sentences)
     if len(translations) != len(sentences):
         raise ValueError("Translation model returned wrong number of segments")
 
