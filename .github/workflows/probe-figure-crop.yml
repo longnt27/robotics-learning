@@ -1,0 +1,38 @@
+name: Probe difficult multi-figure crop
+on:
+  push:
+    branches: [feat/paper-figures-adaptive-bilingual]
+    paths:
+      - .github/workflows/probe-figure-crop.yml
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install pymupdf==1.26.4 pillow==11.3.0
+      - name: Inspect precise caption positions for adjacent figures
+        run: |
+          python - <<'PY'
+          import sys,fitz
+          from pathlib import Path
+          sys.path.insert(0,'scripts')
+          from extract_paper_figures import download_pdf, sources, captions
+          p=Path('/tmp/lingbot-vla-2.pdf')
+          download_pdf(sources()['lingbot-vla-2'],p)
+          with fitz.open(p) as doc:
+            page=doc[7]
+            for item in captions(page):
+              if item['num'] not in (5,6,7):continue
+              print('BLOCK',item['num'],item['bbox'],item['caption'][:200],flush=True)
+              for q in [f'Figure {item["num"]}.',f'Figure {item["num"]}:']:
+                print('SEARCH',q,[(round(r.x0),round(r.y0),round(r.x1),round(r.y1)) for r in page.search_for(q)],flush=True)
+            for block in page.get_text('dict')['blocks']:
+              if block.get('type')!=0:continue
+              for line in block.get('lines',[]):
+                txt=''.join(span['text'] for span in line['spans']).strip()
+                if txt.startswith('Figure 5.') or txt.startswith('Figure 6.'):
+                  print('LINE',txt[:160],line['bbox'],flush=True)
+          PY
