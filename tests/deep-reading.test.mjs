@@ -55,7 +55,7 @@ test("all twenty-two scientific chapters contain at least five times the prior e
       assert.ok(fig.image.startsWith("/paper-figures/"+slug+"/"),`${slug}: bad image location`);
       assert.ok(fs.existsSync(path.join(root,"public",fig.image)),`${slug}: missing image bytes ${fig.image}`);
       assert.ok(content.includes("]("+fig.image+")"),`${slug}: figure not embedded`);
-      assert.ok(fig.caption.length!==400,`${slug}: author caption appears artificially truncated to 400 chars`);
+      assert.ok(fig.caption.trim().length>=35,`${slug}: source author caption is missing`);
       assert.ok(!content.includes("Xem caption đầy đủ trong PDF"),`${slug}: redundant fake caption remains`);
     }
     for(const key of ["overview","method","worked"]){
