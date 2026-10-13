@@ -28,7 +28,7 @@ Một công ty thu hàng chục nghìn giờ demonstration từ nhiều kiểu r
 
 ## Kiến thức nền
 
-Một mạng Transformer thông thường cho mọi token đi qua cùng những lớp tính toán. Với rất nhiều nhiệm vụ và kiểu robot, các kỹ năng khác nhau có thể tranh nhau dung lượng biểu diễn. **Mixture-of-Experts (MoE)** chia một số lớp thành nhiều mạng chuyên gia; một bộ định tuyến chọn vài chuyên gia để xử lý mỗi token, nên tổng tham số có thể lớn nhưng lượng phép tính mỗi lượt không tăng tương ứng.
+Trong mạng Transformer thông thường, hầu hết token đi qua cùng hệ lớp xử lý. Khi số kỹ năng và cấu trúc robot tăng mạnh, một nhóm tham số phải học nhiều dạng hành động rất khác nhau. Với rất nhiều nhiệm vụ và kiểu robot, các kỹ năng khác nhau có thể tranh nhau dung lượng biểu diễn. **Mixture-of-Experts (MoE)** chia một số lớp thành nhiều nhánh chuyên gia. Bộ định tuyến chỉ chọn một phần các nhánh cho mỗi token, nên tổng số tham số có thể lớn hơn nhiều số tham số được dùng trong một lần tính. Tuy vậy cần kiểm tra mạng có chọn chuyên gia hữu ích không, chứ không chỉ nhìn quy mô.
 
 Dữ liệu đa robot còn cần **biểu diễn hành động thống nhất**: các chiều thuộc tay, kẹp, đầu hoặc bệ di động phải được gắn đúng ý nghĩa và che những chiều robot không có. Mục tiêu dự đoán đặc trưng tương lai giúp mạng học điều gì có thể xảy ra sau khi hành động, nhưng không tự bảo đảm nó hiểu đầy đủ vật lý.
 
@@ -53,7 +53,7 @@ Robot hai tay, robot di động và robot hình người có số khớp khác n
 
 LingBot-VLA 2.0 xử lý cả chuỗi công việc từ **dữ liệu tới triển khai**. Tác giả tuyển lọc khoảng 90.000 giờ dữ liệu robot thô, còn khoảng **50.000 giờ dùng cho học trước** từ 20 cấu hình robot, kết hợp thêm video góc nhìn người. Những nguồn này phải được đồng bộ và gắn nhãn phù hợp trước khi đưa vào mô hình.
 
-Hệ thống ánh xạ lệnh các robot sang một biểu diễn chung **55 chiều**, nhưng vẫn giữ cách xác định bộ phận cơ thể và những chiều không sử dụng. Mạng sử dụng các chuyên gia MoE để xử lý nguồn kỹ năng đa dạng. Ngoài việc dự đoán hành động, một mục tiêu huấn luyện bổ sung giúp mạng học đặc trưng cảm nhận hiện tại và tương lai từ tín hiệu hình ảnh, video và độ sâu. Cần tách mạng hỗ trợ tạo nhãn huấn luyện khỏi thành phần thực sự phải chạy trên robot.
+Hệ thống sắp lệnh của nhiều robot vào một cấu trúc chung **55 chiều**, đồng thời ghi rõ chiều nào thuộc tay, kẹp, đầu hoặc bệ. Những chiều robot không có phải được che bằng mặt nạ; 55 chiều là kích thước biểu diễn dùng chung, không phải 55 khớp vật lý của mọi robot. Mạng sử dụng các chuyên gia MoE để xử lý nguồn kỹ năng đa dạng. Ngoài việc dự đoán hành động, một mục tiêu huấn luyện bổ sung giúp mạng học đặc trưng cảm nhận hiện tại và tương lai từ tín hiệu hình ảnh, video và độ sâu. Cần tách mạng hỗ trợ tạo nhãn huấn luyện khỏi thành phần thực sự phải chạy trên robot.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -140,7 +140,7 @@ Hình 13 so đặc trưng độ sâu/ảnh thật với dự đoán hiện tại
 
 Dữ liệu đa robot có thể sai lệch thời gian, khác đơn vị hoặc thiếu nhãn. Video người đòi suy ra vị trí tay và chuyển động nên không có sẵn lệnh robot thật. Bộ chuyển đổi 55 chiều giúp trộn dữ liệu nhưng vẫn phải kiểm tra mask và thống kê chuẩn hóa cho từng cấu hình.
 
-**MoE cũng có điểm yếu:** bộ định tuyến có thể chọn chuyên gia theo phông nền hoặc loại camera thay vì kỹ năng như người nghiên cứu kỳ vọng. Việc dự đoán đặc trưng tương lai không bảo đảm tránh được va chạm hay hiểu lực. Trong một số nhiệm vụ dài hoặc tình huống ngoài phân phối học, tỷ lệ thành công còn hạn chế; cần thí nghiệm tách thành phần và kiểm tra thực tế trước khi kết luận rộng.
+**MoE cũng có điểm yếu:** bộ định tuyến có thể vô tình gắn một nhóm chuyên gia với phông nền hay kiểu camera, thay vì dạng thao tác cần học. Muốn biết mạng phân chia công việc hữu ích ra sao phải theo dõi lựa chọn chuyên gia và thử thay các điều kiện đầu vào. Việc dự đoán đặc trưng tương lai không bảo đảm tránh được va chạm hay hiểu lực. Trong một số nhiệm vụ dài hoặc tình huống ngoài phân phối học, tỷ lệ thành công còn hạn chế; cần thí nghiệm tách thành phần và kiểm tra thực tế trước khi kết luận rộng.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Robot có thể tạo hàng chục lệnh điều khiển mỗi giây. Nếu biến từng con số ở từng thời điểm thành một token riêng, mô hình phải dự đoán một chuỗi rất dài dù chuyển động thực tế chỉ là một đường cong tương đối mượt. Điều này khiến huấn luyện tốn công và khó xử lý chuyển động tần số cao. **FAST nén cả đoạn chuyển động bằng cách biểu diễn tín hiệu trong miền tần số, rồi mới biến nó thành token.** Mục tiêu là giảm số token cần dự đoán mà vẫn giữ được chi tiết đủ chính xác để robot thực hiện những thao tác khéo léo.
+Robot có thể tạo hàng chục lệnh điều khiển mỗi giây. Nếu biến từng con số ở từng thời điểm thành một token riêng, mô hình phải dự đoán một chuỗi rất dài dù chuyển động thực tế chỉ là một đường cong tương đối mượt. Điều này khiến huấn luyện tốn công và khó xử lý chuyển động tần số cao. **FAST nén cả đoạn chuyển động trong miền tần số trước khi tạo token.** Hãy hình dung một đường cong có hàng trăm điểm: thay vì ghi từng điểm, ta lưu các thành phần mô tả hình dạng chung của đường. Khi giải mã, các thành phần ấy được đổi ngược thành lệnh ở từng thời điểm. Mục tiêu là giảm số token cần dự đoán mà vẫn giữ được chi tiết đủ chính xác để robot thực hiện những thao tác khéo léo.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -25,7 +25,7 @@ Giả sử robot di chuyển tay theo một đường cong mượt, được ghi
 
 Nếu robot có bảy chiều hành động và ghi 50 thời điểm, cách mã hóa một token cho mỗi giá trị có thể tạo ra **350 token cho một đoạn chuyển động**. Với dữ liệu tần số cao, chuỗi càng dài khiến mô hình tự hồi quy dự đoán chậm và tốn bộ nhớ.
 
-Nhưng một chuyển động mượt có nhiều giá trị gần nhau, nên dữ liệu chứa sự lặp lại theo thời gian. **FAST tận dụng điều đó để nén cả đoạn**, không cố biến từng số đo thành một token riêng. Đây là phương pháp biểu diễn lệnh, không phải một bộ điều khiển robot hoàn toàn mới.
+Một chuyển động mượt gồm nhiều vị trí liên tiếp gần giống nhau, nên nếu mã hóa từng giá trị riêng thì phải dự đoán rất nhiều thông tin lặp. Bộ mã hóa theo đoạn có thể biểu diễn hình dạng quỹ đạo ngắn gọn hơn. **FAST tận dụng điều đó để nén cả đoạn**, không cố biến từng số đo thành một token riêng. Đây là phương pháp biểu diễn lệnh, không phải một bộ điều khiển robot hoàn toàn mới.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -46,7 +46,7 @@ Một chuyển động mượt có nhiều mẫu thời gian nhưng phần lớn
 
 ## Phương pháp thực hiện
 
-FAST trước tiên chuẩn hóa một đoạn lệnh, dùng **biến đổi cosin rời rạc (DCT)** đưa chuỗi từ miền thời gian sang miền tần số. Với chuyển động mượt, nhiều thông tin tập trung ở một số hệ số tần số thấp. Các hệ số được lượng tử hóa và nén tiếp thành token để mô hình dự đoán dễ hơn.
+FAST trước tiên chuẩn hóa một đoạn lệnh, dùng **biến đổi cosin rời rạc (DCT)** đưa chuỗi từ miền thời gian sang miền tần số. Với chuyển động mượt, nhiều thông tin tập trung ở một số hệ số tần số thấp. Sau bước DCT, các hệ số được làm tròn về những mức rời rạc (lượng tử hóa), rồi nén tiếp bằng BPE để tạo token. Khi chạy, hệ thống làm ngược các bước ấy, khôi phục đoạn lệnh theo thời gian trước khi gửi cho robot.
 
 Bản **FAST+** được huấn luyện trên khoảng **một triệu quỹ đạo** từ nhiều nguồn, hướng tới dùng chung bộ mã hóa thay vì tạo riêng cho mỗi robot. Khi robot chạy, token phải được giải mã và biến đổi ngược về chuỗi lệnh vật lý trước khi gửi tới bộ điều khiển.
 
@@ -74,7 +74,7 @@ Khi chạy, những token dự đoán được giải mã ngược: BPE → hệ
 
 Giả sử cánh tay robot di chuyển thành một đường cong gồm 50 điểm theo thời gian. Thay vì mô tả từng tọa độ, DCT biểu diễn hình dạng đường bằng những hệ số cho biến đổi nhanh/chậm. Giữ đủ hệ số quan trọng có thể tái tạo đường khá chính xác với ít thông tin hơn.
 
-Đầu tiên chuẩn hóa lệnh, chuyển DCT, mã hóa các hệ số và nén thành token. Khi nhận token từ mô hình, giải mã rồi dùng DCT ngược để khôi phục 50 bước. Nếu đường có cú giật mạnh do đóng kẹp hoặc chạm vật, những thành phần tần số cao có thể quan trọng hơn và khó nén hơn.
+Đầu tiên chuẩn hóa lệnh, chuyển DCT, mã hóa các hệ số và nén thành token. Khi nhận token từ mô hình, giải mã rồi dùng DCT ngược để khôi phục 50 bước. Nếu robot phải đóng kẹp đúng khoảnh khắc chạm vật, tín hiệu có thể thay đổi đột ngột. Những thay đổi nhanh này khó nén hơn; bỏ mất chúng có thể khiến đường đi vẫn mượt nhưng kẹp sai thời điểm.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 

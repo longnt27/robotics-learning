@@ -11,7 +11,7 @@
 <!-- END ADDITIONAL PDF FIGURES -->
 Robot có thể được nghiên cứu theo ba nhóm lớn: cánh tay thao tác vật, robot tự di chuyển và mô hình dự đoán quỹ đạo. Mỗi nhóm thường dùng kiểu cảm biến và dạng lệnh riêng. Ngay cả trong thao tác tay máy, hai robot có thể khác số khớp, hệ tọa độ và tần số điều khiển. Nếu phải huấn luyện một bản trọng số đã lưu riêng cho mỗi cấu hình, rất nhiều kiến thức về đồ vật và cách thực hiện công việc không được chia sẻ. Qwen-VLA tìm cách xây phần biểu diễn chung, đồng thời vẫn nhận biết robot nào đang được điều khiển.
 
-Mỗi loại yêu cầu cần kết quả khác nhau: thao tác vật, điều hướng hoặc câu trả lời. Những phần liên quan tới nhận biết ảnh có thể dùng chung, còn cách tạo lệnh cần được tách theo robot. Các việc ấy đòi những dạng kết quả khác nhau, trong khi nhiều kiến thức về đồ vật và ngôn ngữ có thể dùng chung. **Qwen-VLA tổ chức việc học thành nhiều giai đoạn để kết nối hiểu ảnh–ngôn ngữ với sinh hành động robot.** Bộ sinh hành động trước hết học cấu trúc chuyển động từ mô tả bằng chữ, sau đó học liên hệ với ảnh thật, tiếp tục tinh chỉnh theo nhiệm vụ và cuối cùng có thể tối ưu bằng phần thưởng khi robot tương tác với môi trường.
+Mỗi loại yêu cầu cần kết quả khác nhau: thao tác vật, điều hướng hoặc câu trả lời. Những phần liên quan tới nhận biết ảnh có thể dùng chung, còn cách tạo lệnh cần được tách theo robot. Các việc ấy đòi những dạng kết quả khác nhau, trong khi nhiều kiến thức về đồ vật và ngôn ngữ có thể dùng chung. **Qwen-VLA tổ chức việc học qua nhiều giai đoạn để nối khả năng hiểu ảnh–ngôn ngữ với khả năng sinh lệnh robot.** Mỗi giai đoạn giải một khó khăn cụ thể: học cấu trúc chuyển động, học gắn chuyển động với cảnh, học kỹ năng theo nhiệm vụ rồi cải thiện từ phản hồi khi thực thi. Bộ sinh hành động trước hết học cấu trúc chuyển động từ mô tả bằng chữ, sau đó học liên hệ với ảnh thật, tiếp tục tinh chỉnh theo nhiệm vụ và cuối cùng có thể tối ưu bằng phần thưởng khi robot tương tác với môi trường.
 
 Khó nhất là cùng một dãy số có thể mang ý nghĩa hoàn toàn khác: robot A dùng lệnh dịch đầu kẹp, robot B nhận góc 14 khớp, còn robot di động nhận vận tốc hoặc điểm đến. Vì vậy mô hình phải biết đang điều khiển loại robot nào và chuyển lệnh cho đúng phần cứng.
 
@@ -32,7 +32,7 @@ Một robot có thể được giao “Nhặt chiếc cốc đỏ”, “Đi t�
 
 **Cấu hình robot** gồm số khớp, kiểu kẹp, camera, hệ tọa độ và dạng lệnh. Hai robot cùng thực hiện việc đặt vật nhưng một chiếc điều khiển vị trí đầu kẹp, chiếc khác điều khiển góc khớp; không thể dùng chung nguyên một vector hành động.
 
-**DiT (Diffusion Transformer)** là mạng sinh hành động dựa trên Transformer, có thể nhận đặc trưng ảnh và lời chỉ dẫn từ phần VLM. **Flow matching** dạy mạng biến một chuỗi còn nhiễu thành hành động liên tục phù hợp quan sát. Đây là khác biệt quan trọng so với cách mã hóa từng giá trị hành động thành token ngôn ngữ như một số VLA trước đây.
+**DiT (Diffusion Transformer)** là mạng Transformer dùng trong quá trình sinh hành động từ nhiễu, có thể nhận thông tin từ phần VLM về ảnh và câu lệnh. Vai trò của nó là tạo chuyển động, không phải tạo lời giải thích bằng chữ. **Flow matching** dạy mạng biến một chuỗi còn nhiễu thành hành động liên tục phù hợp quan sát. Đây là khác biệt quan trọng so với cách mã hóa từng giá trị hành động thành token ngôn ngữ như một số VLA trước đây.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -48,7 +48,7 @@ Các tên viết tắt có thể khiến người mới tưởng là bốn kiế
 
 Qwen-VLA kết hợp phần hiểu ảnh–ngôn ngữ Qwen với bộ sinh chuỗi hành động DiT. Đầu vào có thể gồm ảnh, đoạn video, chỉ dẫn và thông tin về robot. Mạng dự đoán các lệnh liên tục theo cấu hình robot tương ứng, không buộc mọi góc khớp phải được viết thành token chữ.
 
-Quy trình học gồm **bốn giai đoạn**. Đầu tiên mạng học mối quan hệ giữa lời mô tả và chuyển động (T2A). Tiếp theo nó gắn chuyển động với ảnh thực tế trong giai đoạn học tiếp (CPT). Sau đó mô hình được **tinh chỉnh có giám sát (SFT)** cho từng nhóm nhiệm vụ. Cuối cùng, **học tăng cường (RL)** tận dụng phần thưởng khi robot chạy để tiếp tục cải thiện. Các bước này có mục tiêu khác nhau; không nên gộp thành một lần huấn luyện chung không phân biệt.
+Quy trình học gồm **bốn giai đoạn**. Đầu tiên mạng học mối quan hệ giữa lời mô tả và chuyển động (T2A). Tiếp theo nó gắn chuyển động với ảnh thực tế trong giai đoạn học tiếp (CPT). Sau đó mô hình được **tinh chỉnh có giám sát (SFT)** cho từng nhóm nhiệm vụ. Cuối cùng, **học tăng cường (RL)** dùng tín hiệu thưởng/phạt từ kết quả robot tương tác với môi trường để điều chỉnh cách sinh hành động. Nhờ thế mô hình học từ hiệu quả thực hiện, không chỉ cố bắt chước từng ví dụ ghi sẵn. Các bước này có mục tiêu khác nhau; không nên gộp thành một lần huấn luyện chung không phân biệt.
 
 ```text
 Câu lệnh + loại robot + ảnh camera
@@ -146,7 +146,7 @@ Cách biểu diễn lệnh phải phù hợp loại robot đang chạy. Nếu đ
 
 - [PaLM-E](/paper/palm-e) cho thấy cách đưa ảnh và trạng thái cảm biến vào mô hình ngôn ngữ.
 - [RT-2](/paper/rt-2) cùng OpenVLA biểu diễn lệnh robot bằng token rời rạc.
-- [Diffusion Policy](/paper/diffusion-policy), [RDT-1B](/paper/rdt-1b) cùng Diffusion Policy và GR00T N1 nghiên cứu việc sinh chuỗi hành động liên tục.
+- [Diffusion Policy](/paper/diffusion-policy), [RDT-1B](/paper/rdt-1b) và [GR00T N1](/paper/groot-n1) cho thấy các cách sinh chuỗi hành động liên tục; Qwen-VLA cũng sử dụng một nhánh DiT để giải phần vận động.
 - [Open X-Embodiment](/paper/open-x-embodiment) cho thấy những khó khăn khi trộn dữ liệu từ nhiều cấu hình robot.
 - [LingBot-VLA 2.0](/paper/lingbot-vla-2) cũng phục vụ nhiều kiểu robot, nhưng dùng biểu diễn hành động toàn thân và MoE.
 

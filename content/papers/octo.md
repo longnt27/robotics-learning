@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Một phòng thí nghiệm nhỏ khó có đủ dữ liệu và GPU để huấn luyện mô hình điều khiển robot từ đầu. Nhưng họ có thể có vài chục hoặc vài trăm lượt thao tác mẫu của robot mình. **Octo cung cấp một chính sách điều khiển nguồn mở đã học trên nhiều loại nhiệm vụ robot, rồi cho phép tinh chỉnh nhanh trên dữ liệu mới.** Kiến trúc được thiết kế để có thể thay đổi loại quan sát hoặc dạng lệnh đầu ra mà không nhất thiết phải huấn luyện lại toàn bộ phần mạng chung. Tất nhiên vẫn phải kiểm tra cách chuyển lệnh cho phần cứng đích; một bản trọng số đã lưu không tự chạy được với mọi cấu trúc robot.
+Một phòng thí nghiệm nhỏ khó có đủ dữ liệu và GPU để huấn luyện mô hình điều khiển robot từ đầu. Nhưng họ có thể đã ghi được vài chục hoặc vài trăm lần người vận hành làm mẫu trên robot của mình. **Octo cung cấp một mô hình điều khiển nguồn mở đã học nhiều nhiệm vụ robot**, rồi cho phép huấn luyện bổ sung bằng dữ liệu của robot mới. Điểm hữu ích là tận dụng kinh nghiệm đã học trước thay vì bắt đầu lại từ đầu. Kiến trúc được thiết kế để có thể thay đổi loại quan sát hoặc dạng lệnh đầu ra mà không nhất thiết phải huấn luyện lại toàn bộ phần mạng chung. Tất nhiên vẫn phải kiểm tra cách chuyển lệnh cho phần cứng đích; một bản trọng số đã lưu không tự chạy được với mọi cấu trúc robot.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -46,7 +46,7 @@ Hai robot có thể cùng hiểu “đặt cốc vào khay” nhưng một bên 
 
 Octo dùng Transformer khoảng **93 triệu tham số**, huấn luyện trước từ khoảng **800.000 lượt thực thi** thuộc **25 bộ dữ liệu** trong Open X-Embodiment. Mô hình nhận ảnh, câu lệnh hoặc ảnh mục tiêu, trạng thái robot và lịch sử quan sát. Các nhánh xử lý tín hiệu và nhánh dự đoán hành động được thiết kế để thay đổi khi chuyển sang robot khác.
 
-Lệnh liên tục được sinh bằng một nhánh theo hướng diffusion, không cần biến mọi giá trị thành token văn bản. Khi muốn dùng một camera mới hoặc cấu trúc khớp mới, người nghiên cứu có thể thay bộ tiếp nhận hoặc nhánh hành động rồi tinh chỉnh bằng lượt thao tác mẫu của thiết bị đích.
+Phần sinh lệnh dùng một nhánh dự đoán hành động theo hướng **diffusion**: tạo chuyển động liên tục qua quá trình khử nhiễu. Vì thế Octo không cần biến từng giá trị lệnh thành token văn bản như những hệ VLA tự hồi quy. Khi muốn dùng một camera mới hoặc cấu trúc khớp mới, người nghiên cứu có thể thay bộ tiếp nhận hoặc nhánh hành động rồi tinh chỉnh bằng lượt thao tác mẫu của thiết bị đích.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -87,7 +87,7 @@ Nếu chỉ lấy lệnh cũ gửi xuống robot mới, chuyển động có th�
 
 Trên một số phép thử robot thật không cần tinh chỉnh, Octo có tỷ lệ hoàn thành trung bình tốt hơn RT-1-X và trong vài trường hợp cạnh tranh với RT-2-X lớn hơn nhiều. Tuy nhiên hiệu quả thay đổi theo kiểu robot và dạng chỉ dẫn. Có thiết lập dùng ảnh mục tiêu tốt hơn câu lệnh văn bản vì nguồn học trước có phân bố dữ liệu không đồng đều.
 
-Lợi thế quan trọng của Octo là **tinh chỉnh với ít lượt thao tác mẫu** trên robot đích. Một số phép thử chỉ cần cỡ 100 lượt và đạt kết quả tốt hơn những chính sách huấn luyện từ đầu. Khi đọc biểu đồ, hãy tách rõ kết quả chưa tinh chỉnh với kết quả đã học thêm trên robot mới.
+Lợi thế quan trọng của Octo là **tinh chỉnh với ít lượt thao tác mẫu** trên robot đích. Trong một số phép thử, mô hình được tinh chỉnh bằng khoảng 100 lần làm mẫu và cho kết quả tốt hơn các mô hình huấn luyện từ đầu với cùng dữ liệu. Khi đọc biểu đồ, hãy tách rõ kết quả chưa tinh chỉnh với kết quả đã học thêm trên robot mới.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 

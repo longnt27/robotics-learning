@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Thu hàng trăm nghìn lượt robot làm việc trong những căn bếp thật tốn nhiều thời gian, công sức và phần cứng. Mô phỏng có thể giúp, nhưng một môi trường chỉ có vài căn bếp và ít đồ vật sẽ khiến robot học thuộc bố cục. **RoboCasa tạo một bộ môi trường bếp mô phỏng phong phú với nhiều đồ vật, thiết bị có thể tương tác và nhiệm vụ tự động sinh**, để huấn luyện những kỹ năng có cơ hội chuyển sang môi trường mới. Bài báo còn đánh giá việc kết hợp dữ liệu mô phỏng với ít lượt thao tác mẫu của robot thật, bởi chuyển động đẹp trong mô phỏng chưa đủ chứng minh làm được ngoài đời.
+Thu hàng trăm nghìn lượt robot làm việc trong những căn bếp thật tốn nhiều thời gian, công sức và phần cứng. Mô phỏng có thể giúp, nhưng một môi trường chỉ có vài căn bếp và ít đồ vật sẽ khiến robot học thuộc bố cục. **RoboCasa xây dựng nhiều căn bếp mô phỏng với đồ vật và thiết bị có thể tương tác**, rồi tạo nhiệm vụ và ghi dữ liệu để robot tập luyện. Đổi bố cục, tay nắm hay vị trí đồ vật giúp kiểm tra robot có học cách thao tác hay chỉ nhớ một căn bếp mẫu. Bài báo còn đánh giá việc kết hợp dữ liệu mô phỏng với ít lượt thao tác mẫu của robot thật, bởi chuyển động đẹp trong mô phỏng chưa đủ chứng minh làm được ngoài đời.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -22,7 +22,7 @@ Dạy robot mở ngăn kéo trong một căn bếp mẫu không có nghĩa nó s
 
 ## Kiến thức nền cần nắm
 
-Thu hàng trăm nghìn lần robot làm việc trong bếp thật rất tốn kém. Mô phỏng giúp tái tạo nhiều tình huống, nhưng **ảnh đẹp trong mô phỏng không đồng nghĩa robot làm được ngoài đời**. Cần phân biệt sự phong phú về bố cục, màu sắc, vật thể với độ chính xác của ma sát, lực và tiếp xúc.
+Để ghi hàng trăm nghìn lần robot thực hiện công việc trong bếp thật, người nghiên cứu phải dành rất nhiều thời gian vận hành thiết bị, giám sát và sửa lỗi. Mô phỏng giúp tái tạo nhiều tình huống, nhưng **ảnh đẹp trong mô phỏng không đồng nghĩa robot làm được ngoài đời**. Cần phân biệt sự phong phú về bố cục, màu sắc, vật thể với độ chính xác của ma sát, lực và tiếp xúc.
 
 RoboCasa tạo nhiều căn bếp có thiết bị tương tác được và cho phép thay đổi mặt bằng, vật thể, vị trí và câu lệnh. Nó là môi trường sinh dữ liệu và kiểm tra chính sách điều khiển, không phải một mô hình VLA duy nhất.
 
@@ -38,7 +38,7 @@ RoboCasa có các thiết bị thực sự thay đổi trạng thái trong mô p
 
 ## Phương pháp thực hiện
 
-RoboCasa cung cấp khoảng **120 bố cục bếp**, hơn **2.500 mô hình đồ vật** thuộc trên 150 nhóm và cỡ **100 nhiệm vụ**. Hệ thống dùng quy tắc tạo cảnh, công cụ sinh đồ vật/hình ảnh và mô hình ngôn ngữ lớn để gợi ý các công việc bếp có ý nghĩa. Từ số ít thao tác mẫu, phương pháp sinh quỹ đạo có thể tạo nhiều lượt thực thi trong các bối cảnh khác nhau.
+RoboCasa cung cấp khoảng **120 bố cục bếp**, hơn **2.500 mô hình đồ vật** thuộc trên 150 nhóm và cỡ **100 nhiệm vụ**. Hệ thống dùng quy tắc tạo cảnh, công cụ sinh đồ vật/hình ảnh và mô hình ngôn ngữ lớn để gợi ý các công việc bếp có ý nghĩa. Từ một số ít lần làm mẫu, hệ thống có thể sinh thêm nhiều quỹ đạo trong những cách bố trí khác nhau. Một quỹ đạo là cả chuỗi ảnh và lệnh robot dẫn tới mục tiêu, không phải một ảnh đơn lẻ.
 
 Bản công bố có hơn **100.000 quỹ đạo**. Khi huấn luyện, một nhiệm vụ như mở ngăn kéo có thể xuất hiện trên nhiều loại tủ, vị trí tay nắm và nền bếp. Mục tiêu là chính sách học được quan hệ giữa robot và đồ vật thay vì nhớ một tọa độ cố định.
 
@@ -66,7 +66,7 @@ Robot hoặc công cụ sinh quỹ đạo thực hiện các nhiệm vụ nhỏ,
 
 Chọn thao tác **mở ngăn kéo**. Ở lần thứ nhất, tay nắm nằm bên trái mặt bàn trắng; lần khác là tủ tối màu, robot nhìn từ góc khác và tay nắm đặt cao hơn. Môi trường vẫn biết khi nào ngăn kéo thực sự mở đủ để tính hoàn thành.
 
-Huấn luyện trên một nhóm căn bếp rồi thử ở bố cục chưa thấy. Nếu chính sách điều khiển mở đúng trong mô phỏng nhưng khi sang nhà thật lại kẹp trượt tay nắm, nguyên nhân có thể là khác biệt lực tiếp xúc hoặc vị trí camera. Cần đánh giá hai phần riêng thay vì coi mô phỏng là bằng chứng đủ.
+Huấn luyện trên một nhóm căn bếp rồi thử ở bố cục chưa thấy. Nếu robot mở đúng trong mô phỏng nhưng trượt khỏi tay nắm khi thử ngoài đời, lỗi có thể do khác biệt ma sát, lực tiếp xúc hoặc vị trí camera. Điểm mô phỏng cao không giúp xác định chính xác lỗi thuộc phần nào. Cần đánh giá hai phần riêng thay vì coi mô phỏng là bằng chứng đủ.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 

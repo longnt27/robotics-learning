@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Một mô hình VLA mạnh nhưng không có mã nguồn và bản trọng số đã lưu sẽ rất khó được các phòng thí nghiệm nhỏ nghiên cứu, kiểm chứng hoặc điều chỉnh cho robot riêng. **OpenVLA cung cấp một mô hình ảnh–ngôn ngữ–hành động nguồn mở khoảng bảy tỷ tham số**, đã học từ nhiều lượt robot thao tác. Nhóm nghiên cứu có thể tải mô hình, tinh chỉnh bằng dữ liệu của robot đích và so sánh với những chính sách chuyên biệt. Điều cần chú ý là mô hình vẫn phải được chuyển đúng dạng lệnh cho phần cứng mới; nguồn mở không có nghĩa tự tương thích với mọi robot.
+Một mô hình VLA mạnh nhưng không có mã nguồn và bản trọng số đã lưu sẽ rất khó được các phòng thí nghiệm nhỏ nghiên cứu, kiểm chứng hoặc điều chỉnh cho robot riêng. **OpenVLA công khai mô hình thị giác–ngôn ngữ–hành động khoảng bảy tỷ tham số**, kèm mã nguồn và checkpoint đã được huấn luyện trên dữ liệu nhiều robot. Nhờ vậy người nghiên cứu có thể kiểm tra lại và huấn luyện bổ sung thay vì chỉ đọc kết quả từ một hệ thống không công khai. Nhóm nghiên cứu có thể tải mô hình, tinh chỉnh bằng dữ liệu của robot đích và so sánh với những chính sách chuyên biệt. Điều cần chú ý là mô hình vẫn phải được chuyển đúng dạng lệnh cho phần cứng mới; nguồn mở không có nghĩa tự tương thích với mọi robot.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -17,9 +17,9 @@ Nhưng “nguồn mở” không đồng nghĩa “cắm vào robot nào cũng c
 
 ## Kiến thức nền cần nắm
 
-RT-2 đã cho thấy cách kết hợp mô hình ảnh–ngôn ngữ với hành động robot, nhưng không cung cấp mọi thứ để các phòng thí nghiệm tự tái tạo. OpenVLA công khai mô hình, mã nguồn và trọng số để nhóm nghiên cứu có thể kiểm chứng và **tinh chỉnh cho thiết bị của mình**.
+RT-2 đã cho thấy cách kết hợp mô hình ảnh–ngôn ngữ với hành động robot, nhưng không cung cấp mọi thứ để các phòng thí nghiệm tự tái tạo. OpenVLA cung cấp mã nguồn và checkpoint để nhóm nghiên cứu có thể kiểm chứng, rồi **tinh chỉnh cho robot của mình**. Checkpoint là tập tham số mô hình được lưu sau huấn luyện; nó không tự hiểu hệ tọa độ hay giới hạn khớp của phần cứng mới.
 
-Khi chạy robot, mô hình sinh token đại diện các giá trị hành động. Những token cần được giải mã, rồi khôi phục đơn vị và biên độ đúng cho phần cứng. LoRA là một cách tinh chỉnh chỉ cập nhật một phần nhỏ tham số; nó giúp giảm chi phí, không tự xử lý lỗi camera hay lệnh khớp.
+Khi chạy robot, mô hình sinh token đại diện các giá trị hành động. Những token cần được giải mã, rồi khôi phục đơn vị và biên độ đúng cho phần cứng. **LoRA** chỉ huấn luyện các ma trận bổ sung nhỏ, thay vì cập nhật toàn bộ tham số của mạng. Điều này giúp giảm bộ nhớ huấn luyện nhưng không tự sửa lỗi camera, định dạng dữ liệu hay lệnh khớp.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -60,7 +60,7 @@ Robot thực hiện lệnh, lấy ảnh tiếp theo và tiếp tục. Nếu đem
 
 Người dùng nói **“Bỏ quả táo vào khay”**. Camera gửi ảnh cho bộ mã hóa thị giác; lõi mô hình kết hợp với câu lệnh và sinh token hành động. Hệ thống giải mã token thành các giá trị dịch chuyển, xoay hoặc đóng kẹp. Trước khi gửi xuống robot, những giá trị này phải được **giải chuẩn hóa bằng thống kê của đúng robot/tập dữ liệu**.
 
-Nếu lấy thống kê của robot khác, cùng token có thể dẫn đến lệnh quá lớn hoặc sai hướng. Đó là lỗi chuyển đổi đầu ra, không nhất thiết do mô hình hiểu sai quả táo hay câu lệnh.
+Nếu dùng thống kê chuẩn hóa của robot khác, cùng một token có thể tạo lệnh dịch quá xa hoặc sai hướng. Cần thử giải mã và giải chuẩn hóa với một vài ví dụ đã biết kết quả trước khi kết nối robot thật. Đó là lỗi chuyển đổi đầu ra, không nhất thiết do mô hình hiểu sai quả táo hay câu lệnh.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

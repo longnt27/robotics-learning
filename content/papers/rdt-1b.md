@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Để chuyển một khối từ tay phải sang tay trái, robot phải phối hợp hai tay: một tay giữ chắc cho đến khi tay kia đã kẹp được. Những chuyển động này có nhiều cách thực hiện đúng, nhưng chỉ cần lệch thời điểm cũng có thể làm rơi vật. **RDT-1B dùng Diffusion Transformer để học và sinh cả đoạn hành động phối hợp hai tay**, từ hình ảnh, câu lệnh và trạng thái khớp. Công trình còn nghiên cứu cách biểu diễn dữ liệu cho nhiều cấu trúc robot và giữ quá trình huấn luyện ổn định khi mô hình có quy mô lớn.
+Để chuyển một khối từ tay phải sang tay trái, robot phải phối hợp hai tay: một tay giữ chắc cho đến khi tay kia đã kẹp được. Những chuyển động này có nhiều cách thực hiện đúng, nhưng chỉ cần lệch thời điểm cũng có thể làm rơi vật. **RDT-1B dùng Diffusion Transformer để sinh một đoạn lệnh chung cho cả hai tay**, dựa vào ảnh camera, yêu cầu bằng ngôn ngữ và trạng thái khớp. Nhờ dự đoán cả đoạn, mạng có thể học thứ tự phối hợp “tay nhận kẹp chắc rồi tay giao mới thả” thay vì phát lệnh độc lập cho từng tay. Công trình còn nghiên cứu cách biểu diễn dữ liệu cho nhiều cấu trúc robot và giữ quá trình huấn luyện ổn định khi mô hình có quy mô lớn.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -19,7 +19,7 @@ RDT-1B dùng Diffusion Transformer để học và sinh các đoạn hành độ
 
 Thao tác hai tay cần phối hợp về **vị trí và thời điểm**. Một tay phải giữ vật cho tới khi tay kia kẹp chắc. Nếu mạng tạo các lệnh rời rạc không ăn khớp, vật có thể rơi dù mỗi tay di chuyển đúng hướng.
 
-**Diffusion Transformer** (DiT) là mạng dùng Transformer trong quá trình khử nhiễu để sinh một chuỗi hành động liên tục. RDT-1B còn phải xử lý nhiều loại robot có trạng thái và lệnh khác nhau. Muốn học chung dữ liệu, cần biết chiều nào biểu diễn vị trí khớp, chiều nào biểu diễn đầu kẹp và cách đổi chúng về quy ước phù hợp.
+**Diffusion Transformer (DiT)** dùng Transformer để liên tục chỉnh một chuỗi hành động còn nhiễu thành chuyển động hợp lệ. Các lượt chỉnh ấy xảy ra trong mô hình, không phải mỗi lượt là một lần robot cử động. RDT-1B còn phải xử lý nhiều loại robot có trạng thái và lệnh khác nhau. Muốn học chung dữ liệu, cần biết chiều nào biểu diễn vị trí khớp, chiều nào biểu diễn đầu kẹp và cách đổi chúng về quy ước phù hợp.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -80,7 +80,7 @@ Dự đoán từng tay độc lập khó giữ ràng buộc theo thời gian. RD
 
 ## Kết quả thực nghiệm
 
-Trong các phép thử được báo cáo, RDT-1B đạt tỷ lệ hoàn thành cao hơn các phương pháp đối chứng, với mức cải thiện trung bình khoảng **56%** theo cách tổng hợp của tác giả. Mô hình thể hiện hiệu quả trong một số nhiệm vụ phối hợp hai tay, kể cả khi thay đồ vật hoặc bố cục.
+Trong các phép thử được báo cáo, RDT-1B đạt tỷ lệ hoàn thành cao hơn các phương pháp đối chứng, với mức cải thiện trung bình khoảng **56%** theo cách tổng hợp của tác giả. Mô hình thực hiện được nhiều nhiệm vụ đòi hỏi hai tay phối hợp trong các thiết lập được thử, kể cả một số trường hợp đổi vật hoặc bố cục. Để đánh giá mức độ khái quát, cần đọc tỷ lệ thành công của từng nhóm nhiệm vụ thay vì chỉ xem video minh họa.
 
 Những phép thử ít lượt thao tác mẫu cũng cho thấy lợi ích của phần học trước: chỉ với một vài ví dụ của nhiệm vụ đích, mạng có thể tận dụng chuyển động đã học. Tuy nhiên cần xem đúng số nhiệm vụ, số lượt thử và loại robot; không thể coi kết quả đó là bảo đảm mọi kỹ năng mới đều học được sau 1–5 ví dụ.
 

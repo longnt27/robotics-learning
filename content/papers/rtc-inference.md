@@ -11,14 +11,14 @@
 <!-- END ADDITIONAL PDF FIGURES -->
 Một robot có thể cần lệnh mới mỗi 20 mili giây, nhưng mô hình VLA lại mất cả trăm mili giây mới tính xong đoạn hành động tiếp theo. Nếu robot đứng yên chờ, thao tác quẹt diêm hoặc giữ vật có thể bị phá hỏng. Nếu robot chạy tiếp rồi đột ngột chuyển sang đoạn mới, hai đoạn có thể khác hướng và gây giật mạnh. **RTC giải bài toán nối các đoạn hành động khi mô hình suy luận chậm:** cho robot tiếp tục thực thi trong khi mạng tính toán, đồng thời giữ các lệnh đã cam kết và điều chỉnh phần chuyển động còn lại để đường đi liên tục.
 
-**hành động chunking** giải quyết được một nửa bài toán. Thay vì chỉ dự đoán lệnh ở một thời điểm, chính sách điều khiển sinh cả đoạn hành động tiếp theo, nhờ đó robot có thể tiếp tục chạy các lệnh đang có trong bộ đệm ngay cả khi mạng bận tính toán. Nhưng khi đoạn mới đến, hai cách tổ chức thực thi thông thường vẫn gây vấn đề:
+**Action chunking (dự đoán hành động theo đoạn)** giải quyết được một phần bài toán. Thay vì chỉ dự đoán lệnh ở một thời điểm, chính sách điều khiển sinh cả đoạn hành động tiếp theo, nhờ đó robot có thể tiếp tục chạy các lệnh đang có trong bộ đệm ngay cả khi mạng bận tính toán. Nhưng khi đoạn mới đến, hai cách tổ chức thực thi thông thường vẫn gây vấn đề:
 
 1. **Chạy tuần tự:** robot thực hiện xong đoạn A rồi dừng chờ mạng sinh đoạn B. Thời gian chờ có thể phá hỏng thao tác đang cần lực hoặc chuyển động liên tục.
 2. **Chạy song song đơn giản:** mạng tạo đoạn B trong khi robot chạy A, nhưng B có thể chọn một hướng đi khác ngay tại điểm nối, khiến robot đổi tốc độ hoặc gia tốc đột ngột.
 
 Ví dụ tránh chướng ngại: chunk cũ đi vòng **phía trên**, chunk mới đi vòng **phía dưới**. Cả hai quỹ đạo riêng lẻ có thể đúng. Nối chúng giữa chừng tạo một cú bẻ lái nguy hiểm. Lấy trung bình hai đường đi cũng không chắc hữu ích: giữa “vòng trái” và “vòng phải” có thể là “đi thẳng vào vật cản”.
 
-Vấn đề không chỉ là **độ trễ** mà còn là **lập lại kế hoạch khi robot đang chạy**, trong khi những lệnh đã thực thi không thể sửa được nữa.
+Vấn đề không chỉ là **độ trễ** mà còn là **lập kế hoạch lại khi robot đang chuyển động**: những lệnh đã được bộ điều khiển thực hiện không thể quay ngược để sửa.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -35,9 +35,9 @@ Robot cần lệnh mới ở tần số 50 Hz, tức mỗi 20 mili giây. Nhưng
 
 ## Kiến thức nền
 
-**hành động chunk** là một đoạn gồm H bước hành động, mỗi bước có D giá trị điều khiển. **Độ dài thực thi s** là số bước robot dùng trước khi nhận đoạn mới; **độ trễ d** là số bước robot đã đi trong lúc mô hình đang tính. Cần phân biệt bước điều khiển vật lý với lượt khử nhiễu của mô hình: một cái xảy ra ở robot, cái kia là vòng tính toán trên GPU.
+**Action chunk (đoạn hành động)** gồm H bước liên tiếp, mỗi bước có D giá trị điều khiển. **Độ dài thực thi s** là số bước robot dùng trước khi nhận đoạn mới; **độ trễ d** là số bước robot đã đi trong lúc mô hình đang tính. Cần phân biệt bước điều khiển vật lý với lượt khử nhiễu của mô hình: một cái xảy ra ở robot, cái kia là vòng tính toán trên GPU.
 
-**Flow matching** học trường vận tốc trong không gian chuỗi hành động để chuyển nhiễu ban đầu thành chuỗi hợp lệ. “Thời gian” trong phép sinh bằng flow là một tham số toán học, không phải đồng hồ robot. Nếu nhầm hai loại thời gian, rất dễ hiểu sai cơ chế RTC.
+**Flow matching** học một trường vận tốc trong không gian các chuỗi hành động, chỉ ra cách liên tục chuyển chuỗi nhiễu ban đầu thành chuỗi có ý nghĩa. Đây là bước tính toán để sinh lệnh, không phải vận tốc thật của cánh tay robot. “Thời gian” trong phép sinh bằng flow là một tham số toán học, không phải đồng hồ robot. Nếu nhầm hai loại thời gian, rất dễ hiểu sai cơ chế RTC.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -102,7 +102,7 @@ VÒNG ĐIỀU KHIỂN (50 Hz)        VÒNG TÍNH LỆNH
 
 ## Ví dụ từng bước
 
-Robot đang đưa đầu cáp tới ổ cắm. Đoạn A đã ra lệnh đi thẳng thêm vài bước, nhưng camera mới cho thấy đầu cáp lệch sang phải. Mạng bắt đầu tính đoạn B, mất 100 mili giây; ở tần số 50 Hz, robot đã thực hiện khoảng năm bước trước khi B tới.
+Robot đang đưa đầu cáp tới ổ cắm. Đoạn A đã ra lệnh đi thẳng thêm vài bước, nhưng ảnh camera vừa cập nhật cho thấy đầu cáp lệch sang phải. Robot không thể xóa các lệnh đã chạy; chỉ có thể điều chỉnh các bước còn ở phía trước. Mạng bắt đầu tính đoạn B, mất 100 mili giây; ở tần số 50 Hz, robot đã thực hiện khoảng năm bước trước khi B tới.
 
 RTC không cho B thay những bước đã đi. Nó giữ phần chắc chắn thực thi, sau đó tạo những bước điều chỉnh dần sang phải. Nếu lập tức thay bằng một quỹ đạo mới hoàn toàn, đầu robot có thể giật hoặc lao vào mép ổ cắm. **Mục tiêu là vừa không phải dừng chờ, vừa giữ chỗ nối đủ liên tục.**
 

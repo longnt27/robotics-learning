@@ -13,9 +13,9 @@
 <!-- END ADDITIONAL PDF FIGURES -->
 Robot hình người có camera, hai tay và nhiều khớp, nhưng việc chuyển câu “gấp chiếc áo này” thành hàng trăm lệnh vận động vẫn khó. Trước đây một kỹ năng thường cần nhiều lượt thao tác mẫu đúng với chính robot đó: người vận hành phải làm mẫu, ghi ảnh và trạng thái khớp, huấn luyện rồi kiểm tra trên thiết bị. Trong khi ấy có rất nhiều video người thao tác và các mô hình đã học hiểu đồ vật từ ảnh, văn bản. GR00T N1 tìm cách tận dụng nguồn kiến thức rộng ấy mà vẫn sinh hành động đúng với cơ cấu robot.
 
-Video người không thể trực tiếp biến thành góc khớp robot: tay người có năm ngón nhưng robot có thể chỉ có kẹp hai ngón. GR00T N1 học cách diễn tiến công việc từ video, rồi dùng dữ liệu vận động của robot để thực thi trên cơ cấu phù hợp.
+Video người giúp học mục tiêu và thứ tự hành động, nhưng không trực tiếp cho biết góc khớp robot: bàn tay người có năm ngón, còn robot có thể chỉ có kẹp hai ngón. Cần có dữ liệu hoặc bộ chuyển đổi vận động của robot để thực hiện được. GR00T N1 học cách diễn tiến công việc từ video, rồi dùng dữ liệu vận động của robot để thực thi trên cơ cấu phù hợp.
 
-Hai phần của mô hình giải hai câu hỏi khác nhau: “Vật nào cần thao tác và đích ở đâu?” và “Robot phải chuyển động thế nào để đạt đích?”.
+Hai phần mạng giải hai câu hỏi khác nhau: **“Cần tác động tới vật nào và đưa tới đâu?”** và **“Những khớp robot phải chuyển động thế nào?”** Cần biết phần nào tạo thông tin cấp cao và phần nào sinh chuỗi lệnh thật.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -34,7 +34,7 @@ Bài toán không đơn giản là “mô hình nhìn video rồi bắt chước
 
 Cần phân biệt **mô hình hiểu ảnh–ngôn ngữ (VLM)** với **mô hình sinh chuyển động**. VLM có thể nhận ra áo nằm ở đâu và hiểu câu “gấp áo”, nhưng không tự suy ra quỹ đạo khớp đủ chính xác để hai tay cầm áo. Phần sinh hành động liên tục được học từ những ví dụ vận động.
 
-**Đoạn hành động (action chunk)** gồm H bước liên tiếp, mỗi bước có D giá trị điều khiển. Mô hình cần sinh đoạn phù hợp với trạng thái robot hiện tại. Khi một nhiệm vụ có nhiều cách làm đúng, phương pháp sinh bằng diffusion hoặc flow matching giúp biểu diễn nhiều đường đi hợp lệ thay vì ép về một chuyển động trung bình.
+**Action chunk (đoạn hành động)** gồm H thời điểm liên tiếp, mỗi thời điểm có D giá trị điều khiển. Ví dụ với cánh tay bảy chiều, một đoạn 20 bước sẽ chứa 20 nhóm lệnh cần phối hợp theo thời gian. Mô hình cần sinh đoạn phù hợp với trạng thái robot hiện tại. Khi một nhiệm vụ có nhiều cách làm đúng, phương pháp sinh bằng diffusion hoặc flow matching giúp biểu diễn nhiều đường đi hợp lệ thay vì ép về một chuyển động trung bình.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -59,7 +59,7 @@ GR00T N1 chia xử lý thành **hai hệ thống phối hợp**. Hệ thống th
 
 Dữ liệu huấn luyện đến từ nhiều mức: video người thao tác, video tổng hợp và lượt thao tác mẫu từ những cấu hình robot khác nhau. Video người cung cấp thông tin về mục tiêu, diễn tiến công việc; lượt thao tác mẫu của robot mới giúp học lệnh có thể thực thi. Các cấu trúc robot có số khớp khác nhau cần bộ mã hóa trạng thái và hành động tương ứng. Nếu chỉ học ý nghĩa câu chữ mà không có dữ liệu chuyển động, robot vẫn không biết phải điều khiển khớp thế nào.
 
-Khi chạy, action expert sinh đoạn lệnh cho robot cụ thể, thay vì coi mọi dạng tay máy dùng chung một vector điều khiển.
+Khi chạy, **action expert (nhánh chuyên sinh hành động)** nhận trạng thái đúng của robot đích rồi tạo đoạn lệnh phù hợp. Không thể gửi y nguyên cùng một vector góc khớp cho cánh tay và kẹp có cấu trúc khác nhau.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 

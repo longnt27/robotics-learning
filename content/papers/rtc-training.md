@@ -2,7 +2,7 @@
 
 ## Vì sao cần nghiên cứu này?
 
-RTC phiên bản đầu có thể nối các đoạn hành động ngay lúc suy luận, nhưng cần thêm phép tính để buộc đoạn mới khớp những lệnh robot đang thực hiện. Thật trớ trêu nếu một kỹ thuật nhằm che độ trễ lại khiến chính mô hình chậm thêm. **Training-time RTC đề xuất huấn luyện chính sách điều khiển từ đầu để nó biết cách nhận phần hành động đã cam kết và chỉ sinh tiếp phần tương lai.** Cách tiếp cận này chuyển một phần công việc từ thời điểm robot đang chạy sang giai đoạn huấn luyện, với mục tiêu duy trì chuyển động liên tục mà giảm chi phí suy luận.
+RTC phiên bản đầu có thể nối các đoạn hành động ngay lúc suy luận, nhưng cần thêm phép tính để buộc đoạn mới khớp những lệnh robot đang thực hiện. Thật trớ trêu nếu một kỹ thuật nhằm che độ trễ lại khiến chính mô hình chậm thêm. **RTC học ngay trong huấn luyện cách nhận phần hành động đã cam kết và sinh tiếp phần còn lại.** Nhờ đó mô hình ít phải sửa chuỗi mới vào phút chót khi robot đang chạy, khác với phiên bản RTC áp ràng buộc ngay lúc suy luận. Cách tiếp cận này chuyển một phần công việc từ thời điểm robot đang chạy sang giai đoạn huấn luyện, với mục tiêu duy trì chuyển động liên tục mà giảm chi phí suy luận.
 
 Bài học rộng hơn là **đưa giới hạn của hệ thống thực vào bài toán huấn luyện**, thay vì đợi mô hình sinh xong rồi mới sửa lệnh. Robot không sống trong một thế giới mà mọi phép tính đều hoàn thành ngay tức khắc: thời gian suy luận có thể thay đổi vì GPU bận, mạng chậm hoặc nhiều yêu cầu đến cùng lúc. Vì thế mô hình nên học ngay cách tiếp tục từ những hành động đã được bộ điều khiển cam kết.
 
@@ -23,7 +23,7 @@ RTC ở thời điểm suy luận có thể lấy một mạng sinh hành độn
 
 Gọi H là số lệnh trong một đoạn, k là số bước đầu **đã hoặc chắc chắn sẽ thực hiện** trước khi mô hình mới tính xong. Khi sinh đoạn tiếp theo, robot không được xóa những bước ấy. Mô hình cần học dự đoán phần hành động còn lại với điều kiện những bước đầu đã biết.
 
-Trong flow matching, mạng vẫn học chuyển nhiễu thành hành động hợp lệ. Tuy nhiên **tiền tố đã cam kết được giữ sạch**, chỉ phần phía sau được thêm nhiễu rồi học sinh mới. Điều này không có nghĩa lấy một hành động đầu rồi nội suy đường thẳng tới hành động cuối; mô hình vẫn sinh cả chuỗi có cấu trúc.
+Với **flow matching**, mạng vẫn học cách biến chuỗi còn nhiễu thành hành động có cấu trúc. Thay đổi ở đây là một phần đầu của chuỗi đã được biết trước và cần được giữ nguyên. Tuy nhiên **tiền tố đã cam kết được giữ sạch**, chỉ phần phía sau được thêm nhiễu rồi học sinh mới. Điều này không có nghĩa lấy một hành động đầu rồi nội suy đường thẳng tới hành động cuối; mô hình vẫn sinh cả chuỗi có cấu trúc.
 
 ```text
 p(a_{k+1:H} | observation, a_{1:k}, k)
@@ -41,7 +41,7 @@ Trong RTC huấn luyện sẵn, mạng không được tự sửa tiền tố. N
 
 ## Phương pháp thực hiện
 
-Trong lúc huấn luyện, nhóm tác giả lấy một chuỗi lượt thao tác mẫu và chọn ngẫu nhiên độ dài tiền tố k tương ứng những mức trễ có thể gặp khi triển khai. **k bước đầu được đưa vào đúng giá trị thật, không thêm nhiễu**; các bước còn lại bị làm nhiễu để mạng học sinh phần tương lai phù hợp.
+Trong huấn luyện, nhóm tác giả lấy một chuỗi hành động mẫu rồi chọn ngẫu nhiên độ dài tiền tố k, mô phỏng những mức độ trễ suy luận robot có thể gặp. **k bước đầu được đưa vào đúng giá trị thật, không thêm nhiễu**; các bước còn lại bị làm nhiễu để mạng học sinh phần tương lai phù hợp.
 
 Với DiT dùng flow matching, thời điểm sinh có thể được thiết lập khác nhau cho từng vị trí trong chuỗi để đánh dấu bước nào đã cố định và bước nào cần dự đoán. Hàm mất mát tập trung vào phần cần sinh mới. Nhờ đã học điều kiện tiền tố từ trước, mô hình khi chạy ít phải dùng thêm các bước chỉnh dự đoán cho khớp chuỗi cũ.
 
@@ -84,7 +84,7 @@ Mô hình còn được thông báo độ trễ tương ứng để hiểu tiề
 
 Robot đang gập hộp bìa, còn đoạn cũ gồm nhiều lệnh ép một mép hộp. Mô hình mới mất khoảng 100 mili giây, tương đương năm bước ở 50 Hz. Trong thời gian ấy robot tiếp tục ép theo các lệnh đã gửi.
 
-Nếu mạng sinh chuỗi mới như thể tay robot chưa ép tới vị trí đó, chỗ nối sẽ giật hoặc ép sai lực. Với RTC được học ngay khi huấn luyện, mạng nhận **năm bước đầu đã cam kết** và chỉ sinh tiếp phần sau. Điều này giúp nó tạo quỹ đạo phù hợp với chuyển động đã diễn ra.
+Nếu mạng sinh chuỗi mới như thể tay robot chưa ép đến vị trí hiện tại, lệnh sẽ bị nối sai và có thể gây giật hoặc ép sai lực. Cần đưa phần chuyển động đã chắc chắn xảy ra vào đầu vào, chứ không thể coi mọi chuỗi đều bắt đầu từ đầu. Với RTC được học ngay khi huấn luyện, mạng nhận **năm bước đầu đã cam kết** và chỉ sinh tiếp phần sau. Điều này giúp nó tạo quỹ đạo phù hợp với chuyển động đã diễn ra.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
