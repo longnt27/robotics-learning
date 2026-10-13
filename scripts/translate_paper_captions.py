@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Offline, reproducible English -> Vietnamese translation of author PDF captions.
+"""Offline English -> Vietnamese translation for *unreviewed* author PDF captions.
 
 Preserves the author's original verbatim in caption, and stores a separately
-labeled machine translation in caption_vi. Translation happens when building
+labeled translation in caption_vi. Editorial translations are immutable unless explicitly re-reviewed. Translation happens when building
 the dataset, never on a visitor's browser or in the Next.js app.
 """
 from __future__ import annotations
@@ -94,6 +94,10 @@ def main():
             original = figure["caption"].strip()
             if not original or len(original) < 30:
                 raise ValueError(f"{slug}/Figure {figure['number']}: missing source caption")
+            if figure.get("translation_reviewed"):
+                if figure.get("caption_sha256") != source_digest(original):
+                    raise ValueError(f"{slug}/Figure {figure['number']}: reviewed caption source changed; manual review required")
+                continue
             if (figure.get("caption_vi") and figure.get("caption_sha256") ==
                     source_digest(original)):
                 continue
