@@ -1,211 +1,211 @@
 [
   {
     "type": "cover",
-    "title": "Điểm cốt lõi",
-    "lead": "Video người cung cấp ý đồ dài hạn; robot demos học cách biến ý đồ ấy thành action thực thi.",
+    "title": "MIMICPLAY: học kế hoạch từ video người",
+    "lead": "Một người dọn bàn có thể mở ngăn kéo, nhặt bút, đặt vào hộp rồi đóng lại rất nhanh. Video người làm việc dễ thu hơn việc điều khiển robot hàng trăm lần. Nhưng video ấy không cho biết góc từng khớp robot phải xoay bao nhiêu.",
     "items": [
       "Học “đi đâu” từ video người, học “làm thế nào” từ robot"
     ],
-    "intuition": "Phân tách high-level plan/latent goal khỏi low-level motor control.",
+    "intuition": "MIMICPLAY chia việc thành hai phần: học đích đến và trình tự từ video người, rồi học cách cử động robot thật từ ít lần người điều khiển robot làm mẫu. Video người cung cấp mục tiêu và thứ tự thực hiện, không cung cấp sẵn các góc khớp phù hợp với cánh tay robot.",
     "detail": {
-      "label": "BỐI CẢNH NGHIÊN CỨU",
-      "text": "Vấn đề là bàn tay người và robot arm không cùng morphology/action không gian. MimicPlay hỏi: ta có thể lấy cái “plan” từ quá trình con người thao tác tự do mà không cần retarget mọi khung hình thành robot joint action không?"
+      "label": "GIẢI THÍCH",
+      "text": "MIMICPLAY chia việc thành hai phần: học đích đến và trình tự từ video người, rồi học cách cử động robot thật từ ít lần người điều khiển robot làm mẫu. Video người cung cấp mục tiêu và thứ tự thực hiện, không cung cấp sẵn các góc khớp phù hợp với cánh tay robot."
     }
   },
   {
     "type": "problem",
-    "title": "Để dạy robot nhiệm vụ dài, demonstration robot rất đắt",
-    "lead": "Thu dữ liệu cho từng chuỗi thao tác nhiều bước gây bottleneck cả thời gian lẫn coverage.",
+    "title": "Tại sao video người không đủ để điều khiển robot?",
+    "lead": "Một người dọn bàn có thể mở ngăn kéo, nhặt bút, đặt vào hộp rồi đóng lại rất nhanh. Video người làm việc dễ thu hơn việc điều khiển robot hàng trăm lần. Nhưng video ấy không cho biết góc từng khớp robot phải xoay bao nhiêu.",
     "items": [
       "Behavior cloning theo từng bước khó giữ long-horizon intent"
     ],
-    "intuition": "Chỉ quan sát action cục bộ dễ mất định hướng giữa các subgoals.",
+    "intuition": "MIMICPLAY chia việc thành hai phần: học đích đến và trình tự từ video người, rồi học cách cử động robot thật từ ít lần người điều khiển robot làm mẫu. Video người cung cấp mục tiêu và thứ tự thực hiện, không cung cấp sẵn các góc khớp phù hợp với cánh tay robot.",
     "detail": {
-      "label": "NGUYÊN NHÂN CỐT LÕI",
-      "text": "Long-horizon manipulation cần rất nhiều demonstration vì robot phải biết cả cấu trúc nhiệm vụ lẫn low-level control."
+      "label": "GIẢI THÍCH",
+      "text": "Một người dọn bàn có thể mở ngăn kéo, nhặt bút, đặt vào hộp rồi đóng lại rất nhanh. Video người làm việc dễ thu hơn việc điều khiển robot hàng trăm lần. Nhưng video ấy không cho biết góc từng khớp robot phải xoay bao nhiêu. Cánh tay người và tay robot cũng khác nhau về hình dạng, giới hạn chuyển động."
     }
   },
   {
     "type": "contrast",
-    "title": "Behavior cloning theo từng bước khó giữ long-horizon intent",
-    "lead": "Chỉ quan sát action cục bộ dễ mất định hướng giữa các subgoals.",
+    "title": "Mục tiêu hành động khác với góc khớp",
+    "lead": "MIMICPLAY chia việc thành hai phần: học đích đến và trình tự từ video người, rồi học cách cử động robot thật từ ít lần người điều khiển robot làm mẫu.",
     "items": [
       "Học “đi đâu” từ video người, học “làm thế nào” từ robot",
-      "Phân tách high-level plan/latent goal khỏi low-level motor control."
+      "Phân tách high-mức plan/latent goal khỏi low-mức motor control."
     ],
-    "intuition": "Phân tách high-level plan/latent goal khỏi low-level motor control.",
+    "intuition": "Một người dọn bàn có thể mở ngăn kéo, nhặt bút, đặt vào hộp rồi đóng lại rất nhanh. Video người làm việc dễ thu hơn việc điều khiển robot hàng trăm lần. Nhưng video ấy không cho biết góc từng khớp robot phải xoay bao nhiêu.",
     "detail": {
-      "label": "VÌ SAO CẦN THAY ĐỔI",
-      "text": "Method tách policy thành hai tầng. Tầng high-level học một latent plan từ quá trình con người thao tác tự do video, dựa trên future human-hand quỹ đạo/thị giác động lực học."
+      "label": "GIẢI THÍCH",
+      "text": "Giả sử có người đẩy hộp bút sang bên phải giữa nhiệm vụ. Nếu bộ lập kế hoạch tiếp tục coi hộp ở vị trí cũ, robot có thể đưa bút vào không khí. Hình 5 trình bày cách MIMICPLAY cập nhật biểu diễn kế hoạch sau khi có tác động, rồi tiếp tục công việc."
     }
   },
   {
     "type": "intuition",
-    "title": "Học “đi đâu” từ video người, học “làm thế nào” từ robot",
-    "lead": "Phân tách high-level plan/latent goal khỏi low-level motor control.",
+    "title": "Hình dung một nhiệm vụ dọn bàn nhiều bước",
+    "lead": "Robot phải nhặt bút, cất vào hộp, xếp sách và đóng ngăn kéo. Video người cho thấy thứ tự thao tác và vị trí mục tiêu, nhưng robot vẫn phải học riêng cách cầm một chiếc bút mảnh bằng kẹp robot của nó.",
     "items": [
-      "Video người cung cấp ý đồ dài hạn; robot demos học cách biến ý đồ ấy thành action thực thi."
+      "Video người cung cấp ý đồ dài hạn; robot lần làm mẫu học cách biến ý đồ ấy thành hành động thực thi."
     ],
-    "intuition": "Phân tách high-level plan/latent goal khỏi low-level motor control.",
+    "intuition": "Giả sử có người đẩy hộp bút sang bên phải giữa nhiệm vụ. Nếu bộ lập kế hoạch tiếp tục coi hộp ở vị trí cũ, robot có thể đưa bút vào không khí. Hình 5 trình bày cách MIMICPLAY cập nhật biểu diễn kế hoạch sau khi có tác động, rồi tiếp tục công việc.",
     "detail": {
-      "label": "GIẢI THÍCH CƠ CHẾ",
-      "text": "Tầng high-level học một latent plan từ quá trình con người thao tác tự do video, dựa trên future human-hand quỹ đạo/thị giác động lực học."
+      "label": "GIẢI THÍCH",
+      "text": "Robot phải nhặt bút, cất vào hộp, xếp sách và đóng ngăn kéo. Video người cho thấy thứ tự thao tác và vị trí mục tiêu, nhưng robot vẫn phải học riêng cách cầm một chiếc bút mảnh bằng kẹp robot của nó."
     }
   },
   {
     "type": "concepts",
-    "title": "Ba khái niệm để nắm",
-    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "title": "Kế hoạch cấp cao và điều khiển cấp thấp",
+    "lead": "Kế hoạch cấp cao mô tả những trạng thái trung gian cần đạt, chẳng hạn mở ngăn kéo → đưa vật vào → đóng ngăn kéo. MIMICPLAY học biểu diễn ẩn của kế hoạch, không bắt buộc phải viết mỗi bước thành câu chữ.",
     "items": [
       {
         "label": "Human play video",
-        "value": "Clip người tương tác, không có action của robot."
+        "value": "Clip người tương tác, không có hành động của robot."
       },
       {
-        "label": "High-level policy",
+        "label": "High-mức chính sách điều khiển",
         "value": "Suy ra mục tiêu, pha và diễn tiến dài hạn."
       },
       {
-        "label": "Low-level controller",
-        "value": "Thực hiện thao tác khả thi trong robot action space."
+        "label": "Low-mức controller",
+        "value": "Thực hiện thao tác khả thi trong robot hành động space."
       }
     ],
-    "intuition": "Video người đóng vai trò nguồn supervision cho ý đồ chuyển động.",
+    "intuition": "Bộ điều khiển cấp thấp nhận quan sát và tín hiệu kế hoạch, rồi tạo lệnh phù hợp với tay robot. Nó cần được huấn luyện bằng dữ liệu robot vì video người không phản ánh chính xác cơ cấu và lực của máy.",
     "detail": {
-      "label": "NỀN TẢNG KỸ THUẬT",
-      "text": "Video con người rẻ hơn robot demo nhưng không trực tiếp có robot actions. Một video cho biết mục tiêu và chuỗi trạng thái trung gian; robot actions vẫn cần robot demos và bộ điều khiển."
+      "label": "GIẢI THÍCH",
+      "text": "Bộ điều khiển cấp thấp nhận quan sát và tín hiệu kế hoạch, rồi tạo lệnh phù hợp với tay robot. Nó cần được huấn luyện bằng dữ liệu robot vì video người không phản ánh chính xác cơ cấu và lực của máy."
     }
   },
   {
     "type": "pipeline",
-    "title": "Kiến trúc trong một sơ đồ",
-    "lead": "Video người cung cấp ý đồ dài hạn; robot demos học cách biến ý đồ ấy thành action thực thi.",
+    "title": "Hai giai đoạn học của MIMICPLAY",
+    "lead": "Giai đoạn đầu, hệ thống đọc video người thao tác và mục tiêu tương ứng, học cách sinh đường diễn tiến trong không gian kế hoạch ẩn.",
     "items": [
       "Video người",
       "Học latent plan",
-      "Robot demonstration",
+      "Robot lần làm mẫu",
       "Hierarchical execution"
     ],
-    "intuition": "Quan sát bối cảnh và current progress.",
+    "intuition": "Giai đoạn sau, mô hình lập kế hoạch được giữ cố định. Người nghiên cứu đưa vào một lượng nhỏ lần người điều khiển robot làm mẫu và huấn luyện bộ điều khiển làm theo tín hiệu kế hoạch.",
     "detail": {
-      "label": "ĐIỂM NHẤN TRIỂN KHAI",
-      "text": "Bài báo còn dùng multimodal quỹ đạo modeling, vì một người có thể hoàn thành cùng subgoal bằng nhiều đường khác nhau."
+      "label": "GIẢI THÍCH",
+      "text": "Giai đoạn sau, mô hình lập kế hoạch được giữ cố định. Người nghiên cứu đưa vào một lượng nhỏ lần người điều khiển robot làm mẫu và huấn luyện bộ điều khiển làm theo tín hiệu kế hoạch. Khi chạy, video prompt chỉ định nhiệm vụ; mạng lập kế hoạch tạo các mục tiêu trung gian, còn bộ điều khiển chuyển chúng thành thao tác. Nếu môi trường thay đổi, kế hoạch có thể được cập nhật."
     }
   },
   {
     "type": "representation",
-    "title": "Mô hình biểu diễn cái gì?",
-    "lead": "Video người đóng vai trò nguồn supervision cho ý đồ chuyển động.",
+    "title": "Video người biểu diễn được điều gì?",
+    "lead": "Bộ điều khiển cấp thấp nhận quan sát và tín hiệu kế hoạch, rồi tạo lệnh phù hợp với tay robot. Nó cần được huấn luyện bằng dữ liệu robot vì video người không phản ánh chính xác cơ cấu và lực của máy.",
     "items": [
       {
         "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
-        "value": "Robot state/action xác định khả năng motor thật của policy."
+        "value": "Robot trạng thái/hành động xác định khả năng motor thật của chính sách điều khiển."
       },
       {
         "label": "ĐÁNH ĐỔI KỸ THUẬT",
         "value": "Cross-domain transfer vẫn đòi alignment giữa thao tác người và robot."
       }
     ],
-    "intuition": "Cross-domain transfer vẫn đòi alignment giữa thao tác người và robot.",
+    "intuition": "Giai đoạn đầu, hệ thống đọc video người thao tác và mục tiêu tương ứng, học cách sinh đường diễn tiến trong không gian kế hoạch ẩn. Nó cố nắm những điều cần xảy ra tiếp theo ở cảnh, không nhất thiết biết động cơ của robot cụ thể phải quay ra sao.",
     "detail": {
-      "label": "CHI TIẾT BIỂU DIỄN",
-      "text": "Để xử lý human-robot gap, biểu diễn được align sao cho plan chứa task-relevant chuyển động intention thay vì joint-specific details."
+      "label": "GIẢI THÍCH",
+      "text": "Giai đoạn đầu, hệ thống đọc video người thao tác và mục tiêu tương ứng, học cách sinh đường diễn tiến trong không gian kế hoạch ẩn. Nó cố nắm những điều cần xảy ra tiếp theo ở cảnh, không nhất thiết biết động cơ của robot cụ thể phải quay ra sao."
     }
   },
   {
     "type": "training",
-    "title": "Model học như thế nào?",
-    "lead": "Pretrain phần dự đoán kế hoạch trên play videos của con người.",
+    "title": "Mô hình học mục tiêu từ video ra sao?",
+    "lead": "Giai đoạn đầu, hệ thống đọc video người thao tác và mục tiêu tương ứng, học cách sinh đường diễn tiến trong không gian kế hoạch ẩn.",
     "items": [
       {
         "label": "MỤC TIÊU HỌC",
-        "value": "Huấn luyện controller bằng số lượng robot demonstrations nhỏ hơn."
+        "value": "Huấn luyện controller bằng số lượng robot lần làm mẫu nhỏ hơn."
       },
       {
         "label": "DỮ LIỆU / QUY TRÌNH",
-        "value": "Giữ tầng high-level tương đối tách biệt khỏi action dynamics."
+        "value": "Giữ tầng high-mức tương đối tách biệt khỏi hành động dynamics."
       }
     ],
-    "intuition": "Phân biệt đóng góp của human play pretraining với robot demos.",
+    "intuition": "Giai đoạn sau, mô hình lập kế hoạch được giữ cố định. Người nghiên cứu đưa vào một lượng nhỏ lần người điều khiển robot làm mẫu và huấn luyện bộ điều khiển làm theo tín hiệu kế hoạch.",
     "detail": {
-      "label": "CÁCH HUẤN LUYỆN",
-      "text": "Quan trọng là high-level prior được học từ dữ liệu thu từ con người, còn embodiment grounding vẫn để robot demonstrations đảm nhiệm."
+      "label": "GIẢI THÍCH",
+      "text": "Đối chiếu số liệu: Bài báo đánh giá 14 nhiệm vụ trên robot thật. Trong những thiết lập được báo cáo, học trước từ video người cải thiện kết quả so với phương pháp đối chứng; thiết kế hai tầng cũng tốt hơn một số cách học trực tiếp một tầng. Các mức cải thiện có thể lên tới hàng chục điểm phần trăm nhưng phụ thuộc nhóm phép thử."
     }
   },
   {
     "type": "inference",
-    "title": "Một lần inference xảy ra ra sao?",
-    "lead": "Quan sát bối cảnh và current progress.",
+    "title": "Robot thực hiện từng bước như thế nào?",
+    "lead": "Giai đoạn sau, mô hình lập kế hoạch được giữ cố định. Người nghiên cứu đưa vào một lượng nhỏ lần người điều khiển robot làm mẫu và huấn luyện bộ điều khiển làm theo tín hiệu kế hoạch.",
     "items": [
       {
         "label": "XỬ LÝ ĐẦU VÀO",
-        "value": "High-level module đề xuất subgoal/latent plan."
+        "value": "High-mức module đề xuất subgoal/latent plan."
       },
       {
         "label": "TẠO HÀNH ĐỘNG",
-        "value": "Low-level module bám mục tiêu qua nhiều bước robot control."
+        "value": "Low-mức module bám mục tiêu qua nhiều bước robot control."
       }
     ],
-    "intuition": "Low-level module bám mục tiêu qua nhiều bước robot control.",
+    "intuition": "Robot phải nhặt bút, cất vào hộp, xếp sách và đóng ngăn kéo. Video người cho thấy thứ tự thao tác và vị trí mục tiêu, nhưng robot vẫn phải học riêng cách cầm một chiếc bút mảnh bằng kẹp robot của nó.",
     "detail": {
-      "label": "DIỄN BIẾN THỰC THI",
-      "text": "Trong video người mở ngăn kéo rồi lấy khăn, một mô hình có thể học latent progress: tiến tới ngăn kéo → mở → lấy khăn."
+      "label": "GIẢI THÍCH",
+      "text": "PaLM-E cũng có thể tham gia suy luận mục tiêu cấp cao, nhưng không thay được bộ điều khiển động cơ. Khi đọc ba bài, hãy luôn hỏi mô-đun nào quyết định bước kế tiếp và mô-đun nào trực tiếp điều khiển robot."
     }
   },
   {
     "type": "equation",
-    "title": "Mathematical Intuition",
-    "lead": "Controller không cần tự suy luận lại toàn bộ nhiệm vụ; nó nhận tín hiệu mục tiêu z_plan từ tầng kế hoạch.",
+    "title": "Ý nghĩa của phân tầng điều khiển",
+    "lead": "Bộ điều khiển cấp thấp nhận quan sát và tín hiệu kế hoạch, rồi tạo lệnh phù hợp với tay robot. Nó cần được huấn luyện bằng dữ liệu robot vì video người không phản ánh chính xác cơ cấu và lực của máy.",
     "equation": "\\pi(a\\mid o,\\underbrace{z_{\\rm plan}}_{\\rm high\\ level})",
     "items": [
-      "Đây là sơ đồ điều kiện khái niệm của hierarchical policy."
+      "Đây là sơ đồ điều kiện khái niệm của hierarchical chính sách điều khiển."
     ],
-    "intuition": "Controller không cần tự suy luận lại toàn bộ nhiệm vụ; nó nhận tín hiệu mục tiêu z_plan từ tầng kế hoạch.",
+    "intuition": "Giai đoạn đầu, hệ thống đọc video người thao tác và mục tiêu tương ứng, học cách sinh đường diễn tiến trong không gian kế hoạch ẩn. Nó cố nắm những điều cần xảy ra tiếp theo ở cảnh, không nhất thiết biết động cơ của robot cụ thể phải quay ra sao.",
     "detail": {
-      "label": "Ý NGHĨA CÔNG THỨC",
-      "text": "Tầng low-level nhận robot quan sát + latent plan rồi học robot action từ một lượng nhỏ teleoperation."
+      "label": "GIẢI THÍCH CÔNG THỨC",
+      "text": "Giả sử người chuyển hộp bút khi robot đang làm. Hãy chỉ ra bước nào của kế hoạch phải cập nhật. Làm được điều này sẽ giúp hiểu vì sao tầng lập kế hoạch không thể chỉ phát một chuỗi cố định từ đầu đến cuối."
     }
   },
   {
     "type": "results",
-    "title": "Kết quả nói lên điều gì?",
-    "lead": "Các nhiệm vụ thao tác dài nhiều bước hưởng lợi từ tín hiệu human play.",
+    "title": "Đánh giá trên nhiệm vụ dài ra sao?",
+    "lead": "Một chính sách điều khiển có thể hoàn thành từng bước riêng với xác suất cao nhưng vẫn hay thất bại khi phải làm liên tiếp năm đến bảy bước. Sai ở bước đầu có thể làm các bước sau không còn thực hiện được.",
     "items": [
       {
         "label": "PHÁT HIỆN QUAN TRỌNG",
-        "value": "Kiến trúc phân tầng cải thiện việc giữ hướng đi khi robot không có nhiều demos."
+        "value": "Kiến trúc phân tầng cải thiện việc giữ hướng đi khi robot không có nhiều lần làm mẫu."
       },
       {
         "label": "CÁCH DIỄN GIẢI",
-        "value": "Đóng góp chính là learning setup, không phải phép thế video người cho action labels."
+        "value": "Đóng góp chính là learning setup, không phải phép thế video người cho hành động labels."
       }
     ],
-    "intuition": "thao tác người và robot khác embodiment; tracking/visual mismatch có thể làm latent plan không khả thi.",
+    "intuition": "Đối chiếu số liệu: Bài báo đánh giá 14 nhiệm vụ trên robot thật. Trong những thiết lập được báo cáo, học trước từ video người cải thiện kết quả so với phương pháp đối chứng; thiết kế hai tầng cũng tốt hơn một số cách học trực tiếp một tầng.",
     "detail": {
-      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
-      "text": "Bài báo báo pretraining từ video con người thao tác tự do mang lại hơn 23 điểm cải thiện trong một số tổng hợp, kiến trúc hierarchical tốt hơn end-to-end khoảng 15 điểm, và trên unseen subgoal compositions có mức cải thiện hơn 35 điểm."
+      "label": "GIẢI THÍCH",
+      "text": "Một chính sách điều khiển có thể hoàn thành từng bước riêng với xác suất cao nhưng vẫn hay thất bại khi phải làm liên tiếp năm đến bảy bước. Sai ở bước đầu có thể làm các bước sau không còn thực hiện được. Vì vậy MIMICPLAY được thử trên các công việc như dọn bàn, chuẩn bị bánh kẹp hoặc gấp khăn."
     }
   },
   {
     "type": "ablation",
-    "title": "Ablation và bằng chứng",
-    "lead": "Phân biệt đóng góp của human play pretraining với robot demos.",
+    "title": "Thử bỏ từng nguồn dữ liệu",
+    "lead": "Hình 4 so nhiệm vụ được chỉ dẫn bằng video người và video robot. Khi đọc kết quả, nên xem tiêu chí thành công có đòi hoàn thành toàn nhiệm vụ không và lượng dữ liệu robot ở các trường hợp có được giữ tương đương không.",
     "items": [
       {
         "label": "YẾU TỐ ĐƯỢC THỬ",
         "value": "Đo success đến cuối chuỗi, không chỉ thành công từng subgoal."
       }
     ],
-    "intuition": "Kiến trúc phân tầng cải thiện việc giữ hướng đi khi robot không có nhiều demos.",
+    "intuition": "Một chính sách điều khiển có thể hoàn thành từng bước riêng với xác suất cao nhưng vẫn hay thất bại khi phải làm liên tiếp năm đến bảy bước. Sai ở bước đầu có thể làm các bước sau không còn thực hiện được. Vì vậy MIMICPLAY được thử trên các công việc như dọn bàn, chuẩn bị bánh kẹp hoặc gấp khăn.",
     "detail": {
-      "label": "BẰNG CHỨNG BỔ SUNG",
-      "text": "Nó có thể cung cấp nhiệm vụ geometry, subgoal sequencing và prior về chuyển động, rồi dữ liệu robot chỉ cần dạy phần embodiment-specific thực thi."
+      "label": "GIẢI THÍCH",
+      "text": "Hình 4 so nhiệm vụ được chỉ dẫn bằng video người và video robot. Khi đọc kết quả, nên xem tiêu chí thành công có đòi hoàn thành toàn nhiệm vụ không và lượng dữ liệu robot ở các trường hợp có được giữ tương đương không."
     }
   },
   {
     "type": "limits",
-    "title": "Hạn chế cần nói thẳng",
-    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "title": "Điểm yếu của việc học từ video người",
+    "lead": "Video người không có nhãn góc khớp robot. Có thể trong video người cầm đồ rất dễ, nhưng kẹp robot không đủ dài hoặc không có lực phù hợp. Kế hoạch cấp cao tốt không chữa được một bộ điều khiển cấp thấp chưa biết cách kẹp.",
     "items": [
       {
         "label": "Tác giả / phạm vi",
@@ -213,47 +213,47 @@
       },
       {
         "label": "Phê bình độc lập",
-        "value": "Phê bình: thao tác người và robot khác embodiment; tracking/visual mismatch có thể làm latent plan không khả thi."
+        "value": "Phê bình: thao tác người và robot khác embodiment; tracking/thị giác mismatch có thể làm latent plan không khả thi."
       }
     ],
-    "intuition": "Robot state/action xác định khả năng motor thật của policy.",
+    "intuition": "Biểu diễn ẩn cũng khó kiểm chứng bằng mắt; cần chạy và xem nó có thật sự làm robot tới đúng đích trung gian hay không. Tính bền trước một loại xáo trộn trong thí nghiệm không bảo đảm chịu được mọi tác động.",
     "detail": {
-      "label": "PHẠM VI KẾT LUẬN",
-      "text": "Phê bình thêm: video con người ở đây vẫn là in-domain quá trình con người thao tác tự do được thu thập có chủ đích, không phải Internet-scale thô egocentric video."
+      "label": "GIẢI THÍCH",
+      "text": "Biểu diễn ẩn cũng khó kiểm chứng bằng mắt; cần chạy và xem nó có thật sự làm robot tới đúng đích trung gian hay không. Tính bền trước một loại xáo trộn trong thí nghiệm không bảo đảm chịu được mọi tác động."
     }
   },
   {
     "type": "relations",
-    "title": "Bài này đứng ở đâu trong lĩnh vực?",
-    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "title": "MIMICPLAY và những hướng VLA sau này",
+    "lead": "MIMICPLAY và π0.5 đều coi nhiệm vụ dài là sự phối hợp nhiều bước nhỏ, nhưng cách học khác nhau. MIMICPLAY dùng video người để học kế hoạch ẩn, còn π0.5 kết hợp nhiều dữ liệu và dự đoán bước con cùng hành động từ một hệ VLA.",
     "items": [
       {
         "label": "NỀN TẢNG / TIỀN ĐỀ",
-        "value": "GR00T N1 và LingBot-VLA 2.0 tiếp tục khai thác video người cho pretraining."
+        "value": "GR00T N1 và LingBot-VLA 2.0 tiếp tục khai thác video người cho huấn luyện trước."
       },
       {
         "label": "HƯỚNG PHÁT TRIỂN",
-        "value": "Open X-Embodiment cung cấp kênh robot data bổ sung."
+        "value": "Open X-Embodiment cung cấp kênh robot dữ liệu bổ sung."
       }
     ],
-    "intuition": "Video người giá rẻ có thể dạy cấu trúc nhiệm vụ trước khi dạy motor.",
+    "intuition": "PaLM-E cũng có thể tham gia suy luận mục tiêu cấp cao, nhưng không thay được bộ điều khiển động cơ. Khi đọc ba bài, hãy luôn hỏi mô-đun nào quyết định bước kế tiếp và mô-đun nào trực tiếp điều khiển robot.",
     "detail": {
-      "label": "CÔNG TRÌNH LIÊN QUAN",
-      "text": "Đọc thêm GR00T N1, Qwen-VLA. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+      "label": "GIẢI THÍCH",
+      "text": "MIMICPLAY và π0.5 đều coi nhiệm vụ dài là sự phối hợp nhiều bước nhỏ, nhưng cách học khác nhau. MIMICPLAY dùng video người để học kế hoạch ẩn, còn π0.5 kết hợp nhiều dữ liệu và dự đoán bước con cùng hành động từ một hệ VLA."
     }
   },
   {
     "type": "closing",
-    "title": "Nếu chỉ nhớ ba điều",
-    "lead": "Video người giá rẻ có thể dạy cấu trúc nhiệm vụ trước khi dạy motor.",
+    "title": "Điều cần nhớ về MIMICPLAY",
+    "lead": "Viết nhiệm vụ “Dọn bàn học” thành bốn bước và gắn với mỗi bước một điều kiện thành công quan sát được: bút nằm trong hộp, sách xếp thành chồng, ngăn kéo đóng hẳn.",
     "items": [
-      "Giữ rõ ranh giới planning supervision và robot action supervision.",
-      "Kiểm tra các thất bại khi high-level plan không khả thi cho robot."
+      "Giữ rõ ranh giới planning supervision và robot hành động supervision.",
+      "Kiểm tra các thất bại khi high-mức plan không khả thi cho robot."
     ],
-    "intuition": "Video người cung cấp ý đồ dài hạn; robot demos học cách biến ý đồ ấy thành action thực thi.",
+    "intuition": "Giả sử người chuyển hộp bút khi robot đang làm. Hãy chỉ ra bước nào của kế hoạch phải cập nhật. Làm được điều này sẽ giúp hiểu vì sao tầng lập kế hoạch không thể chỉ phát một chuỗi cố định từ đầu đến cuối.",
     "detail": {
-      "label": "THỬ NGHIỆM TIẾP THEO",
-      "text": "Làm toy goal-conditioned BC: encode khung hình hiện tại + một future khung hình làm subgoal, huấn luyện action head từ robot demos."
+      "label": "GIẢI THÍCH",
+      "text": "Viết nhiệm vụ “Dọn bàn học” thành bốn bước và gắn với mỗi bước một điều kiện thành công quan sát được: bút nằm trong hộp, sách xếp thành chồng, ngăn kéo đóng hẳn. Phân biệt phần video người có thể dạy với phần cần lần người điều khiển robot làm mẫu."
     }
   }
 ]
