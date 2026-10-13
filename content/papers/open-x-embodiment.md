@@ -55,7 +55,7 @@ Khi đọc câu “cao hơn 50%”, cần biết đó là mức tăng tương đ
 
 ### Mức tăng tương đối khác mức tăng điểm phần trăm
 
-Trong phép so gộp của bài báo, RT-1-X đạt tỷ lệ thành công trung bình cao hơn khoảng 50% tương đối so với phương án chỉ dùng dữ liệu robot đích; con số này không có nghĩa tăng 50 điểm phần trăm. RT-2-X cũng được thử ở những kỹ năng chưa xuất hiện trong dữ liệu của loại robot đánh giá. Hãy nhìn từng robot, tập nhiệm vụ và số lượt thử để phân biệt chuyển giao kỹ năng thật với việc mô hình chỉ được học thêm ví dụ cùng kiểu bài.
+Trong phép so gộp của bài báo, RT-1-X đạt tỷ lệ thành công trung bình cao hơn khoảng 50% tương đối so với phương án chỉ dùng dữ liệu robot đích; con số này không có nghĩa tăng 50 điểm phần trăm. **Nhưng Bảng I cho thấy có những thiết lập RT-1-X thấp hơn RT-1 huấn luyện trên dữ liệu phù hợp robot đích**, nghĩa là học chung không luôn tạo chuyển giao tích cực. Nhóm tác giả lưu ý mô hình có thể chưa đủ năng lực để hấp thụ tốt hỗn hợp dữ liệu rất lớn. RT-2-X cũng được thử ở những kỹ năng chưa xuất hiện trong dữ liệu của loại robot đánh giá. Hãy nhìn từng robot, tập nhiệm vụ và số lượt thử để phân biệt chuyển giao kỹ năng thật với việc mô hình chỉ được học thêm ví dụ cùng kiểu bài.
 
 ### Kết quả chuyển giao phải được đo trên robot nhận kiến thức
 
