@@ -38,7 +38,7 @@ MIMICPLAY chia việc thành **kế hoạch cấp cao** và **điều khiển c�
 
 ## Phương pháp thực hiện
 
-Giai đoạn đầu, mạng học từ video người thao tác để tạo một **kế hoạch ẩn**, biểu diễn các trạng thái hoặc mục tiêu trung gian mà nhiệm vụ cần đạt. Nó không nhất thiết sinh câu chữ hoặc góc khớp. Giai đoạn sau, mạng lập kế hoạch được giữ cố định; bộ điều khiển học từ một lượng nhỏ lượt thao tác mẫu của robot để thực hiện các bước theo kế hoạch đó.
+Ở giai đoạn đầu, mạng xem video người thao tác để học **kế hoạch ẩn**: một biểu diễn bằng số của tiến trình tới mục tiêu, chẳng hạn từ “ngăn kéo đóng” sang “ngăn kéo mở”. Đây chưa phải lệnh góc khớp robot. Nó không nhất thiết sinh câu chữ hoặc góc khớp. Ở giai đoạn sau, mạng lập kế hoạch được giữ cố định. Bộ điều khiển học từ một lượng nhỏ **lần người điều khiển robot làm mẫu** để biến mục tiêu trung gian thành các bước cử động phù hợp với cánh tay và kẹp thật.
 
 Khi robot chạy, video hoặc hình ảnh mục tiêu giúp phần lập kế hoạch tạo hướng đi tiếp theo. Bộ điều khiển nhận quan sát mới để phát lệnh cho tay máy. Cách tách này cho phép dùng video người để học trình tự thao tác, còn dữ liệu robot chịu trách nhiệm về cơ cấu và lệnh thực thi.
 
@@ -85,7 +85,7 @@ Giả sử có người đẩy hộp bút sang bên phải giữa nhiệm vụ. 
 
 ## Kết quả thực nghiệm
 
-Trong **14 nhiệm vụ robot thật**, MIMICPLAY cải thiện kết quả so với những phương pháp học bắt chước đối chứng. Các thí nghiệm được báo cáo có nhóm tăng trên **23 điểm phần trăm** nhờ học trước từ video người; thiết kế hai tầng tốt hơn cách xử lý một tầng ở một số điều kiện, và lợi ích còn thấy khi mục tiêu gồm nhiều bước chưa xuất hiện nguyên vẹn lúc huấn luyện.
+Trong **14 nhiệm vụ robot thật** được đánh giá, MIMICPLAY cải thiện kết quả so với các phương pháp học bắt chước dùng làm đối chứng. Điều cần so là tỷ lệ hoàn thành cả nhiệm vụ dài, không chỉ độ chính xác của một hành động riêng. Các thí nghiệm được báo cáo có nhóm tăng trên **23 điểm phần trăm** nhờ học trước từ video người; thiết kế hai tầng tốt hơn cách xử lý một tầng ở một số điều kiện, và lợi ích còn thấy khi mục tiêu gồm nhiều bước chưa xuất hiện nguyên vẹn lúc huấn luyện.
 
 Kết quả quan trọng là video người không cần cung cấp lệnh robot chính xác vẫn có thể giúp học **thứ tự thao tác và mục tiêu trung gian**. Dữ liệu robot khi ấy tập trung vào việc thực hiện những bước ấy trên cơ cấu cụ thể.
 

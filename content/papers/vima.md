@@ -19,7 +19,7 @@ Giả sử trên bàn có ba khối giống nhau nhưng khác màu. Người dù
 
 Trong VIMA, **prompt** là toàn bộ thông tin dùng để giao việc: câu chữ, ảnh của đồ vật được nhắc đến và đôi khi cả ví dụ về kết quả mong muốn. Prompt không phải ảnh camera đang quan sát; ảnh camera cho biết tình trạng hiện tại của bàn làm việc. Chẳng hạn ảnh mẫu chỉ một chiếc cốc xanh, còn camera nhìn thấy cả cốc xanh, cốc đỏ và chiếc khay đích. Robot phải xác định được chiếc cốc nào trong cảnh tương ứng với ảnh mẫu.
 
-VIMA chia thông tin về từng vật thể thành những **token** riêng, thay vì chỉ xử lý toàn bộ ảnh như một khối. Cách này giúp mạng xác định đối tượng được nhắc đến, nhưng cũng phụ thuộc vào chất lượng nhận diện vật thể.
+VIMA dùng **token theo vật thể**, tức mỗi vật được biểu diễn bằng một nhóm đặc trưng riêng để mô hình dễ đối chiếu với ảnh mẫu trong prompt. Cách tổ chức này giúp mô hình phân biệt các vật có vai trò khác nhau, nhưng vẫn phụ thuộc vào bước phát hiện vật: bỏ sót chiếc cốc ngay từ đầu thì phần điều khiển cũng không thể chọn đúng chiếc cốc đó.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -35,7 +35,7 @@ VIMA chia thông tin về từng vật thể thành những **token** riêng, th
 
 VIMA gồm hai phần liên quan. **VIMA-BENCH** là môi trường kiểm tra với 17 nhóm nhiệm vụ mô phỏng và hơn 600.000 quỹ đạo ví dụ. Những cấp độ kiểm tra khó hơn yêu cầu robot xử lý các cách kết hợp đồ vật, mục tiêu hoặc bố cục chưa xuất hiện trực tiếp trong dữ liệu học. Nhờ đó, nhóm tác giả có thể kiểm tra khả năng khái quát thay vì chỉ xem robot có lặp lại tình huống quen thuộc hay không.
 
-Về mô hình, chữ và ảnh trong prompt được chuyển thành token. Mạng Transformer kết hợp chúng với những gì camera nhìn thấy và lịch sử thao tác để quyết định lệnh tiếp theo. Bài báo cũng so các kích thước mạng, tới khoảng 200 triệu tham số, nhằm xem quy mô ảnh hưởng tới kết quả thế nào.
+Về mô hình, chữ và ảnh trong prompt được chuyển thành token. Transformer đọc thông tin trong prompt cùng những gì camera nhìn thấy và các lệnh đã thực hiện. Nhờ cơ chế chú ý chéo, mạng có thể tìm lại phần prompt nói về vật mục tiêu trước khi dự đoán lệnh tiếp theo. Bài báo cũng so các kích thước mạng, tới khoảng 200 triệu tham số, nhằm xem quy mô ảnh hưởng tới kết quả thế nào.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 

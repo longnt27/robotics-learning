@@ -22,7 +22,7 @@ Một chính sách điều khiển chỉ học nhặt cốc trên một chiếc 
 
 ## Kiến thức nền cần nắm
 
-Một tập dữ liệu nhiều quỹ đạo chưa chắc đa dạng. Nếu các lần nhặt đồ đều diễn ra trên cùng một bàn và một phông nền, robot có thể học thuộc cảnh thay vì học thao tác. Cần xem **sự đa dạng** theo nhiều chiều: môi trường, vật thể, loại kỹ năng, góc camera và cách người vận hành thực hiện.
+Một tập dữ liệu có hàng chục nghìn **quỹ đạo** (mỗi quỹ đạo là một lần robot thực hiện nhiệm vụ) chưa chắc đa dạng. Nếu các lần nhặt đồ đều diễn ra trên cùng một bàn và một phông nền, robot có thể học thuộc cảnh thay vì học thao tác. Cần xem **sự đa dạng** theo nhiều chiều: môi trường, vật thể, loại kỹ năng, góc camera và cách người vận hành thực hiện.
 
 Mỗi lượt ghi lại thường chứa chuỗi ảnh, trạng thái khớp, câu lệnh nhiệm vụ và hành động theo thời gian. Ảnh và lệnh phải đồng bộ; nếu một khung hình bị ghép với lệnh của thời điểm khác, mô hình có thể học phản ứng sai.
 
@@ -40,7 +40,7 @@ BridgeData V2 dùng nhiều góc camera; một phần có cả ảnh độ sâu.
 
 BridgeData V2 có **60.096 quỹ đạo** trong **24 môi trường**, bao phủ hơn 100 đồ vật cùng các kỹ năng nhặt–đặt, đẩy, gom, xếp chồng và gấp đồ. Phần lớn là lượt thao tác mẫu do người điều khiển; một phần bổ sung là những quỹ đạo nhặt–đặt được thu với các điều kiện thay đổi để tăng độ bao phủ.
 
-Nhóm tác giả huấn luyện nhiều thuật toán học bắt chước và học từ dữ liệu có sẵn, thay vì chỉ chọn một kiến trúc. Các thí nghiệm còn thay lượng dữ liệu, kích thước mô hình và số loại kỹ năng. Dữ liệu có thể được dùng với ảnh mục tiêu hoặc câu lệnh ngôn ngữ, miễn là chính sách điều khiển đọc đúng định dạng.
+Nhóm tác giả thử nhiều cách học hành động từ dữ liệu đã ghi, không gắn giá trị của cả tập dữ liệu vào một kiến trúc duy nhất. Các thí nghiệm còn thay lượng dữ liệu, kích thước mô hình và số loại kỹ năng. Dữ liệu có thể được dùng với ảnh mục tiêu hoặc câu lệnh ngôn ngữ, miễn là chính sách điều khiển đọc đúng định dạng.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -63,7 +63,7 @@ Khi huấn luyện, chính sách điều khiển nhận quan sát và mục tiê
 
 ## Ví dụ từng bước
 
-Nếu robot xem 20.000 lượt nhặt đồ trên một chiếc bàn trắng, nó có thể làm rất tốt ở đó nhưng thất bại trên bàn có khăn trải. BridgeData V2 cho nhiều bối cảnh và loại vật hơn, buộc mạng tìm dấu hiệu liên quan tới vật thay vì nhớ màu bàn.
+Giả sử robot xem 20.000 lần người vận hành nhặt đồ trên cùng chiếc bàn trắng. Nó có thể làm tốt ở đó nhưng thất bại khi chuyển sang bàn có khăn trải, vì học thuộc hình nền thay vì đặc điểm vật cần kẹp. BridgeData V2 cho nhiều bối cảnh và loại vật hơn, buộc mạng tìm dấu hiệu liên quan tới vật thay vì nhớ màu bàn.
 
 Khi chia tập dữ liệu để kiểm tra, không nên lấy các khung ảnh gần nhau của cùng một lần làm bỏ vào cả phần huấn luyện lẫn phần kiểm tra. Một phép thử có ý nghĩa hơn là giữ riêng **một số môi trường hoặc nhiệm vụ chưa xuất hiện lúc học**. Cũng cần kiểm tra đơn vị hành động, tần số và cách chuẩn hóa trước khi trộn dữ liệu.
 

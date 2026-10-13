@@ -17,7 +17,7 @@ Bài báo đặt câu hỏi liệu tri thức của mô hình ngôn ngữ lớn,
 
 ## Kiến thức nền cần nắm
 
-**Suy luận về thế giới vật lý** khác **điều khiển động cơ**. Một mô hình ngôn ngữ biết rằng muốn lấy cốc trong ngăn kéo phải mở ngăn kéo trước, nhưng chưa chắc biết góc xoay của từng khớp. PaLM-E đưa ảnh và thông tin cảm biến vào cùng quá trình suy luận với câu chữ: ảnh được chuyển thành những vector có dạng phù hợp với biểu diễn trong mạng. Chúng vẫn mang thông tin hình ảnh, không biến thành từ ngữ thông thường.
+**Suy luận về thế giới vật lý** khác **điều khiển động cơ**. Một mô hình ngôn ngữ có thể biết muốn lấy cốc trong ngăn kéo thì trước hết phải mở ngăn kéo. Nhưng từ kế hoạch “mở ngăn kéo”, nó chưa tự biết tay máy phải dịch bao xa, xoay cổ tay thế nào hoặc dùng lực bao nhiêu. PaLM-E đưa ảnh và thông tin cảm biến vào cùng quá trình suy luận với câu chữ: ảnh được chuyển thành những vector có dạng phù hợp với biểu diễn trong mạng. Chúng vẫn mang thông tin hình ảnh, không biến thành từ ngữ thông thường.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -31,7 +31,7 @@ Trong sơ đồ, những màu khác nhau không phải chỉ để trang trí: c
 
 ## Phương pháp thực hiện
 
-PaLM-E phát triển từ mô hình ngôn ngữ PaLM đã huấn luyện trước. Ảnh, biểu diễn không gian ba chiều và trạng thái robot được chuyển thành token, sau đó xen giữa token văn bản. Mạng được huấn luyện chung từ dữ liệu robot, hỏi đáp về ảnh, mô tả ảnh và các nhiệm vụ ngôn ngữ. Phiên bản lớn nhất có **562 tỷ tham số**.
+PaLM-E phát triển từ mô hình ngôn ngữ PaLM đã huấn luyện trước. Ảnh, thông tin không gian ba chiều và số đo trạng thái robot được biến thành các **token đặc trưng** có cùng kích thước biểu diễn với token chữ, rồi xen vào chuỗi văn bản. Nhờ đó mô hình có thể liên hệ câu hỏi với cảnh đang nhìn, thay vì chỉ suy đoán từ những gì viết trong câu hỏi. Mạng được huấn luyện chung từ dữ liệu robot, hỏi đáp về ảnh, mô tả ảnh và các nhiệm vụ ngôn ngữ. Phiên bản lớn nhất có **562 tỷ tham số**.
 
 PaLM-E thường đảm nhiệm việc hiểu cảnh và lập các bước làm ở mức cao. Những bộ điều khiển cấp thấp đã có mới biến kế hoạch ấy thành lệnh cho robot. Việc trộn các nguồn dữ liệu cũng giúp mô hình giữ kiến thức ảnh–ngôn ngữ đã học khi tiếp tục học công việc robot.
 
@@ -59,7 +59,7 @@ PaLM-E thường đảm nhiệm việc hiểu cảnh và lập các bước làm
 
 Người dùng yêu cầu: **“Mang đồ uống nằm sau chiếc hộp lại đây.”** Camera ghi cảnh và cung cấp vị trí tương đối của các vật. Từ lời yêu cầu, mạng tìm đối tượng cần lấy, phân biệt nó với chiếc hộp ở phía trước rồi đề xuất trình tự tiếp cận và mang tới vị trí đích.
 
-Bộ điều khiển riêng thực thi những bước như đưa tay tới, kẹp và nhấc. Nếu đồ uống đã bị chuyển chỗ, hệ thống cần quan sát lại. Khi đọc sơ đồ, hãy chỉ ra phần nào tạo kế hoạch và phần nào thực sự ra lệnh motor; chúng là hai nhiệm vụ khác nhau.
+Bộ điều khiển riêng thực thi những bước như đưa tay tới, kẹp và nhấc. Nếu đồ uống đã bị chuyển chỗ, hệ thống cần quan sát lại. Khi đọc sơ đồ, hãy chỉ ra **phần sinh kế hoạch** và **bộ điều khiển phát lệnh cho động cơ**. Một kế hoạch hợp lý chưa chứng minh robot đủ chính xác để thực hiện.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

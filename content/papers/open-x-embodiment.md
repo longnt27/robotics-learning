@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Mỗi phòng thí nghiệm thường dùng một loại robot, camera và cách biểu diễn lệnh riêng. Nếu dữ liệu của robot Franka không thể hỗ trợ robot WidowX, mỗi nhóm sẽ phải học lại gần như từ đầu dù hai robot cùng biết nhặt và đặt vật. **Open X-Embodiment gom dữ liệu từ nhiều tổ chức và nhiều cấu trúc robot để kiểm tra khả năng học chung và chuyển kỹ năng.** Thử thách không chỉ là đưa file về cùng định dạng: góc khớp, vị trí đầu kẹp và số chiều hành động có thể mang ý nghĩa khác nhau giữa các robot. Phải xử lý sự khác biệt ấy trước khi mong dữ liệu chung mang lại lợi ích.
+Mỗi phòng thí nghiệm thường dùng một loại robot, camera và cách biểu diễn lệnh riêng. Nếu dữ liệu của robot Franka không thể hỗ trợ robot WidowX, mỗi nhóm sẽ phải học lại gần như từ đầu dù hai robot cùng biết nhặt và đặt vật. **Open X-Embodiment gom dữ liệu từ nhiều tổ chức và nhiều kiểu robot**, để kiểm tra liệu kinh nghiệm từ một robot có giúp robot khác học hoặc làm nhiệm vụ tốt hơn hay không. Thử thách không chỉ là đưa file về cùng định dạng: góc khớp, vị trí đầu kẹp và số chiều hành động có thể mang ý nghĩa khác nhau giữa các robot. Phải xử lý sự khác biệt ấy trước khi mong dữ liệu chung mang lại lợi ích.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -33,7 +33,7 @@ Tập dữ liệu trộn từ nhiều robot phải thống nhất thông tin t�
 
 ## Phương pháp thực hiện
 
-Open X-Embodiment tập hợp hơn **một triệu quỹ đạo** từ **22 kiểu robot** và **21 tổ chức**. Các nguồn được chuyển về những cấu trúc dữ liệu có thể dùng chung trong khi vẫn giữ thông tin cần thiết về loại robot, camera và lệnh. Từ nguồn ấy, nhóm nghiên cứu huấn luyện RT-1-X và RT-2-X, hai phiên bản học trên dữ liệu nhiều robot.
+Open X-Embodiment tập hợp hơn **một triệu quỹ đạo** từ **22 kiểu robot** và **21 tổ chức**. Các nguồn được đưa về định dạng có thể đọc chung, nhưng vẫn phải ghi rõ loại robot, vị trí camera và ý nghĩa từng chiều lệnh. Đưa cùng số cột vào một tệp không tự khiến các lệnh tương thích về vật lý. Từ nguồn ấy, nhóm nghiên cứu huấn luyện RT-1-X và RT-2-X, hai phiên bản học trên dữ liệu nhiều robot.
 
 Điểm kỹ thuật quan trọng không phải ép toàn bộ robot thành một không gian khớp duy nhất. Hệ thống cần biết cách mỗi loại lệnh được mã hóa và chuẩn hóa. Sau đó mới có thể kiểm tra liệu ví dụ từ robot A có giúp robot B làm việc tốt hơn so với chỉ học dữ liệu của chính B.
 
@@ -99,7 +99,7 @@ Khi đọc câu “cao hơn 50%”, cần biết đó là mức tăng tương đ
 
 Nguồn dữ liệu từ các phòng thí nghiệm không cân bằng về số lượng, nhiệm vụ và góc camera. Nhiều thiết bị vẫn là tay máy thao tác trên bàn, có dạng kẹp tương đối giống nhau; vì thế 22 kiểu robot chưa đại diện đầy đủ cho tất cả cơ cấu ngoài đời.
 
-**Chuẩn hóa dữ liệu không loại bỏ mọi khác biệt phần cứng.** Cách chuyển đổi lệnh có thể làm mất thông tin riêng của một loại robot, còn mô hình lớn vẫn đắt để huấn luyện. Công trình chứng minh học chung giữa các nguồn robot có ích trong những trường hợp được thử, chứ chưa giải xong vấn đề điều khiển thống nhất mọi robot.
+**Chuẩn hóa định dạng dữ liệu không xóa được khác biệt phần cứng.** Một kẹp hai ngón vẫn không thể thực hiện tất cả thao tác của bàn tay nhiều ngón. Cách chuyển đổi lệnh có thể làm mất thông tin riêng của một loại robot, còn mô hình lớn vẫn đắt để huấn luyện. Công trình chứng minh học chung giữa các nguồn robot có ích trong những trường hợp được thử, chứ chưa giải xong vấn đề điều khiển thống nhất mọi robot.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

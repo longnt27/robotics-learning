@@ -24,7 +24,7 @@ Khác với bài toán nhận diện ảnh, hành động sai sẽ làm thay đ�
 
 RT-1 học **bắt chước hành vi người điều khiển**: mạng nhận ảnh và câu lệnh, rồi dự đoán lệnh robot mà người vận hành đã thực hiện ở hoàn cảnh tương tự. Khác nhận diện ảnh thông thường, mỗi hành động sai có thể làm cảnh ở bước sau thay đổi; robot kẹp lệch hai centimét sẽ thấy một ảnh khác so với lượt thao tác mẫu và có thể sai tiếp. Đó là **sai số tích lũy**.
 
-RT-1 chuyển lệnh liên tục thành những mã rời rạc gọi là token hành động để Transformer dễ dự đoán. Đây chỉ là cách biểu diễn lệnh robot, không biến chuyển động vật lý thành một bài toán ngôn ngữ thuần túy. Việc lượng tử hóa thành các mức cũng có thể gây sai số khi cần thao tác chính xác.
+RT-1 chia giá trị điều khiển thành các mức rồi mã hóa chúng thành **token hành động**. Transformer dự đoán các token, sau đó chúng được đổi ngược thành lệnh di chuyển và đóng/mở kẹp. Đây chỉ là một cách biểu diễn để mạng dự đoán thuận tiện hơn; robot vẫn cần lệnh đúng đơn vị và đủ chính xác để chuyển động. Việc lượng tử hóa thành các mức cũng có thể gây sai số khi cần thao tác chính xác.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -40,7 +40,7 @@ RT-1 chuyển lệnh liên tục thành những mã rời rạc gọi là token 
 
 RT-1 được huấn luyện với khoảng **130.000 lượt thực thi**, thu trong **17 tháng** bằng **13 robot cùng dòng**, bao phủ hơn **700 câu lệnh và nhiệm vụ**. EfficientNet xử lý ảnh; FiLM điều chỉnh cách xử lý ảnh theo câu lệnh để chú ý đúng đối tượng; TokenLearner rút gọn lượng thông tin trước khi đưa vào Transformer dự đoán lệnh.
 
-Robot cần lấy ảnh rồi phát lệnh liên tục, nên hệ thống hướng tới tốc độ khoảng 3 Hz. Nhóm tác giả còn tách riêng các yếu tố như lượng dữ liệu, sự đa dạng nhiệm vụ và quy mô mô hình, để xác định thay đổi nào thực sự giúp robot làm tốt hơn khi gặp tình huống mới.
+Robot liên tục nhận ảnh mới và dự đoán lệnh. Tốc độ khoảng **3 Hz** nghĩa là mô hình cập nhật chừng ba lần mỗi giây, không phải bộ điều khiển mọi khớp chỉ hoạt động ba lần mỗi giây. Nhóm tác giả còn tách riêng các yếu tố như lượng dữ liệu, sự đa dạng nhiệm vụ và quy mô mô hình, để xác định thay đổi nào thực sự giúp robot làm tốt hơn khi gặp tình huống mới.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -83,7 +83,7 @@ Một lần chạy thành công trong bếp mới chỉ là một quan sát. Đ�
 
 Trên hơn **700 nhiệm vụ đã học**, RT-1 được báo cáo đạt khoảng **97% thành công**. Ở những phép thử khó hơn với vật gây nhiễu, nền và bố cục khác, nhóm tác giả cho thấy mức cải thiện đáng kể so với các phương pháp đối chứng trong cùng điều kiện. Việc bổ sung dữ liệu nhặt vật từ robot Kuka còn giúp một số kỹ năng chuyển giao mà không phá rõ rệt những nhiệm vụ gốc.
 
-Điểm quan trọng là **độ đa dạng của dữ liệu**, không chỉ số số lượt thao tác mẫu. Giảm số loại nhiệm vụ có thể làm khả năng xử lý tình huống mới suy giảm mạnh hơn việc bỏ bớt một phần mẫu nhưng vẫn giữ nhiều kỹ năng khác nhau.
+Điểm quan trọng là **độ đa dạng của dữ liệu**, không chỉ tổng số lần robot được làm mẫu. Giảm số loại nhiệm vụ có thể làm khả năng xử lý tình huống mới suy giảm mạnh hơn việc bỏ bớt một phần mẫu nhưng vẫn giữ nhiều kỹ năng khác nhau.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 

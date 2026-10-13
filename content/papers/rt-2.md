@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Một robot đã học nhặt cốc có thể chưa từng nghe câu “Lấy vật dùng để uống nước”. Trong khi đó, mô hình ảnh–ngôn ngữ được học từ Internet có thể biết chiếc cốc dùng để làm gì. **RT-2 nghiên cứu việc chuyển kiến thức ngữ nghĩa từ mô hình ảnh–ngôn ngữ sang hệ điều khiển robot.** Phương pháp biểu diễn lệnh robot thành token để huấn luyện chung với dữ liệu ảnh và văn bản. Mục tiêu là robot không chỉ lặp lại những câu lệnh đã có lượt thao tác mẫu, mà còn nhận ra một số ý nghĩa và vật thể chưa từng được dạy trực tiếp qua dữ liệu robot.
+Một robot được làm mẫu cách nhặt cốc có thể chưa từng nhận câu lệnh “Lấy vật dùng để uống nước”. Nó phải nhận ra đó vẫn là chiếc cốc, rồi dùng kỹ năng nhặt đã có. Trong khi đó, mô hình ảnh–ngôn ngữ được học từ Internet có thể biết chiếc cốc dùng để làm gì. **RT-2 nghiên cứu việc chuyển kiến thức ngữ nghĩa từ mô hình ảnh–ngôn ngữ sang hệ điều khiển robot.** Phương pháp biểu diễn lệnh robot thành token để huấn luyện chung với dữ liệu ảnh và văn bản. Mục tiêu là robot không chỉ lặp lại những câu lệnh đã có lượt thao tác mẫu, mà còn nhận ra một số ý nghĩa và vật thể chưa từng được dạy trực tiếp qua dữ liệu robot.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -35,7 +35,7 @@ Biết rằng táo là trái cây hoặc cốc dùng để uống không đồng
 
 RT-2 tiếp tục huấn luyện các VLM lớn trên **cả dữ liệu ảnh–ngôn ngữ từ web và dữ liệu hành động robot**. Điểm đặc biệt là các giá trị lệnh robot được mã hóa thành token rời rạc, để mạng dự đoán chúng bằng cùng cơ chế dự đoán token văn bản. Khi robot chạy, token được giải mã thành lệnh có đơn vị và hệ tọa độ vật lý.
 
-Giữ dữ liệu web trong huấn luyện giúp tránh việc mô hình chỉ nhớ các câu lệnh robot rồi quên hiểu biết ngữ nghĩa đã học trước. Bộ sinh hành động không phải một chatbot đứng ngoài điều khiển; kiến thức và lệnh được học chung trong mô hình.
+Giữ dữ liệu web trong huấn luyện giúp tránh việc mô hình chỉ nhớ các câu lệnh robot rồi quên hiểu biết ngữ nghĩa đã học trước. Đây không phải một chatbot chỉ viết “hãy nhặt chiếc cốc” cho robot khác đọc. Mô hình trực tiếp dự đoán token lệnh; một bộ giải mã phải chuyển token đó thành hành động phù hợp với phần cứng.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -52,7 +52,7 @@ Robot thực hiện một phần lệnh, quan sát lại và tiếp tục. Nếu
 
 ## Ví dụ từng bước
 
-Người dùng bảo robot: **“Bỏ rác vào thùng.”** các lượt thao tác mẫu có thể chỉ dạy robot nhặt và đặt vật, chưa gọi đích danh mọi loại rác. Nhờ kiến thức ảnh–ngôn ngữ, mạng có thể nhận ra lon rỗng hoặc giấy vụn phù hợp với yêu cầu. Sau đó phần học từ robot mới giúp nó sinh lệnh gắp và đưa vật vào thùng.
+Người dùng bảo robot: **“Bỏ rác vào thùng.”** Dữ liệu người làm mẫu cho robot có thể chỉ chứa kỹ năng nhặt và đặt, chưa liệt kê tên mọi loại rác. Nhờ kiến thức ảnh–ngôn ngữ, mạng có thể nhận ra lon rỗng hoặc giấy vụn phù hợp với yêu cầu. Sau đó phần học từ robot mới giúp nó sinh lệnh gắp và đưa vật vào thùng.
 
 Nếu lon có hình dạng mới khiến gripper kẹp trượt, robot vẫn thất bại dù đã nhận biết đúng. Đây là ranh giới giữa **chuyển giao tri thức ngữ nghĩa** và **khả năng điều khiển vật lý**.
 

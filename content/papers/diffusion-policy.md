@@ -22,9 +22,9 @@ Diffusion Policy không ép các demonstration về một đường đi “trung
 
 ## Kiến thức nền cần nắm
 
-Một trạng thái robot đôi khi có **nhiều cách xử lý đều đúng**. Khi cần tránh vật cản, robot có thể đi vòng trái hoặc vòng phải. Nếu mô hình cố dự đoán một đường đi trung bình giữa hai cách, nó lại có thể đi thẳng vào vật cản. Đây là lý do cần học cả phân phối của những chuỗi hành động hợp lệ.
+Một trạng thái robot đôi khi có **nhiều cách xử lý đều đúng**. Khi cần tránh vật cản, robot có thể đi vòng trái hoặc vòng phải. Nếu mô hình cố dự đoán một đường đi trung bình giữa hai cách, nó lại có thể đi thẳng vào vật cản. Vì vậy, thay vì chỉ tìm một hành động trung bình, mạng cần học **nhiều quỹ đạo có thể thành công**. Khi chạy một lần, nó chọn và theo đuổi một quỹ đạo tương đối nhất quán.
 
-**Diffusion** là phương pháp sinh dữ liệu bằng cách bắt đầu từ nhiễu rồi sửa dần thành một mẫu hợp lệ. Hai loại “bước thời gian” cần phân biệt: bước khử nhiễu là một lượt tính toán để tạo chuỗi; bước điều khiển là một thời điểm robot thực sự chuyển động. Một chuỗi có 20 hành động không có nghĩa mạng chỉ cần 20 lượt khử nhiễu.
+**Diffusion** là phương pháp sinh dữ liệu bằng cách bắt đầu từ nhiễu rồi sửa dần thành một mẫu hợp lệ. Có hai loại bước hoàn toàn khác nhau: **bước khử nhiễu** là một lượt tính toán bên trong mô hình để sửa chuỗi đang sinh; **bước điều khiển** là thời điểm robot thật được gửi lệnh. Một bước khử nhiễu không tương ứng với một lần robot cử động. Một chuỗi có 20 hành động không có nghĩa mạng chỉ cần 20 lượt khử nhiễu.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -40,7 +40,7 @@ Một trạng thái robot đôi khi có **nhiều cách xử lý đều đúng**
 
 Diffusion Policy nhận quan sát từ camera và trạng thái robot, sau đó tạo **một đoạn hành động**. Ban đầu đoạn này chỉ gồm các giá trị nhiễu. Ở mỗi lượt khử nhiễu, mạng sử dụng thông tin quan sát để sửa đoạn dự đoán, đưa nó dần gần các quỹ đạo hợp lệ trong dữ liệu huấn luyện.
 
-Robot không nhất thiết thực thi toàn bộ chuỗi vừa tạo. Nó chạy một phần đầu, lấy quan sát mới rồi sinh đoạn kế tiếp. Cách **dự đoán trước nhưng chỉ thực thi từng phần** giúp phản ứng khi vị trí vật thay đổi. Bài báo thử cả mạng tích chập và Transformer để xử lý dữ liệu theo thời gian. Điểm chính không phải chỉ chọn một kiến trúc, mà là kết hợp mô hình sinh nhiều phương án với vòng điều khiển có quan sát lại.
+Robot không nhất thiết thực thi toàn bộ chuỗi vừa tạo. Nó chạy một phần đầu, lấy quan sát mới rồi sinh đoạn kế tiếp. Cách **dự đoán trước nhưng chỉ thực thi từng phần** giúp phản ứng khi vị trí vật thay đổi. Bài báo thử cả mạng tích chập (CNN) và Transformer để sinh chuỗi hành động. Hai kiến trúc khác nhau ở cách xử lý quan sát, nhưng cùng dùng quá trình khử nhiễu để tạo lệnh. Điểm chính không phải chỉ chọn một kiến trúc, mà là kết hợp mô hình sinh nhiều phương án với vòng điều khiển có quan sát lại.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 

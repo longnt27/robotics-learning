@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Một robot có thể làm việc rất tốt trong phòng thí nghiệm nhưng thất bại ngay khi gặp một chiếc bàn mới, ánh sáng khác hoặc nhiều đồ vật gây nhiễu. Nếu dữ liệu chỉ được thu tại vài nơi quen thuộc, mô hình có thể học thuộc phông nền thay vì học cách thao tác với vật. **DROID giải quyết vấn đề bằng cách thu lượt thao tác mẫu trên cùng một hệ phần cứng tại nhiều tòa nhà và bối cảnh thực tế.** Bài báo kiểm tra xem học từ những trải nghiệm phong phú ấy có giúp robot hoạt động tốt hơn ở địa điểm và tình huống chưa từng gặp hay không.
+Một robot có thể làm việc rất tốt trong phòng thí nghiệm nhưng thất bại ngay khi gặp một chiếc bàn mới, ánh sáng khác hoặc nhiều đồ vật gây nhiễu. Nếu dữ liệu chỉ được thu tại vài nơi quen thuộc, mô hình có thể học thuộc phông nền thay vì học cách thao tác với vật. **DROID thu dữ liệu người vận hành robot làm mẫu với bộ thiết bị chuẩn hóa ở nhiều tòa nhà và bối cảnh thực tế.** Mục đích là cho mô hình thấy nhiều cách một môi trường có thể thay đổi mà kỹ năng cần làm vẫn tương tự. Bài báo kiểm tra xem học từ những trải nghiệm phong phú ấy có giúp robot hoạt động tốt hơn ở địa điểm và tình huống chưa từng gặp hay không.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -25,7 +25,7 @@ Nếu robot luôn thực hành trên một chiếc bàn, dưới một dàn đè
 
 ## Kiến thức nền cần nắm
 
-Robot ngoài phòng thí nghiệm gặp **nhiều ánh sáng, phông nền, đồ vật và vị trí camera khác nhau**. Dù có rất nhiều quỹ đạo, dữ liệu ghi mãi ở một bàn vẫn có thể khiến mô hình dựa vào dấu hiệu không liên quan, như màu tường. DROID ưu tiên sự đa dạng cảnh thật thay vì chỉ tăng số lượt làm cùng một việc.
+Robot ngoài phòng thí nghiệm gặp **nhiều ánh sáng, phông nền, đồ vật và vị trí camera khác nhau**. Dù có rất nhiều quỹ đạo, dữ liệu ghi mãi ở một bàn vẫn có thể khiến mô hình dựa vào dấu hiệu không liên quan, như màu tường. DROID tăng độ đa dạng **bối cảnh thật**: cùng kiểu thao tác nhưng camera, ánh sáng, đồ vật và vị trí robot có thể khác. Số lần lặp lại một thao tác không thể thay thế việc cho robot thấy nhiều hoàn cảnh.
 
 Các bản ghi phải đồng bộ ảnh, trạng thái và lệnh. Khi thời điểm ảnh bị lệch so với hành động, chính sách điều khiển có thể học phản ứng muộn hoặc sai. Chất lượng thu thập và kiểm tra dữ liệu vì vậy quan trọng không kém số giờ.
 
@@ -43,7 +43,7 @@ DROID ghi ảnh từ ba camera đồng bộ, có thông số hiệu chuẩn và 
 
 DROID thu khoảng **76.000 quỹ đạo, tương đương 350 giờ** thao tác, trong **564 bối cảnh, 86 nhiệm vụ và 52 tòa nhà**. Bộ thiết bị được chuẩn hóa với tay máy Franka cùng các camera, rồi mang đến nhiều tổ chức để thu ở không gian thực tế khác nhau. Nhờ đó dữ liệu thay đổi rộng về cảnh nhưng vẫn dễ dùng chung một kiểu lệnh robot.
 
-Nhóm tác giả huấn luyện chính sách điều khiển trên dữ liệu này rồi so những tập con có **cùng lượng mẫu nhưng khác số bối cảnh**. Thiết kế đó cho phép kiểm tra liệu sự đa dạng môi trường có lợi ích riêng, thay vì mọi cải thiện đơn giản do dữ liệu nhiều hơn.
+Nhóm tác giả thử huấn luyện policy với dữ liệu DROID, đồng thời so các tập con có **số quỹ đạo gần tương đương nhưng khác độ đa dạng bối cảnh**. Như vậy có thể tách một phần ảnh hưởng của độ đa dạng khỏi ảnh hưởng đơn thuần của số mẫu. Thiết kế đó cho phép kiểm tra liệu sự đa dạng môi trường có lợi ích riêng, thay vì mọi cải thiện đơn giản do dữ liệu nhiều hơn.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 

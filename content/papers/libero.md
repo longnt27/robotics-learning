@@ -17,7 +17,7 @@ LIBERO là bộ nhiệm vụ và quy trình đánh giá, không phải chính s�
 
 ## Kiến thức nền cần nắm
 
-**Học đa nhiệm** thường cho mạng học nhiều công việc cùng lúc; **học liên tục** cho robot học nhiệm vụ A, rồi B, rồi C. Khi cập nhật tham số để làm B, mạng có thể quên A. Vì vậy một bộ đánh giá học liên tục phải đo cả hai chuyện: kiến thức cũ có giúp học việc mới nhanh hơn không, và sau khi học việc mới mô hình còn làm tốt việc cũ không.
+**Học đa nhiệm** thường cho mạng học nhiều công việc cùng lúc; **học liên tục** cho robot học nhiệm vụ A, rồi B, rồi C. Khi cập nhật tham số để làm B mà không học lại các ví dụ của A, mạng có thể thay đổi những gì từng giúp nó làm A. Vì thế phải đo lại nhiệm vụ cũ sau mỗi giai đoạn, không chỉ xem nó làm B tốt đến đâu. Vì vậy một bộ đánh giá học liên tục phải đo cả hai chuyện: kiến thức cũ có giúp học việc mới nhanh hơn không, và sau khi học việc mới mô hình còn làm tốt việc cũ không.
 
 LIBERO tạo những nhóm nhiệm vụ thay đổi vị trí, đồ vật và mục tiêu để phân tích hai vấn đề ấy. Nó là bộ đánh giá, không phải một thuật toán điều khiển mới.
 
@@ -35,7 +35,7 @@ LIBERO chia các nhiệm vụ thành nhóm thay vị trí không gian, thay vậ
 
 LIBERO có **130 nhiệm vụ** mô phỏng, được chia thành các nhóm như LIBERO-Spatial, LIBERO-Object, LIBERO-Goal và LIBERO-100. Mỗi nhiệm vụ có khoảng **50 lượt thao tác mẫu** do người điều khiển. Môi trường ghi rõ điều kiện thành công, ví dụ đồ vật nằm trong khay hoặc ngăn kéo đã mở.
 
-Nhóm tác giả cho mô hình học lần lượt từng nhiệm vụ rồi kiểm tra lại các việc đã học. Các phương pháp đối chứng gồm huấn luyện tiếp thông thường, phát lại kinh nghiệm cũ, EWC và PackNet. Ngoài tỷ lệ thành công, thí nghiệm còn đo khả năng chuyển giao tới nhiệm vụ tiếp theo và mức suy giảm khi quay lại nhiệm vụ cũ.
+Nhóm tác giả cho mô hình học lần lượt từng nhiệm vụ rồi kiểm tra lại các việc đã học. Các phương pháp đối chứng gồm huấn luyện tiếp thông thường, phát lại kinh nghiệm cũ, EWC và PackNet. Ngoài tỷ lệ thành công, thí nghiệm còn đo **chuyển giao thuận** (kiến thức cũ giúp học việc mới hay không) và **quên kiến thức** (sau khi học việc mới, hiệu quả ở việc cũ giảm bao nhiêu).
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -76,7 +76,7 @@ Ngược lại, nếu đã học A giúp việc B được học nhanh hơn, đ�
 
 Huấn luyện tiếp tuần tự đôi khi có lợi khi học nhiệm vụ mới nhờ kiến thức tích lũy, nhưng lại quên nhiều việc cũ. PackNet giúp giữ kỹ năng cũ bằng cách dành vùng tham số riêng, đổi lại dung lượng cho việc mới bị hạn chế. Phát lại kinh nghiệm cũ cho kết quả tương đối ổn định trong các phép thử được báo cáo.
 
-Đáng chú ý, huấn luyện trước trên LIBERO-90 **không bảo đảm cải thiện** học liên tục trên các nhiệm vụ dài; trong một số điều kiện còn gây chuyển giao tiêu cực. Vì vậy không thể suy từ “đã học nhiều nhiệm vụ” rằng mô hình sẽ tiếp tục học tốt mọi nhiệm vụ khác.
+Đáng chú ý, huấn luyện trước trên LIBERO-90 **không bảo đảm** việc học liên tục trên các nhiệm vụ dài sẽ tốt hơn. Ở một số thiết lập, mô hình còn làm kém đi sau khi học thêm. Vì vậy phải kiểm tra tác động của học trước theo từng nhóm nhiệm vụ, không chỉ theo tổng số nhiệm vụ đã thấy. Vì vậy không thể suy từ “đã học nhiều nhiệm vụ” rằng mô hình sẽ tiếp tục học tốt mọi nhiệm vụ khác.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 

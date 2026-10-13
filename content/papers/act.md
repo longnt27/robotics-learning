@@ -22,7 +22,7 @@ Bài báo còn giới thiệu ALOHA, hệ thống để người vận hành tr�
 
 ## Kiến thức nền cần nắm
 
-Ở tần số **50 Hz**, robot phải phát 50 lệnh trong mỗi giây. Nếu hai tay chỉ dự đoán từng lệnh rời rạc, những sai lệch nhỏ dễ tích lũy. **hành động chunking** cho mạng sinh cả một đoạn chuyển động để các bước có quan hệ và phối hợp tốt hơn.
+Ở tần số **50 Hz**, robot phải phát 50 lệnh trong mỗi giây. Nếu hai tay chỉ dự đoán từng lệnh rời rạc, những sai lệch nhỏ dễ tích lũy. **Action chunking (dự đoán hành động theo đoạn)** cho mạng sinh một chuỗi lệnh liên tiếp thay vì từng lệnh rời rạc. Nhờ vậy hai tay có thể học phối hợp các bước giữ, kéo và thả đúng nhịp.
 
 **CVAE** giúp học sự đa dạng giữa những lần người thực hiện cùng nhiệm vụ. Biến ẩn z có thể biểu diễn kiểu kéo nhanh/chậm hoặc vị trí cầm khác nhau. **Temporal ensembling** kết hợp những dự đoán chồng nhau cho cùng thời điểm để giảm rung, nhưng không nên hiểu là phép lấy trung bình tùy tiện giữa hai đường đi đối lập.
 
@@ -40,7 +40,7 @@ Bài báo còn giới thiệu ALOHA, hệ thống để người vận hành tr�
 
 **ALOHA** là hệ thống người điều khiển hai tay robot từ xa, ghi lại ảnh, trạng thái khớp và lệnh chuyển động khoảng 50 Hz. **ACT (Action Chunking with Transformers)** học từ các bản ghi đó và dự đoán một đoạn hành động liên tiếp thay vì một lệnh.
 
-Trong huấn luyện, CVAE mã hóa những khác biệt giữa các chuỗi thao tác mẫu vào biến ẩn. Transformer kết hợp ảnh, trạng thái robot và biến ẩn để dự đoán cả đoạn. Khi thực thi, mạng liên tục tạo đoạn mới; các đoạn chồng nhau có thể được tổng hợp cho chuyển động mượt. Chính việc phải nối những đoạn được sinh ở thời điểm khác nhau dẫn đến các vấn đề sau này RTC nghiên cứu.
+Trong huấn luyện, CVAE mã hóa những khác biệt giữa các chuỗi thao tác mẫu vào biến ẩn. Transformer kết hợp ảnh, trạng thái robot và biến ẩn để dự đoán cả đoạn. Khi thực thi, mạng sinh các đoạn hành động kế tiếp từ ảnh và trạng thái mới. Những đoạn dự đoán tại các thời điểm khác nhau có thể chồng lên nhau; **temporal ensembling** kết hợp các dự đoán cho cùng một thời điểm để giảm rung. Chính việc phải nối những đoạn được sinh ở thời điểm khác nhau dẫn đến các vấn đề sau này RTC nghiên cứu.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -87,7 +87,7 @@ Giả sử ngón kẹp tay phải bị trượt trước khi kéo. Nếu robot c
 
 ACT đạt kết quả tốt trong mô phỏng lẫn nhiệm vụ hai tay ngoài đời so với các phương pháp học bắt chước được thử. Trong một số thiết lập mô phỏng, chênh lệch tỷ lệ thành công lên tới **59, 49 và 29 điểm phần trăm**. Đây là kết quả của những nhiệm vụ cụ thể, không phải mức cải thiện cố định.
 
-Các **thí nghiệm loại bỏ từng thành phần** cho thấy việc dự đoán theo đoạn rất quan trọng; bỏ CVAE cũng khiến hiệu quả học từ lượt thao tác mẫu do người thực hiện giảm đáng kể. Một số công việc chỉ cần khoảng **10–20 phút dữ liệu thao tác mẫu**, khiến ALOHA kết hợp ACT hấp dẫn với các nhóm nghiên cứu nhỏ.
+Các **thí nghiệm loại bỏ từng thành phần** cho thấy việc dự đoán theo đoạn rất quan trọng; bỏ CVAE cũng khiến hiệu quả học từ lượt thao tác mẫu do người thực hiện giảm đáng kể. Với một số nhiệm vụ trong nghiên cứu, khoảng **10–20 phút người điều khiển làm mẫu** đã đủ thu dữ liệu để huấn luyện. Đây là kết quả của thiết lập ALOHA và những nhiệm vụ được thử, không phải mức dữ liệu tối thiểu cho mọi thao tác hai tay.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
