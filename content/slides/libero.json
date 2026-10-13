@@ -193,7 +193,7 @@
     "items": [
       {
         "label": "YẾU TỐ ĐƯỢC THỬ",
-        "value": "So loss huấn luyện với rollout success để thấy lỗi compounding."
+        "value": "So sai số lúc học với tỷ lệ hoàn thành khi robot tự chạy để thấy lỗi tích lũy."
       }
     ],
     "intuition": "Hình 4 so ER và PackNet với năm thứ tự học khác nhau. Một cách học tốt ở thứ tự này nhưng kém ở thứ tự khác có thể không ổn định trong thực tế. Hình 5 còn thay kiến trúc và việc huấn luyện trước, cho thấy hiệu quả không chỉ do tên thuật toán chống quên.",
@@ -213,7 +213,7 @@
       },
       {
         "label": "Phê bình độc lập",
-        "value": "Phê bình: success predicate và vật lý mô phỏng không bảo đảm chuyển giao sang robot ngoài đời."
+        "value": "Phê bình: tiêu chí đánh giá và vật lý mô phỏng không bảo đảm kỹ năng sẽ hoạt động trên robot thật."
       }
     ],
     "intuition": "Trong thực tế, những công việc có thể tới xen kẽ hoặc thay đổi dần, thay vì các giai đoạn học A rồi B rồi C rất rõ. Vì vậy LIBERO là công cụ nghiên cứu quan trọng nhưng không đại diện cho mọi tình huống học suốt đời.",
