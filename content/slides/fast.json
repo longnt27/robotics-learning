@@ -173,17 +173,17 @@
     "items": [
       {
         "label": "PHÁT HIỆN QUAN TRỌNG",
-        "value": "Một số thiết lập huấn luyện nhanh hơn tới khoảng 5 lần so với tokenization thô."
+        "value": "π0-FAST huấn luyện nhanh hơn tới 5 lần so với π0 dùng diffusion trong phép thử được báo cáo."
       },
       {
         "label": "CÁCH DIỄN GIẢI",
         "value": "Trong những phép thử của tác giả, cách sinh token đã nén cho hiệu quả gần các phương pháp sinh hành động liên tục."
       }
     ],
-    "intuition": "Đối chiếu số liệu: Trong một số thiết lập, dùng FAST cho phép huấn luyện mô hình sinh token hành động nhanh hơn tới khoảng năm lần so với cách chia từng mẫu thời gian thành token.",
+    "intuition": "Mức giảm tới 5 lần số giờ GPU thuộc phép so π0-FAST với π0 dùng diffusion, không phải trực tiếp với cách mã hóa từng mẫu thành token.",
     "detail": {
       "label": "GIẢI THÍCH",
-      "text": "Hình 6 so FAST, FSQ và cách chia giá trị thành các khoảng rời rạc. Các cách nén hành động giúp huấn luyện hiệu quả hơn; FAST đặc biệt có lợi ở thao tác robot thật cần sự khéo léo. Hình 9 so phiên bản π0 dùng diffusion với phiên bản giải mã FAST: tập nhỏ có thể gần nhau, tập lớn đôi khi hội tụ nhanh hơn."
+      "text": "Hình 6 so FAST với các cách mã hóa hành động khác về chất lượng học; Hình 9 và các kết quả π0-FAST so với π0 dùng diffusion về tốc độ hội tụ. Phải tách hai loại phép đo này để không hiểu nhầm mức cải thiện tới năm lần."
     }
   },
   {
