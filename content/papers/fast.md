@@ -66,11 +66,11 @@ FAST+ hướng tới một bộ mã hóa dùng chung cho nhiều kiểu robot. K
 
 ### Tốc độ huấn luyện phải đi kèm sai số giải mã
 
-Trong một số thiết lập, dùng FAST cho phép huấn luyện mô hình sinh token hành động nhanh hơn tới khoảng năm lần so với cách chia từng mẫu thời gian thành token. Hình 6–11 vẫn đo tỷ lệ robot hoàn thành nhiệm vụ: nén nhanh hơn nhưng không giữ được chuyển động chính xác thì chẳng có ý nghĩa. FAST+ còn được đánh giá trên nhiều nguồn dữ liệu robot khác nhau nhằm kiểm tra tính dùng chung, thay vì chỉ tối ưu cho một kiểu tay máy.
+Bài báo báo cáo π0-FAST cần ít giờ GPU huấn luyện hơn tới khoảng năm lần so với mô hình π0 sinh hành động bằng diffusion, trong khi đạt chất lượng tương đương ở những phép thử được công bố. Đây là phép so hai chính sách sinh hành động, **không phải** mức tăng tốc đo trực tiếp giữa FAST và cách chia từng mẫu thành token. Phép so bộ mã hóa token thông thường nằm ở Bảng I và Hình 6. Hình 6–11 vẫn đo tỷ lệ robot hoàn thành nhiệm vụ: nén nhanh hơn nhưng không giữ được chuyển động chính xác thì chẳng có ý nghĩa. FAST+ còn được đánh giá trên nhiều nguồn dữ liệu robot khác nhau nhằm kiểm tra tính dùng chung, thay vì chỉ tối ưu cho một kiểu tay máy.
 
 ### Cách kiểm tra liệu việc nén có thật sự đáng giá
 
-Đầu tiên đo số token cần sinh và tốc độ huấn luyện với cùng dữ liệu. Tiếp đó cho một chuỗi hành động đi qua bộ mã hóa–giải mã mà **chưa cần huấn luyện mô hình**, rồi đo sai số khôi phục theo thời gian, đặc biệt ở lúc chạm và thả vật. Cuối cùng mới chạy robot để đo tỷ lệ hoàn thành. Nếu nhanh hơn năm lần nhưng thường kẹp lệch thời điểm, cải thiện về tốc độ không đáng đánh đổi. Ba tầng đánh giá này giải thích vì sao các hình kết quả của FAST không thể chỉ đọc một cột về thời gian tính toán.
+Đầu tiên đo số token cần sinh và tốc độ huấn luyện với cùng dữ liệu. Tiếp đó cho một chuỗi hành động đi qua bộ mã hóa–giải mã mà **chưa cần huấn luyện mô hình**, rồi đo sai số khôi phục theo thời gian, đặc biệt ở lúc chạm và thả vật. Cuối cùng mới chạy robot để đo tỷ lệ hoàn thành. Nếu một phiên bản huấn luyện nhanh hơn nhưng thường kẹp lệch thời điểm, cải thiện về tốc độ không đáng đánh đổi. Ba tầng đánh giá này giải thích vì sao các hình kết quả của FAST không thể chỉ đọc một cột về thời gian tính toán.
 
 ![Hình 5 từ PDF gốc, trang 6](/paper-figures/fast/figure-5.webp)
 
