@@ -1,61 +1,61 @@
 [
   {
     "type": "cover",
-    "title": "Điểm cốt lõi",
-    "lead": "Generalist VLA không chỉ hiểu vật thể, mà còn phải phân rã việc nhà thành các subtask rồi thực thi.",
+    "title": "π0.5: robot thực hiện nhiệm vụ dài",
+    "lead": "Nếu robot được giao “Dọn căn bếp”, nó không thể chỉ sinh một động tác kẹp duy nhất. Nó cần phân chia công việc: cất đĩa, đóng cửa tủ, bỏ đồ vào ngăn kéo, lau chỗ bẩn.",
     "items": [
       "Đồng huấn luyện semantics, decomposition và motor control"
     ],
-    "intuition": "Cho flow action expert nhận cả bối cảnh ngôn ngữ và tín hiệu subtask, rồi học trên dữ liệu nhiều vị trí thật.",
+    "intuition": "Bài báo không chỉ muốn có tỷ lệ gắp vật cao ở một bàn cố định. Nó kiểm tra khả năng làm chuỗi việc kéo dài 10–15 phút tại môi trường mới, điều đòi cả hiểu yêu cầu, lập bước con và điều khiển robot đủ ổn định.",
     "detail": {
-      "label": "BỐI CẢNH NGHIÊN CỨU",
-      "text": "Robot household thật phải làm multi-minute chores, di chuyển giữa vị trí, gặp vật thể/house mới và hiểu cả subtask structure."
+      "label": "GIẢI THÍCH",
+      "text": "Bài báo không chỉ muốn có tỷ lệ gắp vật cao ở một bàn cố định. Nó kiểm tra khả năng làm chuỗi việc kéo dài 10–15 phút tại môi trường mới, điều đòi cả hiểu yêu cầu, lập bước con và điều khiển robot đủ ổn định."
     }
   },
   {
     "type": "problem",
-    "title": "Nhiệm vụ trong nhà kéo dài nhiều phút và thay đổi liên tục",
-    "lead": "Một motor chunk đúng cục bộ chưa đảm bảo robot hoàn thành chuỗi thao tác và chọn đúng bước tiếp theo.",
+    "title": "Vì sao dọn bếp khó hơn nhặt một món?",
+    "lead": "Nếu robot được giao “Dọn căn bếp”, nó không thể chỉ sinh một động tác kẹp duy nhất. Nó cần phân chia công việc: cất đĩa, đóng cửa tủ, bỏ đồ vào ngăn kéo, lau chỗ bẩn.",
     "items": [
-      "Policy ngắn hạn dễ thiếu hướng đi cho long-horizon chores"
+      "chính sách điều khiển ngắn hạn dễ thiếu hướng đi cho long-horizon chores"
     ],
-    "intuition": "Train ở vài căn nhà tạo prior thị giác quá hẹp để sang nhà khác.",
+    "intuition": "Bài báo không chỉ muốn có tỷ lệ gắp vật cao ở một bàn cố định. Nó kiểm tra khả năng làm chuỗi việc kéo dài 10–15 phút tại môi trường mới, điều đòi cả hiểu yêu cầu, lập bước con và điều khiển robot đủ ổn định.",
     "detail": {
-      "label": "NGUYÊN NHÂN CỐT LÕI",
-      "text": "π0.5 hỏi: làm sao chuyển từ generalist manipulation sang open-world nhiệm vụ thực thi trong những environment chưa thấy?"
+      "label": "GIẢI THÍCH",
+      "text": "Nếu robot được giao “Dọn căn bếp”, nó không thể chỉ sinh một động tác kẹp duy nhất. Nó cần phân chia công việc: cất đĩa, đóng cửa tủ, bỏ đồ vào ngăn kéo, lau chỗ bẩn. Sau mỗi bước, môi trường thay đổi và thứ tự bước tiếp theo có thể cần điều chỉnh. π0.5 nghiên cứu việc kết hợp hiểu nhiệm vụ dài với sinh hành động chi tiết trong các ngôi nhà chưa từng thấy khi huấn luyện."
     }
   },
   {
     "type": "contrast",
-    "title": "Policy ngắn hạn dễ thiếu hướng đi cho long-horizon chores",
-    "lead": "Train ở vài căn nhà tạo prior thị giác quá hẹp để sang nhà khác.",
+    "title": "Hiểu việc cần làm khác thực hiện chuyển động",
+    "lead": "Bài báo không chỉ muốn có tỷ lệ gắp vật cao ở một bàn cố định. Nó kiểm tra khả năng làm chuỗi việc kéo dài 10–15 phút tại môi trường mới, điều đòi cả hiểu yêu cầu, lập bước con và điều khiển robot đủ ổn định.",
     "items": [
       "Đồng huấn luyện semantics, decomposition và motor control",
-      "Cho flow action expert nhận cả bối cảnh ngôn ngữ và tín hiệu subtask, rồi học trên dữ liệu nhiều vị trí thật."
+      "Cho flow hành động expert nhận cả bối cảnh ngôn ngữ và tín hiệu subtask, rồi học trên dữ liệu nhiều vị trí thật."
     ],
-    "intuition": "Cho flow action expert nhận cả bối cảnh ngôn ngữ và tín hiệu subtask, rồi học trên dữ liệu nhiều vị trí thật.",
+    "intuition": "Nếu robot được giao “Dọn căn bếp”, nó không thể chỉ sinh một động tác kẹp duy nhất. Nó cần phân chia công việc: cất đĩa, đóng cửa tủ, bỏ đồ vào ngăn kéo, lau chỗ bẩn.",
     "detail": {
-      "label": "VÌ SAO CẦN THAY ĐỔI",
-      "text": "Conceptually, π0.5 không cố bắt một mục tiêu huấn luyện làm tất cả. Nó co-train web semantics + nhiệm vụ decomposition + motor control, cho phép mô hình dùng kiến thức ở cấp độ cao để chọn hành vi rồi flow action expert thực thi."
+      "label": "GIẢI THÍCH",
+      "text": "Khi đã bỏ bát vào bồn, robot cần quan sát lại để quyết định việc kế tiếp. Nếu một ngăn kéo bị chặn, kế hoạch có thể phải đổi. Ví dụ này cho thấy những lỗi ở cấp lập kế hoạch và ở cấp điều khiển động cơ là khác nhau, dù cả hai đều khiến nhiệm vụ thất bại."
     }
   },
   {
     "type": "intuition",
-    "title": "Đồng huấn luyện semantics, decomposition và motor control",
-    "lead": "Cho flow action expert nhận cả bối cảnh ngôn ngữ và tín hiệu subtask, rồi học trên dữ liệu nhiều vị trí thật.",
+    "title": "Hình dung dọn một căn bếp lạ",
+    "lead": "Robot bước vào căn bếp chưa xuất hiện trong dữ liệu huấn luyện. Lệnh là “Cất đồ vào ngăn kéo và bỏ bát vào bồn”. Nó phải nhìn xem bát đang ở đâu, ngăn kéo nào cần mở, lối di chuyển có vật cản không.",
     "items": [
       "Generalist VLA không chỉ hiểu vật thể, mà còn phải phân rã việc nhà thành các subtask rồi thực thi."
     ],
-    "intuition": "Cho flow action expert nhận cả bối cảnh ngôn ngữ và tín hiệu subtask, rồi học trên dữ liệu nhiều vị trí thật.",
+    "intuition": "Khi đã bỏ bát vào bồn, robot cần quan sát lại để quyết định việc kế tiếp. Nếu một ngăn kéo bị chặn, kế hoạch có thể phải đổi. Ví dụ này cho thấy những lỗi ở cấp lập kế hoạch và ở cấp điều khiển động cơ là khác nhau, dù cả hai đều khiến nhiệm vụ thất bại.",
     "detail": {
-      "label": "GIẢI THÍCH CƠ CHẾ",
-      "text": "π0.5 giữ flow-matching action expert của π-family nhưng mở rộng hỗn hợp dữ liệu rất mạnh: nhiều robot embodiments, mobile-manipulation các quỹ đạo, static manipulation, web/VLM dữ liệu, object-detection style tín hiệu giám sát và các high-level subtask labels."
+      "label": "GIẢI THÍCH",
+      "text": "Robot bước vào căn bếp chưa xuất hiện trong dữ liệu huấn luyện. Lệnh là “Cất đồ vào ngăn kéo và bỏ bát vào bồn”. Nó phải nhìn xem bát đang ở đâu, ngăn kéo nào cần mở, lối di chuyển có vật cản không. Sau khi chọn bước “nhặt bát”, chính sách điều khiển điều khiển hai tay và bệ di động tới vị trí phù hợp."
     }
   },
   {
     "type": "concepts",
-    "title": "Ba khái niệm để nắm",
-    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "title": "Hai mức quyết định trong π0.5",
+    "lead": "Bước con cấp cao là một việc nhỏ có mục tiêu rõ, chẳng hạn “nhặt đĩa” hoặc “mở ngăn kéo”. Hành động cấp thấp là các lệnh cụ thể tới khớp tay, kẹp, bệ di động hoặc cơ cấu nâng hạ.",
     "items": [
       {
         "label": "Subtask labels",
@@ -67,35 +67,35 @@
       },
       {
         "label": "Flow expert",
-        "value": "Chuyển context thành action chunk liên tục."
+        "value": "Chuyển context thành đoạn hành động liên tục."
       }
     ],
-    "intuition": "High-level task text đi kèm low-level action chunks.",
+    "intuition": "Trong quá trình học, FAST có thể mã hóa chuỗi hành động thành token rời rạc để dùng cùng kiến thức ảnh–ngôn ngữ. Ở giai đoạn điều khiển chi tiết sau đó, flow matching tạo chuỗi hành động liên tục. Đây là hai công cụ với vai trò khác nhau, không phải hai tên của cùng một phép sinh.",
     "detail": {
-      "label": "NỀN TẢNG KỸ THUẬT",
-      "text": "π0.5 tập trung vào open-world khả năng khái quát: khả năng điều chỉnh theo nhà/cảnh/vật lạ, phối hợp high-level understanding với low-level action liên tục."
+      "label": "GIẢI THÍCH",
+      "text": "Trong quá trình học, FAST có thể mã hóa chuỗi hành động thành token rời rạc để dùng cùng kiến thức ảnh–ngôn ngữ. Ở giai đoạn điều khiển chi tiết sau đó, flow matching tạo chuỗi hành động liên tục. Đây là hai công cụ với vai trò khác nhau, không phải hai tên của cùng một phép sinh."
     }
   },
   {
     "type": "pipeline",
-    "title": "Kiến trúc trong một sơ đồ",
-    "lead": "Generalist VLA không chỉ hiểu vật thể, mà còn phải phân rã việc nhà thành các subtask rồi thực thi.",
+    "title": "Các giai đoạn học và tạo lệnh",
+    "lead": "Đầu tiên mô hình được huấn luyện trước trên dữ liệu từ nhiều loại robot, ví dụ dự đoán bước con và ảnh–ngôn ngữ từ web. Dữ liệu vận động được đưa vào qua token FAST, giúp phần nền học một biểu diễn chung cho nhiều dạng thông tin.",
     "items": [
       "Web + robot + subtask labels",
       "Vision-language backbone",
-      "Flow action expert",
+      "Flow hành động expert",
       "Household rollout"
     ],
-    "intuition": "Quan sát trạng thái hiện tại trong nhà lạ.",
+    "intuition": "Sau đó mô hình được tinh chỉnh theo nhiệm vụ robot di động: thêm lần làm mẫu ở môi trường mục tiêu và lời hướng dẫn người vận hành. Bộ sinh hành động liên tục dùng flow matching để suy luận đủ nhanh khi chạy.",
     "detail": {
-      "label": "ĐIỂM NHẤN TRIỂN KHAI",
-      "text": "Nó co-train web semantics + nhiệm vụ decomposition + motor control, cho phép mô hình dùng kiến thức ở cấp độ cao để chọn hành vi rồi flow action expert thực thi."
+      "label": "GIẢI THÍCH",
+      "text": "Sau đó mô hình được tinh chỉnh theo nhiệm vụ robot di động: thêm lần làm mẫu ở môi trường mục tiêu và lời hướng dẫn người vận hành. Bộ sinh hành động liên tục dùng flow matching để suy luận đủ nhanh khi chạy. Lúc thực thi, mô hình có thể xác định bước con, rồi tạo lệnh vận động phù hợp với bước đang làm. Đây là cách chia quyết định lớn thành những hành động đủ nhỏ để điều khiển."
     }
   },
   {
     "type": "representation",
-    "title": "Mô hình biểu diễn cái gì?",
-    "lead": "High-level task text đi kèm low-level action chunks.",
+    "title": "Biểu diễn bước con và hành động chi tiết",
+    "lead": "Trong quá trình học, FAST có thể mã hóa chuỗi hành động thành token rời rạc để dùng cùng kiến thức ảnh–ngôn ngữ. Ở giai đoạn điều khiển chi tiết sau đó, flow matching tạo chuỗi hành động liên tục.",
     "items": [
       {
         "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
@@ -106,36 +106,36 @@
         "value": "Không phải một objective đơn lẻ đã học toàn bộ memory/planning."
       }
     ],
-    "intuition": "Không phải một objective đơn lẻ đã học toàn bộ memory/planning.",
+    "intuition": "Đầu tiên mô hình được huấn luyện trước trên dữ liệu từ nhiều loại robot, ví dụ dự đoán bước con và ảnh–ngôn ngữ từ web. Dữ liệu vận động được đưa vào qua token FAST, giúp phần nền học một biểu diễn chung cho nhiều dạng thông tin.",
     "detail": {
-      "label": "CHI TIẾT BIỂU DIỄN",
-      "text": "Mô hình vừa dự đoán/hiểu ngữ nghĩa subtask vừa sinh low-level action chunks. Dữ liệu từ nhiều locations được dùng để nghiên cứu scaling theo environmental sự đa dạng."
+      "label": "GIẢI THÍCH",
+      "text": "Đầu tiên mô hình được huấn luyện trước trên dữ liệu từ nhiều loại robot, ví dụ dự đoán bước con và ảnh–ngôn ngữ từ web. Dữ liệu vận động được đưa vào qua token FAST, giúp phần nền học một biểu diễn chung cho nhiều dạng thông tin."
     }
   },
   {
     "type": "training",
-    "title": "Model học như thế nào?",
-    "lead": "Trộn web semantic tasks, object-detection signals và robot demonstrations.",
+    "title": "π0.5 dùng những nguồn dữ liệu huấn luyện nào?",
+    "lead": "Đầu tiên mô hình được huấn luyện trước trên dữ liệu từ nhiều loại robot, ví dụ dự đoán bước con và ảnh–ngôn ngữ từ web. Dữ liệu vận động được đưa vào qua token FAST, giúp phần nền học một biểu diễn chung cho nhiều dạng thông tin.",
     "items": [
       {
         "label": "MỤC TIÊU HỌC",
-        "value": "Huấn luyện cả high-level subtask supervision."
+        "value": "Huấn luyện cả high-mức subtask supervision."
       },
       {
         "label": "DỮ LIỆU / QUY TRÌNH",
-        "value": "Mở rộng số địa điểm từ 3 tới 104 trong ablation data scaling."
+        "value": "Mở rộng số địa điểm từ 3 tới 104 trong ablation dữ liệu scaling."
       }
     ],
-    "intuition": "Phân biệt tín hiệu giúp chọn bước với tín hiệu giúp điều khiển tay.",
+    "intuition": "Sau đó mô hình được tinh chỉnh theo nhiệm vụ robot di động: thêm lần làm mẫu ở môi trường mục tiêu và lời hướng dẫn người vận hành. Bộ sinh hành động liên tục dùng flow matching để suy luận đủ nhanh khi chạy.",
     "detail": {
-      "label": "CÁCH HUẤN LUYỆN",
-      "text": "Hiệu năng tăng khá đều khi số địa điểm dùng để huấn luyện tăng từ 3 → 12 → 22 → 53 → 82 → 104; ở scale lớn, mô hình khái quát sang ngôi nhà trong tập kiểm tra gần mức một policy điều khiển được huấn luyện trực tiếp trong ngôi nhà đó trong một số thiết lập nhiệm vụ."
+      "label": "GIẢI THÍCH",
+      "text": "Để hiểu câu lệnh dài, mô hình cần học cả thông tin chung về đồ vật và những bước nhỏ như nhặt, mở, đặt. Trong giai đoạn học chung nhiều nguồn, FAST chuyển chuỗi chuyển động thành token để đưa vào cùng quy trình huấn luyện ảnh–ngôn ngữ. Đến giai đoạn tập trung vào robot di động và vận động chi tiết, flow matching học tạo hành động liên tục từ nhiễu. Không nên lẫn thời gian của quá trình lấy mẫu flow với thời gian robot thực sự di chuyển."
     }
   },
   {
     "type": "inference",
-    "title": "Một lần inference xảy ra ra sao?",
-    "lead": "Quan sát trạng thái hiện tại trong nhà lạ.",
+    "title": "Từ mục tiêu dài tới đoạn chuyển động",
+    "lead": "Sau đó mô hình được tinh chỉnh theo nhiệm vụ robot di động: thêm lần làm mẫu ở môi trường mục tiêu và lời hướng dẫn người vận hành. Bộ sinh hành động liên tục dùng flow matching để suy luận đủ nhanh khi chạy.",
     "items": [
       {
         "label": "XỬ LÝ ĐẦU VÀO",
@@ -146,66 +146,66 @@
         "value": "Flow expert sinh chunks, robot thực thi qua chuỗi thao tác dài."
       }
     ],
-    "intuition": "Flow expert sinh chunks, robot thực thi qua chuỗi thao tác dài.",
+    "intuition": "Robot bước vào căn bếp chưa xuất hiện trong dữ liệu huấn luyện. Lệnh là “Cất đồ vào ngăn kéo và bỏ bát vào bồn”. Nó phải nhìn xem bát đang ở đâu, ngăn kéo nào cần mở, lối di chuyển có vật cản không.",
     "detail": {
-      "label": "DIỄN BIẾN THỰC THI",
-      "text": "Chỉ dẫn \"dọn bàn ăn\" yêu cầu nhiều lượt pick, move, place, mở ngăn và quay lại. High-level policy cần duy trì mục tiêu, low-level flow action expert tạo chunk cục bộ dựa vào camera/state."
+      "label": "GIẢI THÍCH",
+      "text": "Một nhóm thí nghiệm lần lượt tăng số địa điểm học lên 3, 12, 22, 53, 82 và 104, rồi kiểm tra ở nơi chưa từng dùng để huấn luyện. Hiệu quả thường tăng theo sự đa dạng địa điểm, nhưng mức tăng phụ thuộc nhiệm vụ. Nhóm tác giả còn bỏ riêng các nguồn dữ liệu để xem tác dụng của dữ liệu robot nhiều loại, dữ liệu web và lời chỉ dẫn của người. Một nguồn có thể ít quan trọng ở bài nhặt–đặt quen thuộc nhưng lại giúp nhận vật mới hoặc chọn bước con chính xác."
     }
   },
   {
     "type": "equation",
-    "title": "Mathematical Intuition",
-    "lead": "Để sinh đúng action A, policy không chỉ cần camera và lệnh, mà còn cần biết nó đang làm bước nào của công việc.",
+    "title": "Giải thích cách dự đoán đoạn hành động",
+    "lead": "Trong quá trình học, FAST có thể mã hóa chuỗi hành động thành token rời rạc để dùng cùng kiến thức ảnh–ngôn ngữ. Ở giai đoạn điều khiển chi tiết sau đó, flow matching tạo chuỗi hành động liên tục.",
     "equation": "\\pi(A\\mid o,\\ell,z_{\\rm subtask})",
     "items": [
-      "Đây là cách diễn đạt điều kiện của policy, không phải loss trong paper."
+      "Đây là cách diễn đạt điều kiện của chính sách điều khiển, không phải loss trong paper."
     ],
-    "intuition": "Để sinh đúng action A, policy không chỉ cần camera và lệnh, mà còn cần biết nó đang làm bước nào của công việc.",
+    "intuition": "Đầu tiên mô hình được huấn luyện trước trên dữ liệu từ nhiều loại robot, ví dụ dự đoán bước con và ảnh–ngôn ngữ từ web. Dữ liệu vận động được đưa vào qua token FAST, giúp phần nền học một biểu diễn chung cho nhiều dạng thông tin.",
     "detail": {
-      "label": "Ý NGHĨA CÔNG THỨC",
-      "text": "Thành tích robot một nhiệm vụ trong phòng thí nghiệm không đảm bảo hoàn thành một yêu cầu dài với nhiều trạng thái trung gian."
+      "label": "GIẢI THÍCH CÔNG THỨC",
+      "text": "Đặt các bài cạnh nhau ta thấy bốn câu hỏi khác nhau: tìm bước con, học từ dữ liệu, biểu diễn chuỗi lệnh và thực thi đúng thời gian. Không nên gọi chung chúng là “một mô hình làm mọi thứ”."
     }
   },
   {
     "type": "results",
-    "title": "Kết quả nói lên điều gì?",
-    "lead": "Bài báo trình diễn nhiều việc nhà kéo dài nhiều phút trong nhà chưa từng thấy.",
+    "title": "Thực nghiệm trong nhà mới nói lên điều gì?",
+    "lead": "Nếu người nghiên cứu thử ở chính căn bếp có trong dữ liệu train, mô hình có thể ghi nhớ vị trí tủ và vật. Bài báo dùng các phòng giả lập để có điều kiện đo lặp lại và dùng nhà ở thật mới để xem khả năng khái quát.",
     "items": [
       {
         "label": "PHÁT HIỆN QUAN TRỌNG",
-        "value": "Success tăng có hệ thống khi số nhà trong training tăng từ 3 → 12 → … → 104."
+        "value": "Success tăng có hệ thống khi số nhà trong huấn luyện tăng từ 3 → 12 → … → 104."
       },
       {
         "label": "CÁCH DIỄN GIẢI",
-        "value": "Bỏ web/high-level supervision thường làm generalization kém đi."
+        "value": "Bỏ web/high-mức supervision thường làm khả năng làm việc ở tình huống mới kém đi."
       }
     ],
-    "intuition": "hệ thống dữ liệu đắt và khép kín; thành công trên ontology household được thử chưa có nghĩa bất kỳ nhà nào.",
+    "intuition": "Một nhóm thí nghiệm lần lượt tăng số địa điểm học lên 3, 12, 22, 53, 82 và 104, rồi kiểm tra ở nơi chưa từng dùng để huấn luyện. Hiệu quả thường tăng theo sự đa dạng địa điểm, nhưng mức tăng phụ thuộc nhiệm vụ.",
     "detail": {
-      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
-      "text": "Trong các phép đánh giá nhiệm vụ gia đình trên robot thật, π0.5 làm được nhiều multi-minute chores ở homes chưa thấy."
+      "label": "GIẢI THÍCH",
+      "text": "Nếu người nghiên cứu thử ở chính căn bếp có trong dữ liệu train, mô hình có thể ghi nhớ vị trí tủ và vật. Bài báo dùng các phòng giả lập để có điều kiện đo lặp lại và dùng nhà ở thật mới để xem khả năng khái quát. Hình 8 cho thấy thêm nhiều địa điểm huấn luyện giúp kết quả tốt hơn trên các nhiệm vụ được thử."
     }
   },
   {
     "type": "ablation",
-    "title": "Ablation và bằng chứng",
-    "lead": "Phân biệt tín hiệu giúp chọn bước với tín hiệu giúp điều khiển tay.",
+    "title": "So các giai đoạn học cho công bằng",
+    "lead": "Hình 10–11 loại bỏ từng nguồn dữ liệu để xem ảnh hưởng: dữ liệu từ nhiều robot và nhiều môi trường rất quan trọng; dữ liệu web đặc biệt có ích ở các kiểm tra vật mới và hiểu câu lệnh.",
     "items": [
       {
         "label": "YẾU TỐ ĐƯỢC THỬ",
         "value": "Scale diversity địa điểm giúp nhưng không làm mất hoàn toàn OOD gap."
       }
     ],
-    "intuition": "Success tăng có hệ thống khi số nhà trong training tăng từ 3 → 12 → … → 104.",
+    "intuition": "Nếu người nghiên cứu thử ở chính căn bếp có trong dữ liệu train, mô hình có thể ghi nhớ vị trí tủ và vật. Bài báo dùng các phòng giả lập để có điều kiện đo lặp lại và dùng nhà ở thật mới để xem khả năng khái quát.",
     "detail": {
-      "label": "BẰNG CHỨNG BỔ SUNG",
-      "text": "Một variant tự infer high-level subtask vẫn là phương pháp đối chứng mạnh, cho thấy biểu diễn đã học được cấu trúc nhiệm vụ phần nào thay vì chỉ copy labels."
+      "label": "GIẢI THÍCH",
+      "text": "Hình 10–11 loại bỏ từng nguồn dữ liệu để xem ảnh hưởng: dữ liệu từ nhiều robot và nhiều môi trường rất quan trọng; dữ liệu web đặc biệt có ích ở các kiểm tra vật mới và hiểu câu lệnh. Kết luận cần gắn với đúng nhóm kiểm tra: nguồn web có thể ít tác động ở một phép thử nhưng lại quan trọng trong phép thử khác."
     }
   },
   {
     "type": "limits",
-    "title": "Hạn chế cần nói thẳng",
-    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "title": "Giới hạn của nhiệm vụ kéo dài",
+    "lead": "Robot di động thật có camera bị che, vật mềm và đồ đạc đặt tùy ý. Một câu lệnh cấp cao có thể mơ hồ: “dọn bếp” chưa nói rõ vật nào nên bỏ đi và vật nào phải giữ lại.",
     "items": [
       {
         "label": "Tác giả / phạm vi",
@@ -216,44 +216,44 @@
         "value": "Phê bình: hệ thống dữ liệu đắt và khép kín; thành công trên ontology household được thử chưa có nghĩa bất kỳ nhà nào."
       }
     ],
-    "intuition": "Dữ liệu robot đa embodiment và đa nhà được co-trained.",
+    "intuition": "Các hành động còn chịu giới hạn phần cứng. mô hình cần kiểm tra an toàn, va chạm và lệnh vượt giới hạn; các thử nghiệm trong vài ngôi nhà không thay thế chứng nhận vận hành trong mọi gia đình.",
     "detail": {
-      "label": "PHẠM VI KẾT LUẬN",
-      "text": "Bài báo thừa nhận: các thất bại còn nhiều ở handles/cabinets khó, occlusion, partial observability và high-level loops/repetition."
+      "label": "GIẢI THÍCH",
+      "text": "Các hành động còn chịu giới hạn phần cứng. mô hình cần kiểm tra an toàn, va chạm và lệnh vượt giới hạn; các thử nghiệm trong vài ngôi nhà không thay thế chứng nhận vận hành trong mọi gia đình."
     }
   },
   {
     "type": "relations",
-    "title": "Bài này đứng ở đâu trong lĩnh vực?",
-    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "title": "Liên hệ với FAST, MIMICPLAY và RTC",
+    "lead": "MimicPlay cũng chia nhiệm vụ dài thành kế hoạch và điều khiển, nhưng học kế hoạch ẩn từ video người. FAST là phương pháp mã hóa và nén chuỗi hành động thành token, được dùng trong một phần quy trình của π0.5.",
     "items": [
       {
         "label": "NỀN TẢNG / TIỀN ĐỀ",
-        "value": "GR00T N1 cung cấp cách nhìn System 2 + action expert."
+        "value": "GR00T N1 cung cấp cách nhìn System 2 + hành động expert."
       },
       {
         "label": "HƯỚNG PHÁT TRIỂN",
-        "value": "RTC bàn về runtime khi flow-based chunks có inference delay."
+        "value": "RTC bàn về runtime khi flow-based chunks có suy luận delay."
       }
     ],
-    "intuition": "VLA scale cần cả task decomposition chứ không chỉ model motor lớn hơn.",
+    "intuition": "Đặt các bài cạnh nhau ta thấy bốn câu hỏi khác nhau: tìm bước con, học từ dữ liệu, biểu diễn chuỗi lệnh và thực thi đúng thời gian. Không nên gọi chung chúng là “một mô hình làm mọi thứ”.",
     "detail": {
-      "label": "CÔNG TRÌNH LIÊN QUAN",
-      "text": "Đọc thêm Diffusion Policy, RTC (inference), RTC (training). Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+      "label": "GIẢI THÍCH",
+      "text": "MimicPlay cũng chia nhiệm vụ dài thành kế hoạch và điều khiển, nhưng học kế hoạch ẩn từ video người. FAST là phương pháp mã hóa và nén chuỗi hành động thành token, được dùng trong một phần quy trình của π0.5. RTC xử lý việc lệnh mới đến chậm, cần nối đoạn hành động liên tục trong khi robot vẫn hoạt động."
     }
   },
   {
     "type": "closing",
-    "title": "Nếu chỉ nhớ ba điều",
-    "lead": "VLA scale cần cả task decomposition chứ không chỉ model motor lớn hơn.",
+    "title": "Điều cần nhớ về π0.5",
+    "lead": "Viết yêu cầu “Bỏ đĩa vào bồn, lau bàn và đóng cửa tủ”. Chia thành ba bước con; với mỗi bước, chỉ ra ảnh hoặc tín hiệu nào xác nhận đã hoàn thành. Sau đó ghi hành động robot cần làm, chẳng hạn đi tới bàn, nắm đĩa, đưa vào bồn và mở kẹp.",
     "items": [
       "Đo chất lượng theo địa điểm chưa thấy và tỷ lệ hoàn thành chuỗi.",
       "Long-horizon memory và recovery vẫn là bottleneck triển khai."
     ],
-    "intuition": "Generalist VLA không chỉ hiểu vật thể, mà còn phải phân rã việc nhà thành các subtask rồi thực thi.",
+    "intuition": "Cuối cùng giả định ngăn kéo bị kẹt hoặc ai đó chuyển đĩa đi. Hãy phân biệt lỗi kế hoạch và lỗi vận động, rồi đề xuất thông tin camera nào cần lấy lại. Nếu giải thích được, bạn đã nắm mạch chính của π0.5.",
     "detail": {
-      "label": "THỬ NGHIỆM TIẾP THEO",
-      "text": "Nếu có GPU >8GB, chạy openpi inference với một quan sát example; dump observation_history, action normalizer, flow steps và action chunk."
+      "label": "GIẢI THÍCH",
+      "text": "Cuối cùng giả định ngăn kéo bị kẹt hoặc ai đó chuyển đĩa đi. Hãy phân biệt lỗi kế hoạch và lỗi vận động, rồi đề xuất thông tin camera nào cần lấy lại. Nếu giải thích được, bạn đã nắm mạch chính của π0.5."
     }
   }
 ]
