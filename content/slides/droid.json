@@ -1,61 +1,61 @@
 [
   {
     "type": "cover",
-    "title": "Điểm cốt lõi",
-    "lead": "Chất lượng dữ liệu robot không chỉ nằm ở số giờ, mà ở độ đa dạng của thế giới thật.",
+    "title": "DROID: học từ nhiều địa điểm thật",
+    "lead": "Nếu robot luôn thực hành trên một chiếc bàn, dưới một dàn đèn và với người vận hành quen thuộc, nó có thể vô tình ghi nhớ bối cảnh.",
     "items": [
       "Tăng environment diversity có thể giá trị hơn tăng lặp lại"
     ],
-    "intuition": "Thu thập robot demonstrations ngoài lab bằng protocol và phần cứng tương đối chuẩn hóa.",
+    "intuition": "Đóng góp quan trọng ở đây là cơ sở dữ liệu và phương pháp tổ chức thu thập trên nhiều địa điểm. Không nên nhầm DROID với một thuật toán sinh hành động mới.",
     "detail": {
-      "label": "BỐI CẢNH NGHIÊN CỨU",
-      "text": "Nhiều robot tập dữ liệu lớn vẫn được thu thập trong vài phòng thí nghiệm setup được dựng cẩn thận."
+      "label": "GIẢI THÍCH",
+      "text": "Đóng góp quan trọng ở đây là cơ sở dữ liệu và phương pháp tổ chức thu thập trên nhiều địa điểm. Không nên nhầm DROID với một thuật toán sinh hành động mới."
     }
   },
   {
     "type": "problem",
-    "title": "Robot giỏi trong lab có thể thất bại ở phòng khác",
-    "lead": "Ánh sáng, vật thể, operator và bố cục thay đổi nhiều hơn những gì dataset tập trung trong phòng lab phản ánh.",
+    "title": "Vì sao một phòng thí nghiệm là chưa đủ?",
+    "lead": "Nếu robot luôn thực hành trên một chiếc bàn, dưới một dàn đèn và với người vận hành quen thuộc, nó có thể vô tình ghi nhớ bối cảnh.",
     "items": [
       "Dữ liệu nhiều episode nhưng ít environments học shortcut thị giác"
     ],
-    "intuition": "Model có thể nhận dạng màu bàn thay vì affordance của vật cần thao tác.",
+    "intuition": "Đóng góp quan trọng ở đây là cơ sở dữ liệu và phương pháp tổ chức thu thập trên nhiều địa điểm. Không nên nhầm DROID với một thuật toán sinh hành động mới.",
     "detail": {
-      "label": "NGUYÊN NHÂN CỐT LÕI",
-      "text": "Mô hình có thể thấy nhiều các quỹ đạo nhưng bối cảnh statistics gần như giống nhau, nên nó học shortcut về phông nền/camera/table thay vì manipulation invariants."
+      "label": "GIẢI THÍCH",
+      "text": "Nếu robot luôn thực hành trên một chiếc bàn, dưới một dàn đèn và với người vận hành quen thuộc, nó có thể vô tình ghi nhớ bối cảnh. Sang căn bếp khác, camera nhìn từ góc mới và đồ vật chưa gặp, chính sách điều khiển sẽ sai dù nhiệm vụ “nhặt rồi đặt” vẫn giống. DROID mở rộng việc thu dữ liệu ra nhiều tòa nhà và phòng làm việc thật, để mô hình học được sự đa dạng thường gặp khi triển khai."
     }
   },
   {
     "type": "contrast",
-    "title": "Dữ liệu nhiều episode nhưng ít environments học shortcut thị giác",
-    "lead": "Model có thể nhận dạng màu bàn thay vì affordance của vật cần thao tác.",
+    "title": "Robot học nền nhà thay vì kỹ năng?",
+    "lead": "Đóng góp quan trọng ở đây là cơ sở dữ liệu và phương pháp tổ chức thu thập trên nhiều địa điểm. Không nên nhầm DROID với một thuật toán sinh hành động mới.",
     "items": [
       "Tăng environment diversity có thể giá trị hơn tăng lặp lại",
-      "Thu thập robot demonstrations ngoài lab bằng protocol và phần cứng tương đối chuẩn hóa."
+      "Thu thập robot lần làm mẫu ngoài lab bằng protocol và phần cứng tương đối chuẩn hóa."
     ],
-    "intuition": "Thu thập robot demonstrations ngoài lab bằng protocol và phần cứng tương đối chuẩn hóa.",
+    "intuition": "Nếu robot luôn thực hành trên một chiếc bàn, dưới một dàn đèn và với người vận hành quen thuộc, nó có thể vô tình ghi nhớ bối cảnh. Sang căn bếp khác, camera nhìn từ góc mới và đồ vật chưa gặp, chính sách điều khiển sẽ sai dù nhiệm vụ “nhặt rồi đặt” vẫn giống.",
     "detail": {
-      "label": "VÌ SAO CẦN THAY ĐỔI",
-      "text": "DROID muốn kiểm tra thesis: nếu cùng một robot được mang đi rất nhiều tòa nhà, phòng, operator và vật thể setup, khả năng khái quát có tăng đáng kể không?"
+      "label": "GIẢI THÍCH",
+      "text": "Dữ liệu ở nhiều bếp giúp chính sách điều khiển có cơ hội học những dấu hiệu ổn định hơn màu nền hoặc vị trí một chiếc bát cụ thể. Hình 9 so các lần robot chạy thật để thấy thao tác nào được cải thiện, thay vì chỉ xem tỷ lệ cuối."
     }
   },
   {
     "type": "intuition",
-    "title": "Tăng environment diversity có thể giá trị hơn tăng lặp lại",
-    "lead": "Thu thập robot demonstrations ngoài lab bằng protocol và phần cứng tương đối chuẩn hóa.",
+    "title": "Hình dung robot làm việc trong căn bếp mới",
+    "lead": "robot phải mở nắp chảo, nhặt rồi đổ đậu lăng, sau đó bật bếp. Đây là nhiệm vụ dài, nhiều điểm có thể lỗi: nắm sai nắp, đổ lệch chảo hoặc thao tác nhầm núm bếp.",
     "items": [
       "Chất lượng dữ liệu robot không chỉ nằm ở số giờ, mà ở độ đa dạng của thế giới thật."
     ],
-    "intuition": "Thu thập robot demonstrations ngoài lab bằng protocol và phần cứng tương đối chuẩn hóa.",
+    "intuition": "Dữ liệu ở nhiều bếp giúp chính sách điều khiển có cơ hội học những dấu hiệu ổn định hơn màu nền hoặc vị trí một chiếc bát cụ thể. Hình 9 so các lần robot chạy thật để thấy thao tác nào được cải thiện, thay vì chỉ xem tỷ lệ cuối.",
     "detail": {
-      "label": "GIẢI THÍCH CƠ CHẾ",
-      "text": "Hardware được chuẩn hóa quanh Franka + camera setup để nhiều institution có thể thu dữ liệu nhưng action không gian vẫn thống nhất."
+      "label": "GIẢI THÍCH",
+      "text": "robot phải mở nắp chảo, nhặt rồi đổ đậu lăng, sau đó bật bếp. Đây là nhiệm vụ dài, nhiều điểm có thể lỗi: nắm sai nắp, đổ lệch chảo hoặc thao tác nhầm núm bếp. Khi trong cảnh xuất hiện vật gây nhiễu, chính sách điều khiển còn phải xác định đâu là vật cần thao tác."
     }
   },
   {
     "type": "concepts",
-    "title": "Ba khái niệm để nắm",
-    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "title": "Ba loại khác biệt của dữ liệu robot",
+    "lead": "Đa dạng nhiệm vụ là robot được yêu cầu làm nhiều việc khác nhau. Đa dạng cảnh là cùng một việc diễn ra trên nhiều nền, ánh sáng và cách bố trí đồ. Đa dạng góc nhìn là camera quan sát cùng vật từ các vị trí khác nhau.",
     "items": [
       {
         "label": "In-the-wild collection",
@@ -63,79 +63,79 @@
       },
       {
         "label": "Matched-size ablation",
-        "value": "So dataset bằng số mẫu nhưng khác diversity."
+        "value": "So tập dữ liệu bằng số mẫu nhưng khác diversity."
       },
       {
         "label": "Distribution shift",
         "value": "Môi trường test khác thống kê môi trường train."
       }
     ],
-    "intuition": "Observation có góc nhìn/ánh sáng/scene khác nhau.",
+    "intuition": "DROID ghi ảnh từ ba camera đồng bộ, có thông số hiệu chuẩn và dữ liệu độ sâu. Những chi tiết ấy quan trọng: nếu hai góc camera không khớp thời gian, mô hình có thể học nhầm quan hệ giữa vị trí vật và hành động.",
     "detail": {
-      "label": "NỀN TẢNG KỸ THUẬT",
-      "text": "Bottleneck thực tế là thu dữ liệu robot ngoài phòng phòng thí nghiệm: lighting, vật thể, operator kỹ năng và phông nền thay đổi làm phân phối phức tạp hơn số lượng episode."
+      "label": "GIẢI THÍCH",
+      "text": "DROID ghi ảnh từ ba camera đồng bộ, có thông số hiệu chuẩn và dữ liệu độ sâu. Những chi tiết ấy quan trọng: nếu hai góc camera không khớp thời gian, mô hình có thể học nhầm quan hệ giữa vị trí vật và hành động."
     }
   },
   {
     "type": "pipeline",
-    "title": "Kiến trúc trong một sơ đồ",
-    "lead": "Chất lượng dữ liệu robot không chỉ nằm ở số giờ, mà ở độ đa dạng của thế giới thật.",
+    "title": "DROID thu thập dữ liệu như thế nào?",
+    "lead": "Nhóm nghiên cứu chuẩn hóa một bộ thiết bị có thể mang tới nhiều nơi: tay máy Franka, camera nổi gắn ngoài và ở cổ tay, cùng bộ điều khiển thực tế ảo.",
     "items": [
       "Franka + cameras",
       "50 collectors / 52 buildings",
       "76K trajectories",
-      "Diverse-scene policy tests"
+      "Diverse-cảnh bộ điều khiển tests"
     ],
-    "intuition": "Policy chạy trên các cảnh có độ nhiễu/thay đổi thật.",
+    "intuition": "Từ các quỹ đạo này, chính sách điều khiển có thể được học chung với dữ liệu nhiệm vụ đích. Sau đó người ta đánh giá không chỉ ở bối cảnh quen mà còn với đồ vật hoặc vật gây nhiễu chưa thấy. Đây là phép thử xem nguồn dữ liệu rộng có thực sự giúp tăng độ bền không.",
     "detail": {
-      "label": "ĐIỂM NHẤN TRIỂN KHAI",
-      "text": "DROID thu khoảng 76 nghìn các quỹ đạo / 350 giờ, trong 564 bối cảnh, 86 nhiệm vụ, 52 buildings với khoảng 50 collectors."
+      "label": "GIẢI THÍCH",
+      "text": "Từ các quỹ đạo này, chính sách điều khiển có thể được học chung với dữ liệu nhiệm vụ đích. Sau đó người ta đánh giá không chỉ ở bối cảnh quen mà còn với đồ vật hoặc vật gây nhiễu chưa thấy. Đây là phép thử xem nguồn dữ liệu rộng có thực sự giúp tăng độ bền không."
     }
   },
   {
     "type": "representation",
-    "title": "Mô hình biểu diễn cái gì?",
-    "lead": "Observation có góc nhìn/ánh sáng/scene khác nhau.",
+    "title": "Một lần thao tác lưu những thông tin gì?",
+    "lead": "DROID ghi ảnh từ ba camera đồng bộ, có thông số hiệu chuẩn và dữ liệu độ sâu. Những chi tiết ấy quan trọng: nếu hai góc camera không khớp thời gian, mô hình có thể học nhầm quan hệ giữa vị trí vật và hành động.",
     "items": [
       {
         "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
-        "value": "Một họ robot phần cứng giữ action tương đối nhất quán."
+        "value": "Một họ robot phần cứng giữ hành động tương đối nhất quán."
       },
       {
         "label": "ĐÁNH ĐỔI KỸ THUẬT",
         "value": "Tăng môi trường không tương đương tăng embodiment."
       }
     ],
-    "intuition": "Tăng môi trường không tương đương tăng embodiment.",
+    "intuition": "Nhóm nghiên cứu chuẩn hóa một bộ thiết bị có thể mang tới nhiều nơi: tay máy Franka, camera nổi gắn ngoài và ở cổ tay, cùng bộ điều khiển thực tế ảo. Người vận hành đưa robot tới phòng hoặc căn bếp mới, làm nhiệm vụ và ghi lại quỹ đạo với câu lệnh tương ứng.",
     "detail": {
-      "label": "CHI TIẾT BIỂU DIỄN",
-      "text": "Tập dữ liệu cố tình ưu tiên “in-the-wild” environmental variation thay vì chỉ tăng quỹ đạo count trong một phòng thí nghiệm."
+      "label": "GIẢI THÍCH",
+      "text": "Nhóm nghiên cứu chuẩn hóa một bộ thiết bị có thể mang tới nhiều nơi: tay máy Franka, camera nổi gắn ngoài và ở cổ tay, cùng bộ điều khiển thực tế ảo. Người vận hành đưa robot tới phòng hoặc căn bếp mới, làm nhiệm vụ và ghi lại quỹ đạo với câu lệnh tương ứng. Cùng phần cứng chuẩn giúp giảm khác biệt do loại robot, trong khi bối cảnh được chủ động thay đổi."
     }
   },
   {
     "type": "training",
-    "title": "Model học như thế nào?",
-    "lead": "Khoảng 76.000 trajectories, 350 giờ dữ liệu trong 564 bối cảnh.",
+    "title": "Dữ liệu đa địa điểm có thể giúp huấn luyện ra sao?",
+    "lead": "Nhóm nghiên cứu chuẩn hóa một bộ thiết bị có thể mang tới nhiều nơi: tay máy Franka, camera nổi gắn ngoài và ở cổ tay, cùng bộ điều khiển thực tế ảo.",
     "items": [
       {
         "label": "MỤC TIÊU HỌC",
-        "value": "Training kết hợp DROID và target-task data."
+        "value": "huấn luyện kết hợp DROID và target-nhiệm vụ dữ liệu."
       },
       {
         "label": "DỮ LIỆU / QUY TRÌNH",
         "value": "So subset bằng số episode để tách tác động của environmental coverage."
       }
     ],
-    "intuition": "Giữ số trajectories, thay số environments xuất hiện.",
+    "intuition": "Từ các quỹ đạo này, chính sách điều khiển có thể được học chung với dữ liệu nhiệm vụ đích. Sau đó người ta đánh giá không chỉ ở bối cảnh quen mà còn với đồ vật hoặc vật gây nhiễu chưa thấy. Đây là phép thử xem nguồn dữ liệu rộng có thực sự giúp tăng độ bền không.",
     "detail": {
-      "label": "CÁCH HUẤN LUYỆN",
-      "text": "Bài báo huấn luyện diffusion-style policies và làm matched-data ablation: cùng số demonstrations nhưng chọn từ nhiều bối cảnh hơn hoặc ít bối cảnh hơn."
+      "label": "GIẢI THÍCH",
+      "text": "Đối chiếu số liệu: Khi bổ sung DROID vào dữ liệu huấn luyện nhiệm vụ đích, nhóm tác giả báo cáo mức tăng trung bình khoảng 22 điểm phần trăm trong điều kiện quen và 17 điểm phần trăm trong điều kiện ngoài phân phối so với phương án đối chứng tốt thứ hai. Hình 10 còn cho thấy tập con có nhiều cảnh thường tốt hơn tập con ít cảnh dù có số quỹ đạo tương tự. Điều này ủng hộ việc thu dữ liệu phong phú về bối cảnh, không chỉ cố kéo dài giờ thu ở một chiếc bàn."
     }
   },
   {
     "type": "inference",
-    "title": "Một lần inference xảy ra ra sao?",
-    "lead": "Policy chạy trên các cảnh có độ nhiễu/thay đổi thật.",
+    "title": "Cần kiểm tra gì khi dùng dữ liệu DROID?",
+    "lead": "Từ các quỹ đạo này, chính sách điều khiển có thể được học chung với dữ liệu nhiệm vụ đích. Sau đó người ta đánh giá không chỉ ở bối cảnh quen mà còn với đồ vật hoặc vật gây nhiễu chưa thấy.",
     "items": [
       {
         "label": "XỬ LÝ ĐẦU VÀO",
@@ -146,30 +146,30 @@
         "value": "Dữ liệu mục tiêu vẫn cần để adapt; không phải zero-shot universal robot."
       }
     ],
-    "intuition": "Dữ liệu mục tiêu vẫn cần để adapt; không phải zero-shot universal robot.",
+    "intuition": "robot phải mở nắp chảo, nhặt rồi đổ đậu lăng, sau đó bật bếp. Đây là nhiệm vụ dài, nhiều điểm có thể lỗi: nắm sai nắp, đổ lệch chảo hoặc thao tác nhầm núm bếp. Khi trong cảnh xuất hiện vật gây nhiễu, chính sách điều khiển còn phải xác định đâu là vật cần thao tác.",
     "detail": {
-      "label": "DIỄN BIẾN THỰC THI",
-      "text": "DROID-style collection khiến thị giác encoder phải học affordance thay vì memorize màu bàn."
+      "label": "GIẢI THÍCH",
+      "text": "Khi chọn dữ liệu cho một project, hãy hỏi lỗi cần giải là gặp đồ vật mới, gặp phòng mới hay đổi robot mới. Không nên chỉ tải nguồn có số quỹ đạo lớn nhất."
     }
   },
   {
     "type": "equation",
-    "title": "Mathematical Intuition",
-    "lead": "Model học từ cảnh đa dạng sẽ bớt lệ thuộc background; công thức chỉ mô tả hướng phụ thuộc, không phải fit thực nghiệm.",
+    "title": "Đọc quy mô tập dữ liệu cho đúng",
+    "lead": "DROID ghi ảnh từ ba camera đồng bộ, có thông số hiệu chuẩn và dữ liệu độ sâu. Những chi tiết ấy quan trọng: nếu hai góc camera không khớp thời gian, mô hình có thể học nhầm quan hệ giữa vị trí vật và hành động.",
     "equation": "\\Delta\\mathrm{OOD}\\approx f(\\mathrm{coverage},\\,\\mathrm{quality})",
     "items": [
       "Không phải phương trình gốc hoặc lời hứa rằng càng nhiều cảnh luôn tốt."
     ],
-    "intuition": "Model học từ cảnh đa dạng sẽ bớt lệ thuộc background; công thức chỉ mô tả hướng phụ thuộc, không phải fit thực nghiệm.",
+    "intuition": "Nhóm nghiên cứu chuẩn hóa một bộ thiết bị có thể mang tới nhiều nơi: tay máy Franka, camera nổi gắn ngoài và ở cổ tay, cùng bộ điều khiển thực tế ảo. Người vận hành đưa robot tới phòng hoặc căn bếp mới, làm nhiệm vụ và ghi lại quỹ đạo với câu lệnh tương ứng.",
     "detail": {
-      "label": "Ý NGHĨA CÔNG THỨC",
-      "text": "Nhưng dữ liệu còn phụ thuộc vào con người operator và phần cứng robot; action frequency/camera alignment có thể trở thành confound."
+      "label": "GIẢI THÍCH CÔNG THỨC",
+      "text": "Nếu chính sách điều khiển thất bại khi thêm một vật giống túi khác bên cạnh, đó còn là vấn đề phân biệt vật đích. Việc ghi loại lỗi giúp hiểu DROID hỗ trợ phần nào, không chỉ nhận một điểm tổng hợp."
     }
   },
   {
     "type": "results",
-    "title": "Kết quả nói lên điều gì?",
-    "lead": "Bộ dữ liệu: khoảng 76K trajectories/350 giờ qua 564 scenes và 86 nhiệm vụ.",
+    "title": "Kết quả về mức đa dạng nói lên điều gì?",
+    "lead": "Hình 8 cho thấy học chung với DROID cải thiện tỷ lệ thành công ở cả điều kiện tương tự dữ liệu học và điều kiện khác dữ liệu.",
     "items": [
       {
         "label": "PHÁT HIỆN QUAN TRỌNG",
@@ -180,32 +180,32 @@
         "value": "Ở cùng số mẫu, subset trải rộng nhiều scenes tốt hơn subset tập trung."
       }
     ],
-    "intuition": "350 giờ còn nhỏ so với các VLA corpora 2026, nhiều fail/recovery behaviors chưa được mô hình hóa.",
+    "intuition": "Đối chiếu số liệu: Khi bổ sung DROID vào dữ liệu huấn luyện nhiệm vụ đích, nhóm tác giả báo cáo mức tăng trung bình khoảng 22 điểm phần trăm trong điều kiện quen và 17 điểm phần trăm trong điều kiện ngoài phân phối so với phương án đối chứng tốt thứ hai.",
     "detail": {
-      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
-      "text": "Khi thêm DROID vào dữ liệu của nhiệm vụ đích theo mixture, tác giả báo cáo mức cải thiện khoảng 22 điểm ở in-domain và 17 điểm ở out-of-domain so với thiết lập đối chứng tốt thứ hai trong các nhiệm vụ được đánh giá."
+      "label": "GIẢI THÍCH",
+      "text": "Hình 8 cho thấy học chung với DROID cải thiện tỷ lệ thành công ở cả điều kiện tương tự dữ liệu học và điều kiện khác dữ liệu. Mức tăng so phương án tốt thứ hai được báo cáo bằng điểm phần trăm tuyệt đối, không phải tăng bao nhiêu lần."
     }
   },
   {
     "type": "ablation",
-    "title": "Ablation và bằng chứng",
-    "lead": "Giữ số trajectories, thay số environments xuất hiện.",
+    "title": "Thử thay bối cảnh để kiểm chứng",
+    "lead": "Hình 10 thực sự kiểm tra vai trò của số cảnh: so một phần dữ liệu DROID nhiều bối cảnh với phần chỉ từ 20 bối cảnh.",
     "items": [
       {
         "label": "YẾU TỐ ĐƯỢC THỬ",
-        "value": "Mức cải thiện đến từ environmental diversity không chỉ dataset size."
+        "value": "Mức cải thiện đến từ environmental diversity không chỉ tập dữ liệu size."
       }
     ],
-    "intuition": "Một số thiết lập mixture tăng khoảng 22 điểm in-domain và 17 điểm out-of-domain.",
+    "intuition": "Hình 8 cho thấy học chung với DROID cải thiện tỷ lệ thành công ở cả điều kiện tương tự dữ liệu học và điều kiện khác dữ liệu. Mức tăng so phương án tốt thứ hai được báo cáo bằng điểm phần trăm tuyệt đối, không phải tăng bao nhiêu lần.",
     "detail": {
-      "label": "BẰNG CHỨNG BỔ SUNG",
-      "text": "Đây là một evidence rất trực tiếp cho data-collection strategy mà người đọc đang thấy ở headcam: coverage của phân phối có giá trị độc lập với số giờ."
+      "label": "ĐỐI CHIẾU THÍ NGHIỆM",
+      "text": "Hình 10 thực sự kiểm tra vai trò của số cảnh: so một phần dữ liệu DROID nhiều bối cảnh với phần chỉ từ 20 bối cảnh. Nếu nguồn đa dạng tốt hơn ở điều kiện mới, đó là bằng chứng hợp lý rằng thay cảnh trong huấn luyện giúp khả năng khái quát. Cần đọc số lần chạy và sai số trước khi kết luận mạnh hơn."
     }
   },
   {
     "type": "limits",
-    "title": "Hạn chế cần nói thẳng",
-    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "title": "Những giới hạn của dữ liệu thật",
+    "lead": "Các ví dụ được thu bằng một bộ thiết bị tương đối đồng nhất, vì vậy kết quả không chứng minh lệnh có thể chuyển trực tiếp sang robot có cấu trúc tay khác.",
     "items": [
       {
         "label": "Tác giả / phạm vi",
@@ -216,16 +216,16 @@
         "value": "Phê bình: 350 giờ còn nhỏ so với các VLA corpora 2026, nhiều fail/recovery behaviors chưa được mô hình hóa."
       }
     ],
-    "intuition": "Một họ robot phần cứng giữ action tương đối nhất quán.",
+    "intuition": "Một bộ dữ liệu nhiều quỹ đạo có thể có lỗi thời gian, calibration hoặc nhãn câu lệnh. Việc tuyển lọc và đánh giá trên robot thật vẫn bắt buộc trước khi dùng cho hệ thống vận hành thực tế.",
     "detail": {
-      "label": "PHẠM VI KẾT LUẬN",
-      "text": "Phê bình thêm: 350 giờ là lớn với real robot 2024 nhưng nhỏ so với 10k-50k giờ pretraining corpora 2026."
+      "label": "GIẢI THÍCH",
+      "text": "Một bộ dữ liệu nhiều quỹ đạo có thể có lỗi thời gian, calibration hoặc nhãn câu lệnh. Việc tuyển lọc và đánh giá trên robot thật vẫn bắt buộc trước khi dùng cho hệ thống vận hành thực tế."
     }
   },
   {
     "type": "relations",
-    "title": "Bài này đứng ở đâu trong lĩnh vực?",
-    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "title": "DROID bổ sung gì cho BridgeData và Open X?",
+    "lead": "BridgeData V2 mở rộng kỹ năng và cảnh trên một thiết lập thao tác tương đối nhất quán. DROID tăng mạnh số địa điểm thực tế cùng độ phong phú cảnh. Open X trộn thêm nhiều loại robot, vì thế có cả vấn đề thống nhất hành động.",
     "items": [
       {
         "label": "NỀN TẢNG / TIỀN ĐỀ",
@@ -236,24 +236,24 @@
         "value": "Open X-Embodiment đưa thêm độ khác biệt giữa các embodiment."
       }
     ],
-    "intuition": "Thiết kế data collection theo scene coverage có thể đáng giá hơn replay.",
+    "intuition": "Khi chọn dữ liệu cho một project, hãy hỏi lỗi cần giải là gặp đồ vật mới, gặp phòng mới hay đổi robot mới. Không nên chỉ tải nguồn có số quỹ đạo lớn nhất.",
     "detail": {
-      "label": "CÔNG TRÌNH LIÊN QUAN",
-      "text": "Đọc thêm Open X-Embodiment, RoboCasa. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+      "label": "GIẢI THÍCH",
+      "text": "BridgeData V2 mở rộng kỹ năng và cảnh trên một thiết lập thao tác tương đối nhất quán. DROID tăng mạnh số địa điểm thực tế cùng độ phong phú cảnh. Open X trộn thêm nhiều loại robot, vì thế có cả vấn đề thống nhất hành động."
     }
   },
   {
     "type": "closing",
-    "title": "Nếu chỉ nhớ ba điều",
-    "lead": "Thiết kế data collection theo scene coverage có thể đáng giá hơn replay.",
+    "title": "Điều cần nhớ về DROID",
+    "lead": "Giữ cùng câu lệnh “nhặt túi khoai tây chiên”, nhưng đặt túi trên ba mặt bàn có màu và ánh sáng khác nhau. Huấn luyện từ cùng số lần làm mẫu, lần lượt chọn tập có ít cảnh và tập đa dạng.",
     "items": [
       "Cần split held-out environments và đo thật closed-loop.",
       "Không gọi environmental transfer là zero-shot multi-robot transfer."
     ],
-    "intuition": "Chất lượng dữ liệu robot không chỉ nằm ở số giờ, mà ở độ đa dạng của thế giới thật.",
+    "intuition": "Nếu chính sách điều khiển thất bại khi thêm một vật giống túi khác bên cạnh, đó còn là vấn đề phân biệt vật đích. Việc ghi loại lỗi giúp hiểu DROID hỗ trợ phần nào, không chỉ nhận một điểm tổng hợp.",
     "detail": {
-      "label": "THỬ NGHIỆM TIẾP THEO",
-      "text": "Dùng mẫu DROID video + state, plot timestamp delta, quỹ đạo smoothness và coverage. Xây 1 trang data-quality báo cáo trước khi huấn luyện policy."
+      "label": "GIẢI THÍCH",
+      "text": "Giữ cùng câu lệnh “nhặt túi khoai tây chiên”, nhưng đặt túi trên ba mặt bàn có màu và ánh sáng khác nhau. Huấn luyện từ cùng số lần làm mẫu, lần lượt chọn tập có ít cảnh và tập đa dạng. Đo tỷ lệ thành công trên cảnh chưa xuất hiện khi học."
     }
   }
 ]
