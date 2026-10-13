@@ -11,7 +11,7 @@ Robot được dạy đặt cốc vào khay, rồi học thêm mở ngăn kéo. 
 
 Robot đã học đặt cốc lên đĩa. Ta tiếp tục dạy nó bỏ đồ vào ngăn kéo. Nếu cập nhật cùng một mạng chỉ với dữ liệu nhiệm vụ sau, các tham số từng giúp đặt cốc có thể bị thay đổi, khiến robot làm kém việc cũ. Hiện tượng ấy được gọi là **quên kiến thức khi học nối tiếp**.
 
-LIBERO là bộ nhiệm vụ và quy trình đánh giá, không phải policy mới. Nó kiểm tra robot có học việc mới không, có giữ được việc cũ không và kiến thức về vật thể, vị trí, mục tiêu có chuyển từ việc này sang việc khác được hay không.
+LIBERO là bộ nhiệm vụ và quy trình đánh giá, không phải chính sách điều khiển mới. Nó kiểm tra robot có học việc mới không, có giữ được việc cũ không và kiến thức về vật thể, vị trí, mục tiêu có chuyển từ việc này sang việc khác được hay không.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -52,7 +52,7 @@ Nhóm tác giả cho mô hình học lần lượt từng nhiệm vụ rồi ki�
 
 Đầu tiên hệ thống tạo cảnh, bố trí vật, trạng thái ban đầu và điều kiện thành công. Nó dùng mô tả PDDL để xác định robot phải đạt trạng thái nào mới được tính là xong nhiệm vụ. Tiếp theo, ta chọn danh sách công việc cùng thứ tự học.
 
-Policy học việc thứ nhất rồi được kiểm tra. Sau khi học việc thứ hai, nó được kiểm tra lại trên cả việc đầu lẫn việc thứ hai. Quá trình tiếp tục cho các việc sau. Cuối cùng so nhiều thuật toán như ER dùng phát lại kinh nghiệm và PackNet phân bổ tham số, có thể đổi thứ tự nhiệm vụ để kiểm tra độ nhạy.
+chính sách điều khiển học việc thứ nhất rồi được kiểm tra. Sau khi học việc thứ hai, nó được kiểm tra lại trên cả việc đầu lẫn việc thứ hai. Quá trình tiếp tục cho các việc sau. Cuối cùng so nhiều thuật toán như ER dùng phát lại kinh nghiệm và PackNet phân bổ tham số, có thể đổi thứ tự nhiệm vụ để kiểm tra độ nhạy.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -119,11 +119,11 @@ Nếu muốn đặt bài này vào bản đồ VLA, hãy xem tiếp các hướn
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### LIBERO liên quan gì tới policy đa nhiệm?
+### LIBERO liên quan gì tới chính sách điều khiển đa nhiệm?
 
-RT-1 và Octo cố học một policy có thể làm nhiều việc từ dữ liệu rộng. LIBERO đặt câu hỏi tiếp theo: khi ta tiếp tục huấn luyện policy ấy cho công việc mới, những việc trước còn làm được không?
+RT-1 và Octo cố học một chính sách điều khiển có thể làm nhiều việc từ dữ liệu rộng. LIBERO đặt câu hỏi tiếp theo: khi ta tiếp tục huấn luyện chính sách điều khiển ấy cho công việc mới, những việc trước còn làm được không?
 
-Một model được tiền huấn luyện tốt vẫn có thể quên khi tinh chỉnh sai cách. Ngược lại, model giữ nguyên kỹ năng cũ chưa chắc học kỹ năng mới nhanh. Đánh giá tốt cần có cả hai vế.
+Một mô hình được tiền huấn luyện tốt vẫn có thể quên khi tinh chỉnh sai cách. Ngược lại, mô hình giữ nguyên kỹ năng cũ chưa chắc học kỹ năng mới nhanh. Đánh giá tốt cần có cả hai vế.
 
 <!-- END EXTENDED WALKTHROUGH -->
 

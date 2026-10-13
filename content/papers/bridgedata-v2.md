@@ -14,9 +14,9 @@ Robot chỉ được dạy nhặt đồ trên một mặt bàn rất dễ lúng 
 
 ### Vì sao cùng là nhặt đồ mà đổi bàn lại làm robot thất bại?
 
-Một policy chỉ học nhặt cốc trên một chiếc bàn trắng có thể làm rất tốt ở đó nhưng thất bại khi sang bồn rửa hoặc gặp vật mới. Nguyên nhân không nhất thiết là mô hình yếu; có thể toàn bộ demonstration đều quá giống nhau. BridgeData V2 được xây để tạo nguồn dữ liệu phong phú về thao tác, đồ vật và môi trường.
+Một chính sách điều khiển chỉ học nhặt cốc trên một chiếc bàn trắng có thể làm rất tốt ở đó nhưng thất bại khi sang bồn rửa hoặc gặp vật mới. Nguyên nhân không nhất thiết là mô hình yếu; có thể toàn bộ demonstration đều quá giống nhau. BridgeData V2 được xây để tạo nguồn dữ liệu phong phú về thao tác, đồ vật và môi trường.
 
-Đây là một **tập dữ liệu** chứ không phải kiến trúc policy mới. Khi xem kết quả học máy, phải hỏi thuật toán nào được huấn luyện trên dữ liệu ấy và điều kiện đánh giá ra sao. Đừng nhầm việc có nhiều ví dụ với việc robot đã tự hiểu mọi công việc.
+Đây là một **tập dữ liệu** chứ không phải kiến trúc chính sách điều khiển mới. Khi xem kết quả học máy, phải hỏi thuật toán nào được huấn luyện trên dữ liệu ấy và điều kiện đánh giá ra sao. Đừng nhầm việc có nhiều ví dụ với việc robot đã tự hiểu mọi công việc.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -40,7 +40,7 @@ BridgeData V2 dùng nhiều góc camera; một phần có cả ảnh độ sâu.
 
 BridgeData V2 có **60.096 quỹ đạo** trong **24 môi trường**, bao phủ hơn 100 đồ vật cùng các kỹ năng nhặt–đặt, đẩy, gom, xếp chồng và gấp đồ. Phần lớn là demonstration do người điều khiển; một phần bổ sung là những quỹ đạo nhặt–đặt được thu với các điều kiện thay đổi để tăng độ bao phủ.
 
-Nhóm tác giả huấn luyện nhiều thuật toán học bắt chước và học từ dữ liệu có sẵn, thay vì chỉ chọn một kiến trúc. Các thí nghiệm còn thay lượng dữ liệu, kích thước mô hình và số loại kỹ năng. Dữ liệu có thể được dùng với ảnh mục tiêu hoặc câu lệnh ngôn ngữ, miễn là policy đọc đúng định dạng.
+Nhóm tác giả huấn luyện nhiều thuật toán học bắt chước và học từ dữ liệu có sẵn, thay vì chỉ chọn một kiến trúc. Các thí nghiệm còn thay lượng dữ liệu, kích thước mô hình và số loại kỹ năng. Dữ liệu có thể được dùng với ảnh mục tiêu hoặc câu lệnh ngôn ngữ, miễn là chính sách điều khiển đọc đúng định dạng.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -57,7 +57,7 @@ Nhóm tác giả huấn luyện nhiều thuật toán học bắt chước và h
 
 Đầu tiên người vận hành chọn nhiệm vụ, ví dụ chuyển khối từ bàn vào bồn, rồi điều khiển tay máy bằng bộ điều khiển thực tế ảo. Camera và lệnh vận động được ghi liên tục theo thời gian. Quá trình lặp lại ở nhiều bố cục và với nhiều vật thể để tránh chỉ học một cách đặt đồ.
 
-Khi huấn luyện, policy nhận quan sát và mục tiêu rồi học dự đoán động tác người đã làm. Khi đánh giá, robot phải tự thực hiện trên nhiệm vụ hoặc môi trường được giữ ngoài tập huấn luyện. Các đoạn cắt từ cùng một lần thao tác không nên bị chia ngẫu nhiên vào cả train lẫn test, vì điều đó làm kết quả trông cao giả.
+Khi huấn luyện, chính sách điều khiển nhận quan sát và mục tiêu rồi học dự đoán động tác người đã làm. Khi đánh giá, robot phải tự thực hiện trên nhiệm vụ hoặc môi trường được giữ ngoài tập huấn luyện. Các đoạn cắt từ cùng một lần thao tác không nên bị chia ngẫu nhiên vào cả train lẫn kiểm tra, vì điều đó làm kết quả trông cao giả.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -73,13 +73,13 @@ Khi chia tập dữ liệu để kiểm tra, không nên lấy các khung ảnh 
 
 Robot học rất nhiều lần nhặt rồi đặt vật vào khay. Sau đó ta yêu cầu xếp hai khối lên nhau. Việc xếp chồng khó hơn, nhưng các bước tiếp cận, kẹp và di chuyển đồ vẫn có thể tái sử dụng. Đây là ý tưởng chuyển giao giữa những kỹ năng có phần chung.
 
-Thử so hai policy có số demonstration gần nhau: một bên được học ba kỹ năng, bên kia mười ba. Nếu bên đa dạng hơn làm nhiệm vụ mới tốt hơn, ta có bằng chứng rằng loại kỹ năng được học quan trọng, không chỉ tổng số mẫu.
+Thử so hai chính sách điều khiển có số demonstration gần nhau: một bên được học ba kỹ năng, bên kia mười ba. Nếu bên đa dạng hơn làm nhiệm vụ mới tốt hơn, ta có bằng chứng rằng loại kỹ năng được học quan trọng, không chỉ tổng số mẫu.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
 ## Kết quả thực nghiệm
 
-Xu hướng chung trong các thí nghiệm là tăng lượng dữ liệu, dung lượng mô hình và **sự phong phú kỹ năng** có thể giúp policy xử lý nhiệm vụ mới tốt hơn. Nhiều phương pháp khác nhau học được hành vi robot hữu ích từ BridgeData V2; vì thế bộ dữ liệu có giá trị không chỉ cho một kiểu mạng.
+Xu hướng chung trong các thí nghiệm là tăng lượng dữ liệu, dung lượng mô hình và **sự phong phú kỹ năng** có thể giúp chính sách điều khiển xử lý nhiệm vụ mới tốt hơn. Nhiều phương pháp khác nhau học được hành vi robot hữu ích từ BridgeData V2; vì thế bộ dữ liệu có giá trị không chỉ cho một kiểu mạng.
 
 Một phép thử quan trọng giữ số lượng mẫu gần tương đương nhưng tăng số loại kỹ năng được học. Khi kết quả trên nhiệm vụ chưa gặp tăng, đó là bằng chứng cho lợi ích của **độ đa dạng**, không chỉ việc lặp thêm một hành động quen thuộc. Tuy vậy, cần đọc đúng bộ nhiệm vụ và số lượt thử trước khi suy rộng.
 
@@ -87,7 +87,7 @@ Một phép thử quan trọng giữ số lượng mẫu gần tương đương 
 
 ### Đọc Hình 5 cho đúng ý nghĩa
 
-Nửa bên trái Hình 5 cho thấy khi tăng lượng dữ liệu và kích thước mô hình, policy có điều kiện mục tiêu học từ BridgeData V2 đạt hiệu quả tốt hơn. Nửa bên phải giữ số mẫu giữa hai tập gần bằng nhau, chỉ thay độ đa dạng kỹ năng. Đây là phép so có ý nghĩa hơn nếu muốn hỏi liệu học nhiều loại việc có giúp việc mới không.
+Nửa bên trái Hình 5 cho thấy khi tăng lượng dữ liệu và kích thước mô hình, chính sách điều khiển có điều kiện mục tiêu học từ BridgeData V2 đạt hiệu quả tốt hơn. Nửa bên phải giữ số mẫu giữa hai tập gần bằng nhau, chỉ thay độ đa dạng kỹ năng. Đây là phép so có ý nghĩa hơn nếu muốn hỏi liệu học nhiều loại việc có giúp việc mới không.
 
 Mỗi phương pháp được thử 20 lần trong phép so đó; chênh lệch nhỏ có thể cần kiểm tra thêm độ bất định. Không nên biến kết quả “đa dạng giúp trong điều kiện thử” thành “cứ thêm bất kỳ dữ liệu nào cũng tốt”.
 

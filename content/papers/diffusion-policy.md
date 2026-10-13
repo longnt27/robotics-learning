@@ -30,7 +30,7 @@ Một trạng thái robot đôi khi có **nhiều cách xử lý đều đúng**
 
 ### Hiểu ba cách dự đoán trước khi nhìn công thức
 
-**Policy tường minh** có thể nhận ảnh rồi dự đoán trực tiếp lệnh; khi nhiều cách thao tác cùng đúng, một giá trị trung bình dễ trở thành phương án tồi. **Policy ngầm** đánh giá xem một hành động phù hợp với quan sát tới mức nào rồi tìm hành động có điểm tốt. Cách này linh hoạt nhưng khâu tìm kiếm có thể khó tối ưu hoặc chạy không ổn định.
+**chính sách điều khiển tường minh** có thể nhận ảnh rồi dự đoán trực tiếp lệnh; khi nhiều cách thao tác cùng đúng, một giá trị trung bình dễ trở thành phương án tồi. **chính sách điều khiển ngầm** đánh giá xem một hành động phù hợp với quan sát tới mức nào rồi tìm hành động có điểm tốt. Cách này linh hoạt nhưng khâu tìm kiếm có thể khó tối ưu hoặc chạy không ổn định.
 
 **Mô hình diffusion** bắt đầu từ một chuỗi lệnh ngẫu nhiên, rồi sửa đi sửa lại theo hướng mô hình đã học cho đến khi trông giống chuyển động hợp lệ trong dữ liệu. **Đoạn hành động (action chunk)** là nhiều bước liên tiếp được dự đoán cùng lúc. Nhờ vậy mô hình không cần tự chọn hướng mới một cách thiếu nhất quán ở từng khung hình.
 
@@ -81,7 +81,7 @@ Khi robot chạy, mạng bắt đầu bằng chuỗi nhiễu ngẫu nhiên và s
 
 Trên bàn, khối chữ T cần được đẩy vào vùng đích. Robot có thể vòng một bên rồi đổi hướng đẩy, hoặc bắt đầu từ bên khác mà vẫn tới đúng chỗ. Diffusion Policy học sự khác biệt giữa những phương án này. Khi đã chọn tiếp cận từ bên phải trong một lần chạy, chuỗi lệnh cần tiếp tục theo cách đó, không đột nhiên nhảy sang trái ở bước kế.
 
-Bây giờ người dùng xê dịch khối trong lúc robot đang đi tới vùng đích. Nếu camera cập nhật đủ nhanh, policy có cơ hội nhận ra vị trí mới và tạo chuỗi lệnh sửa sai. Ví dụ ở Hình 9 cho thấy hiện tượng này trong thí nghiệm; nhưng nó không có nghĩa mọi loại nhiễu đều được xử lý tốt.
+Bây giờ người dùng xê dịch khối trong lúc robot đang đi tới vùng đích. Nếu camera cập nhật đủ nhanh, chính sách điều khiển có cơ hội nhận ra vị trí mới và tạo chuỗi lệnh sửa sai. Ví dụ ở Hình 9 cho thấy hiện tượng này trong thí nghiệm; nhưng nó không có nghĩa mọi loại nhiễu đều được xử lý tốt.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -106,7 +106,7 @@ Hình 4 minh họa vì sao lựa chọn một quỹ đạo nhất quán quan tr�
 
 Điểm cần theo dõi không chỉ là tỷ lệ thành công tổng hợp. Hình 4 so khả năng giữ một cách đi xuyên suốt lần thực thi; Hình 5 thay loại lệnh vị trí/vận tốc; Hình 6 thay độ dài đoạn hành động và độ trễ. Một đoạn quá dài có thể mượt nhưng khó phản ứng với vật bị di chuyển; đoạn quá ngắn có thể cập nhật nhanh nhưng dễ dao động. Đấy là sự đánh đổi có ý nghĩa thực tế.
 
-**Ablation** tức thử bỏ hoặc đổi riêng một thành phần để xem tác dụng của nó. Thí nghiệm này không phải “nghiên cứu phá vỡ”. Khi đọc các biểu đồ, hãy hỏi tỷ lệ thành công được đo trên bao nhiêu lượt chạy và đường sai số có lớn không. Kết quả loss tốt hơn chưa chắc dẫn tới thao tác tốt hơn, như so sánh với IBC ở Hình 7.
+**Ablation** tức thử bỏ hoặc đổi riêng một thành phần để xem tác dụng của nó. Thí nghiệm này không phải “nghiên cứu phá vỡ”. Khi đọc các biểu đồ, hãy hỏi tỷ lệ thành công được đo trên bao nhiêu lượt chạy và đường sai số có lớn không. Kết quả hàm mất mát tốt hơn chưa chắc dẫn tới thao tác tốt hơn, như so sánh với IBC ở Hình 7.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -139,7 +139,7 @@ Nếu muốn đặt bài này vào bản đồ VLA, hãy xem tiếp các hướn
 
 ### Kết nối với ACT, FAST và RTC
 
-ACT cũng dự đoán đoạn hành động nhưng dùng Transformer và CVAE để học từ demonstration; Diffusion Policy dùng quá trình khử nhiễu để sinh chuỗi có nhiều khả năng. FAST lại không phải một policy diffusion khác: nó là cách mã hóa và nén chuỗi hành động thành token để mô hình tự hồi quy dự đoán dễ hơn.
+ACT cũng dự đoán đoạn hành động nhưng dùng Transformer và CVAE để học từ demonstration; Diffusion Policy dùng quá trình khử nhiễu để sinh chuỗi có nhiều khả năng. FAST lại không phải một chính sách điều khiển diffusion khác: nó là cách mã hóa và nén chuỗi hành động thành token để mô hình tự hồi quy dự đoán dễ hơn.
 
 RTC giải bài toán triển khai nảy sinh sau đó: nếu phải mất thời gian mới sinh xong chunk tiếp theo, làm sao nối hai chuỗi mà robot không giật hoặc dừng? Ba hướng nghiên cứu bổ sung nhau: **sinh hành động → biểu diễn hành động → thực thi hành động đúng nhịp**.
 

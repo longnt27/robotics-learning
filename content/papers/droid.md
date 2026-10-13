@@ -17,7 +17,7 @@ Một robot có thể làm việc rất tốt trong phòng thí nghiệm nhưng 
 
 ### Vì sao dữ liệu thu ở một phòng lab chưa đủ?
 
-Nếu robot luôn thực hành trên một chiếc bàn, dưới một dàn đèn và với người vận hành quen thuộc, nó có thể vô tình ghi nhớ bối cảnh. Sang căn bếp khác, camera nhìn từ góc mới và đồ vật chưa gặp, policy sẽ sai dù nhiệm vụ “nhặt rồi đặt” vẫn giống. **DROID mở rộng việc thu dữ liệu ra nhiều tòa nhà và phòng làm việc thật**, để mô hình học được sự đa dạng thường gặp khi triển khai.
+Nếu robot luôn thực hành trên một chiếc bàn, dưới một dàn đèn và với người vận hành quen thuộc, nó có thể vô tình ghi nhớ bối cảnh. Sang căn bếp khác, camera nhìn từ góc mới và đồ vật chưa gặp, chính sách điều khiển sẽ sai dù nhiệm vụ “nhặt rồi đặt” vẫn giống. **DROID mở rộng việc thu dữ liệu ra nhiều tòa nhà và phòng làm việc thật**, để mô hình học được sự đa dạng thường gặp khi triển khai.
 
 Đóng góp quan trọng ở đây là cơ sở dữ liệu và phương pháp tổ chức thu thập trên nhiều địa điểm. Không nên nhầm DROID với một thuật toán sinh hành động mới.
 
@@ -27,7 +27,7 @@ Nếu robot luôn thực hành trên một chiếc bàn, dưới một dàn đè
 
 Robot ngoài phòng thí nghiệm gặp **nhiều ánh sáng, phông nền, đồ vật và vị trí camera khác nhau**. Dù có rất nhiều quỹ đạo, dữ liệu ghi mãi ở một bàn vẫn có thể khiến mô hình dựa vào dấu hiệu không liên quan, như màu tường. DROID ưu tiên sự đa dạng cảnh thật thay vì chỉ tăng số lượt làm cùng một việc.
 
-Các bản ghi phải đồng bộ ảnh, trạng thái và lệnh. Khi thời điểm ảnh bị lệch so với hành động, policy có thể học phản ứng muộn hoặc sai. Chất lượng thu thập và kiểm tra dữ liệu vì vậy quan trọng không kém số giờ.
+Các bản ghi phải đồng bộ ảnh, trạng thái và lệnh. Khi thời điểm ảnh bị lệch so với hành động, chính sách điều khiển có thể học phản ứng muộn hoặc sai. Chất lượng thu thập và kiểm tra dữ liệu vì vậy quan trọng không kém số giờ.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -43,7 +43,7 @@ DROID ghi ảnh từ ba camera đồng bộ, có thông số hiệu chuẩn và 
 
 DROID thu khoảng **76.000 quỹ đạo, tương đương 350 giờ** thao tác, trong **564 bối cảnh, 86 nhiệm vụ và 52 tòa nhà**. Bộ thiết bị được chuẩn hóa với tay máy Franka cùng các camera, rồi mang đến nhiều tổ chức để thu ở không gian thực tế khác nhau. Nhờ đó dữ liệu thay đổi rộng về cảnh nhưng vẫn dễ dùng chung một kiểu lệnh robot.
 
-Nhóm tác giả huấn luyện policy trên dữ liệu này rồi so những tập con có **cùng lượng mẫu nhưng khác số bối cảnh**. Thiết kế đó cho phép kiểm tra liệu sự đa dạng môi trường có lợi ích riêng, thay vì mọi cải thiện đơn giản do dữ liệu nhiều hơn.
+Nhóm tác giả huấn luyện chính sách điều khiển trên dữ liệu này rồi so những tập con có **cùng lượng mẫu nhưng khác số bối cảnh**. Thiết kế đó cho phép kiểm tra liệu sự đa dạng môi trường có lợi ích riêng, thay vì mọi cải thiện đơn giản do dữ liệu nhiều hơn.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -60,7 +60,7 @@ Nhóm tác giả huấn luyện policy trên dữ liệu này rồi so những t
 
 Nhóm nghiên cứu chuẩn hóa một bộ thiết bị có thể mang tới nhiều nơi: tay máy Franka, camera nổi gắn ngoài và ở cổ tay, cùng bộ điều khiển thực tế ảo. Người vận hành đưa robot tới phòng hoặc căn bếp mới, làm nhiệm vụ và ghi lại quỹ đạo với câu lệnh tương ứng. Cùng phần cứng chuẩn giúp giảm khác biệt do loại robot, trong khi bối cảnh được chủ động thay đổi.
 
-Từ các quỹ đạo này, policy có thể được học chung với dữ liệu nhiệm vụ đích. Sau đó người ta đánh giá không chỉ ở bối cảnh quen mà còn với đồ vật hoặc vật gây nhiễu chưa thấy. Đây là phép thử xem nguồn dữ liệu rộng có thực sự giúp tăng độ bền không.
+Từ các quỹ đạo này, chính sách điều khiển có thể được học chung với dữ liệu nhiệm vụ đích. Sau đó người ta đánh giá không chỉ ở bối cảnh quen mà còn với đồ vật hoặc vật gây nhiễu chưa thấy. Đây là phép thử xem nguồn dữ liệu rộng có thực sự giúp tăng độ bền không.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -80,9 +80,9 @@ DROID cho mạng thấy nhiều kiểu cảnh để học dấu hiệu quan tr�
 
 ### Ví dụ nấu đậu lăng trong căn bếp mới
 
-Robot phải mở nắp chảo, nhặt rồi đổ đậu lăng, sau đó bật bếp. Đây là nhiệm vụ dài, nhiều điểm có thể lỗi: nắm sai nắp, đổ lệch chảo hoặc thao tác nhầm núm bếp. Khi trong cảnh xuất hiện vật gây nhiễu, policy còn phải xác định đâu là vật cần thao tác.
+Robot phải mở nắp chảo, nhặt rồi đổ đậu lăng, sau đó bật bếp. Đây là nhiệm vụ dài, nhiều điểm có thể lỗi: nắm sai nắp, đổ lệch chảo hoặc thao tác nhầm núm bếp. Khi trong cảnh xuất hiện vật gây nhiễu, chính sách điều khiển còn phải xác định đâu là vật cần thao tác.
 
-Dữ liệu ở nhiều bếp giúp policy có cơ hội học những dấu hiệu ổn định hơn màu nền hoặc vị trí một chiếc bát cụ thể. Hình 9 so các lần robot chạy thật để thấy thao tác nào được cải thiện, thay vì chỉ xem tỷ lệ cuối.
+Dữ liệu ở nhiều bếp giúp chính sách điều khiển có cơ hội học những dấu hiệu ổn định hơn màu nền hoặc vị trí một chiếc bát cụ thể. Hình 9 so các lần robot chạy thật để thấy thao tác nào được cải thiện, thay vì chỉ xem tỷ lệ cuối.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -113,7 +113,7 @@ Hình 10 thực sự kiểm tra vai trò của số cảnh: so một phần dữ
 
 DROID chủ yếu dùng một hệ robot chuẩn, nên nghiên cứu độ đa dạng cảnh và nhiệm vụ rõ hơn sự khác biệt giữa nhiều cấu trúc cơ khí. Dữ liệu vẫn thường là thao tác trên bàn; những việc cần lực lớn, vật mềm hoặc chuyển động toàn thân chưa được bao phủ đầy đủ.
 
-Các policy trong thí nghiệm vẫn cần demonstration của nhiệm vụ đích; DROID không tự tạo ra một robot làm mọi việc mà không học thêm. Bộ dữ liệu cũng có ít ví dụ lỗi và phục hồi. Kết quả cần được hiểu trong phạm vi những cảnh, vật thể và số lần chạy đã kiểm tra.
+Các chính sách điều khiển trong thí nghiệm vẫn cần demonstration của nhiệm vụ đích; DROID không tự tạo ra một robot làm mọi việc mà không học thêm. Bộ dữ liệu cũng có ít ví dụ lỗi và phục hồi. Kết quả cần được hiểu trong phạm vi những cảnh, vật thể và số lần chạy đã kiểm tra.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -154,7 +154,7 @@ Tạo hai tập con có lượng demonstration bằng nhau, nhưng một tập c
 
 Giữ cùng câu lệnh “nhặt túi khoai tây chiên”, nhưng đặt túi trên ba mặt bàn có màu và ánh sáng khác nhau. Huấn luyện từ cùng số demonstration, lần lượt chọn tập có ít cảnh và tập đa dạng. Đo tỷ lệ thành công trên cảnh chưa xuất hiện khi học.
 
-Nếu policy thất bại khi thêm một vật giống túi khác bên cạnh, đó còn là vấn đề phân biệt vật đích. Việc ghi loại lỗi giúp hiểu DROID hỗ trợ phần nào, không chỉ nhận một điểm tổng hợp.
+Nếu chính sách điều khiển thất bại khi thêm một vật giống túi khác bên cạnh, đó còn là vấn đề phân biệt vật đích. Việc ghi loại lỗi giúp hiểu DROID hỗ trợ phần nào, không chỉ nhận một điểm tổng hợp.
 
 <!-- END EXTENDED WALKTHROUGH -->
 

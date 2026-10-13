@@ -57,7 +57,7 @@ Trong huấn luyện, CVAE mã hóa những khác biệt giữa các chuỗi tha
 
 **Khi huấn luyện**, dữ liệu có ảnh camera, vị trí các khớp và chuỗi hành động do người điều khiển thực hiện. Bộ mã hóa CVAE nhìn chuỗi lệnh mẫu để tạo z, rồi bộ giải mã cùng Transformer dùng ảnh, trạng thái và z để dự đoán lại đoạn chuyển động. Từ đó mô hình học cách các bước hành động có liên hệ.
 
-**Khi chạy thật**, không có sẵn chuỗi tương lai của người. Bộ mã hóa CVAE được bỏ đi, z thường đặt bằng 0; policy nhận ảnh và trạng thái robot rồi sinh đoạn hành động. Những dự đoán chồng nhau có thể được tổng hợp theo trọng số trước khi phát lệnh. Đây là lý do sơ đồ có hai nhánh huấn luyện và thực thi: không phải mọi thành phần đều cần chạy trên robot.
+**Khi chạy thật**, không có sẵn chuỗi tương lai của người. Bộ mã hóa CVAE được bỏ đi, z thường đặt bằng 0; chính sách điều khiển nhận ảnh và trạng thái robot rồi sinh đoạn hành động. Những dự đoán chồng nhau có thể được tổng hợp theo trọng số trước khi phát lệnh. Đây là lý do sơ đồ có hai nhánh huấn luyện và thực thi: không phải mọi thành phần đều cần chạy trên robot.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -79,7 +79,7 @@ Khi có ảnh mới, mô hình có thể tạo một đoạn dự đoán khác n
 
 Robot dùng tay trái ghì túi, tay phải cầm miệng túi. Hai tay phải di chuyển cùng nhịp: tay trái giữ căng trong lúc tay phải kéo. Khi sinh cả đoạn hành động, ACT có cơ hội học chuỗi giữ–kéo thay vì quyết định từng tay một cách rời rạc.
 
-Giả sử ngón kẹp tay phải bị trượt trước khi kéo. Nếu robot cứ phát tiếp các lệnh trong đoạn cũ, thao tác sẽ thất bại. Khi có quan sát mới, policy cần điều chỉnh ở lần dự đoán tiếp theo. Ví dụ này cho thấy chunking giúp giữ sự nhất quán nhưng không thay thế nhu cầu quan sát và sửa sai.
+Giả sử ngón kẹp tay phải bị trượt trước khi kéo. Nếu robot cứ phát tiếp các lệnh trong đoạn cũ, thao tác sẽ thất bại. Khi có quan sát mới, chính sách điều khiển cần điều chỉnh ở lần dự đoán tiếp theo. Ví dụ này cho thấy chunking giúp giữ sự nhất quán nhưng không thay thế nhu cầu quan sát và sửa sai.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -101,7 +101,7 @@ Các **thí nghiệm loại bỏ từng thành phần** cho thấy việc dự �
 
 ### Những thí nghiệm nào chứng minh từng thành phần có ích?
 
-Hình 9 kiểm tra các ý tưởng riêng rẽ: thêm action chunking vào mô hình khác, dùng hoặc không dùng temporal ensembling, và có hoặc bỏ phần huấn luyện CVAE. Chunking giúp cả hai phương pháp đối chứng được thử. Ensembling giúp một số policy nhưng khiến VINN kém hơn, nên không phải cứ thêm vào là tốt. Khi bỏ CVAE, kết quả học từ dữ liệu con người giảm trong thiết lập được thử.
+Hình 9 kiểm tra các ý tưởng riêng rẽ: thêm action chunking vào mô hình khác, dùng hoặc không dùng temporal ensembling, và có hoặc bỏ phần huấn luyện CVAE. Chunking giúp cả hai phương pháp đối chứng được thử. Ensembling giúp một số chính sách điều khiển nhưng khiến VINN kém hơn, nên không phải cứ thêm vào là tốt. Khi bỏ CVAE, kết quả học từ dữ liệu con người giảm trong thiết lập được thử.
 
 Bài báo còn khảo sát tốc độ điều khiển từ xa: giảm tần số người ra lệnh từ 50 Hz xuống 5 Hz kéo dài thời gian hoàn thành. Đó là minh chứng rằng thời gian và sự phối hợp chuyển động là thành phần thật của bài toán, không chỉ là một chỉ số GPU.
 
@@ -119,7 +119,7 @@ Bài báo còn khảo sát tốc độ điều khiển từ xa: giảm tần s�
 
 Một đoạn hành động dài có thể mượt nhưng không kịp phản ứng nếu vật bị đổi vị trí hoặc robot cầm hụt. Khi mạng tính đoạn mới chậm, robot vẫn có nguy cơ phải dừng để chờ. Đây là vấn đề các nghiên cứu RTC xử lý, chứ không phải một tính năng tự động có được từ chunking.
 
-Mô hình cũng bị giới hạn bởi dữ liệu do người vận hành thu: một động tác không từng được biểu diễn đầy đủ thì khó bắt chước chính xác. Độ trễ camera, lực kẹp và cấu trúc khớp mới có thể làm policy thất bại dù lỗi dự đoán offline nhỏ.
+Mô hình cũng bị giới hạn bởi dữ liệu do người vận hành thu: một động tác không từng được biểu diễn đầy đủ thì khó bắt chước chính xác. Độ trễ camera, lực kẹp và cấu trúc khớp mới có thể làm chính sách điều khiển thất bại dù lỗi dự đoán offline nhỏ.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -136,7 +136,7 @@ Nếu muốn đặt bài này vào bản đồ VLA, hãy xem tiếp các hướn
 
 ACT và Diffusion Policy đều sinh đoạn hành động. ACT sử dụng Transformer và CVAE; Diffusion Policy bắt đầu từ chuỗi nhiễu rồi chỉnh thành chuyển động hợp lệ. Cả hai đều cố tránh hiện tượng dự đoán từng bước làm chuyển động giật hoặc mất nhất quán.
 
-RTC giải tầng thực thi: model mất thời gian sinh đoạn tiếp theo thì robot có phải đứng chờ không, và đoạn mới nối vào đoạn cũ như thế nào? Nhìn ba bài như ba câu hỏi về **học chuyển động, sinh chuyển động và thực thi liên tục** giúp hiểu mối liên hệ giữa chúng.
+RTC giải tầng thực thi: mô hình mất thời gian sinh đoạn tiếp theo thì robot có phải đứng chờ không, và đoạn mới nối vào đoạn cũ như thế nào? Nhìn ba bài như ba câu hỏi về **học chuyển động, sinh chuyển động và thực thi liên tục** giúp hiểu mối liên hệ giữa chúng.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -150,9 +150,9 @@ Nếu đoạn dài làm robot mượt nhưng không phản ứng kịp khi vật
 
 ### Tự kiểm tra bằng một bảng ba cột
 
-Hãy lập bảng gồm quan sát hiện tại, chuỗi lệnh dự đoán và lệnh robot đang chạy. Thêm trường hợp tay phải trượt khỏi túi giữa một đoạn. Đánh dấu những lệnh nên hủy hoặc cập nhật. Bài tập này giải thích vì sao không thể chỉ nhìn một đoạn video mượt để kết luận policy có phản hồi tốt.
+Hãy lập bảng gồm quan sát hiện tại, chuỗi lệnh dự đoán và lệnh robot đang chạy. Thêm trường hợp tay phải trượt khỏi túi giữa một đoạn. Đánh dấu những lệnh nên hủy hoặc cập nhật. Bài tập này giải thích vì sao không thể chỉ nhìn một đoạn video mượt để kết luận chính sách điều khiển có phản hồi tốt.
 
-Sau đó trả lời ba câu: CVAE làm gì trong lúc học? Bộ mã hóa CVAE có còn chạy khi điều khiển robot không? Temporal ensembling có luôn cải thiện mọi policy không?
+Sau đó trả lời ba câu: CVAE làm gì trong lúc học? Bộ mã hóa CVAE có còn chạy khi điều khiển robot không? Temporal ensembling có luôn cải thiện mọi chính sách điều khiển không?
 
 <!-- END EXTENDED WALKTHROUGH -->
 

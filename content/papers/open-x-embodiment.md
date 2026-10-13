@@ -60,7 +60,7 @@ Khi huấn luyện, mô hình nhìn ảnh cùng câu lệnh từ nhiều nguồn
 
 Robot A nhận lệnh dịch đầu kẹp theo ba trục và điều khiển đóng/mở kẹp. Robot B nhận trực tiếp góc từng khớp. Nếu trộn nguyên các số ấy, cùng một chiều trong dữ liệu có thể mang hai ý nghĩa trái nhau. Trước khi huấn luyện phải chọn cách biểu diễn có thể dùng chung hoặc gắn bộ chuyển đổi riêng cho từng robot.
 
-Để đo lợi ích chuyển giao, giữ nguyên robot đích B và bài kiểm tra. So một policy chỉ học dữ liệu B với policy còn học thêm dữ liệu A đã chuyển đổi đúng. Khi điều kiện khác gần tương đương, chênh lệch mới giúp đánh giá ích lợi của học chung.
+Để đo lợi ích chuyển giao, giữ nguyên robot đích B và bài kiểm tra. So một chính sách điều khiển chỉ học dữ liệu B với chính sách điều khiển còn học thêm dữ liệu A đã chuyển đổi đúng. Khi điều kiện khác gần tương đương, chênh lệch mới giúp đánh giá ích lợi của học chung.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -99,13 +99,13 @@ Khi đọc câu “cao hơn 50%”, cần biết đó là mức tăng tương đ
 
 Nguồn dữ liệu từ các phòng thí nghiệm không cân bằng về số lượng, nhiệm vụ và góc camera. Nhiều thiết bị vẫn là tay máy thao tác trên bàn, có dạng kẹp tương đối giống nhau; vì thế 22 kiểu robot chưa đại diện đầy đủ cho tất cả cơ cấu ngoài đời.
 
-**Chuẩn hóa dữ liệu không loại bỏ mọi khác biệt phần cứng.** Cách chuyển đổi lệnh có thể làm mất thông tin riêng của một loại robot, còn model lớn vẫn đắt để huấn luyện. Công trình chứng minh học chung giữa các nguồn robot có ích trong những trường hợp được thử, chứ chưa giải xong vấn đề điều khiển thống nhất mọi robot.
+**Chuẩn hóa dữ liệu không loại bỏ mọi khác biệt phần cứng.** Cách chuyển đổi lệnh có thể làm mất thông tin riêng của một loại robot, còn mô hình lớn vẫn đắt để huấn luyện. Công trình chứng minh học chung giữa các nguồn robot có ích trong những trường hợp được thử, chứ chưa giải xong vấn đề điều khiển thống nhất mọi robot.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
 ### Những giới hạn của trộn dữ liệu
 
-Tập dữ liệu lớn có thể không cân bằng: nguồn robot phổ biến chiếm phần lớn số quỹ đạo. Camera khác, nhịp điều khiển khác và lệnh được chuẩn hóa sai đều có thể làm policy học các quy luật không phù hợp. Một bước chuyển đổi hành động bị lỗi có thể phá hàng nghìn mẫu cùng lúc.
+Tập dữ liệu lớn có thể không cân bằng: nguồn robot phổ biến chiếm phần lớn số quỹ đạo. Camera khác, nhịp điều khiển khác và lệnh được chuẩn hóa sai đều có thể làm chính sách điều khiển học các quy luật không phù hợp. Một bước chuyển đổi hành động bị lỗi có thể phá hàng nghìn mẫu cùng lúc.
 
 Ngoài ra, sự đa dạng robot không tự bảo đảm robot đích có đủ cơ cấu cho thao tác, ví dụ tay kẹp cứng không thể bắt chước bàn tay nhiều ngón trong mọi tình huống.
 
@@ -123,9 +123,9 @@ Nếu muốn đặt bài này vào bản đồ VLA, hãy xem tiếp các hướn
 
 ### Open X liên quan gì tới Octo và OpenVLA?
 
-Open X-Embodiment cung cấp nguồn dữ liệu nhiều robot. Octo sử dụng một phần nguồn ấy để huấn luyện policy có thể thích nghi với đầu vào và không gian hành động mới. OpenVLA cũng tận dụng dữ liệu robot đa dạng nhưng sinh hành động bằng kiến trúc gắn với mô hình ngôn ngữ.
+Open X-Embodiment cung cấp nguồn dữ liệu nhiều robot. Octo sử dụng một phần nguồn ấy để huấn luyện chính sách điều khiển có thể thích nghi với đầu vào và không gian hành động mới. OpenVLA cũng tận dụng dữ liệu robot đa dạng nhưng sinh hành động bằng kiến trúc gắn với mô hình ngôn ngữ.
 
-Tập dữ liệu không phải model; model không phải thuật toán chuyển đổi lệnh. Khi đọc ba bài, luôn tách từng tầng: thu dữ liệu → chuẩn hóa → huấn luyện → thích nghi robot mới.
+Tập dữ liệu không phải mô hình; mô hình không phải thuật toán chuyển đổi lệnh. Khi đọc ba bài, luôn tách từng tầng: thu dữ liệu → chuẩn hóa → huấn luyện → thích nghi robot mới.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -141,7 +141,7 @@ Trước khi huấn luyện lớn, vẽ phân phối từng chiều hành độn
 
 Giả sử có robot A và B khác số khớp, nhưng cùng có thể nhặt cốc. Ghi những thông tin chung có thể dùng lại: ảnh vật, đích đến, thời điểm kẹp. Tiếp theo ghi những thứ không thể sao chép thẳng: góc khớp, giới hạn hành trình và kích thước kẹp.
 
-So policy B chỉ học dữ liệu B với policy B được bổ sung dữ liệu A sau khi chuyển đổi hợp lệ. Đánh giá cùng vật và bố cục mới; như vậy mới đo được lợi ích của học chung.
+So chính sách điều khiển B chỉ học dữ liệu B với chính sách điều khiển B được bổ sung dữ liệu A sau khi chuyển đổi hợp lệ. Đánh giá cùng vật và bố cục mới; như vậy mới đo được lợi ích của học chung.
 
 <!-- END EXTENDED WALKTHROUGH -->
 

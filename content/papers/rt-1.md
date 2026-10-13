@@ -14,7 +14,7 @@ Nếu mỗi công việc của robot đều cần một mô hình riêng, một 
 
 ### Vì sao không thể huấn luyện riêng một mô hình cho từng công việc?
 
-Một robot phục vụ trong bếp có thể cần nhặt cốc, mở ngăn kéo, đặt bát, gom rác và hàng trăm việc khác. Nếu mỗi việc có một mô hình riêng, mỗi khi đổi vị trí đồ vật hay cách nói lệnh ta lại phải thu thêm dữ liệu và huấn luyện lại. Cách đó nhanh chóng trở nên quá đắt. **RT-1 hỏi liệu một policy duy nhất có thể học nhiều thao tác từ nhiều demonstration robot thật hay không.**
+Một robot phục vụ trong bếp có thể cần nhặt cốc, mở ngăn kéo, đặt bát, gom rác và hàng trăm việc khác. Nếu mỗi việc có một mô hình riêng, mỗi khi đổi vị trí đồ vật hay cách nói lệnh ta lại phải thu thêm dữ liệu và huấn luyện lại. Cách đó nhanh chóng trở nên quá đắt. **RT-1 hỏi liệu một chính sách điều khiển duy nhất có thể học nhiều thao tác từ nhiều demonstration robot thật hay không.**
 
 Khác với bài toán nhận diện ảnh, hành động sai sẽ làm thay đổi thế giới. Nếu kẹp lệch một chút, chiếc cốc có thể trượt; quan sát ở bước sau sẽ khác hẳn dữ liệu mẫu. Vì vậy mô hình cần vừa hiểu câu lệnh vừa phát lệnh đủ nhanh để giữ điều khiển liên tục. Đóng góp RT-1 không chỉ là kiến trúc Transformer, mà là dữ liệu robot đa nhiệm được tổ chức để học chung.
 
@@ -96,7 +96,7 @@ Trên hơn **700 nhiệm vụ đã học**, RT-1 được báo cáo đạt kho�
 
 ### Vì sao đa dạng dữ liệu quan trọng hơn đếm số lượt?
 
-Hãy tưởng tượng hai tập đều có 10.000 lần robot thao tác. Tập A lặp lại một kiểu bếp và ít đồ vật; tập B có nhiều kỹ năng, đồ vật và cách đặt khác nhau. Tập A có thể cho loss rất đẹp trên bối cảnh cũ nhưng dễ gặp sai ở bếp mới. Tập B buộc mô hình chú ý tới đặc điểm liên quan tới nhiệm vụ thay vì ghi nhớ nền.
+Hãy tưởng tượng hai tập đều có 10.000 lần robot thao tác. Tập A lặp lại một kiểu bếp và ít đồ vật; tập B có nhiều kỹ năng, đồ vật và cách đặt khác nhau. Tập A có thể cho hàm mất mát rất đẹp trên bối cảnh cũ nhưng dễ gặp sai ở bếp mới. Tập B buộc mô hình chú ý tới đặc điểm liên quan tới nhiệm vụ thay vì ghi nhớ nền.
 
 Hình 6 là các thí nghiệm thay đổi cấu trúc dữ liệu, đo riêng tỷ lệ thành công trên nhiệm vụ đã gặp, chưa gặp và lúc có vật gây nhiễu. Kết luận có căn cứ là sự đa dạng góp phần lớn vào hiệu quả và khả năng khái quát *trong những nhóm thử này*. Không nên diễn đạt thành “tăng dữ liệu bao nhiêu cũng vô ích”; thêm dữ liệu vẫn có thể giúp nếu mẫu mới mang thông tin hữu ích.
 
@@ -129,9 +129,9 @@ Nếu muốn đặt bài này vào bản đồ VLA, hãy xem tiếp các hướn
 
 ### RT-1 nằm ở đâu trong lịch sử VLA?
 
-VIMA nhấn mạnh cách mô tả mục tiêu bằng prompt đa phương thức trong mô phỏng. RT-1 xây bằng chứng cho việc huấn luyện policy từ lượng lớn dữ liệu robot thật với câu lệnh ngôn ngữ. RT-2 tiến thêm một bước: dùng phần tri thức đã học từ dữ liệu ảnh và chữ trên Internet để hỗ trợ hiểu những yêu cầu robot mới.
+VIMA nhấn mạnh cách mô tả mục tiêu bằng prompt đa phương thức trong mô phỏng. RT-1 xây bằng chứng cho việc huấn luyện chính sách điều khiển từ lượng lớn dữ liệu robot thật với câu lệnh ngôn ngữ. RT-2 tiến thêm một bước: dùng phần tri thức đã học từ dữ liệu ảnh và chữ trên Internet để hỗ trợ hiểu những yêu cầu robot mới.
 
-RT-1 và Open X-Embodiment cũng liên hệ trực tiếp: khi dữ liệu đến từ nhiều kiểu robot, ngoài hình ảnh còn có vấn đề **lệnh điều khiển của hai phần cứng không có cùng ý nghĩa**. Chính vì vậy kết quả một policy đa nhiệm là một bước tiến, không phải lời giải cuối cùng của chuyển giao sang mọi robot.
+RT-1 và Open X-Embodiment cũng liên hệ trực tiếp: khi dữ liệu đến từ nhiều kiểu robot, ngoài hình ảnh còn có vấn đề **lệnh điều khiển của hai phần cứng không có cùng ý nghĩa**. Chính vì vậy kết quả một chính sách điều khiển đa nhiệm là một bước tiến, không phải lời giải cuối cùng của chuyển giao sang mọi robot.
 
 <!-- END EXTENDED WALKTHROUGH -->
 

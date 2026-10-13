@@ -93,7 +93,7 @@ Kết quả quan trọng là video người không cần cung cấp lệnh robot
 
 ### Vì sao thí nghiệm phải dùng nhiệm vụ dài?
 
-Một policy có thể hoàn thành từng bước riêng với xác suất cao nhưng vẫn hay thất bại khi phải làm liên tiếp năm đến bảy bước. Sai ở bước đầu có thể làm các bước sau không còn thực hiện được. Vì vậy MIMICPLAY được thử trên các công việc như dọn bàn, chuẩn bị bánh kẹp hoặc gấp khăn.
+Một chính sách điều khiển có thể hoàn thành từng bước riêng với xác suất cao nhưng vẫn hay thất bại khi phải làm liên tiếp năm đến bảy bước. Sai ở bước đầu có thể làm các bước sau không còn thực hiện được. Vì vậy MIMICPLAY được thử trên các công việc như dọn bàn, chuẩn bị bánh kẹp hoặc gấp khăn.
 
 Hình 4 so nhiệm vụ được chỉ dẫn bằng video người và video robot. Khi đọc kết quả, nên xem tiêu chí thành công có đòi hoàn thành toàn nhiệm vụ không và lượng dữ liệu robot ở các trường hợp có được giữ tương đương không.
 
