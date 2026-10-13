@@ -84,6 +84,8 @@ Một quỹ đạo đưa tay qua khoảng trống có thể rất mượt và d�
 
 Do đó nên đo sai số sau khi mã hóa–giải mã trên từng chiều và tại các đoạn có tiếp xúc. Cần kiểm tra cả kết quả robot thực hiện, không chỉ tỷ lệ nén.
 
+**Một đánh đổi dễ bị bỏ qua:** FAST có thể giúp **huấn luyện nhanh hơn** nhưng không mặc nhiên giúp **suy luận nhanh hơn**. Mục VI-E của bài gốc báo phiên bản π0 sinh token bằng FAST cần khoảng **750 mili giây để tạo một đoạn hành động dài một giây** trên RTX 4090, trong khi phiên bản π0 dùng diffusion mất khoảng **100 mili giây**. Lý do là FAST phải sinh các token lần lượt bằng mạng ngôn ngữ lớn, còn diffusion dùng ít bước khử nhiễu hơn trong phép so đó. Hai con số thuộc một thiết lập cụ thể nhưng đủ để bác bỏ suy luận “nén được nhiều hơn thì robot chắc chắn điều khiển nhanh hơn”.
+
 ## Liên hệ với nghiên cứu khác
 
 ### FAST liên quan thế nào tới OpenVLA và π0.5?
