@@ -14,7 +14,12 @@ Giả sử trên bàn có ba khối giống nhau nhưng khác màu. Người dù
 
 **Prompt** là toàn bộ lời giao việc, có thể bao gồm đoạn chữ, ảnh vật mẫu hoặc hình thể hiện trạng thái đích. **Quan sát** là những gì camera robot nhìn thấy trong môi trường hiện tại. Hai thứ không giống nhau: prompt cho biết *cần làm gì*, còn quan sát cho biết *đang có gì và ở đâu*. Ví dụ ảnh trong prompt là chiếc cốc mẫu, trong khi camera hiện tại thấy ba chiếc cốc phải phân biệt.
 
-**Token theo vật thể** là cách biến từng vật được nhận diện thành một đơn vị thông tin. Thay vì bắt mạng tự phát hiện mọi quan hệ từ hàng trăm nghìn điểm ảnh, VIMA có sẵn một số cấu trúc để chỉ tới vật cụ thể. Đây là lợi thế nhưng cũng là giả định: khi không tách được vật khỏi nền hoặc vật bị che khuất, vấn đề trở nên khó hơn. **Chú ý chéo (cross-attention)** giúp phần điều khiển tham khảo những thông tin liên quan trong prompt lúc quyết định thao tác.
+**Token theo vật thể** là một mẩu thông tin đại diện cho một vật đã được nhận diện, chẳng hạn hình dạng và vị trí tương đối của chiếc cốc. Thay vì bắt mạng tự phát hiện mọi quan hệ từ hàng trăm nghìn điểm ảnh, VIMA có sẵn một số cấu trúc để chỉ tới vật cụ thể. Đây là lợi thế nhưng cũng là giả định: khi không tách được vật khỏi nền hoặc vật bị che khuất, vấn đề trở nên khó hơn. **Chú ý chéo (cross-attention)** giúp phần điều khiển tham khảo những thông tin liên quan trong prompt lúc quyết định thao tác.
+
+
+### ### Một lời giao việc có hai loại hình ảnh
+
+Giả sử mày đưa ảnh một chiếc cốc làm mẫu, rồi camera robot lại chụp được ba chiếc cốc trên bàn. Ảnh mẫu **không cho biết tọa độ để gắp**; nó chỉ giúp xác định đặc điểm của thứ cần tìm. Ảnh camera **không thay thế được lời giao việc**; nó cho biết những vật nào đang hiện diện và vị trí của chúng. Robot phải nối hai nguồn thông tin ấy trước khi tính hành động. Nếu chỉ nói “mô hình hiểu prompt đa phương thức” mà bỏ qua bước đối chiếu này, người đọc vẫn chưa biết phần khó nằm ở đâu.
 
 ## Phương pháp thực hiện
 
@@ -25,6 +30,11 @@ Giả sử trên bàn có ba khối giống nhau nhưng khác màu. Người dù
 **Bước 3:** Transformer kết hợp lịch sử thao tác, quan sát mới và prompt. Cơ chế chú ý chéo cho phép phần dự đoán hành động tìm tới thông tin quan trọng trong prompt, chẳng hạn đặc điểm khối xanh hoặc quan hệ “bên phải”. **Bước 4:** mạng dự đoán lệnh điều khiển tiếp theo; robot thực hiện và cập nhật quan sát. Quá trình lặp lại nhiều bước, không phải chỉ nhìn ảnh một lần rồi xuất ra toàn bộ nhiệm vụ.
 
 Phải phân biệt hai năng lực: hiểu đúng vật cần chọn và thực hiện thành công thao tác kẹp/đặt. Một mô hình có thể làm tốt bước đầu mà vẫn thất bại ở bước sau.
+
+
+### ### Chú ý chéo thực sự giúp ích ở bước nào?
+
+Hình dung mỗi vật trên bàn có một tấm thẻ thông tin, còn prompt có một tấm thẻ ghi “vật giống mẫu xanh”. Trong cơ chế chú ý chéo, biểu diễn dùng để dự đoán hành động có thể tham khảo những phần liên quan của prompt khi xử lý cảnh hiện tại. Nó không đơn giản là ghép hai đoạn chữ vào nhau: thông tin về vật cần chọn được sử dụng ngay trong quá trình quyết định. Sau khi chọn đúng vật, robot vẫn phải phát các lệnh tiếp cận, kẹp và đặt. Vì thế chọn đúng khối xanh mà kẹp trượt không chứng minh cơ chế tham chiếu prompt bị sai.
 
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/vima/figure-2.webp)
 
@@ -48,13 +58,18 @@ Bây giờ đổi hình tham chiếu thành khối vàng nhưng giữ nguyên c�
 
 VIMA-BENCH có bốn mức thử, mỗi mức ngày càng khác tình huống huấn luyện. Thành công ở mức dễ chỉ chứng minh mô hình tái hiện được các cách kết hợp quen thuộc; mức khó mới cho biết khả năng dùng lại kiến thức khi đổi đồ vật, quan hệ và cách chỉ dẫn. Khi đọc biểu đồ, nên so các phương pháp cùng điều kiện và chú ý xu hướng qua bốn mức, không chỉ chọn con số cao nhất.
 
-Hình 6 kiểm tra bộ mã hóa ảnh: giữ bài toán gần như giống nhau, thay cách tạo token từ hình. Hình 7 kiểm tra cơ chế đưa prompt vào mạng. “Thí nghiệm tách thành phần” ở đây là đổi một cơ chế rồi xem kết quả đổi ra sao; **ablation không có nghĩa mài mòn hay cắt lớp**. Kết quả cho thấy chú ý chéo đặc biệt có ích ở mô hình nhỏ và tình huống khó. Đó là bằng chứng cho một lựa chọn thiết kế, không phải bảo đảm mọi cấu hình robot thật đều có cùng mức cải thiện.
+Hình 6 kiểm tra bộ mã hóa ảnh: giữ bài toán gần như giống nhau, thay cách tạo token từ hình. Hình 7 kiểm tra cơ chế đưa prompt vào mạng. **Thí nghiệm tách thành phần (ablation)** là giữ nguyên phần lớn mô hình, chỉ đổi một cơ chế rồi đo xem kết quả khác đi thế nào. Kết quả cho thấy chú ý chéo đặc biệt có ích ở mô hình nhỏ và tình huống khó. Đó là bằng chứng cho một lựa chọn thiết kế, không phải bảo đảm mọi cấu hình robot thật đều có cùng mức cải thiện.
 
 
 
-### Số liệu và phạm vi kết luận
+### Đọc số liệu theo bốn mức thay đổi nhiệm vụ
 
-**Đối chiếu số liệu:** Bài báo báo cáo mức thành công cao hơn tối đa khoảng 2,9 lần so với kiến trúc đối chứng ở một số điều kiện thử và hiệu quả học từ dữ liệu cao hơn ở một số phép so. Đây không phải hệ số cải thiện cố định của mọi nhiệm vụ. Hãy xem riêng các mức thử: càng thay đổi nhiều yếu tố chưa thấy khi huấn luyện, tỷ lệ thành công nhìn chung càng giảm. Các biểu đồ ở Hình 4–7 giúp phân biệt lợi ích của việc tăng mô hình, tăng dữ liệu và thay cách đưa prompt vào bộ điều khiển.
+Bài báo báo cáo mức thành công cao hơn tối đa khoảng 2,9 lần so với kiến trúc đối chứng ở một số điều kiện thử và hiệu quả học từ dữ liệu cao hơn ở một số phép so. Đây không phải hệ số cải thiện cố định của mọi nhiệm vụ. Hãy xem riêng các mức thử: càng thay đổi nhiều yếu tố chưa thấy khi huấn luyện, tỷ lệ thành công nhìn chung càng giảm. Các biểu đồ ở Hình 4–7 giúp phân biệt lợi ích của việc tăng mô hình, tăng dữ liệu và thay cách đưa prompt vào bộ điều khiển.
+
+
+### ### Một phép thử nhỏ để tách hai nguyên nhân thất bại
+
+Giữ nguyên ba khối, câu lệnh và vị trí khay; chỉ thay ảnh mẫu từ xanh sang vàng. Nếu robot vẫn nhặt xanh, hãy nghi ngờ nó chưa dùng đúng ảnh tham chiếu. Nếu robot chuyển sang nhặt vàng nhưng làm rơi vật, lỗi nằm ở khả năng thao tác. Khi đọc VIMA-BENCH, hãy áp dụng cách tách này ở mức lớn hơn: cấp kiểm tra khó lên là do vật lạ, tổ hợp quan hệ lạ hay kiểu nhiệm vụ mới? Chỉ nhìn một tỷ lệ thành công tổng hợp sẽ che mất câu trả lời.
 
 ![Hình 5 từ PDF gốc, trang 6](/paper-figures/vima/figure-5.webp)
 
