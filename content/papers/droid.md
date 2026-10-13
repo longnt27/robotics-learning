@@ -80,7 +80,7 @@ Khi chọn dữ liệu cho một project, hãy hỏi lỗi cần giải là gặ
 
 ### Những bài nên đọc tiếp
 
-- [Open X-Embodiment](/paper/open-x-cấu hình cơ thể robot)
+- [Open X-Embodiment](/paper/open-x-embodiment)
 - [RoboCasa](/paper/robocasa)
 
 ## Đọc mã nguồn và tự kiểm chứng

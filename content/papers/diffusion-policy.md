@@ -6,9 +6,9 @@ Giả sử robot muốn đẩy một khối qua chướng ngại. Trong dữ li�
 
 Diffusion Policy không ép các lượt thao tác mẫu về một đường đi “trung bình”. Nó học cách tạo ra cả chuỗi hành động giống các đường đi hợp lệ, rồi lấy mẫu để chọn một đường nhất quán trong mỗi lần chạy. Đây là ý chính cần giữ khi đọc công thức khử nhiễu.
 
-![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/diffusion-chính sách điều khiển/figure-1.webp)
+![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/diffusion-policy/figure-1.webp)
 
-![Hình 7 từ PDF gốc, trang 6](/paper-figures/diffusion-chính sách điều khiển/figure-7.webp)
+![Hình 7 từ PDF gốc, trang 6](/paper-figures/diffusion-policy/figure-7.webp)
 
 ## Kiến thức nền cần nắm
 
@@ -26,11 +26,11 @@ Diffusion Policy không ép các lượt thao tác mẫu về một đường đ
 
 **Bước 4:** robot chỉ thực thi một phần đầu của đoạn đã sinh. Sau đó camera cung cấp ảnh mới và mô hình tạo đoạn tiếp theo. Đây là điều khiển có quan sát lại, khác với việc phát một quỹ đạo duy nhất rồi để robot chạy hết. Trong kiến trúc CNN, FiLM đưa thông tin quan sát vào các lớp xử lý; trong bản Transformer, chú ý chéo kết nối token hành động với đặc trưng quan sát.
 
-![Hình 2 gốc từ PDF bài báo, trang 2](/paper-figures/diffusion-chính sách điều khiển/figure-2.webp)
+![Hình 2 gốc từ PDF bài báo, trang 2](/paper-figures/diffusion-policy/figure-2.webp)
 
-![Hình 3 từ PDF gốc, trang 3](/paper-figures/diffusion-chính sách điều khiển/figure-3.webp)
+![Hình 3 từ PDF gốc, trang 3](/paper-figures/diffusion-policy/figure-3.webp)
 
-![Hình 8 từ PDF gốc, trang 9](/paper-figures/diffusion-chính sách điều khiển/figure-8.webp)
+![Hình 8 từ PDF gốc, trang 9](/paper-figures/diffusion-policy/figure-8.webp)
 
 ## Ví dụ từng bước
 
@@ -40,9 +40,9 @@ Trên bàn, khối chữ T cần được đẩy vào vùng đích. Robot có th
 
 Bây giờ người dùng xê dịch khối trong lúc robot đang đi tới vùng đích. Nếu camera cập nhật đủ nhanh, chính sách điều khiển có cơ hội nhận ra vị trí mới và tạo chuỗi lệnh sửa sai. Ví dụ ở Hình 9 cho thấy hiện tượng này trong thí nghiệm; nhưng nó không có nghĩa mọi loại nhiễu đều được xử lý tốt.
 
-![Hình 4 từ PDF gốc, trang 4](/paper-figures/diffusion-chính sách điều khiển/figure-4.webp)
+![Hình 4 từ PDF gốc, trang 4](/paper-figures/diffusion-policy/figure-4.webp)
 
-![Hình 9 từ PDF gốc, trang 9](/paper-figures/diffusion-chính sách điều khiển/figure-9.webp)
+![Hình 9 từ PDF gốc, trang 9](/paper-figures/diffusion-policy/figure-9.webp)
 
 ## Kết quả thực nghiệm
 
@@ -58,13 +58,13 @@ Bây giờ người dùng xê dịch khối trong lúc robot đang đi tới vù
 
 **Đối chiếu số liệu:** Nhóm tác giả kiểm tra 12 nhiệm vụ thuộc bốn nhóm bộ đánh giá, với kết quả tổng hợp cải thiện khoảng 46,9% theo quy ước so sánh của bài báo. Đây là con số gộp, không có nghĩa mọi robot và mọi nhiệm vụ đều tăng đúng 46,9 điểm phần trăm. Khi xem Hình 4–9, hãy chú ý riêng ba hiện tượng: quỹ đạo có giữ được một cách vòng vật cản nhất quán không, robot có biết đổi kế hoạch khi vật bị xê dịch không, và độ trễ tăng có khiến chuỗi hành động bị giật hoặc thất bại không.
 
-![Hình 5 từ PDF gốc, trang 5](/paper-figures/diffusion-chính sách điều khiển/figure-5.webp)
+![Hình 5 từ PDF gốc, trang 5](/paper-figures/diffusion-policy/figure-5.webp)
 
-![Hình 6 từ PDF gốc, trang 5](/paper-figures/diffusion-chính sách điều khiển/figure-6.webp)
+![Hình 6 từ PDF gốc, trang 5](/paper-figures/diffusion-policy/figure-6.webp)
 
-![Hình 10 từ PDF gốc, trang 9](/paper-figures/diffusion-chính sách điều khiển/figure-10.webp)
+![Hình 10 từ PDF gốc, trang 9](/paper-figures/diffusion-policy/figure-10.webp)
 
-![Hình 11 từ PDF gốc, trang 10](/paper-figures/diffusion-chính sách điều khiển/figure-11.webp)
+![Hình 11 từ PDF gốc, trang 10](/paper-figures/diffusion-policy/figure-11.webp)
 
 ## Hạn chế và câu hỏi còn mở
 
@@ -87,7 +87,7 @@ RTC giải bài toán triển khai nảy sinh sau đó: nếu phải mất thờ
 - [RDT-1B](/paper/rdt-1b)
 - [GR00T N1](/paper/groot-n1)
 - [π0.5](/paper/pi-0-5)
-- [RTC (suy luận)](/paper/rtc-suy luận)
+- [RTC (suy luận)](/paper/rtc-inference)
 
 ## Đọc mã nguồn và tự kiểm chứng
 

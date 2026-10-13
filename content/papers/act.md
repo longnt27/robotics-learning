@@ -78,7 +78,7 @@ RTC giải tầng thực thi: mô hình mất thời gian sinh đoạn tiếp th
 
 ### Những bài nên đọc tiếp
 
-- [RTC (suy luận)](/paper/rtc-suy luận)
+- [RTC (suy luận)](/paper/rtc-inference)
 - [RTC (training)](/paper/rtc-training)
 
 ## Đọc mã nguồn và tự kiểm chứng

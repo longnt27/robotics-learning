@@ -6,7 +6,7 @@ Một ảnh chiếc cốc có thể được dùng để dạy nhiều loại m�
 
 Điểm chính của công trình là dữ liệu đa tổ chức và kiểm tra khả năng chuyển giữa robot, không chỉ là thêm một tập dữ liệu thật lớn.
 
-![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/open-x-cấu hình cơ thể robot/figure-1.webp)
+![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/open-x-embodiment/figure-1.webp)
 
 ## Kiến thức nền cần nắm
 
@@ -24,9 +24,9 @@ Tập dữ liệu trộn từ nhiều robot phải thống nhất thông tin t�
 
 Khi huấn luyện, mô hình nhìn ảnh cùng câu lệnh từ nhiều nguồn. Lúc kiểm tra, nó có thể được đặt trên một robot khác hoặc gặp kỹ năng chủ yếu xuất hiện trong dữ liệu của robot khác. Điều cần chứng minh là kết quả trên robot đích có tăng thật so với việc chỉ dùng dữ liệu của chính robot ấy.
 
-![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/open-x-cấu hình cơ thể robot/figure-2.webp)
+![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/open-x-embodiment/figure-2.webp)
 
-![Hình 3 từ PDF gốc, trang 4](/paper-figures/open-x-cấu hình cơ thể robot/figure-3.webp)
+![Hình 3 từ PDF gốc, trang 4](/paper-figures/open-x-embodiment/figure-3.webp)
 
 ## Ví dụ từng bước
 
@@ -48,9 +48,9 @@ Khi đọc câu “cao hơn 50%”, cần biết đó là mức tăng tương đ
 
 **Đối chiếu số liệu:** Trong phép so gộp của bài báo, RT-1-X đạt tỷ lệ thành công trung bình cao hơn khoảng 50% tương đối so với phương án chỉ dùng dữ liệu robot đích; con số này không có nghĩa tăng 50 điểm phần trăm. RT-2-X cũng được thử ở những kỹ năng chưa xuất hiện trong dữ liệu của loại robot đánh giá. Hãy nhìn từng robot, tập nhiệm vụ và số lượt thử để phân biệt chuyển giao kỹ năng thật với việc mô hình chỉ được học thêm ví dụ cùng kiểu bài.
 
-![Hình 4 từ PDF gốc, trang 5](/paper-figures/open-x-cấu hình cơ thể robot/figure-4.webp)
+![Hình 4 từ PDF gốc, trang 5](/paper-figures/open-x-embodiment/figure-4.webp)
 
-![Hình 5 từ PDF gốc, trang 6](/paper-figures/open-x-cấu hình cơ thể robot/figure-5.webp)
+![Hình 5 từ PDF gốc, trang 6](/paper-figures/open-x-embodiment/figure-5.webp)
 
 ## Hạn chế và câu hỏi còn mở
 

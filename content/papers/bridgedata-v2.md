@@ -71,7 +71,7 @@ Khi so hiệu quả, hãy nói rõ muốn kiểm tra đổi vật, đổi cảnh
 ### Những bài nên đọc tiếp
 
 - [Octo](/paper/octo)
-- [Open X-Embodiment](/paper/open-x-cấu hình cơ thể robot)
+- [Open X-Embodiment](/paper/open-x-embodiment)
 
 ## Đọc mã nguồn và tự kiểm chứng
 
