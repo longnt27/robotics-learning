@@ -12,10 +12,6 @@ Một robot có hai tay muốn mở túi, lắp linh kiện hoặc gấp vải p
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/act/figure-1.webp)
 
 
-#### Đọc hình gốc: bối cảnh và đóng góp
-
-Hình 1 không chỉ khoe một cánh tay robot. Phần bên trái cho thấy cơ chế leader–follower: người vận hành dịch chuyển hai tay leader, robot follower tái hiện chuyển động và hệ camera ghi lại thao tác. Các ảnh bên phải tách kỹ năng teleoperation khỏi kỹ năng policy đã học. Đây là hai đóng góp khác nhau: ALOHA giải bài toán tạo demonstration chất lượng với giá dễ tiếp cận hơn; ACT giải bài toán học chuỗi hành động từ những demonstration đó. Nếu chỉ có hardware tốt mà policy còn dự đoán từng bước thiếu ổn định, kết quả cuối vẫn có thể fail.
-
 ### Vì sao thao tác hai tay khó hơn nhiều so với một tay?
 
 Hình dung robot một tay giữ túi nilon, tay kia kéo miệng túi để mở. Nếu mỗi lần mạng chỉ nghĩ tới đúng một lệnh, hai tay rất dễ lệch nhịp: tay trái buông quá sớm hoặc tay phải kéo khi túi chưa được giữ chắc. Sai lệch nhỏ làm vật trượt, kẹt hoặc biến dạng. ACT khắc phục một phần bằng cách **dự đoán trước cả một đoạn chuyển động**, để các bước liên tiếp phối hợp được với nhau.
@@ -56,14 +52,6 @@ Trong huấn luyện, CVAE mã hóa những khác biệt giữa các chuỗi tha
 
 ![Hình 3 gốc từ PDF bài báo, trang 3](/paper-figures/act/figure-3.webp)
 
-
-#### Đọc hình gốc: từng thành phần và luồng thông tin
-
-Hình 3 giải thích nguồn quan sát trong hệ ALOHA: camera tổng thể, camera chính diện và hai wrist cameras không nhìn cùng một thứ. Camera tổng thể cho ngữ cảnh vị trí vật; wrist cameras giúp quan sát gần gripper, đặc biệt khi tiếp xúc hoặc vật bị che khuất. Phần cơ cấu gripper minh họa vì sao chất lượng demonstration còn phụ thuộc phần cứng. Khi đọc ACT, nên vẽ thêm mũi tên từ các camera và joint states tới encoder rồi tới action chunk; đừng nhầm Figure 3 là sơ đồ mạng Transformer.
-
-#### Ví dụ từng bước để hiểu cơ chế
-
-Ví dụ tự nghĩ: hai tay giữ túi, tay trái mở miệng túi trong khi tay phải đưa vật vào. Nếu mỗi timestep chỉ đoán một action độc lập, sai số pha nhỏ có thể khiến tay phải lao tới trước khi túi mở đủ. Với chunk length H, mạng sinh các joint targets cho cả hai tay trong một khoảng, giúp các bước có quan hệ thời gian. Khi query lại ở timestep tiếp theo, các chunk chồng nhau được tổng hợp để chuyển động không giật. Nhưng nếu vật đột ngột trượt, một chunk dài cũng tạo rủi ro phản ứng muộn. Vì vậy phải đánh giá cả success rate lẫn khả năng phục hồi khi trạng thái đổi.
 
 ### ACT học và sinh lệnh robot như thế nào?
 

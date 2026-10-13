@@ -7,10 +7,6 @@ Robot được dạy đặt cốc vào khay, rồi học thêm mở ngăn kéo. 
 ![Hình 1 gốc từ PDF bài báo, trang 2](/paper-figures/libero/figure-1.webp)
 
 
-#### Đọc hình gốc: bối cảnh và đóng góp
-
-Hình 1 chia các bộ nhiệm vụ theo kiểu thay đổi kiến thức cần chuyển giao: vị trí đối tượng, đối tượng mới, mục tiêu khác và các nhiệm vụ dài hơn. Điều quan trọng của LIBERO không phải một tỷ lệ thành công đơn lẻ mà là giao thức học liên tục. Nếu model học task B sau task A, ta phải đo cả B lẫn A để phát hiện catastrophic forgetting. Nhìn một hàng cuối cùng không cho biết liệu policy chỉ giỏi task vừa học hay vẫn nhớ những task cũ.
-
 ### Tại sao robot học việc mới rồi lại quên việc cũ?
 
 Robot đã học đặt cốc lên đĩa. Ta tiếp tục dạy nó bỏ đồ vào ngăn kéo. Nếu cập nhật cùng một mạng chỉ với dữ liệu nhiệm vụ sau, các tham số từng giúp đặt cốc có thể bị thay đổi, khiến robot làm kém việc cũ. Hiện tượng ấy được gọi là **quên kiến thức khi học nối tiếp**.
@@ -51,14 +47,6 @@ Nhóm tác giả cho mô hình học lần lượt từng nhiệm vụ rồi ki�
 
 ![Hình 2 gốc từ PDF bài báo, trang 4](/paper-figures/libero/figure-2.webp)
 
-
-#### Đọc hình gốc: từng thành phần và luồng thông tin
-
-Hình 2 trình bày cách sinh nhiệm vụ có cấu trúc, giúp tạo nhiều tác vụ có thể so sánh mà không cần viết lại từng environment bằng tay. Tách các yếu tố ngôn ngữ, mục tiêu và hình học giúp benchmark hỏi rõ loại kiến thức nào được giữ lại. Khi tái hiện, cùng một chính sách và một bộ seed phải được đánh giá trên từng task sau mỗi bước học, không chỉ ở cuối quá trình.
-
-#### Ví dụ từng bước để hiểu cơ chế
-
-Ví dụ học tuần tự ba nhiệm vụ: đặt khối đỏ vào bát, mở ngăn kéo, rồi chuyển khối xanh. Ta lưu ma trận hiệu năng R_{i,j}: sau khi học task i, model thành công bao nhiêu trên task j. Từ đó mới đo được mức quên task cũ và khả năng chuyển giao sang task mới. Nếu chỉ đo success rate trên task thứ ba, cách làm đơn giản là fine-tune đến khi quên hết hai task đầu cũng sẽ được chấm là thành công, hoàn toàn lệch mục tiêu continual learning.
 
 ### Quy trình đánh giá LIBERO diễn ra ra sao?
 

@@ -7,10 +7,6 @@ Mỗi phòng thí nghiệm thường dùng một loại robot, camera và cách 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/open-x-embodiment/figure-1.webp)
 
 
-#### Đọc hình gốc: bối cảnh và đóng góp
-
-Hình 1 nhấn mạnh quy mô hợp tác của Open X-Embodiment: nhiều đơn vị, nhiều robot và dataset được gom vào một nguồn học chung. Nhưng số robot tự nó không giải quyết action mismatch. Khi cùng một instruction được thực hiện bằng arm 6DoF, 7DoF hoặc mobile manipulator, lệnh điều khiển có thể có unit, tần số, frame và constraints khác nhau.
-
 ### Vì sao gom dữ liệu nhiều robot khó hơn gom ảnh?
 
 Một ảnh chiếc cốc có thể được dùng để dạy nhiều loại mô hình nhìn ảnh. Nhưng lệnh “dịch khớp số 3 thêm 0,1” không có cùng ý nghĩa trên hai tay máy khác nhau. Robot A dùng kẹp hai ngón, robot B có bàn tay nhiều khớp; số chiều và đơn vị lệnh cũng khác. **Open X-Embodiment tìm cách kết hợp demonstration từ nhiều hệ robot** để chính sách học được điều chung mà không nhầm lệnh của chúng.
@@ -51,14 +47,6 @@ Open X-Embodiment tập hợp hơn **một triệu quỹ đạo** từ **22 ki�
 
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/open-x-embodiment/figure-2.webp)
 
-
-#### Đọc hình gốc: từng thành phần và luồng thông tin
-
-Hình 2 cho thấy các embodiment và dataset đóng góp không đồng đều. Một bộ dữ liệu có hàng trăm nghìn trajectory có thể áp đảo nguồn nhỏ nếu sample trực tiếp theo kích thước; khi ấy model học tốt robot phổ biến mà quên loại hiếm. Vì vậy data mixture weights, normalization và cách chọn test split mới là phần đáng học sau sơ đồ tổng quan.
-
-#### Ví dụ từng bước để hiểu cơ chế
-
-Giả sử hai robot cùng nhặt một vật: robot A dùng delta end-effector, robot B dùng joint positions. Nếu nối hai action vector thô vào một tensor chung, cùng giá trị số không tương ứng cùng chuyển động. Cần schema và adapter rõ ràng, cùng với embedding hoặc thông tin embodiment để policy biết đang điều khiển ai. Thử train trong một robot và kiểm tra robot còn lại phải được gọi là cross-embodiment evaluation, không phải chỉ multi-task accuracy.
 
 ### Dữ liệu được kết hợp và sử dụng như thế nào?
 

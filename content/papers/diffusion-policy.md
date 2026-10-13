@@ -12,10 +12,6 @@ Hãy tưởng tượng robot cần đi vòng một vật cản. Nó có thể đ
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/diffusion-policy/figure-1.webp)
 
 
-#### Đọc hình gốc: bối cảnh và đóng góp
-
-Hình 1 đối chiếu cách biểu diễn policy: một ánh xạ tường minh từ observation sang action, một hàm năng lượng ẩn và một quá trình sinh mẫu từ nhiễu. Trường hợp một trạng thái có hai hướng thao tác hợp lệ rất quan trọng: hồi quy MSE có thể tạo action trung bình nằm giữa hai mode và chẳng mode nào thật sự khả thi. Diffusion Policy mô hình hóa cả phân phối trên chuỗi hành động, vì thế có thể sinh một phương án nhất quán thay vì ép mọi demonstration vào một giá trị trung bình.
-
 ### Vì sao lấy trung bình hành động có thể làm robot đâm vào vật?
 
 Giả sử robot muốn đẩy một khối qua chướng ngại. Trong dữ liệu huấn luyện, một nửa người vận hành vòng bên trái và nửa còn lại vòng bên phải. Cả hai đều đúng. Nếu mạng học dự đoán một giá trị bằng cách giảm sai số bình phương, nó có thể chọn quỹ đạo ở giữa hai hướng, tức đi thẳng vào chướng ngại. Vấn đề không nằm ở thiếu nhãn, mà ở chỗ **một trạng thái có thể có nhiều đáp án vận động hợp lệ**.
@@ -57,14 +53,6 @@ Robot không nhất thiết thực thi toàn bộ chuỗi vừa tạo. Nó chạ
 
 ![Hình 2 gốc từ PDF bài báo, trang 2](/paper-figures/diffusion-policy/figure-2.webp)
 
-
-#### Đọc hình gốc: từng thành phần và luồng thông tin
-
-Hình 2 là ảnh từ các benchmark robot thật. Nó nhắc rằng quality của action không thể chỉ được đánh giá bằng loss trên dataset: cần thực thi trên cơ cấu vật lý, nơi contact, gripper, lực ma sát và sai số calibration làm bài toán khó hơn. Các task dùng UR5 hoặc Franka là bằng chứng trong phạm vi đó, không tự động chứng minh mô hình đã điều khiển tốt mọi loại robot. Khi đọc các ảnh, hãy tách điều policy dự đoán được khỏi điều controller/phần cứng đã xử lý.
-
-#### Ví dụ từng bước để hiểu cơ chế
-
-Ví dụ có hai demonstration mở ngăn kéo: một người đưa gripper tiếp cận từ trái, người khác từ phải. Nếu output là trung bình trực tiếp của hai quỹ đạo, robot có thể đi thẳng vào mép ngăn kéo. Diffusion model bắt đầu từ action trajectory nhiễu, denoise qua nhiều bước để chọn một mode hợp lệ theo ảnh quan sát. Chỉ thực thi một phần đầu chunk, sau đó quan sát lại và replan. Điều này cho phép đóng vòng, nhưng số bước denoising ảnh hưởng latency. Một so sánh tử tế phải nhìn trade-off giữa chất lượng mẫu và tốc độ inference.
 
 ### Từ ảnh camera tới chuỗi chuyển động
 

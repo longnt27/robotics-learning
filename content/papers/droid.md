@@ -15,10 +15,6 @@ Một robot có thể làm việc rất tốt trong phòng thí nghiệm nhưng 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/droid/figure-1.webp)
 
 
-#### Đọc hình gốc: bối cảnh và đóng góp
-
-Hình 1 giới thiệu một chiến lược thu dữ liệu khác việc dựng vài scene sạch trong phòng lab: robot được đưa tới nhiều công trình và môi trường thật. DROID công bố khoảng 76.000 trajectories, 350 giờ dữ liệu với đa dạng bối cảnh đáng kể. Điểm đáng học không chỉ là số giờ mà là phân phối: ánh sáng, nền, đồ vật, operator và cách sắp xếp cảnh thay đổi. Chính sự thay đổi này giúp đánh giá khả năng model chú ý đến affordance của vật thay vì nhớ texture của chiếc bàn.
-
 ### Vì sao dữ liệu thu ở một phòng lab chưa đủ?
 
 Nếu robot luôn thực hành trên một chiếc bàn, dưới một dàn đèn và với người vận hành quen thuộc, nó có thể vô tình ghi nhớ bối cảnh. Sang căn bếp khác, camera nhìn từ góc mới và đồ vật chưa gặp, policy sẽ sai dù nhiệm vụ “nhặt rồi đặt” vẫn giống. **DROID mở rộng việc thu dữ liệu ra nhiều tòa nhà và phòng làm việc thật**, để mô hình học được sự đa dạng thường gặp khi triển khai.
@@ -59,14 +55,6 @@ Nhóm tác giả huấn luyện policy trên dữ liệu này rồi so những t
 
 ![Hình 2 gốc từ PDF bài báo, trang 4](/paper-figures/droid/figure-2.webp)
 
-
-#### Đọc hình gốc: từng thành phần và luồng thông tin
-
-Hình 2 thể hiện một thiết kế tưởng như mâu thuẫn: dùng nền tảng phần cứng tương đối thống nhất để nhiều nhóm ở nhiều nơi thu thập. Thống nhất robot/camera giúp action space và logging nhất quán; thay đổi environment mới là biến nghiên cứu. Nếu mỗi phòng dùng phần cứng khác nhau, khó biết performance gain đến từ dữ liệu đa dạng hay từ khác biệt trong controller, frequency và sensor. Đây là một bài học về thiết kế thí nghiệm, không chỉ logistics.
-
-#### Ví dụ từng bước để hiểu cơ chế
-
-Khi kiểm tra một subset DROID, hãy vẽ timestamp giữa image, proprioception và action; xem vài episode cạnh nhau để phát hiện camera lệch hoặc robot đứng im quá lâu. Với mô hình baseline, đánh giá một tập test cùng environment và một tập test khác environment. Nếu accuracy của action tăng mà success rate không tăng, cần xem có bị lệch temporal synchronization hoặc action normalization không. Đừng gộp mọi episode thành một score rồi kết luận dataset đã giải quyết vấn đề khái quát.
 
 ### DROID được thu như thế nào?
 

@@ -12,10 +12,6 @@ Video người dọn bàn, cắm hoa hay gấp khăn tương đối dễ thu th�
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/mimicplay/figure-1.webp)
 
 
-#### Đọc hình gốc: bối cảnh và đóng góp
-
-Hình 1 cho thấy độ chênh giữa thao tác con người bằng tay và thao tác robot qua teleoperation: cùng nhiệm vụ dài, con người có thể thực hiện nhanh hơn và tạo nhiều video hơn. MimicPlay không giả định video tay người lập tức biến thành joint labels. Nó học một dạng định hướng hoặc mục tiêu trung gian từ video người, rồi dùng ít demonstration robot hơn để học cách thực thi mục tiêu đó bằng robot.
-
 ### Vì sao xem người làm có ích nhưng chưa đủ?
 
 Một người dọn bàn có thể mở ngăn kéo, nhặt bút, đặt vào hộp rồi đóng lại rất nhanh. Video người làm việc dễ thu hơn việc điều khiển robot hàng trăm lần. Nhưng video ấy không cho biết góc từng khớp robot phải xoay bao nhiêu. Cánh tay người và tay robot cũng khác nhau về hình dạng, giới hạn chuyển động.
@@ -56,14 +52,6 @@ Khi robot chạy, video hoặc hình ảnh mục tiêu giúp phần lập kế h
 
 ![Hình 2 gốc từ PDF bài báo, trang 4](/paper-figures/mimicplay/figure-2.webp)
 
-
-#### Đọc hình gốc: từng thành phần và luồng thông tin
-
-Hình 2 tách hai giai đoạn: phần học từ human play gợi ý mục tiêu/chuyển động có cấu trúc; phần policy robot dùng quan sát thực để tạo action phù hợp robot. Đây là hierarchical imitation đúng nghĩa: một hệ dự đoán nên đi tới đâu, hệ còn lại quyết định đi bằng khớp nào và theo quỹ đạo nào. Nếu chỉ fine-tune một flat BC trực tiếp trên video người, thiếu mapping từ tay người sang robot khiến target action không còn chính xác.
-
-#### Ví dụ từng bước để hiểu cơ chế
-
-Hãy nghĩ tới nhiệm vụ kéo ngăn kéo, lấy vật, rồi đóng lại. Một model low-level phải liên tục ra lệnh cho arm/gripper; nếu không có mục tiêu trung gian, lỗi ở bước mở ngăn kéo có thể khiến toàn phần còn lại vô nghĩa. Với MimicPlay, video người có thể giúp nhận dạng tiến trình nhiệm vụ và dự đoán trạng thái mục tiêu ngắn hạn, trong khi dữ liệu robot đảm nhận điều khiển thực. Khi đánh giá, cần phân biệt policy chọn đúng subgoal với policy thật sự đạt được subgoal đó.
 
 ### Hai giai đoạn học của MIMICPLAY
 

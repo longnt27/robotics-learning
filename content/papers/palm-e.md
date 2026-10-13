@@ -7,10 +7,6 @@ Một robot hiểu câu lệnh “Hãy mang chiếc cốc lại đây” phải 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/palm-e/figure-1.webp)
 
 
-#### Đọc hình gốc: bối cảnh và đóng góp
-
-Hình 1 định vị PaLM-E như một mô hình ngôn ngữ đa phương thức nhận dữ liệu cảm biến của thế giới thật cùng văn bản. Ảnh, trạng thái robot và các tín hiệu khác được biến thành embedding có thể điều kiện hóa quá trình sinh ngôn ngữ. Điều cần tránh là nhìn thấy robot trong hình rồi tưởng PaLM-E tự xuất lệnh servo liên tục: paper nhấn mạnh embodied reasoning, planning và khả năng kết hợp tri thức ngôn ngữ với quan sát, không đồng nghĩa một bộ điều khiển torque end-to-end.
-
 ### PaLM-E có thực sự điều khiển robot trực tiếp?
 
 Điều quan trọng nhất là phân biệt **suy luận mục tiêu** với **điều khiển động cơ**. Người dùng bảo “Hãy lấy đồ ăn nhẹ cho tôi”; robot cần quan sát đồ vật, nhận biết chỗ để đồ, quyết định bước nào làm trước. PaLM-E được nghiên cứu để giúp hệ thống kết hợp câu chữ với ảnh và trạng thái vật lý khi lập kế hoạch, không phải để xuất mô-men từng khớp trong mọi thí nghiệm.
@@ -50,14 +46,6 @@ PaLM-E thường đảm nhiệm việc hiểu cảnh và lập các bước làm
 
 ![Hình 2 gốc từ PDF bài báo, trang 6](/paper-figures/palm-e/figure-2.webp)
 
-
-#### Đọc hình gốc: từng thành phần và luồng thông tin
-
-Hình 2 tập trung vào transfer learning: dùng pretraining thị giác và ngôn ngữ làm điểm khởi đầu, rồi đo khả năng chuyển sang những nhóm bài toán robot khác nhau. Hãy đọc chiều mũi tên giữa các domain thay vì chỉ nhìn tên model lớn. Nếu một model giải thích đúng vị trí đồ vật qua ảnh, nó có thể giúp planner chọn đúng mục tiêu, nhưng policy vận động vẫn cần học từ dữ liệu và hành động thật. Khả năng chuyển tri thức của backbone cần được phân biệt với khả năng chuyển kỹ năng cơ học.
-
-#### Ví dụ từng bước để hiểu cơ chế
-
-Giả sử robot được hỏi 'vật nào dùng để lau bàn?' giữa một cái khăn và một chiếc cốc. Hệ vision-language phải quan sát và dùng tri thức để nhận ra khăn. Đó là bài toán grounding/suy luận. Phần robot còn phải điều khiển gripper cầm khăn rồi tạo đường lau phù hợp. Để kiểm tra vai trò PaLM-E, so kết quả lựa chọn vật thể hoặc kế hoạch theo ảnh/instruction trước, rồi mới nối planner với một controller đã có. Nếu controller fail vì khăn biến dạng, không nên gán lỗi ấy trực tiếp cho kết luận về embodied language reasoning.
 
 ### Một lượt sử dụng PaLM-E hoạt động thế nào?
 

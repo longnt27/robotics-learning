@@ -12,10 +12,6 @@ Nếu mỗi công việc của robot đều cần một mô hình riêng, một 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/rt-1/figure-1.webp)
 
 
-#### Đọc hình gốc: bối cảnh và đóng góp
-
-Hình 1 tổng hợp dữ liệu huấn luyện, Transformer policy và phạm vi đánh giá RT-1. Điểm quan trọng là real robot demonstrations được thu cho nhiều nhiệm vụ và instruction, chứ không chỉ mở rộng một kiến trúc network. Người đọc nên đặt câu hỏi cùng backbone nhưng ít đa dạng nhiệm vụ hơn thì thế nào, và data distribution có giới hạn ra sao. Những hình thành công trên robot thật cho biết policy có thể được triển khai trong thiết lập bài báo, không phải chứng minh mọi robot đều sẽ đạt cùng success rate.
-
 ### Vì sao không thể huấn luyện riêng một mô hình cho từng công việc?
 
 Một robot phục vụ trong bếp có thể cần nhặt cốc, mở ngăn kéo, đặt bát, gom rác và hàng trăm việc khác. Nếu mỗi việc có một mô hình riêng, mỗi khi đổi vị trí đồ vật hay cách nói lệnh ta lại phải thu thêm dữ liệu và huấn luyện lại. Cách đó nhanh chóng trở nên quá đắt. **RT-1 hỏi liệu một policy duy nhất có thể học nhiều thao tác từ nhiều demonstration robot thật hay không.**
@@ -50,14 +46,6 @@ Robot cần lấy ảnh rồi phát lệnh liên tục, nên hệ thống hướ
 
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/rt-1/figure-2.webp)
 
-
-#### Đọc hình gốc: từng thành phần và luồng thông tin
-
-Hình 2 cho thấy language instruction được mã hóa thành embedding và dùng để điều kiện hóa visual tokens, trước khi sequence modeling sinh action tokens. EfficientNet là phần trích đặc trưng thị giác; Transformer học mối liên hệ giữa các quan sát đã được token hóa và lệnh hành động. Thao tác token hóa output phải khớp với số chiều action, trong đó gripper và termination signal có semantics riêng. Nếu chỉ gọi đây là 'image-to-text' là đã bỏ sót tầng quan trọng nhất: giải mã token thành lệnh điều khiển robot.
-
-#### Ví dụ từng bước để hiểu cơ chế
-
-Ví dụ robot được yêu cầu 'đặt lon đỏ vào ngăn dưới'. Camera cho thấy lon đỏ và lon xanh ở vị trí khác nhau. Nếu encoder và instruction conditioning hoạt động, policy cần tập trung đúng lon đỏ thay vì chỉ phản xạ với vị trí vật thể xuất hiện nhiều nhất trong data. Mã hóa action thành từng chiều, điều khiển tới vật, grasp rồi place. Một phép kiểm thử đáng làm là thay instruction thành lon xanh mà giữ nguyên hình, và quan sát action distribution thay đổi thế nào. Nếu không đổi, có thể model chưa dùng đúng instruction.
 
 ### Đi theo đường đi của một câu lệnh
 

@@ -12,10 +12,6 @@ Robot chỉ được dạy nhặt đồ trên một mặt bàn rất dễ lúng 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/bridgedata-v2/figure-1.webp)
 
 
-#### Đọc hình gốc: bối cảnh và đóng góp
-
-Hình 1 nên đọc theo ba trục: lượng dữ liệu, số môi trường và sự đa dạng kỹ năng. Các cảnh đồ vật khác nhau không phải đồ trang trí; chúng là lời giải thích cho câu hỏi vì sao một policy học ở một phòng thí nghiệm có cơ hội chạy ở phòng khác. BridgeData V2 có 60.096 trajectories qua 24 môi trường. Nhưng đừng suy ra số trajectory lớn đồng nghĩa khái quát mạnh: cùng 60.000 mẫu, dữ liệu từ một bàn với vị trí cố định có thể kém hữu ích hơn dữ liệu phủ nhiều bố cục và mục tiêu.
-
 ### Vì sao cùng là nhặt đồ mà đổi bàn lại làm robot thất bại?
 
 Một policy chỉ học nhặt cốc trên một chiếc bàn trắng có thể làm rất tốt ở đó nhưng thất bại khi sang bồn rửa hoặc gặp vật mới. Nguyên nhân không nhất thiết là mô hình yếu; có thể toàn bộ demonstration đều quá giống nhau. BridgeData V2 được xây để tạo nguồn dữ liệu phong phú về thao tác, đồ vật và môi trường.
@@ -56,14 +52,6 @@ Nhóm tác giả huấn luyện nhiều thuật toán học bắt chước và h
 
 ![Hình 2 gốc từ PDF bài báo, trang 4](/paper-figures/bridgedata-v2/figure-2.webp)
 
-
-#### Đọc hình gốc: từng thành phần và luồng thông tin
-
-Hình 2 cho biết setup thực tế: WidowX 250 và nhiều góc camera, trong đó có camera cố định và camera thay đổi vị trí. Điều này giải thích vì sao cùng một action có thể tương ứng các ảnh rất khác nhau. Một pipeline sử dụng dataset phải đọc đồng bộ ảnh, state, action và mô tả ngôn ngữ, rồi xác định rõ đâu là sự thay đổi camera và đâu là thay đổi môi trường. Không có alignment đó, model có thể học nhầm tương quan thị giác thay vì kỹ năng.
-
-#### Ví dụ từng bước để hiểu cơ chế
-
-Giả sử nhiệm vụ là đặt củ cà rốt lên ngăn kéo. Nếu train chỉ trên ngăn kéo màu trắng đặt ở góc trái, policy có thể nhớ vị trí thao tác thay vì hiểu yêu cầu. Ta nên chia ba phép test: held-out trajectory trong cùng cảnh; held-out đồ vật trong cảnh quen; và held-out environment. So sánh chúng mới thấy khả năng generalization thực sự đến từ đâu. Khi đánh giá sáu kiểu thuật toán trên cùng dữ liệu, cũng cần giữ sự khác biệt rõ giữa đánh giá dataset đa năng và tuyên bố một thuật toán là tốt nhất.
 
 ### Từ người điều khiển đến tập huấn luyện
 
