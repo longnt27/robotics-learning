@@ -14,9 +14,14 @@ Dạy robot mở ngăn kéo trong một căn bếp mẫu không có nghĩa nó s
 
 ### Hiểu bốn thành phần của RoboCasa
 
-**Môi trường mô phỏng** là căn bếp với mặt bằng, tủ, thiết bị và bề mặt. **Đồ vật** là các mô hình ba chiều robot có thể nhặt, đặt hoặc tương tác. **Nhiệm vụ** xác định trạng thái cần đạt, ví dụ bỏ đồ vào ngăn kéo rồi đóng lại. **lần làm mẫu** là chuỗi quan sát và hành động thể hiện cách hoàn thành việc đó.
+**Môi trường mô phỏng** là căn bếp với mặt bằng, tủ, thiết bị và bề mặt. **Đồ vật** là các mô hình ba chiều robot có thể nhặt, đặt hoặc tương tác. **Nhiệm vụ** xác định trạng thái cần đạt, ví dụ bỏ đồ vào ngăn kéo rồi đóng lại. **Lần làm mẫu** là chuỗi quan sát và hành động thể hiện cách hoàn thành việc đó.
 
 RoboCasa có các thiết bị thực sự thay đổi trạng thái trong mô phỏng: cửa lò vi sóng mở được, núm bếp xoay được và đầu đốt bật tắt. Điều đó quan trọng hơn việc chỉ dựng căn bếp có ảnh đẹp, vì robot phải tạo ra thay đổi vật lý có thể kiểm tra.
+
+### Một căn bếp giống thật chưa đủ làm môi trường huấn luyện
+
+Hình bếp có thể rất đẹp, nhưng robot cần tác động được lên đồ vật và nhận phản hồi. Khi mở cửa lò vi sóng, bản lề phải quay; khi đặt vật vào trong, vị trí của vật phải đổi; khi đóng cửa, hệ thống phải kiểm tra trạng thái cuối. Vì vậy RoboCasa không chỉ tạo hình ảnh căn bếp mà xây **môi trường mô phỏng có tương tác** cùng điều kiện thành công cho từng nhiệm vụ. Chính sự kết hợp giữa cảnh, đồ vật có cơ cấu hoạt động và quy tắc nhiệm vụ mới cho phép tạo dữ liệu thao tác dùng để huấn luyện robot.
+
 
 ## Phương pháp thực hiện
 
@@ -24,7 +29,11 @@ RoboCasa có các thiết bị thực sự thay đổi trạng thái trong mô p
 
 Nhóm tác giả xây nhiều mặt bằng bếp, đặt đồ vật và thiết bị có cơ cấu hoạt động, rồi định nghĩa nhiệm vụ. Mô hình ngôn ngữ lớn hỗ trợ gợi ý những việc hợp lý trong bếp; tuy nhiên môi trường vẫn cần quy tắc thực thi và tiêu chí hoàn thành rõ ràng.
 
-Robot hoặc công cụ sinh quỹ đạo thực hiện các nhiệm vụ nhỏ, từ mở cửa tủ tới chuyển vật vào khay. Các quỹ đạo được ghi lại cùng quan sát và câu lệnh. chính sách điều khiển sau đó học bắt chước hoặc được tinh chỉnh trên nguồn dữ liệu này. Một phần đánh giá được thực hiện trên robot thật để kiểm tra liệu kỹ năng mô phỏng có chuyển được hay không.
+Robot hoặc công cụ sinh quỹ đạo thực hiện các nhiệm vụ nhỏ, từ mở cửa tủ tới chuyển vật vào khay. Các quỹ đạo được ghi lại cùng quan sát và câu lệnh. Chính sách điều khiển sau đó học bắt chước hoặc được tinh chỉnh trên nguồn dữ liệu này. Một phần đánh giá được thực hiện trên robot thật để kiểm tra liệu kỹ năng mô phỏng có chuyển được hay không.
+
+### Dữ liệu thao tác được tạo và kiểm tra ra sao?
+
+Giả sử nhiệm vụ là mở lò vi sóng, đặt bát vào rồi đóng cửa. Bộ tạo nhiệm vụ phải biết trạng thái đầu, vị trí bát và khi nào từng bước được xem là hoàn thành. Quỹ đạo thực thi thành công được ghi lại dưới dạng ảnh, trạng thái và lệnh điều khiển. Chính sách robot học bắt chước từ đó. Tuy nhiên, nếu chuyển động trong mô phỏng dựa vào tiếp xúc quá lý tưởng, robot thật có thể không cầm được tay nắm hoặc đóng cửa lệch. Vì vậy dữ liệu mô phỏng cần đi cùng phép đánh giá ngoài đời, không chỉ kiểm tra xem video mô phỏng có giống việc bếp hay không.
 
 ![Hình 3 gốc từ PDF bài báo, trang 4](/paper-figures/robocasa/figure-3.webp)
 
@@ -52,9 +61,13 @@ Hình 7 so học từ 50 lần làm mẫu người với các tập máy sinh g�
 
 Hình 8 thử nhiệm vụ ghép nhiều bước. Dữ liệu các bước nhỏ giúp tinh chỉnh tốt hơn huấn luyện từ đầu, song kết quả vẫn chưa thật bền. Đó là khoảng cách từ biết từng kỹ năng tới hoàn thành một chuỗi công việc phức tạp.
 
-### Số liệu và phạm vi kết luận
+### Tỷ lệ chuyển từ mô phỏng sang thật còn thấp
 
-**Đối chiếu số liệu:** Một phép thử chuyển từ mô phỏng sang bếp thật ghi nhận cách kết hợp dữ liệu thật và mô phỏng đạt khoảng 24,4% thành công trên vật quen, so với 13,6% của cách chỉ dùng dữ liệu thật; trên vật mới là khoảng 9,3% so với 2,6%. Mức tăng tương đối đáng chú ý nhưng tỷ lệ tuyệt đối còn thấp. Đây là minh chứng hợp lý rằng mô phỏng giúp bổ sung dữ liệu, chứ chưa chứng minh nhiệm vụ làm bếp đã được giải quyết.
+Một phép thử chuyển từ mô phỏng sang bếp thật ghi nhận cách kết hợp dữ liệu thật và mô phỏng đạt khoảng 24,4% thành công trên vật quen, so với 13,6% của cách chỉ dùng dữ liệu thật; trên vật mới là khoảng 9,3% so với 2,6%. Mức tăng tương đối đáng chú ý nhưng tỷ lệ tuyệt đối còn thấp. Đây là minh chứng hợp lý rằng mô phỏng giúp bổ sung dữ liệu, chứ chưa chứng minh nhiệm vụ làm bếp đã được giải quyết.
+
+### Cải thiện tương đối lớn vẫn có thể là tỷ lệ tuyệt đối nhỏ
+
+Trên một phép thử chuyển sang bếp thật, mức thành công 24,4% so với 13,6% trên vật quen cho thấy dữ liệu mô phỏng có thể giúp. Nhưng 24,4% đồng nghĩa phần lớn lượt chạy vẫn chưa hoàn thành. Với vật mới, cặp số 9,3% và 2,6% càng cho thấy khoảng cách từ dữ liệu mô phỏng sang thao tác thật còn khó. Cần tách hai kết luận: **thêm mô phỏng có ích trong phép thử này** và **mô hình đã đủ tin cậy để làm bếp**. Chỉ kết luận thứ nhất được hỗ trợ bởi những tỷ lệ ấy.
 
 ![Hình 5 từ PDF gốc, trang 5](/paper-figures/robocasa/figure-5.webp)
 

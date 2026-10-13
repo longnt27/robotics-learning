@@ -1,259 +1,267 @@
 [
   {
     "type": "cover",
-    "title": "Điểm cốt lõi",
-    "lead": "Một Transformer sinh cả action chunk giúp hai tay phối hợp ổn định hơn dự đoán từng bước.",
+    "title": "ACT: giúp hai tay robot phối hợp nhịp nhàng",
+    "lead": "ACT dự đoán cả một đoạn chuyển động thay vì chỉ lệnh tiếp theo, nhờ vậy hai tay có thể học cách phối hợp theo thời gian.",
     "items": [
-      "Dự đoán một đoạn chuyển động, không phải từng frame"
+      "Dự đoán một chuỗi hành động phối hợp"
     ],
-    "intuition": "Transformer học action chunk có điều kiện theo ảnh và state; CVAE giữ được các style demonstration khác nhau.",
+    "intuition": "Một tay giữ túi và tay kia kéo khóa phải hoạt động đúng thứ tự; chỉ đưa từng lệnh riêng lẻ rất dễ gây lệch nhịp.",
     "detail": {
-      "label": "BỐI CẢNH NGHIÊN CỨU",
-      "text": "Nếu dự đoán từng action 50 Hz, một nhiệm vụ vài chục giây có hàng nghìn decision, nên chỉ cần policy hơi lệch một chút là compounding error đủ làm episode thất bại."
+      "label": "GIẢI THÍCH",
+      "text": "ACT là thuật toán học bắt chước từ thao tác do con người thực hiện. Còn ALOHA là bộ phần cứng cho phép người vận hành điều khiển hai tay robot để thu dữ liệu. Hai đóng góp này liên quan nhưng không phải một."
     }
   },
   {
     "type": "problem",
-    "title": "Thao tác hai tay đòi sự phối hợp theo thời gian",
-    "lead": "Mỗi bước dự đoán sai một chút có thể làm hai tay lệch nhịp khi gấp áo, mở túi hoặc lắp ráp.",
+    "title": "Khi hai tay lệch nhịp, toàn bộ thao tác hỏng",
+    "lead": "Tay trái buông túi quá sớm hoặc tay phải kéo khi túi chưa được giữ chắc đều có thể khiến thao tác thất bại.",
     "items": [
-      "Stepwise behavior cloning tích lũy lỗi"
+      "Đúng vị trí chưa đủ",
+      "Hai tay còn phải đúng thời điểm"
     ],
-    "intuition": "Teleoperation hai tay từng đắt và dữ liệu ít; hỏi mạng mỗi timestep làm chuyển động thiếu nhất quán.",
+    "intuition": "Điều khiển hai tay không chỉ là đưa từng khớp tới vị trí đúng, mà còn phải đưa chúng tới đúng thời điểm.",
     "detail": {
-      "label": "NGUYÊN NHÂN CỐT LÕI",
-      "text": "Bài báo muốn chứng minh rằng low-cost phần cứng + một biểu diễn theo thời gian tốt hơn có thể học các kỹ năng hai tay khá tinh vi với lượng demo nhỏ."
+      "label": "GIẢI THÍCH",
+      "text": "Một chuyển động đơn lẻ có thể hợp lý nhưng đặt sai chỗ trong chuỗi lại gây hỏng việc. Vì vậy ACT học từ những đoạn thao tác hoàn chỉnh, nơi các bước giữ, kéo và thả gắn với nhau."
     }
   },
   {
     "type": "contrast",
-    "title": "Stepwise behavior cloning tích lũy lỗi",
-    "lead": "Teleoperation hai tay từng đắt và dữ liệu ít; hỏi mạng mỗi timestep làm chuyển động thiếu nhất quán.",
+    "title": "Vì sao dự đoán từng bước dễ làm robot giật?",
+    "lead": "Mạng chỉ dự đoán một hành động có thể đổi ý ở bước sau, đặc biệt khi cùng một nhiệm vụ có nhiều cách thực hiện.",
     "items": [
-      "Dự đoán một đoạn chuyển động, không phải từng frame",
-      "Transformer học action chunk có điều kiện theo ảnh và state; CVAE giữ được các style demonstration khác nhau."
+      "Dự đoán từng bước: dễ thiếu nhất quán",
+      "Dự đoán theo đoạn: các lệnh gắn với nhau"
     ],
-    "intuition": "Transformer học action chunk có điều kiện theo ảnh và state; CVAE giữ được các style demonstration khác nhau.",
+    "intuition": "ACT học mối quan hệ giữa nhiều bước liên tiếp để tránh tạo những lệnh không ăn khớp.",
     "detail": {
-      "label": "VÌ SAO CẦN THAY ĐỔI",
-      "text": "Thay vì dự đoán một action, ACT dự đoán một chunk a_t ... a_{t+k}. CVAE latent variable hấp thụ multimodality/style variation giữa demonstrations, còn Transformer xử lý hình ảnh/state và sinh cả chuỗi."
+      "label": "GIẢI THÍCH",
+      "text": "Cần phân biệt dự đoán cả đoạn với thực thi mù cả đoạn. Robot vẫn có thể quan sát lại và tính đoạn mới; lợi ích của ACT nằm ở tính nhất quán của dự đoán theo thời gian."
     }
   },
   {
     "type": "intuition",
-    "title": "Dự đoán một đoạn chuyển động, không phải từng frame",
-    "lead": "Transformer học action chunk có điều kiện theo ảnh và state; CVAE giữ được các style demonstration khác nhau.",
+    "title": "Hãy hình dung hai tay cùng mở túi",
+    "lead": "Một tay giữ căng miệng túi, tay kia kéo. ACT có thể học cùng lúc cả thứ tự lẫn mức di chuyển của hai tay.",
     "items": [
-      "Một Transformer sinh cả action chunk giúp hai tay phối hợp ổn định hơn dự đoán từng bước."
+      "Giữ chắc",
+      "Kéo đúng lúc",
+      "Quan sát để sửa sai"
     ],
-    "intuition": "Transformer học action chunk có điều kiện theo ảnh và state; CVAE giữ được các style demonstration khác nhau.",
+    "intuition": "Nếu ngón kẹp trượt giữa chừng, mô hình cần quan sát mới để sửa; đoạn dự đoán dài không tự khắc phục được lỗi.",
     "detail": {
-      "label": "GIẢI THÍCH CƠ CHẾ",
-      "text": "CVAE latent variable hấp thụ multimodality/style variation giữa demonstrations, còn Transformer xử lý hình ảnh/state và sinh cả chuỗi."
+      "label": "GIẢI THÍCH",
+      "text": "Trong một lượt thao tác, ACT không chỉ học tay nào chuyển động mà học hai tay phối hợp ra sao. Khi môi trường đổi bất ngờ, chất lượng phản hồi vẫn phụ thuộc vào việc dự đoán lại kịp thời."
     }
   },
   {
     "type": "concepts",
-    "title": "Ba khái niệm để nắm",
-    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "title": "Ba cơ chế không nên đánh đồng",
+    "lead": "Action chunking dự đoán nhiều bước. CVAE học sự khác biệt giữa các lần làm mẫu. Temporal ensembling kết hợp các dự đoán chồng nhau.",
     "items": [
       {
         "label": "Action chunking",
-        "value": "Một lần dự đoán H action liên tiếp."
+        "value": "Dự đoán chuỗi lệnh trong tương lai."
       },
       {
-        "label": "CVAE latent",
-        "value": "Biểu diễn khác biệt chiến lược giữa demos."
+        "label": "CVAE",
+        "value": "Học nhiều cách thao tác hợp lệ."
       },
       {
         "label": "Temporal ensembling",
-        "value": "Hòa thông tin giữa các chunk overlap để giảm giật."
+        "value": "Giảm dao động giữa các lần dự đoán."
       }
     ],
-    "intuition": "Action joint-space của hai tay được xếp thành chuỗi H × D.",
+    "intuition": "Ba cơ chế giải ba vấn đề khác nhau: phối hợp, đa dạng cách làm và độ mượt khi thực thi.",
     "detail": {
-      "label": "NỀN TẢNG KỸ THUẬT",
-      "text": "Một lần dự đoán a_t ở 50 Hz nghĩa là 50 decisions/giây, dễ sai số tích luỹ. Action chunking chuyển thành dự đoán A_{t:t+H}, giảm tần suất query nhưng vẫn có khả năng đóng vòng nếu overlap."
+      "label": "GIẢI THÍCH",
+      "text": "Một người có thể mở túi nhanh, người khác chậm hơn nhưng cả hai đều thành công. CVAE hỗ trợ học sự khác biệt ấy. Khi robot chạy, việc kết hợp các dự đoán cho cùng thời điểm có thể giảm rung, nhưng không được trung bình hai quỹ đạo hoàn toàn đối lập một cách tùy tiện."
     }
   },
   {
     "type": "pipeline",
-    "title": "Kiến trúc trong một sơ đồ",
-    "lead": "Một Transformer sinh cả action chunk giúp hai tay phối hợp ổn định hơn dự đoán từng bước.",
+    "title": "ACT học chuỗi hành động từ đâu?",
+    "lead": "ALOHA ghi lại ảnh camera, trạng thái khớp và chuyển động hai tay của người điều khiển để làm dữ liệu huấn luyện.",
     "items": [
-      "ALOHA thu demo",
-      "Ảnh + trạng thái khớp",
-      "ACT + CVAE",
-      "Chunk → temporal ensemble"
+      "Ảnh camera và trạng thái khớp",
+      "Chuỗi chuyển động mẫu",
+      "Mã hóa khác biệt bằng CVAE",
+      "Dự đoán đoạn hành động"
     ],
-    "intuition": "Nhận ảnh và state tại thời điểm hiện tại.",
+    "intuition": "Dữ liệu phải thể hiện được cả chuỗi giữ, dịch chuyển và thả, không chỉ một ảnh chụp lúc thành công.",
     "detail": {
-      "label": "ĐIỂM NHẤN TRIỂN KHAI",
-      "text": "Đây chính là ancestor của vấn đề mà RTC bài báo sau này nghiên cứu: chunk giúp theo thời gian coherence nhưng tạo câu hỏi “khi chunk mới đến thì nối với chunk cũ thế nào?”."
+      "label": "GIẢI THÍCH",
+      "text": "Bộ mã hóa CVAE nhìn chuỗi hành động mẫu, rút ra biến ẩn z; bộ giải mã Transformer học tái tạo đoạn hành động từ quan sát, trạng thái khớp và z. Đây là đường đi thông tin trong lúc huấn luyện."
     }
   },
   {
     "type": "representation",
-    "title": "Mô hình biểu diễn cái gì?",
-    "lead": "Action joint-space của hai tay được xếp thành chuỗi H × D.",
+    "title": "Đầu ra không phải một lệnh duy nhất",
+    "lead": "ACT sinh một đoạn gồm nhiều mốc điều khiển liên tiếp cho cả hai tay robot.",
     "items": [
       {
-        "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
-        "value": "CVAE code đại diện biến thiên không quan sát trực tiếp trong demonstration."
+        "label": "Biểu diễn",
+        "value": "Chuỗi vị trí điều khiển của hai tay."
       },
       {
-        "label": "ĐÁNH ĐỔI KỸ THUẬT",
-        "value": "Chunk dài mượt hơn nhưng phản ứng chậm với biến cố mới."
+        "label": "Đánh đổi",
+        "value": "Nhìn trước xa hơn nhưng phản ứng với bất ngờ chậm hơn."
       }
     ],
-    "intuition": "Chunk dài mượt hơn nhưng phản ứng chậm với biến cố mới.",
+    "intuition": "Độ dài đoạn là một đánh đổi: đủ dài để giữ nhịp phối hợp nhưng không quá dài tới mức chậm phản ứng.",
     "detail": {
-      "label": "CHI TIẾT BIỂU DIỄN",
-      "text": "Khi chạy, ACT query policy lặp lại và dùng temporal ensembling giữa các chunk overlap để làm chuyển động mượt."
+      "label": "GIẢI THÍCH",
+      "text": "Một đoạn hành động gồm các giá trị điều khiển theo thời gian, chẳng hạn vị trí mục tiêu của từng khớp hai tay. Độ dài đoạn lớn có thể giúp mạng nhìn xa hơn, nhưng làm tăng nguy cơ phần dự đoán cũ trở nên sai khi vật dịch chuyển."
     }
   },
   {
     "type": "training",
-    "title": "Model học như thế nào?",
-    "lead": "ALOHA leader–follower thu teleoperation 50 Hz với chi phí thấp.",
+    "title": "Vì sao CVAE cần lúc học nhưng không cần lúc chạy?",
+    "lead": "Trong lúc huấn luyện, bộ mã hóa CVAE nhìn cả chuỗi hành động mẫu để học những cách thực hiện khác nhau.",
     "items": [
       {
-        "label": "MỤC TIÊU HỌC",
-        "value": "Transformer tối ưu reconstruction action chunk + regularization latent."
+        "label": "Khi học",
+        "value": "Mã hóa chuỗi thao tác mẫu để tạo z."
       },
       {
-        "label": "DỮ LIỆU / QUY TRÌNH",
-        "value": "Một số nhiệm vụ chỉ cần khoảng 10–20 phút demo để học được hành vi."
+        "label": "Khi chạy",
+        "value": "Sinh hành động từ quan sát, không cần biết trước tương lai."
       }
     ],
-    "intuition": "Sửa chunk length: quá ngắn thì rung, quá dài thì stale.",
+    "intuition": "Lúc chạy thật không có sẵn chuỗi tương lai của người, nên ACT bỏ bộ mã hóa này và thường đặt z bằng không.",
     "detail": {
-      "label": "CÁCH HUẤN LUYỆN",
-      "text": "ALOHA là hệ leader-follower giá thấp cho teleoperation hai tay ở 50 Hz. Về learning, bài báo đưa ra Action chunking with Transformers (ACT)."
+      "label": "GIẢI THÍCH",
+      "text": "Đây là điểm quan trọng khi đọc sơ đồ ACT: nhánh mã hóa có mặt để tổ chức việc học từ dữ liệu. Bộ điều khiển thực tế chỉ cần ảnh, trạng thái hiện tại và nhánh sinh hành động đã được huấn luyện."
     }
   },
   {
     "type": "inference",
-    "title": "Một lần inference xảy ra ra sao?",
-    "lead": "Nhận ảnh và state tại thời điểm hiện tại.",
+    "title": "Một lần điều khiển thật diễn ra thế nào?",
+    "lead": "Robot chụp ảnh và đọc trạng thái khớp, dự đoán đoạn hành động rồi tiếp tục cập nhật từ quan sát mới.",
     "items": [
       {
-        "label": "XỬ LÝ ĐẦU VÀO",
-        "value": "Xuất cả chuỗi hành động hai tay."
+        "label": "Quan sát",
+        "value": "Ảnh camera và vị trí khớp hiện tại."
       },
       {
-        "label": "TẠO HÀNH ĐỘNG",
-        "value": "Temporal ensembling dùng các dự đoán overlapping để giảm discontinuity."
+        "label": "Thực thi",
+        "value": "Đoạn hành động, có thể kết hợp các dự đoán chồng nhau."
       }
     ],
-    "intuition": "Temporal ensembling dùng các dự đoán overlapping để giảm discontinuity.",
+    "intuition": "Các đoạn được dự đoán ở những thời điểm gần nhau có thể chồng lên nhau; tổng hợp hợp lý giúp chuyển động bớt giật.",
     "detail": {
-      "label": "DIỄN BIẾN THỰC THI",
-      "text": "Ở mỗi quan sát, ACT tạo chunk mới chồng lên chunk cũ. Temporal ensembling dùng weighted average cho các action dự đoán cùng timestep."
+      "label": "GIẢI THÍCH",
+      "text": "Temporal ensembling kết hợp nhiều dự đoán cùng chỉ tới một mốc thời gian, thường với trọng số khác nhau. Cách làm này hữu ích trong thiết lập ACT được thử, nhưng không bảo đảm mọi phương pháp điều khiển khác đều cải thiện."
     }
   },
   {
     "type": "equation",
-    "title": "Mathematical Intuition",
-    "lead": "Thay một quyết định aₜ bằng kế hoạch chuyển động H bước; người học thấy rõ tác dụng của horizon.",
+    "title": "Công thức của ACT biểu diễn điều gì?",
+    "lead": "Mạng dự đoán một dãy gồm H hành động, mỗi hành động điều khiển nhiều khớp của robot.",
     "equation": "A_t=\\big(a_t,a_{t+1},\\ldots,a_{t+H-1}\\big)",
     "items": [
-      "Đây là ký hiệu action chunk, không phải hàm loss."
+      "H là số bước hành động được dự đoán"
     ],
-    "intuition": "Thay một quyết định aₜ bằng kế hoạch chuyển động H bước; người học thấy rõ tác dụng của horizon.",
+    "intuition": "Đừng nhầm độ dài đoạn dự đoán H với số bước robot có thể chạy mà không cần quan sát lại.",
     "detail": {
-      "label": "Ý NGHĨA CÔNG THỨC",
-      "text": "Về learning, bài báo đưa ra Action chunking with Transformers (ACT). Thay vì dự đoán một action, ACT dự đoán một chunk a_t ... a_{t+k}."
+      "label": "GIẢI THÍCH CÔNG THỨC",
+      "text": "Các ký hiệu trong công thức mô tả việc sinh nhiều lệnh liên tiếp từ thông tin hiện tại. Nó không tự nói robot sẽ thành công bao nhiêu phần trăm; câu hỏi ấy cần được trả lời bằng các thử nghiệm thực thi."
     }
   },
   {
     "type": "results",
-    "title": "Kết quả nói lên điều gì?",
-    "lead": "ACT vượt các baseline imitation learning trong simulation và thao tác hai tay thật.",
+    "title": "ACT đã được kiểm tra bằng cách nào?",
+    "lead": "Bài báo thử các nhiệm vụ hai tay thật và mô phỏng, rồi so tỷ lệ hoàn thành với những phương pháp học bắt chước khác.",
     "items": [
       {
-        "label": "PHÁT HIỆN QUAN TRỌNG",
-        "value": "Trong một số setup mô phỏng, khoảng cách với baseline mạnh thứ hai lên tới hàng chục điểm."
+        "label": "Bằng chứng",
+        "value": "Tỷ lệ hoàn thành ở các nhiệm vụ hai tay cụ thể."
       },
       {
-        "label": "CÁCH DIỄN GIẢI",
-        "value": "Ablation cho thấy bỏ chunking hoặc CVAE có thể làm performance giảm lớn."
+        "label": "Giới hạn kết luận",
+        "value": "Chênh lệch thay đổi theo nhiệm vụ và thiết lập."
       }
     ],
-    "intuition": "ensemble của hai action mode đôi khi tạo chuyển động không hợp lệ, dẫn tới bài toán RTC.",
+    "intuition": "Trong một số phép thử mô phỏng, mức chênh lệch được báo cáo lên tới 59, 49 hoặc 29 điểm phần trăm, tùy nhiệm vụ.",
     "detail": {
-      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
-      "text": "ACT vượt các phương pháp đối chứng imitation-learning trước đó rất mạnh trong mô phỏng lẫn real bimanual nhiệm vụ."
+      "label": "GIẢI THÍCH",
+      "text": "Đây là các mức chênh lệch tại những điều kiện thử cụ thể, không phải kết quả mặc định của mọi robot. Khi đọc bảng, cần đối chiếu từng nhiệm vụ, lượng dữ liệu làm mẫu và phương pháp đối chứng."
     }
   },
   {
     "type": "ablation",
-    "title": "Ablation và bằng chứng",
-    "lead": "Sửa chunk length: quá ngắn thì rung, quá dài thì stale.",
+    "title": "Thử bỏ từng cơ chế để thấy tác dụng",
+    "lead": "Nhóm tác giả thay độ dài đoạn, thử bỏ CVAE và thử bật hoặc tắt temporal ensembling.",
     "items": [
       {
-        "label": "YẾU TỐ ĐƯỢC THỬ",
-        "value": "Bỏ CVAE làm yếu khả năng học từ nhiều style teleoperation."
+        "label": "Thay đổi",
+        "value": "Độ dài đoạn, CVAE và cách tổng hợp dự đoán."
+      },
+      {
+        "label": "Quan sát",
+        "value": "Có cơ chế hữu ích ở mô hình này nhưng gây hại ở mô hình khác."
       }
     ],
-    "intuition": "Trong một số setup mô phỏng, khoảng cách với baseline mạnh thứ hai lên tới hàng chục điểm.",
+    "intuition": "Một cải tiến có ích với ACT chưa chắc giúp phương pháp điều khiển khác; cần đọc từng đường trên biểu đồ.",
     "detail": {
-      "label": "BẰNG CHỨNG BỔ SUNG",
-      "text": "Trên con người demonstration dữ liệu, bỏ CVAE cũng làm hiệu năng rơi rất mạnh, cho thấy multimodality của teleoperation không phải chi tiết phụ."
+      "label": "THỬ NGHIỆM KIỂM CHỨNG",
+      "text": "Hình 9 cho thấy action chunking giúp cả những phương pháp đối chứng được thử, trong khi temporal ensembling làm một số cách tốt hơn nhưng khiến VINN kém đi. Bỏ CVAE cũng có thể làm hiệu quả học từ thao tác con người giảm."
     }
   },
   {
     "type": "limits",
-    "title": "Hạn chế cần nói thẳng",
-    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "title": "Đoạn dài mượt hơn nhưng dễ bỏ lỡ biến cố",
+    "lead": "Nếu vật bị trượt giữa đoạn hành động, robot có thể tiếp tục những lệnh không còn phù hợp.",
     "items": [
       {
-        "label": "Tác giả / phạm vi",
-        "value": "Tác giả: ALOHA chưa phù hợp lực cao hoặc manipulation nhiều ngón tinh vi."
+        "label": "Rủi ro",
+        "value": "Phản ứng chậm khi vật hoặc trạng thái thay đổi."
       },
       {
-        "label": "Phê bình độc lập",
-        "value": "Phê bình: ensemble của hai action mode đôi khi tạo chuyển động không hợp lệ, dẫn tới bài toán RTC."
+        "label": "Cần đánh giá",
+        "value": "Độ trễ và khả năng sửa sai khi thực thi."
       }
     ],
-    "intuition": "CVAE code đại diện biến thiên không quan sát trực tiếp trong demonstration.",
+    "intuition": "ACT cải thiện việc học các chuỗi phối hợp, nhưng chưa tự giải quyết thời gian chờ mô hình sinh đoạn kế tiếp.",
     "detail": {
-      "label": "PHẠM VI KẾT LUẬN",
-      "text": "Bài báo thừa nhận: phần cứng không xử lý tốt high-force, multifinger hoặc những tương tác rất tinh vi."
+      "label": "GIẢI THÍCH",
+      "text": "Khi triển khai cần đo cả độ trễ suy luận, độ ổn định kẹp và khả năng hồi phục sau khi sai. Một chính sách có video chuyển động đẹp vẫn có thể thất bại nếu nó không phát hiện biến cố mới kịp thời."
     }
   },
   {
     "type": "relations",
-    "title": "Bài này đứng ở đâu trong lĩnh vực?",
-    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "title": "ACT, Diffusion Policy và RTC nối tiếp nhau ra sao?",
+    "lead": "ACT học các đoạn hành động bằng Transformer và CVAE; Diffusion Policy sinh đoạn bằng quá trình khử nhiễu.",
     "items": [
       {
-        "label": "NỀN TẢNG / TIỀN ĐỀ",
-        "value": "Diffusion Policy cung cấp action generation đa mode theo chunk."
+        "label": "ACT",
+        "value": "Học chuyển động phối hợp từ thao tác mẫu."
       },
       {
-        "label": "HƯỚNG PHÁT TRIỂN",
-        "value": "RTC xử lý nối action chunk khi policy chạy chậm hơn control loop."
+        "label": "RTC",
+        "value": "Nối các đoạn hành động khi có độ trễ tính toán."
       }
     ],
-    "intuition": "Action chunking là một thay đổi lớn trong imitation learning control.",
+    "intuition": "RTC hỏi cách nối đoạn cũ với đoạn mới khi robot vẫn phải hoạt động trong thời gian mô hình tính toán.",
     "detail": {
-      "label": "CÔNG TRÌNH LIÊN QUAN",
-      "text": "Đọc thêm RTC (inference), RTC (training). Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+      "label": "GIẢI THÍCH",
+      "text": "Ba nghiên cứu đều quan tâm chuyển động nhiều bước nhưng giải những câu hỏi khác nhau: học từ người, sinh các quỹ đạo hợp lệ và thực thi không bị gián đoạn."
     }
   },
   {
     "type": "closing",
-    "title": "Nếu chỉ nhớ ba điều",
-    "lead": "Action chunking là một thay đổi lớn trong imitation learning control.",
+    "title": "Ba điều cần nhớ về ACT",
+    "lead": "ACT sinh đoạn hành động; CVAE hỗ trợ học nhiều cách làm; temporal ensembling có thể làm chuyển động bớt rung.",
     "items": [
-      "Bắt đầu với mô phỏng ALOHA và sweep chunk_size/ensemble.",
-      "Đánh giá cả khả năng phản ứng trước thay đổi trong lúc đang thực thi chunk."
+      "Học cả chuỗi, không chỉ từng bước",
+      "Phân biệt vai trò CVAE và tổng hợp dự đoán",
+      "Đo khả năng phản ứng với sai lệch"
     ],
-    "intuition": "Một Transformer sinh cả action chunk giúp hai tay phối hợp ổn định hơn dự đoán từng bước.",
+    "intuition": "Một đoạn hành động nhìn mượt không chứng minh robot đủ nhanh để phản hồi mọi thay đổi.",
     "detail": {
-      "label": "THỬ NGHIỆM TIẾP THEO",
-      "text": "Chạy một nhiệm vụ ALOHA mô phỏng, thử chunk 10/50/100, bật tắt temporal aggregation. Quan sát cả action smoothness lẫn rollout đạt yêu cầu."
+      "label": "GIẢI THÍCH",
+      "text": "Muốn kiểm tra ACT, hãy thử tình huống hai tay bị lệch nhịp hoặc vật bị trượt. Ghi cả tỷ lệ hoàn thành và hành động robot làm sau biến cố, không chỉ xem nó có hoàn thành khi cảnh không đổi."
     }
   }
 ]

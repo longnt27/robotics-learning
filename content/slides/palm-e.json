@@ -1,65 +1,65 @@
 [
   {
     "type": "cover",
-    "title": "Điểm cốt lõi",
-    "lead": "Biến hình ảnh và trạng thái robot thành đầu vào của LLM để tận dụng reasoning đa phương thức.",
+    "title": "PaLM-E: giúp robot suy luận về thế giới",
+    "lead": "Điều quan trọng nhất là phân biệt suy luận mục tiêu với điều khiển động cơ. Người dùng bảo “Hãy lấy đồ ăn nhẹ cho tôi”; robot cần quan sát đồ vật, nhận biết chỗ để đồ, quyết định bước nào làm trước.",
     "items": [
-      "Gắn sensory tokens vào cùng không gian với language tokens"
+      "Đưa đặc trưng cảm biến vào cùng chuỗi xử lý với thông tin ngôn ngữ"
     ],
-    "intuition": "Cho mô hình giải quyết bài toán ngữ nghĩa và không gian trong một chuỗi multimodal chung.",
+    "intuition": "Bài báo đặt câu hỏi liệu tri thức của mô hình ngôn ngữ lớn, kết hợp mạng nhìn ảnh, có ích khi đưa vào môi trường robot hay không. Đây là bước nối giữa việc “hiểu yêu cầu bằng ngôn ngữ” và “biết thế giới đang ở trạng thái nào”.",
     "detail": {
-      "label": "BỐI CẢNH NGHIÊN CỨU",
-      "text": "Vấn đề là LLM thuần text không trực tiếp “nhìn” camera, state robot hay point cloud. PaLM-E đặt câu hỏi: có thể nhét liên tục cảm biến quan sát vào cùng token stream của một mô hình ngôn ngữ đã pretrain để nó reasoning về thế giới vật lý mà vẫn giữ được năng lực ngôn ngữ không?"
+      "label": "GIẢI THÍCH",
+      "text": "Bài báo đặt câu hỏi liệu tri thức của mô hình ngôn ngữ lớn, kết hợp mạng nhìn ảnh, có ích khi đưa vào môi trường robot hay không. Đây là bước nối giữa việc “hiểu yêu cầu bằng ngôn ngữ” và “biết thế giới đang ở trạng thái nào”."
     }
   },
   {
     "type": "problem",
-    "title": "LLM hiểu yêu cầu nhưng không nhìn thấy thế giới vật lý",
-    "lead": "Text thuần không đủ để lập kế hoạch theo vị trí, vật thể và trạng thái cảm biến đang thay đổi.",
+    "title": "PaLM-E có trực tiếp điều khiển động cơ không?",
+    "lead": "Điều quan trọng nhất là phân biệt suy luận mục tiêu với điều khiển động cơ. Người dùng bảo “Hãy lấy đồ ăn nhẹ cho tôi”; robot cần quan sát đồ vật, nhận biết chỗ để đồ, quyết định bước nào làm trước.",
     "items": [
-      "Pipeline mô tả ảnh thành chữ làm mất thông tin"
+      "quy trình mô tả ảnh thành chữ làm mất thông tin"
     ],
-    "intuition": "Caption hóa toàn bộ state gây đứt liên kết giữa ngôn ngữ và quan sát liên tục.",
+    "intuition": "Bài báo đặt câu hỏi liệu tri thức của mô hình ngôn ngữ lớn, kết hợp mạng nhìn ảnh, có ích khi đưa vào môi trường robot hay không. Đây là bước nối giữa việc “hiểu yêu cầu bằng ngôn ngữ” và “biết thế giới đang ở trạng thái nào”.",
     "detail": {
-      "label": "NGUYÊN NHÂN CỐT LÕI",
-      "text": "PaLM-E đặt câu hỏi: có thể nhét liên tục cảm biến quan sát vào cùng token stream của một mô hình ngôn ngữ đã pretrain để nó reasoning về thế giới vật lý mà vẫn giữ được năng lực ngôn ngữ không?"
+      "label": "GIẢI THÍCH",
+      "text": "Điều quan trọng nhất là phân biệt suy luận mục tiêu với điều khiển động cơ. Người dùng bảo “Hãy lấy đồ ăn nhẹ cho tôi”; robot cần quan sát đồ vật, nhận biết chỗ để đồ, quyết định bước nào làm trước. PaLM-E được nghiên cứu để giúp hệ thống kết hợp câu chữ với ảnh và trạng thái vật lý khi lập kế hoạch, không phải để xuất mô-men từng khớp trong mọi thí nghiệm."
     }
   },
   {
     "type": "contrast",
-    "title": "Pipeline mô tả ảnh thành chữ làm mất thông tin",
-    "lead": "Caption hóa toàn bộ state gây đứt liên kết giữa ngôn ngữ và quan sát liên tục.",
+    "title": "Hiểu nhiệm vụ không giống phát lệnh từng khớp",
+    "lead": "Bài báo đặt câu hỏi liệu tri thức của mô hình ngôn ngữ lớn, kết hợp mạng nhìn ảnh, có ích khi đưa vào môi trường robot hay không. Đây là bước nối giữa việc “hiểu yêu cầu bằng ngôn ngữ” và “biết thế giới đang ở trạng thái nào”.",
     "items": [
-      "Gắn sensory tokens vào cùng không gian với language tokens",
+      "Đưa đặc trưng cảm biến vào cùng chuỗi xử lý với thông tin ngôn ngữ",
       "Cho mô hình giải quyết bài toán ngữ nghĩa và không gian trong một chuỗi multimodal chung."
     ],
-    "intuition": "Cho mô hình giải quyết bài toán ngữ nghĩa và không gian trong một chuỗi multimodal chung.",
+    "intuition": "Điều quan trọng nhất là phân biệt suy luận mục tiêu với điều khiển động cơ. Người dùng bảo “Hãy lấy đồ ăn nhẹ cho tôi”; robot cần quan sát đồ vật, nhận biết chỗ để đồ, quyết định bước nào làm trước.",
     "detail": {
-      "label": "VÌ SAO CẦN THAY ĐỔI",
-      "text": "Trong khi đó, LLM đã chứng minh một mô hình lớn có thể gom nhiều loại kiến thức và chuyển giao giữa nhiệm vụ."
+      "label": "GIẢI THÍCH",
+      "text": "Đó là ý tưởng chuyển giao tri thức của PaLM-E. Nhưng để kiểm chứng, phải đo hiệu quả thực sự trên môi trường mới; không thể suy ra từ một đoạn câu trả lời nghe hợp lý."
     }
   },
   {
     "type": "intuition",
-    "title": "Gắn sensory tokens vào cùng không gian với language tokens",
-    "lead": "Cho mô hình giải quyết bài toán ngữ nghĩa và không gian trong một chuỗi multimodal chung.",
+    "title": "Hình dung robot tìm đồ trong bếp",
+    "lead": "Ở bếp thứ nhất, cốc nằm cạnh vòi nước. Ở bếp thứ hai, nó nằm trên kệ. Câu lệnh vẫn giống nhau nhưng tọa độ khác, nên hệ thống phải dựa trên quan sát chứ không thể nhớ một chuỗi lệnh cố định.",
     "items": [
       "Biến hình ảnh và trạng thái robot thành đầu vào của LLM để tận dụng reasoning đa phương thức."
     ],
-    "intuition": "Cho mô hình giải quyết bài toán ngữ nghĩa và không gian trong một chuỗi multimodal chung.",
+    "intuition": "Đó là ý tưởng chuyển giao tri thức của PaLM-E. Nhưng để kiểm chứng, phải đo hiệu quả thực sự trên môi trường mới; không thể suy ra từ một đoạn câu trả lời nghe hợp lý.",
     "detail": {
-      "label": "GIẢI THÍCH CƠ CHẾ",
-      "text": "PaLM-E lấy đã pretrain PaLM rồi biến hình ảnh embeddings, 3D/cảm biến embeddings và trạng thái robot thành những “multimodal tokens” có thể được interleave cùng text."
+      "label": "GIẢI THÍCH",
+      "text": "Ở bếp thứ nhất, cốc nằm cạnh vòi nước. Ở bếp thứ hai, nó nằm trên kệ. Câu lệnh vẫn giống nhau nhưng tọa độ khác, nên hệ thống phải dựa trên quan sát chứ không thể nhớ một chuỗi lệnh cố định. Nếu đã học kiến thức rằng cốc dùng để uống và kệ là nơi để đồ, mô hình có thể tận dụng tri thức ngôn ngữ/hình ảnh để chọn hướng tìm kiếm hợp lý hơn."
     }
   },
   {
     "type": "concepts",
-    "title": "Ba khái niệm để nắm",
-    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "title": "Thông tin ảnh, chữ và trạng thái robot",
+    "lead": "Token ngôn ngữ biểu diễn câu người dùng nói. Biểu diễn ảnh mang thông tin về vật thể, bố cục và đặc điểm cảnh. Trạng thái robot có thể gồm những số cảm biến hoặc biểu diễn ba chiều cho biết robot đang ở đâu, đã cầm vật chưa.",
     "items": [
       {
         "label": "Embodied multimodality",
-        "value": "Ảnh, trạng thái robot và text cùng tham gia dự đoán."
+        "value": "Ảnh, trạng thái robot và chữ cùng tham gia dự đoán."
       },
       {
         "label": "Projection",
@@ -70,32 +70,32 @@
         "value": "Huấn luyện nhiều nguồn mà không làm sụt mạnh năng lực có sẵn."
       }
     ],
-    "intuition": "Ảnh và state vector được chuyển thành embeddings",
+    "intuition": "Trong sơ đồ, những màu khác nhau không phải chỉ để trang trí: chúng đánh dấu token đến từ nguồn nào. Khi đọc kết quả, hãy hỏi tín hiệu ảnh và trạng thái có thật sự được dùng hay mô hình chỉ đoán theo câu chữ. Chính vì vậy cần các phép thử thay đầu vào hoặc thay nguồn dữ liệu.",
     "detail": {
-      "label": "NỀN TẢNG KỸ THUẬT",
-      "text": "Phân biệt embodied reasoning với low-level motor policy. Một LLM hiểu câu \"cốc nằm trong ngăn kéo\" có thể suy ra trình tự tìm cốc, nhưng chưa có nghĩa nó đã học torque hay gripper velocity."
+      "label": "GIẢI THÍCH",
+      "text": "Trong sơ đồ, những màu khác nhau không phải chỉ để trang trí: chúng đánh dấu token đến từ nguồn nào. Khi đọc kết quả, hãy hỏi tín hiệu ảnh và trạng thái có thật sự được dùng hay mô hình chỉ đoán theo câu chữ. Chính vì vậy cần các phép thử thay đầu vào hoặc thay nguồn dữ liệu."
     }
   },
   {
     "type": "pipeline",
-    "title": "Kiến trúc trong một sơ đồ",
-    "lead": "Biến hình ảnh và trạng thái robot thành đầu vào của LLM để tận dụng reasoning đa phương thức.",
+    "title": "Một lượt sử dụng PaLM-E gồm những bước nào?",
+    "lead": "Bước 1: nhận chỉ dẫn, ví dụ “Đem chiếc cốc sạch tới bàn”. Bước 2: đọc hình ảnh môi trường và dữ liệu cảm biến, chuyển thành biểu diễn mạng có thể xử lý. Bước 3: ghép biểu diễn ấy vào chuỗi chứa lời chỉ dẫn.",
     "items": [
       "Ảnh + trạng thái robot",
       "Encoders / projections",
       "Multimodal LLM",
-      "Đáp án / kế hoạch ở dạng text"
+      "Đáp án / kế hoạch ở dạng chữ"
     ],
-    "intuition": "Model nhận câu hỏi, cảm biến và bối cảnh hiện tại.",
+    "intuition": "Bước 5: chính sách điều khiển cấp thấp hoặc bộ thực thi bên ngoài biến các bước ấy thành chuyển động robot, lấy thêm quan sát khi cần. Đừng nhầm “mô hình biết phải cầm cốc” với “mô hình biết ngay 7 góc khớp cần chuyển tới”; đó là hai bài toán kỹ thuật khác nhau.",
     "detail": {
-      "label": "ĐIỂM NHẤN TRIỂN KHAI",
-      "text": "Vì vậy nó không giống π0 hay Qwen-VLA hiện tại, nơi sinh action được nhét thẳng vào mô hình nền tảng stack."
+      "label": "GIẢI THÍCH",
+      "text": "Bước 5: chính sách điều khiển cấp thấp hoặc bộ thực thi bên ngoài biến các bước ấy thành chuyển động robot, lấy thêm quan sát khi cần. Đừng nhầm “mô hình biết phải cầm cốc” với “mô hình biết ngay 7 góc khớp cần chuyển tới”; đó là hai bài toán kỹ thuật khác nhau."
     }
   },
   {
     "type": "representation",
-    "title": "Mô hình biểu diễn cái gì?",
-    "lead": "Ảnh và state vector được chuyển thành embeddings",
+    "title": "Biểu diễn trạng thái vật lý vào mô hình",
+    "lead": "Trong sơ đồ, những màu khác nhau không phải chỉ để trang trí: chúng đánh dấu token đến từ nguồn nào. Khi đọc kết quả, hãy hỏi tín hiệu ảnh và trạng thái có thật sự được dùng hay mô hình chỉ đoán theo câu chữ.",
     "items": [
       {
         "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
@@ -103,39 +103,39 @@
       },
       {
         "label": "ĐÁNH ĐỔI KỸ THUẬT",
-        "value": "Đây không phải một low-level policy trực tiếp xuất torque/action 50 Hz."
+        "value": "Đây không phải một low-mức chính sách điều khiển trực tiếp xuất torque/hành động 50 Hz."
       }
     ],
-    "intuition": "Đây không phải một low-level policy trực tiếp xuất torque/action 50 Hz.",
+    "intuition": "Bước 1: nhận chỉ dẫn, ví dụ “Đem chiếc cốc sạch tới bàn”. Bước 2: đọc hình ảnh môi trường và dữ liệu cảm biến, chuyển thành biểu diễn mạng có thể xử lý. Bước 3: ghép biểu diễn ấy vào chuỗi chứa lời chỉ dẫn.",
     "detail": {
-      "label": "CHI TIẾT BIỂU DIỄN",
-      "text": "Thay vì xây một planner riêng, mô hình được huấn luyện end-to-end trên mixture gồm robotics, VQA, captioning và ngôn ngữ nhiệm vụ."
+      "label": "GIẢI THÍCH",
+      "text": "Bước 1: nhận chỉ dẫn, ví dụ “Đem chiếc cốc sạch tới bàn”. Bước 2: đọc hình ảnh môi trường và dữ liệu cảm biến, chuyển thành biểu diễn mạng có thể xử lý. Bước 3: ghép biểu diễn ấy vào chuỗi chứa lời chỉ dẫn. Bước 4: mô hình suy luận ra đối tượng và bước tiếp theo ở mức kế hoạch, chẳng hạn tìm cốc, tiếp cận cốc, cầm và mang tới bàn."
     }
   },
   {
     "type": "training",
-    "title": "Model học như thế nào?",
-    "lead": "Kết hợp embodied tasks với language/vision-language tasks.",
+    "title": "Cách học từ dữ liệu đa phương thức",
+    "lead": "Bước 1: nhận chỉ dẫn, ví dụ “Đem chiếc cốc sạch tới bàn”. Bước 2: đọc hình ảnh môi trường và dữ liệu cảm biến, chuyển thành biểu diễn mạng có thể xử lý. Bước 3: ghép biểu diễn ấy vào chuỗi chứa lời chỉ dẫn.",
     "items": [
       {
         "label": "MỤC TIÊU HỌC",
-        "value": "Giữ vốn kiến thức rộng từ pretraining."
+        "value": "Giữ vốn kiến thức rộng từ huấn luyện trước."
       },
       {
         "label": "DỮ LIỆU / QUY TRÌNH",
-        "value": "Điều quan trọng là co-training không gây catastrophic forgetting."
+        "value": "Điều quan trọng là co-huấn luyện không gây catastrophic forgetting."
       }
     ],
-    "intuition": "Điều tra ảnh hưởng tỷ lệ dữ liệu embodied và language.",
+    "intuition": "Bước 5: chính sách điều khiển cấp thấp hoặc bộ thực thi bên ngoài biến các bước ấy thành chuyển động robot, lấy thêm quan sát khi cần. Đừng nhầm “mô hình biết phải cầm cốc” với “mô hình biết ngay 7 góc khớp cần chuyển tới”; đó là hai bài toán kỹ thuật khác nhau.",
     "detail": {
-      "label": "CÁCH HUẤN LUYỆN",
-      "text": "Phiên bản lớn nhất lên tới 562B parameters. Điều đáng chú ý là bài báo không chỉ huấn luyện embodied dữ liệu, mà cố giữ web-scale prior bằng multi-task co-training, một pattern sau này quay lại rất nhiều trong RT-2, OpenVLA và Qwen-VLA."
+      "label": "GIẢI THÍCH",
+      "text": "Đối chiếu số liệu: Điểm nổi bật của PaLM-E không phải một tỷ lệ thành công dùng cho mọi robot. Bài báo đối chiếu nhiều loại nhiệm vụ và quy mô mô hình, trong đó có bản lớn 562 tỷ tham số. Nhìn Hình 2–3 để xem dữ liệu ảnh–ngôn ngữ và kiến thức từ mô hình học trước giúp gì khi lần người điều khiển robot làm mẫu rất ít; xem Hình 5 để biết việc học thêm dữ liệu robot ảnh hưởng năng lực ngôn ngữ cũ ra sao."
     }
   },
   {
     "type": "inference",
-    "title": "Một lần inference xảy ra ra sao?",
-    "lead": "Model nhận câu hỏi, cảm biến và bối cảnh hiện tại.",
+    "title": "Đầu ra PaLM-E được dùng như thế nào?",
+    "lead": "Bước 5: chính sách điều khiển cấp thấp hoặc bộ thực thi bên ngoài biến các bước ấy thành chuyển động robot, lấy thêm quan sát khi cần.",
     "items": [
       {
         "label": "XỬ LÝ ĐẦU VÀO",
@@ -146,114 +146,114 @@
         "value": "Robot vẫn cần controller/executor riêng để biến kế hoạch thành động tác."
       }
     ],
-    "intuition": "Robot vẫn cần controller/executor riêng để biến kế hoạch thành động tác.",
+    "intuition": "Ở bếp thứ nhất, cốc nằm cạnh vòi nước. Ở bếp thứ hai, nó nằm trên kệ. Câu lệnh vẫn giống nhau nhưng tọa độ khác, nên hệ thống phải dựa trên quan sát chứ không thể nhớ một chuỗi lệnh cố định.",
     "detail": {
-      "label": "DIỄN BIẾN THỰC THI",
-      "text": "Nếu vật mới xuất hiện sau một lần quan sát, mô hình cần grounding lại; phần action thường phụ thuộc kỹ năng primitive đã có."
+      "label": "GIẢI THÍCH",
+      "text": "Ba phương án không thể so trực tiếp bằng số tham số hoặc một tỷ lệ thành công lấy từ các thiết lập khác nhau. Hãy đối chiếu vị trí mô hình trong toàn hệ thống robot: *nó đang hiểu và lập kế hoạch, hay trực tiếp phát lệnh vận động?*"
     }
   },
   {
     "type": "equation",
-    "title": "Mathematical Intuition",
-    "lead": "Encoder E hiểu cảm biến; projection P đưa kết quả vào không gian embedding mà LLM có thể sử dụng.",
+    "title": "Đọc công thức kết hợp các nguồn thông tin",
+    "lead": "Trong sơ đồ, những màu khác nhau không phải chỉ để trang trí: chúng đánh dấu token đến từ nguồn nào. Khi đọc kết quả, hãy hỏi tín hiệu ảnh và trạng thái có thật sự được dùng hay mô hình chỉ đoán theo câu chữ.",
     "equation": "z_{\\mathrm{sensor}}=P(E(o))",
     "items": [
       "Biểu thức khái niệm để đọc kiến trúc, không phải loss mới."
     ],
-    "intuition": "Encoder E hiểu cảm biến; projection P đưa kết quả vào không gian embedding mà LLM có thể sử dụng.",
+    "intuition": "Bước 1: nhận chỉ dẫn, ví dụ “Đem chiếc cốc sạch tới bàn”. Bước 2: đọc hình ảnh môi trường và dữ liệu cảm biến, chuyển thành biểu diễn mạng có thể xử lý. Bước 3: ghép biểu diễn ấy vào chuỗi chứa lời chỉ dẫn.",
     "detail": {
-      "label": "Ý NGHĨA CÔNG THỨC",
-      "text": "Trong robotics, PaLM-E thường đóng vai trò high-level embodied reasoner: đọc bối cảnh + chỉ dẫn, phân tích mục tiêu, rồi gọi/điều kiện các low-level kỹ năng đã có."
+      "label": "GIẢI THÍCH CÔNG THỨC",
+      "text": "Một cách ghi chép hữu ích là vẽ ba ô: hiểu câu lệnh, hiểu cảnh, điều khiển vật lý. Ghi mô-đun nào giải từng phần, rồi đánh dấu phần nào đã được thí nghiệm thực tế chứng minh."
     }
   },
   {
     "type": "results",
-    "title": "Kết quả nói lên điều gì?",
-    "lead": "Các nhóm embodied reasoning và multimodal benchmarks cho thấy lợi ích của dữ liệu hỗn hợp.",
+    "title": "Kết quả chuyển giao cần hiểu thế nào?",
+    "lead": "Hình 2–3 so sánh những cấu hình dùng hoặc không dùng tiền huấn luyện và trộn dữ liệu ảnh–ngôn ngữ với dữ liệu robot. Mục tiêu là tìm xem nguồn tri thức ngoài robot có giúp tác vụ robot khi lần làm mẫu rất ít hay không.",
     "items": [
       {
         "label": "PHÁT HIỆN QUAN TRỌNG",
-        "value": "Huấn luyện chung giữ được khả năng text/vision-language tương đối tốt."
+        "value": "Huấn luyện chung giữ được khả năng chữ/vision-language tương đối tốt."
       },
       {
         "label": "CÁCH DIỄN GIẢI",
-        "value": "Robot task demonstrations vẫn quan trọng; tri thức web không thay thế control."
+        "value": "Dữ liệu thao tác robot vẫn cần thiết; kiến thức từ ảnh và chữ không tự biến thành lệnh điều khiển."
       }
     ],
-    "intuition": "pipeline đến action thật phụ thuộc nhiều thành phần bên ngoài, nên không tự chứng minh end-to-end generalist control.",
+    "intuition": "Đối chiếu số liệu: Điểm nổi bật của PaLM-E không phải một tỷ lệ thành công dùng cho mọi robot. Bài báo đối chiếu nhiều loại nhiệm vụ và quy mô mô hình, trong đó có bản lớn 562 tỷ tham số.",
     "detail": {
-      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
-      "text": "Huấn luyện chung giữa vision-language và robotics tạo positive chuyển giao, thay vì robotics làm hỏng kiến thức nền tảng như người ta có thể lo."
+      "label": "GIẢI THÍCH",
+      "text": "Hình 2–3 so sánh những cấu hình dùng hoặc không dùng tiền huấn luyện và trộn dữ liệu ảnh–ngôn ngữ với dữ liệu robot. Mục tiêu là tìm xem nguồn tri thức ngoài robot có giúp tác vụ robot khi lần làm mẫu rất ít hay không. Thí nghiệm với 1% dữ liệu là một điều kiện khắt khe, nhưng phải giữ đúng điều kiện của phép so khi diễn giải."
     }
   },
   {
     "type": "ablation",
-    "title": "Ablation và bằng chứng",
-    "lead": "Điều tra ảnh hưởng tỷ lệ dữ liệu embodied và language.",
+    "title": "Kiểm chứng đóng góp của từng nguồn dữ liệu",
+    "lead": "Hình 5 đánh giá thêm khả năng ngôn ngữ vốn có: học thao tác robot có làm mạng quên khả năng trả lời câu hỏi bằng chữ không? Khi mô hình lớn hơn, mức quên được báo cáo giảm.",
     "items": [
       {
         "label": "YẾU TỐ ĐƯỢC THỬ",
         "value": "Đọc kết quả như khả năng suy luận/planning, không đánh đồng với tỷ lệ thành công motor rollout."
       }
     ],
-    "intuition": "Huấn luyện chung giữ được khả năng text/vision-language tương đối tốt.",
+    "intuition": "Hình 2–3 so sánh những cấu hình dùng hoặc không dùng tiền huấn luyện và trộn dữ liệu ảnh–ngôn ngữ với dữ liệu robot. Mục tiêu là tìm xem nguồn tri thức ngoài robot có giúp tác vụ robot khi lần làm mẫu rất ít hay không.",
     "detail": {
-      "label": "BẰNG CHỨNG BỔ SUNG",
-      "text": "Khi tăng scale, catastrophic forgetting của ngôn ngữ capability giảm rõ, và bản 562B vẫn giữ được năng lực general ngôn ngữ tốt dù đã học thêm embodied inputs."
+      "label": "GIẢI THÍCH",
+      "text": "Hình 5 đánh giá thêm khả năng ngôn ngữ vốn có: học thao tác robot có làm mạng quên khả năng trả lời câu hỏi bằng chữ không? Khi mô hình lớn hơn, mức quên được báo cáo giảm. Điều đó cho thấy công trình quan tâm cả hai chiều chuyển giao, không chỉ điểm điều khiển robot."
     }
   },
   {
     "type": "limits",
-    "title": "Hạn chế cần nói thẳng",
-    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "title": "Những điều PaLM-E chưa chứng minh",
+    "lead": "Mô hình có thể lập ra kế hoạch đúng nhưng robot vẫn không gắp nổi vật do sai vị trí hoặc giới hạn kẹp. Đồng thời một mô hình có hàng tỷ tham số có thể chậm và tốn bộ nhớ, không phù hợp chạy trực tiếp trong mọi vòng điều khiển nhanh.",
     "items": [
       {
         "label": "Tác giả / phạm vi",
-        "value": "Tác giả: model và thí nghiệm đòi compute rất lớn, khả năng low-level manipulation còn hạn chế."
+        "value": "Tác giả: mô hình và thí nghiệm đòi compute rất lớn, khả năng low-mức manipulation còn hạn chế."
       },
       {
         "label": "Phê bình độc lập",
-        "value": "Phê bình: pipeline đến action thật phụ thuộc nhiều thành phần bên ngoài, nên không tự chứng minh end-to-end generalist control."
+        "value": "Phê bình: quy trình đến hành động thật phụ thuộc nhiều thành phần bên ngoài, nên không tự chứng minh end-to-end generalist control."
       }
     ],
-    "intuition": "Tầng ngôn ngữ xử lý sensory embeddings như phần tử của context.",
+    "intuition": "Các thí nghiệm kết hợp nhiều nhiệm vụ nhưng không chứng minh rằng một mô hình duy nhất thay thế mọi thành phần cảm biến và điều khiển. Khi đọc kết quả, phải phân biệt phần nào do PaLM-E sinh và phần nào do hệ thống hành động cấp thấp đảm nhiệm.",
     "detail": {
-      "label": "PHẠM VI KẾT LUẬN",
-      "text": "Bài báo thừa nhận: PaLM-E vẫn phụ thuộc mạnh vào low-level policy library. Nếu robot chưa có kỹ năng vật lý tương ứng, ví dụ một chuyển động mới hoàn toàn, mô hình ngôn ngữ không thể chỉ “nghĩ ra” bộ điều khiển đáng tin cậy."
+      "label": "GIẢI THÍCH",
+      "text": "Các thí nghiệm kết hợp nhiều nhiệm vụ nhưng không chứng minh rằng một mô hình duy nhất thay thế mọi thành phần cảm biến và điều khiển. Khi đọc kết quả, phải phân biệt phần nào do PaLM-E sinh và phần nào do hệ thống hành động cấp thấp đảm nhiệm."
     }
   },
   {
     "type": "relations",
-    "title": "Bài này đứng ở đâu trong lĩnh vực?",
-    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "title": "PaLM-E liên hệ với RT-2 và GR00T",
+    "lead": "PaLM-E nhấn mạnh việc biến quan sát thành một phần đầu vào của mô hình ngôn ngữ để hỗ trợ suy luận về môi trường vật lý.",
     "items": [
       {
         "label": "NỀN TẢNG / TIỀN ĐỀ",
-        "value": "RT-2 biến action thành token để đi tiếp từ reasoning đến điều khiển."
+        "value": "RT-2 biến hành động thành token để đi tiếp từ reasoning đến điều khiển."
       },
       {
         "label": "HƯỚNG PHÁT TRIỂN",
-        "value": "GR00T N1 sử dụng VLM làm phần hiểu ngữ nghĩa trước action expert."
+        "value": "GR00T N1 sử dụng VLM làm phần hiểu ngữ nghĩa trước hành động expert."
       }
     ],
-    "intuition": "Sensory tokens khiến LLM có grounding tốt hơn trong thế giới vật lý.",
+    "intuition": "Ba phương án không thể so trực tiếp bằng số tham số hoặc một tỷ lệ thành công lấy từ các thiết lập khác nhau. Hãy đối chiếu vị trí mô hình trong toàn hệ thống robot: *nó đang hiểu và lập kế hoạch, hay trực tiếp phát lệnh vận động?*",
     "detail": {
-      "label": "CÔNG TRÌNH LIÊN QUAN",
-      "text": "Đọc thêm RT-2, Qwen-VLA. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+      "label": "GIẢI THÍCH",
+      "text": "PaLM-E nhấn mạnh việc biến quan sát thành một phần đầu vào của mô hình ngôn ngữ để hỗ trợ suy luận về môi trường vật lý. RT-2 xem token hành động như một phần đầu ra của mô hình ảnh–ngôn ngữ; GR00T N1 lại tách rõ phần hiểu ảnh/câu lệnh khỏi mô-đun chuyên sinh chuyển động."
     }
   },
   {
     "type": "closing",
-    "title": "Nếu chỉ nhớ ba điều",
-    "lead": "Sensory tokens khiến LLM có grounding tốt hơn trong thế giới vật lý.",
+    "title": "Điều cần nhớ về PaLM-E",
+    "lead": "Nếu camera không cho thấy chiếc cốc ở vị trí hiện tại, PaLM-E có thể suy ra ngay vị trí khớp cần gắp không? Vì sao? Nếu bỏ dữ liệu ảnh nhưng giữ câu lệnh, kỳ vọng loại lỗi nào tăng lên?",
     "items": [
-      "Thích hợp làm high-level reasoning/planning module.",
-      "Không suy ra robotics performance chỉ từ điểm benchmark VQA."
+      "Thích hợp làm high-mức reasoning/planning module.",
+      "Không suy ra robotics performance chỉ từ điểm bộ đánh giá VQA."
     ],
-    "intuition": "Biến hình ảnh và trạng thái robot thành đầu vào của LLM để tận dụng reasoning đa phương thức.",
+    "intuition": "Một cách ghi chép hữu ích là vẽ ba ô: hiểu câu lệnh, hiểu cảnh, điều khiển vật lý. Ghi mô-đun nào giải từng phần, rồi đánh dấu phần nào đã được thí nghiệm thực tế chứng minh.",
     "detail": {
-      "label": "THỬ NGHIỆM TIẾP THEO",
-      "text": "Tự dựng một multimodal prompt encoder toy: project vectors ảnh 512D và state 12D vào cùng hidden dimension rồi xen kẽ token vào Transformer."
+      "label": "GIẢI THÍCH",
+      "text": "Nếu camera không cho thấy chiếc cốc ở vị trí hiện tại, PaLM-E có thể suy ra ngay vị trí khớp cần gắp không? Vì sao? Nếu bỏ dữ liệu ảnh nhưng giữ câu lệnh, kỳ vọng loại lỗi nào tăng lên? Nếu trộn dữ liệu robot và dữ liệu ảnh–ngôn ngữ đem lại lợi ích, cần giữ những điều kiện nào giống nhau trong phép thử?"
     }
   }
 ]

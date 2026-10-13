@@ -1,101 +1,101 @@
 [
   {
     "type": "cover",
-    "title": "Điểm cốt lõi",
-    "lead": "Không để robot dừng mỗi khi model nghĩ: action chunk mới phải khớp phần chuyển động đã cam kết.",
+    "title": "RTC: robot không đứng chờ mô hình suy luận",
+    "lead": "Robot cần lệnh mới ở tần số 50 Hz, tức mỗi 20 mili giây. Nhưng mô hình VLA có thể mất 100–300 mili giây để sinh một đoạn hành động. Nếu bắt robot đứng yên chờ, việc quẹt diêm, rót chất lỏng hoặc giữ vật có thể bị hỏng giữa chừng.",
     "items": [
       "Giữ committed prefix, chỉ sinh lại tương lai"
     ],
-    "intuition": "Trong khi inference diễn ra, robot vẫn chạy buffer cũ; chunk mới bị constraint khớp phần chắc chắn đã/đang thực thi.",
+    "intuition": "RTC giải vấn đề nối hai đoạn hành động trong khi robot đang chạy. Nó không làm VLM hiểu ảnh tốt hơn hay thay đổi mục tiêu nhiệm vụ. Trọng tâm là giữ những lệnh robot đã bắt đầu thực hiện, rồi sinh phần tương lai còn có thể thay đổi sao cho chuyển động không đứt đoạn.",
     "detail": {
-      "label": "BỐI CẢNH NGHIÊN CỨU",
-      "text": "Synchronous: thực thi hết phần được chọn của chunk A rồi chờ mô hình sinh B. Robot pause, momentum mất, trạng thái vật thể tiếp tục thay đổi."
+      "label": "GIẢI THÍCH",
+      "text": "RTC giải vấn đề nối hai đoạn hành động trong khi robot đang chạy. Nó không làm VLM hiểu ảnh tốt hơn hay thay đổi mục tiêu nhiệm vụ. Trọng tâm là giữ những lệnh robot đã bắt đầu thực hiện, rồi sinh phần tương lai còn có thể thay đổi sao cho chuyển động không đứt đoạn."
     }
   },
   {
     "type": "problem",
-    "title": "Policy inference chậm hơn nhịp điều khiển 50 Hz",
-    "lead": "Robot cần action mỗi 20 ms, trong khi VLA có thể mất 76–100 ms để sinh một chunk.",
+    "title": "Tại sao chậm vài trăm mili giây cũng nguy hiểm?",
+    "lead": "Robot cần lệnh mới ở tần số 50 Hz, tức mỗi 20 mili giây. Nhưng mô hình VLA có thể mất 100–300 mili giây để sinh một đoạn hành động. Nếu bắt robot đứng yên chờ, việc quẹt diêm, rót chất lỏng hoặc giữ vật có thể bị hỏng giữa chừng.",
     "items": [
       "Synchronous gây pause; naive asynchronous gây giật ở ranh giới"
     ],
-    "intuition": "Temporal averaging còn có thể trộn hai quỹ đạo hợp lệ thành chuyển động không hợp lệ.",
+    "intuition": "RTC giải vấn đề nối hai đoạn hành động trong khi robot đang chạy. Nó không làm VLM hiểu ảnh tốt hơn hay thay đổi mục tiêu nhiệm vụ. Trọng tâm là giữ những lệnh robot đã bắt đầu thực hiện, rồi sinh phần tương lai còn có thể thay đổi sao cho chuyển động không đứt đoạn.",
     "detail": {
-      "label": "NGUYÊN NHÂN CỐT LÕI",
-      "text": "Naive asynchronous: mô hình sinh B trong lúc robot đang chạy A. Không pause, nhưng B có thể chọn một strategy khác A ngay tại chunk boundary, gây discontinuity, acceleration spike hoặc jerk."
+      "label": "GIẢI THÍCH",
+      "text": "Robot cần lệnh mới ở tần số 50 Hz, tức mỗi 20 mili giây. Nhưng mô hình VLA có thể mất 100–300 mili giây để sinh một đoạn hành động. Nếu bắt robot đứng yên chờ, việc quẹt diêm, rót chất lỏng hoặc giữ vật có thể bị hỏng giữa chừng. Nếu để robot tiếp tục đoạn cũ rồi lập tức chuyển sang đoạn mới, lại có nguy cơ giật mạnh vì hai đoạn được tính từ quan sát khác nhau."
     }
   },
   {
     "type": "contrast",
-    "title": "Synchronous gây pause; naive asynchronous gây giật ở ranh giới",
-    "lead": "Temporal averaging còn có thể trộn hai quỹ đạo hợp lệ thành chuyển động không hợp lệ.",
+    "title": "Chạy bất đồng bộ không có nghĩa chuyển động liên tục",
+    "lead": "RTC giải vấn đề nối hai đoạn hành động trong khi robot đang chạy. Nó không làm VLM hiểu ảnh tốt hơn hay thay đổi mục tiêu nhiệm vụ.",
     "items": [
       "Giữ committed prefix, chỉ sinh lại tương lai",
-      "Trong khi inference diễn ra, robot vẫn chạy buffer cũ; chunk mới bị constraint khớp phần chắc chắn đã/đang thực thi."
+      "Trong khi mô hình tính, robot tiếp tục dùng lệnh trong bộ đệm cũ; đoạn mới phải khớp phần đã cam kết."
     ],
-    "intuition": "Trong khi inference diễn ra, robot vẫn chạy buffer cũ; chunk mới bị constraint khớp phần chắc chắn đã/đang thực thi.",
+    "intuition": "Robot cần lệnh mới ở tần số 50 Hz, tức mỗi 20 mili giây. Nhưng mô hình VLA có thể mất 100–300 mili giây để sinh một đoạn hành động. Nếu bắt robot đứng yên chờ, việc quẹt diêm, rót chất lỏng hoặc giữ vật có thể bị hỏng giữa chừng.",
     "detail": {
-      "label": "VÌ SAO CẦN THAY ĐỔI",
-      "text": "Nối chúng giữa chừng tạo một cú bẻ lái nguy hiểm. Averaging hai quỹ đạo cũng không chắc hữu ích: trung bình giữa “trái” và “phải” có thể là “đi thẳng vào vật cản”."
+      "label": "GIẢI THÍCH",
+      "text": "RTC không chỉ làm mượt đầu ra bằng trung bình số học. Nó hướng quá trình sinh B sao cho những phần đã cam kết tiếp tục đúng và các phần chưa thực hiện thay đổi dần. Khi xem Hình 2–4, hãy phân biệt ràng buộc cứng cho những bước không thể sửa và ràng buộc mềm cho phần còn quyền lựa chọn."
     }
   },
   {
     "type": "intuition",
-    "title": "Giữ committed prefix, chỉ sinh lại tương lai",
-    "lead": "Trong khi inference diễn ra, robot vẫn chạy buffer cũ; chunk mới bị constraint khớp phần chắc chắn đã/đang thực thi.",
+    "title": "Hình dung hai đường đi quanh vật cản",
+    "lead": "Đoạn A dự định cho tay robot vòng trên vật cản. Mạng tính đoạn B từ quan sát mới và tự chọn vòng dưới. Nếu chuyển từ bước 10 của A sang bước 11 của B, tay có thể đổi hướng tức thì với gia tốc rất lớn.",
     "items": [
-      "Không để robot dừng mỗi khi model nghĩ: action chunk mới phải khớp phần chuyển động đã cam kết."
+      "Không để robot dừng mỗi khi mô hình nghĩ: đoạn hành động mới phải khớp phần chuyển động đã cam kết."
     ],
-    "intuition": "Trong khi inference diễn ra, robot vẫn chạy buffer cũ; chunk mới bị constraint khớp phần chắc chắn đã/đang thực thi.",
+    "intuition": "RTC không chỉ làm mượt đầu ra bằng trung bình số học. Nó hướng quá trình sinh B sao cho những phần đã cam kết tiếp tục đúng và các phần chưa thực hiện thay đổi dần. Khi xem Hình 2–4, hãy phân biệt ràng buộc cứng cho những bước không thể sửa và ràng buộc mềm cho phần còn quyền lựa chọn.",
     "detail": {
-      "label": "GIẢI THÍCH CƠ CHẾ",
-      "text": "Chỉ hard-freeze d actions đầu chưa đảm bảo action ngay sau prefix nối mượt. Chunk cũ có thể đang đẩy sang phải với vận tốc lớn, nhưng chunk mới muốn bẻ trái ngay sau hành động thứ d."
+      "label": "GIẢI THÍCH",
+      "text": "Đoạn A dự định cho tay robot vòng trên vật cản. Mạng tính đoạn B từ quan sát mới và tự chọn vòng dưới. Nếu chuyển từ bước 10 của A sang bước 11 của B, tay có thể đổi hướng tức thì với gia tốc rất lớn. Nếu lấy trung bình hai vị trí, đường giữa lại có thể đâm vào vật cản."
     }
   },
   {
     "type": "concepts",
-    "title": "Ba khái niệm để nắm",
-    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "title": "Đoạn cũ, độ trễ và tiền tố đã cam kết",
+    "lead": "Đoạn hành động (action chunk) là đoạn gồm nhiều lệnh liên tiếp. Độ trễ suy luận d là số bước robot đi được trong lúc mô hình tạo đoạn mới.",
     "items": [
       {
         "label": "Control loop",
-        "value": "Servo chạy nhịp cố định, không chờ model."
+        "value": "Servo chạy nhịp cố định, không chờ mô hình."
       },
       {
         "label": "Committed prefix",
-        "value": "Các action không thể thu hồi trong thời gian inference."
+        "value": "Các hành động không thể thu hồi trong thời gian suy luận."
       },
       {
         "label": "Guided inpainting",
         "value": "Điều chỉnh mẫu flow để khớp prefix đã cam kết."
       }
     ],
-    "intuition": "Chuỗi action H×D, chia thành prefix đã cam kết và suffix có thể sinh lại.",
+    "intuition": "Ví dụ mạng bắt đầu tính lệnh khi robot đang ở bước 3 và phải mất bốn bước mới xong. Khi mạng trả lời, robot đã thực thi bước 4–7. Đoạn mới cần phù hợp với quá khứ không còn sửa được này.",
     "detail": {
-      "label": "NỀN TẢNG KỸ THUẬT",
-      "text": "Controller timestep Δt là thời gian vật lý giữa action, còn số denoising steps là số vòng thuật toán khi sinh."
+      "label": "GIẢI THÍCH",
+      "text": "Ví dụ mạng bắt đầu tính lệnh khi robot đang ở bước 3 và phải mất bốn bước mới xong. Khi mạng trả lời, robot đã thực thi bước 4–7. Đoạn mới cần phù hợp với quá khứ không còn sửa được này. Những lệnh tiếp theo thuộc vùng chồng nhau có thể được điều chỉnh mềm; các lệnh vượt khỏi đoạn cũ phải sinh mới."
     }
   },
   {
     "type": "pipeline",
-    "title": "Kiến trúc trong một sơ đồ",
-    "lead": "Không để robot dừng mỗi khi model nghĩ: action chunk mới phải khớp phần chuyển động đã cam kết.",
+    "title": "Hai vòng điều khiển chạy đồng thời",
+    "lead": "Bước 1: robot đang thực thi đoạn A trong bộ đệm; mô hình nhận quan sát mới và bắt đầu tính đoạn B. Hai việc diễn ra đồng thời, không bắt robot dừng. Bước 2: ước tính d để xác định những bước của A sẽ được thực hiện trước khi B xong.",
     "items": [
       "Đọc camera mới",
-      "Robot tiếp tục chunk cũ",
+      "Robot tiếp tục đoạn hành động cũ",
       "Guided flow inpainting",
       "Nối chunk mới liên tục"
     ],
-    "intuition": "Hai loop chạy song song: servo và policy inference.",
+    "intuition": "Bước 3: ở phần A còn chồng với B nhưng chưa cam kết, dùng mức ràng buộc giảm dần thay vì bắt B bằng A hoàn toàn. Bước 4: phần cuối B ngoài độ dài A được sinh mới. Bước 5: khi B tới, bộ điều khiển nối vào vị trí đang thực thi, lấy lại quan sát và bắt đầu tính đoạn tiếp.",
     "detail": {
-      "label": "ĐIỂM NHẤN TRIỂN KHAI",
-      "text": "Trong lúc ấy inference loop xử lý quan sát mới và tạo chunk kế tiếp. Timing budget d là số bộ điều khiển steps mà mô hình có thể mất trước khi kết quả sẵn sàng, được estimate bảo thủ từ lịch sử độ trễ."
+      "label": "GIẢI THÍCH",
+      "text": "Bước 3: ở phần A còn chồng với B nhưng chưa cam kết, dùng mức ràng buộc giảm dần thay vì bắt B bằng A hoàn toàn. Bước 4: phần cuối B ngoài độ dài A được sinh mới. Bước 5: khi B tới, bộ điều khiển nối vào vị trí đang thực thi, lấy lại quan sát và bắt đầu tính đoạn tiếp."
     }
   },
   {
     "type": "representation",
-    "title": "Mô hình biểu diễn cái gì?",
-    "lead": "Chuỗi action H×D, chia thành prefix đã cam kết và suffix có thể sinh lại.",
+    "title": "Phần hành động nào không thể sửa lại?",
+    "lead": "Ví dụ mạng bắt đầu tính lệnh khi robot đang ở bước 3 và phải mất bốn bước mới xong. Khi mạng trả lời, robot đã thực thi bước 4–7. Đoạn mới cần phù hợp với quá khứ không còn sửa được này.",
     "items": [
       {
         "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
@@ -106,70 +106,70 @@
         "value": "Cam kết là theo lệnh servo được gửi, không đảm bảo actuator chạm đúng như dự báo."
       }
     ],
-    "intuition": "Cam kết là theo lệnh servo được gửi, không đảm bảo actuator chạm đúng như dự báo.",
+    "intuition": "Bước 1: robot đang thực thi đoạn A trong bộ đệm; mô hình nhận quan sát mới và bắt đầu tính đoạn B. Hai việc diễn ra đồng thời, không bắt robot dừng. Bước 2: ước tính d để xác định những bước của A sẽ được thực hiện trước khi B xong. Đặt ràng buộc rất mạnh cho các bước ấy.",
     "detail": {
-      "label": "CHI TIẾT BIỂU DIỄN",
-      "text": "Timing budget d là số bộ điều khiển steps mà mô hình có thể mất trước khi kết quả sẵn sàng, được estimate bảo thủ từ lịch sử độ trễ."
+      "label": "GIẢI THÍCH",
+      "text": "Bước 1: robot đang thực thi đoạn A trong bộ đệm; mô hình nhận quan sát mới và bắt đầu tính đoạn B. Hai việc diễn ra đồng thời, không bắt robot dừng. Bước 2: ước tính d để xác định những bước của A sẽ được thực hiện trước khi B xong. Đặt ràng buộc rất mạnh cho các bước ấy."
     }
   },
   {
     "type": "training",
-    "title": "Model học như thế nào?",
-    "lead": "RTC inference-time không yêu cầu train lại policy gốc.",
+    "title": "RTC có cần huấn luyện lại mô hình không?",
+    "lead": "Bước 1: robot đang thực thi đoạn A trong bộ đệm; mô hình nhận quan sát mới và bắt đầu tính đoạn B. Hai việc diễn ra đồng thời, không bắt robot dừng. Bước 2: ước tính d để xác định những bước của A sẽ được thực hiện trước khi B xong.",
     "items": [
       {
         "label": "MỤC TIÊU HỌC",
-        "value": "Biết các steps sẽ chạy khi model còn tính toán."
+        "value": "Biết các bước sẽ chạy khi mô hình còn tính toán."
       },
       {
         "label": "DỮ LIỆU / QUY TRÌNH",
         "value": "Flow guidance/inpainting can thiệp ngay lúc sampling để giữ consistency."
       }
     ],
-    "intuition": "So synchronous, naive async, temporal ensembling và guided prefix.",
+    "intuition": "Bước 3: ở phần A còn chồng với B nhưng chưa cam kết, dùng mức ràng buộc giảm dần thay vì bắt B bằng A hoàn toàn. Bước 4: phần cuối B ngoài độ dài A được sinh mới. Bước 5: khi B tới, bộ điều khiển nối vào vị trí đang thực thi, lấy lại quan sát và bắt đầu tính đoạn tiếp.",
     "detail": {
-      "label": "CÁCH HUẤN LUYỆN",
-      "text": "Nếu action policy dùng flow-based v_θ, lấy mẫu cập nhật quỹ đạo từ noise qua các flow-time steps."
+      "label": "GIẢI THÍCH",
+      "text": "Điểm khác cách bất đồng bộ ngây thơ: B không được tự chọn một quỹ đạo hoàn toàn mâu thuẫn với phần A đã chạy."
     }
   },
   {
     "type": "inference",
-    "title": "Một lần inference xảy ra ra sao?",
-    "lead": "Hai loop chạy song song: servo và policy inference.",
+    "title": "Một lượt sinh đoạn hành động mới",
+    "lead": "Bước 3: ở phần A còn chồng với B nhưng chưa cam kết, dùng mức ràng buộc giảm dần thay vì bắt B bằng A hoàn toàn. Bước 4: phần cuối B ngoài độ dài A được sinh mới.",
     "items": [
       {
         "label": "XỬ LÝ ĐẦU VÀO",
-        "value": "Estimate latency d rồi cố định committed actions."
+        "value": "Estimate latency d rồi cố định committed hành động."
       },
       {
         "label": "TẠO HÀNH ĐỘNG",
         "value": "Nối suffix được generate thành chunk tiếp theo; controller không phải pause."
       }
     ],
-    "intuition": "Nối suffix được generate thành chunk tiếp theo; controller không phải pause.",
+    "intuition": "Mô hình tạo đoạn mới dựa trên những bước đã cam kết của đoạn trước, nhờ vậy giảm nguy cơ chuyển đột ngột giữa hai đường đi khác nhau.",
     "detail": {
-      "label": "DIỄN BIẾN THỰC THI",
-      "text": "Chunk A đang tiến lên theo trục X và nghiêng cổ tay nhẹ. Inference bắt đầu khi còn một số bước chưa thực thi, nên RTC khóa các bước A chắc chắn sẽ xảy ra."
+      "label": "GIẢI THÍCH",
+      "text": "Trong một thiết lập robot thật dùng π0.5 ở 50 Hz, bài báo báo thời gian lấy mẫu khoảng 76 mili giây cho cách thông thường và 97 mili giây cho RTC, chưa kể thời gian truyền dữ liệu qua mạng. Nghĩa là RTC có thể tốn thêm thời gian tính cho mỗi đoạn, chứ không nhất thiết làm mạng nhanh hơn. Lợi ích là robot vẫn thực thi trong lúc mạng tính toán, giảm thời gian đứng chờ và số lần phải làm lại."
     }
   },
   {
     "type": "equation",
-    "title": "Mathematical Intuition",
-    "lead": "Inference tốn T_infer; servo có chu kỳ Δt. Trong thời gian đợi, khoảng d action cũ đã phải được thực thi.",
+    "title": "Công thức tính số lệnh đã cam kết",
+    "lead": "Ví dụ mạng bắt đầu tính lệnh khi robot đang ở bước 3 và phải mất bốn bước mới xong. Khi mạng trả lời, robot đã thực thi bước 4–7. Đoạn mới cần phù hợp với quá khứ không còn sửa được này.",
     "equation": "d\\approx\\left\\lceil\\frac{T_{\\rm infer}}{\\Delta t}\\right\\rceil",
     "items": [
       "Đây là phép đổi latency thành số bước điều khiển."
     ],
-    "intuition": "Inference tốn T_infer; servo có chu kỳ Δt. Trong thời gian đợi, khoảng d action cũ đã phải được thực thi.",
+    "intuition": "Nếu bộ điều khiển cần lệnh mỗi 20 mili giây và mô hình tính trong 80 mili giây, đã có khoảng bốn lệnh cũ được thực thi trong lúc chờ.",
     "detail": {
-      "label": "Ý NGHĨA CÔNG THỨC",
-      "text": "Mấu chốt: mô hình không được pretrain với conditional prefix, nên RTC phải thêm conditioning tại thời gian inference bằng kỹ thuật gần với gradient-based inpainting."
+      "label": "GIẢI THÍCH CÔNG THỨC",
+      "text": "Độ trễ d được quy ra số nhịp điều khiển: ví dụ 80 mili giây chia cho 20 mili giây mỗi nhịp bằng bốn. Những hành động robot đã thực hiện trong bốn nhịp đó không thể bị thay thế bằng đoạn dự đoán mới."
     }
   },
   {
     "type": "results",
-    "title": "Kết quả nói lên điều gì?",
-    "lead": "Thí nghiệm 12 nhiệm vụ động trong Kinetix và 6 nhiệm vụ robot thật.",
+    "title": "Đánh giá thời gian và tiến độ thế nào?",
+    "lead": "Hình 1 cho thấy ví dụ robot quẹt diêm: cần chuyển động liên tục dù GPU có độ trễ. Hình 5 thay độ trễ suy luận và độ dài thực thi trên bài mô phỏng có điều kiện hoàn thành rõ ràng.",
     "items": [
       {
         "label": "PHÁT HIỆN QUAN TRỌNG",
@@ -180,32 +180,32 @@
         "value": "Dù sampler chậm hơn, overlap giúp giảm pause/jerk và cải thiện throughput ở nhiều tác vụ."
       }
     ],
-    "intuition": "smooth không có nghĩa force-safe; delay spike lớn hơn buffer vẫn cần fallback controller.",
+    "intuition": "Trong một thiết lập robot thật dùng π0.5 ở 50 Hz, bài báo báo thời gian lấy mẫu khoảng 76 mili giây cho cách thông thường và 97 mili giây cho RTC, chưa kể thời gian truyền dữ liệu qua mạng. Nghĩa là RTC có thể tốn thêm thời gian tính cho mỗi đoạn, chứ không nhất thiết làm mạng nhanh hơn.",
     "detail": {
-      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
-      "text": "Simulation: Tác giả thiết kế 12 nhiệm vụ động lực học trong Kinetix để khuếch đại tác hại của pause/jerk, thay vì chỉ chọn bench thao tác quasi-static vốn quá dễ bão hòa."
+      "label": "GIẢI THÍCH",
+      "text": "Hình 1 cho thấy ví dụ robot quẹt diêm: cần chuyển động liên tục dù GPU có độ trễ. Hình 5 thay độ trễ suy luận và độ dài thực thi trên bài mô phỏng có điều kiện hoàn thành rõ ràng. Nếu đoạn thực thi quá dài, robot phản ứng chậm; nếu quá ngắn so với d, đoạn mới không kịp đến. Hình 3 nêu các giới hạn của độ dài thực thi s theo d và H."
     }
   },
   {
     "type": "ablation",
-    "title": "Ablation và bằng chứng",
-    "lead": "So synchronous, naive async, temporal ensembling và guided prefix.",
+    "title": "Thử thay độ trễ và cách nối đoạn",
+    "lead": "Hình 6 đo tiến độ theo thời gian và thông lượng thực hiện. Không nên chỉ nhìn số hành động/giây: robot phát lệnh liên tục nhưng không hoàn thành công việc vẫn là thất bại.",
     "items": [
       {
         "label": "YẾU TỐ ĐƯỢC THỬ",
         "value": "Bơm thêm +100 hoặc +200 ms delay để đo robustness thay vì chỉ success nominal."
       }
     ],
-    "intuition": "Thiết lập 50 Hz: π0.5 khoảng 76 ms, có RTC khoảng 97 ms riêng sampler.",
+    "intuition": "Hình 1 cho thấy ví dụ robot quẹt diêm: cần chuyển động liên tục dù GPU có độ trễ. Hình 5 thay độ trễ suy luận và độ dài thực thi trên bài mô phỏng có điều kiện hoàn thành rõ ràng. Nếu đoạn thực thi quá dài, robot phản ứng chậm; nếu quá ngắn so với d, đoạn mới không kịp đến.",
     "detail": {
-      "label": "BẰNG CHỨNG BỔ SUNG",
-      "text": "Họ còn inject +100 ms và +200 ms độ trễ để kiểm tra robustness. Throughput RTC nhìn chung tốt hơn hoặc bền hơn trong các thiết lập này; một số biến thể temporal ensembling có dao động đủ mạnh để trigger protective stop của robot."
+      "label": "GIẢI THÍCH",
+      "text": "Hình 6 đo tiến độ theo thời gian và thông lượng thực hiện. Không nên chỉ nhìn số hành động/giây: robot phát lệnh liên tục nhưng không hoàn thành công việc vẫn là thất bại. Độ mượt, thời gian hoàn thành và tỷ lệ thành công phải được xem cùng nhau."
     }
   },
   {
     "type": "limits",
-    "title": "Hạn chế cần nói thẳng",
-    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "title": "RTC chưa đảm bảo những yếu tố an toàn nào?",
+    "lead": "RTC cần ước lượng độ trễ. Nếu mạng đột nhiên chậm hơn dự đoán, những lệnh được cho là còn thay đổi được có thể đã tới tay bộ điều khiển. Nếu mô hình quá chậm so với độ dài đoạn hành động, việc chỉ chỉnh mặt nạ không đủ để bảo đảm an toàn.",
     "items": [
       {
         "label": "Tác giả / phạm vi",
@@ -216,44 +216,44 @@
         "value": "Phê bình: smooth không có nghĩa force-safe; delay spike lớn hơn buffer vẫn cần fallback controller."
       }
     ],
-    "intuition": "Delay d được quy sang số bước điều khiển.",
+    "intuition": "Ngoài ra, tính liên tục về vị trí chưa luôn bảo đảm giới hạn vận tốc, gia tốc, lực hoặc va chạm. Khi chạy robot thật, cần log độ trễ cực đại, điểm nối lệnh và cơ chế dừng bảo vệ. RTC là một kỹ thuật điều khiển thời gian thực, không phải chứng nhận an toàn.",
     "detail": {
-      "label": "PHẠM VI KẾT LUẬN",
-      "text": "Tác giả thừa nhận: Runtime thêm overhead do guidance/backprop; cách làm phù hợp các diffusion/flow-based policies chứ không drop-in cho mọi autoregressive policy."
+      "label": "GIẢI THÍCH",
+      "text": "Ngoài ra, tính liên tục về vị trí chưa luôn bảo đảm giới hạn vận tốc, gia tốc, lực hoặc va chạm. Khi chạy robot thật, cần log độ trễ cực đại, điểm nối lệnh và cơ chế dừng bảo vệ. RTC là một kỹ thuật điều khiển thời gian thực, không phải chứng nhận an toàn."
     }
   },
   {
     "type": "relations",
-    "title": "Bài này đứng ở đâu trong lĩnh vực?",
-    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "title": "RTC lúc suy luận khác RTC lúc huấn luyện",
+    "lead": "RTC phiên bản đầu dùng mô hình đã học bình thường, rồi đưa các ràng buộc vào ngay trong quá trình sinh đoạn hành động bằng cách điều chỉnh quá trình lấy mẫu.",
     "items": [
       {
         "label": "NỀN TẢNG / TIỀN ĐỀ",
-        "value": "ACT khởi đầu action chunking và temporal aggregation."
+        "value": "ACT khởi đầu hành động chunking và temporal aggregation."
       },
       {
         "label": "HƯỚNG PHÁT TRIỂN",
-        "value": "RTC training dời chi phí consistency từ inference sang training."
+        "value": "RTC huấn luyện dời chi phí consistency từ suy luận sang huấn luyện."
       }
     ],
-    "intuition": "Real-time VLA là bài toán systems/control, không chỉ model accuracy.",
+    "intuition": "Hai cách có cùng mục tiêu nối hành động liên tục nhưng chi phí suy luận và cách đưa điều kiện vào mạng khác nhau. Đọc bài thứ hai sau khi hiểu các đoạn A/B, d và tiền tố đã cam kết của bài này sẽ dễ hơn nhiều.",
     "detail": {
-      "label": "CÔNG TRÌNH LIÊN QUAN",
-      "text": "Đọc thêm ACT / ALOHA, Diffusion Policy, π0.5, Training-time RTC. Nên so sánh cách tiếp cận, dữ liệu huấn luyện và phạm vi khái quát của từng công trình."
+      "label": "GIẢI THÍCH",
+      "text": "RTC phiên bản đầu dùng mô hình đã học bình thường, rồi đưa các ràng buộc vào ngay trong quá trình sinh đoạn hành động bằng cách điều chỉnh quá trình lấy mẫu. RTC huấn luyện sẵn dạy mạng từ đầu cách nhận phần tiền tố đã biết và sinh phần tiếp theo tương thích."
     }
   },
   {
     "type": "closing",
-    "title": "Nếu chỉ nhớ ba điều",
-    "lead": "Real-time VLA là bài toán systems/control, không chỉ model accuracy.",
+    "title": "Điều cần nhớ về RTC",
+    "lead": "Cho đoạn A có H = 12 hành động, mỗi hành động kéo dài 20 ms. Mô hình mất khoảng 80 ms để tính B, tương đương d = 4 bước. Nếu bộ điều khiển đã bắt đầu dùng A, bốn bước tiếp theo gần như chắc chắn được thực hiện trước khi B sẵn sàng.",
     "items": [
-      "Đảm bảo prefix đã gửi không bị thay đổi bởi output mới.",
-      "Benchmark phải đo throughput, jerk, deadline misses và task success."
+      "Đảm bảo prefix đã gửi không bị thay đổi bởi đầu ra mới.",
+      "bộ đánh giá phải đo throughput, jerk, deadline misses và nhiệm vụ success."
     ],
-    "intuition": "Không để robot dừng mỗi khi model nghĩ: action chunk mới phải khớp phần chuyển động đã cam kết.",
+    "intuition": "Bây giờ tăng d lên 7. Đoạn được phép sinh thêm sẽ ngắn hơn như thế nào? Khi nào không còn đủ vùng chồng nhau? Nếu trả lời được bằng một trục thời gian, bạn đã hiểu động lực chính của RTC.",
     "detail": {
-      "label": "THỬ NGHIỆM TIẾP THEO",
-      "text": "Làm một simulator đơn giản với H=50, Δt=20 ms, artificial inference delay d=5...15. So ba chiến lược: synchronous (có pause), naive async (thay chunk ngay), RTC-style hard-prefix blending (sau đó thêm soft decay)."
+      "label": "GIẢI THÍCH",
+      "text": "Bây giờ tăng d lên 7. Đoạn được phép sinh thêm sẽ ngắn hơn như thế nào? Khi nào không còn đủ vùng chồng nhau? Nếu trả lời được bằng một trục thời gian, bạn đã hiểu động lực chính của RTC."
     }
   }
 ]

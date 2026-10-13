@@ -1,175 +1,175 @@
 [
   {
     "type": "cover",
-    "title": "Điểm cốt lõi",
-    "lead": "VLM lo hiểu ngữ nghĩa, action expert lo chuyển động: pretraining video người bổ sung kinh nghiệm cho robot.",
+    "title": "GR00T N1: nối hiểu cảnh với chuyển động",
+    "lead": "robot hai tay, robot di động và robot hình người khác nhau về số khớp, kiểu kẹp và cảm biến. Vì vậy không thể gửi cùng một dãy góc khớp cho mọi robot. Thu hàng triệu lượt thực hành đúng với mỗi phần cứng sẽ cực kỳ tốn kém.",
     "items": [
       "Dual-system architecture chia việc theo bản chất"
     ],
-    "intuition": "System 2 mã hóa image/language thành condition; System 1 là flow-based action expert sinh quỹ đạo.",
+    "intuition": "Bài toán không đơn giản là “mô hình nhìn video rồi bắt chước tay người”. Video người có thể giúp hiểu thứ tự và mục tiêu chuyển động, nhưng lệnh điều khiển động cơ vẫn phải thích ứng với cấu trúc robot. Vì vậy GR00T có phần xử lý ảnh/câu lệnh và phần chuyên sinh hành động vận động.",
     "detail": {
-      "label": "BỐI CẢNH NGHIÊN CỨU",
-      "text": "Không thể copy khớp của con người angles sang robot joints một cách trực tiếp. Do đó bài toán của GR00T N1 là: làm sao tận dụng đa nguồn dữ liệu để xây dựng một policy có khả năng hiểu ngữ nghĩa lẫn khả năng sinh liên tục motor actions, sau đó thích nghi nhanh cho robot thật?"
+      "label": "GIẢI THÍCH",
+      "text": "Bài toán không đơn giản là “mô hình nhìn video rồi bắt chước tay người”. Video người có thể giúp hiểu thứ tự và mục tiêu chuyển động, nhưng lệnh điều khiển động cơ vẫn phải thích ứng với cấu trúc robot. Vì vậy GR00T có phần xử lý ảnh/câu lệnh và phần chuyên sinh hành động vận động."
     }
   },
   {
     "type": "problem",
-    "title": "Robot demonstrations đắt, đa embodiment khó cùng huấn luyện",
-    "lead": "Một mô hình vừa phải hiểu nhiệm vụ vừa phải phát lệnh motor liên tục, nhưng hai phần có demands khác nhau.",
+    "title": "Vì sao dữ liệu cho robot hình người khó thu?",
+    "lead": "robot hai tay, robot di động và robot hình người khác nhau về số khớp, kiểu kẹp và cảm biến. Vì vậy không thể gửi cùng một dãy góc khớp cho mọi robot. Thu hàng triệu lượt thực hành đúng với mỗi phần cứng sẽ cực kỳ tốn kém.",
     "items": [
       "VLM giỏi nghĩa nhưng không sẵn sàng điều khiển khớp"
     ],
-    "intuition": "Robot-only BC thiếu dữ liệu quy mô và khó mở rộng ra nhiều thiết bị.",
+    "intuition": "Bài toán không đơn giản là “mô hình nhìn video rồi bắt chước tay người”. Video người có thể giúp hiểu thứ tự và mục tiêu chuyển động, nhưng lệnh điều khiển động cơ vẫn phải thích ứng với cấu trúc robot. Vì vậy GR00T có phần xử lý ảnh/câu lệnh và phần chuyên sinh hành động vận động.",
     "detail": {
-      "label": "NGUYÊN NHÂN CỐT LÕI",
-      "text": "Truyền thống, mỗi robot/nhiệm vụ được huấn luyện bằng behavior cloning trên một tập demonstrations tương ứng."
+      "label": "GIẢI THÍCH",
+      "text": "robot hai tay, robot di động và robot hình người khác nhau về số khớp, kiểu kẹp và cảm biến. Vì vậy không thể gửi cùng một dãy góc khớp cho mọi robot. Thu hàng triệu lượt thực hành đúng với mỗi phần cứng sẽ cực kỳ tốn kém. GR00T N1 tìm cách khai thác nhiều tầng dữ liệu: video người dễ thu, video tạo tổng hợp, lần người điều khiển robot làm mẫu nhiều loại và dữ liệu chi tiết của robot mục tiêu."
     }
   },
   {
     "type": "contrast",
-    "title": "VLM giỏi nghĩa nhưng không sẵn sàng điều khiển khớp",
-    "lead": "Robot-only BC thiếu dữ liệu quy mô và khó mở rộng ra nhiều thiết bị.",
+    "title": "Video người chưa phải lệnh điều khiển robot",
+    "lead": "Bài toán không đơn giản là “mô hình nhìn video rồi bắt chước tay người”. Video người có thể giúp hiểu thứ tự và mục tiêu chuyển động, nhưng lệnh điều khiển động cơ vẫn phải thích ứng với cấu trúc robot.",
     "items": [
       "Dual-system architecture chia việc theo bản chất",
-      "System 2 mã hóa image/language thành condition; System 1 là flow-based action expert sinh quỹ đạo."
+      "Nhánh hiểu cảnh dùng ảnh và câu lệnh để xác định mục tiêu; nhánh sinh hành động tính chuyển động phù hợp."
     ],
-    "intuition": "System 2 mã hóa image/language thành condition; System 1 là flow-based action expert sinh quỹ đạo.",
+    "intuition": "robot hai tay, robot di động và robot hình người khác nhau về số khớp, kiểu kẹp và cảm biến. Vì vậy không thể gửi cùng một dãy góc khớp cho mọi robot. Thu hàng triệu lượt thực hành đúng với mỗi phần cứng sẽ cực kỳ tốn kém.",
     "detail": {
-      "label": "VÌ SAO CẦN THAY ĐỔI",
-      "text": "Robot humanoid có thể sở hữu camera, hai cánh tay, thân, cổ tay và gripper, nhưng việc biến lời nói “gấp chiếc áo này” thành hàng trăm lệnh điều khiển vẫn rất khó."
+      "label": "GIẢI THÍCH",
+      "text": "Điều này cho thấy kiến thức từ giai đoạn huấn luyện rộng có thể hữu ích trước khi học riêng nhiệm vụ. Tuy nhiên một lượt thành công mang tính minh họa chưa thay thế đánh giá trên nhiều vị trí, vật và số lượt thử."
     }
   },
   {
     "type": "intuition",
-    "title": "Dual-system architecture chia việc theo bản chất",
-    "lead": "System 2 mã hóa image/language thành condition; System 1 là flow-based action expert sinh quỹ đạo.",
+    "title": "Hình dung hai tay chuyền một quả táo",
+    "lead": "robot đang giữ táo bằng tay trái, tay phải phải đưa tới đúng vị trí, kẹp chắc rồi tay trái mới thả. Một mạng chỉ biết “đưa táo vào giỏ” chưa đủ nếu không dự đoán đúng thứ tự phối hợp hai tay.",
     "items": [
-      "VLM lo hiểu ngữ nghĩa, action expert lo chuyển động: pretraining video người bổ sung kinh nghiệm cho robot."
+      "VLM lo hiểu ngữ nghĩa, hành động expert lo chuyển động: huấn luyện trước video người bổ sung kinh nghiệm cho robot."
     ],
-    "intuition": "System 2 mã hóa image/language thành condition; System 1 là flow-based action expert sinh quỹ đạo.",
+    "intuition": "Điều này cho thấy kiến thức từ giai đoạn huấn luyện rộng có thể hữu ích trước khi học riêng nhiệm vụ. Tuy nhiên một lượt thành công mang tính minh họa chưa thay thế đánh giá trên nhiều vị trí, vật và số lượt thử.",
     "detail": {
-      "label": "GIẢI THÍCH CƠ CHẾ",
-      "text": "Hệ thống 2 dùng VLM encode ảnh và ngôn ngữ thành context, rồi cung cấp context cho Hệ thống 1; Hệ thống 1 là một Transformer chuyên sinh action quỹ đạo bằng quá trình flow-based sinh."
+      "label": "GIẢI THÍCH",
+      "text": "robot đang giữ táo bằng tay trái, tay phải phải đưa tới đúng vị trí, kẹp chắc rồi tay trái mới thả. Một mạng chỉ biết “đưa táo vào giỏ” chưa đủ nếu không dự đoán đúng thứ tự phối hợp hai tay. Hình 11 cho thấy một ví dụ robot chưa tinh chỉnh vẫn hoàn thành chuyển tay trong bố cục mới, nhưng chuyển động còn giật."
     }
   },
   {
     "type": "concepts",
-    "title": "Ba khái niệm để nắm",
-    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "title": "VLM và bộ sinh hành động khác nhau thế nào?",
+    "lead": "Trong GR00T N1, VLM đọc ảnh và lệnh để hình thành biểu diễn ngữ nghĩa: vật cần nhặt là gì, mục tiêu ở đâu. Bộ sinh hành động (hành động expert) dùng thông tin ấy, cùng trạng thái khớp và loại robot, để dự đoán chuyển động.",
     "items": [
       {
         "label": "System 2",
-        "value": "Visual-language context, không phải chatbot nghĩ thành tiếng."
+        "value": "thị giác-language context, không phải chatbot nghĩ thành tiếng."
       },
       {
         "label": "System 1",
-        "value": "Transformer action expert sinh chuyển động liên tục."
+        "value": "Transformer hành động expert sinh chuyển động liên tục."
       },
       {
         "label": "Flow matching",
-        "value": "Học velocity field để biến nhiễu thành action chunk."
+        "value": "Học velocity field để biến nhiễu thành đoạn hành động."
       }
     ],
-    "intuition": "Thông tin robot state, embodiment và images được đưa vào condition.",
+    "intuition": "Biểu diễn nhận biết robot giúp phần sinh lệnh hiểu đang điều khiển cánh tay đơn hay hệ hai tay nhiều khớp. Hai robot có thể chia sẻ ý tưởng “dịch tay sang trái”, nhưng góc khớp cụ thể không giống nhau. Đó là lý do mạng có bộ mã hóa riêng cho trạng thái và hành động theo từng cấu trúc.",
     "detail": {
-      "label": "NỀN TẢNG KỸ THUẬT",
-      "text": "Post-training thích nghi vào robot và nhiệm vụ đích bằng demonstrations chuyên biệt. Hai bước này cần phân biệt vì thành công ở robot cuối không chỉ do foundation pretraining, mà còn do dữ liệu và setup ở downstream."
+      "label": "GIẢI THÍCH",
+      "text": "Biểu diễn nhận biết robot giúp phần sinh lệnh hiểu đang điều khiển cánh tay đơn hay hệ hai tay nhiều khớp. Hai robot có thể chia sẻ ý tưởng “dịch tay sang trái”, nhưng góc khớp cụ thể không giống nhau. Đó là lý do mạng có bộ mã hóa riêng cho trạng thái và hành động theo từng cấu trúc."
     }
   },
   {
     "type": "pipeline",
-    "title": "Kiến trúc trong một sơ đồ",
-    "lead": "VLM lo hiểu ngữ nghĩa, action expert lo chuyển động: pretraining video người bổ sung kinh nghiệm cho robot.",
+    "title": "Hai phần mô hình trao đổi thông tin ra sao?",
+    "lead": "Giả sử câu lệnh là “chuyển quả táo từ tay trái sang tay phải rồi đặt vào giỏ”. Camera ghi cảnh và trạng thái khớp ghi vị trí hiện tại.",
     "items": [
-      "Camera + lệnh + state",
+      "Camera + lệnh + trạng thái",
       "VLM / System 2",
-      "Flow action expert / System 1",
+      "Flow hành động expert / System 1",
       "Quỹ đạo H × D"
     ],
-    "intuition": "System 2 xử lý ngữ nghĩa và context ảnh.",
+    "intuition": "Bộ sinh hành động nhận thêm biểu diễn trạng thái của robot và chuỗi hành động nhiễu, liên tục chỉnh chuỗi cho tới khi tạo ra đoạn lệnh vận động. Lệnh cần được chuyển về đúng dạng phần cứng thực thi. robot nhận quan sát mới khi di chuyển.",
     "detail": {
-      "label": "ĐIỂM NHẤN TRIỂN KHAI",
-      "text": "Đây là điểm liên hệ mạnh nhất với hoạt động thu headcam video: đầu vào người đa dạng có giá trị, nhưng value phụ thuộc vào filtering, chuyển động/hand state reconstruction và mapping sang biểu diễn mà action expert học được."
+      "label": "GIẢI THÍCH",
+      "text": "Bộ sinh hành động nhận thêm biểu diễn trạng thái của robot và chuỗi hành động nhiễu, liên tục chỉnh chuỗi cho tới khi tạo ra đoạn lệnh vận động. Lệnh cần được chuyển về đúng dạng phần cứng thực thi. robot nhận quan sát mới khi di chuyển. Mạng ngữ nghĩa giúp chọn việc cần làm; bộ sinh hành động mới quyết định quỹ đạo thực tế."
     }
   },
   {
     "type": "representation",
-    "title": "Mô hình biểu diễn cái gì?",
-    "lead": "Thông tin robot state, embodiment và images được đưa vào condition.",
+    "title": "Chuyển động phải phù hợp từng loại robot",
+    "lead": "Biểu diễn nhận biết robot giúp phần sinh lệnh hiểu đang điều khiển cánh tay đơn hay hệ hai tay nhiều khớp. Hai robot có thể chia sẻ ý tưởng “dịch tay sang trái”, nhưng góc khớp cụ thể không giống nhau.",
     "items": [
       {
         "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
-        "value": "Output là continuous action chunk, không phải token text."
+        "value": "đầu ra là continuous đoạn hành động, không phải token chữ."
       },
       {
         "label": "ĐÁNH ĐỔI KỸ THUẬT",
-        "value": "Human video cung cấp action prior gián tiếp chứ không có ground truth robot torque."
+        "value": "Human video cung cấp hành động prior gián tiếp chứ không có ground truth robot torque."
       }
     ],
-    "intuition": "Human video cung cấp action prior gián tiếp chứ không có ground truth robot torque.",
+    "intuition": "Giả sử câu lệnh là “chuyển quả táo từ tay trái sang tay phải rồi đặt vào giỏ”. Camera ghi cảnh và trạng thái khớp ghi vị trí hiện tại. Mô hình VLM Eagle-2 biến ảnh/câu lệnh thành đặc trưng, sau đó chuyển thông tin liên quan sang các khối DiT bằng chú ý chéo.",
     "detail": {
-      "label": "CHI TIẾT BIỂU DIỄN",
-      "text": "Vì action quỹ đạo bao gồm nhiều bước, mô hình có thể phối hợp chuyển động tay trái/tay phải và giữ tính liên tục về thời gian trong chunk."
+      "label": "GIẢI THÍCH",
+      "text": "Giả sử câu lệnh là “chuyển quả táo từ tay trái sang tay phải rồi đặt vào giỏ”. Camera ghi cảnh và trạng thái khớp ghi vị trí hiện tại. Mô hình VLM Eagle-2 biến ảnh/câu lệnh thành đặc trưng, sau đó chuyển thông tin liên quan sang các khối DiT bằng chú ý chéo."
     }
   },
   {
     "type": "training",
-    "title": "Model học như thế nào?",
-    "lead": "Mixture robot demonstrations, video con người và vision-language data.",
+    "title": "GR00T N1 học từ nhiều nguồn dữ liệu",
+    "lead": "Giả sử câu lệnh là “chuyển quả táo từ tay trái sang tay phải rồi đặt vào giỏ”. Camera ghi cảnh và trạng thái khớp ghi vị trí hiện tại.",
     "items": [
       {
         "label": "MỤC TIÊU HỌC",
-        "value": "Flow matching học biến noisy action thành motor trajectory."
+        "value": "Flow matching học biến noisy hành động thành motor trajectory."
       },
       {
         "label": "DỮ LIỆU / QUY TRÌNH",
-        "value": "Post-training/adaptation để phù hợp robot và kỹ năng đích."
+        "value": "Post-huấn luyện/adaptation để phù hợp robot và kỹ năng đích."
       }
     ],
-    "intuition": "So pretraining + adaptation với train từ đầu ở từng demo budget.",
+    "intuition": "Bộ sinh hành động nhận thêm biểu diễn trạng thái của robot và chuỗi hành động nhiễu, liên tục chỉnh chuỗi cho tới khi tạo ra đoạn lệnh vận động. Lệnh cần được chuyển về đúng dạng phần cứng thực thi. robot nhận quan sát mới khi di chuyển.",
     "detail": {
-      "label": "CÁCH HUẤN LUYỆN",
-      "text": "Một mạng đã pretrain chưa hiểu chắc robot target. Post-training dùng demonstrations đặc thù để calibrate action scaling, gripper convention, camera viewpoint và kinematics."
+      "label": "GIẢI THÍCH",
+      "text": "Có thể hình dung hệ thống như hai người cùng làm việc. Người thứ nhất nhìn camera và đọc yêu cầu để nhận ra chiếc hộp nào cần mở, chiếc cốc nào cần đặt vào. Người thứ hai nhận mục tiêu ấy cùng vị trí khớp hiện tại rồi tính cách chuyển động. Trong GR00T N1, phần đầu do mô hình ảnh–ngôn ngữ đảm nhiệm, phần sau do mạng DiT chuyên sinh hành động thực hiện. Kết nối bằng chú ý chéo cho phép nhánh vận động sử dụng thông tin thị giác thay vì tự suy ra mục tiêu từ nhiễu."
     }
   },
   {
     "type": "inference",
-    "title": "Một lần inference xảy ra ra sao?",
-    "lead": "System 2 xử lý ngữ nghĩa và context ảnh.",
+    "title": "Robot sinh một đoạn chuyển động như thế nào?",
+    "lead": "Bộ sinh hành động nhận thêm biểu diễn trạng thái của robot và chuỗi hành động nhiễu, liên tục chỉnh chuỗi cho tới khi tạo ra đoạn lệnh vận động. Lệnh cần được chuyển về đúng dạng phần cứng thực thi.",
     "items": [
       {
         "label": "XỬ LÝ ĐẦU VÀO",
-        "value": "System 1 chạy vài bước flow sampling để sinh chunk."
+        "value": "Bộ sinh hành động qua nhiều bước tính để tạo một đoạn chuyển động."
       },
       {
         "label": "TẠO HÀNH ĐỘNG",
-        "value": "Robot servo thực thi chunk; độ trễ còn phụ thuộc phần cứng và runtime."
+        "value": "Bộ điều khiển robot thực hiện đoạn hành động; độ trễ còn tùy phần cứng và môi trường chạy."
       }
     ],
-    "intuition": "Robot servo thực thi chunk; độ trễ còn phụ thuộc phần cứng và runtime.",
+    "intuition": "robot đang giữ táo bằng tay trái, tay phải phải đưa tới đúng vị trí, kẹp chắc rồi tay trái mới thả. Một mạng chỉ biết “đưa táo vào giỏ” chưa đủ nếu không dự đoán đúng thứ tự phối hợp hai tay.",
     "detail": {
-      "label": "DIỄN BIẾN THỰC THI",
-      "text": "VLM trích xuất context gồm áo, bàn, tay robot và từ khóa nhiệm vụ. Action expert lấy robot trạng thái khớp hiện tại, sampled action noise và context rồi sinh chunk chứa các bước đưa hai tay xuống, kẹp mép, kéo và đặt."
+      "label": "GIẢI THÍCH",
+      "text": "Bài báo có phiên bản GR00T N1 khoảng hai tỷ tham số; một thiết lập báo thời gian sinh đoạn hành động khoảng 63,9 mili giây trên GPU L40. Đây không phải độ trễ bảo đảm cho mọi máy. Kết quả so mô hình đã huấn luyện trước với mô hình học từ đầu cần đặt cạnh số lần làm mẫu của từng nhiệm vụ, ví dụ 30 hay 300 lượt. Nếu khoảng cách giảm khi có nhiều mẫu hơn, lợi ích nổi bật của huấn luyện trước có thể là tiết kiệm dữ liệu chứ chưa chắc đạt giới hạn cao hơn ở mọi nhiệm vụ."
     }
   },
   {
     "type": "equation",
-    "title": "Mathematical Intuition",
-    "lead": "Tưởng tượng chuyển từ nhiễu ε sang một trajectory A*: flow model học hướng di chuyển trong không gian action.",
+    "title": "Giải thích vai trò của nhiễu trong bộ sinh lệnh",
+    "lead": "Biểu diễn nhận biết robot giúp phần sinh lệnh hiểu đang điều khiển cánh tay đơn hay hệ hai tay nhiều khớp. Hai robot có thể chia sẻ ý tưởng “dịch tay sang trái”, nhưng góc khớp cụ thể không giống nhau.",
     "equation": "A_\\tau=(1-\\tau)\\epsilon+\\tau A^\\star",
     "items": [
       "Cách viết intuition của linear flow interpolation."
     ],
-    "intuition": "Tưởng tượng chuyển từ nhiễu ε sang một trajectory A*: flow model học hướng di chuyển trong không gian action.",
+    "intuition": "Giả sử câu lệnh là “chuyển quả táo từ tay trái sang tay phải rồi đặt vào giỏ”. Camera ghi cảnh và trạng thái khớp ghi vị trí hiện tại. Mô hình VLM Eagle-2 biến ảnh/câu lệnh thành đặc trưng, sau đó chuyển thông tin liên quan sang các khối DiT bằng chú ý chéo.",
     "detail": {
-      "label": "Ý NGHĨA CÔNG THỨC",
-      "text": "Ở inference, bắt đầu noise, tích phân qua nhiều flow time steps để lấy một plausible chunk."
+      "label": "GIẢI THÍCH CÔNG THỨC",
+      "text": "π0.5 cũng quan tâm nguồn dữ liệu đa dạng và phân tầng nhiệm vụ dài, nhưng quy trình học và đối tượng đánh giá khác. Khi so, phải hỏi từng mạng đang dùng dữ liệu nào và có phải huấn luyện bổ sung cho robot đích không."
     }
   },
   {
     "type": "results",
-    "title": "Kết quả nói lên điều gì?",
-    "lead": "Pretrain rồi adapt cho thấy lợi ích khi số demos đích ít hơn.",
+    "title": "Thực nghiệm dữ liệu tổng hợp cho thấy gì?",
+    "lead": "Hình 5 và Hình 13 trình bày các video được mô hình sinh từ ảnh ban đầu cùng prompt thay đổi. Mục tiêu là tạo thêm quỹ đạo/hình ảnh cho những việc khó hoặc đắt nếu phải quay bằng robot thật.",
     "items": [
       {
         "label": "PHÁT HIỆN QUAN TRỌNG",
@@ -180,80 +180,80 @@
         "value": "Chunk sampling khoảng 63,9 ms trên một GPU L40 trong setup cụ thể của bài báo."
       }
     ],
-    "intuition": "success rate không bao gồm mọi jerk/collision, và bài toán mapping cross-embodiment còn mở.",
+    "intuition": "Bài báo có phiên bản GR00T N1 khoảng hai tỷ tham số; một thiết lập báo thời gian sinh đoạn hành động khoảng 63,9 mili giây trên GPU L40. Đây không phải độ trễ bảo đảm cho mọi máy.",
     "detail": {
-      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
-      "text": "Bài báo đánh giá nhiều môi trường mô phỏng và trên humanoid thật. Phần công bố báo GR00T N1 đã pretrain thường tốt hơn các phương pháp imitation learning đối chứng được huấn luyện từ đầu ở những chế độ ít demonstrations, và cho thấy adaptation trên Fourier GR-1."
+      "label": "GIẢI THÍCH",
+      "text": "Hình 5 và Hình 13 trình bày các video được mô hình sinh từ ảnh ban đầu cùng prompt thay đổi. Mục tiêu là tạo thêm quỹ đạo/hình ảnh cho những việc khó hoặc đắt nếu phải quay bằng robot thật. Có thể tạo các góc nhìn khác nhau, thay vật thể hoặc nối nhiều đoạn thành nhiệm vụ dài."
     }
   },
   {
     "type": "ablation",
-    "title": "Ablation và bằng chứng",
-    "lead": "So pretraining + adaptation với train từ đầu ở từng demo budget.",
+    "title": "Thử thay nguồn dữ liệu để xác định lợi ích",
+    "lead": "Hình 9 kiểm tra riêng việc bổ sung quỹ đạo sinh ở các chế độ dữ liệu ít/nhiều.",
     "items": [
       {
         "label": "YẾU TỐ ĐƯỢC THỬ",
-        "value": "Cần tách gain do architecture khỏi gain do tuyển lọc data mixture."
+        "value": "Cần tách gain do architecture khỏi gain do tuyển lọc dữ liệu mixture."
       }
     ],
-    "intuition": "Báo cáo GR00T N1-2B khoảng 2B parameters.",
+    "intuition": "Hình 5 và Hình 13 trình bày các video được mô hình sinh từ ảnh ban đầu cùng prompt thay đổi. Mục tiêu là tạo thêm quỹ đạo/hình ảnh cho những việc khó hoặc đắt nếu phải quay bằng robot thật. Có thể tạo các góc nhìn khác nhau, thay vật thể hoặc nối nhiều đoạn thành nhiệm vụ dài.",
     "detail": {
-      "label": "BẰNG CHỨNG BỔ SUNG",
-      "text": "Một cách đọc kết quả có trách nhiệm: xem biểu đồ pretraining vs scratch theo từng dữ liệu regime."
+      "label": "ĐỐI CHIẾU THÍ NGHIỆM",
+      "text": "Hình 9 kiểm tra riêng việc bổ sung quỹ đạo sinh ở các chế độ dữ liệu ít/nhiều. Điều quan trọng là video tổng hợp không tự có nhãn hành động robot chính xác; cần suy ra lệnh bằng phương pháp phù hợp, chẳng hạn mô hình động học ngược, và xác minh chất lượng. Nếu nhãn sai, thêm dữ liệu còn có thể làm chính sách điều khiển kém."
     }
   },
   {
     "type": "limits",
-    "title": "Hạn chế cần nói thẳng",
-    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "title": "Những giới hạn của video và robot thật",
+    "lead": "robot hình người phải thỏa các ràng buộc cân bằng, tiếp xúc, giới hạn lực và an toàn mà dữ liệu video đơn thuần không mô tả đầy đủ.",
     "items": [
       {
         "label": "Tác giả / phạm vi",
-        "value": "Tác giả: vẫn cần post-training; human video không tự tạo ra action labels tương đương robot."
+        "value": "Tác giả: vẫn cần post-huấn luyện; human video không tự tạo ra hành động labels tương đương robot."
       },
       {
         "label": "Phê bình độc lập",
-        "value": "Phê bình: success rate không bao gồm mọi jerk/collision, và bài toán mapping cross-embodiment còn mở."
+        "value": "Phê bình: tỷ lệ thành công không bao gồm mọi jerk/collision, và bài toán mapping cross-embodiment còn mở."
       }
     ],
-    "intuition": "Output là continuous action chunk, không phải token text.",
+    "intuition": "Các loại dữ liệu khác nhau cũng có độ tin cậy khác nhau. Video tạo sinh có thể chứa chuyển động không tuân theo vật lý; lần làm mẫu thật thì hiếm. Kết quả cần xem cả nguồn dữ liệu, loại robot thử và điều kiện khởi tạo, không chỉ tổng số giờ huấn luyện.",
     "detail": {
-      "label": "PHẠM VI KẾT LUẬN",
-      "text": "Phạm vi tác giả thể hiện: Kết quả tập trung trên các embodiment/nhiệm vụ đã chọn; foundation policy vẫn cần post-training cho phần cứng/kỹ năng cụ thể."
+      "label": "GIẢI THÍCH",
+      "text": "Các loại dữ liệu khác nhau cũng có độ tin cậy khác nhau. Video tạo sinh có thể chứa chuyển động không tuân theo vật lý; lần làm mẫu thật thì hiếm. Kết quả cần xem cả nguồn dữ liệu, loại robot thử và điều kiện khởi tạo, không chỉ tổng số giờ huấn luyện."
     }
   },
   {
     "type": "relations",
-    "title": "Bài này đứng ở đâu trong lĩnh vực?",
-    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "title": "GR00T khác RDT và π0.5 ở đâu?",
+    "lead": "PaLM-E tập trung đưa cảm giác từ thế giới thật vào suy luận đa phương thức. RDT chú trọng sinh đoạn hành động phối hợp hai tay bằng DiT.",
     "items": [
       {
         "label": "NỀN TẢNG / TIỀN ĐỀ",
-        "value": "π0.5 cũng kết hợp vision-language condition và flow action expert."
+        "value": "π0.5 cũng kết hợp thông tin ảnh–ngôn ngữ với bộ sinh hành động liên tục."
       },
       {
         "label": "HƯỚNG PHÁT TRIỂN",
-        "value": "LingBot-VLA 2.0 thêm action canonicalization, sparse MoE và predictive features."
+        "value": "LingBot-VLA 2.0 thêm hành động canonicalization, sparse MoE và predictive features."
       }
     ],
-    "intuition": "Tách ngữ nghĩa khỏi motor generation là cấu trúc hữu ích.",
+    "intuition": "π0.5 cũng quan tâm nguồn dữ liệu đa dạng và phân tầng nhiệm vụ dài, nhưng quy trình học và đối tượng đánh giá khác. Khi so, phải hỏi từng mạng đang dùng dữ liệu nào và có phải huấn luyện bổ sung cho robot đích không.",
     "detail": {
-      "label": "CÔNG TRÌNH LIÊN QUAN",
-      "text": "Đọc thêm RT-2, Diffusion Policy, Open X-Embodiment, Qwen-VLA, LingBot-VLA 2.0. Nên so sánh cách tiếp cận, dữ liệu huấn luyện và phạm vi khái quát của từng công trình."
+      "label": "GIẢI THÍCH",
+      "text": "PaLM-E tập trung đưa cảm giác từ thế giới thật vào suy luận đa phương thức. RDT chú trọng sinh đoạn hành động phối hợp hai tay bằng DiT. GR00T N1 dùng thiết kế hai phần: VLM hiểu cảnh và bộ sinh hành động tạo chuyển động, đồng thời trộn nhiều loại dữ liệu để học robot khác nhau."
     }
   },
   {
     "type": "closing",
-    "title": "Nếu chỉ nhớ ba điều",
-    "lead": "Tách ngữ nghĩa khỏi motor generation là cấu trúc hữu ích.",
+    "title": "Ba điều nên nhớ về GR00T N1",
+    "lead": "Vẽ hai ô: phần hiểu ảnh/câu lệnh và phần sinh lệnh vận động. Từ đó đặt trạng thái robot, ảnh camera, câu lệnh và hành động nhiễu vào đúng vị trí đầu vào.",
     "items": [
-      "Dùng GR00T để nghiên cứu robot+human video pretraining.",
-      "Phân biệt latency action sampler với tốc độ/độ ổn định của controller."
+      "Dùng GR00T để nghiên cứu robot+human video huấn luyện trước.",
+      "Phân biệt latency hành động sampler với tốc độ/độ ổn định của controller."
     ],
-    "intuition": "VLM lo hiểu ngữ nghĩa, action expert lo chuyển động: pretraining video người bổ sung kinh nghiệm cho robot.",
+    "intuition": "Để kiểm chứng giá trị của video tổng hợp, thử so chính sách điều khiển được huấn luyện với cùng số lần làm mẫu thật, có và không bổ sung video sinh. Đo tỷ lệ hoàn thành trên tình huống chưa gặp. Nếu không giữ số lượt và thiết lập thử tương đương, khó biết lợi ích đến từ đâu.",
     "detail": {
-      "label": "THỬ NGHIỆM TIẾP THEO",
-      "text": "Bắt đầu từ NVIDIA Isaac GR00T. Trước khi huấn luyện, đọc observation schema, normalization và policy đầu vào/đầu ra shapes; lập một bảng robot state / image / language / action."
+      "label": "GIẢI THÍCH",
+      "text": "Để kiểm chứng giá trị của video tổng hợp, thử so chính sách điều khiển được huấn luyện với cùng số lần làm mẫu thật, có và không bổ sung video sinh. Đo tỷ lệ hoàn thành trên tình huống chưa gặp. Nếu không giữ số lượt và thiết lập thử tương đương, khó biết lợi ích đến từ đâu."
     }
   }
 ]

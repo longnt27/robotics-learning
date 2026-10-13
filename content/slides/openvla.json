@@ -1,259 +1,259 @@
 [
   {
     "type": "cover",
-    "title": "Điểm cốt lõi",
-    "lead": "Một VLA mã nguồn mở nối pretrained VLM với action tokens và hỗ trợ fine-tuning robot-specific.",
+    "title": "OpenVLA: mô hình robot có thể tinh chỉnh",
+    "lead": "Một nhóm nghiên cứu muốn dạy robot nhặt đồ có thể phải tự thu dữ liệu lớn và tự thiết kế mạng từ đầu. OpenVLA cung cấp mô hình đã được huấn luyện trên gần một triệu lượt robot cùng mã nguồn và bản mô hình đã lưu công khai.",
     "items": [
-      "Tận dụng open VLM rồi fine-tune thành action predictor"
+      "Tận dụng open VLM rồi fine-tune thành hành động predictor"
     ],
-    "intuition": "Đưa ảnh và instruction vào VLM; dự đoán discretized action tokens và giải mã sang motor space.",
+    "intuition": "Nhưng “nguồn mở” không đồng nghĩa “cắm vào robot nào cũng chạy”. mô hình vẫn cần ảnh đúng kiểu, câu lệnh phù hợp và cách giải mã hành động tương ứng với phần cứng đích.",
     "detail": {
-      "label": "BỐI CẢNH NGHIÊN CỨU",
-      "text": "Robotics community cần một open checkpoint đủ mạnh để nghiên cứu fine-tuning, parameter-efficient adaptation, quantization và downstream deployment."
+      "label": "GIẢI THÍCH",
+      "text": "Nhưng “nguồn mở” không đồng nghĩa “cắm vào robot nào cũng chạy”. mô hình vẫn cần ảnh đúng kiểu, câu lệnh phù hợp và cách giải mã hành động tương ứng với phần cứng đích."
     }
   },
   {
     "type": "problem",
-    "title": "Các VLA mạnh thường khó tải và fine-tune",
-    "lead": "Đọc RT-2 mà không có weights/code làm cộng đồng khó thử ablation và evaluation thực sự.",
+    "title": "Vì sao mã nguồn mở có ý nghĩa?",
+    "lead": "Một nhóm nghiên cứu muốn dạy robot nhặt đồ có thể phải tự thu dữ liệu lớn và tự thiết kế mạng từ đầu. OpenVLA cung cấp mô hình đã được huấn luyện trên gần một triệu lượt robot cùng mã nguồn và bản mô hình đã lưu công khai.",
     "items": [
-      "Policy robot-only thiếu world knowledge"
+      "chính sách chỉ học dữ liệu robot có thể thiếu kiến thức chung về thế giới"
     ],
-    "intuition": "VLM-to-action đóng khó tái hiện experiment và không dễ phục vụ robot mới.",
+    "intuition": "Nhưng “nguồn mở” không đồng nghĩa “cắm vào robot nào cũng chạy”. mô hình vẫn cần ảnh đúng kiểu, câu lệnh phù hợp và cách giải mã hành động tương ứng với phần cứng đích.",
     "detail": {
-      "label": "NGUYÊN NHÂN CỐT LÕI",
-      "text": "OpenVLA đặt mục tiêu tạo một 7B VLA open-source cạnh tranh với các closed VLAs nhưng practical hơn cho phòng thí nghiệm bình thường."
+      "label": "GIẢI THÍCH",
+      "text": "Một nhóm nghiên cứu muốn dạy robot nhặt đồ có thể phải tự thu dữ liệu lớn và tự thiết kế mạng từ đầu. OpenVLA cung cấp mô hình đã được huấn luyện trên gần một triệu lượt robot cùng mã nguồn và bản mô hình đã lưu công khai. Người dùng có thể tinh chỉnh mô hình nền bằng dữ liệu robot của mình thay vì bắt đầu từ số không."
     }
   },
   {
     "type": "contrast",
-    "title": "Policy robot-only thiếu world knowledge",
-    "lead": "VLM-to-action đóng khó tái hiện experiment và không dễ phục vụ robot mới.",
+    "title": "Có sẵn mô hình không đồng nghĩa cắm là chạy",
+    "lead": "Nhưng “nguồn mở” không đồng nghĩa “cắm vào robot nào cũng chạy”. mô hình vẫn cần ảnh đúng kiểu, câu lệnh phù hợp và cách giải mã hành động tương ứng với phần cứng đích.",
     "items": [
-      "Tận dụng open VLM rồi fine-tune thành action predictor",
-      "Đưa ảnh và instruction vào VLM; dự đoán discretized action tokens và giải mã sang motor space."
+      "Tận dụng open VLM rồi fine-tune thành hành động predictor",
+      "Đưa ảnh và câu lệnh vào mô hình, dự đoán token hành động rồi giải mã thành lệnh điều khiển robot."
     ],
-    "intuition": "Đưa ảnh và instruction vào VLM; dự đoán discretized action tokens và giải mã sang motor space.",
+    "intuition": "Một nhóm nghiên cứu muốn dạy robot nhặt đồ có thể phải tự thu dữ liệu lớn và tự thiết kế mạng từ đầu. OpenVLA cung cấp mô hình đã được huấn luyện trên gần một triệu lượt robot cùng mã nguồn và bản mô hình đã lưu công khai.",
     "detail": {
-      "label": "VÌ SAO CẦN THAY ĐỔI",
-      "text": "OpenVLA dùng Llama 2 7B làm ngôn ngữ backbone và fuse đặc trưng thị giác từ DINOv2 + SigLIP, sau đó pretrain/fine-tune trên khoảng 970 nghìn robot demonstrations từ Open X-Embodiment."
+      "label": "GIẢI THÍCH",
+      "text": "Khi kiểm tra, không chỉ xem mô hình có nhặt đúng vật quen thuộc không mà còn thử vật gây nhiễu, câu nói khác và vị trí mới. Nếu nó hiểu đúng vật nhưng kẹp hụt, cần xác minh camera và cách biến token thành lệnh trước khi quy kết cho khả năng suy luận."
     }
   },
   {
     "type": "intuition",
-    "title": "Tận dụng open VLM rồi fine-tune thành action predictor",
-    "lead": "Đưa ảnh và instruction vào VLM; dự đoán discretized action tokens và giải mã sang motor space.",
+    "title": "Hình dung tinh chỉnh trên tay máy Franka",
+    "lead": "Giả sử robot Franka cần nhặt những đồ vật khác với tập huấn luyện gốc. Ta ghi các lượt người điều khiển Franka thực hiện nhiệm vụ, chuyển ảnh, câu lệnh và hành động vào định dạng dữ liệu mô hình nhận.",
     "items": [
-      "Một VLA mã nguồn mở nối pretrained VLM với action tokens và hỗ trợ fine-tuning robot-specific."
+      "Mô hình mã nguồn mở kết hợp hiểu ảnh–ngôn ngữ với sinh hành động và có thể tinh chỉnh cho robot mới."
     ],
-    "intuition": "Đưa ảnh và instruction vào VLM; dự đoán discretized action tokens và giải mã sang motor space.",
+    "intuition": "Khi kiểm tra, không chỉ xem mô hình có nhặt đúng vật quen thuộc không mà còn thử vật gây nhiễu, câu nói khác và vị trí mới. Nếu nó hiểu đúng vật nhưng kẹp hụt, cần xác minh camera và cách biến token thành lệnh trước khi quy kết cho khả năng suy luận.",
     "detail": {
-      "label": "GIẢI THÍCH CƠ CHẾ",
-      "text": "Liên tục robot actions được discretize thành tokens để mô hình dùng cùng autoregressive next-token mục tiêu huấn luyện với VLM."
+      "label": "GIẢI THÍCH",
+      "text": "Giả sử robot Franka cần nhặt những đồ vật khác với tập huấn luyện gốc. Ta ghi các lượt người điều khiển Franka thực hiện nhiệm vụ, chuyển ảnh, câu lệnh và hành động vào định dạng dữ liệu mô hình nhận. Sau đó tinh chỉnh một phần hoặc toàn bộ tham số."
     }
   },
   {
     "type": "concepts",
-    "title": "Ba khái niệm để nắm",
-    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "title": "Bộ mã hóa ảnh và token hành động",
+    "lead": "OpenVLA kết hợp hai bộ mã hóa ảnh DINOv2 và SigLIP để nhận thông tin hình học/thị giác cùng ngữ nghĩa; một bộ ánh xạ chuyển các đặc trưng đó sang dạng mà mô hình ngôn ngữ dùng được; rồi lõi Llama 2 dự đoán token hành động.",
     "items": [
       {
         "label": "Prismatic VLM",
-        "value": "Vision backbone và language model kết hợp."
+        "value": "Vision backbone và language mô hình kết hợp."
       },
       {
-        "label": "Discretized action",
-        "value": "Đổi từng action chiều liên tục thành token theo bins."
+        "label": "Discretized hành động",
+        "value": "Đổi từng hành động chiều liên tục thành token theo bins."
       },
       {
         "label": "LoRA",
         "value": "Fine-tune ít weights hơn full checkpoint."
       }
     ],
-    "intuition": "7D action thường bao gồm translation/rotation/gripper.",
+    "intuition": "Mỗi token hành động là mã cho giá trị điều khiển, không phải chữ giải thích cho người. Trước khi gửi lệnh xuống robot, cần giải mã và khôi phục đơn vị/hệ tọa độ đúng. Số bảy chiều trong đầu ra của nghiên cứu là một quy ước cụ thể, không có nghĩa mọi robot đều có đúng bảy khớp.",
     "detail": {
-      "label": "NỀN TẢNG KỸ THUẬT",
-      "text": "OpenVLA cung cấp implementation, weights và LoRA fine-tuning, giúp mở phần lớn hệ thống để kiểm chứng ở mức mô hình code."
+      "label": "GIẢI THÍCH",
+      "text": "Mỗi token hành động là mã cho giá trị điều khiển, không phải chữ giải thích cho người. Trước khi gửi lệnh xuống robot, cần giải mã và khôi phục đơn vị/hệ tọa độ đúng. Số bảy chiều trong đầu ra của nghiên cứu là một quy ước cụ thể, không có nghĩa mọi robot đều có đúng bảy khớp."
     }
   },
   {
     "type": "pipeline",
-    "title": "Kiến trúc trong một sơ đồ",
-    "lead": "Một VLA mã nguồn mở nối pretrained VLM với action tokens và hỗ trợ fine-tuning robot-specific.",
+    "title": "Từ ảnh và câu lệnh đến lệnh robot",
+    "lead": "Bước 1: camera cung cấp ảnh, người dùng đưa câu lệnh, chẳng hạn “Bỏ quả táo vào khay”. Bước 2: bộ mã hóa ảnh chuyển cảnh thành đặc trưng. Bước 3: mạng ánh xạ biểu diễn ảnh để lõi ngôn ngữ có thể kết hợp với câu lệnh.",
     "items": [
       "Ảnh + instruction",
-      "Vision encoder",
-      "LLM action tokens",
-      "De-normalize → robot action"
+      "Vision bộ mã hóa",
+      "LLM hành động tokens",
+      "De-normalize → robot hành động"
     ],
-    "intuition": "Ảnh đi qua vision backbone trước khi kết hợp instruction trong language backbone.",
+    "intuition": "Robot thực hiện lệnh, lấy ảnh tiếp theo và tiếp tục. Nếu đem mô hình sang robot mới, ta cần tinh chỉnh trên lần làm mẫu của robot ấy và kiểm tra cách mã hóa/giải mã hành động. Lỗi ở bước chuyển đổi lệnh có thể khiến một mô hình có hàm mất mát đẹp tạo chuyển động sai.",
     "detail": {
-      "label": "ĐIỂM NHẤN TRIỂN KHAI",
-      "text": "Bài báo đặc biệt quan tâm tới adaptation. Họ thử full fine-tuning, LoRA với nhiều rank, quantization 4-bit/8-bit và evaluate memory/throughput/hiệu năng trade-off."
+      "label": "GIẢI THÍCH",
+      "text": "Robot thực hiện lệnh, lấy ảnh tiếp theo và tiếp tục. Nếu đem mô hình sang robot mới, ta cần tinh chỉnh trên lần làm mẫu của robot ấy và kiểm tra cách mã hóa/giải mã hành động. Lỗi ở bước chuyển đổi lệnh có thể khiến một mô hình có hàm mất mát đẹp tạo chuyển động sai."
     }
   },
   {
     "type": "representation",
-    "title": "Mô hình biểu diễn cái gì?",
-    "lead": "7D action thường bao gồm translation/rotation/gripper.",
+    "title": "Token hành động biểu diễn điều gì?",
+    "lead": "Mỗi token hành động là mã cho giá trị điều khiển, không phải chữ giải thích cho người. Trước khi gửi lệnh xuống robot, cần giải mã và khôi phục đơn vị/hệ tọa độ đúng.",
     "items": [
       {
         "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
-        "value": "Token bins lượng tử hóa normalized action."
+        "value": "Token bins lượng tử hóa normalized hành động."
       },
       {
         "label": "ĐÁNH ĐỔI KỸ THUẬT",
-        "value": "Norm statistics theo dataset/robot là tối quan trọng khi decode."
+        "value": "Norm statistics theo tập dữ liệu/robot là tối quan trọng khi decode."
       }
     ],
-    "intuition": "Norm statistics theo dataset/robot là tối quan trọng khi decode.",
+    "intuition": "Bước 1: camera cung cấp ảnh, người dùng đưa câu lệnh, chẳng hạn “Bỏ quả táo vào khay”. Bước 2: bộ mã hóa ảnh chuyển cảnh thành đặc trưng. Bước 3: mạng ánh xạ biểu diễn ảnh để lõi ngôn ngữ có thể kết hợp với câu lệnh.",
     "detail": {
-      "label": "CHI TIẾT BIỂU DIỄN",
-      "text": "Họ thử full fine-tuning, LoRA với nhiều rank, quantization 4-bit/8-bit và evaluate memory/throughput/hiệu năng trade-off."
+      "label": "GIẢI THÍCH",
+      "text": "Bước 1: camera cung cấp ảnh, người dùng đưa câu lệnh, chẳng hạn “Bỏ quả táo vào khay”. Bước 2: bộ mã hóa ảnh chuyển cảnh thành đặc trưng. Bước 3: mạng ánh xạ biểu diễn ảnh để lõi ngôn ngữ có thể kết hợp với câu lệnh. Bước 4: lõi mô hình dự đoán token hành động; hệ thống giải mã token thành lệnh vận động."
     }
   },
   {
     "type": "training",
-    "title": "Model học như thế nào?",
-    "lead": "Sử dụng Open X robot data và VLM pretraining.",
+    "title": "OpenVLA học từ dữ liệu nào?",
+    "lead": "Bước 1: camera cung cấp ảnh, người dùng đưa câu lệnh, chẳng hạn “Bỏ quả táo vào khay”. Bước 2: bộ mã hóa ảnh chuyển cảnh thành đặc trưng. Bước 3: mạng ánh xạ biểu diễn ảnh để lõi ngôn ngữ có thể kết hợp với câu lệnh.",
     "items": [
       {
         "label": "MỤC TIÊU HỌC",
-        "value": "Fine-tune VLM theo autoregressive action prediction."
+        "value": "Fine-tune VLM theo autoregressive hành động prediction."
       },
       {
         "label": "DỮ LIỆU / QUY TRÌNH",
-        "value": "Có recipe LoRA để thích nghi vào data robot riêng."
+        "value": "Có recipe LoRA để thích nghi vào dữ liệu robot riêng."
       }
     ],
-    "intuition": "Kiểm tra gains của fine-tuning theo robot và lượng dữ liệu.",
+    "intuition": "Robot thực hiện lệnh, lấy ảnh tiếp theo và tiếp tục. Nếu đem mô hình sang robot mới, ta cần tinh chỉnh trên lần làm mẫu của robot ấy và kiểm tra cách mã hóa/giải mã hành động. Lỗi ở bước chuyển đổi lệnh có thể khiến một mô hình có hàm mất mát đẹp tạo chuyển động sai.",
     "detail": {
-      "label": "CÁCH HUẤN LUYỆN",
-      "text": "PEFT là phần rất thực dụng: LoRA rank 32 đạt khoảng 68.2% so với 69.7% full fine-tuning nhưng chỉ huấn luyện khoảng 1.4% parameters và memory giảm mạnh."
+      "label": "GIẢI THÍCH",
+      "text": "Đối chiếu số liệu: Trong nhóm 29 nhiệm vụ dùng để so các mô hình robot tổng quát, OpenVLA được báo cáo cao hơn RT-2-X khoảng 16,5 điểm phần trăm trung bình trong điều kiện của tác giả. Khi tinh chỉnh, LoRA với mức hạng 32 cho kết quả khoảng 68,2% so với 69,7% khi cập nhật toàn bộ tham số, trong khi chỉ huấn luyện khoảng 1,4% tham số."
     }
   },
   {
     "type": "inference",
-    "title": "Một lần inference xảy ra ra sao?",
-    "lead": "Ảnh đi qua vision backbone trước khi kết hợp instruction trong language backbone.",
+    "title": "Robot thực thi dự đoán của mô hình ra sao?",
+    "lead": "Robot thực hiện lệnh, lấy ảnh tiếp theo và tiếp tục. Nếu đem mô hình sang robot mới, ta cần tinh chỉnh trên lần làm mẫu của robot ấy và kiểm tra cách mã hóa/giải mã hành động.",
     "items": [
       {
         "label": "XỬ LÝ ĐẦU VÀO",
-        "value": "Instruction + image tokens được language backbone xử lý."
+        "value": "Lõi mô hình kết hợp câu lệnh với đặc trưng ảnh."
       },
       {
         "label": "TẠO HÀNH ĐỘNG",
-        "value": "Sinh action tokens rồi áp inverse normalization trước điều khiển."
+        "value": "Sinh hành động tokens rồi áp inverse normalization trước điều khiển."
       }
     ],
-    "intuition": "Sinh action tokens rồi áp inverse normalization trước điều khiển.",
+    "intuition": "Giả sử robot Franka cần nhặt những đồ vật khác với tập huấn luyện gốc. Ta ghi các lượt người điều khiển Franka thực hiện nhiệm vụ, chuyển ảnh, câu lệnh và hành động vào định dạng dữ liệu mô hình nhận. Sau đó tinh chỉnh một phần hoặc toàn bộ tham số.",
     "detail": {
-      "label": "DIỄN BIẾN THỰC THI",
-      "text": "Đầu vào gồm hình ảnh và chỉ dẫn, backbone VLM tạo hidden đặc trưng, decoder sinh discrete tokens mã hóa các action dimensions."
+      "label": "GIẢI THÍCH",
+      "text": "Việc một mạng dùng lõi mô hình ngôn ngữ không tự khiến nó giỏi hơn mọi chính sách diffusion ở mọi thao tác. Các lựa chọn phải dựa trên nhiệm vụ, phần cứng, dữ liệu và chi phí suy luận cụ thể."
     }
   },
   {
     "type": "equation",
-    "title": "Mathematical Intuition",
-    "lead": "Token trong VLM không tự có đơn vị mét/radian: phải giải mã và phục hồi scale action của robot đích.",
+    "title": "Đọc công thức dự đoán hành động",
+    "lead": "Mỗi token hành động là mã cho giá trị điều khiển, không phải chữ giải thích cho người. Trước khi gửi lệnh xuống robot, cần giải mã và khôi phục đơn vị/hệ tọa độ đúng.",
     "equation": "\\hat a=\\mathrm{Denorm}\\!\\big(\\mathrm{Decode}(z_{\\rm action})\\big)",
     "items": [
       "Biểu thức hệ thống hóa bước decode, không phải loss."
     ],
-    "intuition": "Token trong VLM không tự có đơn vị mét/radian: phải giải mã và phục hồi scale action của robot đích.",
+    "intuition": "Bước 1: camera cung cấp ảnh, người dùng đưa câu lệnh, chẳng hạn “Bỏ quả táo vào khay”. Bước 2: bộ mã hóa ảnh chuyển cảnh thành đặc trưng. Bước 3: mạng ánh xạ biểu diễn ảnh để lõi ngôn ngữ có thể kết hợp với câu lệnh.",
     "detail": {
-      "label": "Ý NGHĨA CÔNG THỨC",
-      "text": "RT-2 gợi ý VLM-to-action là khả thi nhưng không phải open reproducible mô hình cho nhiều phòng thí nghiệm."
+      "label": "GIẢI THÍCH CÔNG THỨC",
+      "text": "Sau khi ổn, đánh giá cả tỷ lệ hoàn thành ngoài đời lẫn độ trễ và lệnh vượt giới hạn. Đó mới là cách nói một bản mô hình đã lưu đã dùng được trên robot đích."
     }
   },
   {
     "type": "results",
-    "title": "Kết quả nói lên điều gì?",
-    "lead": "OpenVLA 7B trở thành baseline mở để chạy inference và fine-tune.",
+    "title": "Kết quả OpenVLA phải so trong điều kiện nào?",
+    "lead": "Trên các phép thử WidowX và Google Robot, OpenVLA đạt kết quả tốt so với các chính sách điều khiển tổng quát được đem đối chiếu.",
     "items": [
       {
         "label": "PHÁT HIỆN QUAN TRỌNG",
-        "value": "Đánh giá đa nhiệm cho thấy tiềm năng transfer từ VLM sang robot control."
+        "value": "Các phép thử nhiều nhiệm vụ cho thấy kiến thức ảnh–ngôn ngữ có thể hỗ trợ điều khiển robot."
       },
       {
         "label": "CÁCH DIỄN GIẢI",
-        "value": "Tương quan giữa chất lượng checkpoint và normalization/dataset rất lớn."
+        "value": "Tương quan giữa chất lượng checkpoint và normalization/tập dữ liệu rất lớn."
       }
     ],
-    "intuition": "7B không phải lựa chọn tốt cho low-cost 50 Hz control; quantization làm tăng sai số.",
+    "intuition": "Đối chiếu số liệu: Trong nhóm 29 nhiệm vụ dùng để so các mô hình robot tổng quát, OpenVLA được báo cáo cao hơn RT-2-X khoảng 16,5 điểm phần trăm trung bình trong điều kiện của tác giả.",
     "detail": {
-      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
-      "text": "Trên bộ 29 nhiệm vụ dùng để so generalist policies, OpenVLA báo tỷ lệ thành công trung bình cao hơn RT-2-X khoảng 16.5 điểm trong đánh giá của họ."
+      "label": "GIẢI THÍCH",
+      "text": "Trên các phép thử WidowX và Google Robot, OpenVLA đạt kết quả tốt so với các chính sách điều khiển tổng quát được đem đối chiếu. Tuy nhiên kết quả không giống nhau ở mọi nhóm; ví dụ một số kiểm tra khái quát ngữ nghĩa vẫn có đối thủ tốt hơn."
     }
   },
   {
     "type": "ablation",
-    "title": "Ablation và bằng chứng",
-    "lead": "Kiểm tra gains của fine-tuning theo robot và lượng dữ liệu.",
+    "title": "Thử nghiệm tinh chỉnh để kiểm chứng",
+    "lead": "Khi thích nghi robot mới, Diffusion chính sách điều khiển huấn luyện riêng có thể mạnh ở một nhiệm vụ hẹp, còn mô hình tổng quát đã học trước như Octo và OpenVLA có lợi thế trên tập lệnh/phông nền đa dạng.",
     "items": [
       {
         "label": "YẾU TỐ ĐƯỢC THỬ",
-        "value": "So LoRA, quantized inference với precision/latency/memory thực tế."
+        "value": "So LoRA, quantized suy luận với precision/latency/memory thực tế."
       }
     ],
-    "intuition": "Đánh giá đa nhiệm cho thấy tiềm năng transfer từ VLM sang robot control.",
+    "intuition": "Trên các phép thử WidowX và Google Robot, OpenVLA đạt kết quả tốt so với các chính sách điều khiển tổng quát được đem đối chiếu. Tuy nhiên kết quả không giống nhau ở mọi nhóm; ví dụ một số kiểm tra khái quát ngữ nghĩa vẫn có đối thủ tốt hơn.",
     "detail": {
-      "label": "BẰNG CHỨNG BỔ SUNG",
-      "text": "Sau task-specific/multi-task fine-tuning, OpenVLA vượt Octo và Diffusion Policy đáng kể trên những thiết lập thao tác robot cần hiểu nhiều chỉ dẫn ngôn ngữ, tác giả nêu mức cải thiện tổng hợp khoảng 20.4%."
+      "label": "GIẢI THÍCH",
+      "text": "Khi thích nghi robot mới, Diffusion chính sách điều khiển huấn luyện riêng có thể mạnh ở một nhiệm vụ hẹp, còn mô hình tổng quát đã học trước như Octo và OpenVLA có lợi thế trên tập lệnh/phông nền đa dạng. Hãy so các hệ thống cùng dữ liệu tinh chỉnh và cùng số lượt chạy, thay vì coi một điểm tổng hợp là lời khẳng định tuyệt đối."
     }
   },
   {
     "type": "limits",
-    "title": "Hạn chế cần nói thẳng",
-    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "title": "Giới hạn bộ nhớ và độ trễ",
+    "lead": "Mô hình bảy tỷ tham số thường tốn bộ nhớ và thời gian suy luận đáng kể. Lượng tử hóa có thể giúp nhanh/nhẹ hơn, nhưng cần kiểm tra sai số hành động và độ trễ toàn bộ hệ thống, không chỉ thời gian chạy một lượt mạng.",
     "items": [
       {
         "label": "Tác giả / phạm vi",
-        "value": "Tác giả: action tokenization và hardware/memory vẫn là bottleneck."
+        "value": "Tác giả: hành động tokenization và hardware/memory vẫn là bottleneck."
       },
       {
         "label": "Phê bình độc lập",
         "value": "Phê bình: 7B không phải lựa chọn tốt cho low-cost 50 Hz control; quantization làm tăng sai số."
       }
     ],
-    "intuition": "Token bins lượng tử hóa normalized action.",
+    "intuition": "Dữ liệu từ nhiều loại robot còn đặt ra bài toán không gian hành động không đồng nhất. Trước khi chạy thực, hãy kiểm tra biên độ lệnh, an toàn khớp, giới hạn vùng làm việc và cách chuẩn hóa từng chiều.",
     "detail": {
-      "label": "PHẠM VI KẾT LUẬN",
-      "text": "Phê bình thêm: action tokenization là một nút thắt kép: quantization làm mất độ chính xác, autoregression làm mất speed."
+      "label": "GIẢI THÍCH",
+      "text": "Dữ liệu từ nhiều loại robot còn đặt ra bài toán không gian hành động không đồng nhất. Trước khi chạy thực, hãy kiểm tra biên độ lệnh, an toàn khớp, giới hạn vùng làm việc và cách chuẩn hóa từng chiều."
     }
   },
   {
     "type": "relations",
-    "title": "Bài này đứng ở đâu trong lĩnh vực?",
-    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "title": "OpenVLA khác RT-2 và Octo thế nào?",
+    "lead": "Cả RT-2 và OpenVLA đều dùng kiến thức ảnh–ngôn ngữ để hỗ trợ sinh hành động robot. OpenVLA nổi bật ở khả năng truy cập mã/khối lượng của bản mô hình đã lưu để nghiên cứu và tinh chỉnh.",
     "items": [
       {
         "label": "NỀN TẢNG / TIỀN ĐỀ",
-        "value": "RT-2 là tiền đề VLM-to-action autoregression."
+        "value": "RT-2 là tiền đề VLM-to-hành động autoregression."
       },
       {
         "label": "HƯỚNG PHÁT TRIỂN",
-        "value": "FAST giảm token length của action sequence; π0.5 chuyển sang continuous flow."
+        "value": "FAST rút ngắn chuỗi token hành động; π0.5 sử dụng cách sinh chuyển động liên tục ở giai đoạn điều khiển."
       }
     ],
-    "intuition": "OpenVLA là nơi nên mở code để học VLA pipeline.",
+    "intuition": "Việc một mạng dùng lõi mô hình ngôn ngữ không tự khiến nó giỏi hơn mọi chính sách diffusion ở mọi thao tác. Các lựa chọn phải dựa trên nhiệm vụ, phần cứng, dữ liệu và chi phí suy luận cụ thể.",
     "detail": {
-      "label": "CÔNG TRÌNH LIÊN QUAN",
-      "text": "Đọc thêm RT-2, FAST, Qwen-VLA. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+      "label": "GIẢI THÍCH",
+      "text": "Cả RT-2 và OpenVLA đều dùng kiến thức ảnh–ngôn ngữ để hỗ trợ sinh hành động robot. OpenVLA nổi bật ở khả năng truy cập mã/khối lượng của bản mô hình đã lưu để nghiên cứu và tinh chỉnh. Octo cũng là mô hình mở nhưng kiến trúc hướng khả năng thay quan sát, đầu ra linh hoạt theo robot."
     }
   },
   {
     "type": "closing",
-    "title": "Nếu chỉ nhớ ba điều",
-    "lead": "OpenVLA là nơi nên mở code để học VLA pipeline.",
+    "title": "Điều cần nhớ trước khi triển khai OpenVLA",
+    "lead": "Bạn có ảnh và câu lệnh cùng thời điểm với hành động không? Dữ liệu đã chia train/kiểm tra theo lượt thực thi chưa? Vector lệnh là vị trí, độ thay đổi vị trí hay vận tốc? Đã ghi đúng giá trị trung bình/độ lệch chuẩn để giải chuẩn hóa chưa?",
     "items": [
-      "Luôn inspect action tokenizer và normalization trước rollout.",
-      "Thành công inference không đồng nghĩa model chạy được real-time trên robot."
+      "Luôn inspect hành động tokenizer và normalization trước rollout.",
+      "Chọn đúng hành động chưa bảo đảm mô hình phát lệnh đủ nhanh khi chạy trên robot thật."
     ],
-    "intuition": "Một VLA mã nguồn mở nối pretrained VLM với action tokens và hỗ trợ fine-tuning robot-specific.",
+    "intuition": "Sau khi ổn, đánh giá cả tỷ lệ hoàn thành ngoài đời lẫn độ trễ và lệnh vượt giới hạn. Đó mới là cách nói một bản mô hình đã lưu đã dùng được trên robot đích.",
     "detail": {
-      "label": "THỬ NGHIỆM TIẾP THEO",
-      "text": "Chỉ chạy 4-bit inference T4, log processor đầu vào, token thị giác, logits/token IDs, decoded normalized action và unnormalized action."
+      "label": "GIẢI THÍCH",
+      "text": "Bạn có ảnh và câu lệnh cùng thời điểm với hành động không? Dữ liệu đã chia train/kiểm tra theo lượt thực thi chưa? Vector lệnh là vị trí, độ thay đổi vị trí hay vận tốc? Đã ghi đúng giá trị trung bình/độ lệch chuẩn để giải chuẩn hóa chưa? Đã thử cho mô hình học một số ít lần làm mẫu để bắt lỗi quy trình trước chưa?"
     }
   }
 ]

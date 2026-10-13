@@ -12,17 +12,26 @@ Một ảnh chiếc cốc có thể được dùng để dạy nhiều loại m�
 
 ### Các thuật ngữ cần hiểu
 
-**Embodiment** là cấu trúc vật lý robot: số khớp, camera, kiểu kẹp, giới hạn chuyển động. **Không gian hành động** mô tả lệnh robot chấp nhận, chẳng hạn vị trí đầu kẹp, vận tốc hay góc khớp. **Chuyển giao giữa các loại robot** nghĩa là kỹ năng học từ nguồn dữ liệu này hỗ trợ thao tác trên robot có phần cứng khác.
+**Cấu trúc phần cứng robot (embodiment)** gồm số khớp, vị trí camera, kiểu kẹp và giới hạn chuyển động. Mỗi cấu trúc quyết định những lệnh nào có thể thực thi. **Không gian hành động** mô tả lệnh robot chấp nhận, chẳng hạn vị trí đầu kẹp, vận tốc hay góc khớp. **Chuyển giao giữa các loại robot** nghĩa là kỹ năng học từ nguồn dữ liệu này hỗ trợ thao tác trên robot có phần cứng khác.
 
 Tập dữ liệu trộn từ nhiều robot phải thống nhất thông tin tối thiểu như ảnh, câu lệnh, trạng thái và loại lệnh. Tuy vậy, chuẩn hóa cùng một cấu trúc dữ liệu không đồng nghĩa các robot đã có cùng khả năng vận động.
+
+### Học từ robot khác có nghĩa là học cái gì?
+
+Giả sử robot A từng được dạy mở ngăn kéo, còn robot B chưa từng có lượt làm mẫu tương tự. A và B có thể chia sẻ kiến thức rằng cần tìm tay nắm và kéo theo một hướng phù hợp. Nhưng dãy góc khớp của A không thể gửi nguyên sang B nếu hai tay máy khác kích thước và bố trí. **Chuyển giao** có ý nghĩa khi dữ liệu từ A giúp mô hình điều khiển B làm tốt hơn so với chỉ học từ dữ liệu của B. Nói “trộn nhiều robot” mà không phân biệt kiến thức về mục tiêu với lệnh phần cứng dễ khiến người đọc tưởng mọi robot dùng chung một bộ động cơ.
+
 
 ## Phương pháp thực hiện
 
 ### Dữ liệu được kết hợp và sử dụng như thế nào?
 
-Đầu tiên dữ liệu từ các tổ chức được gom về các bản ghi có thể đọc chung. Mỗi nguồn vẫn gắn với loại robot, camera và cách điều khiển. Tiếp theo, người nghiên cứu chọn hoặc chuyển đổi những dạng lệnh có thể học chung; trong các phiên bản RT-X, hành động đầu công tác được rời rạc hóa để mạng dự đoán.
+Đầu tiên dữ liệu từ các tổ chức được quy về bản ghi có cấu trúc chung, nhưng vẫn phải giữ thông tin về robot và dạng lệnh gốc. Mỗi nguồn vẫn gắn với loại robot, camera và cách điều khiển. Tiếp theo, người nghiên cứu chọn hoặc chuyển đổi những dạng lệnh có thể học chung; trong các phiên bản RT-X, hành động đầu công tác được rời rạc hóa để mạng dự đoán.
 
 Khi huấn luyện, mô hình nhìn ảnh cùng câu lệnh từ nhiều nguồn. Lúc kiểm tra, nó có thể được đặt trên một robot khác hoặc gặp kỹ năng chủ yếu xuất hiện trong dữ liệu của robot khác. Điều cần chứng minh là kết quả trên robot đích có tăng thật so với việc chỉ dùng dữ liệu của chính robot ấy.
+
+### Vì sao thống nhất tên cột chưa đủ để trộn dữ liệu?
+
+Hai tập dữ liệu đều có thể chứa trường “hành động” với bảy con số, nhưng một nơi lưu vận tốc, nơi khác lưu thay đổi vị trí; ngay cả đơn vị mét và xăng-ti-mét cũng tạo hậu quả khác nhau. Trước khi huấn luyện chung, cần xác định ý nghĩa từng chiều, hệ tọa độ, tần số lấy mẫu và nguồn robot. Các cấu hình RT-X nghiên cứu cách dùng dữ liệu đã chuẩn hóa đủ để huấn luyện chung những thành phần có thể chia sẻ. Khó khăn nằm ở **ngữ nghĩa của giá trị điều khiển**, không phải chỉ đổi tên tệp hoặc ghép bảng dữ liệu.
 
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/open-x-embodiment/figure-2.webp)
 
@@ -44,9 +53,13 @@ Hình 4 so RT-1-X với RT-1 và mô hình gốc. Hai bản RT-1 dùng cùng ki�
 
 Khi đọc câu “cao hơn 50%”, cần biết đó là mức tăng tương đối hay số điểm phần trăm và bộ đánh giá gồm những nhiệm vụ nào. Không được coi một thí nghiệm như bằng chứng rằng robot bất kỳ sẽ tự làm mọi công việc.
 
-### Số liệu và phạm vi kết luận
+### Mức tăng tương đối khác mức tăng điểm phần trăm
 
-**Đối chiếu số liệu:** Trong phép so gộp của bài báo, RT-1-X đạt tỷ lệ thành công trung bình cao hơn khoảng 50% tương đối so với phương án chỉ dùng dữ liệu robot đích; con số này không có nghĩa tăng 50 điểm phần trăm. RT-2-X cũng được thử ở những kỹ năng chưa xuất hiện trong dữ liệu của loại robot đánh giá. Hãy nhìn từng robot, tập nhiệm vụ và số lượt thử để phân biệt chuyển giao kỹ năng thật với việc mô hình chỉ được học thêm ví dụ cùng kiểu bài.
+Trong phép so gộp của bài báo, RT-1-X đạt tỷ lệ thành công trung bình cao hơn khoảng 50% tương đối so với phương án chỉ dùng dữ liệu robot đích; con số này không có nghĩa tăng 50 điểm phần trăm. **Nhưng Bảng I cho thấy có những thiết lập RT-1-X thấp hơn RT-1 huấn luyện trên dữ liệu phù hợp robot đích**, nghĩa là học chung không luôn tạo chuyển giao tích cực. Nhóm tác giả lưu ý mô hình có thể chưa đủ năng lực để hấp thụ tốt hỗn hợp dữ liệu rất lớn. RT-2-X cũng được thử ở những kỹ năng chưa xuất hiện trong dữ liệu của loại robot đánh giá. Hãy nhìn từng robot, tập nhiệm vụ và số lượt thử để phân biệt chuyển giao kỹ năng thật với việc mô hình chỉ được học thêm ví dụ cùng kiểu bài.
+
+### Kết quả chuyển giao phải được đo trên robot nhận kiến thức
+
+Nếu thử kỹ năng mở ngăn kéo trên chính robot đã có hàng trăm ví dụ mở ngăn kéo, ta chưa chứng minh được dữ liệu robot khác đem lại kiến thức mới. Phép thử đáng chú ý hơn là giữ phần dữ liệu robot đích như cũ, thêm dữ liệu của robot khác rồi đánh giá trên chính robot đích. Con số tăng khoảng 50% tương đối của RT-1-X cần đọc theo cách so ấy. Ví dụ từ 40% lên 60% là tăng 20 điểm phần trăm nhưng tăng 50% tương đối; hai cách nói không được dùng lẫn nhau.
 
 ![Hình 4 từ PDF gốc, trang 5](/paper-figures/open-x-embodiment/figure-4.webp)
 

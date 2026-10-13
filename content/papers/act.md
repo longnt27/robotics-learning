@@ -16,7 +16,12 @@ Bài báo còn giới thiệu ALOHA, hệ thống để người vận hành tr�
 
 **Action chunking** là dự đoán nhiều lệnh liên tiếp thay vì lệnh kế tiếp duy nhất. **Transformer** học mối quan hệ giữa ảnh, trạng thái khớp và các thời điểm trong đoạn chuyển động. **CVAE** dùng biến ẩn z để học sự khác nhau giữa những lần làm mẫu đều thành công, chẳng hạn người này mở túi nhanh hơn người kia.
 
-**Temporal ensembling** kết hợp nhiều dự đoán cùng chỉ tới một thời điểm để chuyển động mượt hơn. Nó không có nghĩa lấy trung bình tùy tiện hai cách đi hoàn toàn đối lập. Điểm quan trọng nhất là phân biệt ba công dụng: chunking giữ sự phối hợp theo thời gian, CVAE học những khác biệt giữa các cách làm mẫu thành công, còn ensembling giảm dao động khi thực thi.
+**Temporal ensembling** kết hợp các dự đoán ở những lần quan sát khác nhau nhưng cùng hướng tới một thời điểm thực thi, nhằm giảm độ giật khi cập nhật lệnh. Nó không có nghĩa lấy trung bình tùy tiện hai cách đi hoàn toàn đối lập. Ba phần này giải ba vấn đề riêng: action chunking học thứ tự phối hợp giữa các bước; CVAE biểu diễn những cách làm mẫu khác nhau; còn temporal ensembling giúp các lần dự đoán mới nối với nhau êm hơn.
+
+
+### Vì sao dự đoán mười bước không có nghĩa robot sẽ chạy mù mười bước?
+
+Hãy tách **đoạn mô hình dự đoán** khỏi **lệnh cuối cùng được gửi tới động cơ**. Một lần dự đoán có thể đề xuất nhiều vị trí khớp trong tương lai; lần quan sát sau lại đưa ra một đoạn mới chồng lên phần trước. Robot có thể kết hợp các gợi ý cho thời điểm hiện tại. Do đó action chunking không đơn giản là “lập kế hoạch xong rồi tắt camera”. Vấn đề khó là giữ những dự đoán đủ nhất quán để tay trái không đổi ý giữa lúc tay phải đang kéo túi.
 
 ## Phương pháp thực hiện
 
@@ -25,6 +30,11 @@ Bài báo còn giới thiệu ALOHA, hệ thống để người vận hành tr�
 **Khi huấn luyện**, dữ liệu có ảnh camera, vị trí các khớp và chuỗi hành động do người điều khiển thực hiện. Bộ mã hóa CVAE nhìn chuỗi lệnh mẫu để tạo z, rồi bộ giải mã cùng Transformer dùng ảnh, trạng thái và z để dự đoán lại đoạn chuyển động. Từ đó mô hình học cách các bước hành động có liên hệ.
 
 **Khi chạy thật**, không có sẵn chuỗi tương lai của người. Bộ mã hóa CVAE được bỏ đi, z thường đặt bằng 0; chính sách điều khiển nhận ảnh và trạng thái robot rồi sinh đoạn hành động. Những dự đoán chồng nhau có thể được tổng hợp theo trọng số trước khi phát lệnh. Đây là lý do sơ đồ có hai nhánh huấn luyện và thực thi: không phải mọi thành phần đều cần chạy trên robot.
+
+
+### CVAE học lúc nào, biến z đi đâu khi chạy thật?
+
+Trong dữ liệu có thể có hai lần mở túi đều thành công: một người kéo đều tay, người kia kéo chậm rồi tăng tốc. Khi huấn luyện, bộ mã hóa nhìn **chuỗi hành động mẫu** để suy ra biến ẩn z và giúp bộ giải mã tái tạo nhiều kiểu chuyển động. Khi chạy, robot không biết trước chuỗi tương lai nên không thể dùng đúng bộ mã hóa ấy; ACT thường đặt z bằng 0. Đó không phải lỗi thiếu dữ liệu đầu vào, mà là sự khác nhau có chủ đích giữa học và thực thi. Ảnh camera cùng vị trí khớp hiện tại vẫn được đưa vào bộ sinh hành động.
 
 ![Hình 3 gốc từ PDF bài báo, trang 3](/paper-figures/act/figure-3.webp)
 
@@ -50,9 +60,14 @@ Bài báo còn khảo sát tốc độ điều khiển từ xa: giảm tần s�
 
 
 
-### Số liệu và phạm vi kết luận
+### Điểm phần trăm không phải lời hứa cho mọi thao tác
 
-**Đối chiếu số liệu:** Trên một số nhiệm vụ mô phỏng, khoảng cách so với phương pháp đối chứng tốt tiếp theo được báo cáo lên tới 59, 49 hoặc 29 điểm phần trăm trong các thiết lập tương ứng. Không nên dùng những con số ấy như kết quả mặc định của ACT. Hình 9 cho biết điều gì xảy ra khi thay độ dài đoạn dự đoán, bật/tắt tổng hợp hành động chồng nhau hoặc bỏ CVAE. Một số nhiệm vụ được thu bằng khoảng 10–20 phút lần làm mẫu, nhưng lượng dữ liệu cần thiết vẫn thay đổi mạnh theo độ khó.
+Trên một số nhiệm vụ mô phỏng, khoảng cách so với phương pháp đối chứng tốt tiếp theo được báo cáo lên tới 59, 49 hoặc 29 điểm phần trăm trong các thiết lập tương ứng. Không nên dùng những con số ấy như kết quả mặc định của ACT. Hình 9 cho biết điều gì xảy ra khi thay độ dài đoạn dự đoán, bật/tắt tổng hợp hành động chồng nhau hoặc bỏ CVAE. Một số nhiệm vụ được thu bằng khoảng 10–20 phút lần làm mẫu, nhưng lượng dữ liệu cần thiết vẫn thay đổi mạnh theo độ khó.
+
+
+### Đừng nhầm tác dụng của chunking với tác dụng của CVAE
+
+Hình 9 có nhiều phép so khác nhau, không phải một đường biểu diễn “ACT tốt hơn”. Thêm chunking vào một phương pháp khác kiểm tra giá trị của việc dự đoán theo đoạn. Bỏ CVAE kiểm tra việc học các biến thể thao tác. Bật hoặc tắt temporal ensembling kiểm tra độ lợi của cách nối các dự đoán. Nếu một thay đổi giúp ACT nhưng làm VINN kém đi, kết luận phải gắn với đúng mô hình và nhiệm vụ, chứ không thể nói đó là quy tắc chung cho mọi robot.
 
 ![Hình 6 từ PDF gốc, trang 5](/paper-figures/act/figure-6.webp)
 

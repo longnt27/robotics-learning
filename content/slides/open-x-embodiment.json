@@ -1,175 +1,175 @@
 [
   {
     "type": "cover",
-    "title": "Điểm cốt lõi",
-    "lead": "Robot từ nhiều phòng thí nghiệm có thể chia sẻ dữ liệu để huấn luyện policy tổng quát hơn.",
+    "title": "Open X-Embodiment: học từ nhiều robot",
+    "lead": "Một ảnh chiếc cốc có thể được dùng để dạy nhiều loại mô hình nhìn ảnh. Nhưng lệnh “dịch khớp số 3 thêm 0,1” không có cùng ý nghĩa trên hai tay máy khác nhau.",
     "items": [
-      "Tập hợp dữ liệu nhiều robot trước khi học cross-embodiment"
+      "Tập hợp dữ liệu từ nhiều loại robot trước khi huấn luyện chung"
     ],
-    "intuition": "Dùng thống nhất giao diện dữ liệu và co-training để test transfer thật.",
+    "intuition": "Điểm chính của công trình là dữ liệu đa tổ chức và kiểm tra khả năng chuyển giữa robot, không chỉ là thêm một tập dữ liệu thật lớn.",
     "detail": {
-      "label": "BỐI CẢNH NGHIÊN CỨU",
-      "text": "Open X-Embodiment hỏi: có thể chuẩn hóa kinh nghiệm của nhiều robot đủ để huấn luyện một policy chung và tạo positive chuyển giao hay không?"
+      "label": "GIẢI THÍCH",
+      "text": "Điểm chính của công trình là dữ liệu đa tổ chức và kiểm tra khả năng chuyển giữa robot, không chỉ là thêm một tập dữ liệu thật lớn."
     }
   },
   {
     "type": "problem",
-    "title": "Mỗi robot có ít dữ liệu và hành động không cùng schema",
-    "lead": "Robot học riêng lẻ khiến cả ngành phải thu lại kỹ năng gần giống nhau.",
+    "title": "Vì sao gom dữ liệu robot khó hơn gom ảnh?",
+    "lead": "Một ảnh chiếc cốc có thể được dùng để dạy nhiều loại mô hình nhìn ảnh. Nhưng lệnh “dịch khớp số 3 thêm 0,1” không có cùng ý nghĩa trên hai tay máy khác nhau.",
     "items": [
-      "Train theo từng embodiment không tận dụng được kinh nghiệm cộng đồng"
+      "Huấn luyện riêng từng loại robot không tận dụng được dữ liệu từ các nhóm khác"
     ],
-    "intuition": "Nối các dataset không thôi có thể làm model học sai units, frame và action convention.",
+    "intuition": "Điểm chính của công trình là dữ liệu đa tổ chức và kiểm tra khả năng chuyển giữa robot, không chỉ là thêm một tập dữ liệu thật lớn.",
     "detail": {
-      "label": "NGUYÊN NHÂN CỐT LÕI",
-      "text": "Mỗi robotics phòng thí nghiệm thường có một robot, một bộ điều khiển, một schema action và một tập dữ liệu riêng."
+      "label": "GIẢI THÍCH",
+      "text": "Một ảnh chiếc cốc có thể được dùng để dạy nhiều loại mô hình nhìn ảnh. Nhưng lệnh “dịch khớp số 3 thêm 0,1” không có cùng ý nghĩa trên hai tay máy khác nhau. Robot A dùng kẹp hai ngón, robot B có bàn tay nhiều khớp; số chiều và đơn vị lệnh cũng khác. Open X-Embodiment tìm cách kết hợp lần làm mẫu từ nhiều hệ robot để chính sách học được điều chung mà không nhầm lệnh của chúng."
     }
   },
   {
     "type": "contrast",
-    "title": "Train theo từng embodiment không tận dụng được kinh nghiệm cộng đồng",
-    "lead": "Nối các dataset không thôi có thể làm model học sai units, frame và action convention.",
+    "title": "Hai robot không dùng cùng lệnh khớp",
+    "lead": "Điểm chính của công trình là dữ liệu đa tổ chức và kiểm tra khả năng chuyển giữa robot, không chỉ là thêm một tập dữ liệu thật lớn.",
     "items": [
-      "Tập hợp dữ liệu nhiều robot trước khi học cross-embodiment",
-      "Dùng thống nhất giao diện dữ liệu và co-training để test transfer thật."
+      "Tập hợp dữ liệu từ nhiều loại robot trước khi huấn luyện chung",
+      "Dùng thống nhất giao diện dữ liệu và co-huấn luyện để test transfer thật."
     ],
-    "intuition": "Dùng thống nhất giao diện dữ liệu và co-training để test transfer thật.",
+    "intuition": "Một ảnh chiếc cốc có thể được dùng để dạy nhiều loại mô hình nhìn ảnh. Nhưng lệnh “dịch khớp số 3 thêm 0,1” không có cùng ý nghĩa trên hai tay máy khác nhau. Robot A dùng kẹp hai ngón, robot B có bàn tay nhiều khớp; số chiều và đơn vị lệnh cũng khác.",
     "detail": {
-      "label": "VÌ SAO CẦN THAY ĐỔI",
-      "text": "Nếu dữ liệu của Franka không giúp WidowX và dữ liệu của Kuka không giúp mobile manipulator thì robotics không thể scale kiểu foundation mô hình; mỗi embodiment sẽ mãi là một silo."
+      "label": "GIẢI THÍCH",
+      "text": "Nếu đưa nguyên góc khớp của A sang B, thao tác có thể vô nghĩa hoặc nguy hiểm. Đây là lý do cần phân biệt chuyển kiến thức về mục tiêu/kỹ năng với sao chép y nguyên tín hiệu điều khiển."
     }
   },
   {
     "type": "intuition",
-    "title": "Tập hợp dữ liệu nhiều robot trước khi học cross-embodiment",
-    "lead": "Dùng thống nhất giao diện dữ liệu và co-training để test transfer thật.",
+    "title": "Hình dung việc chuyển kỹ năng mở ngăn kéo",
+    "lead": "Robot A đã thực hiện nhiều lần kéo ngăn kéo. Robot B chưa có nhiều ví dụ tương tự nhưng đã biết đưa đầu kẹp tới vật và giữ vật. Nếu dữ liệu được biểu diễn phù hợp, việc học từ A có thể giúp B chọn quỹ đạo kéo tốt hơn.",
     "items": [
-      "Robot từ nhiều phòng thí nghiệm có thể chia sẻ dữ liệu để huấn luyện policy tổng quát hơn."
+      "Robot từ nhiều phòng thí nghiệm có thể chia sẻ dữ liệu để huấn luyện chính sách điều khiển tổng quát hơn."
     ],
-    "intuition": "Dùng thống nhất giao diện dữ liệu và co-training để test transfer thật.",
+    "intuition": "Nếu đưa nguyên góc khớp của A sang B, thao tác có thể vô nghĩa hoặc nguy hiểm. Đây là lý do cần phân biệt chuyển kiến thức về mục tiêu/kỹ năng với sao chép y nguyên tín hiệu điều khiển.",
     "detail": {
-      "label": "GIẢI THÍCH CƠ CHẾ",
-      "text": "Nó xây một format và hỗn hợp dữ liệu huấn luyện để mô hình có thể học biểu diễn dùng chung, rồi đo xem dữ liệu từ robot A có giúp robot B hay không."
+      "label": "GIẢI THÍCH",
+      "text": "Robot A đã thực hiện nhiều lần kéo ngăn kéo. Robot B chưa có nhiều ví dụ tương tự nhưng đã biết đưa đầu kẹp tới vật và giữ vật. Nếu dữ liệu được biểu diễn phù hợp, việc học từ A có thể giúp B chọn quỹ đạo kéo tốt hơn. Tuy nhiên B vẫn cần lệnh đúng giới hạn khớp và hình dạng kẹp của mình."
     }
   },
   {
     "type": "concepts",
-    "title": "Ba khái niệm để nắm",
-    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "title": "Những khái niệm cần hiểu trước",
+    "lead": "Embodiment là cấu trúc vật lý robot: số khớp, camera, kiểu kẹp, giới hạn chuyển động. Không gian hành động mô tả lệnh robot chấp nhận, chẳng hạn vị trí đầu kẹp, vận tốc hay góc khớp.",
     "items": [
       {
         "label": "Embodiment",
-        "value": "Cơ cấu khớp, camera, gripper, workspace khác nhau."
+        "value": "Cơ cấu khớp, camera, bộ kẹp, workspace khác nhau."
       },
       {
-        "label": "Action normalization",
-        "value": "Quy đổi scale và semantics cho các action."
+        "label": "hành động normalization",
+        "value": "Quy đổi scale và semantics cho các hành động."
       },
       {
-        "label": "Co-training",
-        "value": "Học chung nhiều dataset thay vì một robot duy nhất."
+        "label": "Co-huấn luyện",
+        "value": "Học chung nhiều tập dữ liệu thay vì một robot duy nhất."
       }
     ],
-    "intuition": "Các dataset được quy đổi về cấu trúc lưu trữ/thời gian chung.",
+    "intuition": "Tập dữ liệu trộn từ nhiều robot phải thống nhất thông tin tối thiểu như ảnh, câu lệnh, trạng thái và loại lệnh. Tuy vậy, chuẩn hóa cùng một cấu trúc dữ liệu không đồng nghĩa các robot đã có cùng khả năng vận động.",
     "detail": {
-      "label": "NỀN TẢNG KỸ THUẬT",
-      "text": "Cross-embodiment không phải chỉ concat mọi action vào một tensor. Các robot khác nhau về degrees of freedom, tần số điều khiển, camera convention, proprioception và gripper command semantics."
+      "label": "GIẢI THÍCH",
+      "text": "Tập dữ liệu trộn từ nhiều robot phải thống nhất thông tin tối thiểu như ảnh, câu lệnh, trạng thái và loại lệnh. Tuy vậy, chuẩn hóa cùng một cấu trúc dữ liệu không đồng nghĩa các robot đã có cùng khả năng vận động."
     }
   },
   {
     "type": "pipeline",
-    "title": "Kiến trúc trong một sơ đồ",
-    "lead": "Robot từ nhiều phòng thí nghiệm có thể chia sẻ dữ liệu để huấn luyện policy tổng quát hơn.",
+    "title": "Ghép dữ liệu từ nhiều nguồn như thế nào?",
+    "lead": "Đầu tiên dữ liệu từ các tổ chức được gom về các bản ghi có thể đọc chung. Mỗi nguồn vẫn gắn với loại robot, camera và cách điều khiển.",
     "items": [
-      "Nhiều robot/dataset",
+      "Nhiều robot/tập dữ liệu",
       "Chuyển đổi schema",
-      "RT-X training",
+      "RT-X huấn luyện",
       "Đánh giá across embodiments"
     ],
-    "intuition": "Nhận observation và instruction theo giao diện robot mục tiêu.",
+    "intuition": "Khi huấn luyện, mô hình nhìn ảnh cùng câu lệnh từ nhiều nguồn. Lúc kiểm tra, nó có thể được đặt trên một robot khác hoặc gặp kỹ năng chủ yếu xuất hiện trong dữ liệu của robot khác. Điều cần chứng minh là kết quả trên robot đích có tăng thật so với việc chỉ dùng dữ liệu của chính robot ấy.",
     "detail": {
-      "label": "ĐIỂM NHẤN TRIỂN KHAI",
-      "text": "Dự án gom dữ liệu từ 22 robot embodiments và 21 tổ chức, tổng cộng hơn 1 triệu các quỹ đạo/episodes, hàng trăm kỹ năng và nhiệm vụ instances."
+      "label": "GIẢI THÍCH",
+      "text": "Khi huấn luyện, mô hình nhìn ảnh cùng câu lệnh từ nhiều nguồn. Lúc kiểm tra, nó có thể được đặt trên một robot khác hoặc gặp kỹ năng chủ yếu xuất hiện trong dữ liệu của robot khác. Điều cần chứng minh là kết quả trên robot đích có tăng thật so với việc chỉ dùng dữ liệu của chính robot ấy."
     }
   },
   {
     "type": "representation",
-    "title": "Mô hình biểu diễn cái gì?",
-    "lead": "Các dataset được quy đổi về cấu trúc lưu trữ/thời gian chung.",
+    "title": "Cần chuẩn hóa cách biểu diễn hành động",
+    "lead": "Tập dữ liệu trộn từ nhiều robot phải thống nhất thông tin tối thiểu như ảnh, câu lệnh, trạng thái và loại lệnh. Tuy vậy, chuẩn hóa cùng một cấu trúc dữ liệu không đồng nghĩa các robot đã có cùng khả năng vận động.",
     "items": [
       {
         "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
-        "value": "Policy cần phân biệt robot nào và action có nghĩa gì."
+        "value": "chính sách điều khiển cần phân biệt robot nào và hành động có nghĩa gì."
       },
       {
         "label": "ĐÁNH ĐỔI KỸ THUẬT",
         "value": "Shared tensor shape không đảm bảo sự tương đương về chuyển động vật lý."
       }
     ],
-    "intuition": "Shared tensor shape không đảm bảo sự tương đương về chuyển động vật lý.",
+    "intuition": "Đầu tiên dữ liệu từ các tổ chức được gom về các bản ghi có thể đọc chung. Mỗi nguồn vẫn gắn với loại robot, camera và cách điều khiển.",
     "detail": {
-      "label": "CHI TIẾT BIỂU DIỄN",
-      "text": "Các tập dữ liệu khác nhau được chuyển về một interface chuẩn, trong khi vẫn giữ metadata/action semantics cần thiết."
+      "label": "GIẢI THÍCH",
+      "text": "Đầu tiên dữ liệu từ các tổ chức được gom về các bản ghi có thể đọc chung. Mỗi nguồn vẫn gắn với loại robot, camera và cách điều khiển. Tiếp theo, người nghiên cứu chọn hoặc chuyển đổi những dạng lệnh có thể học chung; trong các phiên bản RT-X, hành động đầu công tác được rời rạc hóa để mạng dự đoán."
     }
   },
   {
     "type": "training",
-    "title": "Model học như thế nào?",
-    "lead": "Open X-Embodiment tập hợp nhiều loại robot và tổ chức.",
+    "title": "Các mô hình RT-X học từ dữ liệu ra sao?",
+    "lead": "Đầu tiên dữ liệu từ các tổ chức được gom về các bản ghi có thể đọc chung. Mỗi nguồn vẫn gắn với loại robot, camera và cách điều khiển.",
     "items": [
       {
         "label": "MỤC TIÊU HỌC",
-        "value": "RT-X models huấn luyện trên hỗn hợp datasets thay vì một nguồn."
+        "value": "RT-X mô hình huấn luyện trên hỗn hợp tập dữ liệu thay vì một nguồn."
       },
       {
         "label": "DỮ LIỆU / QUY TRÌNH",
         "value": "Đánh giá lợi ích tiền huấn luyện/transfer trên robot mới."
       }
     ],
-    "intuition": "So single-robot training với hỗn hợp cross-embodiment.",
+    "intuition": "Khi huấn luyện, mô hình nhìn ảnh cùng câu lệnh từ nhiều nguồn. Lúc kiểm tra, nó có thể được đặt trên một robot khác hoặc gặp kỹ năng chủ yếu xuất hiện trong dữ liệu của robot khác. Điều cần chứng minh là kết quả trên robot đích có tăng thật so với việc chỉ dùng dữ liệu của chính robot ấy.",
     "detail": {
-      "label": "CÁCH HUẤN LUYỆN",
-      "text": "Trên corpus đó, consortium huấn luyện RT-1-X và RT-2-X, tức các phiên bản cross-embodiment của RT-1/RT-2."
+      "label": "GIẢI THÍCH",
+      "text": "Đối chiếu số liệu: Trong phép so gộp của bài báo, RT-1-X đạt tỷ lệ thành công trung bình cao hơn khoảng 50% tương đối so với phương án chỉ dùng dữ liệu robot đích; con số này không có nghĩa tăng 50 điểm phần trăm. RT-2-X cũng được thử ở những kỹ năng chưa xuất hiện trong dữ liệu của loại robot đánh giá. Hãy nhìn từng robot, tập nhiệm vụ và số lượt thử để phân biệt chuyển giao kỹ năng thật với việc mô hình chỉ được học thêm ví dụ cùng kiểu bài."
     }
   },
   {
     "type": "inference",
-    "title": "Một lần inference xảy ra ra sao?",
-    "lead": "Nhận observation và instruction theo giao diện robot mục tiêu.",
+    "title": "Khi đổi robot cần kiểm tra những gì?",
+    "lead": "Khi huấn luyện, mô hình nhìn ảnh cùng câu lệnh từ nhiều nguồn. Lúc kiểm tra, nó có thể được đặt trên một robot khác hoặc gặp kỹ năng chủ yếu xuất hiện trong dữ liệu của robot khác.",
     "items": [
       {
         "label": "XỬ LÝ ĐẦU VÀO",
-        "value": "Policy đã nhìn nhiều cách thao tác trong pretraining."
+        "value": "chính sách điều khiển đã nhìn nhiều cách thao tác trong huấn luyện trước."
       },
       {
         "label": "TẠO HÀNH ĐỘNG",
         "value": "Đầu ra cần giải mã đúng schema của robot đang điều khiển."
       }
     ],
-    "intuition": "Đầu ra cần giải mã đúng schema của robot đang điều khiển.",
+    "intuition": "Robot A đã thực hiện nhiều lần kéo ngăn kéo. Robot B chưa có nhiều ví dụ tương tự nhưng đã biết đưa đầu kẹp tới vật và giữ vật. Nếu dữ liệu được biểu diễn phù hợp, việc học từ A có thể giúp B chọn quỹ đạo kéo tốt hơn. Tuy nhiên B vẫn cần lệnh đúng giới hạn khớp và hình dạng kẹp của mình.",
     "detail": {
-      "label": "DIỄN BIẾN THỰC THI",
-      "text": "RT-X-style huấn luyện phải gắn embodiment, normalize, map hoặc giữ schema tương ứng; inference cần biết policy đầu ra được robot nhận theo convention nào."
+      "label": "GIẢI THÍCH",
+      "text": "Tập dữ liệu không phải mô hình; mô hình không phải thuật toán chuyển đổi lệnh. Khi đọc ba bài, luôn tách từng tầng: thu dữ liệu → chuẩn hóa → huấn luyện → thích nghi robot mới."
     }
   },
   {
     "type": "equation",
-    "title": "Mathematical Intuition",
-    "lead": "Trộn dữ liệu nhiều robot e để tăng coverage; chính phần align action/camera mới quyết định hỗn hợp có học được hay không.",
+    "title": "Đọc quy mô dữ liệu và không gian hành động",
+    "lead": "Tập dữ liệu trộn từ nhiều robot phải thống nhất thông tin tối thiểu như ảnh, câu lệnh, trạng thái và loại lệnh. Tuy vậy, chuẩn hóa cùng một cấu trúc dữ liệu không đồng nghĩa các robot đã có cùng khả năng vận động.",
     "equation": "\\mathcal D=\\bigcup_{e=1}^{E}\\mathcal D_e",
     "items": [
       "Biểu thức tập hợp dữ liệu mang tính khái niệm."
     ],
-    "intuition": "Trộn dữ liệu nhiều robot e để tăng coverage; chính phần align action/camera mới quyết định hỗn hợp có học được hay không.",
+    "intuition": "Đầu tiên dữ liệu từ các tổ chức được gom về các bản ghi có thể đọc chung. Mỗi nguồn vẫn gắn với loại robot, camera và cách điều khiển.",
     "detail": {
-      "label": "Ý NGHĨA CÔNG THỨC",
-      "text": "Quan trọng về mặt infrastructure là bài báo không cố ép mọi robot thành cùng một phần cứng."
+      "label": "GIẢI THÍCH CÔNG THỨC",
+      "text": "So chính sách điều khiển B chỉ học dữ liệu B với chính sách điều khiển B được bổ sung dữ liệu A sau khi chuyển đổi hợp lệ. Đánh giá cùng vật và bố cục mới; như vậy mới đo được lợi ích của học chung."
     }
   },
   {
     "type": "results",
-    "title": "Kết quả nói lên điều gì?",
-    "lead": "RT-X cho thấy lợi ích từ co-training nhiều robot so với một phần các phương pháp đối chứng single-domain.",
+    "title": "Kết quả RT-1-X và RT-2-X cho thấy gì?",
+    "lead": "Hình 4 so RT-1-X với RT-1 và mô hình gốc. Hai bản RT-1 dùng cùng kiến trúc, trong khi nguồn dữ liệu huấn luyện khác nhau; kết quả tốt hơn là bằng chứng cho lợi ích của việc học chung dữ liệu robot trong thiết lập ấy.",
     "items": [
       {
         "label": "PHÁT HIỆN QUAN TRỌNG",
@@ -180,80 +180,80 @@
         "value": "Tập dữ liệu chung trở thành nền cho Octo, OpenVLA và nhiều VLA hậu kỳ."
       }
     ],
-    "intuition": "dataset imbalance có thể làm robot nhiều dữ liệu lấn át robot hiếm; schema là một phần khó nhất của scale.",
+    "intuition": "Đối chiếu số liệu: Trong phép so gộp của bài báo, RT-1-X đạt tỷ lệ thành công trung bình cao hơn khoảng 50% tương đối so với phương án chỉ dùng dữ liệu robot đích; con số này không có nghĩa tăng 50 điểm phần trăm.",
     "detail": {
-      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
-      "text": "Ablation trên Bridge và các subsets cho thấy dữ liệu từ embodiment khác có thể tạo positive chuyển giao, và gains tăng khi mô hình đủ dung lượng mô hình để hấp thụ heterogeneity."
+      "label": "GIẢI THÍCH",
+      "text": "Hình 4 so RT-1-X với RT-1 và mô hình gốc. Hai bản RT-1 dùng cùng kiến trúc, trong khi nguồn dữ liệu huấn luyện khác nhau; kết quả tốt hơn là bằng chứng cho lợi ích của việc học chung dữ liệu robot trong thiết lập ấy. Hình 5 kiểm tra một số kỹ năng đã có trong dữ liệu robot nguồn nhưng chưa có trong dữ liệu robot đánh giá."
     }
   },
   {
     "type": "ablation",
-    "title": "Ablation và bằng chứng",
-    "lead": "So single-robot training với hỗn hợp cross-embodiment.",
+    "title": "Đánh giá tác dụng của dữ liệu đa robot",
+    "lead": "Khi đọc câu “cao hơn 50%”, cần biết đó là mức tăng tương đối hay số điểm phần trăm và bộ đánh giá gồm những nhiệm vụ nào. Không được coi một thí nghiệm như bằng chứng rằng robot bất kỳ sẽ tự làm mọi công việc.",
     "items": [
       {
         "label": "YẾU TỐ ĐƯỢC THỬ",
         "value": "Không thể suy mọi kỹ năng có thể chuyển giao bằng cùng mức lợi ích."
       }
     ],
-    "intuition": "Chuyển giao hiệu quả khác nhau tùy mức tương đồng robot và nhiệm vụ.",
+    "intuition": "Hình 4 so RT-1-X với RT-1 và mô hình gốc. Hai bản RT-1 dùng cùng kiến trúc, trong khi nguồn dữ liệu huấn luyện khác nhau; kết quả tốt hơn là bằng chứng cho lợi ích của việc học chung dữ liệu robot trong thiết lập ấy.",
     "detail": {
-      "label": "BẰNG CHỨNG BỔ SUNG",
-      "text": "Bài báo này không chứng minh “mọi robot đều học lẫn nhau”, nhưng nó chứng minh đủ để thay đổi hướng field: cross-embodiment pretraining từ đó trở thành một assumption hợp lý để đầu tư thay vì một fantasy."
+      "label": "GIẢI THÍCH",
+      "text": "Khi đọc câu “cao hơn 50%”, cần biết đó là mức tăng tương đối hay số điểm phần trăm và bộ đánh giá gồm những nhiệm vụ nào. Không được coi một thí nghiệm như bằng chứng rằng robot bất kỳ sẽ tự làm mọi công việc."
     }
   },
   {
     "type": "limits",
-    "title": "Hạn chế cần nói thẳng",
-    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "title": "Giới hạn khi kết hợp nhiều phần cứng",
+    "lead": "Tập dữ liệu lớn có thể không cân bằng: nguồn robot phổ biến chiếm phần lớn số quỹ đạo. Camera khác, nhịp điều khiển khác và lệnh được chuẩn hóa sai đều có thể làm chính sách điều khiển học các quy luật không phù hợp.",
     "items": [
       {
         "label": "Tác giả / phạm vi",
-        "value": "Tác giả: quality, coverage và action semantics giữa tập nguồn không đồng nhất."
+        "value": "Tác giả: quality, coverage và hành động semantics giữa tập nguồn không đồng nhất."
       },
       {
         "label": "Phê bình độc lập",
-        "value": "Phê bình: dataset imbalance có thể làm robot nhiều dữ liệu lấn át robot hiếm; schema là một phần khó nhất của scale."
+        "value": "Phê bình: dữ liệu mất cân bằng có thể khiến robot nhiều mẫu lấn át robot hiếm; thống nhất cấu trúc dữ liệu là trở ngại lớn khi mở rộng."
       }
     ],
-    "intuition": "Policy cần phân biệt robot nào và action có nghĩa gì.",
+    "intuition": "Ngoài ra, sự đa dạng robot không tự bảo đảm robot đích có đủ cơ cấu cho thao tác, ví dụ tay kẹp cứng không thể bắt chước bàn tay nhiều ngón trong mọi tình huống.",
     "detail": {
-      "label": "PHẠM VI KẾT LUẬN",
-      "text": "Phê bình thêm: tập dữ liệu contribution rất lệch về quantity và phân phối nhiệm vụ giữa các phòng thí nghiệm."
+      "label": "GIẢI THÍCH",
+      "text": "Ngoài ra, sự đa dạng robot không tự bảo đảm robot đích có đủ cơ cấu cho thao tác, ví dụ tay kẹp cứng không thể bắt chước bàn tay nhiều ngón trong mọi tình huống."
     }
   },
   {
     "type": "relations",
-    "title": "Bài này đứng ở đâu trong lĩnh vực?",
-    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "title": "Liên hệ với Octo và OpenVLA",
+    "lead": "Open X-Embodiment cung cấp nguồn dữ liệu nhiều robot. Octo sử dụng một phần nguồn ấy để huấn luyện chính sách điều khiển có thể thích nghi với đầu vào và không gian hành động mới.",
     "items": [
       {
         "label": "NỀN TẢNG / TIỀN ĐỀ",
-        "value": "Octo kiểm tra generalist policy mở trên mixture."
+        "value": "Octo kiểm tra generalist chính sách điều khiển mở trên mixture."
       },
       {
         "label": "HƯỚNG PHÁT TRIỂN",
         "value": "OpenVLA học VLA token-based từ nguồn Open X."
       }
     ],
-    "intuition": "Mỗi robot không nên phải học lại mọi kỹ năng từ đầu.",
+    "intuition": "Tập dữ liệu không phải mô hình; mô hình không phải thuật toán chuyển đổi lệnh. Khi đọc ba bài, luôn tách từng tầng: thu dữ liệu → chuẩn hóa → huấn luyện → thích nghi robot mới.",
     "detail": {
-      "label": "CÔNG TRÌNH LIÊN QUAN",
-      "text": "Đọc thêm Octo, OpenVLA, LingBot-VLA 2.0. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+      "label": "GIẢI THÍCH",
+      "text": "Open X-Embodiment cung cấp nguồn dữ liệu nhiều robot. Octo sử dụng một phần nguồn ấy để huấn luyện chính sách điều khiển có thể thích nghi với đầu vào và không gian hành động mới. OpenVLA cũng tận dụng dữ liệu robot đa dạng nhưng sinh hành động bằng kiến trúc gắn với mô hình ngôn ngữ."
     }
   },
   {
     "type": "closing",
-    "title": "Nếu chỉ nhớ ba điều",
-    "lead": "Mỗi robot không nên phải học lại mọi kỹ năng từ đầu.",
+    "title": "Điều cần nhớ về Open X-Embodiment",
+    "lead": "Giả sử có robot A và B khác số khớp, nhưng cùng có thể nhặt cốc. Ghi những thông tin chung có thể dùng lại: ảnh vật, đích đến, thời điểm kẹp. Tiếp theo ghi những thứ không thể sao chép thẳng: góc khớp, giới hạn hành trình và kích thước kẹp.",
     "items": [
-      "Đầu tư pipeline curation/normalization trước khi trộn dữ liệu.",
-      "Đừng đánh giá cross-embodiment bằng cách train/test cùng platform."
+      "Đầu tư quy trình curation/normalization trước khi trộn dữ liệu.",
+      "Không thể kiểm tra khả năng chuyển sang robot khác nếu chỉ học và đánh giá trên cùng một robot."
     ],
-    "intuition": "Robot từ nhiều phòng thí nghiệm có thể chia sẻ dữ liệu để huấn luyện policy tổng quát hơn.",
+    "intuition": "So chính sách điều khiển B chỉ học dữ liệu B với chính sách điều khiển B được bổ sung dữ liệu A sau khi chuyển đổi hợp lệ. Đánh giá cùng vật và bố cục mới; như vậy mới đo được lợi ích của học chung.",
     "detail": {
-      "label": "THỬ NGHIỆM TIẾP THEO",
-      "text": "Đọc schema RLDS của hai embodiments, liệt kê từng field/units/action khung hình và viết validator."
+      "label": "GIẢI THÍCH",
+      "text": "Giả sử có robot A và B khác số khớp, nhưng cùng có thể nhặt cốc. Ghi những thông tin chung có thể dùng lại: ảnh vật, đích đến, thời điểm kẹp. Tiếp theo ghi những thứ không thể sao chép thẳng: góc khớp, giới hạn hành trình và kích thước kẹp."
     }
   }
 ]

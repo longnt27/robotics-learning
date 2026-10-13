@@ -1,61 +1,61 @@
 [
   {
     "type": "cover",
-    "title": "Điểm cốt lõi",
-    "lead": "Benchmark kiểm tra robot có giữ được kỹ năng và chuyển giao giữa các nhiệm vụ liên tiếp hay không.",
+    "title": "LIBERO: robot học nhiệm vụ mới có quên việc cũ?",
+    "lead": "Robot đã học đặt cốc lên đĩa. Ta tiếp tục dạy nó bỏ đồ vào ngăn kéo. Nếu cập nhật cùng một mạng chỉ với dữ liệu nhiệm vụ sau, các tham số từng giúp đặt cốc có thể bị thay đổi, khiến robot làm kém việc cũ.",
     "items": [
       "Thay một bảng điểm bằng nhiều loại chuyển giao kiến thức"
     ],
-    "intuition": "Phân tách object, spatial, goal và long-horizon để biết policy đang chuyển giao kiểu gì.",
+    "intuition": "LIBERO là bộ nhiệm vụ và quy trình đánh giá, không phải chính sách điều khiển mới. Nó kiểm tra robot có học việc mới không, có giữ được việc cũ không và kiến thức về vật thể, vị trí, mục tiêu có chuyển từ việc này sang việc khác được hay không.",
     "detail": {
-      "label": "BỐI CẢNH NGHIÊN CỨU",
-      "text": "LIBERO được xây để kiểm tra chính xác các dạng chuyển giao đó trong môi trường thao tác robot có kiểm soát."
+      "label": "GIẢI THÍCH",
+      "text": "LIBERO là bộ nhiệm vụ và quy trình đánh giá, không phải chính sách điều khiển mới. Nó kiểm tra robot có học việc mới không, có giữ được việc cũ không và kiến thức về vật thể, vị trí, mục tiêu có chuyển từ việc này sang việc khác được hay không."
     }
   },
   {
     "type": "problem",
-    "title": "Học nhiệm vụ mới có thể làm policy quên nhiệm vụ cũ",
-    "lead": "Một điểm success trên một task không phản ánh lifelong learning hay transfer.",
+    "title": "Tại sao học thêm lại có thể làm mất kỹ năng?",
+    "lead": "Robot đã học đặt cốc lên đĩa. Ta tiếp tục dạy nó bỏ đồ vào ngăn kéo. Nếu cập nhật cùng một mạng chỉ với dữ liệu nhiệm vụ sau, các tham số từng giúp đặt cốc có thể bị thay đổi, khiến robot làm kém việc cũ.",
     "items": [
-      "Benchmark một task không đo được catastrophic forgetting"
+      "bộ đánh giá một nhiệm vụ không đo được catastrophic forgetting"
     ],
-    "intuition": "Random split trong cùng scene khiến mô hình được đo trên bối cảnh quá giống training.",
+    "intuition": "LIBERO là bộ nhiệm vụ và quy trình đánh giá, không phải chính sách điều khiển mới. Nó kiểm tra robot có học việc mới không, có giữ được việc cũ không và kiến thức về vật thể, vị trí, mục tiêu có chuyển từ việc này sang việc khác được hay không.",
     "detail": {
-      "label": "NGUYÊN NHÂN CỐT LÕI",
-      "text": "Lifelong learning không chỉ hỏi “nhiệm vụ mới làm được bao nhiêu %”, mà còn hỏi hai câu khó hơn: học nhiệm vụ cũ có giúp học nhiệm vụ mới nhanh hơn không, và học nhiệm vụ mới có làm quên nhiệm vụ cũ không."
+      "label": "GIẢI THÍCH",
+      "text": "Robot đã học đặt cốc lên đĩa. Ta tiếp tục dạy nó bỏ đồ vào ngăn kéo. Nếu cập nhật cùng một mạng chỉ với dữ liệu nhiệm vụ sau, các tham số từng giúp đặt cốc có thể bị thay đổi, khiến robot làm kém việc cũ. Hiện tượng ấy được gọi là quên kiến thức khi học nối tiếp."
     }
   },
   {
     "type": "contrast",
-    "title": "Benchmark một task không đo được catastrophic forgetting",
-    "lead": "Random split trong cùng scene khiến mô hình được đo trên bối cảnh quá giống training.",
+    "title": "Học liên tục khác học nhiều việc cùng lúc",
+    "lead": "LIBERO là bộ nhiệm vụ và quy trình đánh giá, không phải chính sách điều khiển mới.",
     "items": [
       "Thay một bảng điểm bằng nhiều loại chuyển giao kiến thức",
-      "Phân tách object, spatial, goal và long-horizon để biết policy đang chuyển giao kiểu gì."
+      "Phân tách object, spatial, goal và long-horizon để biết chính sách điều khiển đang chuyển giao kiểu gì."
     ],
-    "intuition": "Phân tách object, spatial, goal và long-horizon để biết policy đang chuyển giao kiểu gì.",
+    "intuition": "Robot đã học đặt cốc lên đĩa. Ta tiếp tục dạy nó bỏ đồ vào ngăn kéo. Nếu cập nhật cùng một mạng chỉ với dữ liệu nhiệm vụ sau, các tham số từng giúp đặt cốc có thể bị thay đổi, khiến robot làm kém việc cũ. Hiện tượng ấy được gọi là quên kiến thức khi học nối tiếp.",
     "detail": {
-      "label": "VÌ SAO CẦN THAY ĐỔI",
-      "text": "Các benchmark robot trước đó không tách rõ kiến thức khai báo như vật thể/quan hệ không gian với kiến thức quy trình như chuyển động/chuỗi mục tiêu."
+      "label": "GIẢI THÍCH",
+      "text": "Ngược lại, nếu đã học A giúp việc B được học nhanh hơn, đó là dấu hiệu chuyển giao có lợi. Muốn khẳng định được, phải đo điểm của B trước/sau khi học A và điểm A trước/sau khi học B. Một lần chạy cuối cùng là chưa đủ."
     }
   },
   {
     "type": "intuition",
-    "title": "Thay một bảng điểm bằng nhiều loại chuyển giao kiến thức",
-    "lead": "Phân tách object, spatial, goal và long-horizon để biết policy đang chuyển giao kiểu gì.",
+    "title": "Hình dung hai nhiệm vụ với một chiếc cốc",
+    "lead": "Nhiệm vụ A: đặt cốc đỏ bên trái đĩa. Nhiệm vụ B: bỏ cốc đỏ vào bồn. Hai việc chia sẻ kỹ năng nhận biết và kẹp cốc nhưng khác đích đặt.",
     "items": [
-      "Benchmark kiểm tra robot có giữ được kỹ năng và chuyển giao giữa các nhiệm vụ liên tiếp hay không."
+      "bộ đánh giá kiểm tra robot có giữ được kỹ năng và chuyển giao giữa các nhiệm vụ liên tiếp hay không."
     ],
-    "intuition": "Phân tách object, spatial, goal và long-horizon để biết policy đang chuyển giao kiểu gì.",
+    "intuition": "Ngược lại, nếu đã học A giúp việc B được học nhanh hơn, đó là dấu hiệu chuyển giao có lợi. Muốn khẳng định được, phải đo điểm của B trước/sau khi học A và điểm A trước/sau khi học B. Một lần chạy cuối cùng là chưa đủ.",
     "detail": {
-      "label": "GIẢI THÍCH CƠ CHẾ",
-      "text": "LIBERO có 130 nhiệm vụ và tạo nhiệm vụ theo quy tắc. Các suite chính gồm LIBERO-Spatial, LIBERO-Object, LIBERO-Goal và LIBERO-100; phần long-horizon dùng một split riêng từ LIBERO-100."
+      "label": "GIẢI THÍCH",
+      "text": "Nhiệm vụ A: đặt cốc đỏ bên trái đĩa. Nhiệm vụ B: bỏ cốc đỏ vào bồn. Hai việc chia sẻ kỹ năng nhận biết và kẹp cốc nhưng khác đích đặt. Sau khi học B, nếu robot vẫn kẹp cốc đúng mà luôn đưa tới bồn dù được giao A, nó có thể đã quên cách xác định mục tiêu của A."
     }
   },
   {
     "type": "concepts",
-    "title": "Ba khái niệm để nắm",
-    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "title": "LIBERO kiểm tra những dạng thay đổi nào?",
+    "lead": "Học đa nhiệm thường cho mạng nhìn dữ liệu nhiều nhiệm vụ cùng lúc. Học liên tục đưa nhiệm vụ theo thứ tự và có thể không cho dùng lại toàn bộ dữ liệu cũ.",
     "items": [
       {
         "label": "Continual learning",
@@ -67,109 +67,109 @@
       },
       {
         "label": "Forgetting",
-        "value": "Performance trên task cũ giảm sau khi train task mới."
+        "value": "Performance trên nhiệm vụ cũ giảm sau khi train nhiệm vụ mới."
       }
     ],
-    "intuition": "Nhiệm vụ mô phỏng có chỉ dẫn và success predicate rõ.",
+    "intuition": "LIBERO chia các nhiệm vụ thành nhóm thay vị trí không gian, thay vật, thay mục tiêu và kết hợp nhiều thay đổi. Nhờ đó khi kết quả kém, ta có thêm manh mối xem việc chuyển giao kiến thức gặp khó ở đâu.",
     "detail": {
-      "label": "NỀN TẢNG KỸ THUẬT",
-      "text": "Benchmark phải tách hai câu hỏi: chuyển kiến thức sang nhiệm vụ mới có nhanh hơn không, và sau khi học nhiệm vụ mới mô hình có còn làm được nhiệm vụ cũ không."
+      "label": "GIẢI THÍCH",
+      "text": "LIBERO chia các nhiệm vụ thành nhóm thay vị trí không gian, thay vật, thay mục tiêu và kết hợp nhiều thay đổi. Nhờ đó khi kết quả kém, ta có thêm manh mối xem việc chuyển giao kiến thức gặp khó ở đâu."
     }
   },
   {
     "type": "pipeline",
-    "title": "Kiến trúc trong một sơ đồ",
-    "lead": "Benchmark kiểm tra robot có giữ được kỹ năng và chuyển giao giữa các nhiệm vụ liên tiếp hay không.",
+    "title": "Cách tổ chức các lượt học và kiểm tra",
+    "lead": "Đầu tiên hệ thống tạo cảnh, bố trí vật, trạng thái ban đầu và điều kiện thành công. Nó dùng mô tả PDDL để xác định robot phải đạt trạng thái nào mới được tính là xong nhiệm vụ.",
     "items": [
-      "Task suite + demos",
+      "nhiệm vụ suite + lần làm mẫu",
       "Huấn luyện theo thứ tự",
-      "Rollout từng task",
+      "Rollout từng nhiệm vụ",
       "Transfer + forgetting metrics"
     ],
-    "intuition": "Đưa image/state và task instruction vào policy.",
+    "intuition": "chính sách điều khiển học việc thứ nhất rồi được kiểm tra. Sau khi học việc thứ hai, nó được kiểm tra lại trên cả việc đầu lẫn việc thứ hai. Quá trình tiếp tục cho các việc sau.",
     "detail": {
-      "label": "ĐIỂM NHẤN TRIỂN KHAI",
-      "text": "Điều kiện hoàn thành nhiệm vụ được được mô tả chính thức bằng predicates kiểu Open, TurnOff, On, In."
+      "label": "GIẢI THÍCH",
+      "text": "chính sách điều khiển học việc thứ nhất rồi được kiểm tra. Sau khi học việc thứ hai, nó được kiểm tra lại trên cả việc đầu lẫn việc thứ hai. Quá trình tiếp tục cho các việc sau. Cuối cùng so nhiều thuật toán như ER dùng phát lại kinh nghiệm và PackNet phân bổ tham số, có thể đổi thứ tự nhiệm vụ để kiểm tra độ nhạy."
     }
   },
   {
     "type": "representation",
-    "title": "Mô hình biểu diễn cái gì?",
-    "lead": "Nhiệm vụ mô phỏng có chỉ dẫn và success predicate rõ.",
+    "title": "Những gì một bài đánh giá LIBERO đo được",
+    "lead": "LIBERO chia các nhiệm vụ thành nhóm thay vị trí không gian, thay vật, thay mục tiêu và kết hợp nhiều thay đổi. Nhờ đó khi kết quả kém, ta có thêm manh mối xem việc chuyển giao kiến thức gặp khó ở đâu.",
     "items": [
       {
         "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
-        "value": "Nhiều family task đánh giá các năng lực khác nhau."
+        "value": "Nhiều family nhiệm vụ đánh giá các năng lực khác nhau."
       },
       {
         "label": "ĐÁNH ĐỔI KỸ THUẬT",
         "value": "Không thể thay toàn bộ conclusion bằng một metric trung bình."
       }
     ],
-    "intuition": "Không thể thay toàn bộ conclusion bằng một metric trung bình.",
+    "intuition": "Đầu tiên hệ thống tạo cảnh, bố trí vật, trạng thái ban đầu và điều kiện thành công. Nó dùng mô tả PDDL để xác định robot phải đạt trạng thái nào mới được tính là xong nhiệm vụ. Tiếp theo, ta chọn danh sách công việc cùng thứ tự học.",
     "detail": {
-      "label": "CHI TIẾT BIỂU DIỄN",
-      "text": "Bài báo gốc đánh giá các thuật toán học liên tục như sequential fine-tuning, replay, EWC và PackNet."
+      "label": "GIẢI THÍCH",
+      "text": "Đầu tiên hệ thống tạo cảnh, bố trí vật, trạng thái ban đầu và điều kiện thành công. Nó dùng mô tả PDDL để xác định robot phải đạt trạng thái nào mới được tính là xong nhiệm vụ. Tiếp theo, ta chọn danh sách công việc cùng thứ tự học."
     }
   },
   {
     "type": "training",
-    "title": "Model học như thế nào?",
-    "lead": "BC-RNN/Transformer và các continual-learning baselines.",
+    "title": "Mô hình học các nhiệm vụ theo thứ tự",
+    "lead": "Đầu tiên hệ thống tạo cảnh, bố trí vật, trạng thái ban đầu và điều kiện thành công. Nó dùng mô tả PDDL để xác định robot phải đạt trạng thái nào mới được tính là xong nhiệm vụ.",
     "items": [
       {
         "label": "MỤC TIÊU HỌC",
-        "value": "Thay task sequence và mức dữ liệu để đo ảnh hưởng."
+        "value": "Thay nhiệm vụ chuỗi và mức dữ liệu để đo ảnh hưởng."
       },
       {
         "label": "DỮ LIỆU / QUY TRÌNH",
-        "value": "Evaluation phải chạy rollout closed-loop chứ không chỉ action prediction loss."
+        "value": "Evaluation phải chạy rollout closed-loop chứ không chỉ hành động prediction loss."
       }
     ],
-    "intuition": "So cách học theo chuỗi với cách giữ dữ liệu cũ (replay).",
+    "intuition": "chính sách điều khiển học việc thứ nhất rồi được kiểm tra. Sau khi học việc thứ hai, nó được kiểm tra lại trên cả việc đầu lẫn việc thứ hai. Quá trình tiếp tục cho các việc sau.",
     "detail": {
-      "label": "CÁCH HUẤN LUYỆN",
-      "text": "Các chỉ số không chỉ đo tỷ lệ hoàn thành nhiệm vụ mà còn Forward Transfer (FWT), Negative Backward Transfer (NBT) và AUC để đo diễn biến học tập qua chuỗi nhiệm vụ."
+      "label": "GIẢI THÍCH",
+      "text": "Đối chiếu số liệu: Việc học thêm có thể giúp nhiệm vụ mới nhưng đồng thời làm quên nhiệm vụ cũ. Các phép thử trong bài cho thấy cách phát lại dữ liệu cũ thường khá ổn định, còn cách dành riêng tham số có thể bảo vệ kỹ năng cũ nhưng giới hạn dung lượng dành cho kỹ năng mới. Hình 4–5 cho thấy thứ tự học, kiến trúc và việc huấn luyện trước đều ảnh hưởng kết quả."
     }
   },
   {
     "type": "inference",
-    "title": "Một lần inference xảy ra ra sao?",
-    "lead": "Đưa image/state và task instruction vào policy.",
+    "title": "Điều gì xảy ra sau mỗi nhiệm vụ mới?",
+    "lead": "chính sách điều khiển học việc thứ nhất rồi được kiểm tra. Sau khi học việc thứ hai, nó được kiểm tra lại trên cả việc đầu lẫn việc thứ hai. Quá trình tiếp tục cho các việc sau.",
     "items": [
       {
         "label": "XỬ LÝ ĐẦU VÀO",
-        "value": "Policy thực thi theo simulator physics."
+        "value": "chính sách điều khiển thực thi theo simulator physics."
       },
       {
         "label": "TẠO HÀNH ĐỘNG",
-        "value": "Tổng hợp tỷ lệ thành công trước và sau khi học thêm task."
+        "value": "Tổng hợp tỷ lệ thành công trước và sau khi học thêm nhiệm vụ."
       }
     ],
-    "intuition": "Tổng hợp tỷ lệ thành công trước và sau khi học thêm task.",
+    "intuition": "Nhiệm vụ A: đặt cốc đỏ bên trái đĩa. Nhiệm vụ B: bỏ cốc đỏ vào bồn. Hai việc chia sẻ kỹ năng nhận biết và kẹp cốc nhưng khác đích đặt. Sau khi học B, nếu robot vẫn kẹp cốc đúng mà luôn đưa tới bồn dù được giao A, nó có thể đã quên cách xác định mục tiêu của A.",
     "detail": {
-      "label": "DIỄN BIẾN THỰC THI",
-      "text": "Khi chạy env, thành công phải đến từ closed-loop rollout và điều kiện hoàn thành trong simulator, không phải loss khi huấn luyện."
+      "label": "GIẢI THÍCH",
+      "text": "Một mô hình được tiền huấn luyện tốt vẫn có thể quên khi tinh chỉnh sai cách. Ngược lại, mô hình giữ nguyên kỹ năng cũ chưa chắc học kỹ năng mới nhanh. Đánh giá tốt cần có cả hai vế."
     }
   },
   {
     "type": "equation",
-    "title": "Mathematical Intuition",
-    "lead": "Forgetting âm khi success của task cũ giảm sau quá trình học. Chỉ số này là minh họa hướng đánh giá.",
+    "title": "Hiểu phép đo quên kiến thức",
+    "lead": "LIBERO chia các nhiệm vụ thành nhóm thay vị trí không gian, thay vật, thay mục tiêu và kết hợp nhiều thay đổi. Nhờ đó khi kết quả kém, ta có thêm manh mối xem việc chuyển giao kiến thức gặp khó ở đâu.",
     "equation": "F=\\frac{1}{N-1}\\sum_{i=1}^{N-1}\\Big(S_i^{\\mathrm{after}}-S_i^{\\mathrm{before}}\\Big)",
     "items": [
       "Không diễn giải chỉ số tổng hợp thành safety hay khả năng robot thật."
     ],
-    "intuition": "Forgetting âm khi success của task cũ giảm sau quá trình học. Chỉ số này là minh họa hướng đánh giá.",
+    "intuition": "Đầu tiên hệ thống tạo cảnh, bố trí vật, trạng thái ban đầu và điều kiện thành công. Nó dùng mô tả PDDL để xác định robot phải đạt trạng thái nào mới được tính là xong nhiệm vụ. Tiếp theo, ta chọn danh sách công việc cùng thứ tự học.",
     "detail": {
-      "label": "Ý NGHĨA CÔNG THỨC",
-      "text": "Các suite chính gồm LIBERO-Spatial, LIBERO-Object, LIBERO-Goal và LIBERO-100; phần long-horizon dùng một split riêng từ LIBERO-100."
+      "label": "GIẢI THÍCH CÔNG THỨC",
+      "text": "Thử đổi thứ tự thành C → A → B. Nếu điểm số thay nhiều, thứ tự nhiệm vụ là yếu tố quan trọng cần báo cáo."
     }
   },
   {
     "type": "results",
-    "title": "Kết quả nói lên điều gì?",
-    "lead": "LIBERO tổ chức benchmark theo loại tri thức cần chuyển giao.",
+    "title": "Kết quả LIBERO phải đọc theo thứ tự học",
+    "lead": "Hình 4 so ER và PackNet với năm thứ tự học khác nhau. Một cách học tốt ở thứ tự này nhưng kém ở thứ tự khác có thể không ổn định trong thực tế.",
     "items": [
       {
         "label": "PHÁT HIỆN QUAN TRỌNG",
@@ -177,55 +177,55 @@
       },
       {
         "label": "CÁCH DIỄN GIẢI",
-        "value": "Mục tiêu là tạo thước đo lặp lại được thay vì phô một success rate."
+        "value": "Mục tiêu là tạo thước đo lặp lại được thay vì phô một tỷ lệ thành công."
       }
     ],
-    "intuition": "success predicate và vật lý mô phỏng không bảo đảm chuyển giao sang robot ngoài đời.",
+    "intuition": "Đối chiếu số liệu: Việc học thêm có thể giúp nhiệm vụ mới nhưng đồng thời làm quên nhiệm vụ cũ. Các phép thử trong bài cho thấy cách phát lại dữ liệu cũ thường khá ổn định, còn cách dành riêng tham số có thể bảo vệ kỹ năng cũ nhưng giới hạn dung lượng dành cho kỹ năng mới.",
     "detail": {
-      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
-      "text": "Một kết quả đáng nhớ khác: pretraining có giám sát trên LIBERO-90 không tự động giúp downstream lifelong learning trên 10 nhiệm vụ long-horizon, thậm chí có thể gây negative chuyển giao."
+      "label": "GIẢI THÍCH",
+      "text": "Hình 4 so ER và PackNet với năm thứ tự học khác nhau. Một cách học tốt ở thứ tự này nhưng kém ở thứ tự khác có thể không ổn định trong thực tế. Hình 5 còn thay kiến trúc và việc huấn luyện trước, cho thấy hiệu quả không chỉ do tên thuật toán chống quên."
     }
   },
   {
     "type": "ablation",
-    "title": "Ablation và bằng chứng",
-    "lead": "So cách học theo chuỗi với cách giữ dữ liệu cũ (replay).",
+    "title": "Cách thử nghiệm để đo mức quên",
+    "lead": "Khi thấy một điểm tổng hợp, hãy hỏi nó đã bao gồm điểm của những nhiệm vụ cũ chưa. Thí nghiệm tách thành phần chỉ có nghĩa nếu thay một yếu tố rõ ràng và giữ tương đương dữ liệu, số bước huấn luyện cùng quy trình đánh giá.",
     "items": [
       {
         "label": "YẾU TỐ ĐƯỢC THỬ",
-        "value": "So loss huấn luyện với rollout success để thấy lỗi compounding."
+        "value": "So sai số lúc học với tỷ lệ hoàn thành khi robot tự chạy để thấy lỗi tích lũy."
       }
     ],
-    "intuition": "Các phương pháp continual learning cho trade-off khác nhau giữa transfer và forgetting.",
+    "intuition": "Hình 4 so ER và PackNet với năm thứ tự học khác nhau. Một cách học tốt ở thứ tự này nhưng kém ở thứ tự khác có thể không ổn định trong thực tế. Hình 5 còn thay kiến trúc và việc huấn luyện trước, cho thấy hiệu quả không chỉ do tên thuật toán chống quên.",
     "detail": {
-      "label": "BẰNG CHỨNG BỔ SUNG",
-      "text": "Điều đó cảnh báo rất sớm rằng “pretrain nhiều hơn” không đủ; phân phối/mục tiêu huấn luyện phải đúng."
+      "label": "GIẢI THÍCH",
+      "text": "Khi thấy một điểm tổng hợp, hãy hỏi nó đã bao gồm điểm của những nhiệm vụ cũ chưa. Thí nghiệm tách thành phần chỉ có nghĩa nếu thay một yếu tố rõ ràng và giữ tương đương dữ liệu, số bước huấn luyện cùng quy trình đánh giá."
     }
   },
   {
     "type": "limits",
-    "title": "Hạn chế cần nói thẳng",
-    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "title": "Hạn chế của đánh giá trong mô phỏng",
+    "lead": "Nhiệm vụ LIBERO có điều kiện hoàn thành xác định và được mô phỏng để dễ lặp lại. Robot thật còn gặp sai số camera, lực kẹp, vật mềm và độ trễ. Kết quả chống quên trên bộ mô phỏng chưa bảo đảm chuyển nguyên vẹn sang mọi robot thật.",
     "items": [
       {
         "label": "Tác giả / phạm vi",
-        "value": "Tác giả: benchmark vẫn là simulator, chủ yếu tabletop manipulation."
+        "value": "Tác giả: bộ đánh giá vẫn là simulator, chủ yếu tabletop manipulation."
       },
       {
         "label": "Phê bình độc lập",
-        "value": "Phê bình: success predicate và vật lý mô phỏng không bảo đảm chuyển giao sang robot ngoài đời."
+        "value": "Phê bình: tiêu chí đánh giá và vật lý mô phỏng không bảo đảm kỹ năng sẽ hoạt động trên robot thật."
       }
     ],
-    "intuition": "Nhiều family task đánh giá các năng lực khác nhau.",
+    "intuition": "Trong thực tế, những công việc có thể tới xen kẽ hoặc thay đổi dần, thay vì các giai đoạn học A rồi B rồi C rất rõ. Vì vậy LIBERO là công cụ nghiên cứu quan trọng nhưng không đại diện cho mọi tình huống học suốt đời.",
     "detail": {
-      "label": "PHẠM VI KẾT LUẬN",
-      "text": "Bài báo thừa nhận: đây là mô phỏng benchmark với phạm vi vật thể/nhiệm vụ và mô phỏng vật lý có giới hạn; tác giả coi benchmark là nền để cộng đồng tiếp tục mở rộng kiến trúc, thuật toán và pretraining."
+      "label": "GIẢI THÍCH",
+      "text": "Trong thực tế, những công việc có thể tới xen kẽ hoặc thay đổi dần, thay vì các giai đoạn học A rồi B rồi C rất rõ. Vì vậy LIBERO là công cụ nghiên cứu quan trọng nhưng không đại diện cho mọi tình huống học suốt đời."
     }
   },
   {
     "type": "relations",
-    "title": "Bài này đứng ở đâu trong lĩnh vực?",
-    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "title": "LIBERO liên hệ với chính sách đa nhiệm",
+    "lead": "RT-1 và Octo cố học một chính sách điều khiển có thể làm nhiều việc từ dữ liệu rộng. LIBERO đặt câu hỏi tiếp theo: khi ta tiếp tục huấn luyện chính sách điều khiển ấy cho công việc mới, những việc trước còn làm được không?",
     "items": [
       {
         "label": "NỀN TẢNG / TIỀN ĐỀ",
@@ -236,24 +236,24 @@
         "value": "OpenVLA và π0.5 được đánh giá trên các bộ nhiệm vụ kiểu LIBERO."
       }
     ],
-    "intuition": "Đánh giá policy phải xác định loại generalization đang đo.",
+    "intuition": "Một mô hình được tiền huấn luyện tốt vẫn có thể quên khi tinh chỉnh sai cách. Ngược lại, mô hình giữ nguyên kỹ năng cũ chưa chắc học kỹ năng mới nhanh. Đánh giá tốt cần có cả hai vế.",
     "detail": {
-      "label": "CÔNG TRÌNH LIÊN QUAN",
-      "text": "Đọc thêm OpenVLA, RoboCasa. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+      "label": "GIẢI THÍCH",
+      "text": "RT-1 và Octo cố học một chính sách điều khiển có thể làm nhiều việc từ dữ liệu rộng. LIBERO đặt câu hỏi tiếp theo: khi ta tiếp tục huấn luyện chính sách điều khiển ấy cho công việc mới, những việc trước còn làm được không?"
     }
   },
   {
     "type": "closing",
-    "title": "Nếu chỉ nhớ ba điều",
-    "lead": "Đánh giá policy phải xác định loại generalization đang đo.",
+    "title": "Điều cần nhớ khi đọc kết quả LIBERO",
+    "lead": "Hãy lập bảng với ba cột A, B, C và ba hàng sau khi học A, sau khi học B, sau khi học C. Điền tỷ lệ thành công từng nhiệm vụ ở từng thời điểm. Nếu A từ 90% tụt xuống 40% sau khi học B, đó là dấu hiệu quên.",
     "items": [
-      "Giữ task splits công khai và chạy rollout để so sánh.",
+      "Giữ nhiệm vụ splits công khai và chạy rollout để so sánh.",
       "Đừng kết luận khả năng học suốt đời từ test loss tốt."
     ],
-    "intuition": "Benchmark kiểm tra robot có giữ được kỹ năng và chuyển giao giữa các nhiệm vụ liên tiếp hay không.",
+    "intuition": "Thử đổi thứ tự thành C → A → B. Nếu điểm số thay nhiều, thứ tự nhiệm vụ là yếu tố quan trọng cần báo cáo.",
     "detail": {
-      "label": "THỬ NGHIỆM TIẾP THEO",
-      "text": "Sau đó chạy hai nhiệm vụ theo thứ tự để kiểm tra hiện tượng quên; báo cáo tỷ lệ thành công với nhiều random seed."
+      "label": "GIẢI THÍCH",
+      "text": "Hãy lập bảng với ba cột A, B, C và ba hàng sau khi học A, sau khi học B, sau khi học C. Điền tỷ lệ thành công từng nhiệm vụ ở từng thời điểm. Nếu A từ 90% tụt xuống 40% sau khi học B, đó là dấu hiệu quên. Nếu B đạt điểm tốt hơn ngay sau khi học A, có thể đã có chuyển giao."
     }
   }
 ]

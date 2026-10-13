@@ -18,13 +18,22 @@ Mỗi lần người vận hành làm một nhiệm vụ, hệ thống ghi ảnh
 
 BridgeData V2 dùng nhiều góc camera; một phần có cả ảnh độ sâu. Số quỹ đạo, số nhiệm vụ và số môi trường là những đại lượng khác nhau. Hơn 60.000 quỹ đạo không có nghĩa có 60.000 kỹ năng riêng biệt.
 
+### Một lần thao tác mẫu không chỉ là một video đẹp
+
+Giả sử người vận hành đưa chiếc cốc từ mặt bàn vào bồn. Để robot học bắt chước, chỉ video cuối cùng là chưa đủ: cần biết **ở mỗi thời điểm camera thấy gì** và **người vận hành đã gửi lệnh gì**. Khi ghép hai dòng dữ liệu ấy theo thời gian, ta mới có các cặp quan sát–hành động để huấn luyện. Còn câu lệnh hoặc ảnh mục tiêu cho biết lần thao tác đó nhằm giải quyết việc gì. BridgeData V2 hữu ích vì thu được nhiều cặp như vậy trong những cảnh và nhiệm vụ khác nhau, chứ không phải vì nó tự cung cấp một thuật toán điều khiển mới.
+
+
 ## Phương pháp thực hiện
 
 ### Từ người điều khiển đến tập huấn luyện
 
 Đầu tiên người vận hành chọn nhiệm vụ, ví dụ chuyển khối từ bàn vào bồn, rồi điều khiển tay máy bằng bộ điều khiển thực tế ảo. Camera và lệnh vận động được ghi liên tục theo thời gian. Quá trình lặp lại ở nhiều bố cục và với nhiều vật thể để tránh chỉ học một cách đặt đồ.
 
-Khi huấn luyện, chính sách điều khiển nhận quan sát và mục tiêu rồi học dự đoán động tác người đã làm. Khi đánh giá, robot phải tự thực hiện trên nhiệm vụ hoặc môi trường được giữ ngoài tập huấn luyện. Các đoạn cắt từ cùng một lần thao tác không nên bị chia ngẫu nhiên vào cả train lẫn kiểm tra, vì điều đó làm kết quả trông cao giả.
+Khi huấn luyện, chính sách điều khiển nhận quan sát và mục tiêu rồi học dự đoán động tác người đã làm. Khi đánh giá, robot phải tự thực hiện trên nhiệm vụ hoặc môi trường được giữ ngoài tập huấn luyện. Không nên cắt một lần thao tác thành nhiều đoạn rồi chia ngẫu nhiên vào cả tập huấn luyện và tập kiểm tra: khi ấy, mô hình có thể gặp lại gần như cùng một cảnh và kết quả sẽ cao giả tạo.
+
+### Dữ liệu đa dạng giúp robot tránh học nhầm điều gì?
+
+Nếu mọi lần nhặt cốc đều diễn ra trên chiếc bàn trắng, mạng có thể vô tình dựa vào màu nền để định vị cốc. Khi chuyển sang bàn gỗ, dấu hiệu quen thuộc biến mất dù thao tác vẫn là nhặt và đặt. Thu cùng kỹ năng ở nhiều vị trí, phông nền và với nhiều vật buộc mô hình học những đặc điểm có liên quan hơn tới việc cần làm. Nhưng đa dạng cũng phải đúng mục tiêu: thêm rất nhiều cảnh chẳng liên quan có thể làm việc huấn luyện tốn kém mà không giúp nhiệm vụ đích. Đây là lý do cần so hai tập có lượng dữ liệu gần bằng nhau nhưng mức đa dạng khác nhau.
 
 ![Hình 2 gốc từ PDF bài báo, trang 4](/paper-figures/bridgedata-v2/figure-2.webp)
 
@@ -48,9 +57,14 @@ Mỗi phương pháp được thử 20 lần trong phép so đó; chênh lệch 
 
 
 
-### Số liệu và phạm vi kết luận
+### Đa dạng kỹ năng và số lượt làm mẫu là hai biến khác nhau
 
-**Đối chiếu số liệu:** Điểm mạnh của BridgeData V2 thể hiện qua xu hướng khi huấn luyện các chính sách điều khiển khác nhau: dữ liệu phong phú hơn và mô hình phù hợp hơn thường giúp tăng khả năng làm nhiệm vụ chưa gặp. Để tách tác dụng của sự đa dạng khỏi số lượng, Hình 5 còn so những tập có số quỹ đạo gần bằng nhau nhưng gồm số loại kỹ năng khác nhau. Bản thân tập dữ liệu không có tỷ lệ thành công riêng; tỷ lệ ấy thuộc từng chính sách điều khiển được huấn luyện và chạy thử.
+Điểm mạnh của BridgeData V2 thể hiện qua xu hướng khi huấn luyện các chính sách điều khiển khác nhau: dữ liệu phong phú hơn và mô hình phù hợp hơn thường giúp tăng khả năng làm nhiệm vụ chưa gặp. Để tách tác dụng của sự đa dạng khỏi số lượng, Hình 5 còn so những tập có số quỹ đạo gần bằng nhau nhưng gồm số loại kỹ năng khác nhau. Bản thân tập dữ liệu không có tỷ lệ thành công riêng; tỷ lệ ấy thuộc từng chính sách điều khiển được huấn luyện và chạy thử.
+
+### Một tập dữ liệu không tự có tỷ lệ thành công
+
+BridgeData V2 là nguyên liệu để huấn luyện, nên khi thấy biểu đồ hoàn thành nhiệm vụ, trước tiên phải tìm tên **chính sách điều khiển được dùng**. Sau đó hỏi tập huấn luyện có bao nhiêu quỹ đạo, gồm bao nhiêu loại việc và tập kiểm tra có bị trùng cảnh không. Nếu một nhóm có 20 lượt chạy, chênh lệch một đến hai lần thành công có thể vẫn rất thiếu chắc chắn. Đọc Hình 5 theo cách ấy sẽ giúp tách lợi ích của dữ liệu đa dạng khỏi lợi ích đơn thuần của việc dùng nhiều ví dụ hơn.
+
 
 ## Hạn chế và câu hỏi còn mở
 

@@ -1,121 +1,121 @@
 [
   {
     "type": "cover",
-    "title": "Điểm cốt lõi",
-    "lead": "Tri thức thị giác–ngôn ngữ học trên web có thể chuyển thành lựa chọn action của robot.",
+    "title": "RT-2: đem kiến thức ảnh và ngôn ngữ vào robot",
+    "lead": "Robot từng được dạy nhặt cốc, nhưng chưa từng nhận câu “Lấy vật mà tôi có thể uống từ đó”. Một mô hình ảnh–ngôn ngữ học từ web có thể biết chiếc cốc dùng để uống; chính sách điều khiển robot biết cách kẹp cốc.",
     "items": [
-      "Đối xử action như một dạng token trong VLM"
+      "Đối xử hành động như một dạng token trong VLM"
     ],
-    "intuition": "Co-training VLM tasks và robotics tasks để kiến thức web sống trong policy điều khiển.",
+    "intuition": "RT-2 mã hóa lệnh chuyển động dưới dạng token để huấn luyện chung với dữ liệu ảnh và chữ. Điều này khác việc dùng chatbot chỉ nói robot nên làm gì: đầu ra cuối cùng vẫn được giải mã thành lệnh điều khiển vật lý.",
     "detail": {
-      "label": "BỐI CẢNH NGHIÊN CỨU",
-      "text": "RT-2 hỏi câu cực tham vọng: có thể chuyển giao web-scale vision-language kiến thức thẳng vào action policy, thay vì huấn luyện khả năng hiểu ngữ nghĩa lại bằng robot demonstrations không?"
+      "label": "GIẢI THÍCH",
+      "text": "RT-2 mã hóa lệnh chuyển động dưới dạng token để huấn luyện chung với dữ liệu ảnh và chữ. Điều này khác việc dùng chatbot chỉ nói robot nên làm gì: đầu ra cuối cùng vẫn được giải mã thành lệnh điều khiển vật lý."
     }
   },
   {
     "type": "problem",
-    "title": "Robot demo dạy được kỹ năng nhưng nghèo tri thức ngữ nghĩa",
-    "lead": "Một policy chỉ nhìn robot dữ liệu khó hiểu những loại vật thể và mệnh lệnh chưa từng được annotate.",
+    "title": "Vì sao robot cần hiểu yêu cầu gián tiếp?",
+    "lead": "Robot từng được dạy nhặt cốc, nhưng chưa từng nhận câu “Lấy vật mà tôi có thể uống từ đó”. Một mô hình ảnh–ngôn ngữ học từ web có thể biết chiếc cốc dùng để uống; chính sách điều khiển robot biết cách kẹp cốc.",
     "items": [
       "RT-1 biết thao tác trong các nhiệm vụ đã huấn luyện"
     ],
-    "intuition": "Nhưng knowledge về vật thể/cấu trúc thế giới kém đa dạng hơn vốn học từ web của VLM.",
+    "intuition": "RT-2 mã hóa lệnh chuyển động dưới dạng token để huấn luyện chung với dữ liệu ảnh và chữ. Điều này khác việc dùng chatbot chỉ nói robot nên làm gì: đầu ra cuối cùng vẫn được giải mã thành lệnh điều khiển vật lý.",
     "detail": {
-      "label": "NGUYÊN NHÂN CỐT LÕI",
-      "text": "Dữ liệu robot đắt và ngữ nghĩa coverage nghèo hơn dữ liệu trên web hàng nghìn lần. Trong khi đó VLM đã biết “banana”, “trash”, “Taylor Swift”, spatial ngôn ngữ, loại vật thể và nhiều abstraction khác mà robot có thể chưa từng thấy."
+      "label": "GIẢI THÍCH",
+      "text": "Robot từng được dạy nhặt cốc, nhưng chưa từng nhận câu “Lấy vật mà tôi có thể uống từ đó”. Một mô hình ảnh–ngôn ngữ học từ web có thể biết chiếc cốc dùng để uống; chính sách điều khiển robot biết cách kẹp cốc. RT-2 tìm cách nối hai loại kiến thức để robot hiểu những yêu cầu mới mà không phải thu thêm lần làm mẫu cho mọi cách diễn đạt."
     }
   },
   {
     "type": "contrast",
-    "title": "RT-1 biết thao tác trong các nhiệm vụ đã huấn luyện",
-    "lead": "Nhưng knowledge về vật thể/cấu trúc thế giới kém đa dạng hơn vốn học từ web của VLM.",
+    "title": "Biết tên đồ vật khác với biết cách nhặt",
+    "lead": "RT-2 mã hóa lệnh chuyển động dưới dạng token để huấn luyện chung với dữ liệu ảnh và chữ. Điều này khác việc dùng chatbot chỉ nói robot nên làm gì: đầu ra cuối cùng vẫn được giải mã thành lệnh điều khiển vật lý.",
     "items": [
-      "Đối xử action như một dạng token trong VLM",
-      "Co-training VLM tasks và robotics tasks để kiến thức web sống trong policy điều khiển."
+      "Đối xử hành động như một dạng token trong VLM",
+      "Co-huấn luyện VLM nhiệm vụ và robotics nhiệm vụ để kiến thức web sống trong chính sách điều khiển điều khiển."
     ],
-    "intuition": "Co-training VLM tasks và robotics tasks để kiến thức web sống trong policy điều khiển.",
+    "intuition": "Robot từng được dạy nhặt cốc, nhưng chưa từng nhận câu “Lấy vật mà tôi có thể uống từ đó”. Một mô hình ảnh–ngôn ngữ học từ web có thể biết chiếc cốc dùng để uống; chính sách điều khiển robot biết cách kẹp cốc.",
     "detail": {
-      "label": "VÌ SAO CẦN THAY ĐỔI",
-      "text": "Nếu chỉ fine-tune VLM trên robot action dữ liệu, mô hình dễ quên kiến thức từ web. Nếu chỉ bolt-on một action head, biểu diễn alignment không mạnh bằng việc cùng huấn luyện trong một token interface."
+      "label": "GIẢI THÍCH",
+      "text": "Nếu nó kẹp một chiếc bát sai mục tiêu, vấn đề có thể nằm ở việc nối câu lệnh với vật thể. Tách hai lỗi giúp đọc RT-2 đúng hơn thay vì gom mọi thất bại thành “mô hình không thông minh”."
     }
   },
   {
     "type": "intuition",
-    "title": "Đối xử action như một dạng token trong VLM",
-    "lead": "Co-training VLM tasks và robotics tasks để kiến thức web sống trong policy điều khiển.",
+    "title": "Hình dung yêu cầu tìm vật để uống",
+    "lead": "Cùng một bàn có cốc, đĩa và đồ chơi. Người dùng yêu cầu “Nhặt vật để uống nước”. Robot phải dùng kiến thức về công dụng để chọn cốc, rồi mới giải quyết việc đi tới, kẹp và nhấc lên.",
     "items": [
-      "Tri thức thị giác–ngôn ngữ học trên web có thể chuyển thành lựa chọn action của robot."
+      "Tri thức thị giác–ngôn ngữ học trên web có thể chuyển thành lựa chọn hành động của robot."
     ],
-    "intuition": "Co-training VLM tasks và robotics tasks để kiến thức web sống trong policy điều khiển.",
+    "intuition": "Nếu nó kẹp một chiếc bát sai mục tiêu, vấn đề có thể nằm ở việc nối câu lệnh với vật thể. Tách hai lỗi giúp đọc RT-2 đúng hơn thay vì gom mọi thất bại thành “mô hình không thông minh”.",
     "detail": {
-      "label": "GIẢI THÍCH CƠ CHẾ",
-      "text": "Co-finetuning là chi tiết sống còn. Nếu chỉ fine-tune VLM trên robot action dữ liệu, mô hình dễ quên kiến thức từ web."
+      "label": "GIẢI THÍCH",
+      "text": "Cùng một bàn có cốc, đĩa và đồ chơi. Người dùng yêu cầu “Nhặt vật để uống nước”. Robot phải dùng kiến thức về công dụng để chọn cốc, rồi mới giải quyết việc đi tới, kẹp và nhấc lên. Nếu robot nhận đúng cốc nhưng đánh rơi, lỗi nằm ở vận động chứ không nhất thiết do hiểu ngôn ngữ."
     }
   },
   {
     "type": "concepts",
-    "title": "Ba khái niệm để nắm",
-    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "title": "Token hành động kết nối chữ với điều khiển",
+    "lead": "VLM là mạng học quan hệ giữa hình ảnh và ngôn ngữ. Token hành động là mã rời rạc cho lệnh robot, phải giải mã về giá trị liên tục và đúng đơn vị.",
     "items": [
       {
         "label": "VLM",
         "value": "Mô hình thị giác và ngôn ngữ đã học tri thức web."
       },
       {
-        "label": "Action tokenization",
-        "value": "Các chiều action được lượng tử hóa thành token."
+        "label": "hành động tokenization",
+        "value": "Các chiều hành động được lượng tử hóa thành token."
       },
       {
         "label": "Co-finetuning",
-        "value": "Giữ lẫn data web và robot để giảm forgetting."
+        "value": "Giữ lẫn dữ liệu web và robot để giảm forgetting."
       }
     ],
-    "intuition": "Action liên tục được discretize theo dimension rồi token hóa.",
+    "intuition": "Biết rằng táo là trái cây hoặc cốc dùng để uống không đồng nghĩa biết lực kẹp bao nhiêu. Vì vậy cần phân biệt kiến thức ngữ nghĩa với kỹ năng vận động.",
     "detail": {
-      "label": "NỀN TẢNG KỸ THUẬT",
-      "text": "VLM đã nhìn lượng ảnh và text rộng hơn robot nhiều bậc độ lớn. RT-2 đưa ra giả thuyết: web ngữ nghĩa priors có thể giúp robot hiểu vật thể/mục tiêu chưa được annotate trong robot tập dữ liệu nếu action được biểu diễn chung như đầu ra tokens."
+      "label": "GIẢI THÍCH",
+      "text": "Biết rằng táo là trái cây hoặc cốc dùng để uống không đồng nghĩa biết lực kẹp bao nhiêu. Vì vậy cần phân biệt kiến thức ngữ nghĩa với kỹ năng vận động."
     }
   },
   {
     "type": "pipeline",
-    "title": "Kiến trúc trong một sơ đồ",
-    "lead": "Tri thức thị giác–ngôn ngữ học trên web có thể chuyển thành lựa chọn action của robot.",
+    "title": "Từ ảnh và lời nói đến hành động",
+    "lead": "Camera cung cấp ảnh, người dùng cung cấp câu lệnh. Mô hình xử lý ảnh cùng ngôn ngữ, rồi dự đoán một chuỗi token biểu diễn hành động.",
     "items": [
-      "Web VLM + robot demos",
+      "Web VLM + robot lần làm mẫu",
       "Co-finetune chung",
-      "Action tokens",
+      "hành động tokens",
       "Decode → robot movement"
     ],
-    "intuition": "Nhận ảnh robot và một lệnh ngôn ngữ.",
+    "intuition": "Robot thực hiện một phần lệnh, quan sát lại và tiếp tục. Nếu vật thay đổi vị trí, lệnh sau phải dựa vào ảnh mới. Token sinh bởi RT-2 không phải những câu để đọc cho người nghe; chúng là mã mà bộ điều khiển cần hiểu đúng.",
     "detail": {
-      "label": "ĐIỂM NHẤN TRIỂN KHAI",
-      "text": "Như vậy dự đoán “move x, rotate y, close gripper” về mặt optimization trở thành một dạng ngôn ngữ modeling đặc biệt."
+      "label": "GIẢI THÍCH",
+      "text": "Robot thực hiện một phần lệnh, quan sát lại và tiếp tục. Nếu vật thay đổi vị trí, lệnh sau phải dựa vào ảnh mới. Token sinh bởi RT-2 không phải những câu để đọc cho người nghe; chúng là mã mà bộ điều khiển cần hiểu đúng."
     }
   },
   {
     "type": "representation",
-    "title": "Mô hình biểu diễn cái gì?",
-    "lead": "Action liên tục được discretize theo dimension rồi token hóa.",
+    "title": "Mã hóa lệnh robot thành token ra sao?",
+    "lead": "Biết rằng táo là trái cây hoặc cốc dùng để uống không đồng nghĩa biết lực kẹp bao nhiêu. Vì vậy cần phân biệt kiến thức ngữ nghĩa với kỹ năng vận động.",
     "items": [
       {
         "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
-        "value": "Cùng decoder dự đoán từ ngữ và action sequence."
+        "value": "Cùng bộ giải mã dự đoán từ ngữ và hành động chuỗi."
       },
       {
         "label": "ĐÁNH ĐỔI KỸ THUẬT",
         "value": "Cách này tương thích autoregressive nhưng có quantization/latency trade-off."
       }
     ],
-    "intuition": "Cách này tương thích autoregressive nhưng có quantization/latency trade-off.",
+    "intuition": "Camera cung cấp ảnh, người dùng cung cấp câu lệnh. Mô hình xử lý ảnh cùng ngôn ngữ, rồi dự đoán một chuỗi token biểu diễn hành động. Bộ giải mã chuyển token thành các giá trị điều khiển phù hợp với robot, chẳng hạn dịch đầu công tác và điều khiển kẹp.",
     "detail": {
-      "label": "CHI TIẾT BIỂU DIỄN",
-      "text": "Trick đơn giản nhưng quan trọng là robot actions được discretize và biểu diễn như token trong cùng autoregressive vocabulary."
+      "label": "GIẢI THÍCH",
+      "text": "Camera cung cấp ảnh, người dùng cung cấp câu lệnh. Mô hình xử lý ảnh cùng ngôn ngữ, rồi dự đoán một chuỗi token biểu diễn hành động. Bộ giải mã chuyển token thành các giá trị điều khiển phù hợp với robot, chẳng hạn dịch đầu công tác và điều khiển kẹp."
     }
   },
   {
     "type": "training",
-    "title": "Model học như thế nào?",
-    "lead": "Trộn robot demonstrations với vision-language web tasks.",
+    "title": "RT-2 học từ dữ liệu ảnh, chữ và robot",
+    "lead": "Camera cung cấp ảnh, người dùng cung cấp câu lệnh. Mô hình xử lý ảnh cùng ngôn ngữ, rồi dự đoán một chuỗi token biểu diễn hành động.",
     "items": [
       {
         "label": "MỤC TIÊU HỌC",
@@ -123,53 +123,53 @@
       },
       {
         "label": "DỮ LIỆU / QUY TRÌNH",
-        "value": "Giữ web tasks giúp tránh chỉ học lệnh vận động rồi quên kiến thức."
+        "value": "Giữ web nhiệm vụ giúp tránh chỉ học lệnh vận động rồi quên kiến thức."
       }
     ],
-    "intuition": "Co-finetuning khác fine-tune robot-only: dữ liệu web giúp giữ priors.",
+    "intuition": "Robot thực hiện một phần lệnh, quan sát lại và tiếp tục. Nếu vật thay đổi vị trí, lệnh sau phải dựa vào ảnh mới. Token sinh bởi RT-2 không phải những câu để đọc cho người nghe; chúng là mã mà bộ điều khiển cần hiểu đúng.",
     "detail": {
-      "label": "CÁCH HUẤN LUYỆN",
-      "text": "RT-2 bắt đầu từ các VLM lớn như PaLI-X/PaLM-E family rồi co-finetune trên hai loại dữ liệu cùng lúc: web vision-language dữ liệu và robot các quỹ đạo."
+      "label": "GIẢI THÍCH",
+      "text": "Đối chiếu số liệu: RT-2 không nhất thiết vượt RT-1 rất xa trên những công việc đã thấy; lợi thế nổi bật nằm ở việc xử lý vật mới, chỉ dẫn mới và suy luận dựa vào kiến thức ngữ nghĩa. Trong một số nhóm thử, báo cáo ghi nhận mức cải thiện gấp nhiều lần so với mô hình đối chứng, nhưng đó là nhóm nhiệm vụ được thiết kế riêng chứ không đại diện toàn bộ robot."
     }
   },
   {
     "type": "inference",
-    "title": "Một lần inference xảy ra ra sao?",
-    "lead": "Nhận ảnh robot và một lệnh ngôn ngữ.",
+    "title": "Một lần RT-2 điều khiển robot",
+    "lead": "Robot thực hiện một phần lệnh, quan sát lại và tiếp tục. Nếu vật thay đổi vị trí, lệnh sau phải dựa vào ảnh mới. Token sinh bởi RT-2 không phải những câu để đọc cho người nghe; chúng là mã mà bộ điều khiển cần hiểu đúng.",
     "items": [
       {
         "label": "XỬ LÝ ĐẦU VÀO",
-        "value": "Sử dụng semantic knowledge từ pretraining để chọn mục tiêu."
+        "value": "Sử dụng semantic knowledge từ huấn luyện trước để chọn mục tiêu."
       },
       {
         "label": "TẠO HÀNH ĐỘNG",
-        "value": "Sinh action tokens để executor điều khiển thao tác đã học."
+        "value": "Sinh hành động tokens để executor điều khiển thao tác đã học."
       }
     ],
-    "intuition": "Sinh action tokens để executor điều khiển thao tác đã học.",
+    "intuition": "Cùng một bàn có cốc, đĩa và đồ chơi. Người dùng yêu cầu “Nhặt vật để uống nước”. Robot phải dùng kiến thức về công dụng để chọn cốc, rồi mới giải quyết việc đi tới, kẹp và nhấc lên. Nếu robot nhận đúng cốc nhưng đánh rơi, lỗi nằm ở vận động chứ không nhất thiết do hiểu ngôn ngữ.",
     "detail": {
-      "label": "DIỄN BIẾN THỰC THI",
-      "text": "Điểm cần theo dõi trong source code/diagram là các action dimensions được serialize thành tokens; loss huấn luyện có thể chia sẻ decoder với đầu ra ngôn ngữ, nhưng vật lý meaning đến từ robot examples."
+      "label": "GIẢI THÍCH",
+      "text": "Đọc các bài này không nên xếp hạng bằng số tham số. Cần hỏi mạng tạo câu trả lời, kế hoạch cấp cao hay lệnh vận động trực tiếp; dữ liệu và robot thử khác nhau thế nào."
     }
   },
   {
     "type": "equation",
-    "title": "Mathematical Intuition",
-    "lead": "VLM dự đoán chuỗi action như một chuỗi token được điều kiện hóa bởi ảnh I và lệnh ℓ.",
+    "title": "Công thức nối đầu ra ngôn ngữ với lệnh",
+    "lead": "Biết rằng táo là trái cây hoặc cốc dùng để uống không đồng nghĩa biết lực kẹp bao nhiêu. Vì vậy cần phân biệt kiến thức ngữ nghĩa với kỹ năng vận động.",
     "equation": "p_\\theta(a_{1:T}\\mid I,\\ell)",
     "items": [
-      "Biểu thức mô tả khung tự hồi quy, không khẳng định model học được motor skills từ web."
+      "Biểu thức mô tả khung tự hồi quy, không khẳng định mô hình học được motor skills từ web."
     ],
-    "intuition": "VLM dự đoán chuỗi action như một chuỗi token được điều kiện hóa bởi ảnh I và lệnh ℓ.",
+    "intuition": "Camera cung cấp ảnh, người dùng cung cấp câu lệnh. Mô hình xử lý ảnh cùng ngôn ngữ, rồi dự đoán một chuỗi token biểu diễn hành động. Bộ giải mã chuyển token thành các giá trị điều khiển phù hợp với robot, chẳng hạn dịch đầu công tác và điều khiển kẹp.",
     "detail": {
-      "label": "Ý NGHĨA CÔNG THỨC",
-      "text": "Nếu chỉ bolt-on một action head, biểu diễn alignment không mạnh bằng việc cùng huấn luyện trong một token interface."
+      "label": "GIẢI THÍCH CÔNG THỨC",
+      "text": "Cuối cùng kiểm tra các token hành động được giải mã bằng cách nào, có chuẩn hóa ngược không và có đúng hệ tọa độ robot không. Đây là phần cần hiểu trước khi nghĩ tới chạy RT-2 trên thiết bị thật."
     }
   },
   {
     "type": "results",
-    "title": "Kết quả nói lên điều gì?",
-    "lead": "Generalization với vật thể hoặc lệnh mới mạnh hơn các baseline robot-only.",
+    "title": "Kết quả xử lý yêu cầu mới có ý nghĩa gì?",
+    "lead": "RT-2 được thử trên nhiệm vụ đã học và những tình huống mới về đồ vật, nền, môi trường hoặc yêu cầu ngữ nghĩa. Hình 6 còn tách ảnh hưởng của quy mô mô hình và cách huấn luyện.",
     "items": [
       {
         "label": "PHÁT HIỆN QUAN TRỌNG",
@@ -177,83 +177,83 @@
       },
       {
         "label": "CÁCH DIỄN GIẢI",
-        "value": "Kết quả trên các nhóm seen tasks vẫn cạnh tranh với RT-1."
+        "value": "Kết quả trên các nhóm seen nhiệm vụ vẫn cạnh tranh với RT-1."
       }
     ],
-    "intuition": "benchmark semantic tương đối nhỏ và mô hình/dữ liệu không thật sự reproducible công khai.",
+    "intuition": "Đối chiếu số liệu: RT-2 không nhất thiết vượt RT-1 rất xa trên những công việc đã thấy; lợi thế nổi bật nằm ở việc xử lý vật mới, chỉ dẫn mới và suy luận dựa vào kiến thức ngữ nghĩa.",
     "detail": {
-      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
-      "text": "Bài báo báo hiệu năng khái quát gần gấp đôi một số phương pháp đối chứng mạnh và, trong nhóm “emergent suy luận ngữ nghĩa” được thiết kế để test kiến thức từ web chuyển giao, RT-2-PaLI-X đạt tỷ lệ thành công trung bình cao hơn RT-1 nhiều lần, có nhóm hơn 3x."
+      "label": "GIẢI THÍCH",
+      "text": "RT-2 được thử trên nhiệm vụ đã học và những tình huống mới về đồ vật, nền, môi trường hoặc yêu cầu ngữ nghĩa. Hình 6 còn tách ảnh hưởng của quy mô mô hình và cách huấn luyện. Khi đọc, cần phân biệt dữ liệu robot chưa từng có thao tác tương ứng với dữ liệu web có thể đã từng chứa khái niệm ấy."
     }
   },
   {
     "type": "ablation",
-    "title": "Ablation và bằng chứng",
-    "lead": "Co-finetuning khác fine-tune robot-only: dữ liệu web giúp giữ priors.",
+    "title": "Đánh giá những cách khái quát hóa khác nhau",
+    "lead": "Một con số thành công cao trong một nhóm bài kiểm tra chưa có nghĩa mô hình có thể giải mọi câu lệnh chưa thấy. Phải xem từng dạng mới được đánh giá.",
     "items": [
       {
         "label": "YẾU TỐ ĐƯỢC THỬ",
-        "value": "Semantic gain không chứng minh học được động tác vật lý mới không có trong robot demos."
+        "value": "Semantic gain không chứng minh học được động tác vật lý mới không có trong robot lần làm mẫu."
       }
     ],
-    "intuition": "Một số nhóm emergent semantic reasoning được báo cáo cải thiện trên 3 lần RT-1.",
+    "intuition": "RT-2 được thử trên nhiệm vụ đã học và những tình huống mới về đồ vật, nền, môi trường hoặc yêu cầu ngữ nghĩa. Hình 6 còn tách ảnh hưởng của quy mô mô hình và cách huấn luyện.",
     "detail": {
-      "label": "BẰNG CHỨNG BỔ SUNG",
-      "text": "Điểm thắng nằm ở vật thể mới, unseen chỉ dẫn và khái quát về ngữ nghĩa. Bài báo báo hiệu năng khái quát gần gấp đôi một số phương pháp đối chứng mạnh và, trong nhóm “emergent suy luận ngữ nghĩa” được thiết kế để test kiến thức từ web chuyển giao, RT-2-PaLI-X đạt tỷ lệ thành công trung bình cao hơn RT-1 nhiều lần, có nhóm hơn 3x."
+      "label": "GIẢI THÍCH",
+      "text": "Một con số thành công cao trong một nhóm bài kiểm tra chưa có nghĩa mô hình có thể giải mọi câu lệnh chưa thấy. Phải xem từng dạng mới được đánh giá."
     }
   },
   {
     "type": "limits",
-    "title": "Hạn chế cần nói thẳng",
-    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "title": "Giới hạn của việc biến lệnh thành token",
+    "lead": "Token chỉ giúp mô hình dùng chung một cách biểu diễn, không tự bảo đảm an toàn cho robot. Nếu đổi sang robot có số khớp khác, cùng các mã số có thể không còn ý nghĩa như cũ.",
     "items": [
       {
         "label": "Tác giả / phạm vi",
-        "value": "Tác giả: inference VLM lớn tốn compute; web knowledge không tự dạy kỹ năng cơ khí."
+        "value": "Tác giả: suy luận VLM lớn tốn compute; web knowledge không tự dạy kỹ năng cơ khí."
       },
       {
         "label": "Phê bình độc lập",
-        "value": "Phê bình: benchmark semantic tương đối nhỏ và mô hình/dữ liệu không thật sự reproducible công khai."
+        "value": "Phê bình: bộ đánh giá semantic tương đối nhỏ và mô hình/dữ liệu không thật sự reproducible công khai."
       }
     ],
-    "intuition": "Cùng decoder dự đoán từ ngữ và action sequence.",
+    "intuition": "Vì thế mô hình ảnh–ngôn ngữ đã huấn luyện trước, dù giỏi nhận biết ảnh và hiểu câu chữ, chưa chắc phù hợp ngay với robot đích; cần xác minh không gian hành động (dạng lệnh, đơn vị và hệ tọa độ) và thực hiện kiểm tra từng bước trước khi chạy thật.",
     "detail": {
-      "label": "PHẠM VI KẾT LUẬN",
-      "text": "Bài báo thừa nhận: kiến thức từ web không tự tạo ra kỹ năng vận động mới. Nếu robot chưa từng học động tác vật lý tương ứng, biết nghĩa của chỉ dẫn không đủ."
+      "label": "GIẢI THÍCH",
+      "text": "Vì thế mô hình ảnh–ngôn ngữ đã huấn luyện trước, dù giỏi nhận biết ảnh và hiểu câu chữ, chưa chắc phù hợp ngay với robot đích; cần xác minh không gian hành động (dạng lệnh, đơn vị và hệ tọa độ) và thực hiện kiểm tra từng bước trước khi chạy thật."
     }
   },
   {
     "type": "relations",
-    "title": "Bài này đứng ở đâu trong lĩnh vực?",
-    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "title": "RT-2 liên hệ PaLM-E, RT-1 và OpenVLA",
+    "lead": "RT-1 chứng minh khả năng học nhiều thao tác từ dữ liệu robot. PaLM-E đưa quan sát vào suy luận đa phương thức, thường ở mức kế hoạch. RT-2 kết hợp token hành động và dữ liệu ảnh–ngôn ngữ trong một mạng.",
     "items": [
       {
         "label": "NỀN TẢNG / TIỀN ĐỀ",
-        "value": "PaLM-E giải thích sensor grounding trong ngôn ngữ model."
+        "value": "PaLM-E giải thích sensor grounding trong ngôn ngữ mô hình."
       },
       {
         "label": "HƯỚNG PHÁT TRIỂN",
-        "value": "OpenVLA và Qwen-VLA tiếp tục nghiên cứu open/flow VLA và action representation."
+        "value": "OpenVLA và Qwen-VLA tiếp tục nghiên cứu open/flow VLA và hành động biểu diễn."
       }
     ],
-    "intuition": "VLA có thể tận dụng tri thức web để làm rõ “làm gì với cái gì”.",
+    "intuition": "Đọc các bài này không nên xếp hạng bằng số tham số. Cần hỏi mạng tạo câu trả lời, kế hoạch cấp cao hay lệnh vận động trực tiếp; dữ liệu và robot thử khác nhau thế nào.",
     "detail": {
-      "label": "CÔNG TRÌNH LIÊN QUAN",
-      "text": "Đọc thêm RT-1, OpenVLA, Qwen-VLA. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+      "label": "GIẢI THÍCH",
+      "text": "RT-1 chứng minh khả năng học nhiều thao tác từ dữ liệu robot. PaLM-E đưa quan sát vào suy luận đa phương thức, thường ở mức kế hoạch. RT-2 kết hợp token hành động và dữ liệu ảnh–ngôn ngữ trong một mạng. OpenVLA tiếp tục phát triển hướng VLA có bản mô hình đã lưu nguồn mở, có thể tinh chỉnh cho robot mới."
     }
   },
   {
     "type": "closing",
-    "title": "Nếu chỉ nhớ ba điều",
-    "lead": "VLA có thể tận dụng tri thức web để làm rõ “làm gì với cái gì”.",
+    "title": "Điều cần nhớ về RT-2",
+    "lead": "Giữ nguyên cảnh, lần lượt yêu cầu “nhặt cốc”, “nhặt vật đựng nước” và “nhặt cốc đỏ”. So sánh vật được chọn. Sau đó giữ câu lệnh, thay vị trí đồ vật để xem mô hình có bám vào camera hay chỉ nhớ tọa độ.",
     "items": [
-      "Dùng chung web/robot data khi fine-tune để kiểm soát forgetting.",
+      "Dùng chung web/robot dữ liệu khi fine-tune để kiểm soát forgetting.",
       "Đừng nhầm semantic reasoning với thao tác vật lý thành thạo."
     ],
-    "intuition": "Tri thức thị giác–ngôn ngữ học trên web có thể chuyển thành lựa chọn action của robot.",
+    "intuition": "Cuối cùng kiểm tra các token hành động được giải mã bằng cách nào, có chuẩn hóa ngược không và có đúng hệ tọa độ robot không. Đây là phần cần hiểu trước khi nghĩ tới chạy RT-2 trên thiết bị thật.",
     "detail": {
-      "label": "THỬ NGHIỆM TIẾP THEO",
-      "text": "Trên một VLM nhỏ tự thêm vocabulary cho 7 action dimensions; so sánh quantization error theo bins."
+      "label": "GIẢI THÍCH",
+      "text": "Giữ nguyên cảnh, lần lượt yêu cầu “nhặt cốc”, “nhặt vật đựng nước” và “nhặt cốc đỏ”. So sánh vật được chọn. Sau đó giữ câu lệnh, thay vị trí đồ vật để xem mô hình có bám vào camera hay chỉ nhớ tọa độ."
     }
   }
 ]

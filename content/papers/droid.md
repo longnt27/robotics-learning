@@ -24,6 +24,11 @@ Nếu robot luôn thực hành trên một chiếc bàn, dưới một dàn đè
 
 DROID ghi ảnh từ ba camera đồng bộ, có thông số hiệu chuẩn và dữ liệu độ sâu. Những chi tiết ấy quan trọng: nếu hai góc camera không khớp thời gian, mô hình có thể học nhầm quan hệ giữa vị trí vật và hành động.
 
+### Đổi địa điểm khác đổi loại robot
+
+DROID dùng bộ thiết bị tương đối thống nhất nhưng mang tới nhiều phòng và địa điểm khác nhau. Nhờ vậy, người nghiên cứu có thể kiểm tra xem **đổi ánh sáng, đồ đạc, góc camera và người thao tác** ảnh hưởng thế nào mà không đồng thời thay toàn bộ cấu trúc tay máy. Điều này khác với Open X-Embodiment, nơi dữ liệu còn đến từ nhiều loại robot có lệnh điều khiển không giống nhau. Phân biệt hai nguồn đa dạng ấy rất quan trọng: mạng làm tốt ở phòng mới chưa chắc dùng được ngay trên tay máy có số khớp khác.
+
+
 ## Phương pháp thực hiện
 
 ### DROID được thu như thế nào?
@@ -31,6 +36,10 @@ DROID ghi ảnh từ ba camera đồng bộ, có thông số hiệu chuẩn và 
 Nhóm nghiên cứu chuẩn hóa một bộ thiết bị có thể mang tới nhiều nơi: tay máy Franka, camera nổi gắn ngoài và ở cổ tay, cùng bộ điều khiển thực tế ảo. Người vận hành đưa robot tới phòng hoặc căn bếp mới, làm nhiệm vụ và ghi lại quỹ đạo với câu lệnh tương ứng. Cùng phần cứng chuẩn giúp giảm khác biệt do loại robot, trong khi bối cảnh được chủ động thay đổi.
 
 Từ các quỹ đạo này, chính sách điều khiển có thể được học chung với dữ liệu nhiệm vụ đích. Sau đó người ta đánh giá không chỉ ở bối cảnh quen mà còn với đồ vật hoặc vật gây nhiễu chưa thấy. Đây là phép thử xem nguồn dữ liệu rộng có thực sự giúp tăng độ bền không.
+
+### Hãy tưởng tượng hai lần thu dữ liệu cùng một nhiệm vụ
+
+Ở lần thứ nhất, robot nhặt chiếc chai đặt sát cửa sổ dưới ánh sáng mạnh. Ở lần thứ hai, vẫn là chiếc chai nhưng nằm giữa nhiều đồ vật trên bàn tối màu. Người vận hành đều hoàn thành thao tác và hệ thống ghi ảnh, trạng thái cùng lệnh đã thực hiện. Nếu chỉ có lần thứ nhất, mạng dễ dựa vào dấu hiệu nền; có thêm lần thứ hai, nó phải học cách tìm chai trong các bối cảnh khác nhau. Đây là cơ chế mà DROID muốn khai thác bằng hệ thống thu thập phân tán. Nó không bảo đảm mọi bối cảnh mới đều được bao phủ, nhưng giúp đánh giá vượt ra ngoài một phòng thí nghiệm duy nhất.
 
 ![Hình 2 gốc từ PDF bài báo, trang 4](/paper-figures/droid/figure-2.webp)
 
@@ -54,9 +63,13 @@ Hình 8 cho thấy học chung với DROID cải thiện tỷ lệ thành công 
 
 Hình 10 thực sự kiểm tra vai trò của số cảnh: so một phần dữ liệu DROID nhiều bối cảnh với phần chỉ từ 20 bối cảnh. Nếu nguồn đa dạng tốt hơn ở điều kiện mới, đó là bằng chứng hợp lý rằng thay cảnh trong huấn luyện giúp khả năng khái quát. Cần đọc số lần chạy và sai số trước khi kết luận mạnh hơn.
 
-### Số liệu và phạm vi kết luận
+### 22 và 17 điểm phần trăm được đo ở những nhóm thử nào?
 
-**Đối chiếu số liệu:** Khi bổ sung DROID vào dữ liệu huấn luyện nhiệm vụ đích, nhóm tác giả báo cáo mức tăng trung bình khoảng 22 điểm phần trăm trong điều kiện quen và 17 điểm phần trăm trong điều kiện ngoài phân phối so với phương án đối chứng tốt thứ hai. Hình 10 còn cho thấy tập con có nhiều cảnh thường tốt hơn tập con ít cảnh dù có số quỹ đạo tương tự. Điều này ủng hộ việc thu dữ liệu phong phú về bối cảnh, không chỉ cố kéo dài giờ thu ở một chiếc bàn.
+Khi bổ sung DROID vào dữ liệu huấn luyện nhiệm vụ đích, nhóm tác giả báo cáo mức tăng trung bình khoảng 22 điểm phần trăm trong điều kiện quen và 17 điểm phần trăm trong điều kiện ngoài phân phối so với phương án đối chứng tốt thứ hai. Hình 10 còn cho thấy tập con có nhiều cảnh thường tốt hơn tập con ít cảnh dù có số quỹ đạo tương tự. Điều này ủng hộ việc thu dữ liệu phong phú về bối cảnh, không chỉ cố kéo dài giờ thu ở một chiếc bàn.
+
+### Vì sao phải so tập nhiều cảnh với tập ít cảnh?
+
+Giả sử hai tập đều có số lượt thao tác tương đương, nhưng một tập chỉ lấy từ vài chục căn phòng còn tập kia đến từ nhiều nơi hơn. Nếu mô hình huấn luyện trên tập thứ hai tốt hơn khi gặp cảnh mới, ta có bằng chứng trực tiếp hơn về giá trị của **đa dạng bối cảnh**. So một tập lớn với một tập nhỏ hơn rất nhiều lại không tách được nguyên nhân: mô hình có thể thắng vì vừa có nhiều mẫu vừa có nhiều cảnh. Các con số tăng theo điểm phần trăm trong bài cũng phải được đọc như chênh lệch tỷ lệ thành công, không phải hệ số tăng gấp bao nhiêu lần.
 
 ![Hình 5 từ PDF gốc, trang 6](/paper-figures/droid/figure-5.webp)
 
@@ -68,7 +81,7 @@ Hình 10 thực sự kiểm tra vai trò của số cảnh: so một phần dữ
 
 Các ví dụ được thu bằng một bộ thiết bị tương đối đồng nhất, vì vậy kết quả không chứng minh lệnh có thể chuyển trực tiếp sang robot có cấu trúc tay khác. Phần lớn lần làm mẫu cũng phản ánh những nơi và nhiệm vụ nhóm thu thập chọn, không phải phân phối đầy đủ của mọi nhà ở trên thế giới.
 
-Một bộ dữ liệu nhiều quỹ đạo có thể có lỗi thời gian, calibration hoặc nhãn câu lệnh. Việc tuyển lọc và đánh giá trên robot thật vẫn bắt buộc trước khi dùng cho hệ thống vận hành thực tế.
+Một bộ dữ liệu nhiều quỹ đạo vẫn có thể sai đồng bộ thời gian, hiệu chuẩn camera hoặc nhãn câu lệnh. Việc tuyển lọc và đánh giá trên robot thật vẫn bắt buộc trước khi dùng cho hệ thống vận hành thực tế.
 
 ## Liên hệ với nghiên cứu khác
 

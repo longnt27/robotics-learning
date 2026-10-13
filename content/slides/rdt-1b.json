@@ -1,259 +1,259 @@
 [
   {
     "type": "cover",
-    "title": "Điểm cốt lõi",
-    "lead": "Diffusion Transformer quy mô lớn sinh action liên tục với điều kiện thị giác–ngôn ngữ đa robot.",
+    "title": "RDT-1B: sinh chuyển động phối hợp hai tay",
+    "lead": "Một robot một tay gắp khối có thể tiếp cận từ vài hướng. Robot hai tay còn phải quyết định tay nào giữ, tay nào di chuyển, có chuyển vật từ tay này sang tay kia không. Cùng một đích có thể có rất nhiều chuỗi cử động hợp lệ.",
     "items": [
-      "Scale action generative modeling bằng Transformer"
+      "Mở rộng khả năng sinh chuyển động bằng Transformer"
     ],
-    "intuition": "Conditioned diffusion sinh action chunk ở không gian liên tục, tận dụng visual-language knowledge.",
+    "intuition": "RDT-1B dùng Diffusion Transformer để học và sinh các đoạn hành động hai tay có tính phối hợp, nhận điều kiện từ ảnh, câu lệnh và trạng thái robot. Nó còn nghiên cứu cách học từ nhiều cấu hình robot.",
     "detail": {
-      "label": "BỐI CẢNH NGHIÊN CỨU",
-      "text": "RDT-1B hỏi: nếu dùng một diffusion Transformer rất lớn và một biểu diễn vật lý thống nhất, có thể pretrain foundation motor policy cho bimanual manipulation không?"
+      "label": "GIẢI THÍCH",
+      "text": "RDT-1B dùng Diffusion Transformer để học và sinh các đoạn hành động hai tay có tính phối hợp, nhận điều kiện từ ảnh, câu lệnh và trạng thái robot. Nó còn nghiên cứu cách học từ nhiều cấu hình robot."
     }
   },
   {
     "type": "problem",
-    "title": "Action tokens không biểu diễn tốt mọi chuyển động liên tục",
-    "lead": "Các embodiment khác nhau và high-dimensional actions khó ép vào một scheme autoregressive thô.",
+    "title": "Tại sao thao tác hai tay khó dự đoán?",
+    "lead": "Một robot một tay gắp khối có thể tiếp cận từ vài hướng. Robot hai tay còn phải quyết định tay nào giữ, tay nào di chuyển, có chuyển vật từ tay này sang tay kia không. Cùng một đích có thể có rất nhiều chuỗi cử động hợp lệ.",
     "items": [
       "Discretized autoregression chịu quantization và latency"
     ],
-    "intuition": "Diffusion nhỏ hoặc robot-specific policy thiếu khả năng scale đa embodiment.",
+    "intuition": "RDT-1B dùng Diffusion Transformer để học và sinh các đoạn hành động hai tay có tính phối hợp, nhận điều kiện từ ảnh, câu lệnh và trạng thái robot. Nó còn nghiên cứu cách học từ nhiều cấu hình robot.",
     "detail": {
-      "label": "NGUYÊN NHÂN CỐT LÕI",
-      "text": "VLA autoregressive tokenization cũng không phải lựa chọn tự nhiên cho liên tục chuyển động nhiều chiều."
+      "label": "GIẢI THÍCH",
+      "text": "Một robot một tay gắp khối có thể tiếp cận từ vài hướng. Robot hai tay còn phải quyết định tay nào giữ, tay nào di chuyển, có chuyển vật từ tay này sang tay kia không. Cùng một đích có thể có rất nhiều chuỗi cử động hợp lệ. Nếu mạng lấy trung bình những chuỗi khác nhau, hai tay có thể đi vào nhau hoặc làm rơi vật."
     }
   },
   {
     "type": "contrast",
-    "title": "Discretized autoregression chịu quantization và latency",
-    "lead": "Diffusion nhỏ hoặc robot-specific policy thiếu khả năng scale đa embodiment.",
+    "title": "Nhiều quỹ đạo đúng không nên bị lấy trung bình",
+    "lead": "RDT-1B dùng Diffusion Transformer để học và sinh các đoạn hành động hai tay có tính phối hợp, nhận điều kiện từ ảnh, câu lệnh và trạng thái robot. Nó còn nghiên cứu cách học từ nhiều cấu hình robot.",
     "items": [
-      "Scale action generative modeling bằng Transformer",
-      "Conditioned diffusion sinh action chunk ở không gian liên tục, tận dụng visual-language knowledge."
+      "Mở rộng khả năng sinh chuyển động bằng Transformer",
+      "Quá trình khử nhiễu dùng ảnh, câu lệnh và trạng thái robot để sinh đoạn chuyển động liên tục."
     ],
-    "intuition": "Conditioned diffusion sinh action chunk ở không gian liên tục, tận dụng visual-language knowledge.",
+    "intuition": "Một robot một tay gắp khối có thể tiếp cận từ vài hướng. Robot hai tay còn phải quyết định tay nào giữ, tay nào di chuyển, có chuyển vật từ tay này sang tay kia không. Cùng một đích có thể có rất nhiều chuỗi cử động hợp lệ.",
     "detail": {
-      "label": "VÌ SAO CẦN THAY ĐỔI",
-      "text": "Bimanual manipulation khó hơn gripper-arm control vì action dimension lớn, coordination giữa hai tay phức tạp và demonstration dữ liệu càng hiếm."
+      "label": "GIẢI THÍCH",
+      "text": "Dự đoán từng tay độc lập khó giữ ràng buộc theo thời gian. RDT sinh một đoạn chuyển động chung để học mối liên hệ giữa các bước hai tay. Đây là lợi ích dễ hình dung, nhưng vẫn cần đánh giá ngoài đời vì mô hình không tự có cảm biến lực hoàn hảo."
     }
   },
   {
     "type": "intuition",
-    "title": "Scale action generative modeling bằng Transformer",
-    "lead": "Conditioned diffusion sinh action chunk ở không gian liên tục, tận dụng visual-language knowledge.",
+    "title": "Hình dung hai tay chuyển một khối",
+    "lead": "Giả sử robot cần đưa khối từ tay phải sang tay trái. Một tay phải kẹp chắc trong khi tay kia tới vị trí nhận, rồi hai tay phối hợp chuyển lực giữ. Nếu tay bên nhận kẹp quá sớm hoặc tay bên giao buông trước, khối có thể rơi.",
     "items": [
-      "Diffusion Transformer quy mô lớn sinh action liên tục với điều kiện thị giác–ngôn ngữ đa robot."
+      "Diffusion Transformer quy mô lớn sinh hành động liên tục với điều kiện thị giác–ngôn ngữ đa robot."
     ],
-    "intuition": "Conditioned diffusion sinh action chunk ở không gian liên tục, tận dụng visual-language knowledge.",
+    "intuition": "Dự đoán từng tay độc lập khó giữ ràng buộc theo thời gian. RDT sinh một đoạn chuyển động chung để học mối liên hệ giữa các bước hai tay. Đây là lợi ích dễ hình dung, nhưng vẫn cần đánh giá ngoài đời vì mô hình không tự có cảm biến lực hoàn hảo.",
     "detail": {
-      "label": "GIẢI THÍCH CƠ CHẾ",
-      "text": "Vision, ngôn ngữ và state được điều kiện vào diffusion action generator thay vì bắt action đi qua ngôn ngữ token vocabulary."
+      "label": "GIẢI THÍCH",
+      "text": "Giả sử robot cần đưa khối từ tay phải sang tay trái. Một tay phải kẹp chắc trong khi tay kia tới vị trí nhận, rồi hai tay phối hợp chuyển lực giữ. Nếu tay bên nhận kẹp quá sớm hoặc tay bên giao buông trước, khối có thể rơi."
     }
   },
   {
     "type": "concepts",
-    "title": "Ba khái niệm để nắm",
-    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "title": "Nhiễu, DiT và đoạn hành động là gì?",
+    "lead": "Diffusion là cách khởi đầu bằng hành động nhiễu rồi chỉnh dần thành quỹ đạo hợp lệ. Transformer xử lý quan hệ giữa các thời điểm và nguồn thông tin; khi dùng cho khử nhiễu hành động thường được gọi là DiT.",
     "items": [
       {
         "label": "Diffusion Transformer",
-        "value": "Transformer học hướng loại nhiễu trên action sequence."
+        "value": "Transformer học hướng loại nhiễu trên hành động chuỗi."
       },
       {
         "label": "Multimodal condition",
         "value": "Ảnh + instruction tạo context sinh chuyển động."
       },
       {
-        "label": "Multi-robot pretraining",
+        "label": "Multi-robot huấn luyện trước",
         "value": "Tận dụng biểu diễn chung nhưng có mask/schema riêng."
       }
     ],
-    "intuition": "Action chunk giữ giá trị liên tục thay vì bins từng chiều.",
+    "intuition": "Không gian hành động chung cho phép kết hợp dữ liệu nhiều robot, nhưng phải có cách mã hóa phù hợp từng loại. Cùng một chiều số trong vector không mặc nhiên đại diện cho cùng khớp giữa hai robot.",
     "detail": {
-      "label": "NỀN TẢNG KỸ THUẬT",
-      "text": "Diffusion Transformer đưa một prior action liên tục mạnh hơn, nhưng cần giải nghĩa heterogeneous trạng thái robot/action."
+      "label": "GIẢI THÍCH",
+      "text": "Không gian hành động chung cho phép kết hợp dữ liệu nhiều robot, nhưng phải có cách mã hóa phù hợp từng loại. Cùng một chiều số trong vector không mặc nhiên đại diện cho cùng khớp giữa hai robot."
     }
   },
   {
     "type": "pipeline",
-    "title": "Kiến trúc trong một sơ đồ",
-    "lead": "Diffusion Transformer quy mô lớn sinh action liên tục với điều kiện thị giác–ngôn ngữ đa robot.",
+    "title": "Từ camera và lời giao việc tới hai tay",
+    "lead": "Mô hình nhận ảnh từ camera ngoài và camera hai cổ tay, câu lệnh nhiệm vụ, trạng thái khớp và một chuỗi lệnh còn nhiễu.",
     "items": [
-      "Robot datasets hỗn hợp",
+      "Robot tập dữ liệu hỗn hợp",
       "Vision-language features",
       "RDT-1B diffusion Transformer",
-      "Action chunk liên tục"
+      "đoạn hành động liên tục"
     ],
-    "intuition": "Quan sát và instruction đi qua encoders.",
+    "intuition": "DiT kết hợp những điều kiện ấy và liên tục dự đoán cách chỉnh chuỗi hành động. Sau nhiều bước, mô hình thu được đoạn lệnh cho hai tay. Robot thực hiện và có thể lấy quan sát mới cho lần dự đoán sau.",
     "detail": {
-      "label": "ĐIỂM NHẤN TRIỂN KHAI",
-      "text": "RDT-1B là khoảng 1.2B-parameter diffusion Transformer. Bài báo đưa ra Physically Interpretable Unified Action Space để chuẩn hóa state/action từ nhiều robot sources, rồi pretrain trên dữ liệu không đồng nhất robot và post-train bằng hơn 6 nghìn bimanual episodes cho target platform."
+      "label": "GIẢI THÍCH",
+      "text": "DiT kết hợp những điều kiện ấy và liên tục dự đoán cách chỉnh chuỗi hành động. Sau nhiều bước, mô hình thu được đoạn lệnh cho hai tay. Robot thực hiện và có thể lấy quan sát mới cho lần dự đoán sau. Các phần chuẩn hóa như QKNorm/RMSNorm góp phần giữ huấn luyện ổn định; chúng không phải những lệnh điều khiển động cơ độc lập."
     }
   },
   {
     "type": "representation",
-    "title": "Mô hình biểu diễn cái gì?",
-    "lead": "Action chunk giữ giá trị liên tục thay vì bins từng chiều.",
+    "title": "Đầu ra biểu diễn chuỗi điều khiển ra sao?",
+    "lead": "Không gian hành động chung cho phép kết hợp dữ liệu nhiều robot, nhưng phải có cách mã hóa phù hợp từng loại. Cùng một chiều số trong vector không mặc nhiên đại diện cho cùng khớp giữa hai robot.",
     "items": [
       {
         "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
-        "value": "Dữ liệu nhiều action semantics đòi chuẩn hóa, mask và alignment."
+        "value": "Dữ liệu nhiều hành động semantics đòi chuẩn hóa, mask và alignment."
       },
       {
         "label": "ĐÁNH ĐỔI KỸ THUẬT",
         "value": "Representations thống nhất ở shape chưa đảm bảo các DoF giống nghĩa."
       }
     ],
-    "intuition": "Representations thống nhất ở shape chưa đảm bảo các DoF giống nghĩa.",
+    "intuition": "Mô hình nhận ảnh từ camera ngoài và camera hai cổ tay, câu lệnh nhiệm vụ, trạng thái khớp và một chuỗi lệnh còn nhiễu. Nó còn nhận bước thời gian diffusion để biết đang ở giai đoạn khử nhiễu nào, cùng tần số điều khiển để hiểu nhịp hành động.",
     "detail": {
-      "label": "CHI TIẾT BIỂU DIỄN",
-      "text": "Bài báo đưa ra Physically Interpretable Unified Action Space để chuẩn hóa state/action từ nhiều robot sources, rồi pretrain trên dữ liệu không đồng nhất robot và post-train bằng hơn 6 nghìn bimanual episodes cho target platform."
+      "label": "GIẢI THÍCH",
+      "text": "Mô hình nhận ảnh từ camera ngoài và camera hai cổ tay, câu lệnh nhiệm vụ, trạng thái khớp và một chuỗi lệnh còn nhiễu. Nó còn nhận bước thời gian diffusion để biết đang ở giai đoạn khử nhiễu nào, cùng tần số điều khiển để hiểu nhịp hành động."
     }
   },
   {
     "type": "training",
-    "title": "Model học như thế nào?",
-    "lead": "Pretraining ở quy mô mô hình khoảng 1B parameters.",
+    "title": "RDT-1B học từ các đoạn thao tác",
+    "lead": "Mô hình nhận ảnh từ camera ngoài và camera hai cổ tay, câu lệnh nhiệm vụ, trạng thái khớp và một chuỗi lệnh còn nhiễu.",
     "items": [
       {
         "label": "MỤC TIÊU HỌC",
-        "value": "Training denoising/flow-style loss trên robot actions dưới điều kiện multimodal."
+        "value": "Dạy mô hình khử nhiễu đoạn hành động dựa trên ảnh, câu lệnh và trạng thái robot."
       },
       {
         "label": "DỮ LIỆU / QUY TRÌNH",
-        "value": "Stage data adaptation cho robot đích."
+        "value": "Stage dữ liệu adaptation cho robot đích."
       }
     ],
-    "intuition": "Phân biệt đóng góp của pretraining corpus và diffusion Transformer.",
+    "intuition": "DiT kết hợp những điều kiện ấy và liên tục dự đoán cách chỉnh chuỗi hành động. Sau nhiều bước, mô hình thu được đoạn lệnh cho hai tay. Robot thực hiện và có thể lấy quan sát mới cho lần dự đoán sau.",
     "detail": {
-      "label": "CÁCH HUẤN LUYỆN",
-      "text": "Kiến trúc được thiết kế để scale width/depth và exploit multimodal conditioning. Với few-shot adaptation, mô hình tận dụng đã pretrain prior về chuyển động rồi chỉ cần một lượng demonstration rất nhỏ cho nhiệm vụ mới."
+      "label": "GIẢI THÍCH",
+      "text": "Đối chiếu số liệu: Bài báo báo cáo RDT-1B cải thiện tỷ lệ thành công trung bình khoảng 56% tương đối so với các phương pháp đối chứng được chọn. Những phép thử ít dữ liệu, có trường hợp chỉ một đến năm lần làm mẫu, cho thấy giá trị của việc huấn luyện trước đối với kỹ năng phối hợp hai tay."
     }
   },
   {
     "type": "inference",
-    "title": "Một lần inference xảy ra ra sao?",
-    "lead": "Quan sát và instruction đi qua encoders.",
+    "title": "Robot dùng mô hình để sinh chuyển động",
+    "lead": "DiT kết hợp những điều kiện ấy và liên tục dự đoán cách chỉnh chuỗi hành động. Sau nhiều bước, mô hình thu được đoạn lệnh cho hai tay. Robot thực hiện và có thể lấy quan sát mới cho lần dự đoán sau.",
     "items": [
       {
         "label": "XỬ LÝ ĐẦU VÀO",
-        "value": "Diffusion Transformer iterative denoise action chunk."
+        "value": "Diffusion Transformer iterative denoise đoạn hành động."
       },
       {
         "label": "TẠO HÀNH ĐỘNG",
-        "value": "Chunk điều khiển robot; inference cost tăng theo số denoising steps."
+        "value": "Robot thực hiện đoạn hành động đã sinh; càng nhiều vòng khử nhiễu, thời gian suy luận có thể càng dài."
       }
     ],
-    "intuition": "Chunk điều khiển robot; inference cost tăng theo số denoising steps.",
+    "intuition": "Giả sử robot cần đưa khối từ tay phải sang tay trái. Một tay phải kẹp chắc trong khi tay kia tới vị trí nhận, rồi hai tay phối hợp chuyển lực giữ. Nếu tay bên nhận kẹp quá sớm hoặc tay bên giao buông trước, khối có thể rơi.",
     "detail": {
-      "label": "DIỄN BIẾN THỰC THI",
-      "text": "Với một bimanual folding kỹ năng, mạng điều kiện hình ảnh + ngôn ngữ + trạng thái robot rồi mẫu cả action chunk cho hai tay."
+      "label": "GIẢI THÍCH",
+      "text": "Việc tăng số tham số không phải đóng góp duy nhất: khả năng biểu diễn nhiều robot và huấn luyện ổn định là những quyết định thiết kế quan trọng."
     }
   },
   {
     "type": "equation",
-    "title": "Mathematical Intuition",
-    "lead": "Mạng học cách nhận ra nhiễu trong action đang bị xáo trộn theo observation và instruction.",
+    "title": "Công thức sinh chuỗi hành động",
+    "lead": "Không gian hành động chung cho phép kết hợp dữ liệu nhiều robot, nhưng phải có cách mã hóa phù hợp từng loại. Cùng một chiều số trong vector không mặc nhiên đại diện cho cùng khớp giữa hai robot.",
     "equation": "\\epsilon_\\theta(A_k, k\\mid o,\\ell)",
     "items": [
       "Ký hiệu khái niệm của denoising, không đóng vai trò thay bảng loss trong paper."
     ],
-    "intuition": "Mạng học cách nhận ra nhiễu trong action đang bị xáo trộn theo observation và instruction.",
+    "intuition": "Mô hình nhận ảnh từ camera ngoài và camera hai cổ tay, câu lệnh nhiệm vụ, trạng thái khớp và một chuỗi lệnh còn nhiễu. Nó còn nhận bước thời gian diffusion để biết đang ở giai đoạn khử nhiễu nào, cùng tần số điều khiển để hiểu nhịp hành động.",
     "detail": {
-      "label": "Ý NGHĨA CÔNG THỨC",
-      "text": "Với few-shot adaptation, mô hình tận dụng đã pretrain prior về chuyển động rồi chỉ cần một lượng demonstration rất nhỏ cho nhiệm vụ mới."
+      "label": "GIẢI THÍCH CÔNG THỨC",
+      "text": "Sau đó đọc Hình 3 và chỉ ra ảnh cổ tay, trạng thái khớp, nhiễu hành động và tần số điều khiển được đưa vào ở đâu. Những câu hỏi này giúp nối sơ đồ mạng với công việc thật."
     }
   },
   {
     "type": "results",
-    "title": "Kết quả nói lên điều gì?",
-    "lead": "Bài báo báo lợi ích khi mở rộng mô hình/dữ liệu cho policy sinh action.",
+    "title": "Thí nghiệm trên thao tác hai tay cho thấy gì?",
+    "lead": "Hình 4 kiểm tra độ ổn định khi bỏ QKNorm/RMSNorm và vai trò của một số thành phần đầu ra. Nếu đường hàm mất mát dao động mạnh, tối ưu hóa có thể gặp khó ngay trước khi robot thực thi.",
     "items": [
       {
         "label": "PHÁT HIỆN QUAN TRỌNG",
-        "value": "Đa nhiệm và multi-robot pretraining tạo prior hữu dụng cho downstream manipulation."
+        "value": "Đa nhiệm và multi-robot huấn luyện trước tạo prior hữu dụng cho downstream manipulation."
       },
       {
         "label": "CÁCH DIỄN GIẢI",
-        "value": "Lợi thế cần so ở cùng data/compute budget để không nhầm hiệu quả kiến trúc với scale."
+        "value": "Đọc điểm của RDT và từng phương pháp đối chứng trên cùng nhóm nhiệm vụ; tránh nhầm điểm phần trăm với mức tăng tương đối."
       }
     ],
-    "intuition": "1B active params và iterative sampling vẫn là thách thức cho thiết bị edge.",
+    "intuition": "Hình 1 ghi 68,2% của RDT và 12,2% của ACT trong phép so được minh họa, tức chênh 56 điểm phần trăm, không phải tăng 56% tương đối.",
     "detail": {
-      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
-      "text": "Bài báo báo RDT-1B cải thiện tỷ lệ thành công của nhiệm vụ trung bình khoảng 56% so với các các phương pháp đối chứng được dùng trong đánh giá."
+      "label": "GIẢI THÍCH",
+      "text": "Hình 4 kiểm tra độ ổn định khi bỏ QKNorm/RMSNorm và vai trò của một số thành phần đầu ra. Nếu đường hàm mất mát dao động mạnh, tối ưu hóa có thể gặp khó ngay trước khi robot thực thi. Các phép thử điều khiển còn tách kỹ năng đi thẳng và rót chính xác lượng nước."
     }
   },
   {
     "type": "ablation",
-    "title": "Ablation và bằng chứng",
-    "lead": "Phân biệt đóng góp của pretraining corpus và diffusion Transformer.",
+    "title": "Kiểm tra từng cơ chế có ích ra sao",
+    "lead": "Hình 5 nêu trạng thái ban đầu, mức thay đổi và mục tiêu từng nhiệm vụ. Đừng chỉ nhìn ảnh cuối; cần xem điều kiện thành công có đòi đúng lượng nước hay chỉ làm chuyển động gần đúng.",
     "items": [
       {
         "label": "YẾU TỐ ĐƯỢC THỬ",
-        "value": "Đánh giá latency theo số denoising steps và horizon."
+        "value": "Đánh giá latency theo số denoising bước và horizon."
       }
     ],
-    "intuition": "Đa nhiệm và multi-robot pretraining tạo prior hữu dụng cho downstream manipulation.",
+    "intuition": "Hình 4 kiểm tra độ ổn định khi bỏ QKNorm/RMSNorm và vai trò của một số thành phần đầu ra. Nếu đường hàm mất mát dao động mạnh, tối ưu hóa có thể gặp khó ngay trước khi robot thực thi. Các phép thử điều khiển còn tách kỹ năng đi thẳng và rót chính xác lượng nước.",
     "detail": {
-      "label": "BẰNG CHỨNG BỔ SUNG",
-      "text": "Nó thể hiện zero-shot robustness tốt hơn trước vật thể chưa xuất hiện khi huấn luyện/bối cảnh và đặc biệt mạnh trong bimanual kỹ năng."
+      "label": "GIẢI THÍCH",
+      "text": "Hình 5 nêu trạng thái ban đầu, mức thay đổi và mục tiêu từng nhiệm vụ. Đừng chỉ nhìn ảnh cuối; cần xem điều kiện thành công có đòi đúng lượng nước hay chỉ làm chuyển động gần đúng."
     }
   },
   {
     "type": "limits",
-    "title": "Hạn chế cần nói thẳng",
-    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "title": "Giới hạn khi đổi cấu trúc robot",
+    "lead": "Mô hình lớn và quá trình khử nhiễu nhiều bước tiêu tốn tài nguyên tính toán, có thể gây trễ trong vòng điều khiển. Khả năng xử lý hai tay không tự đảm bảo mọi vật tiếp xúc đều an toàn, nhất là khi lực kẹp và ma sát thay đổi.",
     "items": [
       {
         "label": "Tác giả / phạm vi",
-        "value": "Tác giả: cần nhiều GPU/dữ liệu, phụ thuộc action conventions nhất quán."
+        "value": "Tác giả: cần nhiều GPU/dữ liệu, phụ thuộc hành động conventions nhất quán."
       },
       {
         "label": "Phê bình độc lập",
         "value": "Phê bình: 1B active params và iterative sampling vẫn là thách thức cho thiết bị edge."
       }
     ],
-    "intuition": "Dữ liệu nhiều action semantics đòi chuẩn hóa, mask và alignment.",
+    "intuition": "Huấn luyện đa robot vẫn đòi chuẩn hóa và ánh xạ hành động cẩn thận. Sai đơn vị một chiều có thể phá hỏng kết quả dù phần Transformer được huấn luyện đúng.",
     "detail": {
-      "label": "PHẠM VI KẾT LUẬN",
-      "text": "Phê bình thêm: “unified action không gian” vẫn dựa trên giả định rằng các nguồn dữ liệu có vật lý semantics đủ tương thích để map vào canonical biểu diễn."
+      "label": "GIẢI THÍCH",
+      "text": "Huấn luyện đa robot vẫn đòi chuẩn hóa và ánh xạ hành động cẩn thận. Sai đơn vị một chiều có thể phá hỏng kết quả dù phần Transformer được huấn luyện đúng."
     }
   },
   {
     "type": "relations",
-    "title": "Bài này đứng ở đâu trong lĩnh vực?",
-    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "title": "RDT liên hệ với ACT và Diffusion Policy",
+    "lead": "ACT cũng học chuỗi hành động nhiều bước cho hai tay, nhưng dùng Transformer và CVAE. Diffusion chính sách điều khiển học phân phối các chuỗi lệnh qua khử nhiễu, không nhất thiết chỉ dành cho hai tay.",
     "items": [
       {
         "label": "NỀN TẢNG / TIỀN ĐỀ",
-        "value": "Diffusion Policy cho công thức nền về action generation."
+        "value": "Diffusion chính sách điều khiển cho công thức nền về hành động generation."
       },
       {
         "label": "HƯỚNG PHÁT TRIỂN",
-        "value": "π0.5 và GR00T N1 triển khai flow/action expert với cấu trúc khác."
+        "value": "π0.5 và GR00T N1 triển khai flow/hành động expert với cấu trúc khác."
       }
     ],
-    "intuition": "Continuous generative action giúp tránh lượng tử hóa thô.",
+    "intuition": "Việc tăng số tham số không phải đóng góp duy nhất: khả năng biểu diễn nhiều robot và huấn luyện ổn định là những quyết định thiết kế quan trọng.",
     "detail": {
-      "label": "CÔNG TRÌNH LIÊN QUAN",
-      "text": "Đọc thêm Diffusion Policy, GR00T N1. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+      "label": "GIẢI THÍCH",
+      "text": "ACT cũng học chuỗi hành động nhiều bước cho hai tay, nhưng dùng Transformer và CVAE. Diffusion chính sách điều khiển học phân phối các chuỗi lệnh qua khử nhiễu, không nhất thiết chỉ dành cho hai tay. RDT áp dụng hướng Diffusion Transformer ở quy mô lớn hơn, điều kiện hóa nhiều nguồn tín hiệu và chú trọng phối hợp hai tay."
     }
   },
   {
     "type": "closing",
-    "title": "Nếu chỉ nhớ ba điều",
-    "lead": "Continuous generative action giúp tránh lượng tử hóa thô.",
+    "title": "Điều cần nhớ về RDT-1B",
+    "lead": "Vẽ một nhiệm vụ chuyển khối từ tay phải sang tay trái và liệt kê thứ tự tiếp cận, kẹp nhận, chuyển lực giữ, buông giao. Ghi xem lệnh của tay nào phụ thuộc tay nào tại mỗi bước. Nếu chỉ dự đoán hai tay độc lập, bước nào dễ bị lệch nhịp nhất?",
     "items": [
-      "Dùng RDT-1B để nghiên cứu model/data scaling cho action policies.",
-      "Trên robot thật, đo đồng thời success và wall-clock latency."
+      "Dùng RDT-1B để nghiên cứu mô hình/dữ liệu scaling cho hành động chính sách điều khiển.",
+      "Trên robot thật, đo tỷ lệ hoàn thành nhiệm vụ cùng độ trễ thực tế."
     ],
-    "intuition": "Diffusion Transformer quy mô lớn sinh action liên tục với điều kiện thị giác–ngôn ngữ đa robot.",
+    "intuition": "Sau đó đọc Hình 3 và chỉ ra ảnh cổ tay, trạng thái khớp, nhiễu hành động và tần số điều khiển được đưa vào ở đâu. Những câu hỏi này giúp nối sơ đồ mạng với công việc thật.",
     "detail": {
-      "label": "THỬ NGHIỆM TIẾP THEO",
-      "text": "Trace một batch qua action normalization/vật lý mask; thay các giá trị NaN/padded joints để chắc loss không ăn nhầm."
+      "label": "GIẢI THÍCH",
+      "text": "Vẽ một nhiệm vụ chuyển khối từ tay phải sang tay trái và liệt kê thứ tự tiếp cận, kẹp nhận, chuyển lực giữ, buông giao. Ghi xem lệnh của tay nào phụ thuộc tay nào tại mỗi bước. Nếu chỉ dự đoán hai tay độc lập, bước nào dễ bị lệch nhịp nhất?"
     }
   }
 ]

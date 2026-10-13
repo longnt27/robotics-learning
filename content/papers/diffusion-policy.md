@@ -14,9 +14,14 @@ Diffusion Policy không ép các lần làm mẫu về một đường đi “tr
 
 ### Hiểu ba cách dự đoán trước khi nhìn công thức
 
-**chính sách điều khiển tường minh** có thể nhận ảnh rồi dự đoán trực tiếp lệnh; khi nhiều cách thao tác cùng đúng, một giá trị trung bình dễ trở thành phương án tồi. **chính sách điều khiển ngầm** đánh giá xem một hành động phù hợp với quan sát tới mức nào rồi tìm hành động có điểm tốt. Cách này linh hoạt nhưng khâu tìm kiếm có thể khó tối ưu hoặc chạy không ổn định.
+**Chính sách điều khiển dự đoán trực tiếp** có thể nhận ảnh rồi dự đoán trực tiếp lệnh; khi nhiều cách thao tác cùng đúng, một giá trị trung bình dễ trở thành phương án tồi. **Chính sách điều khiển dùng hàm đánh giá** đánh giá xem một hành động phù hợp với quan sát tới mức nào rồi tìm hành động có điểm tốt. Cách này linh hoạt nhưng khâu tìm kiếm có thể khó tối ưu hoặc chạy không ổn định.
 
 **Mô hình diffusion** bắt đầu từ một chuỗi lệnh ngẫu nhiên, rồi sửa đi sửa lại theo hướng mô hình đã học cho đến khi trông giống chuyển động hợp lệ trong dữ liệu. **Đoạn hành động (action chunk)** là nhiều bước liên tiếp được dự đoán cùng lúc. Nhờ vậy mô hình không cần tự chọn hướng mới một cách thiếu nhất quán ở từng khung hình.
+
+
+### Vì sao hai đường đi đúng có thể tạo ra một đường đi sai?
+
+Giả sử robot phải đưa đầu kẹp từ bên trái sang bên phải một chiếc hộp. Dữ liệu có hai cách hợp lệ: vòng qua phía trước hoặc vòng qua phía sau. Nếu mô hình bị buộc dự đoán tọa độ trung bình của hai cách ở từng thời điểm, quỹ đạo thu được có thể xuyên qua chiếc hộp. Đây là ví dụ của **phân bố hành động có nhiều đỉnh**: cùng một quan sát cho phép nhiều đáp án, nhưng không phải điểm nằm giữa các đáp án đều đúng. Diffusion Policy học phân bố ấy và lấy mẫu một đoạn hành động để các bước trong cùng đoạn đi theo một hướng có tính nhất quán.
 
 ## Phương pháp thực hiện
 
@@ -25,6 +30,11 @@ Diffusion Policy không ép các lần làm mẫu về một đường đi “tr
 **Bước 1:** lấy một số quan sát mới nhất từ camera và trạng thái robot. **Bước 2:** sinh một đoạn chuỗi hành động toàn nhiễu, coi như chưa biết robot sẽ đi đâu. **Bước 3:** mạng dự đoán phần nhiễu cần loại bỏ dựa trên hình ảnh và chuỗi hiện tại. Lặp nhiều lần, đoạn chuyển động dần trở nên có cấu trúc: tiếp cận khối, chạm đúng cạnh, rồi đẩy.
 
 **Bước 4:** robot chỉ thực thi một phần đầu của đoạn đã sinh. Sau đó camera cung cấp ảnh mới và mô hình tạo đoạn tiếp theo. Đây là điều khiển có quan sát lại, khác với việc phát một quỹ đạo duy nhất rồi để robot chạy hết. Trong kiến trúc CNN, FiLM đưa thông tin quan sát vào các lớp xử lý; trong bản Transformer, chú ý chéo kết nối token hành động với đặc trưng quan sát.
+
+
+### Hai chiếc đồng hồ phải được phân biệt
+
+Quá trình khử nhiễu có thể chạy nhiều vòng **trong máy tính** để biến một chuỗi ngẫu nhiên thành chuỗi lệnh hợp lý. Đây không phải số lần robot thực sự di chuyển. Sau khi tính xong, robot thường chỉ thực hiện một phần đầu của đoạn rồi chụp ảnh mới để lên kế hoạch tiếp. Vì vậy có hai câu hỏi riêng: mạng cần bao lâu để **sinh** một đoạn, và robot dùng bao lâu để **thực hiện** các lệnh trong đoạn ấy? Nếu câu trả lời cho câu hỏi thứ nhất quá lâu, chuyển động có thể gián đoạn dù quỹ đạo dự đoán rất đẹp.
 
 ![Hình 2 gốc từ PDF bài báo, trang 2](/paper-figures/diffusion-policy/figure-2.webp)
 
@@ -50,13 +60,18 @@ Bây giờ người dùng xê dịch khối trong lúc robot đang đi tới vù
 
 Điểm cần theo dõi không chỉ là tỷ lệ thành công tổng hợp. Hình 4 so khả năng giữ một cách đi xuyên suốt lần thực thi; Hình 5 thay loại lệnh vị trí/vận tốc; Hình 6 thay độ dài đoạn hành động và độ trễ. Một đoạn quá dài có thể mượt nhưng khó phản ứng với vật bị di chuyển; đoạn quá ngắn có thể cập nhật nhanh nhưng dễ dao động. Đấy là sự đánh đổi có ý nghĩa thực tế.
 
-**Ablation** tức thử bỏ hoặc đổi riêng một thành phần để xem tác dụng của nó. Thí nghiệm này không phải “nghiên cứu phá vỡ”. Khi đọc các biểu đồ, hãy hỏi tỷ lệ thành công được đo trên bao nhiêu lượt chạy và đường sai số có lớn không. Kết quả hàm mất mát tốt hơn chưa chắc dẫn tới thao tác tốt hơn, như so sánh với IBC ở Hình 7.
+**Thí nghiệm tách thành phần (ablation)** là thay hoặc bỏ một phần rồi đo riêng ảnh hưởng của thay đổi ấy. Khi đọc các biểu đồ, hãy hỏi tỷ lệ thành công được đo trên bao nhiêu lượt chạy và đường sai số có lớn không. Kết quả hàm mất mát tốt hơn chưa chắc dẫn tới thao tác tốt hơn, như so sánh với IBC ở Hình 7.
 
 
 
-### Số liệu và phạm vi kết luận
+### Cải thiện tổng hợp không thay cho kết quả từng nhiệm vụ
 
-**Đối chiếu số liệu:** Nhóm tác giả kiểm tra 12 nhiệm vụ thuộc bốn nhóm bộ đánh giá, với kết quả tổng hợp cải thiện khoảng 46,9% theo quy ước so sánh của bài báo. Đây là con số gộp, không có nghĩa mọi robot và mọi nhiệm vụ đều tăng đúng 46,9 điểm phần trăm. Khi xem Hình 4–9, hãy chú ý riêng ba hiện tượng: quỹ đạo có giữ được một cách vòng vật cản nhất quán không, robot có biết đổi kế hoạch khi vật bị xê dịch không, và độ trễ tăng có khiến chuỗi hành động bị giật hoặc thất bại không.
+Nhóm tác giả kiểm tra 12 nhiệm vụ thuộc bốn nhóm bộ đánh giá, với kết quả tổng hợp cải thiện khoảng 46,9% theo quy ước so sánh của bài báo. Đây là con số gộp, không có nghĩa mọi robot và mọi nhiệm vụ đều tăng đúng 46,9 điểm phần trăm. Khi xem Hình 4–9, hãy chú ý riêng ba hiện tượng: quỹ đạo có giữ được một cách vòng vật cản nhất quán không, robot có biết đổi kế hoạch khi vật bị xê dịch không, và độ trễ tăng có khiến chuỗi hành động bị giật hoặc thất bại không.
+
+
+### Muốn chứng minh mô hình chọn được nhiều hướng, phải nhìn cả quỹ đạo
+
+Một lỗi dễ gặp là chỉ đo sai số dự đoán hoặc chỉ xem một video thành công. Với bài đẩy khối chữ T, hãy chạy nhiều lần từ cùng một cảnh rồi xem mô hình có chọn các quỹ đạo hợp lệ khác nhau không. Tiếp theo, thử dịch vật một chút giữa lúc thực thi: robot có đổi đường đi khi quan sát mới tới không? Cuối cùng đo thời gian khử nhiễu. Ba phép kiểm tra này lần lượt chạm tới khả năng biểu diễn nhiều phương án, khả năng phản hồi và chi phí tính toán. Không có phép nào thay thế hoàn toàn hai phép còn lại.
 
 ![Hình 5 từ PDF gốc, trang 5](/paper-figures/diffusion-policy/figure-5.webp)
 

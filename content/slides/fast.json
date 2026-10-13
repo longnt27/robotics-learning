@@ -1,101 +1,101 @@
 [
   {
     "type": "cover",
-    "title": "Điểm cốt lõi",
-    "lead": "Nén action chunk trong miền tần số để autoregressive VLA cần ít token hơn nhiều.",
+    "title": "FAST: nén chuỗi hành động thành token",
+    "lead": "Giả sử robot di chuyển tay theo một đường cong mượt, được ghi lại hàng trăm lần mỗi giây. Nếu mỗi giá trị lệnh được biến thành một token riêng, mô hình phải dự đoán rất nhiều token gần như giống nhau.",
     "items": [
       "Chuyển trajectory sang frequency domain để giữ cái thay đổi chậm"
     ],
-    "intuition": "DCT gom chuyển động trơn vào vài hệ số tần số thấp, rồi token hóa chúng.",
+    "intuition": "Điểm cốt lõi: FAST là cách biểu diễn hành động, không phải một mô hình nhận biết ảnh hay chính sách điều khiển hoàn toàn độc lập. Nó giúp một kiểu mô hình sinh token làm việc hiệu quả hơn trên dữ liệu robot.",
     "detail": {
-      "label": "BỐI CẢNH NGHIÊN CỨU",
-      "text": "Autoregressive VLA có một vấn đề quan trọng: action liên tục stream ở 20-50 Hz tạo quá nhiều tokens nếu discretize từng dimension từng timestep."
+      "label": "GIẢI THÍCH",
+      "text": "Điểm cốt lõi: FAST là cách biểu diễn hành động, không phải một mô hình nhận biết ảnh hay chính sách điều khiển hoàn toàn độc lập. Nó giúp một kiểu mô hình sinh token làm việc hiệu quả hơn trên dữ liệu robot."
     }
   },
   {
     "type": "problem",
-    "title": "Một action stream có thể phình thành hàng nghìn tokens",
-    "lead": "Tần số robot cao và nhiều DoF làm next-token action decoding cực đắt.",
+    "title": "Vì sao dự đoán từng mẫu liên tiếp quá tốn?",
+    "lead": "Giả sử robot di chuyển tay theo một đường cong mượt, được ghi lại hàng trăm lần mỗi giây. Nếu mỗi giá trị lệnh được biến thành một token riêng, mô hình phải dự đoán rất nhiều token gần như giống nhau.",
     "items": [
-      "Quantize từng chiều ở từng timestep gây sequence rất dài"
+      "Quantize từng chiều ở từng timestep gây chuỗi rất dài"
     ],
-    "intuition": "Phần lớn robot trajectories mượt; cách biểu diễn cũ lặp lại thông tin thời gian.",
+    "intuition": "Điểm cốt lõi: FAST là cách biểu diễn hành động, không phải một mô hình nhận biết ảnh hay chính sách điều khiển hoàn toàn độc lập. Nó giúp một kiểu mô hình sinh token làm việc hiệu quả hơn trên dữ liệu robot.",
     "detail": {
-      "label": "NGUYÊN NHÂN CỐT LÕI",
-      "text": "Nếu nén action quá mạnh thì lại mất độ chính xác. FAST hỏi: có biểu diễn nào nén smooth robot các quỹ đạo thành ít tokens mà vẫn bảo toàn motor detail đủ tốt không?"
+      "label": "GIẢI THÍCH",
+      "text": "Giả sử robot di chuyển tay theo một đường cong mượt, được ghi lại hàng trăm lần mỗi giây. Nếu mỗi giá trị lệnh được biến thành một token riêng, mô hình phải dự đoán rất nhiều token gần như giống nhau. Chuỗi dài khiến huấn luyện chậm và dễ sai ở tần số cao. FAST tìm cách nén cả chuỗi hành động theo thời gian trước khi chuyển thành token, thay vì mã hóa từng mẫu riêng lẻ."
     }
   },
   {
     "type": "contrast",
-    "title": "Quantize từng chiều ở từng timestep gây sequence rất dài",
-    "lead": "Phần lớn robot trajectories mượt; cách biểu diễn cũ lặp lại thông tin thời gian.",
+    "title": "Nén theo thời gian khác dự đoán riêng từng bước",
+    "lead": "Điểm cốt lõi: FAST là cách biểu diễn hành động, không phải một mô hình nhận biết ảnh hay chính sách điều khiển hoàn toàn độc lập. Nó giúp một kiểu mô hình sinh token làm việc hiệu quả hơn trên dữ liệu robot.",
     "items": [
       "Chuyển trajectory sang frequency domain để giữ cái thay đổi chậm",
       "DCT gom chuyển động trơn vào vài hệ số tần số thấp, rồi token hóa chúng."
     ],
-    "intuition": "DCT gom chuyển động trơn vào vài hệ số tần số thấp, rồi token hóa chúng.",
+    "intuition": "Giả sử robot di chuyển tay theo một đường cong mượt, được ghi lại hàng trăm lần mỗi giây. Nếu mỗi giá trị lệnh được biến thành một token riêng, mô hình phải dự đoán rất nhiều token gần như giống nhau. Chuỗi dài khiến huấn luyện chậm và dễ sai ở tần số cao.",
     "detail": {
-      "label": "VÌ SAO CẦN THAY ĐỔI",
-      "text": "FAST lợi dụng fact rằng robot các quỹ đạo thường smooth theo thời gian. Nó dùng Discrete Cosine Transform (DCT) để chuyển action chunk sang frequency domain, nơi phần lớn năng lượng nằm ở ít low-frequency coefficients, rồi tokenize/entropy-code các coefficients đó."
+      "label": "GIẢI THÍCH",
+      "text": "Hình 3 thử tăng tần số lấy mẫu của đường cong. Cách chia giá trị từng bước thành khoảng rời rạc hoạt động ngày càng kém, trong khi FAST giữ dự đoán tốt hơn. Đây là một ví dụ sáng rõ về vấn đề biểu diễn, không cần nhớ công thức DCT ngay từ đầu."
     }
   },
   {
     "type": "intuition",
-    "title": "Chuyển trajectory sang frequency domain để giữ cái thay đổi chậm",
-    "lead": "DCT gom chuyển động trơn vào vài hệ số tần số thấp, rồi token hóa chúng.",
+    "title": "Hình dung chuyển động theo đường cong",
+    "lead": "Bạn có bốn điểm mốc và muốn mô tả một đường cong đi qua chúng. Nếu viết vị trí tại từng phần nghìn giây, bạn sẽ có một danh sách rất dài dù hình dạng tổng thể đơn giản.",
     "items": [
-      "Nén action chunk trong miền tần số để autoregressive VLA cần ít token hơn nhiều."
+      "Nén cả đoạn chuyển động thành ít token để mô hình sinh tuần tự xử lý nhanh hơn."
     ],
-    "intuition": "DCT gom chuyển động trơn vào vài hệ số tần số thấp, rồi token hóa chúng.",
+    "intuition": "Hình 3 thử tăng tần số lấy mẫu của đường cong. Cách chia giá trị từng bước thành khoảng rời rạc hoạt động ngày càng kém, trong khi FAST giữ dự đoán tốt hơn. Đây là một ví dụ sáng rõ về vấn đề biểu diễn, không cần nhớ công thức DCT ngay từ đầu.",
     "detail": {
-      "label": "GIẢI THÍCH CƠ CHẾ",
-      "text": "Nó dùng Discrete Cosine Transform (DCT) để chuyển action chunk sang frequency domain, nơi phần lớn năng lượng nằm ở ít low-frequency coefficients, rồi tokenize/entropy-code các coefficients đó."
+      "label": "GIẢI THÍCH",
+      "text": "Bạn có bốn điểm mốc và muốn mô tả một đường cong đi qua chúng. Nếu viết vị trí tại từng phần nghìn giây, bạn sẽ có một danh sách rất dài dù hình dạng tổng thể đơn giản. DCT cho phép ghi lại những thành phần hình dạng quan trọng hơn là từng điểm riêng lẻ."
     }
   },
   {
     "type": "concepts",
-    "title": "Ba khái niệm để nắm",
-    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "title": "Tần số và biến đổi DCT là gì?",
+    "lead": "Một chuyển động mượt có nhiều mẫu thời gian nhưng phần lớn hình dạng được mô tả bằng vài thành phần biến thiên chậm.",
     "items": [
       {
         "label": "DCT",
         "value": "Đổi chuỗi thời gian thành các thành phần tần số."
       },
       {
-        "label": "Temporal redundancy",
-        "value": "Nhiều action liên tiếp gần giống nhau."
+        "label": "theo thời gian redundancy",
+        "value": "Nhiều hành động liên tiếp gần giống nhau."
       },
       {
         "label": "FAST+",
-        "value": "Action tokenizer dùng chung trên nhiều robot và tần số."
+        "value": "hành động tokenizer dùng chung trên nhiều robot và tần số."
       }
     ],
-    "intuition": "Thay chuỗi action thô bằng compressed frequency coefficients.",
+    "intuition": "Lượng tử hóa biến hệ số liên tục thành mã rời rạc; BPE ghép những mẫu mã thường gặp thành token để rút ngắn chuỗi. Nén quá mạnh có thể làm mất chi tiết tiếp xúc, nên không thể chỉ nhìn số token giảm mà kết luận mọi thứ đều tốt hơn.",
     "detail": {
-      "label": "NỀN TẢNG KỸ THUẬT",
-      "text": "Nếu horizon 50 và robot có nhiều DoF, số tokens tăng cực nhanh, độ trễ/memory tệ. Nhưng robot các quỹ đạo khá mượt, nên có theo thời gian redundancy có thể khai thác."
+      "label": "GIẢI THÍCH",
+      "text": "Lượng tử hóa biến hệ số liên tục thành mã rời rạc; BPE ghép những mẫu mã thường gặp thành token để rút ngắn chuỗi. Nén quá mạnh có thể làm mất chi tiết tiếp xúc, nên không thể chỉ nhìn số token giảm mà kết luận mọi thứ đều tốt hơn."
     }
   },
   {
     "type": "pipeline",
-    "title": "Kiến trúc trong một sơ đồ",
-    "lead": "Nén action chunk trong miền tần số để autoregressive VLA cần ít token hơn nhiều.",
+    "title": "FAST mã hóa hành động như thế nào?",
+    "lead": "Đầu tiên hệ thống lấy một đoạn hành động và chuẩn hóa để các chiều có biên độ phù hợp. Sau đó DCT chuyển nó sang miền tần số.",
     "items": [
-      "Action chunk T × D",
+      "đoạn hành động T × D",
       "Discrete Cosine Transform",
       "Quantize hệ số",
-      "Ít autoregressive tokens"
+      "Ít token cần dự đoán hơn"
     ],
-    "intuition": "VLM sinh chuỗi action tokens đã nén.",
+    "intuition": "Khi chạy, những token dự đoán được giải mã ngược: BPE → hệ số lượng tử → khôi phục hệ số → DCT ngược → chuỗi hành động theo thời gian → giải chuẩn hóa. Chỉ khi hoàn thành cả hai chiều chuyển đổi, robot mới nhận được lệnh vật lý đúng đơn vị.",
     "detail": {
-      "label": "ĐIỂM NHẤN TRIỂN KHAI",
-      "text": "Sau đó FAST được ghép với π-style autoregressive VLA. Vì mỗi chunk dùng ít tokens hơn rất nhiều, dự đoán action không còn kéo chuỗi length lên phi lý."
+      "label": "GIẢI THÍCH",
+      "text": "Khi chạy, những token dự đoán được giải mã ngược: BPE → hệ số lượng tử → khôi phục hệ số → DCT ngược → chuỗi hành động theo thời gian → giải chuẩn hóa. Chỉ khi hoàn thành cả hai chiều chuyển đổi, robot mới nhận được lệnh vật lý đúng đơn vị."
     }
   },
   {
     "type": "representation",
-    "title": "Mô hình biểu diễn cái gì?",
-    "lead": "Thay chuỗi action thô bằng compressed frequency coefficients.",
+    "title": "Các token giữ thông tin chuyển động gì?",
+    "lead": "Lượng tử hóa biến hệ số liên tục thành mã rời rạc; BPE ghép những mẫu mã thường gặp thành token để rút ngắn chuỗi.",
     "items": [
       {
         "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
@@ -106,16 +106,16 @@
         "value": "Compression quá mạnh có thể bỏ qua va chạm/động tác đột ngột."
       }
     ],
-    "intuition": "Compression quá mạnh có thể bỏ qua va chạm/động tác đột ngột.",
+    "intuition": "Đầu tiên hệ thống lấy một đoạn hành động và chuẩn hóa để các chiều có biên độ phù hợp. Sau đó DCT chuyển nó sang miền tần số. Những hệ số được lượng tử hóa rồi ghép thành chuỗi mã, BPE tiếp tục nén thành token cuối cùng để mô hình tự hồi quy dự đoán.",
     "detail": {
-      "label": "CHI TIẾT BIỂU DIỄN",
-      "text": "FAST+ là universal action tokenizer được huấn luyện trên khoảng 1 triệu robot các quỹ đạo thuộc nhiều action spaces và frequencies thay vì huấn luyện tokenizer riêng cho mỗi tập dữ liệu."
+      "label": "GIẢI THÍCH",
+      "text": "Đầu tiên hệ thống lấy một đoạn hành động và chuẩn hóa để các chiều có biên độ phù hợp. Sau đó DCT chuyển nó sang miền tần số. Những hệ số được lượng tử hóa rồi ghép thành chuỗi mã, BPE tiếp tục nén thành token cuối cùng để mô hình tự hồi quy dự đoán."
     }
   },
   {
     "type": "training",
-    "title": "Model học như thế nào?",
-    "lead": "Huấn luyện FAST+ trên khoảng 1 triệu robot trajectories.",
+    "title": "Cách chuẩn bị dữ liệu hành động để huấn luyện",
+    "lead": "Đầu tiên hệ thống lấy một đoạn hành động và chuẩn hóa để các chiều có biên độ phù hợp. Sau đó DCT chuyển nó sang miền tần số.",
     "items": [
       {
         "label": "MỤC TIÊU HỌC",
@@ -123,137 +123,137 @@
       },
       {
         "label": "DỮ LIỆU / QUY TRÌNH",
-        "value": "Đánh giá reconstruction quality và downstream action success."
+        "value": "Đánh giá reconstruction quality và downstream hành động success."
       }
     ],
-    "intuition": "So smooth vs noisy trajectories theo rate/distortion.",
+    "intuition": "Khi chạy, những token dự đoán được giải mã ngược: BPE → hệ số lượng tử → khôi phục hệ số → DCT ngược → chuỗi hành động theo thời gian → giải chuẩn hóa. Chỉ khi hoàn thành cả hai chiều chuyển đổi, robot mới nhận được lệnh vật lý đúng đơn vị.",
     "detail": {
-      "label": "CÁCH HUẤN LUYỆN",
-      "text": "Bài báo cho thấy FAST/FAST+ cho phép autoregressive VLA scale tới cỡ 10 nghìn giờ dữ liệu robot và đạt hiệu năng gần hoặc ngang flow/diffusion VLA trong các benchmark của họ, trong khi huấn luyện có thể nhanh hơn tới khoảng 5x so với naive action tokenization."
+      "label": "GIẢI THÍCH",
+      "text": "Đối chiếu số liệu: Trong một số thiết lập, dùng FAST cho phép huấn luyện mô hình sinh token hành động nhanh hơn tới khoảng năm lần so với cách chia từng mẫu thời gian thành token. Hình 6–11 vẫn đo tỷ lệ robot hoàn thành nhiệm vụ: nén nhanh hơn nhưng không giữ được chuyển động chính xác thì chẳng có ý nghĩa. FAST+ còn được đánh giá trên nhiều nguồn dữ liệu robot khác nhau nhằm kiểm tra tính dùng chung, thay vì chỉ tối ưu cho một kiểu tay máy."
     }
   },
   {
     "type": "inference",
-    "title": "Một lần inference xảy ra ra sao?",
-    "lead": "VLM sinh chuỗi action tokens đã nén.",
+    "title": "Giải mã token thành lệnh điều khiển",
+    "lead": "Khi chạy, những token dự đoán được giải mã ngược: BPE → hệ số lượng tử → khôi phục hệ số → DCT ngược → chuỗi hành động theo thời gian → giải chuẩn hóa.",
     "items": [
       {
         "label": "XỬ LÝ ĐẦU VÀO",
-        "value": "FAST decoder khôi phục trajectory liên tục."
+        "value": "FAST bộ giải mã khôi phục trajectory liên tục."
       },
       {
         "label": "TẠO HÀNH ĐỘNG",
-        "value": "Autoregressive generation vẫn phải sinh token theo thứ tự."
+        "value": "Mô hình vẫn tạo token lần lượt; nén giúp rút ngắn chuỗi."
       }
     ],
-    "intuition": "Autoregressive generation vẫn phải sinh token theo thứ tự.",
+    "intuition": "Bạn có bốn điểm mốc và muốn mô tả một đường cong đi qua chúng. Nếu viết vị trí tại từng phần nghìn giây, bạn sẽ có một danh sách rất dài dù hình dạng tổng thể đơn giản. DCT cho phép ghi lại những thành phần hình dạng quan trọng hơn là từng điểm riêng lẻ.",
     "detail": {
-      "label": "DIỄN BIẾN THỰC THI",
-      "text": "Tạo action tensor (T=50, D=7). Normalize, biến mỗi dimension theo DCT từ time domain sang frequency coefficients, giữ coefficients mang nhiều năng lượng và lượng tử hóa thành token chuỗi."
+      "label": "GIẢI THÍCH",
+      "text": "Đây là các lựa chọn về định dạng mục tiêu và bộ sinh, không phải hai tên gọi cho cùng một kỹ thuật. Để so sánh, phải nhìn xem token đang mang thông tin gì."
     }
   },
   {
     "type": "equation",
-    "title": "Mathematical Intuition",
-    "lead": "Không dự đoán mọi timestep riêng: nén các hệ số DCT quan trọng thành M token, thường M nhỏ hơn nhiều T×D.",
+    "title": "Đọc công thức nén theo tần số",
+    "lead": "Lượng tử hóa biến hệ số liên tục thành mã rời rạc; BPE ghép những mẫu mã thường gặp thành token để rút ngắn chuỗi.",
     "equation": "A_{1:T}\\xrightarrow{\\mathrm{DCT}}c_{1:K}\\xrightarrow{\\mathrm{tokenize}}z_{1:M}",
     "items": [
       "Sơ đồ biểu diễn; M không phải hằng số chung cho mọi dữ liệu."
     ],
-    "intuition": "Không dự đoán mọi timestep riêng: nén các hệ số DCT quan trọng thành M token, thường M nhỏ hơn nhiều T×D.",
+    "intuition": "Đầu tiên hệ thống lấy một đoạn hành động và chuẩn hóa để các chiều có biên độ phù hợp. Sau đó DCT chuyển nó sang miền tần số. Những hệ số được lượng tử hóa rồi ghép thành chuỗi mã, BPE tiếp tục nén thành token cuối cùng để mô hình tự hồi quy dự đoán.",
     "detail": {
-      "label": "Ý NGHĨA CÔNG THỨC",
-      "text": "Vì mỗi chunk dùng ít tokens hơn rất nhiều, dự đoán action không còn kéo chuỗi length lên phi lý."
+      "label": "GIẢI THÍCH CÔNG THỨC",
+      "text": "So hai kết quả sẽ thấy dữ liệu mượt dễ nén hơn; động tác tiếp xúc cần cẩn thận. Đây là phép thử giải thích FAST tốt hơn việc học thuộc rằng nó “nhanh hơn năm lần”."
     }
   },
   {
     "type": "results",
-    "title": "Kết quả nói lên điều gì?",
-    "lead": "FAST/FAST+ được áp dụng trên robot data ở quy mô tới khoảng 10 nghìn giờ.",
+    "title": "Kết quả so tốc độ và chất lượng thế nào?",
+    "lead": "Hình 6 so FAST, FSQ và cách chia giá trị thành các khoảng rời rạc. Các cách nén hành động giúp huấn luyện hiệu quả hơn; FAST đặc biệt có lợi ở thao tác robot thật cần sự khéo léo.",
     "items": [
       {
         "label": "PHÁT HIỆN QUAN TRỌNG",
-        "value": "Một số thiết lập training nhanh hơn tới khoảng 5 lần so với tokenization thô."
+        "value": "π0-FAST huấn luyện nhanh hơn tới 5 lần so với π0 dùng diffusion trong phép thử được báo cáo."
       },
       {
         "label": "CÁCH DIỄN GIẢI",
-        "value": "Hiệu quả của autoregressive action modeling tiến gần generative flow baseline trong các benchmark tác giả dùng."
+        "value": "Trong những phép thử của tác giả, cách sinh token đã nén cho hiệu quả gần các phương pháp sinh hành động liên tục."
       }
     ],
-    "intuition": "nén tần số có thể làm mờ motion hiếm nhưng contact-critical, autoregressive inference vẫn có latency.",
+    "intuition": "Mức giảm tới 5 lần số giờ GPU thuộc phép so π0-FAST với π0 dùng diffusion, không phải trực tiếp với cách mã hóa từng mẫu thành token.",
     "detail": {
-      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
-      "text": "FAST+ gần dataset-specific tokenizers dù phải cover nhiều robot/action spaces. Đây là kết quả quan trọng vì nó biến tokenizer thành một reusable foundation component chứ không phải thứ phải hand-tune cho từng arm."
+      "label": "GIẢI THÍCH",
+      "text": "Hình 6 so FAST với các cách mã hóa hành động khác về chất lượng học; Hình 9 và các kết quả π0-FAST so với π0 dùng diffusion về tốc độ hội tụ. Phải tách hai loại phép đo này để không hiểu nhầm mức cải thiện tới năm lần."
     }
   },
   {
     "type": "ablation",
-    "title": "Ablation và bằng chứng",
-    "lead": "So smooth vs noisy trajectories theo rate/distortion.",
+    "title": "Thử thay độ nén để xem ảnh hưởng",
+    "lead": "FAST+ hướng tới một bộ mã hóa dùng chung cho nhiều kiểu robot. Khi đọc tỷ lệ thành công, vẫn cần xem số lần chạy và khoảng tin cậy.",
     "items": [
       {
         "label": "YẾU TỐ ĐƯỢC THỬ",
-        "value": "Số token giảm phải đối chiếu với sai số reconstruct và success thực."
+        "value": "Cần so lượng token tiết kiệm được với sai số khôi phục và tỷ lệ hoàn thành thật."
       }
     ],
-    "intuition": "Một số thiết lập training nhanh hơn tới khoảng 5 lần so với tokenization thô.",
+    "intuition": "Hình 6 so FAST, FSQ và cách chia giá trị thành các khoảng rời rạc. Các cách nén hành động giúp huấn luyện hiệu quả hơn; FAST đặc biệt có lợi ở thao tác robot thật cần sự khéo léo.",
     "detail": {
-      "label": "BẰNG CHỨNG BỔ SUNG",
-      "text": "Gains rõ nhất ở high-frequency và dexterous thiết lập, nơi per-timestep binning tạo chuỗi quá dài."
+      "label": "ĐỐI CHIẾU THÍ NGHIỆM",
+      "text": "FAST+ hướng tới một bộ mã hóa dùng chung cho nhiều kiểu robot. Khi đọc tỷ lệ thành công, vẫn cần xem số lần chạy và khoảng tin cậy. Tốc độ huấn luyện nhanh hơn không tự bảo đảm hành động cuối cùng chính xác hơn trong mọi nhiệm vụ."
     }
   },
   {
     "type": "limits",
-    "title": "Hạn chế cần nói thẳng",
-    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "title": "Khi nén làm mất chuyển động quan trọng",
+    "lead": "Một quỹ đạo đưa tay qua khoảng trống có thể rất mượt và dễ nén. Nhưng khi cắm linh kiện vào khe nhỏ hoặc khép kẹp robot ngay lúc chạm vật, thay đổi đột ngột có thể quan trọng.",
     "items": [
       {
-        "label": "Tác giả / phạm vi",
-        "value": "Tác giả: evaluation chưa bao phủ đủ mobile/dexterous dynamic tasks."
+        "label": "Điểm mạnh",
+        "value": "Nén chuỗi và giảm chi phí huấn luyện trong một số phép thử."
       },
       {
-        "label": "Phê bình độc lập",
-        "value": "Phê bình: nén tần số có thể làm mờ motion hiếm nhưng contact-critical, autoregressive inference vẫn có latency."
+        "label": "Đánh đổi",
+        "value": "Sinh token tuần tự có thể khiến suy luận chậm hơn diffusion."
       }
     ],
-    "intuition": "Hệ số thấp mô tả xu hướng chuyển động mượt; hệ số cao mang biến động nhanh.",
+    "intuition": "FAST giảm số token và có thể rút ngắn thời gian huấn luyện, nhưng mô hình vẫn sinh token từng bước: suy luận có thể chậm hơn diffusion.",
     "detail": {
-      "label": "PHẠM VI KẾT LUẬN",
-      "text": "Bài báo thừa nhận: evaluations chủ yếu vẫn là static manipulation; mobile, humanoid và dexterous scaling rộng hơn được để lại cho tương lai."
+      "label": "GIẢI THÍCH",
+      "text": "Bài báo đo trên RTX 4090: sinh một đoạn hành động dài một giây bằng π0-FAST mất khoảng 750 ms, còn π0 dùng diffusion mất khoảng 100 ms trong cùng nhóm thử. Đừng nhầm lợi ích giảm giờ GPU huấn luyện với tốc độ phản ứng của robot thật."
     }
   },
   {
     "type": "relations",
-    "title": "Bài này đứng ở đâu trong lĩnh vực?",
-    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "title": "FAST liên quan gì tới OpenVLA và π0.5?",
+    "lead": "OpenVLA dùng token hành động, nhưng cách mã hóa từng giá trị có thể tạo chuỗi rất dài với dữ liệu tần số cao.",
     "items": [
       {
         "label": "NỀN TẢNG / TIỀN ĐỀ",
-        "value": "OpenVLA biểu diễn per-dimension action tokens."
+        "value": "OpenVLA biểu diễn per-dimension hành động tokens."
       },
       {
         "label": "HƯỚNG PHÁT TRIỂN",
-        "value": "π0.5/π0-FAST dùng FAST làm một hướng so sánh với flow action head."
+        "value": "π0.5/π0-FAST dùng FAST làm một hướng so sánh với flow hành động head."
       }
     ],
-    "intuition": "Action tokenizer là một quyết định modeling quan trọng, không chỉ preprocess.",
+    "intuition": "Đây là các lựa chọn về định dạng mục tiêu và bộ sinh, không phải hai tên gọi cho cùng một kỹ thuật. Để so sánh, phải nhìn xem token đang mang thông tin gì.",
     "detail": {
-      "label": "CÔNG TRÌNH LIÊN QUAN",
-      "text": "Đọc thêm OpenVLA, π0.5. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+      "label": "GIẢI THÍCH",
+      "text": "OpenVLA dùng token hành động, nhưng cách mã hóa từng giá trị có thể tạo chuỗi rất dài với dữ liệu tần số cao. FAST đề xuất nén ở cấp đoạn chuỗi. π0.5 tận dụng FAST trong một giai đoạn huấn luyện, rồi dùng flow matching để tạo chuỗi hành động liên tục ở giai đoạn sau."
     }
   },
   {
     "type": "closing",
-    "title": "Nếu chỉ nhớ ba điều",
-    "lead": "Action tokenizer là một quyết định modeling quan trọng, không chỉ preprocess.",
+    "title": "Điều cần nhớ về FAST",
+    "lead": "Lấy 100 điểm vị trí của một chuyển động mượt. Áp dụng DCT, giữ số hệ số thấp rồi dựng lại đường. Đo sai số tổng thể và sai số ở chỗ chuyển hướng. Tiếp đó làm với một chuỗi có bước nhảy đột ngột tương ứng hành động đóng kẹp.",
     "items": [
       "Chạy FAST trên Mac M4 để hiểu DCT–compression–reconstruction.",
-      "Đo trade-off rate, fidelity và closed-loop success."
+      "Đo mức nén, sai số tái tạo và tỷ lệ hoàn thành khi robot chạy có quan sát lại."
     ],
-    "intuition": "Nén action chunk trong miền tần số để autoregressive VLA cần ít token hơn nhiều.",
+    "intuition": "So hai kết quả sẽ thấy dữ liệu mượt dễ nén hơn; động tác tiếp xúc cần cẩn thận. Đây là phép thử giải thích FAST tốt hơn việc học thuộc rằng nó “nhanh hơn năm lần”.",
     "detail": {
-      "label": "THỬ NGHIỆM TIẾP THEO",
-      "text": "Chạy FAST tokenizer trên Mac M4 với synthetic smooth và noisy các quỹ đạo; plot thô vs reconstructed; sweep chunk length/độ chính xác và đo reconstruction MAE, token count."
+      "label": "GIẢI THÍCH",
+      "text": "Lấy 100 điểm vị trí của một chuyển động mượt. Áp dụng DCT, giữ số hệ số thấp rồi dựng lại đường. Đo sai số tổng thể và sai số ở chỗ chuyển hướng. Tiếp đó làm với một chuỗi có bước nhảy đột ngột tương ứng hành động đóng kẹp."
     }
   }
 ]

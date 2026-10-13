@@ -24,6 +24,7 @@ npm run build
 - `lib/papers.ts`: thông tin của 22 bài báo, tiêu đề gốc, mô tả ngắn và liên kết đến nguồn chính thức.
 - `lib/paper-resources.json`: 26 liên kết GitHub/Hugging Face cho 22 bài; ghi rõ code, checkpoint, dataset hoặc trang dự án, phân biệt chính thức và cộng đồng.
 - `lib/relations.ts`: các quan hệ có phân loại giữa những bài nghiên cứu, kèm giải thích bằng tiếng Việt.
+- `docs/paper-source-verification.md`: đối chiếu các khẳng định chính của 22 bài với PDF/HTML nghiên cứu gốc, ghi rõ nơi đã sửa sai và giới hạn kiểm chứng.
 - `content/papers/{slug}.md`: bài diễn giải dài, có thể chỉnh sửa trực tiếp trong Git.
 - `content/slides/{slug}.json`: 22 bộ slide HTML được biên tập riêng (15 slide/bài).
 - `components/slide-deck.tsx`: khung thuyết trình, keyboard, fullscreen, lưới slide và ghi chú.

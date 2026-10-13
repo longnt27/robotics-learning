@@ -1,61 +1,61 @@
 [
   {
     "type": "cover",
-    "title": "Điểm cốt lõi",
-    "lead": "Một pipeline VLA hướng sản xuất: data curation, action 55D, sparse MoE và future-state feature prediction.",
+    "title": "LingBot-VLA 2.0: cải thiện cả hệ thống học robot",
+    "lead": "Một công ty thu hàng chục nghìn giờ lần làm mẫu từ nhiều kiểu robot. Nhưng video có thể bị lệch thời gian, hành động dùng nhiều đơn vị khác nhau và dữ liệu các việc thường gặp áp đảo việc hiếm.",
     "items": [
-      "Chất lượng data + schema + capacity cùng tạo foundation VLA"
+      "Chất lượng dữ liệu + schema + capacity cùng tạo foundation VLA"
     ],
-    "intuition": "Curation nghiêm ngặt, unified 55D representation, sparse MoE và predictive distillation góp phần khác nhau.",
+    "intuition": "Đừng đọc tên MoE rồi tưởng bài chỉ thay vài lớp mạng. Bốn phần cốt lõi là chất lượng dữ liệu, chuẩn hành động dùng chung, phân bổ dung lượng mô hình và tín hiệu học về diễn biến cảnh sau khi robot hành động.",
     "detail": {
-      "label": "BỐI CẢNH NGHIÊN CỨU",
-      "text": "Nó không cố chứng minh một kiến trúc đơn lẻ vượt xa π0.5. Contribution nằm ở engineering research: quy trình tuyển lọc dữ liệu hàng chục nghìn giờ, unified biểu diễn cho whole-body, sparse MoE để tăng dung lượng mô hình và auxiliary future-state learning."
+      "label": "GIẢI THÍCH",
+      "text": "Đừng đọc tên MoE rồi tưởng bài chỉ thay vài lớp mạng. Bốn phần cốt lõi là chất lượng dữ liệu, chuẩn hành động dùng chung, phân bổ dung lượng mô hình và tín hiệu học về diễn biến cảnh sau khi robot hành động."
     }
   },
   {
     "type": "problem",
-    "title": "Có nhiều dữ liệu nhưng nhiễu, khác schema và thiên lệch long-tail",
-    "lead": "Pipeline robot đa embodiment phải xử lý cả nhãn video người, capacity model và khả năng dự đoán diễn tiến.",
+    "title": "Vì sao nhiều giờ dữ liệu vẫn chưa đủ?",
+    "lead": "Một công ty thu hàng chục nghìn giờ lần làm mẫu từ nhiều kiểu robot. Nhưng video có thể bị lệch thời gian, hành động dùng nhiều đơn vị khác nhau và dữ liệu các việc thường gặp áp đảo việc hiếm.",
     "items": [
       "Dense expert và dữ liệu trộn thô có bottleneck về capacity/quality"
     ],
-    "intuition": "Canonical action theo một robot không phù hợp humanoid, mobile base và dexterous hand.",
+    "intuition": "Đừng đọc tên MoE rồi tưởng bài chỉ thay vài lớp mạng. Bốn phần cốt lõi là chất lượng dữ liệu, chuẩn hành động dùng chung, phân bổ dung lượng mô hình và tín hiệu học về diễn biến cảnh sau khi robot hành động.",
     "detail": {
-      "label": "NGUYÊN NHÂN CỐT LÕI",
-      "text": "Khi một công ty robot muốn deploy cùng policy lên cả robot hai tay, humanoid và mobile manipulator, họ gặp ít nhất ba vấn đề: (1) dữ liệu không đồng nhất không sạch và không chung schema, (2) một dense action mạng có thể bị nghẽn dung lượng mô hình khi nhiều robot/nhiệm vụ cạnh tranh, (3) robot phải hiểu future consequences thay vì chỉ matching next-action pattern."
+      "label": "GIẢI THÍCH",
+      "text": "Một công ty thu hàng chục nghìn giờ lần làm mẫu từ nhiều kiểu robot. Nhưng video có thể bị lệch thời gian, hành động dùng nhiều đơn vị khác nhau và dữ liệu các việc thường gặp áp đảo việc hiếm. Nếu trộn nguyên tất cả vào mạng lớn, mô hình có thể học cả lỗi và sự thiên lệch. LingBot-VLA 2.0 giải vấn đề ở toàn quy trình, từ tuyển lọc dữ liệu, biểu diễn hành động đến kiến trúc sinh lệnh và học dự đoán tương lai."
     }
   },
   {
     "type": "contrast",
-    "title": "Dense expert và dữ liệu trộn thô có bottleneck về capacity/quality",
-    "lead": "Canonical action theo một robot không phù hợp humanoid, mobile base và dexterous hand.",
+    "title": "Trộn dữ liệu mà không chuẩn hóa dễ gây lỗi",
+    "lead": "Đừng đọc tên MoE rồi tưởng bài chỉ thay vài lớp mạng. Bốn phần cốt lõi là chất lượng dữ liệu, chuẩn hành động dùng chung, phân bổ dung lượng mô hình và tín hiệu học về diễn biến cảnh sau khi robot hành động.",
     "items": [
-      "Chất lượng data + schema + capacity cùng tạo foundation VLA",
-      "Curation nghiêm ngặt, unified 55D representation, sparse MoE và predictive distillation góp phần khác nhau."
+      "Chất lượng dữ liệu + schema + capacity cùng tạo foundation VLA",
+      "Curation nghiêm ngặt, unified 55D biểu diễn, sparse MoE và predictive distillation góp phần khác nhau."
     ],
-    "intuition": "Curation nghiêm ngặt, unified 55D representation, sparse MoE và predictive distillation góp phần khác nhau.",
+    "intuition": "Một công ty thu hàng chục nghìn giờ lần làm mẫu từ nhiều kiểu robot. Nhưng video có thể bị lệch thời gian, hành động dùng nhiều đơn vị khác nhau và dữ liệu các việc thường gặp áp đảo việc hiếm. Nếu trộn nguyên tất cả vào mạng lớn, mô hình có thể học cả lỗi và sự thiên lệch.",
     "detail": {
-      "label": "VÌ SAO CẦN THAY ĐỔI",
-      "text": "Contribution nằm ở engineering research: quy trình tuyển lọc dữ liệu hàng chục nghìn giờ, unified biểu diễn cho whole-body, sparse MoE để tăng dung lượng mô hình và auxiliary future-state learning."
+      "label": "GIẢI THÍCH",
+      "text": "MoE có thể giúp mạng dành năng lực cho các mẫu động tác đa dạng, nhưng không sửa được nhãn sai. Mục tiêu dự đoán đặc trưng tương lai có thể khuyến khích mô hình hiểu rằng sau khi nhấc cốc, vị trí cốc thay đổi; song phải có thí nghiệm tách riêng mục tiêu đó để biết nó thực sự giúp thao tác."
     }
   },
   {
     "type": "intuition",
-    "title": "Chất lượng data + schema + capacity cùng tạo foundation VLA",
-    "lead": "Curation nghiêm ngặt, unified 55D representation, sparse MoE và predictive distillation góp phần khác nhau.",
+    "title": "Hình dung robot di động dọn bàn",
+    "lead": "Robot cần đi tới bàn, nhận biết vật cần lấy, điều khiển tay kẹp, đặt vật vào hộp rồi tiếp tục di chuyển. Lệnh cho bệ di động có dạng khác lệnh cổ tay, đầu hay ngón kẹp.",
     "items": [
-      "Một pipeline VLA hướng sản xuất: data curation, action 55D, sparse MoE và future-state feature prediction."
+      "Một quy trình VLA hướng sản xuất: dữ liệu curation, hành động 55D, sparse MoE và future-trạng thái feature prediction."
     ],
-    "intuition": "Curation nghiêm ngặt, unified 55D representation, sparse MoE và predictive distillation góp phần khác nhau.",
+    "intuition": "MoE có thể giúp mạng dành năng lực cho các mẫu động tác đa dạng, nhưng không sửa được nhãn sai. Mục tiêu dự đoán đặc trưng tương lai có thể khuyến khích mô hình hiểu rằng sau khi nhấc cốc, vị trí cốc thay đổi; song phải có thí nghiệm tách riêng mục tiêu đó để biết nó thực sự giúp thao tác.",
     "detail": {
-      "label": "GIẢI THÍCH CƠ CHẾ",
-      "text": "Robot không có bộ phận nào thì slots đó padding/masking. Cách này giúp chung mô hình IO schema dù control phần cứng khác nhau."
+      "label": "GIẢI THÍCH",
+      "text": "Robot cần đi tới bàn, nhận biết vật cần lấy, điều khiển tay kẹp, đặt vật vào hộp rồi tiếp tục di chuyển. Lệnh cho bệ di động có dạng khác lệnh cổ tay, đầu hay ngón kẹp. Một biểu diễn hành động dùng chung phải giữ đúng ý nghĩa từng phần khi chuyển sang robot khác."
     }
   },
   {
     "type": "concepts",
-    "title": "Ba khái niệm để nắm",
-    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "title": "Dữ liệu, không gian hành động và MoE",
+    "lead": "Robot hai tay, robot di động và robot hình người có số khớp khác nhau. LingBot dùng một cách biểu diễn hành động gồm nhiều phần theo bộ phận cơ thể, tổng cộng 55 chiều, để sắp xếp dữ liệu về một cấu trúc chung.",
     "items": [
       {
         "label": "Sparse MoE",
@@ -63,39 +63,39 @@
       },
       {
         "label": "Canonical 55D",
-        "value": "Vector action nhiều vùng với padding/masking theo robot."
+        "value": "Vector hành động nhiều vùng với padding/masking theo robot."
       },
       {
         "label": "Predictive distillation",
         "value": "Học future latent features thay vì render future RGB."
       }
     ],
-    "intuition": "Schema 55D gom arm, EEF, gripper, fingers, waist, head và mobile base.",
+    "intuition": "Chuẩn hóa hành động quan trọng vì một robot dùng góc khớp tuyệt đối, robot khác dùng độ thay đổi góc, và biên độ các chiều khác nhau. Sai bước giải chuẩn hóa có thể khiến lệnh vượt quá giới hạn dù số mô hình sinh ra nhìn có vẻ nhỏ.",
     "detail": {
-      "label": "NỀN TẢNG KỸ THUẬT",
-      "text": "Mixture-of-Experts (MoE): router chọn một vài FFN experts mỗi token, nhiều total parameters nhưng activation sparse."
+      "label": "GIẢI THÍCH",
+      "text": "Chuẩn hóa hành động quan trọng vì một robot dùng góc khớp tuyệt đối, robot khác dùng độ thay đổi góc, và biên độ các chiều khác nhau. Sai bước giải chuẩn hóa có thể khiến lệnh vượt quá giới hạn dù số mô hình sinh ra nhìn có vẻ nhỏ."
     }
   },
   {
     "type": "pipeline",
-    "title": "Kiến trúc trong một sơ đồ",
-    "lead": "Một pipeline VLA hướng sản xuất: data curation, action 55D, sparse MoE và future-state feature prediction.",
+    "title": "Quy trình xử lý dữ liệu và sinh lệnh",
+    "lead": "Đầu tiên dữ liệu robot và video người được tuyển chọn, đồng bộ, gắn nhãn và chuyển sang biểu diễn thống nhất.",
     "items": [
       "90K h robot thô + video người",
       "Curation + SLAM/MANO",
-      "55D + VLM/MoE action expert",
-      "Flow actions + future features"
+      "55D + VLM/MoE hành động expert",
+      "Flow hành động + future features"
     ],
-    "intuition": "VLM mã hóa instruction, ảnh và robot state.",
+    "intuition": "Phần sinh hành động sử dụng nhiều nhánh chuyên gia (MoE) để tăng khả năng chứa kiến thức cho các kiểu nhiệm vụ khác nhau. Bên cạnh mục tiêu dự đoán lệnh, mạng được khuyến khích học đặc trưng cảnh hiện tại/tương lai qua mô hình hình ảnh–video và độ sâu.",
     "detail": {
-      "label": "ĐIỂM NHẤN TRIỂN KHAI",
-      "text": "Thay vì bắt VLA sinh toàn bộ future pixels, student học future đặc trưng latent. Đấy là một proxy mục tiêu huấn luyện để hướng hidden state chứa thông tin về thay đổi bối cảnh."
+      "label": "GIẢI THÍCH",
+      "text": "Phần sinh hành động sử dụng nhiều nhánh chuyên gia (MoE) để tăng khả năng chứa kiến thức cho các kiểu nhiệm vụ khác nhau. Bên cạnh mục tiêu dự đoán lệnh, mạng được khuyến khích học đặc trưng cảnh hiện tại/tương lai qua mô hình hình ảnh–video và độ sâu. Khi robot hoạt động, những tín hiệu học bổ sung không có nghĩa phải chạy toàn bộ mạng hướng dẫn (teacher) để tạo lệnh mỗi bước."
     }
   },
   {
     "type": "representation",
-    "title": "Mô hình biểu diễn cái gì?",
-    "lead": "Schema 55D gom arm, EEF, gripper, fingers, waist, head và mobile base.",
+    "title": "Biểu diễn hành động cho nhiều phần cứng",
+    "lead": "Chuẩn hóa hành động quan trọng vì một robot dùng góc khớp tuyệt đối, robot khác dùng độ thay đổi góc, và biên độ các chiều khác nhau.",
     "items": [
       {
         "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
@@ -106,16 +106,16 @@
         "value": "Tensor 55D là interface chung, không đảm bảo kinematics/force tương đương."
       }
     ],
-    "intuition": "Tensor 55D là interface chung, không đảm bảo kinematics/force tương đương.",
+    "intuition": "Đầu tiên dữ liệu robot và video người được tuyển chọn, đồng bộ, gắn nhãn và chuyển sang biểu diễn thống nhất. Camera cùng câu lệnh được bộ phận thị giác–ngôn ngữ xử lý; trạng thái robot và dạng hành động của từng loại phần cứng được mã hóa tương ứng.",
     "detail": {
-      "label": "CHI TIẾT BIỂU DIỄN",
-      "text": "Bài báo đề xuất một vector action cố định 55D chia các vùng: arm joints (14), end-effector poses (14), gripper (2), hand joints (12), waist (4), head (2), mobile base (3) và reserved (4)."
+      "label": "GIẢI THÍCH",
+      "text": "Đầu tiên dữ liệu robot và video người được tuyển chọn, đồng bộ, gắn nhãn và chuyển sang biểu diễn thống nhất. Camera cùng câu lệnh được bộ phận thị giác–ngôn ngữ xử lý; trạng thái robot và dạng hành động của từng loại phần cứng được mã hóa tương ứng."
     }
   },
   {
     "type": "training",
-    "title": "Model học như thế nào?",
-    "lead": "Khoảng 90K giờ robot thô → 50K giờ chọn lọc; thêm 10K giờ human egocentric video.",
+    "title": "LingBot-VLA 2.0 học qua những giai đoạn nào?",
+    "lead": "Đầu tiên dữ liệu robot và video người được tuyển chọn, đồng bộ, gắn nhãn và chuyển sang biểu diễn thống nhất.",
     "items": [
       {
         "label": "MỤC TIÊU HỌC",
@@ -126,50 +126,50 @@
         "value": "Dual-query latent predictions lấy signal từ Depth và DINO-Video teachers."
       }
     ],
-    "intuition": "Ablation action normalization: relative joints 55,0% vs absolute 33,7% trong setup được báo cáo.",
+    "intuition": "Phần sinh hành động sử dụng nhiều nhánh chuyên gia (MoE) để tăng khả năng chứa kiến thức cho các kiểu nhiệm vụ khác nhau. Bên cạnh mục tiêu dự đoán lệnh, mạng được khuyến khích học đặc trưng cảnh hiện tại/tương lai qua mô hình hình ảnh–video và độ sâu.",
     "detail": {
-      "label": "CÁCH HUẤN LUYỆN",
-      "text": "LingBot thay các FFN bằng sparse Mixture-of-Experts, gồm một shared expert luôn active và routed experts được chọn bằng token-level top-K router."
+      "label": "GIẢI THÍCH",
+      "text": "Từ khoảng 90.000 giờ dữ liệu robot thô, nhóm nghiên cứu tuyển ra khoảng 50.000 giờ thuộc 20 cấu hình robot; bổ sung cỡ 10.000 giờ video góc nhìn người sau lọc. Nếu giữ quá nhiều đoạn tay đứng yên, di chuyển không tương tác hoặc camera mất dấu, mô hình sẽ ít thấy thao tác khó dù tổng thời lượng lớn."
     }
   },
   {
     "type": "inference",
-    "title": "Một lần inference xảy ra ra sao?",
-    "lead": "VLM mã hóa instruction, ảnh và robot state.",
+    "title": "Khi chạy, mô hình chọn lệnh ra sao?",
+    "lead": "Phần sinh hành động sử dụng nhiều nhánh chuyên gia (MoE) để tăng khả năng chứa kiến thức cho các kiểu nhiệm vụ khác nhau.",
     "items": [
       {
         "label": "XỬ LÝ ĐẦU VÀO",
-        "value": "Router chọn expert theo hidden tokens; flow head sinh actions."
+        "value": "Bộ chọn đưa thông tin tới các nhánh chuyên gia; bộ sinh tạo đoạn hành động."
       },
       {
         "label": "TẠO HÀNH ĐỘNG",
         "value": "Bắt buộc inverse-normalize và xử lý schema đúng robot đang deploy."
       }
     ],
-    "intuition": "Bắt buộc inverse-normalize và xử lý schema đúng robot đang deploy.",
+    "intuition": "Robot cần đi tới bàn, nhận biết vật cần lấy, điều khiển tay kẹp, đặt vật vào hộp rồi tiếp tục di chuyển. Lệnh cho bệ di động có dạng khác lệnh cổ tay, đầu hay ngón kẹp. Một biểu diễn hành động dùng chung phải giữ đúng ý nghĩa từng phần khi chuyển sang robot khác.",
     "detail": {
-      "label": "DIỄN BIẾN THỰC THI",
-      "text": "Khi batch action tokens đi qua action expert, router chọn sparse experts theo đặc trưng token, trong lúc shared expert giữ common dung lượng mô hình."
+      "label": "GIẢI THÍCH",
+      "text": "Ở một nhóm nhiệm vụ GM-100 trên Agilex Cobot Magic, chỉ số tiến độ và tỷ lệ hoàn thành được báo cáo lần lượt khoảng 66,2 và 34,4 cho LingBot-VLA 2.0; phương án π0.5 khoảng 59,1 và 32,2. Trên một cấu hình Galaxea khác, các cặp lần lượt khoảng 34,6/15,6 và 27,4/8,9. Tiến độ có nghĩa robot làm được một phần chuỗi, còn thành công đòi hoàn thành mục tiêu cuối."
     }
   },
   {
     "type": "equation",
-    "title": "Mathematical Intuition",
-    "lead": "Shared expert luôn hoạt động; router chọn thêm một ít chuyên gia phù hợp với token, không chạy mọi expert.",
+    "title": "Ý nghĩa không gian hành động thống nhất",
+    "lead": "Chuẩn hóa hành động quan trọng vì một robot dùng góc khớp tuyệt đối, robot khác dùng độ thay đổi góc, và biên độ các chiều khác nhau.",
     "equation": "y=h_{\\rm shared}(x)+\\sum_{e\\in\\mathrm{TopK}(x)}w_e\\,h_e(x)",
     "items": [
       "Ký hiệu intuition của MoE; số expert/weight cụ thể xem bài gốc."
     ],
-    "intuition": "Shared expert luôn hoạt động; router chọn thêm một ít chuyên gia phù hợp với token, không chạy mọi expert.",
+    "intuition": "Đầu tiên dữ liệu robot và video người được tuyển chọn, đồng bộ, gắn nhãn và chuyển sang biểu diễn thống nhất. Camera cùng câu lệnh được bộ phận thị giác–ngôn ngữ xử lý; trạng thái robot và dạng hành động của từng loại phần cứng được mã hóa tương ứng.",
     "detail": {
-      "label": "Ý NGHĨA CÔNG THỨC",
-      "text": "Router không hard-code robot A → expert 1, tay trái → expert 2. Nó học specialization dựa trên hidden state của từng token."
+      "label": "GIẢI THÍCH CÔNG THỨC",
+      "text": "Không nên chỉ hỏi mô hình nào có nhiều tham số nhất. Cần biết nó học từ dữ liệu sạch đến đâu, loại robot thử gì, và các thí nghiệm tách thành phần có chỉ ra nguồn cải thiện hay không."
     }
   },
   {
     "type": "results",
-    "title": "Kết quả nói lên điều gì?",
-    "lead": "MoE ~1,6B total / ~0,6B active giảm validation action loss so dense ~0,6B.",
+    "title": "Các phép thử về chất lượng dữ liệu và mô hình",
+    "lead": "Hình 7 so mô hình Dense với MoE khi số tham số hoạt động tương đương. Đó là điều kiện quan trọng để lợi thế, nếu có, không đơn giản do dùng nhiều phép tính hơn.",
     "items": [
       {
         "label": "PHÁT HIỆN QUAN TRỌNG",
@@ -180,32 +180,32 @@
         "value": "Refrigerator OOD: success khoảng 13,3%, cho thấy long-horizon transfer vẫn rất khó."
       }
     ],
-    "intuition": "55D không biểu diễn mọi contact/tactile, sparse experts chưa chắc chuyên biệt theo kỹ năng thật.",
+    "intuition": "Ở một nhóm nhiệm vụ GM-100 trên Agilex Cobot Magic, chỉ số tiến độ và tỷ lệ hoàn thành được báo cáo lần lượt khoảng 66,2 và 34,4 cho LingBot-VLA 2.0; phương án π0.5 khoảng 59,1 và 32,2. Trên một cấu hình Galaxea khác, các cặp lần lượt khoảng 34,6/15,6 và 27,4/8,9.",
     "detail": {
-      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
-      "text": "MoE scaling: Figure 7 cho loss khi huấn luyện và lỗi dự đoán action trên tập validation của sparse MoE thấp hơn dense với chi phí tính toán khi chạy gần tương đương."
+      "label": "GIẢI THÍCH",
+      "text": "Hình 7 so mô hình Dense với MoE khi số tham số hoạt động tương đương. Đó là điều kiện quan trọng để lợi thế, nếu có, không đơn giản do dùng nhiều phép tính hơn. Hình 11–12 so phân phối hành động theo từng nhiệm vụ; các cột có cùng tên chiều vẫn có thể khác biên độ và cách điều khiển. Vì vậy đọc các biểu đồ chuẩn hóa là bước kỹ thuật bắt buộc, không phải phần trang trí."
     }
   },
   {
     "type": "ablation",
-    "title": "Ablation và bằng chứng",
-    "lead": "Ablation action normalization: relative joints 55,0% vs absolute 33,7% trong setup được báo cáo.",
+    "title": "Bỏ từng thành phần để xem tác dụng",
+    "lead": "Hình 13 so đặc trưng độ sâu/ảnh thật với dự đoán hiện tại và tương lai, nhằm kiểm tra tín hiệu học bổ sung. Để quy lợi ích cho nó, cần giữ các nguồn dữ liệu và thành phần khác tương đương.",
     "items": [
       {
         "label": "YẾU TỐ ĐƯỢC THỬ",
-        "value": "Progress khác success; MoE loss gain không tự chứng minh hiệu quả từng module trên real robot."
+        "value": "Tiến độ khác tỷ lệ hoàn thành; giảm sai số học không tự chứng minh mọi thành phần giúp robot thật."
       }
     ],
-    "intuition": "GM-100 Agilex: progress/success 66,2/34,4; π0.5 59,1/32,2 (cùng bảng).",
+    "intuition": "Hình 7 so mô hình Dense với MoE khi số tham số hoạt động tương đương. Đó là điều kiện quan trọng để lợi thế, nếu có, không đơn giản do dùng nhiều phép tính hơn. Hình 11–12 so phân phối hành động theo từng nhiệm vụ; các cột có cùng tên chiều vẫn có thể khác biên độ và cách điều khiển.",
     "detail": {
-      "label": "BẰNG CHỨNG BỔ SUNG",
-      "text": "GM-100 bimanual đánh giá: Trên Agilex Cobot Magic, báo cáo average progress/thành công khoảng 66.2 / 34.4 cho LingBot 2.0, so 59.1 / 32.2 cho π0.5 trong cùng bảng."
+      "label": "GIẢI THÍCH",
+      "text": "Hình 13 so đặc trưng độ sâu/ảnh thật với dự đoán hiện tại và tương lai, nhằm kiểm tra tín hiệu học bổ sung. Để quy lợi ích cho nó, cần giữ các nguồn dữ liệu và thành phần khác tương đương. Với nhiệm vụ dài, Hình 8 đo tỷ lệ hoàn thành từng bước con, không chỉ câu trả lời cuối."
     }
   },
   {
     "type": "limits",
-    "title": "Hạn chế cần nói thẳng",
-    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "title": "Giới hạn khi triển khai nhiều robot",
+    "lead": "Một hệ nhiều thành phần có thể cải thiện tổng thể nhưng khó biết phần nào thật sự tạo khác biệt nếu nhiều thứ đổi cùng lúc. MoE tăng dung lượng tham số nhưng có thêm bài toán định tuyến/chia tải.",
     "items": [
       {
         "label": "Tác giả / phạm vi",
@@ -216,44 +216,44 @@
         "value": "Phê bình: 55D không biểu diễn mọi contact/tactile, sparse experts chưa chắc chuyên biệt theo kỹ năng thật."
       }
     ],
-    "intuition": "Robot thiếu bộ phận sẽ mask vị trí đó.",
+    "intuition": "Đưa mô hình sang phần cứng mới vẫn cần kiểm tra camera, sơ đồ khớp, mask hành động và thống kê chuẩn hóa. Một vector 55 chiều hợp lệ về mặt phần mềm chưa bảo đảm là lệnh an toàn trên robot thật.",
     "detail": {
-      "label": "PHẠM VI KẾT LUẬN",
-      "text": "Canonicalization có mất mát: một 55D padded vector không đủ biểu diễn mọi morphology/contact force tactile dữ liệu; nhiều hands cần DoFs hoặc phản hồi không hiện diện."
+      "label": "GIẢI THÍCH",
+      "text": "Đưa mô hình sang phần cứng mới vẫn cần kiểm tra camera, sơ đồ khớp, mask hành động và thống kê chuẩn hóa. Một vector 55 chiều hợp lệ về mặt phần mềm chưa bảo đảm là lệnh an toàn trên robot thật."
     }
   },
   {
     "type": "relations",
-    "title": "Bài này đứng ở đâu trong lĩnh vực?",
-    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "title": "Liên hệ với GR00T và Open X",
+    "lead": "Open X-Embodiment đặt nền cho học trên nhiều loại robot. RDT nghiên cứu bộ sinh hành động phối hợp hai tay có điều kiện từ nhiều tín hiệu. GR00T N1 xây hệ VLM và bộ sinh hành động, tận dụng dữ liệu người/robot đa dạng.",
     "items": [
       {
         "label": "NỀN TẢNG / TIỀN ĐỀ",
-        "value": "GR00T N1 là họ dual-system action experts cho humanoid."
+        "value": "GR00T N1 là họ dual-system hành động experts cho humanoid."
       },
       {
         "label": "HƯỚNG PHÁT TRIỂN",
-        "value": "π0.5 làm baseline mạnh cho long-horizon và cross-environment comparison."
+        "value": "π0.5 làm phương pháp đối chứng mạnh cho long-horizon và cross-environment comparison."
       }
     ],
-    "intuition": "Foundation VLA thành công cần data engineering tương đương model engineering.",
+    "intuition": "Không nên chỉ hỏi mô hình nào có nhiều tham số nhất. Cần biết nó học từ dữ liệu sạch đến đâu, loại robot thử gì, và các thí nghiệm tách thành phần có chỉ ra nguồn cải thiện hay không.",
     "detail": {
-      "label": "CÔNG TRÌNH LIÊN QUAN",
-      "text": "Đọc thêm Open X-Embodiment, GR00T N1, Qwen-VLA, Diffusion Policy, RDT-1B. Nên so sánh cách tiếp cận, dữ liệu huấn luyện và phạm vi khái quát của từng công trình."
+      "label": "GIẢI THÍCH",
+      "text": "Open X-Embodiment đặt nền cho học trên nhiều loại robot. RDT nghiên cứu bộ sinh hành động phối hợp hai tay có điều kiện từ nhiều tín hiệu. GR00T N1 xây hệ VLM và bộ sinh hành động, tận dụng dữ liệu người/robot đa dạng. LingBot-VLA 2.0 cũng đi theo hướng hệ thống nhưng nhấn mạnh việc tuyển lọc dữ liệu, cấu trúc hành động chuẩn và MoE."
     }
   },
   {
     "type": "closing",
-    "title": "Nếu chỉ nhớ ba điều",
-    "lead": "Foundation VLA thành công cần data engineering tương đương model engineering.",
+    "title": "Ba điều cần nhớ về LingBot-VLA 2.0",
+    "lead": "Hãy vẽ ba robot: cánh tay đơn, robot hai tay và robot di động. Ghi những chiều hành động mà mỗi robot thật sự có. Giải thích vì sao cách biểu diễn 55 chiều cần thông tin loại robot và cách che những phần không dùng.",
     "items": [
       "Phân biệt số giờ raw với giờ usable và score progress với score success.",
       "Một schema chung mới là điều kiện cần, không bảo chứng universal control."
     ],
-    "intuition": "Một pipeline VLA hướng sản xuất: data curation, action 55D, sparse MoE và future-state feature prediction.",
+    "intuition": "Tiếp đó chọn một bài toán nhặt cốc và đề xuất ba phép thử: giữ dữ liệu, chỉ thay mạng thường (Dense) bằng mạng nhiều chuyên gia (MoE); giữ mô hình, chỉ thay cách chuẩn hóa; giữ mọi thứ, chỉ thêm mục tiêu dự đoán đặc trưng tương lai.",
     "detail": {
-      "label": "THỬ NGHIỆM TIẾP THEO",
-      "text": "Cuối cùng thêm auxiliary loss future đặc trưng thị giác và ablate, nhưng luôn giữ dữ liệu budget, active compute và per-task đánh giá giống nhau."
+      "label": "GIẢI THÍCH",
+      "text": "Tiếp đó chọn một bài toán nhặt cốc và đề xuất ba phép thử: giữ dữ liệu, chỉ thay mạng thường (Dense) bằng mạng nhiều chuyên gia (MoE); giữ mô hình, chỉ thay cách chuẩn hóa; giữ mọi thứ, chỉ thêm mục tiêu dự đoán đặc trưng tương lai. Nếu có thể diễn đạt rõ từng thử nghiệm kiểm chứng giả thuyết nào, bạn đã hiểu đóng góp quan trọng nhất của LingBot."
     }
   }
 ]
