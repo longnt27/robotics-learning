@@ -1,259 +1,266 @@
 [
   {
     "type": "cover",
-    "title": "Điểm cốt lõi",
-    "lead": "Robot nhận nhiệm vụ qua prompt có cả text, hình và ví dụ thao tác, chứ không chỉ câu lệnh.",
+    "title": "VIMA: giao nhiệm vụ bằng cả chữ và hình",
+    "lead": "Thay vì chỉ đưa một câu lệnh, người dùng có thể dùng ảnh vật mẫu và ví dụ để chỉ rõ robot phải làm gì.",
     "items": [
-      "Prompt là một chương trình đặc tả nhiệm vụ đa phương thức"
+      "Lời giao việc gồm chữ, ảnh mẫu và ví dụ"
     ],
-    "intuition": "Transformer cross-attend từ trạng thái thế giới vào text và object tokens của prompt.",
+    "intuition": "Hình mẫu trong lời giao việc cho biết cần tìm vật nào; ảnh camera cho biết vật đó đang nằm ở đâu.",
     "detail": {
-      "label": "BỐI CẢNH NGHIÊN CỨU",
-      "text": "Một robot thực tế không phải lúc nào cũng nhận nhiệm vụ dưới một string cố định. User có thể đưa text, ảnh mục tiêu, ảnh vật thể, hoặc một demonstration làm ví dụ."
+      "label": "GIẢI THÍCH",
+      "text": "VIMA nghiên cứu cách robot làm theo prompt kết hợp chữ và hình. Công trình chủ yếu được kiểm tra trong môi trường mô phỏng có cấu trúc, nên kết quả tốt không đồng nghĩa robot ngoài đời đã hiểu và thao tác được mọi đồ vật."
     }
   },
   {
     "type": "problem",
-    "title": "Người dùng không luôn mô tả nhiệm vụ bằng một câu",
-    "lead": "Nhiều thao tác cần chỉ đối tượng bằng ảnh, ví dụ hoặc quan hệ không gian.",
+    "title": "Khi câu chữ không đủ để chỉ đúng đồ vật",
+    "lead": "Trên bàn có ba khối giống nhau nhưng khác màu. Một ảnh mẫu giúp robot biết chính xác phải lấy khối nào.",
     "items": [
-      "Text-only instruction interface bỏ lỡ thông tin thị giác của prompt"
+      "Ảnh mẫu giúp phân biệt những vật giống nhau"
     ],
-    "intuition": "Các policy riêng theo prompt format làm việc chuyển giao khó hơn.",
+    "intuition": "Câu “đặt khối vào bát” chưa nói rõ khối nào. Đổi ảnh mẫu từ xanh sang vàng thì lựa chọn của robot cũng phải đổi.",
     "detail": {
-      "label": "NGUYÊN NHÂN CỐT LÕI",
-      "text": "User có thể đưa text, ảnh mục tiêu, ảnh vật thể, hoặc một demonstration làm ví dụ. Những policy cũ thường xây interface riêng cho từng loại conditioning, nên rất khó có một mô hình chung và khó đo khả năng khái quát một cách có hệ thống."
+      "label": "GIẢI THÍCH",
+      "text": "Bài toán không chỉ là hiểu động từ “đặt”. Robot còn phải liên hệ đồ vật được chỉ trong prompt với một vật thực sự đang xuất hiện trước camera, rồi tìm vị trí đích."
     }
   },
   {
     "type": "contrast",
-    "title": "Text-only instruction interface bỏ lỡ thông tin thị giác của prompt",
-    "lead": "Các policy riêng theo prompt format làm việc chuyển giao khó hơn.",
+    "title": "Tại sao không tách riêng mỗi kiểu lời giao việc?",
+    "lead": "Một nhiệm vụ có thể được mô tả bằng chữ, ảnh mục tiêu hoặc ví dụ. Viết một bộ điều khiển riêng cho từng kiểu sẽ khó mở rộng.",
     "items": [
-      "Prompt là một chương trình đặc tả nhiệm vụ đa phương thức",
-      "Transformer cross-attend từ trạng thái thế giới vào text và object tokens của prompt."
+      "Chỉ dẫn chỉ bằng chữ có thể thiếu thông tin",
+      "Prompt kết hợp chữ và hình giúp chỉ rõ mục tiêu"
     ],
-    "intuition": "Transformer cross-attend từ trạng thái thế giới vào text và object tokens của prompt.",
+    "intuition": "VIMA đưa nhiều loại chỉ dẫn về cùng một biểu diễn để robot dùng chung cơ chế chọn hành động.",
     "detail": {
-      "label": "VÌ SAO CẦN THAY ĐỔI",
-      "text": "Prompt có thể chứa text lẫn token thị giác. Kiến trúc dùng đã pretrain text encoder, object-centric token thị giác và Transformer để cross-attend vào prompt rồi autoregressively sinh action."
+      "label": "GIẢI THÍCH",
+      "text": "Điểm đáng chú ý là prompt trở thành phần của đầu vào điều khiển chứ không chỉ là nhãn nhiệm vụ cố định. Tuy nhiên, hiểu lời giao việc linh hoạt hơn không tự tạo ra kỹ năng vận động mà robot chưa từng học."
     }
   },
   {
     "type": "intuition",
-    "title": "Prompt là một chương trình đặc tả nhiệm vụ đa phương thức",
-    "lead": "Transformer cross-attend từ trạng thái thế giới vào text và object tokens của prompt.",
+    "title": "Đổi ảnh mẫu, giữ nguyên câu chữ",
+    "lead": "Hãy cho robot thấy ba khối màu khác nhau và yêu cầu đưa vật giống ảnh mẫu vào khay.",
     "items": [
-      "Robot nhận nhiệm vụ qua prompt có cả text, hình và ví dụ thao tác, chứ không chỉ câu lệnh."
+      "Giữ nguyên câu lệnh",
+      "Đổi ảnh mẫu",
+      "Quan sát vật được chọn"
     ],
-    "intuition": "Transformer cross-attend từ trạng thái thế giới vào text và object tokens của prompt.",
+    "intuition": "Nếu chỉ thay ảnh mẫu mà robot vẫn chọn vật cũ, đó là dấu hiệu nó đang bỏ qua thông tin thị giác trong prompt.",
     "detail": {
-      "label": "GIẢI THÍCH CƠ CHẾ",
-      "text": "Kiến trúc dùng đã pretrain text encoder, object-centric token thị giác và Transformer để cross-attend vào prompt rồi autoregressively sinh action."
+      "label": "GIẢI THÍCH",
+      "text": "Cách thử đơn giản là giữ nguyên cảnh, câu lệnh và vị trí khay, chỉ đổi ảnh vật mẫu. Kiểm tra vật nào được chọn trước khi xét robot có gắp và đặt thành công hay không."
     }
   },
   {
     "type": "concepts",
-    "title": "Ba khái niệm để nắm",
-    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "title": "Prompt và quan sát không phải một",
+    "lead": "Prompt nói robot cần làm gì; quan sát từ camera nói hiện có những vật gì và chúng đang ở đâu.",
     "items": [
       {
-        "label": "Object-centric tokens",
-        "value": "Mô tả vật thể thay vì toàn ảnh không có cấu trúc."
+        "label": "Prompt",
+        "value": "Chữ, ảnh hoặc ví dụ mô tả yêu cầu."
       },
       {
-        "label": "Multimodal prompt",
-        "value": "Chỉ dẫn có thể trộn text, ảnh vật và ví dụ."
+        "label": "Quan sát",
+        "value": "Cảnh hiện tại robot nhìn qua camera."
       },
       {
-        "label": "Generalization levels",
-        "value": "Tách đồ vật mới, tổ hợp mới và template nhiệm vụ mới."
+        "label": "Token vật thể",
+        "value": "Thông tin gói gọn về từng vật đã nhận diện."
       }
     ],
-    "intuition": "Prompt được mã hóa bằng text và visual object tokens.",
+    "intuition": "Ảnh chiếc cốc mẫu trong prompt khác với ảnh camera có ba chiếc cốc thật.",
     "detail": {
-      "label": "NỀN TẢNG KỸ THUẬT",
-      "text": "Object-centric tokens đưa một inductive bias mạnh: bài toán từ toàn ảnh chuyển thành tập vật thể được nhận diện/segment sẵn."
+      "label": "GIẢI THÍCH",
+      "text": "VIMA còn biểu diễn riêng từng vật thể bằng token, giúp bộ điều khiển dễ so sánh với vật trong prompt. Cách làm này dựa vào giả định các vật có thể được tách và nhận diện đủ tốt."
     }
   },
   {
     "type": "pipeline",
-    "title": "Kiến trúc trong một sơ đồ",
-    "lead": "Robot nhận nhiệm vụ qua prompt có cả text, hình và ví dụ thao tác, chứ không chỉ câu lệnh.",
+    "title": "Từ lời giao việc tới lệnh nhặt và đặt",
+    "lead": "Robot mã hóa chữ và ảnh mẫu, quan sát bàn làm việc, rồi kết hợp hai nguồn để chọn hành động tiếp theo.",
     "items": [
-      "Text + ảnh prompt",
-      "Object encoder",
-      "Cross-attention policy",
-      "Pick/place actions"
+      "Mã hóa chữ và ảnh mẫu",
+      "Nhận diện các vật trong cảnh",
+      "Đối chiếu với prompt",
+      "Dự đoán lệnh nhặt hoặc đặt"
     ],
-    "intuition": "Đọc prompt đa phương thức và state hiện tại.",
+    "intuition": "Cơ chế chú ý chéo giúp bộ điều khiển tìm đúng phần thông tin trong prompt liên quan tới vật đang nhìn thấy.",
     "detail": {
-      "label": "ĐIỂM NHẤN TRIỂN KHAI",
-      "text": "Một điểm quan trọng là benchmark cố tách nhiều kiểu OOD: novel placement, vật thể mới combination, novel nhiệm vụ composition và level khó nhất là nhiệm vụ templates mới."
+      "label": "GIẢI THÍCH",
+      "text": "Transformer không chỉ đọc câu chữ: nó dùng cả lịch sử quan sát và thao tác. Sau mỗi lệnh, robot có thể nhận ảnh mới và điều chỉnh hành động, thay vì mặc định vị trí vật luôn như ban đầu."
     }
   },
   {
     "type": "representation",
-    "title": "Mô hình biểu diễn cái gì?",
-    "lead": "Prompt được mã hóa bằng text và visual object tokens.",
+    "title": "Vì sao VIMA dùng token theo vật thể?",
+    "lead": "Thay vì coi mọi điểm ảnh như nhau, mô hình nhận thông tin đã được tổ chức quanh từng đồ vật.",
     "items": [
       {
-        "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
-        "value": "Môi trường mô phỏng cung cấp biểu diễn đối tượng/quan hệ khá rõ."
+        "label": "Biểu diễn",
+        "value": "Đặc trưng của từng vật thay vì toàn cảnh chưa phân tách."
       },
       {
-        "label": "ĐÁNH ĐỔI KỸ THUẬT",
-        "value": "Sức mạnh object-centric cũng là giả định làm dễ phần perception."
+        "label": "Đánh đổi",
+        "value": "Dễ tìm vật đích hơn, nhưng phụ thuộc vào bước nhận diện."
       }
     ],
-    "intuition": "Sức mạnh object-centric cũng là giả định làm dễ phần perception.",
+    "intuition": "Cách biểu diễn ấy thuận tiện khi phải so khối xanh mẫu với các khối đang ở trên bàn, nhưng phụ thuộc vào khả năng nhận diện vật.",
     "detail": {
-      "label": "CHI TIẾT BIỂU DIỄN",
-      "text": "Mô hình được scale từ cỡ nhỏ đến khoảng 200M parameters để xem hiệu năng có obey scaling trend không."
+      "label": "GIẢI THÍCH",
+      "text": "Nếu một vật bị che khuất hoặc không tách được khỏi nền, biểu diễn theo vật thể có thể thiếu thông tin ngay từ đầu. Đây là ưu thế trong môi trường mô phỏng nhưng cũng là giới hạn khi chuyển ra thế giới thật."
     }
   },
   {
     "type": "training",
-    "title": "Model học như thế nào?",
-    "lead": "VIMA-Bench gồm 17 nhóm nhiệm vụ và hơn 600 nghìn expert trajectories.",
+    "title": "Mô hình học từ những lời giao việc nào?",
+    "lead": "VIMA học bắt chước các thao tác được gắn với prompt đa phương thức, thay vì học một lệnh cố định cho mỗi nhiệm vụ.",
     "items": [
       {
-        "label": "MỤC TIÊU HỌC",
-        "value": "Train policy trên nhiều tổ hợp prompt/action."
+        "label": "Mục tiêu học",
+        "value": "Dự đoán hành động phù hợp với quan sát và prompt."
       },
       {
-        "label": "DỮ LIỆU / QUY TRÌNH",
-        "value": "Scale dữ liệu và tham số đến khoảng 200M để kiểm tra xu hướng."
+        "label": "Đánh giá",
+        "value": "Kiểm tra các tổ hợp nhiệm vụ ngày càng mới."
       }
     ],
-    "intuition": "Object-centric conditioning mang lại inductive bias hữu ích.",
+    "intuition": "Khi kiểm tra, phải đổi tổ hợp vật, quan hệ hoặc kiểu nhiệm vụ để biết mô hình có áp dụng được kiến thức đã học hay chỉ nhớ ví dụ cũ.",
     "detail": {
-      "label": "CÁCH HUẤN LUYỆN",
-      "text": "Bài báo giới thiệu VIMA-Bench, gồm 17 nhóm nhiệm vụ, hơn 600 nghìn expert các quỹ đạo và nhiều level khả năng khái quát ngày càng khó."
+      "label": "GIẢI THÍCH",
+      "text": "VIMA-BENCH chia đánh giá thành bốn mức ngày càng khác dữ liệu huấn luyện. Việc mô hình làm tốt ở mức quen thuộc không đủ chứng minh nó xử lý được những tổ hợp chưa từng gặp."
     }
   },
   {
     "type": "inference",
-    "title": "Một lần inference xảy ra ra sao?",
-    "lead": "Đọc prompt đa phương thức và state hiện tại.",
+    "title": "Robot có nhìn lại sau mỗi thao tác không?",
+    "lead": "Robot dùng quan sát và prompt để dự đoán hành động, thực hiện lệnh rồi tiếp tục cập nhật tình hình.",
     "items": [
       {
-        "label": "XỬ LÝ ĐẦU VÀO",
-        "value": "Chọn object, suy ra quan hệ trong prompt, dự đoán thao tác."
+        "label": "Đầu vào",
+        "value": "Prompt, quan sát hiện tại và lịch sử thao tác."
       },
       {
-        "label": "TẠO HÀNH ĐỘNG",
-        "value": "Đánh giá zero-shot bằng level held-out tăng dần độ khó."
+        "label": "Đầu ra",
+        "value": "Lệnh điều khiển cho bước tiếp theo."
       }
     ],
-    "intuition": "Đánh giá zero-shot bằng level held-out tăng dần độ khó.",
+    "intuition": "Nếu đổi vị trí các khối, robot phải dựa vào ảnh camera mới; đi tới tọa độ cũ sẽ làm sai nhiệm vụ.",
     "detail": {
-      "label": "DIỄN BIẾN THỰC THI",
-      "text": "Lúc đánh giá, thay cốc xanh bằng vật mới hoặc đổi quan hệ không gian để đo prompt khả năng khái quát."
+      "label": "GIẢI THÍCH",
+      "text": "Cần tách hai lỗi: chọn nhầm vật vì hiểu sai prompt, và chọn đúng vật nhưng gắp hoặc đặt thất bại. Hai lỗi có thể xuất hiện ở những bước khác nhau của cùng một lượt thử."
     }
   },
   {
     "type": "equation",
-    "title": "Mathematical Intuition",
-    "lead": "Thay lệnh text đơn nhất bằng prompt kết hợp chữ và hình; action phụ thuộc cả hai.",
+    "title": "Công thức nói gì về việc giao nhiệm vụ?",
+    "lead": "Hành động được dự đoán dựa trên quan sát và prompt; prompt lại chứa cả phần chữ lẫn phần hình.",
     "equation": "\\pi_\\theta(a\\mid o,\\underbrace{p_{\\rm text},p_{\\rm vision}}_{\\rm prompt})",
     "items": [
-      "Biểu thức mô tả cách đặt điều kiện, không phải claim về tối ưu."
+      "Quan sát hiện tại và prompt cùng ảnh hưởng tới hành động"
     ],
-    "intuition": "Thay lệnh text đơn nhất bằng prompt kết hợp chữ và hình; action phụ thuộc cả hai.",
+    "intuition": "Ký hiệu bên dưới chỉ mối phụ thuộc của quyết định điều khiển, không phải công thức bảo đảm robot sẽ thành công.",
     "detail": {
       "label": "Ý NGHĨA CÔNG THỨC",
-      "text": "Trong VIMA, prompt là đặc tả của nhiệm vụ, không chỉ sentence. Nó có thể gồm hình ảnh của mục tiêu và vật thể tham chiếu; những thành phần này cần fusion với quan sát hiện tại."
+      "text": "Trong biểu thức, o là quan sát, a là hành động, còn p là prompt. Hai thành phần chữ và hình cùng góp thông tin để mô hình chọn hành động thích hợp với cảnh đang diễn ra."
     }
   },
   {
     "type": "results",
-    "title": "Kết quả nói lên điều gì?",
-    "lead": "Ở một số so sánh báo cáo, tỷ lệ thành công cao hơn baseline tới 2,9 lần.",
+    "title": "Kết quả cần đọc theo bốn mức độ khó",
+    "lead": "VIMA đạt lợi thế lớn trước một số kiến trúc đối chứng, nhưng kết quả phụ thuộc vào mức thử và điều kiện huấn luyện.",
     "items": [
       {
-        "label": "PHÁT HIỆN QUAN TRỌNG",
-        "value": "Với mức dữ liệu ít hơn đáng kể, có so sánh hiệu năng cao hơn 2,7 lần."
+        "label": "Điểm mạnh được báo cáo",
+        "value": "Hiệu quả cao hơn ở một số mức thử so với kiến trúc đối chứng."
       },
       {
-        "label": "CÁCH DIỄN GIẢI",
-        "value": "Các level OOD khó nhất vẫn làm kết quả tụt mạnh."
+        "label": "Điều phải kiểm tra",
+        "value": "Mức độ mới của vật, quan hệ và loại nhiệm vụ."
       }
     ],
-    "intuition": "thế giới mô phỏng giàu cấu trúc không thay thế được contact dynamics và lỗi cảm biến ngoài đời.",
+    "intuition": "Bài báo có phép so báo cáo mức thành công cao hơn tới khoảng 2,9 lần; không được xem đó là mức tăng cố định trong mọi trường hợp.",
     "detail": {
-      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
-      "text": "Bài báo báo có thiết lập tới 2.9x tỷ lệ thành công của nhiệm vụ so với kiến trúc thay thế ở cùng dữ liệu budget, và 2.7x hiệu năng với ít hơn 10x dữ liệu trong một số comparison."
+      "label": "ĐỌC SỐ LIỆU",
+      "text": "Càng đổi nhiều yếu tố chưa có trong dữ liệu huấn luyện, nhiệm vụ càng khó. Vì vậy phải so từng mức của VIMA-BENCH, không chỉ lấy một con số tổng hợp để kết luận mô hình hiểu mọi prompt mới."
     }
   },
   {
     "type": "ablation",
-    "title": "Ablation và bằng chứng",
-    "lead": "Object-centric conditioning mang lại inductive bias hữu ích.",
+    "title": "Thử thay từng thành phần để hiểu kết quả",
+    "lead": "Nhóm tác giả thay cách mã hóa ảnh và cách đưa prompt vào bộ điều khiển, rồi so tỷ lệ thành công.",
     "items": [
       {
-        "label": "YẾU TỐ ĐƯỢC THỬ",
-        "value": "Nhiều dữ liệu và model lớn cải thiện cả các mức generalization khó."
+        "label": "Hình 6",
+        "value": "Thay cách biểu diễn thông tin thị giác."
+      },
+      {
+        "label": "Hình 7",
+        "value": "Thay cơ chế đưa prompt vào bộ điều khiển."
       }
     ],
-    "intuition": "Với mức dữ liệu ít hơn đáng kể, có so sánh hiệu năng cao hơn 2,7 lần.",
+    "intuition": "Đó là thí nghiệm loại bỏ hoặc thay một thành phần để biết nó đóng góp gì, thường gọi là ablation.",
     "detail": {
-      "label": "BẰNG CHỨNG BỔ SUNG",
-      "text": "Kích thước mô hình và dữ liệu size đều giúp systematic khả năng khái quát, không chỉ memorization huấn luyện nhiệm vụ."
+      "label": "THỬ NGHIỆM TÁCH THÀNH PHẦN",
+      "text": "Hình 6 so các cách tạo token từ hình. Hình 7 so cơ chế chú ý chéo với bộ giải mã Transformer thông thường. Chú ý chéo đặc biệt có ích ở mô hình nhỏ và nhiệm vụ khó, nhưng kết quả này chỉ đúng trong thiết lập được thử."
     }
   },
   {
     "type": "limits",
-    "title": "Hạn chế cần nói thẳng",
-    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "title": "Đừng nhầm mô phỏng với robot ngoài đời",
+    "lead": "Môi trường thử của VIMA có cấu trúc rõ ràng hơn nhiều cảnh thật có vật bị che, ánh sáng thay đổi và sai số kẹp.",
     "items": [
       {
-        "label": "Tác giả / phạm vi",
-        "value": "Tác giả: perception dựa detector; benchmark chủ yếu mô phỏng với action primitive sạch."
+        "label": "Giới hạn bài báo",
+        "value": "Đánh giá chủ yếu trong mô phỏng có cấu trúc."
       },
       {
-        "label": "Phê bình độc lập",
-        "value": "Phê bình: thế giới mô phỏng giàu cấu trúc không thay thế được contact dynamics và lỗi cảm biến ngoài đời."
+        "label": "Cần kiểm tra thêm",
+        "value": "Nhận diện vật, lực kẹp và khả năng phục hồi ngoài đời."
       }
     ],
-    "intuition": "Môi trường mô phỏng cung cấp biểu diễn đối tượng/quan hệ khá rõ.",
+    "intuition": "Hiểu một prompt mới chưa có nghĩa robot đã học được một động tác vật lý hoàn toàn mới.",
     "detail": {
-      "label": "PHẠM VI KẾT LUẬN",
-      "text": "Bài báo thừa nhận: perception dựa vào vật thể detector riêng nên có thể fail khi occlusion/OOD."
+      "label": "GIẢI THÍCH",
+      "text": "Các kết quả ủng hộ khả năng kết hợp lại những hiểu biết đã học trong phạm vi đánh giá. Chúng chưa chứng minh robot hoạt động ổn định trên mọi phần cứng, dưới mọi góc camera hay với mọi vật thể ngoài đời."
     }
   },
   {
     "type": "relations",
-    "title": "Bài này đứng ở đâu trong lĩnh vực?",
-    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "title": "VIMA khác RT-1 và RT-2 ở đâu?",
+    "lead": "VIMA nghiên cứu cách mô tả nhiệm vụ bằng chữ và hình; RT-1 tập trung học nhiều thao tác từ dữ liệu robot thật.",
     "items": [
       {
-        "label": "NỀN TẢNG / TIỀN ĐỀ",
-        "value": "LIBERO kiểm tra chuyển giao và học liên tục ở benchmark manipulation."
+        "label": "VIMA",
+        "value": "Giao nhiệm vụ bằng prompt đa phương thức."
       },
       {
-        "label": "HƯỚNG PHÁT TRIỂN",
-        "value": "RT-2 mở rộng prompt/image semantics sang robot control."
+        "label": "RT-1 / RT-2",
+        "value": "Học nhiều kỹ năng và tận dụng tri thức ảnh–ngôn ngữ."
       }
     ],
-    "intuition": "Prompt có thể là cấu trúc multimodal thay vì chỉ một chuỗi text.",
+    "intuition": "RT-2 đặt thêm câu hỏi liệu kiến thức ảnh–ngôn ngữ học được ngoài dữ liệu robot có giúp hiểu yêu cầu mới hay không.",
     "detail": {
-      "label": "CÔNG TRÌNH LIÊN QUAN",
-      "text": "Đọc thêm RT-2, LIBERO. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+      "label": "GIẢI THÍCH",
+      "text": "Ba hướng có mục tiêu liên quan nhưng không dùng cùng nguồn dữ liệu và phép đánh giá. Không thể đặt tỷ lệ thành công của chúng cạnh nhau rồi tuyên bố mô hình nào tốt nhất cho mọi robot."
     }
   },
   {
     "type": "closing",
-    "title": "Nếu chỉ nhớ ba điều",
-    "lead": "Prompt có thể là cấu trúc multimodal thay vì chỉ một chuỗi text.",
+    "title": "Ba điều cần giữ lại khi đọc VIMA",
+    "lead": "Prompt có thể dùng hình để chỉ vật; bộ điều khiển cần kết hợp prompt với quan sát mới; kết quả phải được đánh giá trên tình huống chưa gặp.",
     "items": [
-      "Dùng benchmark phân tầng OOD để đo đúng kiểu tổng quát hóa.",
-      "Đừng extrapolate object-centric simulation sang real robot không có perception ổn định."
+      "Ảnh mẫu giúp chỉ vật đích",
+      "Thông tin camera phải được cập nhật",
+      "Đánh giá riêng khả năng khái quát và điều khiển"
     ],
-    "intuition": "Robot nhận nhiệm vụ qua prompt có cả text, hình và ví dụ thao tác, chứ không chỉ câu lệnh.",
+    "intuition": "Muốn biết robot thật sự dùng ảnh mẫu, hãy thay riêng ảnh ấy và xem lựa chọn có đổi hay không.",
     "detail": {
-      "label": "THỬ NGHIỆM TIẾP THEO",
-      "text": "Chạy VIMA-Bench trên một prompt type. Giữ chuyển động primitive không đổi rồi thay modality của prompt: chỉ text, text + vật thể hình ảnh."
+      "label": "GIẢI THÍCH",
+      "text": "Khi tự kiểm tra, tách việc hiểu đúng vật đích khỏi khả năng gắp và đặt. Đây là cách tránh nhầm một lượt thành công trong mô phỏng với bằng chứng robot đã hiểu mọi yêu cầu ngoài đời."
     }
   }
 ]
