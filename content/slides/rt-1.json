@@ -4,7 +4,7 @@
     "title": "RT-1: một mô hình học nhiều thao tác robot",
     "lead": "Một robot phục vụ trong bếp có thể cần nhặt cốc, mở ngăn kéo, đặt bát, gom rác và hàng trăm việc khác. Nếu mỗi việc có một mô hình riêng, mỗi khi đổi vị trí đồ vật hay cách nói lệnh ta lại phải thu thêm dữ liệu và huấn luyện lại.",
     "items": [
-      "Scale dữ liệu robot thật trước khi chỉ scale tham số"
+      "Mở rộng dữ liệu robot thật trước khi chỉ tăng số tham số mô hình"
     ],
     "intuition": "Khác với bài toán nhận diện ảnh, hành động sai sẽ làm thay đổi thế giới. Nếu kẹp lệch một chút, chiếc cốc có thể trượt; quan sát ở bước sau sẽ khác hẳn dữ liệu mẫu. Vì vậy mô hình cần vừa hiểu câu lệnh vừa phát lệnh đủ nhanh để giữ điều khiển liên tục.",
     "detail": {
@@ -30,7 +30,7 @@
     "title": "Một lệnh phải phù hợp cả ảnh và mục tiêu",
     "lead": "Khác với bài toán nhận diện ảnh, hành động sai sẽ làm thay đổi thế giới. Nếu kẹp lệch một chút, chiếc cốc có thể trượt; quan sát ở bước sau sẽ khác hẳn dữ liệu mẫu.",
     "items": [
-      "Scale dữ liệu robot thật trước khi chỉ scale tham số",
+      "Mở rộng dữ liệu robot thật trước khi chỉ tăng số tham số mô hình",
       "Học chung nhiều chỉ dẫn bằng một Transformer nhỏ, conditioned theo ngôn ngữ và hình ảnh."
     ],
     "intuition": "Một robot phục vụ trong bếp có thể cần nhặt cốc, mở ngăn kéo, đặt bát, gom rác và hàng trăm việc khác. Nếu mỗi việc có một mô hình riêng, mỗi khi đổi vị trí đồ vật hay cách nói lệnh ta lại phải thu thêm dữ liệu và huấn luyện lại. Cách đó nhanh chóng trở nên quá đắt.",
