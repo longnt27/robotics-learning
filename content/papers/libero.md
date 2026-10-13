@@ -11,29 +11,11 @@ Lifelong learning không chỉ hỏi “nhiệm vụ mới làm được bao nhi
 
 Hình 1 chia các bộ nhiệm vụ theo kiểu thay đổi kiến thức cần chuyển giao: vị trí đối tượng, đối tượng mới, mục tiêu khác và các nhiệm vụ dài hơn. Điều quan trọng của LIBERO không phải một tỷ lệ thành công đơn lẻ mà là giao thức học liên tục. Nếu model học task B sau task A, ta phải đo cả B lẫn A để phát hiện catastrophic forgetting. Nhìn một hàng cuối cùng không cho biết liệu policy chỉ giỏi task vừa học hay vẫn nhớ những task cũ.
 
-### Đào sâu: Điểm cốt lõi
+### Tại sao robot học việc mới rồi lại quên việc cũ?
 
-**Luận điểm.** Benchmark kiểm tra robot có giữ được kỹ năng và chuyển giao giữa các nhiệm vụ liên tiếp hay không. LIBERO được xây để kiểm tra chính xác các dạng chuyển giao đó trong môi trường thao tác robot có kiểm soát.
+Robot đã học đặt cốc lên đĩa. Ta tiếp tục dạy nó bỏ đồ vào ngăn kéo. Nếu cập nhật cùng một mạng chỉ với dữ liệu nhiệm vụ sau, các tham số từng giúp đặt cốc có thể bị thay đổi, khiến robot làm kém việc cũ. Hiện tượng ấy được gọi là **quên kiến thức khi học nối tiếp**.
 
-**Vấn đề khoa học nằm ở đâu?** Một điểm success trên một task không phản ánh lifelong learning hay transfer. Một hệ thống robot có thể có hình ảnh đẹp, output trông hợp lý nhưng vẫn sai ở cơ cấu thực thi. Vì thế phải tách câu hỏi về dữ liệu, câu hỏi về representation, câu hỏi về policy và câu hỏi về đánh giá. Thay một bảng điểm bằng nhiều loại chuyển giao kiến thức là đóng góp cần đọc cùng các giả định ấy, không phải câu slogan thay thế cho thí nghiệm.
-
-**Đọc đóng góp như một giả thuyết.** Cơ chế được đề xuất là Phân tách object, spatial, goal và long-horizon để biết policy đang chuyển giao kiểu gì. Nếu nó thật sự hữu ích, điểm khác biệt phải xuất hiện tại chính nơi baseline gặp bottleneck. Không đủ chỉ liệt kê thành phần mới; cần giải thích tại sao dữ liệu hoặc observation hiện có không giải được bài toán với cách làm cũ.
-
-### Đào sâu: Học nhiệm vụ mới có thể làm policy quên nhiệm vụ cũ
-
-**Luận điểm.** Một điểm success trên một task không phản ánh lifelong learning hay transfer. Lifelong learning không chỉ hỏi “nhiệm vụ mới làm được bao nhiêu %”, mà còn hỏi hai câu khó hơn: học nhiệm vụ cũ có giúp học nhiệm vụ mới nhanh hơn không, và học nhiệm vụ mới có làm quên nhiệm vụ cũ không.
-
-**Tại sao lỗi này có hệ quả lớn?** Benchmark một task không đo được catastrophic forgetting. Mỗi action làm thay đổi trạng thái môi trường và tạo ra observation tiếp theo. Một dự đoán hơi lệch có thể đẩy robot ra ngoài những trạng thái từng thấy trong demonstration, khiến bước sau khó phục hồi hơn. Bản thân học nhiệm vụ mới có thể làm policy quên nhiệm vụ cũ vì thế ảnh hưởng đến toàn bộ rollout, chứ không chỉ một hàng trong bảng accuracy.
-
-**Thử nghĩ một phản ví dụ.** Nếu chỉ test các episode có điểm bắt đầu giống dữ liệu huấn luyện, policy có thể học shortcut về bối cảnh. Đổi nhẹ góc camera, vật thể hoặc thứ tự thao tác sẽ phơi bày liệu nó có dùng tín hiệu nhân quả phù hợp không. Vì vậy phải kiểm tra điều kiện test trước khi đọc tỷ lệ thành công.
-
-### Đào sâu: Benchmark một task không đo được catastrophic forgetting
-
-**Luận điểm.** Random split trong cùng scene khiến mô hình được đo trên bối cảnh quá giống training. Các benchmark robot trước đó không tách rõ kiến thức khai báo như vật thể/quan hệ không gian với kiến thức quy trình như chuyển động/chuỗi mục tiêu.
-
-**Hai quy trình khác nhau ra sao?** Phương pháp cũ gặp trở ngại: Random split trong cùng scene khiến mô hình được đo trên bối cảnh quá giống training.. Thay đổi trọng tâm là: Thay một bảng điểm bằng nhiều loại chuyển giao kiến thức. Câu hỏi có ích nhất không phải mạng mới có bao nhiêu lớp, mà là thông tin nào trước kia bị đánh mất và giờ được chuyển qua đúng mô-đun. Phân tách object, spatial, goal và long-horizon để biết policy đang chuyển giao kiểu gì.
-
-**Đặt điều kiện đối chứng.** Nếu train hai cách với data budget khác nhau, hoặc một bên dùng pretrained encoder còn bên kia không, chênh lệch không đủ để gán cho cơ chế mới. Một ablation đúng phải giữ càng nhiều yếu tố càng tốt và thay đổi đúng thành phần tác giả muốn chứng minh.
+LIBERO là bộ nhiệm vụ và quy trình đánh giá, không phải policy mới. Nó kiểm tra robot có học việc mới không, có giữ được việc cũ không và kiến thức về vật thể, vị trí, mục tiêu có chuyển từ việc này sang việc khác được hay không.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -43,13 +25,11 @@ Học liên tục (lifelong/continual learning) khác học đa nhiệm (multi-t
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Ba khái niệm để nắm
+### Học liên tục khác học đa nhiệm thế nào?
 
-**Luận điểm.** Hiểu ba khái niệm này trước khi đọc thuật toán. Benchmark phải tách hai câu hỏi: chuyển kiến thức sang nhiệm vụ mới có nhanh hơn không, và sau khi học nhiệm vụ mới mô hình có còn làm được nhiệm vụ cũ không.
+**Học đa nhiệm** thường cho mạng nhìn dữ liệu nhiều nhiệm vụ cùng lúc. **Học liên tục** đưa nhiệm vụ theo thứ tự và có thể không cho dùng lại toàn bộ dữ liệu cũ. Vì vậy phải đo hiệu quả nhiều lần: sau khi học A, sau khi học B và sau khi học C. Chỉ đo nhiệm vụ cuối không cho biết mạng đã quên gì.
 
-**Khái niệm thành cấu trúc tính toán.** Continual learning: Học lần lượt và giữ lại kỹ năng trước. Hãy luôn hỏi: input tensor là gì, output tensor là gì, biểu diễn đó mang thông tin thời gian hay không, và vì sao không thể đơn giản thay bằng một vector khác. Benchmark phải tách hai câu hỏi: chuyển kiến thức sang nhiệm vụ mới có nhanh hơn không, và sau khi học nhiệm vụ mới mô hình có còn làm được nhiệm vụ cũ không. Một thuật ngữ chỉ hữu ích khi nối được với dữ liệu và hành vi có thể quan sát.
-
-**Tránh ba sự nhầm lẫn.** Dataset đa dạng chưa phải model khái quát; có latent hoặc token chưa chắc học được semantics; loss offline tốt chưa chắc action thực thi ổn định. Phần kiến thức nền dùng để loại trừ các kết luận quá mạnh đó. Muốn khẳng định model dùng đúng khái niệm, hãy kiểm tra ablation và intermediate representation.
+LIBERO chia các nhiệm vụ thành nhóm thay vị trí không gian, thay vật, thay mục tiêu và kết hợp nhiều thay đổi. Nhờ đó khi kết quả kém, ta có thêm manh mối xem việc chuyển giao kiến thức gặp khó ở đâu.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -77,53 +57,11 @@ Hình 2 trình bày cách sinh nhiệm vụ có cấu trúc, giúp tạo nhiều
 
 Ví dụ học tuần tự ba nhiệm vụ: đặt khối đỏ vào bát, mở ngăn kéo, rồi chuyển khối xanh. Ta lưu ma trận hiệu năng R_{i,j}: sau khi học task i, model thành công bao nhiêu trên task j. Từ đó mới đo được mức quên task cũ và khả năng chuyển giao sang task mới. Nếu chỉ đo success rate trên task thứ ba, cách làm đơn giản là fine-tune đến khi quên hết hai task đầu cũng sẽ được chấm là thành công, hoàn toàn lệch mục tiêu continual learning.
 
-### Đào sâu: Thay một bảng điểm bằng nhiều loại chuyển giao kiến thức
+### Quy trình đánh giá LIBERO diễn ra ra sao?
 
-**Luận điểm.** Phân tách object, spatial, goal và long-horizon để biết policy đang chuyển giao kiểu gì. LIBERO có 130 nhiệm vụ và tạo nhiệm vụ theo quy tắc. Các suite chính gồm LIBERO-Spatial, LIBERO-Object, LIBERO-Goal và LIBERO-100; phần long-horizon dùng một split riêng từ LIBERO-100.
+Đầu tiên hệ thống tạo cảnh, bố trí vật, trạng thái ban đầu và điều kiện thành công. Nó dùng mô tả PDDL để xác định robot phải đạt trạng thái nào mới được tính là xong nhiệm vụ. Tiếp theo, ta chọn danh sách công việc cùng thứ tự học.
 
-**Giải thích không dùng tên model.** Phân tách object, spatial, goal và long-horizon để biết policy đang chuyển giao kiểu gì. Thử mô tả bằng một câu chuyện đầu vào và đầu ra, tránh dựa vào từ như Transformer, flow, token hay MoE để thay thế giải thích. Điều quan trọng là hiểu cơ chế ấy biến thông tin quan sát thành điều gì có ích để robot ra quyết định.
-
-**Từ intuition tới phép thử.** Benchmark kiểm tra robot có giữ được kỹ năng và chuyển giao giữa các nhiệm vụ liên tiếp hay không. Nếu ta loại bỏ cơ chế đó nhưng giữ nguyên dữ liệu và evaluator, lỗi nào kỳ vọng tăng lên? Nếu không dự đoán được loại lỗi, có thể ta chỉ đang học thuộc mô tả phương pháp mà chưa hiểu tại sao tác giả lựa chọn nó.
-
-### Đào sâu: Kiến trúc trong một sơ đồ
-
-**Luận điểm.** Benchmark kiểm tra robot có giữ được kỹ năng và chuyển giao giữa các nhiệm vụ liên tiếp hay không. Điều kiện hoàn thành nhiệm vụ được được mô tả chính thức bằng predicates kiểu Open, TurnOff, On, In.
-
-**Lần theo đầu vào đến đầu ra.** Sơ đồ nên được đọc theo thứ tự Task suite + demos → Huấn luyện theo thứ tự → Rollout từng task → Transfer + forgetting metrics. Mỗi mũi tên tương ứng với một thao tác thực: đọc cảm biến, xử lý tensor, trích đặc trưng, suy luận, giải mã hoặc gửi command. Nếu bỏ qua quá trình chuẩn hoá hay xử lý timestamp, sơ đồ vẫn đẹp nhưng implementation có thể fail.
-
-**Chỗ dễ sai khi triển khai.** Điều kiện hoàn thành nhiệm vụ được được mô tả chính thức bằng predicates kiểu Open, TurnOff, On, In. Với mỗi module, hãy ghi checkpoint nào dùng, shape dữ liệu, đơn vị và hệ quy chiếu, thành phần nào có gradient và thành phần nào chỉ hiện diện lúc training. Sau đó log action trước và sau inverse normalization để phát hiện lỗi thuộc pipeline chứ không phải lỗi model.
-
-### Đào sâu: Mô hình biểu diễn cái gì?
-
-**Luận điểm.** Nhiệm vụ mô phỏng có chỉ dẫn và success predicate rõ. Bài báo gốc đánh giá các thuật toán học liên tục như sequential fine-tuning, replay, EWC và PackNet.
-
-**Action là một hợp đồng kỹ thuật.** ĐẦU RA / DẠNG BIỂU DIỄN: Nhiều family task đánh giá các năng lực khác nhau. Một vector điều khiển có thể là joint angle, delta end-effector, gripper hoặc các token đã lượng tử hoá. Cần biết số chiều, đơn vị, hệ tọa độ, scaling và trục thời gian. Bài báo gốc đánh giá các thuật toán học liên tục như sequential fine-tuning, replay, EWC và PackNet. Không xác định các yếu tố này thì chưa thể nối output model với phần cứng.
-
-**Kiểm tra trước khi train.** Lấy một trajectory đúng, encode rồi decode qua representation dự kiến. Đo reconstruction error trên từng chiều và vị trí thời gian quan trọng, nhất là khi tiếp xúc vật thể. Thử đổi horizon hoặc normalization mà giữ nguyên dữ liệu. Một adapter sai có thể phá mọi rollout dù bản thân network vẫn tối ưu được loss.
-
-### Đào sâu: Model học như thế nào?
-
-**Luận điểm.** BC-RNN/Transformer và các continual-learning baselines. Các chỉ số không chỉ đo tỷ lệ hoàn thành nhiệm vụ mà còn Forward Transfer (FWT), Negative Backward Transfer (NBT) và AUC để đo diễn biến học tập qua chuỗi nhiệm vụ.
-
-**Loss phải có nguồn supervision.** MỤC TIÊU HỌC: Thay task sequence và mức dữ liệu để đo ảnh hưởng. Hãy chỉ ra batch gồm observation, state, instruction, target action hay target đặc trưng nào; rồi xác định mô hình đang học reconstruction, dự đoán chuỗi hay một phân phối có điều kiện. Cùng tên 'training' nhưng cách tạo target ở BC, diffusion, flow matching và mô hình dự đoán đặc trưng khác nhau căn bản.
-
-**Phân tách lỗi dữ liệu và lỗi thuật toán.** Các chỉ số không chỉ đo tỷ lệ hoàn thành nhiệm vụ mà còn Forward Transfer (FWT), Negative Backward Transfer (NBT) và AUC để đo diễn biến học tập qua chuỗi nhiệm vụ. Kiểm tra episode split trước khi chia thành window, kiểm tra timestamp camera/action, normalization, random seed và khả năng overfit một subset nhỏ. Nếu vài trajectory còn không học được, việc tăng model size hoặc đổi scheduler thường chỉ che lỗi implementation.
-
-**Đọc ablation đúng cách.** So cách học theo chuỗi với cách giữ dữ liệu cũ (replay). Khi đổi một module phải giữ data budget, training steps và quy trình đánh giá tương đương. Nếu nhiều thứ đổi cùng lúc, tác dụng thực sự là của toàn hệ thống, không thể kết luận một trick đơn lẻ tạo toàn bộ mức cải thiện.
-
-### Đào sâu: Mathematical Intuition
-
-**Luận điểm.** Forgetting âm khi success của task cũ giảm sau quá trình học. Chỉ số này là minh họa hướng đánh giá. Các suite chính gồm LIBERO-Spatial, LIBERO-Object, LIBERO-Goal và LIBERO-100; phần long-horizon dùng một split riêng từ LIBERO-100.
-
-$$
-F=\frac{1}{N-1}\sum_{i=1}^{N-1}\Big(S_i^{\mathrm{after}}-S_i^{\mathrm{before}}\Big)
-$$
-
-**Công thức đang mô tả thứ gì?** Forgetting âm khi success của task cũ giảm sau quá trình học. Chỉ số này là minh họa hướng đánh giá. Trước khi tính đạo hàm hoặc chuyển vế, hãy xác định đâu là observation, đâu là biến action, đâu là horizon/conditioning và đâu là tham số được học. Các suite chính gồm LIBERO-Spatial, LIBERO-Object, LIBERO-Goal và LIBERO-100; phần long-horizon dùng một split riêng từ LIBERO-100. Ký hiệu ngắn gọn không nói hết cách chọn discretization, action mask hoặc runtime sampler.
-
-**Một phép thử bằng hai trajectory.** Hai lần thao tác có cùng mục tiêu nhưng trạng thái ban đầu khác nhau có thể cần action khác. Công thức này có cho phép output phụ thuộc vào thông tin phân biệt ấy không? Nếu nhiều demonstration hợp lệ khác nhau, model học một mode, average hay một phân phối đa mode? Đây mới là câu hỏi hiểu toán trong robot learning.
-
-**Giới hạn của suy luận từ công thức.** Không diễn giải chỉ số tổng hợp thành safety hay khả năng robot thật. Một biểu thức xác suất hoặc phép nội suy không tự chứng minh model đã học vật lý hay robot sẽ thành công. Loss và nguồn target quyết định model có tín hiệu nào, còn evaluation mới cho biết hành vi thực hiện ngoài đời.
+Policy học việc thứ nhất rồi được kiểm tra. Sau khi học việc thứ hai, nó được kiểm tra lại trên cả việc đầu lẫn việc thứ hai. Quá trình tiếp tục cho các việc sau. Cuối cùng so nhiều thuật toán như ER dùng phát lại kinh nghiệm và PackNet phân bổ tham số, có thể đổi thứ tự nhiệm vụ để kiểm tra độ nhạy.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -135,15 +73,11 @@ Khi chạy env, thành công phải đến từ **closed-loop rollout và điề
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Một lần inference xảy ra ra sao?
+### Ví dụ hai nhiệm vụ cùng dùng một chiếc cốc
 
-**Luận điểm.** Đưa image/state và task instruction vào policy. Khi chạy env, thành công phải đến từ closed-loop rollout và điều kiện hoàn thành trong simulator, không phải loss khi huấn luyện.
+Nhiệm vụ A: đặt cốc đỏ bên trái đĩa. Nhiệm vụ B: bỏ cốc đỏ vào bồn. Hai việc chia sẻ kỹ năng nhận biết và kẹp cốc nhưng khác đích đặt. Sau khi học B, nếu robot vẫn kẹp cốc đúng mà luôn đưa tới bồn dù được giao A, nó có thể đã quên cách xác định mục tiêu của A.
 
-**Một tick điều khiển xảy ra thế nào?** XỬ LÝ ĐẦU VÀO: Policy thực thi theo simulator physics. Ta nhận observation, tính conditioning, sinh action, giải mã và gửi lệnh xuống controller. Khi chạy env, thành công phải đến từ closed-loop rollout và điều kiện hoàn thành trong simulator, không phải loss khi huấn luyện. Hãy ghi lại thời điểm ở mỗi bước vì latency từ ảnh đến actuator khác với thời gian chạy forward của riêng backbone.
-
-**Khi môi trường đổi giữa hai lần query.** Nếu vật thể dịch chuyển, mô hình có nhận observation mới đủ nhanh không; action nào đã cam kết và action nào có thể sửa? TẠO HÀNH ĐỘNG: Tổng hợp tỷ lệ thành công trước và sau khi học thêm task. Trả lời được mới hiểu policy có thực sự closed-loop hoặc chỉ phát một quỹ đạo cố định rồi hy vọng robot làm đúng.
-
-**Điều nên đo thêm.** Ngoài task success, hãy log tail latency, action jerk, lỗi ở điểm nối các action chunk và khả năng phục hồi sau disturbance. Một video chuyển động mượt không chứng minh robot làm đúng mục tiêu, còn throughput cao chưa chắc đảm bảo control loop ổn định.
+Ngược lại, nếu đã học A giúp việc B được học nhanh hơn, đó là dấu hiệu chuyển giao có lợi. Muốn khẳng định được, phải đo điểm của B trước/sau khi học A và điểm A trước/sau khi học B. Một lần chạy cuối cùng là chưa đủ.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -160,23 +94,11 @@ Một kết quả đáng nhớ khác: pretraining có giám sát trên LIBERO-90
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Kết quả nói lên điều gì?
+### Kết quả LIBERO phải được đọc theo thứ tự học
 
-**Luận điểm.** LIBERO tổ chức benchmark theo loại tri thức cần chuyển giao. Một kết quả đáng nhớ khác: pretraining có giám sát trên LIBERO-90 không tự động giúp downstream lifelong learning trên 10 nhiệm vụ long-horizon, thậm chí có thể gây negative chuyển giao.
+Hình 4 so ER và PackNet với năm thứ tự học khác nhau. Một cách học tốt ở thứ tự này nhưng kém ở thứ tự khác có thể không ổn định trong thực tế. Hình 5 còn thay kiến trúc và việc huấn luyện trước, cho thấy hiệu quả không chỉ do tên thuật toán chống quên.
 
-**Cách đọc bảng số liệu.** PHÁT HIỆN QUAN TRỌNG: Các phương pháp continual learning cho trade-off khác nhau giữa transfer và forgetting. Trước khi so score, xác định metric đo thành công cuối hay progress từng bước, baseline dùng dữ liệu gì, số lần lặp, tập test và cách gộp các nhiệm vụ. Một kết quả đáng nhớ khác: pretraining có giám sát trên LIBERO-90 không tự động giúp downstream lifelong learning trên 10 nhiệm vụ long-horizon, thậm chí có thể gây negative chuyển giao. Chênh lệch average đôi khi giấu những task thất bại nghiêm trọng.
-
-**Từ số sang kết luận có phạm vi.** CÁCH DIỄN GIẢI: Mục tiêu là tạo thước đo lặp lại được thay vì phô một success rate. Một mô hình khái quát tốt trên lệnh mới chưa chắc điều khiển contact-rich tốt; data diversity hiệu quả chưa bảo đảm chuyển được sang morphology lạ; model chạy nhanh chưa có nghĩa tail latency phù hợp servo. Phải kết luận theo đúng chiều mà thí nghiệm đo.
-
-**Độ tin cậy của bằng chứng.** Camera placement, calibration, noise, split, seed và budget huấn luyện đều ảnh hưởng outcome. Một kết quả đáng tin cần báo cáo đủ điều kiện để người đọc kiểm tra, và có đối chứng tránh nhiễu. Nếu thiếu, hãy nói rõ mức bất định thay vì tưởng tượng số liệu.
-
-### Đào sâu: Ablation và bằng chứng
-
-**Luận điểm.** So cách học theo chuỗi với cách giữ dữ liệu cũ (replay). Điều đó cảnh báo rất sớm rằng “pretrain nhiều hơn” không đủ; phân phối/mục tiêu huấn luyện phải đúng.
-
-**Ablation hỏi nguyên nhân, không chỉ điểm số.** YẾU TỐ ĐƯỢC THỬ: So loss huấn luyện với rollout success để thấy lỗi compounding. Loại bỏ một thành phần khiến performance giảm là dấu hiệu hữu ích trong thiết lập đã thử, nhưng chưa chứng minh nó là giải pháp duy nhất. Điều đó cảnh báo rất sớm rằng “pretrain nhiều hơn” không đủ; phân phối/mục tiêu huấn luyện phải đúng. Hãy tìm xem các đường baseline có chung dữ liệu, model capacity và ngân sách tối ưu không.
-
-**Đọc theo từng failure mode.** Điều đó cảnh báo rất sớm rằng “pretrain nhiều hơn” không đủ; phân phối/mục tiêu huấn luyện phải đúng. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
+Khi thấy một điểm tổng hợp, hãy hỏi nó đã bao gồm điểm của những nhiệm vụ cũ chưa. **Thí nghiệm tách thành phần** chỉ có nghĩa nếu thay một yếu tố rõ ràng và giữ tương đương dữ liệu, số bước huấn luyện cùng quy trình đánh giá.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -188,13 +110,11 @@ Một kết quả đáng nhớ khác: pretraining có giám sát trên LIBERO-90
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Hạn chế cần nói thẳng
+### Các giới hạn của LIBERO
 
-**Luận điểm.** Tách rõ tác giả thừa nhận và nhận định phê bình độc lập. Bài báo thừa nhận: đây là mô phỏng benchmark với phạm vi vật thể/nhiệm vụ và mô phỏng vật lý có giới hạn; tác giả coi benchmark là nền để cộng đồng tiếp tục mở rộng kiến trúc, thuật toán và pretraining.
+Nhiệm vụ LIBERO có điều kiện hoàn thành xác định và được mô phỏng để dễ lặp lại. Robot thật còn gặp sai số camera, lực kẹp, vật mềm và độ trễ. Kết quả chống quên trên bộ mô phỏng chưa bảo đảm chuyển nguyên vẹn sang mọi robot thật.
 
-**Phân biệt điều tác giả chỉ ra và điều ta suy đoán.** Tác giả / phạm vi: Tác giả: benchmark vẫn là simulator, chủ yếu tabletop manipulation. Câu 'chưa đánh giá' không đồng nghĩa với 'đã thử và thất bại'. Câu 'có thể chịu rủi ro' không được viết thành số liệu âm tính. Bài báo thừa nhận: đây là mô phỏng benchmark với phạm vi vật thể/nhiệm vụ và mô phỏng vật lý có giới hạn; tác giả coi benchmark là nền để cộng đồng tiếp tục mở rộng kiến trúc, thuật toán và pretraining. Ranh giới đó giúp đọc nghiên cứu nghiêm túc mà không tô hồng hoặc bác bỏ quá mức.
-
-**Ngoài benchmark còn có hệ thống thật.** Phê bình độc lập: Phê bình: success predicate và vật lý mô phỏng không bảo đảm chuyển giao sang robot ngoài đời. Khi chuyển sang robot khác, camera, workspace, DOF, actuator limits và controller đều có thể phá các giả định gốc. Cần kiểm tra safety, valid action range và các tình huống bắt đầu lệch chuẩn trước khi coi một policy là sẵn sàng triển khai.
+Trong thực tế, những công việc có thể tới xen kẽ hoặc thay đổi dần, thay vì các giai đoạn học A rồi B rồi C rất rõ. Vì vậy LIBERO là công cụ nghiên cứu quan trọng nhưng không đại diện cho mọi tình huống học suốt đời.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -207,13 +127,11 @@ Nếu muốn đặt bài này vào bản đồ VLA, hãy xem tiếp các hướn
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Bài này đứng ở đâu trong lĩnh vực?
+### LIBERO liên quan gì tới policy đa nhiệm?
 
-**Luận điểm.** Không đọc paper như một hòn đảo riêng. Đọc thêm OpenVLA, RoboCasa. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau.
+RT-1 và Octo cố học một policy có thể làm nhiều việc từ dữ liệu rộng. LIBERO đặt câu hỏi tiếp theo: khi ta tiếp tục huấn luyện policy ấy cho công việc mới, những việc trước còn làm được không?
 
-**So sánh theo trục kỹ thuật.** NỀN TẢNG / TIỀN ĐỀ: RoboCasa mở rộng đánh giá qua nhiều nội thất/nhiệm vụ. Hãy xếp các nghiên cứu cạnh nhau theo nguồn dữ liệu, representation, khả năng hiểu lệnh, action generation, embodiment và latency thay vì chỉ theo năm công bố. Một mô hình mạnh về ngữ nghĩa không nhất thiết giỏi điều khiển tốc độ cao.
-
-**Không trộn quan hệ chủ đề với trích dẫn.** HƯỚNG PHÁT TRIỂN: OpenVLA và π0.5 được đánh giá trên các bộ nhiệm vụ kiểu LIBERO. Một công trình có thể là tiền đề kỹ thuật, một biến thể cùng nhiệm vụ hoặc hướng xử lý bottleneck còn bỏ ngỏ; các quan hệ ấy cần trình bày chính xác. Đọc thêm OpenVLA, RoboCasa. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau.
+Một model được tiền huấn luyện tốt vẫn có thể quên khi tinh chỉnh sai cách. Ngược lại, model giữ nguyên kỹ năng cũ chưa chắc học kỹ năng mới nhanh. Đánh giá tốt cần có cả hai vế.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -225,15 +143,11 @@ Chạy một nhiệm vụ BC-RNN trong repo LIBERO chính thức trên T4, rồi
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Nếu chỉ nhớ ba điều
+### Tự dựng bảng để nhìn thấy hiện tượng quên
 
-**Luận điểm.** Đánh giá policy phải xác định loại generalization đang đo. Sau đó chạy hai nhiệm vụ theo thứ tự để kiểm tra hiện tượng quên; báo cáo tỷ lệ thành công với nhiều random seed.
+Hãy lập bảng với ba cột A, B, C và ba hàng sau khi học A, sau khi học B, sau khi học C. Điền tỷ lệ thành công từng nhiệm vụ ở từng thời điểm. Nếu A từ 90% tụt xuống 40% sau khi học B, đó là dấu hiệu quên. Nếu B đạt điểm tốt hơn ngay sau khi học A, có thể đã có chuyển giao.
 
-**Chọn điều cần mang sang dự án thật.** Giữ task splits công khai và chạy rollout để so sánh. Đừng cố sao chép toàn bộ hệ thống lớn ngay. Tìm một vấn đề cụ thể của robot mình rồi áp dụng đúng thành phần liên quan, với baseline đơn giản và một phép đo rõ ràng. Đánh giá policy phải xác định loại generalization đang đo.
-
-**Tái hiện tối thiểu.** Sau đó chạy hai nhiệm vụ theo thứ tự để kiểm tra hiện tượng quên; báo cáo tỷ lệ thành công với nhiều random seed. Bắt đầu bằng 1–2 episode kiểm được bằng mắt, ghi shape, unit và timestamp; tiếp theo mới mở rộng dataset, thêm nhiều seed và đánh giá held-out. Viết sẵn điều kiện pass/fail để không biến công việc thành quá trình tune vô tận.
-
-**Tự kiểm tra đã hiểu.** Sau khi đọc, phải giải thích được observation → representation → action; mô tả loss và supervision; rồi đọc đúng metric, baseline, limitation. Nếu thiếu một trong ba, quay lại chính phần đó thay vì học thuộc tên kiến trúc.
+Thử đổi thứ tự thành C → A → B. Nếu điểm số thay nhiều, thứ tự nhiệm vụ là yếu tố quan trọng cần báo cáo.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
