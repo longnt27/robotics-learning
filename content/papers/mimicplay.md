@@ -18,6 +18,11 @@ MIMICPLAY chia việc thành hai phần: học **đích đến và trình tự**
 
 **Bộ điều khiển cấp thấp** nhận quan sát và tín hiệu kế hoạch, rồi tạo lệnh phù hợp với tay robot. Nó cần được huấn luyện bằng dữ liệu robot vì video người không phản ánh chính xác cơ cấu và lực của máy.
 
+### ### Video người cho robot biết đích, không cho biết từng động cơ
+
+Một người trong video có thể lấy bút, mở ngăn kéo rồi cất bút vào đó. Robot học được **mục tiêu trung gian**: bút phải tới gần ngăn kéo, ngăn kéo phải mở trước khi đưa bút vào. Tuy nhiên người không có cùng số khớp và kiểu kẹp với robot, nên không thể lấy quỹ đạo tay người làm lệnh động cơ trực tiếp. Đây là lý do MIMICPLAY có phần học trình tự từ video và phần học điều khiển từ các lượt thao tác trên robot thật. Hai phần giải hai câu hỏi khác nhau: làm bước nào trước, và thực hiện bước đó bằng phần cứng này như thế nào.
+
+
 ## Phương pháp thực hiện
 
 ### Hai giai đoạn học của MIMICPLAY
@@ -25,6 +30,10 @@ MIMICPLAY chia việc thành hai phần: học **đích đến và trình tự**
 Giai đoạn đầu, hệ thống đọc video người thao tác và mục tiêu tương ứng, học cách sinh đường diễn tiến trong không gian kế hoạch ẩn. Nó cố nắm những điều cần xảy ra tiếp theo ở cảnh, không nhất thiết biết động cơ của robot cụ thể phải quay ra sao.
 
 Giai đoạn sau, mô hình lập kế hoạch được giữ cố định. Người nghiên cứu đưa vào một lượng nhỏ lần người điều khiển robot làm mẫu và huấn luyện bộ điều khiển làm theo tín hiệu kế hoạch. Khi chạy, video prompt chỉ định nhiệm vụ; mạng lập kế hoạch tạo các mục tiêu trung gian, còn bộ điều khiển chuyển chúng thành thao tác. Nếu môi trường thay đổi, kế hoạch có thể được cập nhật.
+
+### ### Hình dung việc mạng lập kế hoạch và bộ điều khiển phối hợp
+
+Giả sử nhiệm vụ là cất đồ trên bàn. Mạng lập kế hoạch không nhất thiết sinh câu chữ “mở ngăn kéo”; nó tạo một biểu diễn ẩn về trạng thái cần đạt tiếp theo. Bộ điều khiển dùng tín hiệu ấy cùng ảnh hiện tại để quyết định cách dịch tay và kẹp vật. Nếu ngăn kéo bị kẹt, lệnh khớp tốt đến đâu cũng không thể hoàn thành bước cất đồ như dự kiến; hệ thống cần nhận ra trạng thái hiện tại chưa đạt mục tiêu. Cơ chế hai tầng giúp định vị vấn đề, nhưng bản thân kiến trúc không bảo đảm sửa được mọi sự cố chưa từng thấy khi huấn luyện.
 
 ![Hình 2 gốc từ PDF bài báo, trang 4](/paper-figures/mimicplay/figure-2.webp)
 
@@ -48,9 +57,14 @@ Một chính sách điều khiển có thể hoàn thành từng bước riêng 
 
 Hình 4 so nhiệm vụ được chỉ dẫn bằng video người và video robot. Khi đọc kết quả, nên xem tiêu chí thành công có đòi hoàn thành toàn nhiệm vụ không và lượng dữ liệu robot ở các trường hợp có được giữ tương đương không.
 
-### Số liệu và phạm vi kết luận
+### Một nhiệm vụ dài khuếch đại lỗi ở các bước nhỏ
 
-**Đối chiếu số liệu:** Bài báo đánh giá 14 nhiệm vụ trên robot thật. Trong những thiết lập được báo cáo, học trước từ video người cải thiện kết quả so với phương pháp đối chứng; thiết kế hai tầng cũng tốt hơn một số cách học trực tiếp một tầng. Các mức cải thiện có thể lên tới hàng chục điểm phần trăm nhưng phụ thuộc nhóm phép thử. Khi xem Hình 4–5, hãy chú ý hệ thống hoàn thành được bao nhiêu bước của nhiệm vụ dài và có sửa kế hoạch khi bối cảnh bị can thiệp không.
+Bài báo đánh giá 14 nhiệm vụ trên robot thật. Trong các thiết lập được báo cáo, học trước từ video người giúp tăng hiệu quả so với một số phương pháp đối chứng; cách chia thành phần lập kế hoạch và phần điều khiển cũng cho kết quả tốt hơn một số cách học trực tiếp một tầng. Các mức cải thiện có thể lên tới hàng chục điểm phần trăm nhưng phụ thuộc nhóm phép thử. Khi xem Hình 4–5, hãy chú ý hệ thống hoàn thành được bao nhiêu bước của nhiệm vụ dài và có sửa kế hoạch khi bối cảnh bị can thiệp không.
+
+### ### Vì sao kết quả một bước không thay cho kết quả cả chuỗi?
+
+Giả sử một chính sách làm đúng mỗi bước với xác suất 80%, và năm bước đều cần thành công. Nếu tạm coi các bước độc lập, xác suất hoàn thành đủ năm chỉ khoảng 33%, dù từng bước trông khá ổn. Con số này là **ví dụ minh họa**, không phải số liệu của MIMICPLAY; trên robot thật các bước còn phụ thuộc nhau. Nó cho thấy vì sao phải đo cả việc kết thúc nhiệm vụ dài chứ không chỉ điểm ở những thao tác lẻ. Khi đối chiếu thí nghiệm với video người và video robot, hãy giữ tương đương lượng dữ liệu robot để biết phần kiến thức kế hoạch đóng góp gì.
+
 
 ## Hạn chế và câu hỏi còn mở
 
