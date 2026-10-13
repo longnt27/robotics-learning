@@ -11,29 +11,11 @@ Bimanual manipulation khó hơn gripper-arm control vì action dimension lớn, 
 
 Hình 1 là sơ đồ diffusion Transformer khoảng một tỷ tham số có điều kiện theo dữ liệu quan sát và ngôn ngữ để sinh action cho hai tay. Đọc sơ đồ từ image/state/language condition tới chuỗi action được denoise thay vì nghĩ rằng tất cả khối mạng đều trực tiếp phát joint command. Sự khác biệt chính so với một mạng hồi quy đơn là mô hình học một phân phối chuỗi chuyển động khả thi; với thao tác hai tay, tính phối hợp theo thời gian có thể quan trọng không kém độ chính xác ở một timestep.
 
-### Đào sâu: Điểm cốt lõi
+### Vì sao thao tác hai tay có nhiều cách đúng hơn?
 
-**Luận điểm.** Diffusion Transformer quy mô lớn sinh action liên tục với điều kiện thị giác–ngôn ngữ đa robot. RDT-1B hỏi: nếu dùng một diffusion Transformer rất lớn và một biểu diễn vật lý thống nhất, có thể pretrain foundation motor policy cho bimanual manipulation không?
+Một robot một tay gắp khối có thể tiếp cận từ vài hướng. Robot hai tay còn phải quyết định tay nào giữ, tay nào di chuyển, có chuyển vật từ tay này sang tay kia không. Cùng một đích có thể có rất nhiều chuỗi cử động hợp lệ. Nếu mạng lấy trung bình những chuỗi khác nhau, hai tay có thể đi vào nhau hoặc làm rơi vật.
 
-**Vấn đề khoa học nằm ở đâu?** Các embodiment khác nhau và high-dimensional actions khó ép vào một scheme autoregressive thô. Một hệ thống robot có thể có hình ảnh đẹp, output trông hợp lý nhưng vẫn sai ở cơ cấu thực thi. Vì thế phải tách câu hỏi về dữ liệu, câu hỏi về representation, câu hỏi về policy và câu hỏi về đánh giá. Scale action generative modeling bằng Transformer là đóng góp cần đọc cùng các giả định ấy, không phải câu slogan thay thế cho thí nghiệm.
-
-**Đọc đóng góp như một giả thuyết.** Cơ chế được đề xuất là Conditioned diffusion sinh action chunk ở không gian liên tục, tận dụng visual-language knowledge. Nếu nó thật sự hữu ích, điểm khác biệt phải xuất hiện tại chính nơi baseline gặp bottleneck. Không đủ chỉ liệt kê thành phần mới; cần giải thích tại sao dữ liệu hoặc observation hiện có không giải được bài toán với cách làm cũ.
-
-### Đào sâu: Action tokens không biểu diễn tốt mọi chuyển động liên tục
-
-**Luận điểm.** Các embodiment khác nhau và high-dimensional actions khó ép vào một scheme autoregressive thô. VLA autoregressive tokenization cũng không phải lựa chọn tự nhiên cho liên tục chuyển động nhiều chiều.
-
-**Tại sao lỗi này có hệ quả lớn?** Discretized autoregression chịu quantization và latency. Mỗi action làm thay đổi trạng thái môi trường và tạo ra observation tiếp theo. Một dự đoán hơi lệch có thể đẩy robot ra ngoài những trạng thái từng thấy trong demonstration, khiến bước sau khó phục hồi hơn. Bản thân action tokens không biểu diễn tốt mọi chuyển động liên tục vì thế ảnh hưởng đến toàn bộ rollout, chứ không chỉ một hàng trong bảng accuracy.
-
-**Thử nghĩ một phản ví dụ.** Nếu chỉ test các episode có điểm bắt đầu giống dữ liệu huấn luyện, policy có thể học shortcut về bối cảnh. Đổi nhẹ góc camera, vật thể hoặc thứ tự thao tác sẽ phơi bày liệu nó có dùng tín hiệu nhân quả phù hợp không. Vì vậy phải kiểm tra điều kiện test trước khi đọc tỷ lệ thành công.
-
-### Đào sâu: Discretized autoregression chịu quantization và latency
-
-**Luận điểm.** Diffusion nhỏ hoặc robot-specific policy thiếu khả năng scale đa embodiment. Bimanual manipulation khó hơn gripper-arm control vì action dimension lớn, coordination giữa hai tay phức tạp và demonstration dữ liệu càng hiếm.
-
-**Hai quy trình khác nhau ra sao?** Phương pháp cũ gặp trở ngại: Diffusion nhỏ hoặc robot-specific policy thiếu khả năng scale đa embodiment.. Thay đổi trọng tâm là: Scale action generative modeling bằng Transformer. Câu hỏi có ích nhất không phải mạng mới có bao nhiêu lớp, mà là thông tin nào trước kia bị đánh mất và giờ được chuyển qua đúng mô-đun. Conditioned diffusion sinh action chunk ở không gian liên tục, tận dụng visual-language knowledge.
-
-**Đặt điều kiện đối chứng.** Nếu train hai cách với data budget khác nhau, hoặc một bên dùng pretrained encoder còn bên kia không, chênh lệch không đủ để gán cho cơ chế mới. Một ablation đúng phải giữ càng nhiều yếu tố càng tốt và thay đổi đúng thành phần tác giả muốn chứng minh.
+RDT-1B dùng Diffusion Transformer để học và sinh các đoạn hành động hai tay có tính phối hợp, nhận điều kiện từ ảnh, câu lệnh và trạng thái robot. Nó còn nghiên cứu cách học từ nhiều cấu hình robot.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -48,13 +30,11 @@ Autoregressive discrete action có thể mất độ chính xác khi thao tác h
 <!-- END ADDITIONAL PDF FIGURES -->
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Ba khái niệm để nắm
+### Những phần của bài toán cần phân biệt
 
-**Luận điểm.** Hiểu ba khái niệm này trước khi đọc thuật toán. Diffusion Transformer đưa một prior action liên tục mạnh hơn, nhưng cần giải nghĩa heterogeneous trạng thái robot/action.
+**Diffusion** là cách khởi đầu bằng hành động nhiễu rồi chỉnh dần thành quỹ đạo hợp lệ. **Transformer** xử lý quan hệ giữa các thời điểm và nguồn thông tin; khi dùng cho khử nhiễu hành động thường được gọi là DiT. **Trạng thái robot** gồm thông tin khớp hiện tại, giúp mạng biết hai tay đang ở đâu.
 
-**Khái niệm thành cấu trúc tính toán.** Diffusion Transformer: Transformer học hướng loại nhiễu trên action sequence. Hãy luôn hỏi: input tensor là gì, output tensor là gì, biểu diễn đó mang thông tin thời gian hay không, và vì sao không thể đơn giản thay bằng một vector khác. Diffusion Transformer đưa một prior action liên tục mạnh hơn, nhưng cần giải nghĩa heterogeneous trạng thái robot/action. Một thuật ngữ chỉ hữu ích khi nối được với dữ liệu và hành vi có thể quan sát.
-
-**Tránh ba sự nhầm lẫn.** Dataset đa dạng chưa phải model khái quát; có latent hoặc token chưa chắc học được semantics; loss offline tốt chưa chắc action thực thi ổn định. Phần kiến thức nền dùng để loại trừ các kết luận quá mạnh đó. Muốn khẳng định model dùng đúng khái niệm, hãy kiểm tra ablation và intermediate representation.
+**Không gian hành động chung** cho phép kết hợp dữ liệu nhiều robot, nhưng phải có cách mã hóa phù hợp từng loại. Cùng một chiều số trong vector không mặc nhiên đại diện cho cùng khớp giữa hai robot.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -82,53 +62,11 @@ Hình 2 đối chiếu sự phức tạp của bimanual manipulation với một
 
 Ví dụ hai tay giữ hai đầu một thanh dài và đặt vào gá. Nếu dự đoán tay trái/pha nâng độc lập với tay phải, thanh có thể nghiêng và va chạm. Ta có thể biểu diễn một action chunk liên tục cho tất cả khớp hai tay, thêm condition từ ảnh và proprioception, rồi sampling bằng diffusion để tìm quỹ đạo nhất quán. Nhưng performance không chỉ nằm ở chất lượng score model: action cần đưa về đúng joint range và controller phải giữ tương tác cơ học ổn định. Đo task success, alignment error, collision và jerk chứ không chỉ denoising MSE.
 
-### Đào sâu: Scale action generative modeling bằng Transformer
+### Từ ảnh, câu lệnh và nhiễu đến hai tay robot
 
-**Luận điểm.** Conditioned diffusion sinh action chunk ở không gian liên tục, tận dụng visual-language knowledge. Vision, ngôn ngữ và state được điều kiện vào diffusion action generator thay vì bắt action đi qua ngôn ngữ token vocabulary.
+Mô hình nhận ảnh từ camera ngoài và camera hai cổ tay, câu lệnh nhiệm vụ, trạng thái khớp và một chuỗi lệnh còn nhiễu. Nó còn nhận bước thời gian diffusion để biết đang ở giai đoạn khử nhiễu nào, cùng tần số điều khiển để hiểu nhịp hành động.
 
-**Giải thích không dùng tên model.** Conditioned diffusion sinh action chunk ở không gian liên tục, tận dụng visual-language knowledge. Thử mô tả bằng một câu chuyện đầu vào và đầu ra, tránh dựa vào từ như Transformer, flow, token hay MoE để thay thế giải thích. Điều quan trọng là hiểu cơ chế ấy biến thông tin quan sát thành điều gì có ích để robot ra quyết định.
-
-**Từ intuition tới phép thử.** Diffusion Transformer quy mô lớn sinh action liên tục với điều kiện thị giác–ngôn ngữ đa robot. Nếu ta loại bỏ cơ chế đó nhưng giữ nguyên dữ liệu và evaluator, lỗi nào kỳ vọng tăng lên? Nếu không dự đoán được loại lỗi, có thể ta chỉ đang học thuộc mô tả phương pháp mà chưa hiểu tại sao tác giả lựa chọn nó.
-
-### Đào sâu: Kiến trúc trong một sơ đồ
-
-**Luận điểm.** Diffusion Transformer quy mô lớn sinh action liên tục với điều kiện thị giác–ngôn ngữ đa robot. RDT-1B là khoảng 1.2B-parameter diffusion Transformer. Bài báo đưa ra Physically Interpretable Unified Action Space để chuẩn hóa state/action từ nhiều robot sources, rồi pretrain trên dữ liệu không đồng nhất robot và post-train bằng hơn 6 nghìn bimanual episodes cho target platform.
-
-**Lần theo đầu vào đến đầu ra.** Sơ đồ nên được đọc theo thứ tự Robot datasets hỗn hợp → Vision-language features → RDT-1B diffusion Transformer → Action chunk liên tục. Mỗi mũi tên tương ứng với một thao tác thực: đọc cảm biến, xử lý tensor, trích đặc trưng, suy luận, giải mã hoặc gửi command. Nếu bỏ qua quá trình chuẩn hoá hay xử lý timestamp, sơ đồ vẫn đẹp nhưng implementation có thể fail.
-
-**Chỗ dễ sai khi triển khai.** RDT-1B là khoảng 1.2B-parameter diffusion Transformer. Bài báo đưa ra Physically Interpretable Unified Action Space để chuẩn hóa state/action từ nhiều robot sources, rồi pretrain trên dữ liệu không đồng nhất robot và post-train bằng hơn 6 nghìn bimanual episodes cho target platform. Với mỗi module, hãy ghi checkpoint nào dùng, shape dữ liệu, đơn vị và hệ quy chiếu, thành phần nào có gradient và thành phần nào chỉ hiện diện lúc training. Sau đó log action trước và sau inverse normalization để phát hiện lỗi thuộc pipeline chứ không phải lỗi model.
-
-### Đào sâu: Mô hình biểu diễn cái gì?
-
-**Luận điểm.** Action chunk giữ giá trị liên tục thay vì bins từng chiều. Bài báo đưa ra Physically Interpretable Unified Action Space để chuẩn hóa state/action từ nhiều robot sources, rồi pretrain trên dữ liệu không đồng nhất robot và post-train bằng hơn 6 nghìn bimanual episodes cho target platform.
-
-**Action là một hợp đồng kỹ thuật.** ĐẦU RA / DẠNG BIỂU DIỄN: Dữ liệu nhiều action semantics đòi chuẩn hóa, mask và alignment. Một vector điều khiển có thể là joint angle, delta end-effector, gripper hoặc các token đã lượng tử hoá. Cần biết số chiều, đơn vị, hệ tọa độ, scaling và trục thời gian. Bài báo đưa ra Physically Interpretable Unified Action Space để chuẩn hóa state/action từ nhiều robot sources, rồi pretrain trên dữ liệu không đồng nhất robot và post-train bằng hơn 6 nghìn bimanual episodes cho target platform. Không xác định các yếu tố này thì chưa thể nối output model với phần cứng.
-
-**Kiểm tra trước khi train.** Lấy một trajectory đúng, encode rồi decode qua representation dự kiến. Đo reconstruction error trên từng chiều và vị trí thời gian quan trọng, nhất là khi tiếp xúc vật thể. Thử đổi horizon hoặc normalization mà giữ nguyên dữ liệu. Một adapter sai có thể phá mọi rollout dù bản thân network vẫn tối ưu được loss.
-
-### Đào sâu: Model học như thế nào?
-
-**Luận điểm.** Pretraining ở quy mô mô hình khoảng 1B parameters. Kiến trúc được thiết kế để scale width/depth và exploit multimodal conditioning. Với few-shot adaptation, mô hình tận dụng đã pretrain prior về chuyển động rồi chỉ cần một lượng demonstration rất nhỏ cho nhiệm vụ mới.
-
-**Loss phải có nguồn supervision.** MỤC TIÊU HỌC: Training denoising/flow-style loss trên robot actions dưới điều kiện multimodal. Hãy chỉ ra batch gồm observation, state, instruction, target action hay target đặc trưng nào; rồi xác định mô hình đang học reconstruction, dự đoán chuỗi hay một phân phối có điều kiện. Cùng tên 'training' nhưng cách tạo target ở BC, diffusion, flow matching và mô hình dự đoán đặc trưng khác nhau căn bản.
-
-**Phân tách lỗi dữ liệu và lỗi thuật toán.** Kiến trúc được thiết kế để scale width/depth và exploit multimodal conditioning. Với few-shot adaptation, mô hình tận dụng đã pretrain prior về chuyển động rồi chỉ cần một lượng demonstration rất nhỏ cho nhiệm vụ mới. Kiểm tra episode split trước khi chia thành window, kiểm tra timestamp camera/action, normalization, random seed và khả năng overfit một subset nhỏ. Nếu vài trajectory còn không học được, việc tăng model size hoặc đổi scheduler thường chỉ che lỗi implementation.
-
-**Đọc ablation đúng cách.** Phân biệt đóng góp của pretraining corpus và diffusion Transformer. Khi đổi một module phải giữ data budget, training steps và quy trình đánh giá tương đương. Nếu nhiều thứ đổi cùng lúc, tác dụng thực sự là của toàn hệ thống, không thể kết luận một trick đơn lẻ tạo toàn bộ mức cải thiện.
-
-### Đào sâu: Mathematical Intuition
-
-**Luận điểm.** Mạng học cách nhận ra nhiễu trong action đang bị xáo trộn theo observation và instruction. Với few-shot adaptation, mô hình tận dụng đã pretrain prior về chuyển động rồi chỉ cần một lượng demonstration rất nhỏ cho nhiệm vụ mới.
-
-$$
-\epsilon_\theta(A_k, k\mid o,\ell)
-$$
-
-**Công thức đang mô tả thứ gì?** Mạng học cách nhận ra nhiễu trong action đang bị xáo trộn theo observation và instruction. Trước khi tính đạo hàm hoặc chuyển vế, hãy xác định đâu là observation, đâu là biến action, đâu là horizon/conditioning và đâu là tham số được học. Với few-shot adaptation, mô hình tận dụng đã pretrain prior về chuyển động rồi chỉ cần một lượng demonstration rất nhỏ cho nhiệm vụ mới. Ký hiệu ngắn gọn không nói hết cách chọn discretization, action mask hoặc runtime sampler.
-
-**Một phép thử bằng hai trajectory.** Hai lần thao tác có cùng mục tiêu nhưng trạng thái ban đầu khác nhau có thể cần action khác. Công thức này có cho phép output phụ thuộc vào thông tin phân biệt ấy không? Nếu nhiều demonstration hợp lệ khác nhau, model học một mode, average hay một phân phối đa mode? Đây mới là câu hỏi hiểu toán trong robot learning.
-
-**Giới hạn của suy luận từ công thức.** Ký hiệu khái niệm của denoising, không đóng vai trò thay bảng loss trong paper. Một biểu thức xác suất hoặc phép nội suy không tự chứng minh model đã học vật lý hay robot sẽ thành công. Loss và nguồn target quyết định model có tín hiệu nào, còn evaluation mới cho biết hành vi thực hiện ngoài đời.
+DiT kết hợp những điều kiện ấy và liên tục dự đoán cách chỉnh chuỗi hành động. Sau nhiều bước, mô hình thu được đoạn lệnh cho hai tay. Robot thực hiện và có thể lấy quan sát mới cho lần dự đoán sau. Các phần chuẩn hóa như QKNorm/RMSNorm góp phần giữ huấn luyện ổn định; chúng không phải những lệnh motor độc lập.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -140,15 +78,11 @@ Phải đọc riêng **vật lý of action schema** và **DiT kiến trúc**. N�
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Một lần inference xảy ra ra sao?
+### Ví dụ hai tay cùng chuyển một khối
 
-**Luận điểm.** Quan sát và instruction đi qua encoders. Với một bimanual folding kỹ năng, mạng điều kiện hình ảnh + ngôn ngữ + trạng thái robot rồi mẫu cả action chunk cho hai tay.
+Giả sử robot cần đưa khối từ tay phải sang tay trái. Một tay phải kẹp chắc trong khi tay kia tới vị trí nhận, rồi hai tay phối hợp chuyển lực giữ. Nếu tay bên nhận kẹp quá sớm hoặc tay bên giao buông trước, khối có thể rơi.
 
-**Một tick điều khiển xảy ra thế nào?** XỬ LÝ ĐẦU VÀO: Diffusion Transformer iterative denoise action chunk. Ta nhận observation, tính conditioning, sinh action, giải mã và gửi lệnh xuống controller. Với một bimanual folding kỹ năng, mạng điều kiện hình ảnh + ngôn ngữ + trạng thái robot rồi mẫu cả action chunk cho hai tay. Hãy ghi lại thời điểm ở mỗi bước vì latency từ ảnh đến actuator khác với thời gian chạy forward của riêng backbone.
-
-**Khi môi trường đổi giữa hai lần query.** Nếu vật thể dịch chuyển, mô hình có nhận observation mới đủ nhanh không; action nào đã cam kết và action nào có thể sửa? TẠO HÀNH ĐỘNG: Chunk điều khiển robot; inference cost tăng theo số denoising steps. Trả lời được mới hiểu policy có thực sự closed-loop hoặc chỉ phát một quỹ đạo cố định rồi hy vọng robot làm đúng.
-
-**Điều nên đo thêm.** Ngoài task success, hãy log tail latency, action jerk, lỗi ở điểm nối các action chunk và khả năng phục hồi sau disturbance. Một video chuyển động mượt không chứng minh robot làm đúng mục tiêu, còn throughput cao chưa chắc đảm bảo control loop ổn định.
+Dự đoán từng tay độc lập khó giữ ràng buộc theo thời gian. RDT sinh một đoạn chuyển động chung để học mối liên hệ giữa các bước hai tay. Đây là lợi ích trực giác, nhưng vẫn cần đánh giá ngoài đời vì mô hình không tự có cảm biến lực hoàn hảo.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -165,23 +99,11 @@ Kết quả khiến diffusion foundation policy trở thành một hướng nghi
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Kết quả nói lên điều gì?
+### Hiểu thí nghiệm và hình biểu diễn
 
-**Luận điểm.** Bài báo báo lợi ích khi mở rộng mô hình/dữ liệu cho policy sinh action. Bài báo báo RDT-1B cải thiện tỷ lệ thành công của nhiệm vụ trung bình khoảng 56% so với các các phương pháp đối chứng được dùng trong đánh giá.
+Hình 4 kiểm tra độ ổn định khi bỏ QKNorm/RMSNorm và vai trò của một số thành phần đầu ra. Nếu đường loss dao động mạnh, tối ưu hóa có thể gặp khó ngay trước khi robot thực thi. Các phép thử điều khiển còn tách kỹ năng đi thẳng và rót chính xác lượng nước.
 
-**Cách đọc bảng số liệu.** PHÁT HIỆN QUAN TRỌNG: Đa nhiệm và multi-robot pretraining tạo prior hữu dụng cho downstream manipulation. Trước khi so score, xác định metric đo thành công cuối hay progress từng bước, baseline dùng dữ liệu gì, số lần lặp, tập test và cách gộp các nhiệm vụ. Bài báo báo RDT-1B cải thiện tỷ lệ thành công của nhiệm vụ trung bình khoảng 56% so với các các phương pháp đối chứng được dùng trong đánh giá. Chênh lệch average đôi khi giấu những task thất bại nghiêm trọng.
-
-**Từ số sang kết luận có phạm vi.** CÁCH DIỄN GIẢI: Lợi thế cần so ở cùng data/compute budget để không nhầm hiệu quả kiến trúc với scale. Một mô hình khái quát tốt trên lệnh mới chưa chắc điều khiển contact-rich tốt; data diversity hiệu quả chưa bảo đảm chuyển được sang morphology lạ; model chạy nhanh chưa có nghĩa tail latency phù hợp servo. Phải kết luận theo đúng chiều mà thí nghiệm đo.
-
-**Độ tin cậy của bằng chứng.** Camera placement, calibration, noise, split, seed và budget huấn luyện đều ảnh hưởng outcome. Một kết quả đáng tin cần báo cáo đủ điều kiện để người đọc kiểm tra, và có đối chứng tránh nhiễu. Nếu thiếu, hãy nói rõ mức bất định thay vì tưởng tượng số liệu.
-
-### Đào sâu: Ablation và bằng chứng
-
-**Luận điểm.** Phân biệt đóng góp của pretraining corpus và diffusion Transformer. Nó thể hiện zero-shot robustness tốt hơn trước vật thể chưa xuất hiện khi huấn luyện/bối cảnh và đặc biệt mạnh trong bimanual kỹ năng.
-
-**Ablation hỏi nguyên nhân, không chỉ điểm số.** YẾU TỐ ĐƯỢC THỬ: Đánh giá latency theo số denoising steps và horizon. Loại bỏ một thành phần khiến performance giảm là dấu hiệu hữu ích trong thiết lập đã thử, nhưng chưa chứng minh nó là giải pháp duy nhất. Nó thể hiện zero-shot robustness tốt hơn trước vật thể chưa xuất hiện khi huấn luyện/bối cảnh và đặc biệt mạnh trong bimanual kỹ năng. Hãy tìm xem các đường baseline có chung dữ liệu, model capacity và ngân sách tối ưu không.
-
-**Đọc theo từng failure mode.** Nó thể hiện zero-shot robustness tốt hơn trước vật thể chưa xuất hiện khi huấn luyện/bối cảnh và đặc biệt mạnh trong bimanual kỹ năng. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
+Hình 5 nêu trạng thái ban đầu, mức thay đổi và mục tiêu từng nhiệm vụ. Đừng chỉ nhìn ảnh cuối; cần xem điều kiện thành công có đòi đúng lượng nước hay chỉ làm chuyển động gần đúng.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -193,13 +115,11 @@ Kết quả khiến diffusion foundation policy trở thành một hướng nghi
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Hạn chế cần nói thẳng
+### Các giới hạn của RDT-1B
 
-**Luận điểm.** Tách rõ tác giả thừa nhận và nhận định phê bình độc lập. Phê bình thêm: “unified action không gian” vẫn dựa trên giả định rằng các nguồn dữ liệu có vật lý semantics đủ tương thích để map vào canonical biểu diễn.
+Mô hình lớn và quá trình khử nhiễu nhiều bước tiêu tốn tài nguyên tính toán, có thể gây trễ trong vòng điều khiển. Khả năng xử lý hai tay không tự đảm bảo mọi vật tiếp xúc đều an toàn, nhất là khi lực kẹp và ma sát thay đổi.
 
-**Phân biệt điều tác giả chỉ ra và điều ta suy đoán.** Tác giả / phạm vi: Tác giả: cần nhiều GPU/dữ liệu, phụ thuộc action conventions nhất quán. Câu 'chưa đánh giá' không đồng nghĩa với 'đã thử và thất bại'. Câu 'có thể chịu rủi ro' không được viết thành số liệu âm tính. Phê bình thêm: “unified action không gian” vẫn dựa trên giả định rằng các nguồn dữ liệu có vật lý semantics đủ tương thích để map vào canonical biểu diễn. Ranh giới đó giúp đọc nghiên cứu nghiêm túc mà không tô hồng hoặc bác bỏ quá mức.
-
-**Ngoài benchmark còn có hệ thống thật.** Phê bình độc lập: Phê bình: 1B active params và iterative sampling vẫn là thách thức cho thiết bị edge. Khi chuyển sang robot khác, camera, workspace, DOF, actuator limits và controller đều có thể phá các giả định gốc. Cần kiểm tra safety, valid action range và các tình huống bắt đầu lệch chuẩn trước khi coi một policy là sẵn sàng triển khai.
+Huấn luyện đa robot vẫn đòi chuẩn hóa và ánh xạ hành động cẩn thận. Sai đơn vị một chiều có thể phá hỏng kết quả dù phần Transformer được huấn luyện đúng.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -212,13 +132,11 @@ Nếu muốn đặt bài này vào bản đồ VLA, hãy xem tiếp các hướn
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Bài này đứng ở đâu trong lĩnh vực?
+### So RDT-1B với ACT và Diffusion Policy
 
-**Luận điểm.** Không đọc paper như một hòn đảo riêng. Đọc thêm Diffusion Policy, GR00T N1. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau.
+ACT cũng học chuỗi hành động nhiều bước cho hai tay, nhưng dùng Transformer và CVAE. Diffusion Policy học phân phối các chuỗi lệnh qua khử nhiễu, không nhất thiết chỉ dành cho hai tay. RDT áp dụng hướng Diffusion Transformer ở quy mô lớn hơn, điều kiện hóa nhiều nguồn tín hiệu và chú trọng phối hợp hai tay.
 
-**So sánh theo trục kỹ thuật.** NỀN TẢNG / TIỀN ĐỀ: Diffusion Policy cho công thức nền về action generation. Hãy xếp các nghiên cứu cạnh nhau theo nguồn dữ liệu, representation, khả năng hiểu lệnh, action generation, embodiment và latency thay vì chỉ theo năm công bố. Một mô hình mạnh về ngữ nghĩa không nhất thiết giỏi điều khiển tốc độ cao.
-
-**Không trộn quan hệ chủ đề với trích dẫn.** HƯỚNG PHÁT TRIỂN: π0.5 và GR00T N1 triển khai flow/action expert với cấu trúc khác. Một công trình có thể là tiền đề kỹ thuật, một biến thể cùng nhiệm vụ hoặc hướng xử lý bottleneck còn bỏ ngỏ; các quan hệ ấy cần trình bày chính xác. Đọc thêm Diffusion Policy, GR00T N1. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau.
+Việc tăng số tham số không phải đóng góp duy nhất: khả năng biểu diễn nhiều robot và huấn luyện ổn định là những quyết định thiết kế quan trọng.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -230,15 +148,11 @@ Trace một batch qua action normalization/vật lý mask; thay các giá trị 
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Nếu chỉ nhớ ba điều
+### Bài tập kiểm chứng đơn giản
 
-**Luận điểm.** Continuous generative action giúp tránh lượng tử hóa thô. Trace một batch qua action normalization/vật lý mask; thay các giá trị NaN/padded joints để chắc loss không ăn nhầm.
+Vẽ một nhiệm vụ chuyển khối từ tay phải sang tay trái và liệt kê thứ tự tiếp cận, kẹp nhận, chuyển lực giữ, buông giao. Ghi xem lệnh của tay nào phụ thuộc tay nào tại mỗi bước. Nếu chỉ dự đoán hai tay độc lập, bước nào dễ bị lệch nhịp nhất?
 
-**Chọn điều cần mang sang dự án thật.** Dùng RDT-1B để nghiên cứu model/data scaling cho action policies. Đừng cố sao chép toàn bộ hệ thống lớn ngay. Tìm một vấn đề cụ thể của robot mình rồi áp dụng đúng thành phần liên quan, với baseline đơn giản và một phép đo rõ ràng. Continuous generative action giúp tránh lượng tử hóa thô.
-
-**Tái hiện tối thiểu.** Trace một batch qua action normalization/vật lý mask; thay các giá trị NaN/padded joints để chắc loss không ăn nhầm. Bắt đầu bằng 1–2 episode kiểm được bằng mắt, ghi shape, unit và timestamp; tiếp theo mới mở rộng dataset, thêm nhiều seed và đánh giá held-out. Viết sẵn điều kiện pass/fail để không biến công việc thành quá trình tune vô tận.
-
-**Tự kiểm tra đã hiểu.** Sau khi đọc, phải giải thích được observation → representation → action; mô tả loss và supervision; rồi đọc đúng metric, baseline, limitation. Nếu thiếu một trong ba, quay lại chính phần đó thay vì học thuộc tên kiến trúc.
+Sau đó đọc Hình 3 và chỉ ra ảnh cổ tay, trạng thái khớp, nhiễu hành động và tần số điều khiển được đưa vào ở đâu. Những câu hỏi này giúp nối sơ đồ mạng với công việc thật.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
