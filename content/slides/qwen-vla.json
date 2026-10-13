@@ -31,7 +31,7 @@
     "lead": "Điểm quan trọng là hiểu được lời yêu cầu không đồng nghĩa biết ngay cách cử động.",
     "items": [
       "Embodiment-aware prompting + continuous hành động expert",
-      "chữ mô tả robot/control schema điều kiện hóa Qwen backbone; DiT sinh chunk liên tục."
+      "Thông tin loại robot giúp bộ sinh DiT tạo đoạn chuyển động phù hợp với phần cứng."
     ],
     "intuition": "Một robot có thể được giao “Nhặt chiếc cốc đỏ”, “Đi tới cạnh bàn” hoặc “Chiếc cốc nào gần cửa hơn?”. Các yêu cầu có đầu ra khác nhau: thao tác tay, điều hướng hoặc câu trả lời. Nếu mỗi loại dùng mạng hoàn toàn riêng, dữ liệu và kiến thức khó chia sẻ.",
     "detail": {
@@ -44,7 +44,7 @@
     "title": "Hình dung nhiệm vụ gom đồ uống",
     "lead": "Câu lệnh “Gom các chai đồ uống, để miếng bọt biển riêng” cần nhiều lần nhặt và đặt. Ở cấp nhiệm vụ, robot phải biết nhóm đồ nào cần gom, vật nào không đụng tới và khi nào đã xong.",
     "items": [
-      "Kết hợp Qwen VLM, mô tả embodiment và DiT flow expert để điều khiển nhiều loại robot."
+      "Kết hợp phần hiểu ảnh–ngôn ngữ, thông tin cấu trúc robot và bộ sinh hành động DiT."
     ],
     "intuition": "Hình 3 có ví dụ ngắn và dài để cho thấy độ khó tăng theo số bước. Nếu mô hình chọn đúng chai nhưng bỏ vào vùng dành cho miếng bọt biển, lỗi nằm ở cách hiểu nhiệm vụ/đích đặt. Nếu nó chọn đúng đích nhưng làm rơi chai, lỗi có thể ở bộ điều khiển và dữ liệu vận động.",
     "detail": {
@@ -99,7 +99,7 @@
     "items": [
       {
         "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
-        "value": "Embodiment chữ không tự giải dynamics chưa nhìn thấy."
+        "value": "Mô tả loại robot không thể thay thế dữ liệu vận động và các giới hạn cơ học thực tế."
       },
       {
         "label": "ĐÁNH ĐỔI KỸ THUẬT",
@@ -139,7 +139,7 @@
     "items": [
       {
         "label": "XỬ LÝ ĐẦU VÀO",
-        "value": "hành động expert denoise/flow sample một continuous chunk."
+        "value": "Bộ sinh hành động khử nhiễu để tạo đoạn chuyển động liên tục."
       },
       {
         "label": "TẠO HÀNH ĐỘNG",
@@ -213,7 +213,7 @@
       },
       {
         "label": "Phê bình độc lập",
-        "value": "Phê bình: chữ robot schema không thay thế dữ liệu vận động; navigation và manipulation có dynamics/latency khác nhau."
+        "value": "Phê bình: mô tả phần cứng không thay thế dữ liệu vận động; đi lại và thao tác tay có giới hạn động học, độ trễ khác nhau."
       }
     ],
     "intuition": "Cách biểu diễn lệnh phải phù hợp loại robot đang chạy. Nếu đổi camera, khớp hoặc bộ điều khiển, cần kiểm chứng lại quá trình giải mã và an toàn. Tỷ lệ thành công trên một bộ nhiệm vụ ALOHA chưa đồng nghĩa có thể chuyển nguyên bản mô hình đã lưu sang mọi robot thật.",
