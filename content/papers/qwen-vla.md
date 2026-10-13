@@ -1,4 +1,4 @@
-> **Bài do bạn cung cấp.** [Qwen-VLA: Unifying Vision-Language-Action Modeling across Tasks, Environments, and Robot Embodiments](https://arxiv.org/abs/2605.30280), Qwen Team, arXiv 2026. Đọc song song với **Figure 2** về kiến trúc, **Tables 1–2** về hỗn hợp dữ liệu/embodiment, và **Tables 4–6** về kết quả. Tên “Qwen-VLA” không có nghĩa mọi capability đã khái quát ngang nhau.
+> **Bài do bạn cung cấp.** [Qwen-VLA: Unifying Vision-Language-Action Modeling across Tasks, Environments, and Robot Embodiments](https://arxiv.org/abs/2605.30280), Qwen Team, arXiv 2026. Đọc song song với **Figure 2** về kiến trúc, **Tables 1–2** về hỗn hợp dữ liệu/embodiment, và **Tables 4–6** về kết quả. Tên “Qwen-VLA” không có nghĩa mọi năng lực đã khái quát ngang nhau.
 
 ## Vì sao cần nghiên cứu này?
 
@@ -9,11 +9,11 @@
 ![Hình 4 từ PDF gốc, trang 17](/paper-figures/qwen-vla/figure-4.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Robot có thể được nghiên cứu theo ba nhóm lớn: cánh tay thao tác vật, robot tự di chuyển và mô hình dự đoán quỹ đạo. Mỗi nhóm thường dùng kiểu cảm biến và dạng lệnh riêng. Ngay cả trong thao tác tay máy, hai robot có thể khác số khớp, hệ tọa độ và tần số điều khiển. Nếu phải huấn luyện một checkpoint riêng cho mỗi cấu hình, rất nhiều kiến thức về đồ vật và cách thực hiện công việc không được chia sẻ. Qwen-VLA tìm cách xây phần biểu diễn chung, đồng thời vẫn nhận biết robot nào đang được điều khiển.
+Robot có thể được nghiên cứu theo ba nhóm lớn: cánh tay thao tác vật, robot tự di chuyển và mô hình dự đoán quỹ đạo. Mỗi nhóm thường dùng kiểu cảm biến và dạng lệnh riêng. Ngay cả trong thao tác tay máy, hai robot có thể khác số khớp, hệ tọa độ và tần số điều khiển. Nếu phải huấn luyện một bản trọng số đã lưu riêng cho mỗi cấu hình, rất nhiều kiến thức về đồ vật và cách thực hiện công việc không được chia sẻ. Qwen-VLA tìm cách xây phần biểu diễn chung, đồng thời vẫn nhận biết robot nào đang được điều khiển.
 
 Một robot có thể phải nhặt đồ vật, di chuyển trong phòng hoặc trả lời câu hỏi về thứ camera đang nhìn thấy. Các việc ấy đòi những dạng kết quả khác nhau, trong khi nhiều kiến thức về đồ vật và ngôn ngữ có thể dùng chung. **Qwen-VLA tổ chức việc học thành nhiều giai đoạn để kết nối hiểu ảnh–ngôn ngữ với sinh hành động robot.** Bộ sinh hành động trước hết học cấu trúc chuyển động từ mô tả bằng chữ, sau đó học liên hệ với ảnh thật, tiếp tục tinh chỉnh theo nhiệm vụ và cuối cùng có thể tối ưu bằng phần thưởng khi robot tương tác với môi trường.
 
-Khó khăn là **action semantics không đồng nhất**. Một vector 7 chiều có thể là end-effector translation/rotation/gripper; robot khác 14 joint angles; agent navigation lại xuất waypoint và heading. Đưa tất cả vào cùng tensor padding mà không mô tả embodiment sẽ khiến mô hình học mapping mơ hồ. Vì vậy kiến trúc phải đồng thời giải VLM grounding, biểu diễn/conditioning và sinh action.
+Khó khăn là **ý nghĩa vật lý của lệnh không đồng nhất**. Một vector 7 chiều có thể là end-effector translation/rotation/gripper; robot khác 14 joint angles; agent navigation lại xuất waypoint và heading. Đưa tất cả vào cùng mảng dữ liệu padding mà không mô tả embodiment sẽ khiến mô hình học mapping mơ hồ. Vì vậy kiến trúc phải đồng thời giải VLM grounding, biểu diễn/điều kiện hóa và sinh hành động.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -126,7 +126,7 @@ Hình 7 thử việc học chung dữ liệu ảnh–ngôn ngữ với dữ li�
 
 ## Hạn chế và câu hỏi còn mở
 
-Mô hình được thử trên những loại robot, nhóm nhiệm vụ và môi trường xác định. Việc có mô tả cấu hình robot trong đầu vào không bảo đảm mô hình điều khiển ngay phần cứng hoàn toàn mới mà không cần demonstration. Mạng ảnh–ngôn ngữ lớn kết hợp DiT còn gây độ trễ và tốn bộ nhớ đáng kể.
+Mô hình được thử trên những loại robot, nhóm nhiệm vụ và môi trường xác định. Việc có mô tả cấu hình robot trong đầu vào không bảo đảm mô hình điều khiển ngay phần cứng hoàn toàn mới mà không cần lượt thao tác mẫu. Mạng ảnh–ngôn ngữ lớn kết hợp DiT còn gây độ trễ và tốn bộ nhớ đáng kể.
 
 Ngoài ra, hiểu ảnh tốt không đủ để điều khiển tiếp xúc chính xác. Điều hướng, thao tác hai tay và bàn tay nhiều ngón có những giới hạn vật lý khác nhau. Khi so điểm, cần tách tác dụng của dữ liệu học trước, số lượt tinh chỉnh và bộ chuyển đổi lệnh thay vì quy mọi cải thiện cho một thành phần duy nhất.
 
@@ -143,10 +143,10 @@ Cách biểu diễn lệnh phải phù hợp loại robot đang chạy. Nếu đ
 ## Liên hệ với nghiên cứu khác
 
 - [PaLM-E](/paper/palm-e) mở hướng đưa thị giác/đầu vào cảm biến vào mô hình ngôn ngữ đã huấn luyện trước.
-- [RT-2](/paper/rt-2) và [OpenVLA](/paper/openvla) là nhánh VLM-to-action discrete tokens.
-- [Diffusion Policy](/paper/diffusion-policy), [RDT-1B](/paper/rdt-1b) và [GR00T N1](/paper/groot-n1) giúp hiểu liên tục generative action heads.
+- [RT-2](/paper/rt-2) và [OpenVLA](/paper/openvla) là nhánh VLM-to-hành động discrete tokens.
+- [Diffusion Policy](/paper/diffusion-policy), [RDT-1B](/paper/rdt-1b) và [GR00T N1](/paper/groot-n1) giúp hiểu liên tục sinh hành động heads.
 - [Open X-Embodiment](/paper/open-x-embodiment) là bài học cốt lõi về hỗn hợp dữ liệu và embodiment alignment.
-- [LingBot-VLA 2.0](/paper/lingbot-vla-2) cũng xử lý multi-embodiment, nhưng chọn canonical whole-body action và sparse MoE.
+- [LingBot-VLA 2.0](/paper/lingbot-vla-2) cũng xử lý multi-embodiment, nhưng chọn canonical whole-body hành động và sparse MoE.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -158,11 +158,11 @@ RT-2 chứng minh hướng chuyển kiến thức ảnh–ngôn ngữ sang token
 
 <!-- END EXTENDED WALKTHROUGH -->
 
-## Đọc code và tự kiểm chứng
+## Xem mã nguồn và tự kiểm chứng
 
 Bắt đầu từ [mã nguồn Qwen-VLA](https://github.com/QwenLM/Qwen-VLA). Theo dõi một mẫu dữ liệu qua các bước ảnh/câu lệnh → biểu diễn VLM → bộ sinh DiT → giải chuẩn hóa → lệnh điều khiển. Ghi số chiều và đơn vị ở từng bước để phát hiện những chỗ dữ liệu bị đổi sai dạng.
 
-Giữ ảnh và câu lệnh cố định nhưng thay mô tả cấu hình robot trong đầu vào, xem dạng lệnh đầu ra có đổi phù hợp không. Đừng vội chạy robot thật trước khi kiểm tra giới hạn khớp và phép chuyển đổi action.
+Giữ ảnh và câu lệnh cố định nhưng thay mô tả cấu hình robot trong đầu vào, xem dạng lệnh đầu ra có đổi phù hợp không. Đừng vội chạy robot thật trước khi kiểm tra giới hạn khớp và phép chuyển đổi hành động.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

@@ -82,7 +82,7 @@ Dự đoán từng tay độc lập khó giữ ràng buộc theo thời gian. RD
 
 Trong các phép thử được báo cáo, RDT-1B đạt tỷ lệ hoàn thành cao hơn các phương pháp đối chứng, với mức cải thiện trung bình khoảng **56%** theo cách tổng hợp của tác giả. Mô hình thể hiện hiệu quả trong một số nhiệm vụ phối hợp hai tay, kể cả khi thay đồ vật hoặc bố cục.
 
-Những phép thử ít demonstration cũng cho thấy lợi ích của phần học trước: chỉ với một vài ví dụ của nhiệm vụ đích, mạng có thể tận dụng chuyển động đã học. Tuy nhiên cần xem đúng số nhiệm vụ, số lượt thử và loại robot; không thể coi kết quả đó là bảo đảm mọi kỹ năng mới đều học được sau 1–5 ví dụ.
+Những phép thử ít lượt thao tác mẫu cũng cho thấy lợi ích của phần học trước: chỉ với một vài ví dụ của nhiệm vụ đích, mạng có thể tận dụng chuyển động đã học. Tuy nhiên cần xem đúng số nhiệm vụ, số lượt thử và loại robot; không thể coi kết quả đó là bảo đảm mọi kỹ năng mới đều học được sau 1–5 ví dụ.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -133,7 +133,7 @@ Việc tăng số tham số không phải đóng góp duy nhất: khả năng bi
 
 <!-- END EXTENDED WALKTHROUGH -->
 
-## Đọc code và tự kiểm chứng
+## Xem mã nguồn và tự kiểm chứng
 
 Lấy một đoạn hành động mẫu từ robot hai tay. Kiểm tra từng chiều là góc khớp, vị trí đầu kẹp hay lệnh đóng kẹp; thử chuẩn hóa rồi **giải chuẩn hóa** để chắc đã khôi phục đúng giá trị và đơn vị. Với các chiều không tồn tại ở một robot, xem mặt nạ có ngăn chúng ảnh hưởng hàm mất mát không.
 

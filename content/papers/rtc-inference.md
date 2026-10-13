@@ -1,8 +1,8 @@
-> **Bài do bạn cung cấp.** [Real-Time Execution of Action Chunking Flow Policies](https://arxiv.org/abs/2506.07339), NeurIPS 2025. Đây là bài báo về **lúc chạy của chính sách điều khiển**, không phải một backbone huấn luyện trước mới. Đọc cùng **Figure 2–3**, **Section 3**, **Section 4** và **Appendix A**.
+> **Bài do bạn cung cấp.** [Real-Time Execution of Action Chunking Flow Policies](https://arxiv.org/abs/2506.07339), NeurIPS 2025. Đây là bài báo về **lúc chạy của chính sách điều khiển**, không phải một mạng nền huấn luyện trước mới. Đọc cùng **Figure 2–3**, **Section 3**, **Section 4** và **Appendix A**.
 
 ## Vì sao cần nghiên cứu này?
 
-### Mô hình nghĩ 100 ms, robot cần action mỗi 20 ms
+### Mô hình nghĩ 100 ms, robot cần hành động mỗi 20 ms
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -11,14 +11,14 @@
 <!-- END ADDITIONAL PDF FIGURES -->
 Một robot có thể cần lệnh mới mỗi 20 mili giây, nhưng mô hình VLA lại mất cả trăm mili giây mới tính xong đoạn hành động tiếp theo. Nếu robot đứng yên chờ, thao tác quẹt diêm hoặc giữ vật có thể bị phá hỏng. Nếu robot chạy tiếp rồi đột ngột chuyển sang đoạn mới, hai đoạn có thể khác hướng và gây giật mạnh. **RTC giải bài toán nối các đoạn hành động khi mô hình suy luận chậm:** cho robot tiếp tục thực thi trong khi mạng tính toán, đồng thời giữ các lệnh đã cam kết và điều chỉnh phần chuyển động còn lại để đường đi liên tục.
 
-**Action chunking** giải quyết được một nửa bài toán. Thay vì chỉ dự đoán lệnh ở một thời điểm, chính sách điều khiển sinh cả đoạn hành động tiếp theo, nhờ đó robot có thể tiếp tục chạy các lệnh đang có trong bộ đệm ngay cả khi mạng bận tính toán. Nhưng khi đoạn mới đến, hai cách tổ chức thực thi thông thường vẫn gây vấn đề:
+**hành động chunking** giải quyết được một nửa bài toán. Thay vì chỉ dự đoán lệnh ở một thời điểm, chính sách điều khiển sinh cả đoạn hành động tiếp theo, nhờ đó robot có thể tiếp tục chạy các lệnh đang có trong bộ đệm ngay cả khi mạng bận tính toán. Nhưng khi đoạn mới đến, hai cách tổ chức thực thi thông thường vẫn gây vấn đề:
 
 1. **Chạy tuần tự:** robot thực hiện xong đoạn A rồi dừng chờ mạng sinh đoạn B. Thời gian chờ có thể phá hỏng thao tác đang cần lực hoặc chuyển động liên tục.
 2. **Chạy song song đơn giản:** mạng tạo đoạn B trong khi robot chạy A, nhưng B có thể chọn một hướng đi khác ngay tại điểm nối, khiến robot đổi tốc độ hoặc gia tốc đột ngột.
 
 Ví dụ tránh chướng ngại: chunk cũ đi vòng **phía trên**, chunk mới đi vòng **phía dưới**. Cả hai quỹ đạo riêng lẻ có thể đúng. Nối chúng giữa chừng tạo một cú bẻ lái nguy hiểm. Averaging hai quỹ đạo cũng không chắc hữu ích: trung bình giữa “trái” và “phải” có thể là “đi thẳng vào vật cản”.
 
-Vì vậy vấn đề bài báo thật sự giải không phải chỉ **độ trễ**, mà là **online replanning với các action đã commit trong thế giới vật lý**.
+Vì vậy vấn đề bài báo thật sự giải không phải chỉ **độ trễ**, mà là **online lập lại kế hoạch với các hành động đã commit trong thế giới vật lý**.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -35,7 +35,7 @@ Robot cần lệnh mới ở tần số 50 Hz, tức mỗi 20 mili giây. Nhưng
 
 ## Kiến thức nền
 
-**Action chunk** là một đoạn gồm H bước hành động, mỗi bước có D giá trị điều khiển. **Độ dài thực thi s** là số bước robot dùng trước khi nhận đoạn mới; **độ trễ d** là số bước robot đã đi trong lúc mô hình đang tính. Cần phân biệt bước điều khiển vật lý với lượt khử nhiễu của mô hình: một cái xảy ra ở robot, cái kia là vòng tính toán trên GPU.
+**hành động chunk** là một đoạn gồm H bước hành động, mỗi bước có D giá trị điều khiển. **Độ dài thực thi s** là số bước robot dùng trước khi nhận đoạn mới; **độ trễ d** là số bước robot đã đi trong lúc mô hình đang tính. Cần phân biệt bước điều khiển vật lý với lượt khử nhiễu của mô hình: một cái xảy ra ở robot, cái kia là vòng tính toán trên GPU.
 
 **Flow matching** học trường vận tốc trong không gian chuỗi hành động để chuyển nhiễu ban đầu thành chuỗi hợp lệ. “Thời gian” trong phép sinh bằng flow là một tham số toán học, không phải đồng hồ robot. Nếu nhầm hai loại thời gian, rất dễ hiểu sai cơ chế RTC.
 
@@ -156,10 +156,10 @@ Ngoài ra, tính liên tục về vị trí chưa luôn bảo đảm giới hạ
 
 ## Liên hệ với nghiên cứu khác
 
-- [ACT / ALOHA](/paper/act) giới thiệu action chunking và temporal aggregation, nền của bài toán.
-- [Diffusion Policy](/paper/diffusion-policy) giải thích liên tục generative action chính sách điều khiển có thể inpaint.
+- [ACT / ALOHA](/paper/act) giới thiệu hành động chunking và temporal aggregation, nền của bài toán.
+- [Diffusion Policy](/paper/diffusion-policy) giải thích liên tục sinh hành động chính sách điều khiển có thể inpaint.
 - [π0.5](/paper/pi-0-5) là chính sách điều khiển nền trong real-robot thí nghiệm.
-- [Training-time RTC](/paper/rtc-training) chuyển constraint từ suy luận guidance sang huấn luyện mục tiêu huấn luyện. Hai bài báo nên đọc liền nhau.
+- [Training-time RTC](/paper/rtc-training) chuyển constraint từ suy luận ràng buộc dẫn hướng sang huấn luyện mục tiêu huấn luyện. Hai bài báo nên đọc liền nhau.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -171,7 +171,7 @@ Hai cách có cùng mục tiêu nối hành động liên tục nhưng chi phí 
 
 <!-- END EXTENDED WALKTHROUGH -->
 
-## Đọc code và tự kiểm chứng
+## Xem mã nguồn và tự kiểm chứng
 
 Tạo một môi trường mô phỏng đơn giản với chunk H = 50, thời gian một bước 20 mili giây và độ trễ d từ 5 tới 15 bước. So ba cách: robot đứng chờ đoạn mới, robot thay đoạn ngay khi kết quả tới, và robot giữ tiền tố đã cam kết rồi nối dần phần còn lại.
 

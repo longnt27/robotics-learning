@@ -148,11 +148,11 @@ OpenVLA dùng token hành động, nhưng cách mã hóa từng giá trị có t
 
 <!-- END EXTENDED WALKTHROUGH -->
 
-## Đọc code và tự kiểm chứng
+## Xem mã nguồn và tự kiểm chứng
 
 Tạo hai đoạn lệnh giả lập: một đường cong chuyển động mượt và một chuỗi có thay đổi đột ngột khi đóng kẹp. Cho cả hai qua bộ mã hóa FAST rồi giải mã ngược, vẽ đường gốc và đường khôi phục.
 
-Thay độ dài đoạn và mức nén, đo **số token**, sai số tái tạo và thời gian mã hóa/giải mã. Nếu tín hiệu quan trọng ở lúc tiếp xúc bị mất dù sai số trung bình nhỏ, bạn sẽ thấy vì sao chỉ tối ưu tỷ lệ nén chưa đủ cho robotics.
+Thay độ dài đoạn và mức nén, đo **số token**, sai số tái tạo và thời gian mã hóa/giải mã. Nếu tín hiệu quan trọng ở lúc tiếp xúc bị mất dù sai số trung bình nhỏ, bạn sẽ thấy vì sao chỉ tối ưu tỷ lệ nén chưa đủ cho robot.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

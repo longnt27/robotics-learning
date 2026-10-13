@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Thu hàng trăm nghìn lượt robot làm việc trong những căn bếp thật tốn nhiều thời gian, công sức và phần cứng. Mô phỏng có thể giúp, nhưng một môi trường chỉ có vài căn bếp và ít đồ vật sẽ khiến robot học thuộc bố cục. **RoboCasa tạo một bộ môi trường bếp mô phỏng phong phú với nhiều đồ vật, thiết bị có thể tương tác và nhiệm vụ tự động sinh**, để huấn luyện những kỹ năng có cơ hội chuyển sang môi trường mới. Bài báo còn đánh giá việc kết hợp dữ liệu mô phỏng với ít demonstration robot thật, bởi chuyển động đẹp trong mô phỏng chưa đủ chứng minh làm được ngoài đời.
+Thu hàng trăm nghìn lượt robot làm việc trong những căn bếp thật tốn nhiều thời gian, công sức và phần cứng. Mô phỏng có thể giúp, nhưng một môi trường chỉ có vài căn bếp và ít đồ vật sẽ khiến robot học thuộc bố cục. **RoboCasa tạo một bộ môi trường bếp mô phỏng phong phú với nhiều đồ vật, thiết bị có thể tương tác và nhiệm vụ tự động sinh**, để huấn luyện những kỹ năng có cơ hội chuyển sang môi trường mới. Bài báo còn đánh giá việc kết hợp dữ liệu mô phỏng với ít lượt thao tác mẫu của robot thật, bởi chuyển động đẹp trong mô phỏng chưa đủ chứng minh làm được ngoài đời.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -141,7 +141,7 @@ Một quy trình có thể dùng cả hai: mô phỏng để bao phủ nhiều b
 
 <!-- END EXTENDED WALKTHROUGH -->
 
-## Đọc code và tự kiểm chứng
+## Xem mã nguồn và tự kiểm chứng
 
 Sinh hai nhóm dữ liệu cho nhiệm vụ mở ngăn kéo: một nhóm từ cùng một bố cục, nhóm khác từ nhiều bố cục nhưng có số lượt bằng nhau. Kiểm tra video hoặc ảnh để biết chính xác những yếu tố nào đã thay đổi, ví dụ tay nắm, vật cản hay màu tủ.
 

@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Một mô hình VLA mạnh nhưng không có mã nguồn và checkpoint sẽ rất khó được các phòng thí nghiệm nhỏ nghiên cứu, kiểm chứng hoặc điều chỉnh cho robot riêng. **OpenVLA cung cấp một mô hình ảnh–ngôn ngữ–hành động nguồn mở khoảng bảy tỷ tham số**, đã học từ nhiều lượt robot thao tác. Nhóm nghiên cứu có thể tải mô hình, tinh chỉnh bằng dữ liệu của robot đích và so sánh với những chính sách chuyên biệt. Điều cần chú ý là mô hình vẫn phải được chuyển đúng dạng lệnh cho phần cứng mới; nguồn mở không có nghĩa tự tương thích với mọi robot.
+Một mô hình VLA mạnh nhưng không có mã nguồn và bản trọng số đã lưu sẽ rất khó được các phòng thí nghiệm nhỏ nghiên cứu, kiểm chứng hoặc điều chỉnh cho robot riêng. **OpenVLA cung cấp một mô hình ảnh–ngôn ngữ–hành động nguồn mở khoảng bảy tỷ tham số**, đã học từ nhiều lượt robot thao tác. Nhóm nghiên cứu có thể tải mô hình, tinh chỉnh bằng dữ liệu của robot đích và so sánh với những chính sách chuyên biệt. Điều cần chú ý là mô hình vẫn phải được chuyển đúng dạng lệnh cho phần cứng mới; nguồn mở không có nghĩa tự tương thích với mọi robot.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -76,7 +76,7 @@ Khi kiểm tra, không chỉ xem mô hình có nhặt đúng vật quen thuộc 
 
 Trên các nhóm nhiệm vụ robot thật được so sánh, OpenVLA có kết quả tốt hơn một số chính sách tổng quát trước đó; mức chênh lệch phụ thuộc robot và nhiệm vụ. Khi tinh chỉnh cho robot đích, mô hình đặc biệt hữu ích ở tình huống có nhiều câu lệnh và vật gây nhiễu, nhưng một chính sách chuyên biệt như Diffusion Policy vẫn có thể mạnh ở nhiệm vụ hẹp.
 
-Một kết quả thực dụng là **LoRA chỉ cập nhật khoảng 1,4% tham số** trong một thiết lập mà giữ kết quả gần tinh chỉnh toàn bộ. Lượng tử hóa còn giúp giảm đáng kể bộ nhớ. Tuy nhiên cần phân biệt những kết quả này với khả năng của checkpoint chưa từng được tinh chỉnh.
+Một kết quả thực dụng là **LoRA chỉ cập nhật khoảng 1,4% tham số** trong một thiết lập mà giữ kết quả gần tinh chỉnh toàn bộ. Lượng tử hóa còn giúp giảm đáng kể bộ nhớ. Tuy nhiên cần phân biệt những kết quả này với khả năng của bản trọng số đã lưu chưa từng được tinh chỉnh.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -130,11 +130,11 @@ Việc một mạng dùng lõi mô hình ngôn ngữ không tự khiến nó gi�
 
 <!-- END EXTENDED WALKTHROUGH -->
 
-## Đọc code và tự kiểm chứng
+## Xem mã nguồn và tự kiểm chứng
 
 Trước khi huấn luyện lớn, thử chạy suy luận một vài ảnh trên cấu hình GPU vừa đủ. Ghi lại ảnh/câu lệnh đầu vào, token hành động được sinh, vector sau giải mã và **vector sau giải chuẩn hóa**. Kiểm tra đơn vị, hệ tọa độ và giới hạn an toàn trước khi cho robot thật chuyển động.
 
-Nếu GPU hạn chế, thử lượng tử hóa rồi đo bộ nhớ và độ trễ. Chỉ nên tinh chỉnh sau khi quy trình dữ liệu, normalizer và bộ giải mã lệnh được xác minh, tránh tốn tài nguyên để học trên các nhãn sai.
+Nếu GPU hạn chế, thử lượng tử hóa rồi đo bộ nhớ và độ trễ. Chỉ nên tinh chỉnh sau khi quy trình dữ liệu, bộ chuẩn hóa và bộ giải mã lệnh được xác minh, tránh tốn tài nguyên để học trên các nhãn sai.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

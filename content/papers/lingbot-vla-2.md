@@ -1,4 +1,4 @@
-> **Bài do bạn cung cấp** (file tên `MoE.pdf`). Tên đầy đủ: [From Foundation to Application: Improving VLA Models in Practice](https://arxiv.org/abs/2607.06403), giới thiệu **LingBot-VLA 2.0**. Đừng để tên file làm nhầm rằng bài báo chỉ nói về MoE: nội dung là hệ thống gồm dữ liệu processing, unified biểu diễn action, MoE action expert, predictive distillation và đánh giá robot thật.
+> **Bài do bạn cung cấp** (file tên `MoE.pdf`). Tên đầy đủ: [From Foundation to Application: Improving VLA Models in Practice](https://arxiv.org/abs/2607.06403), giới thiệu **LingBot-VLA 2.0**. Đừng để tên file làm nhầm rằng bài báo chỉ nói về MoE: nội dung là hệ thống gồm dữ liệu processing, unified biểu diễn hành động, MoE action expert, predictive distillation và đánh giá robot thật.
 
 ## Vì sao cần nghiên cứu này?
 
@@ -53,7 +53,7 @@ Robot hai tay, robot di động và robot hình người có số khớp khác n
 
 LingBot-VLA 2.0 xử lý cả chuỗi công việc từ **dữ liệu tới triển khai**. Tác giả tuyển lọc khoảng 90.000 giờ dữ liệu robot thô, còn khoảng **50.000 giờ dùng cho học trước** từ 20 cấu hình robot, kết hợp thêm video góc nhìn người. Những nguồn này phải được đồng bộ và gắn nhãn phù hợp trước khi đưa vào mô hình.
 
-Hệ thống ánh xạ lệnh các robot sang một biểu diễn chung **55 chiều**, nhưng vẫn giữ cách xác định bộ phận cơ thể và những chiều không sử dụng. Mạng sử dụng các chuyên gia MoE để xử lý nguồn kỹ năng đa dạng. Ngoài việc dự đoán action, một mục tiêu huấn luyện bổ sung giúp mạng học đặc trưng cảm nhận hiện tại và tương lai từ tín hiệu hình ảnh, video và độ sâu. Cần tách mạng hỗ trợ tạo nhãn huấn luyện khỏi thành phần thực sự phải chạy trên robot.
+Hệ thống ánh xạ lệnh các robot sang một biểu diễn chung **55 chiều**, nhưng vẫn giữ cách xác định bộ phận cơ thể và những chiều không sử dụng. Mạng sử dụng các chuyên gia MoE để xử lý nguồn kỹ năng đa dạng. Ngoài việc dự đoán hành động, một mục tiêu huấn luyện bổ sung giúp mạng học đặc trưng cảm nhận hiện tại và tương lai từ tín hiệu hình ảnh, video và độ sâu. Cần tách mạng hỗ trợ tạo nhãn huấn luyện khỏi thành phần thực sự phải chạy trên robot.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -154,11 +154,11 @@ Một hệ nhiều thành phần có thể cải thiện tổng thể nhưng kh�
 
 ## Liên hệ với nghiên cứu khác
 
-- [Open X-Embodiment](/paper/open-x-embodiment) là tiền đề để nghĩ về mixture đa morphology và semantics action.
+- [Open X-Embodiment](/paper/open-x-embodiment) là tiền đề để nghĩ về mixture đa cơ cấu robot và semantics hành động.
 - [GR00T N1](/paper/groot-n1) cũng dùng VLM+action expert và video con người nhưng kiến trúc dữ liệu/experts khác.
 - [Qwen-VLA](/paper/qwen-vla) giải cùng bài toán generalist, dùng embodiment description thay vì chỉ phụ thuộc 55D schema.
-- [Diffusion Policy](/paper/diffusion-policy) và [RDT-1B](/paper/rdt-1b) cung cấp nền generative action learning.
-- [DROID](/paper/droid) cho góc nhìn thu dữ liệu robot ở nhiều environment đời thật.
+- [Diffusion Policy](/paper/diffusion-policy) và [RDT-1B](/paper/rdt-1b) cung cấp nền sinh hành động learning.
+- [DROID](/paper/droid) cho góc nhìn thu dữ liệu robot ở nhiều môi trường đời thật.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -170,7 +170,7 @@ Không nên chỉ hỏi mô hình nào có nhiều tham số nhất. Cần biế
 
 <!-- END EXTENDED WALKTHROUGH -->
 
-## Đọc code và tự kiểm chứng
+## Xem mã nguồn và tự kiểm chứng
 
 Tạo hai robot giả lập: robot A có lệnh đầu kẹp bảy chiều, robot B có 14 chiều khớp và kẹp. Viết bộ chuyển đổi sang biểu diễn **55 chiều**, gắn mặt nạ cho các chiều không có rồi thử giải chuẩn hóa ngược để chắc giá trị vật lý được giữ đúng.
 

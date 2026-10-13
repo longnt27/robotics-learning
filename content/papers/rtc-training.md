@@ -1,4 +1,4 @@
-> **Bài do bạn cung cấp.** [Training-Time Action Conditioning for Efficient Real-Time Chunking](https://arxiv.org/abs/2512.05964), Vật lý Intelligence. Bài báo ngắn nhưng tinh tế: nó **thay đổi dữ liệu/mục tiêu huấn luyện lúc huấn luyện** để giảm overhead lúc chạy của inference-time RTC. Nên đọc ngay sau [RTC đầu tiên](/paper/rtc-inference).
+> **Bài do bạn cung cấp.** [Training-Time Action Conditioning for Efficient Real-Time Chunking](https://arxiv.org/abs/2512.05964), Vật lý Intelligence. Bài báo ngắn nhưng tinh tế: nó **thay đổi dữ liệu/mục tiêu huấn luyện lúc huấn luyện** để giảm overhead lúc chạy của suy luận-time RTC. Nên đọc ngay sau [RTC đầu tiên](/paper/rtc-inference).
 
 ## Vì sao cần nghiên cứu này?
 
@@ -41,7 +41,7 @@ Trong RTC huấn luyện sẵn, mạng không được tự sửa tiền tố. N
 
 ## Phương pháp thực hiện
 
-Trong lúc huấn luyện, nhóm tác giả lấy một chuỗi demonstration và chọn ngẫu nhiên độ dài tiền tố k tương ứng những mức trễ có thể gặp khi triển khai. **k bước đầu được đưa vào đúng giá trị thật, không thêm nhiễu**; các bước còn lại bị làm nhiễu để mạng học sinh phần tương lai phù hợp.
+Trong lúc huấn luyện, nhóm tác giả lấy một chuỗi lượt thao tác mẫu và chọn ngẫu nhiên độ dài tiền tố k tương ứng những mức trễ có thể gặp khi triển khai. **k bước đầu được đưa vào đúng giá trị thật, không thêm nhiễu**; các bước còn lại bị làm nhiễu để mạng học sinh phần tương lai phù hợp.
 
 Với DiT dùng flow matching, thời điểm sinh có thể được thiết lập khác nhau cho từng vị trí trong chuỗi để đánh dấu bước nào đã cố định và bước nào cần dự đoán. Hàm mất mát tập trung vào phần cần sinh mới. Nhờ đã học điều kiện tiền tố từ trước, mô hình khi chạy ít phải dùng thêm các bước chỉnh dự đoán cho khớp chuỗi cũ.
 
@@ -157,7 +157,7 @@ Cả hai khác ACT và Diffusion Policy ở trọng tâm nghiên cứu: ACT và 
 
 <!-- END EXTENDED WALKTHROUGH -->
 
-## Đọc code và tự kiểm chứng
+## Xem mã nguồn và tự kiểm chứng
 
 Thử một mô hình nhỏ sinh chuỗi 20 bước, mỗi bước ba chiều. Khi huấn luyện, chọn ngẫu nhiên k từ 0 đến 6, giữ cố định k bước đầu và thêm nhiễu vào phần sau. So ba chế độ: chỉ học k = 3; học nhiều k; và học nhiều k nhưng ưu tiên k = 3.
 
