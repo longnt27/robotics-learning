@@ -54,13 +54,13 @@ Hình 4 kiểm tra độ ổn định khi bỏ QKNorm/RMSNorm và vai trò của
 
 Hình 5 nêu trạng thái ban đầu, mức thay đổi và mục tiêu từng nhiệm vụ. Đừng chỉ nhìn ảnh cuối; cần xem điều kiện thành công có đòi đúng lượng nước hay chỉ làm chuyển động gần đúng.
 
-### 56% tương đối chỉ có ý nghĩa với phép so gốc
+### Phân biệt 56 điểm phần trăm với 56% tương đối
 
-Bài báo báo cáo RDT-1B cải thiện tỷ lệ thành công trung bình khoảng 56% tương đối so với các phương pháp đối chứng được chọn. Những phép thử ít dữ liệu, có trường hợp chỉ một đến năm lần làm mẫu, cho thấy giá trị của việc huấn luyện trước đối với kỹ năng phối hợp hai tay. Khi đọc kết quả, cần phân biệt nhiệm vụ mẫu trong mô phỏng, robot thật và phép thử không cần tinh chỉnh; không nên lấy một mức tăng gộp để khẳng định mọi thao tác hai tay đều dễ hơn tương ứng.
+Bài báo nêu mức cải thiện 56% về tỷ lệ thành công. Ở Hình 1, RDT đạt 68,2% còn ACT đạt 12,2%, chênh 56 **điểm phần trăm**; đây không phải tăng 56% tương đối. Kết quả phụ thuộc vào nhóm nhiệm vụ và phương pháp đối chứng; không nên suy rộng thành mức cải thiện chung cho mọi robot. Những phép thử ít dữ liệu, có trường hợp chỉ một đến năm lần làm mẫu, cho thấy giá trị của việc huấn luyện trước đối với kỹ năng phối hợp hai tay. Khi đọc kết quả, cần phân biệt nhiệm vụ mẫu trong mô phỏng, robot thật và phép thử không cần tinh chỉnh; không nên lấy một mức tăng gộp để khẳng định mọi thao tác hai tay đều dễ hơn tương ứng.
 
 ### Đọc thử nghiệm ổn định khác thử nghiệm thành công
 
-Một đường hàm mất mát ổn định trong Hình 4 cho thấy quá trình huấn luyện có khả năng hội tụ thuận lợi hơn. Nó **chưa chứng minh** tay robot sẽ kẹp đúng vật hay rót đúng lượng nước. Các nhiệm vụ thực thi trong Hình 5 và bảng kết quả mới kiểm tra khả năng vận động. Tương tự, mức cải thiện trung bình khoảng 56% tương đối phải gắn với tập đối chứng và cách tính của tác giả; nếu phương pháp đối chứng đạt 25%, tăng 56% tương đối nghĩa là khoảng 39%, chứ không phải 81%. Ví dụ số học này chỉ để giải thích cách đọc tỷ lệ.
+Một đường hàm mất mát ổn định trong Hình 4 cho thấy quá trình huấn luyện có khả năng hội tụ thuận lợi hơn. Nó **chưa chứng minh** tay robot sẽ kẹp đúng vật hay rót đúng lượng nước. Các nhiệm vụ thực thi trong Hình 5 và bảng kết quả mới kiểm tra khả năng vận động. Ở Hình 1, chênh lệch 68,2% so với 12,2% là 56 điểm phần trăm, tương đương mức tăng tương đối lớn hơn nhiều. Không được lấy số 56 rồi diễn giải thành hệ số cải thiện tương đối 56%. Khi đọc số liệu, cần xem rõ phương pháp đối chứng, tập nhiệm vụ và đơn vị mà tác giả báo cáo.
 
 ![Hình 5 từ PDF gốc, trang 8](/paper-figures/rdt-1b/figure-5.webp)
 
