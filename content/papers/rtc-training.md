@@ -12,7 +12,7 @@ RTC ở thời điểm suy luận có thể lấy một mạng sinh hành độn
 
 ### Phân biệt tiền tố với phần tiếp theo
 
-**Tiền tố đã cam kết** là những hành động robot đã thực hiện hoặc chắc chắn sẽ thực hiện trước khi mạng trả kết quả. Những lệnh ấy không thể bị sửa ngược khi đoạn mới tới. **Hậu tố** là phần hành động tiếp theo cần dự đoán để robot tiếp tục. Gọi d là độ trễ theo số bước và H là độ dài đoạn hành động; s là số bước thực thi của một lần cập nhật. Để tiền tố còn nằm trong vùng hai đoạn hành động chồng nhau, cần thỏa d ≤ H − s.
+**Tiền tố đã cam kết** gồm những hành động robot đã thực hiện hoặc chắc chắn sẽ được bộ điều khiển phát đi trước khi mô hình trả kết quả. Những lệnh ấy không thể bị sửa ngược khi đoạn mới tới. **Hậu tố** là phần hành động tiếp theo cần dự đoán để robot tiếp tục. Gọi d là độ trễ theo số bước và H là độ dài đoạn hành động; s là số bước thực thi của một lần cập nhật. Để tiền tố còn nằm trong vùng hai đoạn hành động chồng nhau, cần thỏa d ≤ H − s.
 
 Trong RTC huấn luyện sẵn, mạng không được tự sửa tiền tố. Nó nhìn những hành động cố định ở đầu chuỗi rồi học cách sinh các bước sau tương thích. Đây là sự khác nhau với mô hình chỉ nhìn ảnh mà không biết bộ điều khiển đang thực thi lệnh nào.
 
@@ -20,11 +20,16 @@ Trong RTC huấn luyện sẵn, mạng không được tự sửa tiền tố. N
 
 Gọi `H` là độ dài đoạn lệnh, `s` là số bước thực thi rồi cập nhật, `d` là số bước mạng cần để tính xong. Để tiền tố đã cam kết nằm trong vùng chồng giữa hai đoạn, phải có `d ≤ H − s`. Ví dụ `H = 16`, `s = 7`, `d = 5`: vùng chồng dài 9 bước nên còn đủ chỗ chứa năm hành động bắt buộc giữ nguyên. Nếu `d` tăng lên 11 thì điều kiện không còn đúng, cần đổi lịch chạy hoặc độ dài đoạn, không thể hy vọng mô hình tự sửa những bước đã thực hiện.
 
+### ### Sửa đoạn mới khi chạy khác với dạy mô hình nối đoạn từ đầu
+
+RTC lúc suy luận có thể dùng một mô hình sinh hành động đã huấn luyện rồi bổ sung ràng buộc để đoạn mới khớp lệnh cũ. Cách này linh hoạt nhưng quá trình lấy mẫu phải tốn thêm công sức để giữ những bước cố định. Phiên bản RTC lúc huấn luyện đặt câu hỏi khác: **tại sao không cho mạng luyện trước với những đoạn đã có phần đầu bắt buộc giữ nguyên?** Khi học, nó nhìn một tiền tố cố định và phải dự đoán phần còn lại. Lúc chạy, phần tiếp theo được sinh phù hợp ngay từ cách mô hình đã học, thay vì sửa một đoạn hoàn toàn tự do cho tới khi vừa khớp.
+
+
 ## Phương pháp thực hiện
 
 ### Huấn luyện bộ sinh để hiểu những lệnh đã cam kết
 
-Trong giai đoạn train, người nghiên cứu lấy một chuỗi hành động đúng, chọn một phần đầu làm tiền tố giả định đã được bộ điều khiển thực hiện. Các giá trị tiền tố này được đưa vào mạng ở dạng thật, không thêm nhiễu. Phần hậu tố mới được thêm nhiễu để mạng học khử nhiễu và sinh ra những bước tiếp theo.
+Trong giai đoạn huấn luyện, người nghiên cứu lấy một chuỗi hành động đúng, chọn một phần đầu làm tiền tố giả định đã được bộ điều khiển thực hiện. Các giá trị tiền tố này được đưa vào mạng ở dạng thật, không thêm nhiễu. Phần hậu tố mới được thêm nhiễu để mạng học khử nhiễu và sinh ra những bước tiếp theo.
 
 Mô hình còn được thông báo độ trễ tương ứng để hiểu tiền tố dài hay ngắn. Trong một DiT dùng flow matching, có thể dùng bước thời gian khác nhau cho token tiền tố và token cần sinh. Nhờ vậy khi chạy, chính sách điều khiển không phải sửa một đoạn mới hoàn toàn tự do cho vừa với lệnh cũ.
 
@@ -33,6 +38,10 @@ Mô hình còn được thông báo độ trễ tương ứng để hiểu tiề
 Khi huấn luyện, người nghiên cứu lấy một đoạn hành động đúng, đánh dấu những bước đầu như thể bộ điều khiển đã cam kết thực hiện. Các giá trị tiền tố được đưa vào mạng không thêm nhiễu; chỉ phần hậu tố mới cần dự đoán và khử nhiễu. Trong DiT kết hợp flow matching, từng token có thể nhận thông tin thời gian lấy mẫu khác nhau. Nhờ đó mạng biết “đây là lệnh cố định” và “đây là lệnh phải tạo ra”.
 
 Đây không phải thêm một tầng suy luận cấp cao về câu lệnh. Nó là cách **huấn luyện bộ sinh chuỗi nhận biết các ràng buộc thời gian**. Nếu tập huấn luyện chỉ dùng một kiểu độ trễ mà máy thật có độ trễ khác hẳn, vẫn cần đánh giá lại khả năng nối đoạn.
+
+### ### Tại sao phần đầu không thêm nhiễu, phần sau lại thêm?
+
+Giả sử robot chắc chắn sẽ đi thêm bốn bước nữa trước khi mô hình trả lệnh mới. Bốn bước ấy đã được bộ điều khiển lựa chọn, nên trong mẫu huấn luyện chúng đóng vai trò **dữ kiện cố định**, không phải điều mô hình được quyền đoán lại. Các bước tiếp theo mới là phần cần sinh nên được đưa vào quá trình học khử nhiễu. Trong cách xây dựng dựa trên flow matching, mạng có thể nhận thông tin thời gian sinh khác nhau cho những vị trí thuộc tiền tố và hậu tố. Nhờ vậy nó học phân biệt “phải giữ nguyên” với “được dự đoán mới”. Đây là kỹ thuật ràng buộc bộ sinh hành động, không phải cơ chế mới để hiểu câu lệnh người dùng.
 
 ![Hình 2 gốc từ PDF bài báo, trang 2](/paper-figures/rtc-training/figure-2.webp)
 
@@ -61,6 +70,10 @@ Hai kết quả không mâu thuẫn. Lợi thế có thể phụ thuộc nhiệm
 Trong thí nghiệm robot thật với các nhiệm vụ dựng hộp giấy và pha espresso, phiên bản học ràng buộc ngay trong huấn luyện đạt kết quả nhiệm vụ gần với RTC áp ràng buộc lúc suy luận, nhưng có độ trễ đo được khoảng 108 mili giây so với 135 mili giây ở thiết lập được công bố. Khoảng chênh 27 mili giây lớn hơn một bước điều khiển 20 mili giây, nhưng không phải mức tiết kiệm cố định trên mọi GPU.
 
 Ở mô phỏng, lợi ích của việc học trước tiền tố rõ hơn khi độ trễ tăng. Ngược lại, khi độ trễ rất nhỏ, không nhất thiết phương án này luôn thắng. Tỷ lệ thành công, thời gian hoàn thành và chi phí huấn luyện bổ sung đều phải được xét cùng nhau.
+
+### ### Hai phiên bản RTC tốt hơn ở điều kiện nào?
+
+Kết quả mô phỏng gợi ý cách huấn luyện sẵn tiền tố có thể có lợi khi độ trễ tăng. Nhưng ở một nhóm nhiệm vụ robot thật, tỷ lệ hoàn thành của hai phiên bản lại khá gần nhau, dù thời gian tính được báo khoảng 108 so với 135 mili giây. Không nên chọn một cột thuận lợi rồi nói phiên bản mới thắng tuyệt đối. Hãy xét độ trễ thực tế của phần cứng, thời gian hoàn thành, số lượt nhiệm vụ thành công và chi phí huấn luyện thêm. Cũng cần kiểm tra độ trễ có khi vượt vùng chồng hai đoạn hay không: khi lệnh cũ sắp hết mà đoạn mới chưa tới, riêng việc huấn luyện tiền tố không thể cứu được bộ đệm đang cạn.
 
 ![Hình 5 từ PDF gốc, trang 3](/paper-figures/rtc-training/figure-5.webp)
 
