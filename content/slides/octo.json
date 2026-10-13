@@ -44,7 +44,7 @@
     "title": "Hình dung chuyển từ robot một tay sang hai tay",
     "lead": "Một chính sách điều khiển từng học nhiều nhiệm vụ nhặt và đặt bằng tay máy đơn. Khi chuyển sang robot hai tay, khái niệm vị trí đích hoặc quan sát vật thể có thể hữu ích, nhưng lệnh hai tay phối hợp có số chiều và ràng buộc khác.",
     "items": [
-      "Một generalist robot chính sách điều khiển mở có thể pretrain trên hỗn hợp robot rồi fine-tune nhanh vào nhiệm vụ mới."
+      "Một mô hình điều khiển dùng chung có thể học từ nhiều robot rồi tinh chỉnh nhanh cho nhiệm vụ mới."
     ],
     "intuition": "Nếu chỉ lấy lệnh cũ gửi xuống robot mới, chuyển động có thể sai hoàn toàn. Vì vậy khả năng tinh chỉnh nhanh phải được chứng minh bằng dữ liệu robot đích và tỷ lệ thành công sau khi tinh chỉnh, không chỉ nhìn tên kiến trúc.",
     "detail": {
@@ -213,7 +213,7 @@
       },
       {
         "label": "Phê bình độc lập",
-        "value": "Phê bình: fine-tune success không chứng minh zero-shot universal control; diffusion head cũng có latency."
+        "value": "Phê bình: tinh chỉnh thành công không chứng minh mô hình điều khiển được mọi robot ngay; bộ sinh hành động cũng có độ trễ."
       }
     ],
     "intuition": "Tốc độ suy luận và an toàn của lệnh điều khiển động cơ cũng cần kiểm tra trên phần cứng. Một chính sách điều khiển tổng quát rất tốt trên dữ liệu ghi sẵn vẫn có thể chậm hoặc thiếu chính xác ở bài toán kẹp nhỏ.",
