@@ -3,9 +3,9 @@
     {
       "page": 2,
       "bbox": [
-        22.0,
+        22,
         72.4,
-        590.0,
+        590,
         317.6
       ],
       "width": 2045,
@@ -15,16 +15,17 @@
       "image": "/paper-figures/vima/figure-1.webp",
       "caption": "Figure 1: Multimodal prompts for task specification. We observe that many robot manipulation tasks can be expressed as multimodal prompts that interleave language and image/video frames. We introduce VIMA, an embodied agent capable of processing mulitimodal prompts (left) and controlling a robot arm to solve the task (right).",
       "pdf": "https://arxiv.org/pdf/2210.03094",
-      "caption_vi": "Hình 1: Yêu cầu đa phương thức cho đặc điểm kỹ thuật tác vụ. Chúng tôi quan sát thấy rằng nhiều tác vụ thao tác robot có thể được thể hiện dưới dạng yêu cầu đa phương thức xen kẽ ngôn ngữ và khung hình ảnh/video. Chúng tôi giới thiệu VIMA, một tác nhân hiện thân có khả năng xử lý gợi ý mulitimodal (trái) và điều khiển một cánh tay robot để giải quyết nhiệm vụ (phải).",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "64d88f5ba488d52e62f86d7ad695471b254743a40ad6e0f929bd4765e2b557b3"
+      "caption_vi": "Hình 1. Dùng prompt đa phương thức để giao nhiệm vụ. Nhiều thao tác robot có thể được mô tả bằng một prompt kết hợp lời nói với ảnh hoặc các khung hình video. VIMA đọc loại prompt này (bên trái), sau đó điều khiển cánh tay robot thực hiện nhiệm vụ (bên phải).",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "64d88f5ba488d52e62f86d7ad695471b254743a40ad6e0f929bd4765e2b557b3",
+      "translation_reviewed": true
     },
     {
       "page": 3,
       "bbox": [
-        22.0,
+        22,
         68.3,
-        590.0,
+        590,
         183.3
       ],
       "width": 2045,
@@ -34,16 +35,17 @@
       "image": "/paper-figures/vima/figure-2.webp",
       "caption": "Figure 2: Evaluation Protocol in VIMA-BENCH. We design 4 levels of evaluation settings to systematically measure the zero-shot generalization capability of an agent. Each level deviates more from the training distribution, and thus is strictly more challenging than the previous level.",
       "pdf": "https://arxiv.org/pdf/2210.03094",
-      "caption_vi": "Hình 2: Giao thức đánh giá trong VIMA-BENCH. Chúng tôi thiết kế 4 mức cài đặt đánh giá để đo lường một cách có hệ thống khả năng khái quát hóa không bắn của một tác nhân. Mỗi cấp độ đi chệch nhiều hơn khỏi phân phối đào tạo, và do đó là hoàn toàn thách thức hơn so với cấp độ trước đó.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "96e5a3952ec6b756d7d2fc09beeed340bf5d3c6ff51b16ad3908a8092b9e263c"
+      "caption_vi": "Hình 2. Cách đánh giá trên VIMA-BENCH. Nhóm tác giả xây dựng bốn cấp độ để đo khả năng xử lý tình huống chưa từng xuất hiện khi huấn luyện, không cần học thêm (zero-shot). Càng lên cấp cao, tình huống kiểm tra càng khác dữ liệu huấn luyện nên càng khó.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "96e5a3952ec6b756d7d2fc09beeed340bf5d3c6ff51b16ad3908a8092b9e263c",
+      "translation_reviewed": true
     },
     {
       "page": 4,
       "bbox": [
-        22.0,
+        22,
         205.6,
-        590.0,
+        590,
         345.8
       ],
       "width": 2045,
@@ -53,17 +55,18 @@
       "image": "/paper-figures/vima/figure-3.webp",
       "caption": "Figure 3: VIMA Architecture. We encode the multimodal prompts with a pre-trained T5 model, and condition the robot controller on the prompt through cross-attention layers. The controller is a causal transformer decoder consisting of alternating self and cross attention layers that predicts motor commands conditioned on prompts and interaction history.",
       "pdf": "https://arxiv.org/pdf/2210.03094",
-      "caption_vi": "Hình 3: Kiến trúc VIMA. Chúng tôi mã hóa các nhắc nhở đa phương thức với một mô hình T5 được đào tạo trước, và điều kiện cho bộ điều khiển robot trên nhắc nhở thông qua các lớp chú ý chéo. Bộ điều khiển là một bộ giải mã biến áp nhân quả bao gồm các lớp tự xen kẽ và chú ý chéo dự đoán các lệnh động cơ được điều kiện hoá theo gợi ý và lịch sử tương tác.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "1579d284c40e4b0082b3dba99d9732fb742c97676d155cee77e1bf64a2cf5aa4"
+      "caption_vi": "Hình 3. Kiến trúc VIMA. Prompt gồm chữ và hình được mã hóa bằng mô hình T5 đã huấn luyện trước. Bộ điều khiển nhận thông tin từ prompt qua các lớp chú ý chéo (cross-attention). Phần dự đoán lệnh robot là một Transformer sinh hành động theo thứ tự, xen kẽ các lớp tự chú ý và chú ý chéo để kết hợp prompt với lịch sử quan sát, thao tác.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "1579d284c40e4b0082b3dba99d9732fb742c97676d155cee77e1bf64a2cf5aa4",
+      "translation_reviewed": true
     },
     {
       "page": 5,
       "bbox": [
-        22.0,
-        45.0,
-        590.0,
-        310.0
+        22,
+        45,
+        590,
+        310
       ],
       "width": 2045,
       "height": 955,
@@ -72,16 +75,17 @@
       "image": "/paper-figures/vima/figure-4.webp",
       "caption": "Figure 4: Scaling model and data. Top: We compare performance of different methods with model sizes ranging from 2M to 200M parameters. Across all model sizes and generalization levels, VIMA outperforms baseline variants. Bottom: For a fixed model size of 92M parameters we compare the effect of imitation learning dataset size with 0.1%, 1%, 10%, and full data. VIMA is extremely sample efficient and can achieve performance comparable to other methods with 10× less data.",
       "pdf": "https://arxiv.org/pdf/2210.03094",
-      "caption_vi": "Hình 4: Mô hình và dữ liệu mở rộng quy mô. Trên cùng: So sánh hiệu suất của các phương pháp khác nhau với kích thước mô hình từ 2M đến 200M. Trên tất cả các kích thước mô hình và mức độ khái quát hóa, VIMA hoạt động tốt hơn các biến thể cơ bản. Dưới cùng: Đối với kích thước mô hình cố định của các tham số 92M, chúng tôi so sánh ảnh hưởng của kích thước bộ dữ liệu học giả với 0,1%, 1%, 10% và dữ liệu đầy đủ. VIMA cực kỳ hiệu quả mẫu và có thể đạt được hiệu suất tương đương với các phương pháp khác với dữ liệu ít hơn 10.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "72d188feeab1ea15937485bbe8818b8e94f78e6af5b8eb66af0d9899cd242786"
+      "caption_vi": "Hình 4. Ảnh hưởng của quy mô mô hình và lượng dữ liệu. Phía trên: so sánh các phương pháp khi số tham số tăng từ 2 triệu đến 200 triệu; VIMA đạt kết quả cao hơn các cách đối chứng ở những mức mô hình và mức độ khái quát được thử nghiệm. Phía dưới: giữ mô hình ở 92 triệu tham số, chỉ thay lượng dữ liệu học bắt chước ở mức 0,1%, 1%, 10% và toàn bộ. VIMA tận dụng dữ liệu hiệu quả: trong thí nghiệm, có thể đạt kết quả tương đương phương pháp khác với lượng dữ liệu ít hơn mười lần.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "72d188feeab1ea15937485bbe8818b8e94f78e6af5b8eb66af0d9899cd242786",
+      "translation_reviewed": true
     },
     {
       "page": 6,
       "bbox": [
-        311.0,
-        25.0,
-        591.0,
+        311,
+        25,
+        591,
         209.3
       ],
       "width": 1009,
@@ -91,16 +95,17 @@
       "image": "/paper-figures/vima/figure-5.webp",
       "caption": "Figure 5: VIMA incurs much less performance drop than baselines as we evaluate on progressively harder settings.",
       "pdf": "https://arxiv.org/pdf/2210.03094",
-      "caption_vi": "Hình 5: VIMA chịu sự giảm hiệu suất ít hơn nhiều so với đường cơ sở khi chúng ta đánh giá trên các cài đặt ngày càng khó khăn hơn.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "a7841ff420c3b91609523b5657a2a2e115f6245fe0c1ca5af6e0c49a4775755a"
+      "caption_vi": "Hình 5. Khi chuyển từ các bài kiểm tra dễ sang những điều kiện khó hơn, hiệu quả của VIMA giảm ít hơn đáng kể so với các phương pháp đối chứng. Biểu đồ nhằm kiểm tra khả năng khái quát, không chỉ điểm số trên tình huống quen thuộc.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "a7841ff420c3b91609523b5657a2a2e115f6245fe0c1ca5af6e0c49a4775755a",
+      "translation_reviewed": true
     },
     {
       "page": 7,
       "bbox": [
-        22.0,
+        22,
         187.7,
-        590.0,
+        590,
         330.5
       ],
       "width": 2045,
@@ -110,16 +115,17 @@
       "image": "/paper-figures/vima/figure-6.webp",
       "caption": "Figure 6: Ablation on visual tokenizers. We compare the performance of VIMA-200M model across different visual tokenizers. Our proposed object tokens outperform all methods that learn directly from raw pixels, and Object Perceiver that downsamples the object sequence to a fixed number of tokens.",
       "pdf": "https://arxiv.org/pdf/2210.03094",
-      "caption_vi": "Hình 6: Sự mài mòn trên các bộ phát tiền ảo trực quan. Chúng tôi so sánh hiệu suất của mô hình VIMA-200M trên các bộ phát tiền ảo trực quan khác nhau. Các thẻ đối tượng được đề xuất của chúng tôi hoạt động tốt hơn tất cả các phương pháp học trực tiếp từ pixel thô, và Object Perceiver rút gọn chuỗi đối tượng thành một số lượng thẻ cố định.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "7a7836848753a368f79b910a533a00cabac036c3a569d874ad242fa8e5b718c7"
+      "caption_vi": "Hình 6. Thí nghiệm tách riêng ảnh hưởng của cách mã hóa hình ảnh. So sánh VIMA 200 triệu tham số khi thay bộ chuyển ảnh thành token. Token mô tả từng vật thể do nhóm tác giả đề xuất cho kết quả tốt hơn các cách học trực tiếp từ điểm ảnh và Object Perceiver, phương pháp rút gọn chuỗi vật thể xuống số token cố định.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "7a7836848753a368f79b910a533a00cabac036c3a569d874ad242fa8e5b718c7",
+      "translation_reviewed": true
     },
     {
       "page": 8,
       "bbox": [
-        22.0,
-        25.0,
-        590.0,
+        22,
+        25,
+        590,
         177.7
       ],
       "width": 2045,
@@ -129,18 +135,19 @@
       "image": "/paper-figures/vima/figure-7.webp",
       "caption": "Figure 7: Ablation on prompt conditioning. We compare our method (xattn: cross-attention prompt conditioning) with a vanilla transformer decoder (gpt-decoder) across different model sizes. Cross-attention is especially helpful in low-parameter regime and for harder generalization tasks.",
       "pdf": "https://arxiv.org/pdf/2210.03094",
-      "caption_vi": "Hình 7: Sự mài mòn trong điều kiện nhắc. Chúng tôi so sánh phương pháp của chúng tôi (xattn: điều kiện nhắc nhớ chú ý chéo) với bộ giải mã biến áp vani (gpt-giải mã) trên các kích thước mô hình khác nhau. Sự chú ý chéo đặc biệt hữu ích trong chế độ tham số thấp và cho các nhiệm vụ khái quát hóa khó khăn hơn.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "92830c49f6b39f723cd01c07f39b78745097af2b4a303b68deaf346514d0d9fd"
+      "caption_vi": "Hình 7. Thí nghiệm kiểm tra vai trò của cách đưa prompt vào mô hình (prompt conditioning). Nhóm tác giả so sánh chú ý chéo (xattn), tức cơ chế cho bộ điều khiển tham chiếu trực tiếp thông tin trong prompt, với bộ giải mã Transformer thông thường (gpt-decoder), ở nhiều quy mô tham số. Chú ý chéo đặc biệt có ích khi mô hình nhỏ và khi phải khái quát sang nhiệm vụ khó hơn.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "92830c49f6b39f723cd01c07f39b78745097af2b4a303b68deaf346514d0d9fd",
+      "translation_reviewed": true
     }
   ],
   "rt-1": [
     {
       "page": 1,
       "bbox": [
-        21.0,
+        21,
         312.2,
-        301.0,
+        301,
         708.7
       ],
       "width": 1009,
@@ -150,17 +157,18 @@
       "image": "/paper-figures/rt-1/figure-1.webp",
       "caption": "Fig. 1: A high-level overview of RT-1’s architecture, dataset, and evaluation.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p025.pdf",
-      "caption_vi": "Hình 1: Tổng quan cấp cao về kiến trúc, bộ dữ liệu và đánh giá của RT-1.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "8b070e89fb185f987b44c89bdd7714f6d088e14ba46779747a535f9d8d8c7d10"
+      "caption_vi": "Hình 1. Tổng quan ba phần của RT-1: kiến trúc mô hình, dữ liệu thu từ robot và cách đánh giá. Đây là sơ đồ định hướng trước khi đi vào từng thành phần kỹ thuật.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "8b070e89fb185f987b44c89bdd7714f6d088e14ba46779747a535f9d8d8c7d10",
+      "translation_reviewed": true
     },
     {
       "page": 3,
       "bbox": [
-        311.0,
-        359.0,
-        591.0,
-        474.0
+        311,
+        359,
+        591,
+        474
       ],
       "width": 1009,
       "height": 415,
@@ -169,16 +177,17 @@
       "image": "/paper-figures/rt-1/figure-2.webp",
       "caption": "Fig. 2: The architecture diagram of RT-1. The instruction is trans- formed into a USE embedding and used to condition a pre-trained EfﬁcientNet via FiLM layers. The resulting vision-language tokens are reduced by the TokenLearner and fed into a decoder-only Trans- former, which outputs tokenized actions.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p025.pdf",
-      "caption_vi": "Hình 2: Sơ đồ kiến trúc của RT-1. Hướng dẫn được chuyển thành nhúng USE và được sử dụng để điều kiện hóa một mạng hiệu quả được đào tạo trước thông qua các lớp FiLM. Kết quả là các thẻ thông báo ngôn ngữ tầm nhìn bị giảm bởi TokenLopez và được đưa vào một Transformer chỉ giải mã, kết quả là các hành động được mã hóa.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "edd5b5a9428899f19722adb35d68534c0068c2a291e8d046406d8f7e221559c3"
+      "caption_vi": "Hình 2. Cách RT-1 biến chỉ dẫn thành hành động. Câu lệnh được mã hóa thành vector bằng USE; vector này điều chỉnh mạng xử lý ảnh EfficientNet đã huấn luyện trước thông qua các lớp FiLM. Token kết hợp thông tin ảnh và ngôn ngữ được TokenLearner rút gọn, rồi đưa vào Transformer chỉ có bộ giải mã để tạo các token hành động.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "edd5b5a9428899f19722adb35d68534c0068c2a291e8d046406d8f7e221559c3",
+      "translation_reviewed": true
     },
     {
       "page": 6,
       "bbox": [
-        22.0,
-        41.0,
-        590.0,
+        22,
+        41,
+        590,
         326.2
       ],
       "width": 2045,
@@ -188,16 +197,17 @@
       "image": "/paper-figures/rt-1/figure-3.webp",
       "caption": "Fig. 3: (a) Robot classroom where we collect data at scale; (b) a real ofﬁce kitchen, one of the two realistic environments used for evaluation (named Kitchen1 in the rest of the paper); (c) a different ofﬁce kitchen used for evaluation (named Kitchen2 in the rest of the paper); (d) mobile manipulator used throughout the paper; (e) a set of objects used for most of the skills to expand skill diversity; (f) a more diverse set of objects used mostly to expand object diversity of the picking skill.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p025.pdf",
-      "caption_vi": "Hình 3: ( a) Phòng học Robot, nơi chúng tôi thu thập dữ liệu theo quy mô; (b) bếp văn phòng thực tế, một trong hai môi trường thực tế được sử dụng để đánh giá (được đặt tên Kitchen1 trong phần còn lại của bài báo); (c) một nhà bếp văn phòng khác được sử dụng để đánh giá (được đặt tên Kitchen2 trong phần còn lại của bài báo); (d) bộ thao tác di động được sử dụng trong toàn bộ bài báo; (e) một bộ đối tượng được sử dụng cho hầu hết các kỹ năng để mở rộng sự đa dạng kỹ năng; (f) một tập hợp đa dạng hơn các đối tượng được sử dụng chủ yếu để mở rộng sự đa dạng đối tượng của kỹ năng chọn.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "873ffdb2af04059f9ff5a58e28dee612a2ab06e6afb0d4358f34a99d299c1ea0"
+      "caption_vi": "Hình 3. Môi trường và thiết bị thu dữ liệu. (a) Khu vực thu demonstration robot với quy mô lớn. (b) Một bếp văn phòng thật dùng để đánh giá, gọi là Kitchen1. (c) Một bếp văn phòng khác, gọi là Kitchen2. (d) Robot di động có cánh tay được dùng trong nghiên cứu. (e) Bộ đồ vật phục vụ nhiều kỹ năng, làm phong phú loại thao tác. (f) Bộ đồ vật đa dạng hơn, chủ yếu thử khả năng gắp các vật khác nhau.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "873ffdb2af04059f9ff5a58e28dee612a2ab06e6afb0d4358f34a99d299c1ea0",
+      "translation_reviewed": true
     },
     {
       "page": 6,
       "bbox": [
-        311.0,
+        311,
         405.2,
-        591.0,
+        591,
         568.7
       ],
       "width": 1009,
@@ -207,16 +217,17 @@
       "image": "/paper-figures/rt-1/figure-4.webp",
       "caption": "Fig. 4: Evaluation scenarios for distractors (ﬁrst row), from left to right: easy (0-5 distractors), medium (9 distractors), hard (9 distractors and occluded object); background (second row), from left to right: original environment, patterned table cloth, new kitchen; and realistic scenarios in the real kitchen (third row), generalization levels from left to right: L1, L2 and L3.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p025.pdf",
-      "caption_vi": "Hình 4: Các kịch bản đánh giá các yếu tố gây mất tập trung (hàng đầu tiên), từ trái sang phải: dễ (0-5 yếu tố gây mất tập trung), trung bình (9 yếu tố gây mất tập trung), cứng (9 yếu tố gây mất tập trung và vật thể bị che lấp); nền (hàng thứ hai), từ trái sang phải từ trái sang phải: môi trường ban đầu, khăn trải bàn có hoa văn, nhà bếp mới; và kịch bản thực tế trong nhà bếp thực tế (hàng thứ ba), mức độ khái quát từ trái sang phải: L1, L2 và L3.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "2257c76a8ed845590de1585aa973e9adec4712f75878c01b154d8e1cdc49e5f9"
+      "caption_vi": "Hình 4. Các tình huống thử độ bền của RT-1. Hàng đầu thay số vật gây nhiễu: dễ (0–5 vật), trung bình (9 vật), khó (9 vật và vật mục tiêu bị che một phần). Hàng giữa thay bối cảnh: môi trường gốc, khăn trải bàn có hoa văn và bếp mới. Hàng cuối là các mức độ thay đổi L1, L2, L3 trong bếp thật, từ trái sang phải.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "2257c76a8ed845590de1585aa973e9adec4712f75878c01b154d8e1cdc49e5f9",
+      "translation_reviewed": true
     },
     {
       "page": 7,
       "bbox": [
-        311.0,
+        311,
         42.4,
-        591.0,
+        591,
         346.6
       ],
       "width": 1009,
@@ -226,16 +237,17 @@
       "image": "/paper-figures/rt-1/figure-5.webp",
       "caption": "Fig. 5: Example evaluation trajectories for RT-1 across various instructions.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p025.pdf",
-      "caption_vi": "Hình 5: Ví dụ quỹ đạo đánh giá cho RT-1 qua các hướng dẫn khác nhau.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "8cdb1f09c46770fcb7966d42a3dd037cc0f2e6f20c9428d4a3c8e21bcfd42a30"
+      "caption_vi": "Hình 5. Một số lần robot chạy thử RT-1 với các câu lệnh khác nhau. Mỗi chuỗi ảnh biểu diễn quá trình thực hiện thao tác theo thời gian, không phải chỉ một ảnh chụp kết quả.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "8cdb1f09c46770fcb7966d42a3dd037cc0f2e6f20c9428d4a3c8e21bcfd42a30",
+      "translation_reviewed": true
     },
     {
       "page": 9,
       "bbox": [
-        311.0,
+        311,
         114.9,
-        591.0,
+        591,
         255.3
       ],
       "width": 1009,
@@ -245,18 +257,19 @@
       "image": "/paper-figures/rt-1/figure-6.webp",
       "caption": "Fig. 6: Various data ablations of RT-1 across seen tasks, generalization to unseen tasks, and robustness to distractors and backgrounds. Data diversity has a higher impact on the performance and generalization than data quantity. Appendix Table XII shows the values for each ablation.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p025.pdf",
-      "caption_vi": "Hình 6: Các cắt giảm dữ liệu khác nhau của RT-1 trên các nhiệm vụ đã thấy, khái quát hóa cho các nhiệm vụ chưa thấy, và mạnh mẽ để phân tâm và nền tảng. Đa dạng dữ liệu có ảnh hưởng đến hiệu suất và khái quát hóa cao hơn so với số lượng dữ liệu. Phụ lục Bảng XII cho thấy các giá trị cho mỗi lần cắt bỏ.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "c84b0b0cfcd929c384b95f59cb00e20a3eb622496bc69ff0bc75fe21c9f2c641"
+      "caption_vi": "Hình 6. Thí nghiệm tách riêng ảnh hưởng của dữ liệu: tỷ lệ hoàn thành nhiệm vụ đã gặp, khả năng làm nhiệm vụ chưa gặp và độ bền trước vật gây nhiễu hoặc phông nền mới. Trong các điều kiện này, mức đa dạng dữ liệu ảnh hưởng mạnh đến chất lượng và khả năng khái quát hơn việc chỉ tăng số mẫu. Số liệu cho từng phép thử nằm ở Bảng XII trong phụ lục.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "c84b0b0cfcd929c384b95f59cb00e20a3eb622496bc69ff0bc75fe21c9f2c641",
+      "translation_reviewed": true
     }
   ],
   "diffusion-policy": [
     {
       "page": 1,
       "bbox": [
-        22.0,
-        163.0,
-        590.0,
+        22,
+        163,
+        590,
         294.4
       ],
       "width": 2045,
@@ -266,16 +279,17 @@
       "image": "/paper-figures/diffusion-policy/figure-1.webp",
       "caption": "Fig. 1: Policy Representations. a) Explicit policy with different types of action representations. b) Implicit policy learns an energy function conditioned on both action and observation and optimizes for actions that minimize the energy landscape c) Diffusion policy refines noise into actions via a learned gradient field. This formulation provides stable training, allows the learned policy to accurately model multimodal action distributions, and accommodates high-dimensional action sequences.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p026.pdf",
-      "caption_vi": "Hình 1: Đại diện chính sách. a) Chính sách cụ thể với các loại đại diện hành động khác nhau. b) Chính sách ngầm học một hàm năng lượng có điều kiện trên cả hành động và quan sát và tối ưu hoá cho các hành động giảm thiểu cảnh quan năng lượng c) Chính sách khuếch tán tinh chỉnh nhiễu thành các hành động thông qua một trường gradient học được. Công thức này cung cấp đào tạo ổn định, cho phép chính sách được học để mô hình hóa chính xác các phân phối hành động đa phương thức, và phù hợp với các chuỗi hành động nhiều chiều.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "d4f1cd06bb0834da1d2b447b0193adb272950aa4ba85f23a2413bb879f95adfe"
+      "caption_vi": "Hình 1. Ba cách biểu diễn chính sách điều khiển robot. (a) Policy tường minh dự đoán hành động bằng những dạng đầu ra khác nhau. (b) Policy ngầm học một hàm đánh giá mức phù hợp giữa hành động và quan sát, sau đó tìm hành động có mức đánh giá tốt nhất. (c) Diffusion Policy bắt đầu từ nhiễu và liên tục chỉnh thành hành động theo hướng do mạng học được. Nhờ mô hình hóa cả phân phối, cách thứ ba có thể biểu diễn nhiều chuỗi hành động hợp lệ và học ổn định trên dữ liệu nhiều chiều.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "d4f1cd06bb0834da1d2b447b0193adb272950aa4ba85f23a2413bb879f95adfe",
+      "translation_reviewed": true
     },
     {
       "page": 2,
       "bbox": [
-        311.0,
-        25.0,
-        591.0,
+        311,
+        25,
+        591,
         250.8
       ],
       "width": 1009,
@@ -285,16 +299,17 @@
       "image": "/paper-figures/diffusion-policy/figure-2.webp",
       "caption": "Fig. 2: Realworld Benchmarks. We deployed Diffusion Policy on two different robot platforms (UR5 and Franka) for 4 challenging tasks: under-actuate precise pushing (Push-T), 6DoF mug flipping, 6DoF sauce pouring, and periodic sauce spreading. Please check out the supplementary material for the resulting robot videos.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p026.pdf",
-      "caption_vi": "Hình 2: Điểm chuẩn trong thế giới thực. Chúng tôi triển khai Chính sách Diffusion trên hai nền tảng robot khác nhau (UR5 và Franka) cho 4 nhiệm vụ đầy thách thức: đẩy chính xác (Push-T), lật cốc 6DoF, đổ nước sốt 6DoF và phết nước sốt định kỳ. Hãy xem tài liệu bổ sung cho các video robot thu được.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "b69831204743a80cdfb19035e5aed0b1f7b929f1d22d1774f81a7f2d7dad4a95"
+      "caption_vi": "Hình 2. Các thử nghiệm với robot thật. Diffusion Policy được chạy trên hai loại tay máy UR5 và Franka, với bốn nhiệm vụ khó: đẩy chính xác vật hình chữ T (Push-T), lật cốc trong không gian sáu bậc tự do, rót nước sốt và dàn đều nước sốt theo chu kỳ. Video kết quả nằm trong tài liệu bổ sung của bài báo.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "b69831204743a80cdfb19035e5aed0b1f7b929f1d22d1774f81a7f2d7dad4a95",
+      "translation_reviewed": true
     },
     {
       "page": 3,
       "bbox": [
-        22.0,
+        22,
         48.3,
-        590.0,
+        590,
         195.1
       ],
       "width": 2045,
@@ -304,16 +319,17 @@
       "image": "/paper-figures/diffusion-policy/figure-3.webp",
       "caption": "Fig. 3: Diffusion Policy Overview a) General formulation. At time step t, the policy takes the latest To steps of observation data Ot as input and outputs Ta steps of actions At. b) In the CNN-based Diffusion Policy, FiLM (Feature-wise Linear Modulation) [35] conditioning of the observation feature Ot is applied to every convolution layer, channel-wise. Starting from AKt drawn from Gaussian noise, the output of noise-prediction network εθ is subtracted, repeating K times to get A0t , the denoised action sequence. c) In the Transformer-based [52] Diffusion Policy, the embedding of observation Ot is passed into a multi-head cross-attention layer of each transformer decoder block. Each action embedding is constrained to only attend to itself and previous action embeddings (causal attention) using the attention mask illustrated.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p026.pdf",
-      "caption_vi": "Hình 3: Tổng quan về chính sách khuếch tán a) Công thức chung. Tại bước thời gian t, chính sách lấy các bước dữ liệu quan sát mới nhất Ot làm đầu vào và đầu ra Ta bước hành động At. b) Trong chính sách khuếch tán dựa trên CNN, FiLM (Tuyến tính tính năng Điều chế) [35] điều kiện của tính năng quan sát Ot được áp dụng cho mọi lớp tích chập, kênh theo chiều. Bắt đầu từ AKt rút ra từ nhiễu Gauss, đầu ra của mạng dự báo nhiễu?? được trừ đi, lặp lại K lần để có A0t, chuỗi hành động bị khử. c) Trong biến đổi dựa trên [52] Chính sách khuếch tán, việc nhúng quan sát Ot được truyền vào một lớp chú ý chéo nhiều đầu của mỗi khối giải mã biến áp. Mỗi nhúng hành động bị hạn chế chỉ chú ý đến chính nó và nhúng hành động trước đó (sự chú ý nhân quả) bằng cách sử dụng mặt nạ chú ý được minh hoạ.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "8951d929213926662722f940a2c9f2141180431039a4deafa32d05b627a2cd7d"
+      "caption_vi": "Hình 3. Cơ chế Diffusion Policy. (a) Ở thời điểm t, policy nhận một số bước quan sát gần nhất rồi dự đoán nhiều bước hành động tương lai. (b) Bản dùng CNN đưa đặc trưng quan sát vào từng lớp tích chập qua FiLM; chuỗi hành động khởi đầu là nhiễu Gauss và được mạng dự đoán nhiễu chỉnh dần trong K lượt để thành chuỗi điều khiển. (c) Bản dùng Transformer đưa đặc trưng quan sát vào cơ chế chú ý chéo; mặt nạ chú ý giới hạn mỗi token hành động chỉ nhìn chính nó và các hành động trước đó.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "8951d929213926662722f940a2c9f2141180431039a4deafa32d05b627a2cd7d",
+      "translation_reviewed": true
     },
     {
       "page": 4,
       "bbox": [
-        311.0,
+        311,
         322.5,
-        591.0,
+        591,
         441.9
       ],
       "width": 1009,
@@ -323,16 +339,17 @@
       "image": "/paper-figures/diffusion-policy/figure-4.webp",
       "caption": "Fig. 4: Multimodal behavior. At the given state, the end-effector (blue) can either go left or right to push the block. Diffusion Policy learns both modes and commits to only one mode within each rollout. In contrast, both LSTM-GMM [29] and IBC [12] are biased toward one mode, while BET [42] fails to commit to a single mode due to its lack of temporal action consistency. Actions generated by rolling out 40 steps for the best-performing checkpoint.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p026.pdf",
-      "caption_vi": "Hình 4: Hành vi đa phương thức. Ở trạng thái đã cho, tác nhân kết thúc (màu xanh) có thể đi sang trái hoặc phải để đẩy khối. Chính sách khuếch tán học cả hai chế độ và cam kết chỉ một chế độ trong mỗi lần triển khai. Ngược lại, cả LSTM-GMM [29] và IBC [12] đều thiên về một chế độ, trong khi BET [42] không cam kết một chế độ duy nhất do thiếu tính nhất quán hành động thời gian. Hành động được tạo ra bằng cách lăn 40 bước cho điểm kiểm tra hiệu suất tốt nhất.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "3014a865b072a83d110283b0849669a939f4651786b03fbb5d2fa91a652d2cea"
+      "caption_vi": "Hình 4. Khi có nhiều cách làm đều đúng, policy cần chọn một cách nhất quán. Với cùng trạng thái, đầu công tác của robot (màu xanh) có thể vòng trái hoặc vòng phải để đẩy khối. Diffusion Policy học cả hai kiểu và thường theo một kiểu trong suốt lần chạy. LSTM-GMM và IBC thiên về một hướng; BET có lúc đổi hướng giữa chừng vì thiếu nhất quán theo thời gian. Đường đi minh họa được tạo bằng cách cho checkpoint tốt nhất chạy 40 bước.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "3014a865b072a83d110283b0849669a939f4651786b03fbb5d2fa91a652d2cea",
+      "translation_reviewed": true
     },
     {
       "page": 5,
       "bbox": [
-        21.0,
-        25.0,
-        301.0,
+        21,
+        25,
+        301,
         223.2
       ],
       "width": 1009,
@@ -342,16 +359,17 @@
       "image": "/paper-figures/diffusion-policy/figure-5.webp",
       "caption": "Fig. 5: Velocity v.s. Position Control. The performance differ- ence when switching from velocity to position control. While both BCRNN and BET performance decrease, Diffusion Policy is able to leverage the advantage of position and improve its performance.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p026.pdf",
-      "caption_vi": "Hình 5: Vận tốc v.s. Điều khiển vị trí. Sự khác biệt hiệu suất khi chuyển từ vận tốc sang điều khiển vị trí. Trong khi cả hiệu suất của BCRNN và BET đều giảm, Chính sách Diffusion có thể tận dụng lợi thế của vị trí và cải thiện hiệu suất của nó.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "f66a3d6d4baafe8ae25eb48865bd5c4511248e91c197c146a96bdf9251703d6a"
+      "caption_vi": "Hình 5. So sánh điều khiển vận tốc với điều khiển vị trí. Khi thay dạng lệnh điều khiển, kết quả của BCRNN và BET giảm, trong khi Diffusion Policy tận dụng được lợi thế của điều khiển vị trí và đạt kết quả tốt hơn.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "f66a3d6d4baafe8ae25eb48865bd5c4511248e91c197c146a96bdf9251703d6a",
+      "translation_reviewed": true
     },
     {
       "page": 5,
       "bbox": [
-        311.0,
-        25.0,
-        591.0,
+        311,
+        25,
+        591,
         183.7
       ],
       "width": 1009,
@@ -361,16 +379,17 @@
       "image": "/paper-figures/diffusion-policy/figure-6.webp",
       "caption": "Fig. 6: Diffusion Policy Ablation Study. Change (difference) in success rate relative to the maximum for each task is shown on the Y- axis. Left: trade-off between temporal consistency and responsiveness when selecting the action horizon. Right: Diffusion Policy with position control is robust against latency. Latency is defined as the number of steps between the last frame of observations to the first action that can be executed.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p026.pdf",
-      "caption_vi": "Hình 6: Nghiên cứu phá vỡ chính sách khuếch tán. Thay đổi (sự khác biệt) về tỷ lệ thành công so với mức tối đa cho mỗi nhiệm vụ được thể hiện trên trục Y. Trái: đánh đổi giữa tính nhất quán thời gian và phản hồi khi chọn chân trời hành động. Phải: Chính sách khuếch tán với điều khiển vị trí là mạnh mẽ chống lại sự trễ nhịp. Độ trễ được định nghĩa là số bước giữa khung quan sát cuối cùng đến hành động đầu tiên có thể được thực hiện.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "2f3664d24d321b87be34c40e3bed234d5a7e89fec8ebb92a3ba88277059aaaea"
+      "caption_vi": "Hình 6. Thí nghiệm kiểm tra từng lựa chọn thiết kế trong Diffusion Policy. Trục dọc thể hiện mức thay đổi tỷ lệ thành công so với giá trị tốt nhất trên từng nhiệm vụ. Bên trái là sự đánh đổi khi chọn độ dài chuỗi hành động: đoạn dài giúp chuyển động nhất quán nhưng phản ứng chậm hơn với quan sát mới. Bên phải cho thấy khi dùng lệnh vị trí, mô hình chịu ảnh hưởng của độ trễ tốt hơn. Độ trễ được tính bằng số bước từ khung quan sát cuối tới hành động đầu tiên có thể thực thi.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "2f3664d24d321b87be34c40e3bed234d5a7e89fec8ebb92a3ba88277059aaaea",
+      "translation_reviewed": true
     },
     {
       "page": 6,
       "bbox": [
-        21.0,
+        21,
         278.5,
-        301.0,
+        301,
         498.5
       ],
       "width": 1009,
@@ -380,16 +399,17 @@
       "image": "/paper-figures/diffusion-policy/figure-7.webp",
       "caption": "Fig. 7: Training Stability. Left: IBC fails to infer training actions with increasing accuracy despite smoothly decreasing training loss for energy function. Right: IBC’s evaluation success rate oscillates, making checkpoint selection difficult (evaluated using policy rollouts in simulation). V. EVALUATION We systematically evaluate Diffusion Policy on 12 tasks from 4 benchmarks [12, 15, 29, 42]. This evaluation suite includes both simulated and real environments, single and multiple task benchmarks, fully actuated and under-actuated systems, and rigid and fluid objects. We found Diffusion Policy to consistently outperform the prior state-of-the-art on all of the tested benchmarks, with an average success-rate improvement of 46.9%. In the following sections, we provide an overview of each task, our evaluation methodology on that task, and our key takeaways.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p026.pdf",
-      "caption_vi": "Hình 7: Huấn luyện ổn định. Bên trái: IBC không suy ra được các hành động huấn luyện với độ chính xác tăng lên mặc dù giảm tổn thất huấn luyện trơn tru cho chức năng năng lượng. Phải: Tỷ lệ đánh giá thành công của IBC dao động, làm cho việc lựa chọn điểm kiểm tra khó khăn (được đánh giá bằng cách sử dụng các bản rollout chính sách trong mô phỏng). Chúng tôi đánh giá một cách có hệ thống Chính sách khuếch tán trên 12 nhiệm vụ từ 4 điểm chuẩn [12, 15, 29, 42]. Bộ đánh giá này bao gồm cả môi trường mô phỏng và thực tế, các điểm chuẩn tác vụ đơn lẻ và nhiều, các hệ thống được kích hoạt hoàn toàn và dưới kích hoạt, và các đối tượng cứng nhắc và lỏng lẻo. Chúng tôi nhận thấy chính sách Diffusion luôn vượt trội hơn so với hiện đại trước đó trên tất cả các điểm chuẩn đã được kiểm tra, với sự cải thiện tỷ lệ thành công trung bình là 46,9%. Trong các phần sau, chúng tôi sẽ cung cấp một cái nhìn tổng quan về từng nhiệm vụ, phương pháp đánh giá của chúng tôi về nhiệm vụ đó, và những điểm chính của chúng tôi.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "04ef55c93bc2fbde39733c11538db528aad08f67aef15f249767264d26e5bc8b"
+      "caption_vi": "Hình 7. Độ ổn định khi huấn luyện. Bên trái: với IBC, dù giá trị hàm mất mát của mô hình năng lượng giảm đều, khả năng tái tạo các hành động huấn luyện không tăng tương ứng. Bên phải: tỷ lệ thành công của IBC khi chạy trong mô phỏng dao động mạnh, làm khó việc chọn checkpoint. Đây là lời nhắc rằng đường loss đẹp chưa chắc robot sẽ chạy tốt.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "04ef55c93bc2fbde39733c11538db528aad08f67aef15f249767264d26e5bc8b",
+      "translation_reviewed": true
     },
     {
       "page": 9,
       "bbox": [
-        22.0,
+        22,
         54.5,
-        590.0,
+        590,
         298.4
       ],
       "width": 2045,
@@ -399,16 +419,17 @@
       "image": "/paper-figures/diffusion-policy/figure-8.webp",
       "caption": "Fig. 8: Realworld Push-T Comparisons. Columns 1-4 show action trajectories based on key events. The last column shows averaged images of the end state. A: Diffusion policy (End2End) achieves more accurate and consistent end states. B: Diffusion Policy (R3M) gets stuck initially but later recovers and finishes the task. C: LSTM-GMM fails to reach the end zone while adjusting the T block, blocking the eval camera view. D: IBC prematurely ends the pushing stage.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p026.pdf",
-      "caption_vi": "Hình 8: So sánh Push-T trong thế giới thực. Các cột 1-4 hiển thị quỹ đạo hành động dựa trên các sự kiện chính. Cột cuối cùng hiển thị hình ảnh trung bình của trạng thái kết thúc. A: Chính sách Diffusion (End2End) đạt được các trạng thái cuối chính xác và nhất quán hơn. B: Chính sách Diffusion (R3M) bị mắc kẹt ban đầu nhưng sau đó phục hồi và kết thúc tác vụ. C: LSTM-GMM không đến được vùng kết thúc trong khi điều chỉnh khối T, chặn chế độ xem camera đánh giá. D: IBC kết thúc sớm giai đoạn đẩy.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "073e4ea2e220c28302889663f602b2456a7b921c779cbf021cbd2ff48ec75d83"
+      "caption_vi": "Hình 8. So sánh trên nhiệm vụ đẩy khối chữ T ngoài đời thật. Bốn cột đầu ghi lại các mốc chính của chuyển động, cột cuối chồng các ảnh trạng thái kết thúc. (A) Diffusion Policy dùng đặc trưng học từ đầu đạt đích chính xác và nhất quán hơn. (B) Bản dùng R3M ban đầu bị kẹt nhưng sau đó tự phục hồi và hoàn thành. (C) LSTM-GMM chỉnh khối nhưng không đẩy tới vùng đích, đồng thời che camera đánh giá. (D) IBC kết thúc giai đoạn đẩy quá sớm.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "073e4ea2e220c28302889663f602b2456a7b921c779cbf021cbd2ff48ec75d83",
+      "translation_reviewed": true
     },
     {
       "page": 9,
       "bbox": [
-        21.0,
+        21,
         377.5,
-        301.0,
+        301,
         500.8
       ],
       "width": 1009,
@@ -418,16 +439,17 @@
       "image": "/paper-figures/diffusion-policy/figure-9.webp",
       "caption": "Fig. 9: Robustness Test for Diffusion Policy. Left: A waving hand in front of the camera for 3 seconds causes slight jitter, but the predicted actions still function as expected. Middle: Diffusion Policy immediately corrects shifted block position to the goal state during the pushing stage. Right: Policy immediately aborts heading to the end zone, returning the block to goal state upon detecting block shift. This novel behavior was never demonstrated. Please check the videos in the supplementary material.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p026.pdf",
-      "caption_vi": "Hình 9: Kiểm tra tính bền vững cho chính sách khuếch tán. Bên trái: Một bàn tay vẫy trước máy ảnh trong 3 giây gây ra jitter nhẹ, nhưng các hành động dự đoán vẫn hoạt động như mong đợi. Giữa: Chính sách khuếch tán ngay lập tức sửa chữa vị trí khối đã dịch chuyển sang trạng thái mục tiêu trong giai đoạn đẩy. Phải: Chính sách ngay lập tức hủy bỏ hướng đến vùng kết thúc, trả lại khối về trạng thái đích khi phát hiện sự dịch chuyển khối. Hành vi mới lạ này chưa bao giờ được chứng minh. Vui lòng kiểm tra các video trong tài liệu bổ sung.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "39cee6fa0cb947611ab10a8362757f92e90d03d2efc034a60c3df9706509d537"
+      "caption_vi": "Hình 9. Thử độ bền trước nhiễu và thay đổi bất ngờ. Trái: một bàn tay vẫy trước camera trong ba giây làm lệnh hơi rung nhưng robot vẫn hoạt động. Giữa: khi khối bị xê dịch, policy lập tức điều chỉnh nó về trạng thái mục tiêu. Phải: phát hiện khối lệch ngay lúc đang đi tới vùng kết thúc, policy quay lại chỉnh khối trước. Hành vi quay lại sửa lỗi này không được minh họa trực tiếp trong demonstration huấn luyện; video có trong tài liệu bổ sung.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "39cee6fa0cb947611ab10a8362757f92e90d03d2efc034a60c3df9706509d537",
+      "translation_reviewed": true
     },
     {
       "page": 9,
       "bbox": [
-        311.0,
+        311,
         349.3,
-        591.0,
+        591,
         531.8
       ],
       "width": 1009,
@@ -437,16 +459,17 @@
       "image": "/paper-figures/diffusion-policy/figure-10.webp",
       "caption": "Fig. 10: 6DoF Mug Flipping Task. The robot needs to 1⃝Pickup a randomly placed mug and place it lip down (marked orange). 2⃝ Rotate the mug such that its handle is pointing left.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p026.pdf",
-      "caption_vi": "Hình 10: 6DoF Mug Flipping Task. Robot cần 1?? Chọn một chiếc cốc được đặt ngẫu nhiên và đặt môi xuống (đánh dấu màu cam ). 2?? Xoay chiếc cốc sao cho tay cầm của nó chỉ về bên trái.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "97741667b82fc2642ddfc8669f1aa90b5f607ecd357e8a7fe7e624e909303b28"
+      "caption_vi": "Hình 10. Nhiệm vụ lật cốc với sáu bậc tự do: (1) nhấc một chiếc cốc đặt ngẫu nhiên lên và đặt úp miệng cốc xuống (vùng màu cam); (2) xoay cốc sao cho quai cầm hướng sang trái.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "97741667b82fc2642ddfc8669f1aa90b5f607ecd357e8a7fe7e624e909303b28",
+      "translation_reviewed": true
     },
     {
       "page": 10,
       "bbox": [
-        21.0,
+        21,
         26.2,
-        301.0,
+        301,
         256.6
       ],
       "width": 1009,
@@ -456,18 +479,19 @@
       "image": "/paper-figures/diffusion-policy/figure-11.webp",
       "caption": "Fig. 11: Realworld Sauce Manipulation. [Left] 6DoF pouring Task. The robot needs to 1⃝dip the ladle to scoop sauce from the bowl, 2⃝approach the center of the pizza dough, 3⃝pour sauce, and 4⃝lift the ladle to finish the task. [Right] Periodic spreading Task The robot needs to 1⃝approach the center of the sauce with a grasped spoon, 2⃝spread the sauce to cover pizza in a spiral pattern, and 3⃝ lift the spoon to finish the task.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p026.pdf",
-      "caption_vi": "Hình 11: Thao tác nhuộm Realworld. [Trái] 6DoF đổ Nhiệm vụ. Robot cần 1nồi cái muôi để múc nước sốt từ bát, 2nắm vào giữa miếng bột pizza, 3nước sốt, và 4nâng cái muôi để hoàn thành nhiệm vụ. Robot cần 1xuyên qua trung tâm của nước sốt bằng một chiếc thìa cầm tay, 2xuyên qua nước sốt để phủ lên bánh pizza theo hình xoắn ốc, và 3nâng chiếc thìa lên để hoàn thành nhiệm vụ.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "fcfb70237e661297a55104406bb6cf829c1ca43a8a33ecd0741437fa0184bc6c"
+      "caption_vi": "Hình 11. Thao tác với nước sốt trên robot thật. Bên trái, bài toán rót: (1) nhúng muôi múc nước sốt, (2) đưa muôi tới giữa đế bánh pizza, (3) rót sốt, (4) nhấc muôi lên. Bên phải, bài toán dàn sốt: (1) đưa thìa đang cầm tới giữa vùng nước sốt, (2) dàn sốt theo đường xoắn ốc để phủ bề mặt pizza, (3) nhấc thìa lên.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "fcfb70237e661297a55104406bb6cf829c1ca43a8a33ecd0741437fa0184bc6c",
+      "translation_reviewed": true
     }
   ],
   "palm-e": [
     {
       "page": 1,
       "bbox": [
-        22.0,
+        22,
         208.1,
-        590.0,
+        590,
         375.2
       ],
       "width": 2045,
@@ -477,16 +501,17 @@
       "image": "/paper-figures/palm-e/figure-1.webp",
       "caption": "Figure 1: PaLM-E is a single general-purpose multimodal language model for embodied reasoning tasks, visual-language tasks, and language tasks. PaLM-E transfers knowledge from visual-language domains into embodied reasoning – from robot planning in environments with complex dynamics and physical constraints, to answering questions about the observable world. PaLM-E operates on multimodal sentences, i.e. sequences of tokens where inputs from arbitrary modalities (e.g. images, neural 3D representations, or states, in green and blue) are inserted alongside text tokens (in orange) as input to an LLM, trained end-to-end.",
       "pdf": "https://proceedings.mlr.press/v202/driess23a/driess23a.pdf",
-      "caption_vi": "Hình 1: PaLM-E là một mô hình ngôn ngữ đa phương thức đa mục đích chung duy nhất cho các nhiệm vụ lý luận thể hiện, các nhiệm vụ ngôn ngữ-thị giác và các nhiệm vụ ngôn ngữ. PaLM-E chuyển kiến thức từ các miền ngôn ngữ thị giác vào lý luận hiện thân - từ lập kế hoạch robot trong môi trường có động lực phức tạp và các ràng buộc vật lý, để trả lời các câu hỏi về thế giới quan sát được. PaLM-E hoạt động trên các câu đa phương thức, tức là các chuỗi thẻ trong đó đầu vào từ các phương thức tuỳ ý (ví dụ: hình ảnh, biểu diễn 3D thần kinh hoặc trạng thái, màu xanh lá cây và xanh dương) được chèn cùng với token văn bản (màu cam) làm đầu vào cho LLM, được huấn luyện từ đầu đến cuối.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "5158412570372326cdb256867d72af4ee54787e0abe9e6b590badcbe51db8a22"
+      "caption_vi": "Hình 1. PaLM-E là một mô hình ngôn ngữ đa phương thức dùng chung cho suy luận về robot, hỏi đáp bằng hình ảnh và tác vụ ngôn ngữ. Mô hình chuyển kiến thức học được từ ảnh và chữ sang các bài toán có ràng buộc vật lý, như lập kế hoạch robot hoặc trả lời về cảnh đang quan sát. Đầu vào là một chuỗi token chứa chữ (màu cam) xen với dữ liệu ảnh, biểu diễn ba chiều hoặc trạng thái cảm biến (màu xanh). Toàn hệ thống được huấn luyện chung từ đầu vào tới đầu ra.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "5158412570372326cdb256867d72af4ee54787e0abe9e6b590badcbe51db8a22",
+      "translation_reviewed": true
     },
     {
       "page": 6,
       "bbox": [
-        21.0,
+        21,
         93.6,
-        301.0,
+        301,
         208.6
       ],
       "width": 1009,
@@ -496,16 +521,17 @@
       "image": "/paper-figures/palm-e/figure-2.webp",
       "caption": "Figure 2: Overview of transfer learning demonstrated by PaLM- E: across three different robotics domains, using PaLM and ViT pretraining together with the full mixture of robotics and general visual-language data provides a signiﬁcant performance increase compared to only training on the respective in-domain data. See Tab. 1, Fig. 3, Tab. 2, Tab. 4 for additional data in each domain.",
       "pdf": "https://proceedings.mlr.press/v202/driess23a/driess23a.pdf",
-      "caption_vi": "Hình 2: Tổng quan về học tập chuyển giao được chứng minh bởi PaLM-E: trên ba lĩnh vực robot khác nhau, sử dụng đào tạo trước PaLM và ViT cùng với hỗn hợp đầy đủ của robot và nói chung Dữ liệu ngôn ngữ thị giác cung cấp một sự gia tăng hiệu suất đáng kể so với chỉ đào tạo trên dữ liệu trong miền tương ứng. Xem Tab. 1, Hình 3, Tab. 2, Tab. 4 để biết thêm dữ liệu trong mỗi miền.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "1a88cfb9cdbe7faab60404d0fb29df1a732916e31ffdba19b9c5f93c45b28ee9"
+      "caption_vi": "Hình 2. Chuyển giao kiến thức qua ba nhóm nhiệm vụ robot. Khi kết hợp mô hình PaLM và ViT đã huấn luyện trước với dữ liệu robot lẫn dữ liệu hình ảnh–ngôn ngữ tổng quát, kết quả cao hơn đáng kể so với việc chỉ huấn luyện trên dữ liệu của riêng từng nhiệm vụ. Số liệu chi tiết được trình bày tại Bảng 1, 2, 4 và Hình 3.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "1a88cfb9cdbe7faab60404d0fb29df1a732916e31ffdba19b9c5f93c45b28ee9",
+      "translation_reviewed": true
     },
     {
       "page": 7,
       "bbox": [
-        21.0,
-        25.0,
-        301.0,
+        21,
+        25,
+        301,
         194.4
       ],
       "width": 1009,
@@ -515,17 +541,18 @@
       "image": "/paper-figures/palm-e/figure-3.webp",
       "caption": "Figure 3: Planning success results in the TAMP environment (1% data) for PaLM-E-12B, comparing of the effects of PaLM-E models (i) using the full training mixture, (ii) pre-training (ViT and PaLM), and (iii) freezing or ﬁnetuning the language model. Transfer from full mixture is particularly effective. Note that full mixture contains only 1% of the training data (320 examples each) for the tasks evaluated here. Shown is the mean of tasks p1, p2.",
       "pdf": "https://proceedings.mlr.press/v202/driess23a/driess23a.pdf",
-      "caption_vi": "Hình 3: Kết quả lập kế hoạch thành công trong môi trường TAMP (1% dữ liệu) cho PaLM-E-12B, so sánh hiệu quả của mô hình PaLM-E (i) sử dụng hỗn hợp đào tạo đầy đủ, (ii) tiền đào tạo (ViT và PaLM) và (iii) đóng băng hoặc tinh giản mô hình ngôn ngữ. Chuyển từ hỗn hợp đầy đủ là đặc biệt hiệu quả. Lưu ý rằng hỗn hợp đầy đủ chỉ chứa 1% dữ liệu huấn luyện (mỗi loại 320 ví dụ) cho các nhiệm vụ được đánh giá ở đây. Trên đây là giá trị trung bình của các nhiệm vụ p1, p2.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "0dee32baec45818f2dd7eebd3a0edaabad795f4ba3abdda56c9bba740e2ffa2c"
+      "caption_vi": "Hình 3. Tỷ lệ lập kế hoạch thành công của PaLM-E-12B trên môi trường TAMP khi chỉ dùng 1% dữ liệu nhiệm vụ. Các phép thử tách ảnh hưởng của: (i) trộn toàn bộ nguồn dữ liệu trong huấn luyện, (ii) khởi tạo từ PaLM và ViT đã huấn luyện trước, (iii) giữ cố định hoặc tiếp tục tinh chỉnh mô hình ngôn ngữ. Trộn dữ liệu giúp chuyển giao đặc biệt tốt. Mỗi nhiệm vụ kiểm tra chỉ đóng góp khoảng 320 ví dụ, tương ứng 1% dữ liệu; biểu đồ lấy trung bình hai nhiệm vụ p1 và p2.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "0dee32baec45818f2dd7eebd3a0edaabad795f4ba3abdda56c9bba740e2ffa2c",
+      "translation_reviewed": true
     },
     {
       "page": 8,
       "bbox": [
-        22.0,
+        22,
         222.2,
-        590.0,
-        406.0
+        590,
+        406
       ],
       "width": 2045,
       "height": 663,
@@ -534,16 +561,17 @@
       "image": "/paper-figures/palm-e/figure-4.webp",
       "caption": "Figure 4: A single PaLM-E model directs the low-level policies of two real robots. Shown is a long-horizon mobile manipulation task in a kitchen, and one-shot / zero-shot generalization with a tabletop manipulation robot.",
       "pdf": "https://proceedings.mlr.press/v202/driess23a/driess23a.pdf",
-      "caption_vi": "Hình 4: Một mô hình PaLM-E duy nhất chỉ đạo các chính sách cấp thấp của hai robot thật. Trên hình là một nhiệm vụ thao tác di động đường chân trời dài trong nhà bếp, và khái quát một lần / không với một robot thao tác trên bàn.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "201ad2c36d41985d3e9e2360332326f8803f8c7a2788973ad33cb7ca3891163a"
+      "caption_vi": "Hình 4. Cùng một PaLM-E đưa ra chỉ dẫn cấp cao cho hai robot thật, trong khi các policy điều khiển cấp thấp đảm nhiệm chuyển động. Ví dụ gồm nhiệm vụ nhiều bước bằng robot di động trong bếp và robot thao tác trên bàn khi phải khái quát từ một ví dụ hoặc không cần ví dụ huấn luyện thêm.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "201ad2c36d41985d3e9e2360332326f8803f8c7a2788973ad33cb7ca3891163a",
+      "translation_reviewed": true
     },
     {
       "page": 9,
       "bbox": [
-        21.0,
-        25.0,
-        301.0,
+        21,
+        25,
+        301,
         218.6
       ],
       "width": 1009,
@@ -553,18 +581,19 @@
       "image": "/paper-figures/palm-e/figure-5.webp",
       "caption": "Figure 5: Results on general language tasks (NLG = natural language generation): increasing scale leads to less catastrophic forgetting between a corresponding PaLM-E model and its inher- ited PaLM model. See full suite of tasks and results in Tab. 10.",
       "pdf": "https://proceedings.mlr.press/v202/driess23a/driess23a.pdf",
-      "caption_vi": "Hình 5: Kết quả về các nhiệm vụ ngôn ngữ chung (NLG = thế hệ ngôn ngữ tự nhiên) : tăng quy mô dẫn đến quên ít thảm khốc hơn giữa mô hình PaLM-E tương ứng và mô hình PaLM được kế thừa của nó. Xem toàn bộ bộ nhiệm vụ và kết quả trong Tab. 10.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "5d519ad4c20c175fc6b147caf0bf840cbd200191473f83a981702f12d6c01021"
+      "caption_vi": "Hình 5. Kết quả trên các bài toán ngôn ngữ thông thường; NLG là sinh ngôn ngữ tự nhiên. Khi tăng quy mô, mức suy giảm những năng lực ngôn ngữ cũ của PaLM-E so với mô hình PaLM nguồn giảm đi. Bộ thí nghiệm đầy đủ nằm ở Bảng 10.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "5d519ad4c20c175fc6b147caf0bf840cbd200191473f83a981702f12d6c01021",
+      "translation_reviewed": true
     }
   ],
   "act": [
     {
       "page": 1,
       "bbox": [
-        22.0,
+        22,
         63.8,
-        590.0,
+        590,
         328.8
       ],
       "width": 2045,
@@ -574,17 +603,18 @@
       "image": "/paper-figures/act/figure-1.webp",
       "caption": "Fig. 1: ALOHA : A Low-cost Open-source Hardware System for Bimanual Teleoperation. The whole system costs <$20k with off-the-shelf robots and 3D printed components. Left: The user teleoperates by backdriving the leader robots, with the follower robots mirroring the motion. Right: ALOHA is capable of precise, contact-rich, and dynamic tasks. We show examples of both teleoperated and learned skills.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p016.pdf",
-      "caption_vi": "Hình 1: ALOHA: Hệ thống phần cứng mã nguồn mở chi phí thấp cho hoạt động từ xa hai chiều. Toàn bộ hệ thống có giá <20k đô la với robot có sẵn và các thành phần in 3D. Bên trái: Người dùng điều khiển từ xa bằng cách lái ngược các robot dẫn đầu, với các robot theo dõi phản chiếu chuyển động. Bên phải: ALOHA có khả năng thực hiện các nhiệm vụ chính xác, giàu tiếp xúc và năng động. Chúng tôi đưa ra ví dụ về cả kỹ năng học và thao tác từ xa.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "8f33065bee9e28a416a53def38d97d616d521878a02513a63880d9b1a7e68394"
+      "caption_vi": "Hình 1. ALOHA là hệ thống phần cứng mã nguồn mở để người điều khiển hai tay robot từ xa, có chi phí dưới 20.000 USD nhờ dùng robot thương mại và linh kiện in 3D. Bên trái, người điều khiển di chuyển hai tay máy leader; hai tay máy follower bắt chước chuyển động đó để thu dữ liệu. Bên phải là các ví dụ nhiệm vụ đòi hỏi độ chính xác, tương tác tiếp xúc và chuyển động nhanh, gồm cả thao tác do người điều khiển lẫn kỹ năng robot đã học.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "8f33065bee9e28a416a53def38d97d616d521878a02513a63880d9b1a7e68394",
+      "translation_reviewed": true
     },
     {
       "page": 3,
       "bbox": [
-        22.0,
-        25.0,
-        590.0,
-        188.0
+        22,
+        25,
+        590,
+        188
       ],
       "width": 2045,
       "height": 587,
@@ -593,16 +623,17 @@
       "image": "/paper-figures/act/figure-3.webp",
       "caption": "Fig. 3: Left: Camera viewpoints of the front, top, and two wrist cameras, together with an illustration of the bimanual workspace of ALOHA. Middle: Detailed view of the “handle and scissor” mechanism and custom grippers. Right: Technical spec of the ViperX 6dof robot [1].",
       "pdf": "https://www.roboticsproceedings.org/rss19/p016.pdf",
-      "caption_vi": "Hình 3: Trái: Các điểm nhìn của máy ảnh ở mặt trước, trên và hai máy ảnh cổ tay, cùng với hình minh hoạ không gian làm việc bằng hai tay của ALOHA. Giữa: Hình ảnh chi tiết về cơ chế \"tay cầm và kéo\" và tay cầm tuỳ chỉnh. Đúng: Đặc điểm kỹ thuật của ViperX 6d của robot [1].",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "45614b1352cbad60f991bd7ae3c4b6d02b6b88e6ca9c6c554efb362454387e34"
+      "caption_vi": "Hình 3. Chi tiết cấu hình ALOHA. Bên trái là góc nhìn của camera trước, trên cao và hai camera gắn ở cổ tay, cùng vùng làm việc của hai tay robot. Ở giữa là cơ cấu tay cầm–kéo và bộ kẹp được chế tạo riêng. Bên phải là thông số tay máy ViperX sáu bậc tự do.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "45614b1352cbad60f991bd7ae3c4b6d02b6b88e6ca9c6c554efb362454387e34",
+      "translation_reviewed": true
     },
     {
       "page": 4,
       "bbox": [
-        22.0,
+        22,
         129.2,
-        590.0,
+        590,
         263.5
       ],
       "width": 2045,
@@ -612,16 +643,17 @@
       "image": "/paper-figures/act/figure-4.webp",
       "caption": "Fig. 4: Teleoperation accuracy. We plot the position tracking error of the ALOHA teleoperation system for three representative tasks. (a) A relatively smooth task of sliding open a ziploc bag. The tracking error is consistently below 2cm with an average of 0.68cm, comparable to the accuracy of the robot arm. (b) The tracking error can spike when the follower arms are exerting high-amount of force, e.g. inserting a RAM stick into a tight-fitting slot. This is due to the non-bilateral nature of the system. (c) High tracking error can also occur during sudden acceleration, as in the case of swinging open a plastic bag. This is due to a combination of teleoperation delay and motor torque limitations.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p016.pdf",
-      "caption_vi": "Hình 4: Độ chính xác của thao tác từ xa. Chúng tôi vẽ sai số theo dõi vị trí của hệ thống thao tác từ xa ALOHA cho ba nhiệm vụ đại diện. (a) Một nhiệm vụ tương đối trơn tru là trượt mở một túi có khóa kéo. Lỗi theo dõi luôn dưới 2cm với trung bình 0,68cm, tương đương với độ chính xác của cánh tay robot. (b) Lỗi theo dõi có thể tăng đột biến khi các cánh tay theo dõi đang tạo ra lực lượng cao, ví dụ như chèn một thanh RAM vào khe cắm vừa vặn.Điều này là do bản chất phi song phương của hệ thống. (c) Lỗi theo dõi cao cũng có thể xảy ra trong quá trình tăng tốc đột ngột, như trong trường hợp mở một túi nhựa.Điều này là do sự kết hợp của độ trễ từ xa và giới hạn mô-men xoắn của động cơ.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "7b36af74c10d208d77033aa0411e36da9b6a61961c0a0e3811e0be33ae4db2bf"
+      "caption_vi": "Hình 4. Độ chính xác của cơ chế điều khiển từ xa ALOHA trên ba bài toán. (a) Khi kéo mở túi khóa zip khá đều, sai số bám vị trí luôn dưới 2 cm, trung bình 0,68 cm. (b) Khi cắm thanh RAM vào khe khít, sai số có thể tăng vọt do cánh tay follower phải tác dụng lực lớn nhưng hệ thống không phản hồi lực ngược đầy đủ cho người điều khiển. (c) Khi giật mở túi nhựa, sai số cũng tăng do độ trễ điều khiển và giới hạn mô-men động cơ.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "7b36af74c10d208d77033aa0411e36da9b6a61961c0a0e3811e0be33ae4db2bf",
+      "translation_reviewed": true
     },
     {
       "page": 5,
       "bbox": [
-        22.0,
+        22,
         34.4,
-        590.0,
+        590,
         176.6
       ],
       "width": 2045,
@@ -631,16 +663,17 @@
       "image": "/paper-figures/act/figure-5.webp",
       "caption": "Fig. 5: Architecture of Action Chunking with Transformers (ACT). We train ACT as a Conditional VAE (CVAE), which has an encoder and a decoder. Left: The encoder of the CVAE compresses action sequence and joint observation into z, the style variable. The encoder is discarded at test time. Right: The decoder or policy of ACT synthesizes images from multiple viewpoints, joint positions, and z with a transformer encoder, and predicts a sequence of actions with a transformer decoder. z is simply set to the mean of the prior (i.e. zero) at test time.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p016.pdf",
-      "caption_vi": "Hình 5: Architecture of Action Chunking with Transformers (ACT). chúng tôi đào tạo ACT như một điều kiện VAE (CVAE), trong đó có một bộ mã hoá và một bộ giải mã. Bên trái: Bộ mã hóa của CVAE nén chuỗi hành động và quan sát chung vào z, biến kiểu dáng. Bộ mã hóa bị hủy bỏ vào lúc thử. Phải: Bộ giải mã hoặc chính sách của ACT tổng hợp hình ảnh từ nhiều điểm nhìn, vị trí chung và z với bộ mã hóa biến áp và dự đoán một chuỗi các hành động với bộ giải mã biến áp. z được đặt đơn giản là giá trị trung bình của giá trị trước (tức là 0) tại thời điểm thử nghiệm.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "01424455a4cd775632d82bac3f99132b5bb04215f11133a7df16b523a6475c09"
+      "caption_vi": "Hình 5. Kiến trúc ACT (Action Chunking with Transformers). ACT được huấn luyện như một CVAE gồm bộ mã hóa và giải mã. Bên trái, bộ mã hóa nén chuỗi hành động mẫu cùng trạng thái các khớp thành biến ẩn z biểu diễn sự khác biệt về cách thao tác; bộ mã hóa này không cần khi chạy robot thật. Bên phải, policy dùng Transformer kết hợp ảnh từ nhiều camera, vị trí khớp và z, rồi dự đoán cả chuỗi hành động. Khi chạy, z được đặt bằng giá trị trung bình của phân phối ban đầu (bằng 0).",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "01424455a4cd775632d82bac3f99132b5bb04215f11133a7df16b523a6475c09",
+      "translation_reviewed": true
     },
     {
       "page": 5,
       "bbox": [
-        21.0,
+        21,
         266.6,
-        301.0,
+        301,
         356.8
       ],
       "width": 1009,
@@ -650,16 +683,17 @@
       "image": "/paper-figures/act/figure-6.webp",
       "caption": "Fig. 6: We employ both Action Chunking and Temporal Ensembling when applying actions, instead of interleaving observing and executing.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p016.pdf",
-      "caption_vi": "Hình 6: Chúng ta sử dụng cả Chunking Hành động và Temporal Ensembling khi áp dụng các hành động, thay vì rời khỏi quan sát và thực hiện.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "5f6862d779b4dc94426144a2613f627109b236f895dd86dfc1beea7c685a8d7a"
+      "caption_vi": "Hình 6. Khi điều khiển, ACT kết hợp sinh hành động theo đoạn (action chunking) với tổng hợp các dự đoán chồng nhau theo thời gian (temporal ensembling), thay vì lặp lại chu trình nhìn một khung hình rồi dự đoán một hành động riêng lẻ.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "5f6862d779b4dc94426144a2613f627109b236f895dd86dfc1beea7c685a8d7a",
+      "translation_reviewed": true
     },
     {
       "page": 7,
       "bbox": [
-        22.0,
+        22,
         386.8,
-        590.0,
+        590,
         727.7
       ],
       "width": 2045,
@@ -669,16 +703,17 @@
       "image": "/paper-figures/act/figure-7.webp",
       "caption": "Fig. 7: Real-World Task Definitions. For each of the 6 real-world tasks, we illustrate the initializations and the subtasks.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p016.pdf",
-      "caption_vi": "Hình 7: Định nghĩa nhiệm vụ trong thế giới thực. Đối với mỗi nhiệm vụ trong 6 nhiệm vụ trong thế giới thực, chúng tôi minh họa các khởi tạo và các nhiệm vụ phụ.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "52249d8b83f0f4a88c91a7bf9ede65737f30094a52949e8009b40f157be3e19e"
+      "caption_vi": "Hình 7. Sáu nhiệm vụ thực tế dùng để đánh giá ACT. Với từng nhiệm vụ, hình trình bày trạng thái khởi đầu và các bước thao tác nhỏ cần hoàn thành.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "52249d8b83f0f4a88c91a7bf9ede65737f30094a52949e8009b40f157be3e19e",
+      "translation_reviewed": true
     },
     {
       "page": 8,
       "bbox": [
-        22.0,
-        25.0,
-        590.0,
+        22,
+        25,
+        590,
         135.4
       ],
       "width": 2045,
@@ -688,16 +723,17 @@
       "image": "/paper-figures/act/figure-8.webp",
       "caption": "Fig. 8: Simulated Task Definitions. For each of the 2 simulated tasks, we illustrate the initializations and the subtasks.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p016.pdf",
-      "caption_vi": "Hình 8: Định nghĩa nhiệm vụ mô phỏng. Đối với mỗi nhiệm vụ mô phỏng, chúng tôi minh họa các khởi tạo và các nhiệm vụ phụ.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "1fd0433dbac912db3d833130a4c55ce7b9229437a4e5ca0b1e571bff749f32ce"
+      "caption_vi": "Hình 8. Hai nhiệm vụ mô phỏng trong thí nghiệm ACT. Hình minh họa trạng thái ban đầu và những bước con cấu thành mỗi nhiệm vụ.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "1fd0433dbac912db3d833130a4c55ce7b9229437a4e5ca0b1e571bff749f32ce",
+      "translation_reviewed": true
     },
     {
       "page": 11,
       "bbox": [
-        22.0,
+        22,
         47.9,
-        590.0,
+        590,
         178.3
       ],
       "width": 2045,
@@ -707,19 +743,20 @@
       "image": "/paper-figures/act/figure-9.webp",
       "caption": "Fig. 9: (a) We augment two baselines with action chunking, with different values of chunk size k on the x-axis, and success rate on the y-axis. Both methods significantly benefit from action chunking, suggesting that it is a generally useful technique. (b) Temporal Ensemble (TE) improves our method and BC-ConvMLP, while hurting VINN. (c) We compare with and without the CVAE training, showing that it is crucial when learning from human data. (d) We plot the distribution of task completion time in our user study, where we task participants to perform two tasks, at 5Hz or 50Hz teleoperation frequency. Lowering the frequency results in a 62% slowdown in completion time.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p016.pdf",
-      "caption_vi": "Hình 9: (a) Chúng ta tăng hai đường cơ sở bằng cách phân nhánh hành động, với các giá trị khác nhau về kích thước đoạn k trên trục x và tỷ lệ thành công trên trục y. Cả hai phương pháp đều có lợi đáng kể từ chunking hành động, cho thấy rằng nó là một kỹ thuật hữu ích nói chung. (b) Tập hợp thời gian (TE) cải thiện phương pháp của chúng tôi và BC-ConvMLP, trong khi làm tổn hại VINN. (c) Chúng tôi so sánh với và không có đào tạo CVAE, cho thấy rằng nó rất quan trọng khi học từ dữ liệu của con người. (d) Chúng tôi vẽ biểu đồ phân bố thời gian hoàn thành nhiệm vụ trong nghiên cứu người dùng của chúng tôi, nơi chúng tôi giao nhiệm vụ cho người tham gia thực hiện hai nhiệm vụ, ở tần số 5 Hz hoặc 50 Hz từ xa. Giảm tần số dẫn đến giảm 62% thời gian hoàn thành.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "7b93313d217de5a27ba1b81ceb9115dc75226a4e217a058fd7cb3c6ab3b34804"
+      "caption_vi": "Hình 9. Thí nghiệm kiểm tra từng thành phần của ACT. (a) Thêm action chunking vào hai phương pháp đối chứng và thay độ dài đoạn k: cả hai đều tăng tỷ lệ thành công, cho thấy chunking có ích cả ngoài ACT. (b) Temporal ensembling cải thiện ACT và BC-ConvMLP nhưng làm VINN kém đi. (c) Bỏ phần huấn luyện CVAE làm kết quả học từ demonstration của người suy giảm rõ. (d) Thử cho người thao tác ở 5 Hz hoặc 50 Hz: tần số điều khiển thấp làm thời gian hoàn thành dài hơn 62%.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "7b93313d217de5a27ba1b81ceb9115dc75226a4e217a058fd7cb3c6ab3b34804",
+      "translation_reviewed": true
     }
   ],
   "libero": [
     {
       "page": 2,
       "bbox": [
-        22.0,
+        22,
         63.4,
-        590.0,
-        290.0
+        590,
+        290
       ],
       "width": 2045,
       "height": 817,
@@ -728,16 +765,17 @@
       "image": "/paper-figures/libero/figure-1.webp",
       "caption": "Figure 1: Top: LIBERO has four procedurally-generated task suites: LIBERO-SPATIAL, LIBERO- OBJECT, and LIBERO-GOAL have 10 tasks each and require transferring knowledge about spatial relationships, objects, and task goals; LIBERO-100 has 100 tasks and requires the transfer of entangled knowledge. Bottom: we investigate five key research topics in LLDM on LIBERO.",
       "pdf": "https://arxiv.org/pdf/2306.03310",
-      "caption_vi": "Hình 1. Phía trên: LIBERO có bốn bộ tác vụ được tạo theo quy trình. LIBERO-SPATIAL, LIBERO-OBJECT và LIBERO-GOAL, mỗi bộ gồm 10 tác vụ, nhằm kiểm tra chuyển giao kiến thức về quan hệ không gian, đối tượng và mục tiêu tác vụ. LIBERO-100 gồm 100 tác vụ, yêu cầu chuyển giao những kiến thức kết hợp nhiều yếu tố. Phía dưới: nhóm tác giả khảo sát năm vấn đề nghiên cứu quan trọng của học robot suốt đời (LLDM) trên benchmark LIBERO.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon); manual terminology correction",
-      "caption_sha256": "c4c5cb8cae89f158d0932706d8203874804d055eed57b82bdb23514a132398c6"
+      "caption_vi": "Hình 1. Phía trên là bốn bộ nhiệm vụ của LIBERO: LIBERO-SPATIAL, LIBERO-OBJECT và LIBERO-GOAL (mỗi bộ 10 nhiệm vụ), lần lượt kiểm tra việc chuyển kiến thức về vị trí không gian, đặc điểm vật thể và mục tiêu. LIBERO-100 có 100 nhiệm vụ, đòi hỏi phối hợp nhiều loại kiến thức. Phía dưới mô tả năm câu hỏi nghiên cứu chính về học nhiều nhiệm vụ nối tiếp bằng robot.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "c4c5cb8cae89f158d0932706d8203874804d055eed57b82bdb23514a132398c6",
+      "translation_reviewed": true
     },
     {
       "page": 4,
       "bbox": [
-        22.0,
-        59.0,
-        590.0,
+        22,
+        59,
+        590,
         226.3
       ],
       "width": 2045,
@@ -747,16 +785,17 @@
       "image": "/paper-figures/libero/figure-2.webp",
       "caption": "Figure 2: LIBERO’s procedural generation pipeline: Extracting behavioral templates from a large- scale human activity dataset (1), Ego4D, for generating task instructions (2); Based on the task description, selecting the scene and generating the PDDL description file (3) that specifies the objects and layouts (A), the initial object configurations (B), and the task goal (C).",
       "pdf": "https://arxiv.org/pdf/2306.03310",
-      "caption_vi": "Hình 2: Đường ống tạo quy trình của LIBERO: Trích xuất các mẫu hành vi từ bộ dữ liệu hoạt động của con người quy mô lớn (1), Ego4D, để tạo ra các hướng dẫn nhiệm vụ (2); Dựa trên mô tả nhiệm vụ, chọn cảnh và tạo tệp mô tả PDDL (3) chỉ định các đối tượng và bố cục (A), cấu hình đối tượng ban đầu (B) và mục tiêu nhiệm vụ (C).",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "68c2dda76d66de141ec25df69f9781a0336a50e1ad771494b4fcaa5df51d4b47"
+      "caption_vi": "Hình 2. Cách LIBERO sinh nhiệm vụ bằng quy trình tự động. (1) Rút ra mẫu hành vi từ bộ dữ liệu hoạt động của con người Ego4D. (2) Dùng các mẫu đó tạo câu lệnh nhiệm vụ. (3) Chọn cảnh và sinh tệp PDDL để mô tả: (A) vật thể và cách bố trí, (B) trạng thái ban đầu, (C) trạng thái mục tiêu cần đạt.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "68c2dda76d66de141ec25df69f9781a0336a50e1ad771494b4fcaa5df51d4b47",
+      "translation_reviewed": true
     },
     {
       "page": 9,
       "bbox": [
-        22.0,
+        22,
         281.9,
-        590.0,
+        590,
         415.4
       ],
       "width": 2045,
@@ -766,16 +805,17 @@
       "image": "/paper-figures/libero/figure-4.webp",
       "caption": "Figure 4: Performance of ER and PACKNET using RESNET-T on five different task orderings. An error bar shows the performance standard deviation for a fixed ordering.",
       "pdf": "https://arxiv.org/pdf/2306.03310",
-      "caption_vi": "Hình 4: Hiệu suất của ER và PACKNET sử dụng RESNET-T trên năm thứ tự tác vụ khác nhau. Thanh lỗi hiển thị độ lệch chuẩn hiệu suất cho một thứ tự cố định.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "1689cda8561e8f4cc7fa16cb55ecfcc9647bf2df6343627468b81ff1b77dec48"
+      "caption_vi": "Hình 4. Kết quả hai phương pháp học liên tục ER và PACKNET khi sử dụng kiến trúc RESNET-T với năm thứ tự học nhiệm vụ khác nhau. Thanh sai số cho biết độ lệch chuẩn của kết quả trong cùng một thứ tự học.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "1689cda8561e8f4cc7fa16cb55ecfcc9647bf2df6343627468b81ff1b77dec48",
+      "translation_reviewed": true
     },
     {
       "page": 9,
       "bbox": [
-        22.0,
+        22,
         448.3,
-        590.0,
+        590,
         660.3
       ],
       "width": 2045,
@@ -785,16 +825,17 @@
       "image": "/paper-figures/libero/figure-5.webp",
       "caption": "Figure 5: Performance of different combinations of algorithms and architectures without pretraining or with pretraining. The multi-task learning performance is also included for reference.",
       "pdf": "https://arxiv.org/pdf/2306.03310",
-      "caption_vi": "Hình 5: Hiệu suất của các kết hợp khác nhau của các thuật toán và kiến trúc mà không có đào tạo trước hoặc với đào tạo trước. Hiệu suất học tập đa nhiệm vụ cũng được bao gồm để tham khảo.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "57d6fe80ee9797b96f1e593b9205f09760131492827094121f44608f794fdce1"
+      "caption_vi": "Hình 5. So sánh nhiều cặp thuật toán–kiến trúc khi huấn luyện từ đầu và khi khởi tạo bằng mô hình đã học trước. Kết quả của cách huấn luyện chung tất cả nhiệm vụ cũng được đưa vào để làm mốc tham chiếu.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "57d6fe80ee9797b96f1e593b9205f09760131492827094121f44608f794fdce1",
+      "translation_reviewed": true
     }
   ],
   "rt-2": [
     {
       "page": 2,
       "bbox": [
-        22.0,
+        22,
         77.3,
         573.3,
         256.5
@@ -813,7 +854,7 @@
     {
       "page": 5,
       "bbox": [
-        22.0,
+        22,
         151.5,
         573.3,
         529.5
@@ -832,7 +873,7 @@
     {
       "page": 7,
       "bbox": [
-        22.0,
+        22,
         510.7,
         573.3,
         625.7
@@ -851,8 +892,8 @@
     {
       "page": 8,
       "bbox": [
-        22.0,
-        200.0,
+        22,
+        200,
         573.3,
         321.7
       ],
@@ -870,7 +911,7 @@
     {
       "page": 9,
       "bbox": [
-        21.0,
+        21,
         41.9,
         292.6,
         156.9
@@ -889,8 +930,8 @@
     {
       "page": 10,
       "bbox": [
-        22.0,
-        72.0,
+        22,
+        72,
         573.3,
         250.9
       ],
@@ -908,8 +949,8 @@
     {
       "page": 11,
       "bbox": [
-        22.0,
-        147.0,
+        22,
+        147,
         573.3,
         340.8
       ],
@@ -929,9 +970,9 @@
     {
       "page": 1,
       "bbox": [
-        22.0,
+        22,
         419.5,
-        590.0,
+        590,
         632.1
       ],
       "width": 2045,
@@ -948,9 +989,9 @@
     {
       "page": 4,
       "bbox": [
-        311.0,
-        25.0,
-        591.0,
+        311,
+        25,
+        591,
         170.4
       ],
       "width": 1009,
@@ -967,9 +1008,9 @@
     {
       "page": 5,
       "bbox": [
-        22.0,
-        25.0,
-        590.0,
+        22,
+        25,
+        590,
         196.8
       ],
       "width": 2045,
@@ -986,9 +1027,9 @@
     {
       "page": 8,
       "bbox": [
-        22.0,
+        22,
         387.8,
-        590.0,
+        590,
         652.8
       ],
       "width": 2045,
@@ -1007,9 +1048,9 @@
     {
       "page": 1,
       "bbox": [
-        22.0,
+        22,
         398.5,
-        590.0,
+        590,
         535.4
       ],
       "width": 2045,
@@ -1026,9 +1067,9 @@
     {
       "page": 4,
       "bbox": [
-        22.0,
+        22,
         82.3,
-        590.0,
+        590,
         197.3
       ],
       "width": 2045,
@@ -1045,9 +1086,9 @@
     {
       "page": 5,
       "bbox": [
-        22.0,
+        22,
         60.3,
-        590.0,
+        590,
         250.7
       ],
       "width": 2045,
@@ -1064,9 +1105,9 @@
     {
       "page": 7,
       "bbox": [
-        311.0,
+        311,
         458.7,
-        591.0,
+        591,
         678.7
       ],
       "width": 1009,
@@ -1083,10 +1124,10 @@
     {
       "page": 8,
       "bbox": [
-        311.0,
+        311,
         140.7,
-        591.0,
-        303.0
+        591,
+        303
       ],
       "width": 1009,
       "height": 585,
@@ -1104,9 +1145,9 @@
     {
       "page": 1,
       "bbox": [
-        22.0,
+        22,
         475.1,
-        590.0,
+        590,
         643.3
       ],
       "width": 2045,
@@ -1123,9 +1164,9 @@
     {
       "page": 3,
       "bbox": [
-        22.0,
+        22,
         25.3,
-        590.0,
+        590,
         274.5
       ],
       "width": 2045,
@@ -1142,9 +1183,9 @@
     {
       "page": 4,
       "bbox": [
-        22.0,
+        22,
         38.7,
-        590.0,
+        590,
         159.7
       ],
       "width": 2045,
@@ -1161,9 +1202,9 @@
     {
       "page": 5,
       "bbox": [
-        22.0,
+        22,
         27.5,
-        590.0,
+        590,
         142.5
       ],
       "width": 2045,
@@ -1180,9 +1221,9 @@
     {
       "page": 6,
       "bbox": [
-        311.0,
+        311,
         121.9,
-        591.0,
+        591,
         341.9
       ],
       "width": 1009,
@@ -1201,9 +1242,9 @@
     {
       "page": 1,
       "bbox": [
-        22.0,
+        22,
         352.5,
-        590.0,
+        590,
         579.5
       ],
       "width": 2045,
@@ -1220,9 +1261,9 @@
     {
       "page": 4,
       "bbox": [
-        21.0,
+        21,
         66.7,
-        301.0,
+        301,
         245.6
       ],
       "width": 1009,
@@ -1239,9 +1280,9 @@
     {
       "page": 5,
       "bbox": [
-        22.0,
+        22,
         42.1,
-        590.0,
+        590,
         332.3
       ],
       "width": 2045,
@@ -1258,9 +1299,9 @@
     {
       "page": 6,
       "bbox": [
-        21.0,
+        21,
         39.2,
-        301.0,
+        301,
         230.8
       ],
       "width": 1009,
@@ -1277,9 +1318,9 @@
     {
       "page": 6,
       "bbox": [
-        311.0,
-        25.0,
-        591.0,
+        311,
+        25,
+        591,
         247.5
       ],
       "width": 1009,
@@ -1296,9 +1337,9 @@
     {
       "page": 7,
       "bbox": [
-        21.0,
+        21,
         31.3,
-        301.0,
+        301,
         257.1
       ],
       "width": 1009,
@@ -1315,9 +1356,9 @@
     {
       "page": 8,
       "bbox": [
-        22.0,
+        22,
         35.9,
-        590.0,
+        590,
         150.9
       ],
       "width": 2045,
@@ -1334,9 +1375,9 @@
     {
       "page": 9,
       "bbox": [
-        22.0,
-        41.0,
-        590.0,
+        22,
+        41,
+        590,
         392.2
       ],
       "width": 2045,
@@ -1353,9 +1394,9 @@
     {
       "page": 10,
       "bbox": [
-        22.0,
+        22,
         59.4,
-        590.0,
+        590,
         280.3
       ],
       "width": 2045,
@@ -1372,9 +1413,9 @@
     {
       "page": 10,
       "bbox": [
-        21.0,
+        21,
         370.3,
-        301.0,
+        301,
         526.5
       ],
       "width": 1009,
@@ -1393,9 +1434,9 @@
     {
       "page": 1,
       "bbox": [
-        22.0,
+        22,
         167.4,
-        590.0,
+        590,
         505.1
       ],
       "width": 2045,
@@ -1412,9 +1453,9 @@
     {
       "page": 3,
       "bbox": [
-        22.0,
+        22,
         148.1,
-        590.0,
+        590,
         304.5
       ],
       "width": 2045,
@@ -1431,9 +1472,9 @@
     {
       "page": 4,
       "bbox": [
-        311.0,
-        58.0,
-        591.0,
+        311,
+        58,
+        591,
         276.8
       ],
       "width": 1009,
@@ -1450,9 +1491,9 @@
     {
       "page": 6,
       "bbox": [
-        22.0,
+        22,
         35.9,
-        590.0,
+        590,
         194.5
       ],
       "width": 2045,
@@ -1469,9 +1510,9 @@
     {
       "page": 6,
       "bbox": [
-        311.0,
+        311,
         320.7,
-        591.0,
+        591,
         540.7
       ],
       "width": 1009,
@@ -1488,9 +1529,9 @@
     {
       "page": 8,
       "bbox": [
-        21.0,
+        21,
         32.9,
-        301.0,
+        301,
         252.9
       ],
       "width": 1009,
@@ -1509,9 +1550,9 @@
     {
       "page": 1,
       "bbox": [
-        22.0,
+        22,
         210.4,
-        590.0,
+        590,
         441.4
       ],
       "width": 2045,
@@ -1528,9 +1569,9 @@
     {
       "page": 4,
       "bbox": [
-        22.0,
-        54.0,
-        590.0,
+        22,
+        54,
+        590,
         218.2
       ],
       "width": 2045,
@@ -1547,9 +1588,9 @@
     {
       "page": 4,
       "bbox": [
-        311.0,
+        311,
         275.3,
-        591.0,
+        591,
         373.5
       ],
       "width": 1009,
@@ -1566,9 +1607,9 @@
     {
       "page": 5,
       "bbox": [
-        21.0,
-        46.0,
-        301.0,
+        21,
+        46,
+        301,
         201.3
       ],
       "width": 1009,
@@ -1585,9 +1626,9 @@
     {
       "page": 6,
       "bbox": [
-        22.0,
+        22,
         73.9,
-        590.0,
+        590,
         231.3
       ],
       "width": 2045,
@@ -1604,10 +1645,10 @@
     {
       "page": 7,
       "bbox": [
-        22.0,
-        25.0,
-        590.0,
-        185.0
+        22,
+        25,
+        590,
+        185
       ],
       "width": 2045,
       "height": 577,
@@ -1623,9 +1664,9 @@
     {
       "page": 7,
       "bbox": [
-        311.0,
-        241.0,
-        591.0,
+        311,
+        241,
+        591,
         327.5
       ],
       "width": 1009,
@@ -1642,9 +1683,9 @@
     {
       "page": 8,
       "bbox": [
-        21.0,
-        25.0,
-        301.0,
+        21,
+        25,
+        301,
         137.7
       ],
       "width": 1009,
@@ -1661,9 +1702,9 @@
     {
       "page": 8,
       "bbox": [
-        311.0,
-        25.0,
-        591.0,
+        311,
+        25,
+        591,
         171.5
       ],
       "width": 1009,
@@ -1682,9 +1723,9 @@
     {
       "page": 1,
       "bbox": [
-        22.0,
-        192.0,
-        590.0,
+        22,
+        192,
+        590,
         418.4
       ],
       "width": 2045,
@@ -1701,10 +1742,10 @@
     {
       "page": 4,
       "bbox": [
-        22.0,
+        22,
         83.3,
-        590.0,
-        221.0
+        590,
+        221
       ],
       "width": 2045,
       "height": 497,
@@ -1720,9 +1761,9 @@
     {
       "page": 7,
       "bbox": [
-        22.0,
+        22,
         60.5,
-        590.0,
+        590,
         237.1
       ],
       "width": 2045,
@@ -1739,10 +1780,10 @@
     {
       "page": 8,
       "bbox": [
-        311.0,
-        258.0,
-        591.0,
-        414.0
+        311,
+        258,
+        591,
+        414
       ],
       "width": 1009,
       "height": 563,
@@ -1758,9 +1799,9 @@
     {
       "page": 9,
       "bbox": [
-        22.0,
+        22,
         58.7,
-        590.0,
+        590,
         173.7
       ],
       "width": 2045,
@@ -1777,9 +1818,9 @@
     {
       "page": 10,
       "bbox": [
-        21.0,
+        21,
         417.3,
-        301.0,
+        301,
         561.2
       ],
       "width": 1009,
@@ -1798,9 +1839,9 @@
     {
       "page": 2,
       "bbox": [
-        22.0,
-        97.0,
-        590.0,
+        22,
+        97,
+        590,
         263.1
       ],
       "width": 2045,
@@ -1817,9 +1858,9 @@
     {
       "page": 3,
       "bbox": [
-        22.0,
+        22,
         47.6,
-        590.0,
+        590,
         170.3
       ],
       "width": 2045,
@@ -1836,9 +1877,9 @@
     {
       "page": 4,
       "bbox": [
-        22.0,
+        22,
         79.5,
-        590.0,
+        590,
         239.3
       ],
       "width": 2045,
@@ -1855,9 +1896,9 @@
     {
       "page": 6,
       "bbox": [
-        311.0,
+        311,
         330.5,
-        591.0,
+        591,
         550.5
       ],
       "width": 1009,
@@ -1874,9 +1915,9 @@
     {
       "page": 8,
       "bbox": [
-        22.0,
+        22,
         146.6,
-        590.0,
+        590,
         525.5
       ],
       "width": 2045,
@@ -1895,10 +1936,10 @@
     {
       "page": 1,
       "bbox": [
-        311.0,
+        311,
         210.8,
-        591.0,
-        622.0
+        591,
+        622
       ],
       "width": 1009,
       "height": 1482,
@@ -1914,9 +1955,9 @@
     {
       "page": 2,
       "bbox": [
-        311.0,
+        311,
         177.2,
-        591.0,
+        591,
         292.2
       ],
       "width": 1009,
@@ -1933,9 +1974,9 @@
     {
       "page": 3,
       "bbox": [
-        311.0,
-        41.0,
-        591.0,
+        311,
+        41,
+        591,
         365.3
       ],
       "width": 1009,
@@ -1952,9 +1993,9 @@
     {
       "page": 5,
       "bbox": [
-        22.0,
-        25.0,
-        590.0,
+        22,
+        25,
+        590,
         242.6
       ],
       "width": 2045,
@@ -1971,9 +2012,9 @@
     {
       "page": 6,
       "bbox": [
-        311.0,
-        41.0,
-        591.0,
+        311,
+        41,
+        591,
         470.1
       ],
       "width": 1009,
@@ -1990,9 +2031,9 @@
     {
       "page": 8,
       "bbox": [
-        22.0,
-        25.0,
-        590.0,
+        22,
+        25,
+        590,
         199.4
       ],
       "width": 2045,
@@ -2009,9 +2050,9 @@
     {
       "page": 8,
       "bbox": [
-        21.0,
+        21,
         264.6,
-        301.0,
+        301,
         493.2
       ],
       "width": 1009,
@@ -2028,9 +2069,9 @@
     {
       "page": 8,
       "bbox": [
-        311.0,
+        311,
         278.5,
-        591.0,
+        591,
         391.4
       ],
       "width": 1009,
@@ -2047,9 +2088,9 @@
     {
       "page": 9,
       "bbox": [
-        311.0,
-        25.0,
-        591.0,
+        311,
+        25,
+        591,
         222.4
       ],
       "width": 1009,
@@ -2066,9 +2107,9 @@
     {
       "page": 10,
       "bbox": [
-        22.0,
+        22,
         45.6,
-        590.0,
+        590,
         215.8
       ],
       "width": 2045,
@@ -2085,9 +2126,9 @@
     {
       "page": 10,
       "bbox": [
-        21.0,
-        273.0,
-        301.0,
+        21,
+        273,
+        301,
         435.5
       ],
       "width": 1009,
@@ -2125,7 +2166,7 @@
     {
       "page": 3,
       "bbox": [
-        22.0,
+        22,
         83.1,
         573.3,
         335.8
@@ -2144,7 +2185,7 @@
     {
       "page": 4,
       "bbox": [
-        22.0,
+        22,
         78.3,
         573.3,
         334.3
@@ -2163,8 +2204,8 @@
     {
       "page": 6,
       "bbox": [
-        22.0,
-        74.0,
+        22,
+        74,
         573.3,
         248.4
       ],
@@ -2182,7 +2223,7 @@
     {
       "page": 7,
       "bbox": [
-        22.0,
+        22,
         220.6,
         573.3,
         547.1
@@ -2201,7 +2242,7 @@
     {
       "page": 10,
       "bbox": [
-        22.0,
+        22,
         36.9,
         573.3,
         225.7
@@ -2220,7 +2261,7 @@
     {
       "page": 11,
       "bbox": [
-        22.0,
+        22,
         72.8,
         573.3,
         257.2
@@ -2239,7 +2280,7 @@
     {
       "page": 13,
       "bbox": [
-        22.0,
+        22,
         184.1,
         573.3,
         528.8
@@ -2258,8 +2299,8 @@
     {
       "page": 16,
       "bbox": [
-        22.0,
-        25.0,
+        22,
+        25,
         573.3,
         247.3
       ],
@@ -2277,7 +2318,7 @@
     {
       "page": 20,
       "bbox": [
-        22.0,
+        22,
         363.4,
         573.3,
         628.4
@@ -2296,7 +2337,7 @@
     {
       "page": 21,
       "bbox": [
-        22.0,
+        22,
         46.2,
         573.3,
         161.2
@@ -2315,7 +2356,7 @@
     {
       "page": 21,
       "bbox": [
-        22.0,
+        22,
         225.9,
         573.3,
         498.6
@@ -2334,10 +2375,10 @@
     {
       "page": 22,
       "bbox": [
-        22.0,
+        22,
         318.8,
         573.3,
-        651.0
+        651
       ],
       "width": 1985,
       "height": 1197,
@@ -2353,7 +2394,7 @@
     {
       "page": 25,
       "bbox": [
-        22.0,
+        22,
         301.3,
         573.3,
         662.4
@@ -2374,9 +2415,9 @@
     {
       "page": 1,
       "bbox": [
-        22.0,
+        22,
         230.7,
-        590.0,
+        590,
         499.4
       ],
       "width": 2045,
@@ -2393,9 +2434,9 @@
     {
       "page": 2,
       "bbox": [
-        22.0,
+        22,
         32.4,
-        590.0,
+        590,
         147.4
       ],
       "width": 2045,
@@ -2412,9 +2453,9 @@
     {
       "page": 4,
       "bbox": [
-        22.0,
+        22,
         153.8,
-        590.0,
+        590,
         268.8
       ],
       "width": 2045,
@@ -2431,9 +2472,9 @@
     {
       "page": 6,
       "bbox": [
-        22.0,
-        53.0,
-        590.0,
+        22,
+        53,
+        590,
         361.9
       ],
       "width": 2045,
@@ -2450,9 +2491,9 @@
     {
       "page": 7,
       "bbox": [
-        311.0,
-        41.0,
-        591.0,
+        311,
+        41,
+        591,
         205.9
       ],
       "width": 1009,
@@ -2469,9 +2510,9 @@
     {
       "page": 8,
       "bbox": [
-        22.0,
-        41.0,
-        590.0,
+        22,
+        41,
+        590,
         202.7
       ],
       "width": 2045,
@@ -2488,9 +2529,9 @@
     {
       "page": 8,
       "bbox": [
-        22.0,
+        22,
         270.9,
-        590.0,
+        590,
         410.5
       ],
       "width": 2045,
@@ -2507,10 +2548,10 @@
     {
       "page": 9,
       "bbox": [
-        21.0,
-        41.0,
-        301.0,
-        209.0
+        21,
+        41,
+        301,
+        209
       ],
       "width": 1009,
       "height": 606,
@@ -2526,9 +2567,9 @@
     {
       "page": 9,
       "bbox": [
-        311.0,
-        41.0,
-        591.0,
+        311,
+        41,
+        591,
         166.6
       ],
       "width": 1009,
@@ -2545,9 +2586,9 @@
     {
       "page": 10,
       "bbox": [
-        21.0,
-        41.0,
-        301.0,
+        21,
+        41,
+        301,
         186.9
       ],
       "width": 1009,
@@ -2564,9 +2605,9 @@
     {
       "page": 10,
       "bbox": [
-        21.0,
+        21,
         269.7,
-        301.0,
+        301,
         421.2
       ],
       "width": 1009,
@@ -2583,9 +2624,9 @@
     {
       "page": 10,
       "bbox": [
-        311.0,
-        41.0,
-        591.0,
+        311,
+        41,
+        591,
         176.1
       ],
       "width": 1009,
@@ -2602,9 +2643,9 @@
     {
       "page": 11,
       "bbox": [
-        21.0,
-        41.0,
-        301.0,
+        21,
+        41,
+        301,
         246.1
       ],
       "width": 1009,
@@ -2623,9 +2664,9 @@
     {
       "page": 1,
       "bbox": [
-        22.0,
+        22,
         441.1,
-        590.0,
+        590,
         631.8
       ],
       "width": 2045,
@@ -2642,9 +2683,9 @@
     {
       "page": 3,
       "bbox": [
-        311.0,
+        311,
         133.8,
-        591.0,
+        591,
         353.8
       ],
       "width": 1009,
@@ -2661,9 +2702,9 @@
     {
       "page": 4,
       "bbox": [
-        22.0,
-        25.0,
-        590.0,
+        22,
+        25,
+        590,
         212.1
       ],
       "width": 2045,
@@ -2680,9 +2721,9 @@
     {
       "page": 5,
       "bbox": [
-        311.0,
-        25.0,
-        591.0,
+        311,
+        25,
+        591,
         244.6
       ],
       "width": 1009,
@@ -2699,9 +2740,9 @@
     {
       "page": 7,
       "bbox": [
-        22.0,
+        22,
         61.3,
-        590.0,
+        590,
         271.1
       ],
       "width": 2045,
@@ -2718,9 +2759,9 @@
     {
       "page": 8,
       "bbox": [
-        22.0,
+        22,
         325.1,
-        590.0,
+        590,
         590.1
       ],
       "width": 2045,
@@ -2739,9 +2780,9 @@
     {
       "page": 2,
       "bbox": [
-        21.0,
-        25.0,
-        301.0,
+        21,
+        25,
+        301,
         116.8
       ],
       "width": 1009,
@@ -2758,9 +2799,9 @@
     {
       "page": 2,
       "bbox": [
-        311.0,
+        311,
         195.9,
-        591.0,
+        591,
         283.4
       ],
       "width": 1009,
@@ -2777,9 +2818,9 @@
     {
       "page": 3,
       "bbox": [
-        21.0,
+        21,
         227.7,
-        301.0,
+        301,
         309.8
       ],
       "width": 1009,
@@ -2796,9 +2837,9 @@
     {
       "page": 3,
       "bbox": [
-        311.0,
+        311,
         66.7,
-        591.0,
+        591,
         181.7
       ],
       "width": 1009,
@@ -2815,9 +2856,9 @@
     {
       "page": 3,
       "bbox": [
-        311.0,
+        311,
         395.2,
-        591.0,
+        591,
         615.2
       ],
       "width": 1009,
@@ -2836,7 +2877,7 @@
     {
       "page": 1,
       "bbox": [
-        22.0,
+        22,
         491.9,
         573.3,
         735.5
@@ -2855,7 +2896,7 @@
     {
       "page": 6,
       "bbox": [
-        22.0,
+        22,
         65.5,
         573.3,
         235.2
@@ -2874,7 +2915,7 @@
     {
       "page": 11,
       "bbox": [
-        22.0,
+        22,
         83.1,
         573.3,
         397.6
@@ -2893,7 +2934,7 @@
     {
       "page": 17,
       "bbox": [
-        22.0,
+        22,
         59.4,
         573.3,
         339.3
@@ -2912,7 +2953,7 @@
     {
       "page": 21,
       "bbox": [
-        22.0,
+        22,
         85.4,
         573.3,
         359.5
@@ -2931,8 +2972,8 @@
     {
       "page": 22,
       "bbox": [
-        22.0,
-        25.0,
+        22,
+        25,
         573.3,
         225.2
       ],
@@ -2950,8 +2991,8 @@
     {
       "page": 24,
       "bbox": [
-        22.0,
-        25.0,
+        22,
+        25,
         573.3,
         266.1
       ],
@@ -2971,9 +3012,9 @@
     {
       "page": 2,
       "bbox": [
-        22.0,
-        58.0,
-        590.0,
+        22,
+        58,
+        590,
         268.1
       ],
       "width": 2045,
@@ -2990,9 +3031,9 @@
     {
       "page": 3,
       "bbox": [
-        22.0,
+        22,
         70.2,
-        590.0,
+        590,
         454.4
       ],
       "width": 2045,
@@ -3009,9 +3050,9 @@
     {
       "page": 4,
       "bbox": [
-        311.0,
+        311,
         107.5,
-        591.0,
+        591,
         327.5
       ],
       "width": 1009,
@@ -3028,9 +3069,9 @@
     {
       "page": 6,
       "bbox": [
-        22.0,
+        22,
         62.9,
-        590.0,
+        590,
         177.9
       ],
       "width": 2045,
@@ -3047,9 +3088,9 @@
     {
       "page": 8,
       "bbox": [
-        22.0,
+        22,
         86.8,
-        590.0,
+        590,
         351.8
       ],
       "width": 2045,
@@ -3066,9 +3107,9 @@
     {
       "page": 8,
       "bbox": [
-        22.0,
+        22,
         391.9,
-        590.0,
+        590,
         500.8
       ],
       "width": 2045,
@@ -3085,9 +3126,9 @@
     {
       "page": 9,
       "bbox": [
-        22.0,
+        22,
         369.2,
-        590.0,
+        590,
         634.2
       ],
       "width": 2045,
@@ -3104,9 +3145,9 @@
     {
       "page": 13,
       "bbox": [
-        22.0,
+        22,
         143.3,
-        590.0,
+        590,
         408.3
       ],
       "width": 2045,
@@ -3123,9 +3164,9 @@
     {
       "page": 14,
       "bbox": [
-        311.0,
+        311,
         379.8,
-        591.0,
+        591,
         542.6
       ],
       "width": 1009,
@@ -3142,9 +3183,9 @@
     {
       "page": 15,
       "bbox": [
-        311.0,
+        311,
         109.7,
-        591.0,
+        591,
         329.7
       ],
       "width": 1009,
@@ -3161,9 +3202,9 @@
     {
       "page": 15,
       "bbox": [
-        22.0,
+        22,
         350.7,
-        590.0,
+        590,
         543.9
       ],
       "width": 2045,
@@ -3180,10 +3221,10 @@
     {
       "page": 16,
       "bbox": [
-        22.0,
-        68.0,
-        590.0,
-        333.0
+        22,
+        68,
+        590,
+        333
       ],
       "width": 2045,
       "height": 955,
@@ -3199,9 +3240,9 @@
     {
       "page": 17,
       "bbox": [
-        22.0,
+        22,
         58.4,
-        590.0,
+        590,
         275.5
       ],
       "width": 2045,
