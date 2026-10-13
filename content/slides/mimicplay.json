@@ -31,7 +31,7 @@
     "lead": "MIMICPLAY chia việc thành hai phần: học đích đến và trình tự từ video người, rồi học cách cử động robot thật từ ít lần người điều khiển robot làm mẫu.",
     "items": [
       "Học “đi đâu” từ video người, học “làm thế nào” từ robot",
-      "Phân tách high-mức plan/latent goal khỏi low-mức motor control."
+      "Tách phần lập kế hoạch mục tiêu trung gian khỏi phần điều khiển động cơ."
     ],
     "intuition": "Một người dọn bàn có thể mở ngăn kéo, nhặt bút, đặt vào hộp rồi đóng lại rất nhanh. Video người làm việc dễ thu hơn việc điều khiển robot hàng trăm lần. Nhưng video ấy không cho biết góc từng khớp robot phải xoay bao nhiêu.",
     "detail": {
@@ -143,7 +143,7 @@
       },
       {
         "label": "TẠO HÀNH ĐỘNG",
-        "value": "Low-mức module bám mục tiêu qua nhiều bước robot control."
+        "value": "Bộ điều khiển cấp thấp thực hiện từng bước để tiến tới mục tiêu."
       }
     ],
     "intuition": "Robot phải nhặt bút, cất vào hộp, xếp sách và đóng ngăn kéo. Video người cho thấy thứ tự thao tác và vị trí mục tiêu, nhưng robot vẫn phải học riêng cách cầm một chiếc bút mảnh bằng kẹp robot của nó.",
@@ -213,7 +213,7 @@
       },
       {
         "label": "Phê bình độc lập",
-        "value": "Phê bình: thao tác người và robot khác embodiment; tracking/thị giác mismatch có thể làm latent plan không khả thi."
+        "value": "Phê bình: tay người và robot khác cấu trúc; sai khác hình ảnh và chuyển động có thể khiến kế hoạch không thực hiện được."
       }
     ],
     "intuition": "Biểu diễn ẩn cũng khó kiểm chứng bằng mắt; cần chạy và xem nó có thật sự làm robot tới đúng đích trung gian hay không. Tính bền trước một loại xáo trộn trong thí nghiệm không bảo đảm chịu được mọi tác động.",
@@ -233,7 +233,7 @@
       },
       {
         "label": "HƯỚNG PHÁT TRIỂN",
-        "value": "Open X-Embodiment cung cấp kênh robot dữ liệu bổ sung."
+        "value": "Open X-Embodiment cung cấp dữ liệu thao tác từ nhiều loại robot khác nhau."
       }
     ],
     "intuition": "PaLM-E cũng có thể tham gia suy luận mục tiêu cấp cao, nhưng không thay được bộ điều khiển động cơ. Khi đọc ba bài, hãy luôn hỏi mô-đun nào quyết định bước kế tiếp và mô-đun nào trực tiếp điều khiển robot.",
