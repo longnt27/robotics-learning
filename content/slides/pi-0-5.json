@@ -99,7 +99,7 @@
     "items": [
       {
         "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
-        "value": "Dữ liệu robot đa embodiment và đa nhà được co-trained."
+        "value": "Mô hình học chung dữ liệu từ nhiều loại robot và nhiều ngôi nhà."
       },
       {
         "label": "ĐÁNH ĐỔI KỸ THUẬT",
@@ -143,7 +143,7 @@
       },
       {
         "label": "TẠO HÀNH ĐỘNG",
-        "value": "Flow expert sinh chunks, robot thực thi qua chuỗi thao tác dài."
+        "value": "Bộ sinh hành động tạo các đoạn chuyển động để robot thực hiện từng phần của nhiệm vụ dài."
       }
     ],
     "intuition": "Robot bước vào căn bếp chưa xuất hiện trong dữ liệu huấn luyện. Lệnh là “Cất đồ vào ngăn kéo và bỏ bát vào bồn”. Nó phải nhìn xem bát đang ở đâu, ngăn kéo nào cần mở, lối di chuyển có vật cản không.",
