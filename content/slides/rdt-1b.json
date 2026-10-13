@@ -4,7 +4,7 @@
     "title": "RDT-1B: sinh chuyển động phối hợp hai tay",
     "lead": "Một robot một tay gắp khối có thể tiếp cận từ vài hướng. Robot hai tay còn phải quyết định tay nào giữ, tay nào di chuyển, có chuyển vật từ tay này sang tay kia không. Cùng một đích có thể có rất nhiều chuỗi cử động hợp lệ.",
     "items": [
-      "Scale hành động generative modeling bằng Transformer"
+      "Mở rộng khả năng sinh chuyển động bằng Transformer"
     ],
     "intuition": "RDT-1B dùng Diffusion Transformer để học và sinh các đoạn hành động hai tay có tính phối hợp, nhận điều kiện từ ảnh, câu lệnh và trạng thái robot. Nó còn nghiên cứu cách học từ nhiều cấu hình robot.",
     "detail": {
@@ -30,13 +30,13 @@
     "title": "Nhiều quỹ đạo đúng không nên bị lấy trung bình",
     "lead": "RDT-1B dùng Diffusion Transformer để học và sinh các đoạn hành động hai tay có tính phối hợp, nhận điều kiện từ ảnh, câu lệnh và trạng thái robot. Nó còn nghiên cứu cách học từ nhiều cấu hình robot.",
     "items": [
-      "Scale hành động generative modeling bằng Transformer",
-      "Conditioned diffusion sinh đoạn hành động ở không gian liên tục, tận dụng thị giác-language knowledge."
+      "Mở rộng khả năng sinh chuyển động bằng Transformer",
+      "Quá trình khử nhiễu dùng ảnh, câu lệnh và trạng thái robot để sinh đoạn chuyển động liên tục."
     ],
     "intuition": "Một robot một tay gắp khối có thể tiếp cận từ vài hướng. Robot hai tay còn phải quyết định tay nào giữ, tay nào di chuyển, có chuyển vật từ tay này sang tay kia không. Cùng một đích có thể có rất nhiều chuỗi cử động hợp lệ.",
     "detail": {
       "label": "GIẢI THÍCH",
-      "text": "Dự đoán từng tay độc lập khó giữ ràng buộc theo thời gian. RDT sinh một đoạn chuyển động chung để học mối liên hệ giữa các bước hai tay. Đây là lợi ích trực giác, nhưng vẫn cần đánh giá ngoài đời vì mô hình không tự có cảm biến lực hoàn hảo."
+      "text": "Dự đoán từng tay độc lập khó giữ ràng buộc theo thời gian. RDT sinh một đoạn chuyển động chung để học mối liên hệ giữa các bước hai tay. Đây là lợi ích dễ hình dung, nhưng vẫn cần đánh giá ngoài đời vì mô hình không tự có cảm biến lực hoàn hảo."
     }
   },
   {
@@ -46,7 +46,7 @@
     "items": [
       "Diffusion Transformer quy mô lớn sinh hành động liên tục với điều kiện thị giác–ngôn ngữ đa robot."
     ],
-    "intuition": "Dự đoán từng tay độc lập khó giữ ràng buộc theo thời gian. RDT sinh một đoạn chuyển động chung để học mối liên hệ giữa các bước hai tay. Đây là lợi ích trực giác, nhưng vẫn cần đánh giá ngoài đời vì mô hình không tự có cảm biến lực hoàn hảo.",
+    "intuition": "Dự đoán từng tay độc lập khó giữ ràng buộc theo thời gian. RDT sinh một đoạn chuyển động chung để học mối liên hệ giữa các bước hai tay. Đây là lợi ích dễ hình dung, nhưng vẫn cần đánh giá ngoài đời vì mô hình không tự có cảm biến lực hoàn hảo.",
     "detail": {
       "label": "GIẢI THÍCH",
       "text": "Giả sử robot cần đưa khối từ tay phải sang tay trái. Một tay phải kẹp chắc trong khi tay kia tới vị trí nhận, rồi hai tay phối hợp chuyển lực giữ. Nếu tay bên nhận kẹp quá sớm hoặc tay bên giao buông trước, khối có thể rơi."
@@ -119,7 +119,7 @@
     "items": [
       {
         "label": "MỤC TIÊU HỌC",
-        "value": "huấn luyện denoising/flow-style loss trên robot hành động dưới điều kiện multimodal."
+        "value": "Dạy mô hình khử nhiễu đoạn hành động dựa trên ảnh, câu lệnh và trạng thái robot."
       },
       {
         "label": "DỮ LIỆU / QUY TRÌNH",
@@ -143,7 +143,7 @@
       },
       {
         "label": "TẠO HÀNH ĐỘNG",
-        "value": "Chunk điều khiển robot; suy luận cost tăng theo số denoising bước."
+        "value": "Robot thực hiện đoạn hành động đã sinh; càng nhiều vòng khử nhiễu, thời gian suy luận có thể càng dài."
       }
     ],
     "intuition": "Giả sử robot cần đưa khối từ tay phải sang tay trái. Một tay phải kẹp chắc trong khi tay kia tới vị trí nhận, rồi hai tay phối hợp chuyển lực giữ. Nếu tay bên nhận kẹp quá sớm hoặc tay bên giao buông trước, khối có thể rơi.",
@@ -248,7 +248,7 @@
     "lead": "Vẽ một nhiệm vụ chuyển khối từ tay phải sang tay trái và liệt kê thứ tự tiếp cận, kẹp nhận, chuyển lực giữ, buông giao. Ghi xem lệnh của tay nào phụ thuộc tay nào tại mỗi bước. Nếu chỉ dự đoán hai tay độc lập, bước nào dễ bị lệch nhịp nhất?",
     "items": [
       "Dùng RDT-1B để nghiên cứu mô hình/dữ liệu scaling cho hành động chính sách điều khiển.",
-      "Trên robot thật, đo đồng thời success và wall-clock latency."
+      "Trên robot thật, đo tỷ lệ hoàn thành nhiệm vụ cùng độ trễ thực tế."
     ],
     "intuition": "Sau đó đọc Hình 3 và chỉ ra ảnh cổ tay, trạng thái khớp, nhiễu hành động và tần số điều khiển được đưa vào ở đâu. Những câu hỏi này giúp nối sơ đồ mạng với công việc thật.",
     "detail": {
