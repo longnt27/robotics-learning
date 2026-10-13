@@ -208,18 +208,18 @@
     "lead": "Một quỹ đạo đưa tay qua khoảng trống có thể rất mượt và dễ nén. Nhưng khi cắm linh kiện vào khe nhỏ hoặc khép kẹp robot ngay lúc chạm vật, thay đổi đột ngột có thể quan trọng.",
     "items": [
       {
-        "label": "Tác giả / phạm vi",
-        "value": "Tác giả: evaluation chưa bao phủ đủ mobile/dexterous dynamic nhiệm vụ."
+        "label": "Điểm mạnh",
+        "value": "Nén chuỗi và giảm chi phí huấn luyện trong một số phép thử."
       },
       {
-        "label": "Phê bình độc lập",
-        "value": "Phê bình: nén theo tần số có thể làm mất chuyển động ngắn lúc tiếp xúc; sinh tuần tự vẫn có độ trễ."
+        "label": "Đánh đổi",
+        "value": "Sinh token tuần tự có thể khiến suy luận chậm hơn diffusion."
       }
     ],
-    "intuition": "Do đó nên đo sai số sau khi mã hóa–giải mã trên từng chiều và tại các đoạn có tiếp xúc. Cần kiểm tra cả kết quả robot thực hiện, không chỉ tỷ lệ nén.",
+    "intuition": "FAST giảm số token và có thể rút ngắn thời gian huấn luyện, nhưng mô hình vẫn sinh token từng bước: suy luận có thể chậm hơn diffusion.",
     "detail": {
       "label": "GIẢI THÍCH",
-      "text": "Do đó nên đo sai số sau khi mã hóa–giải mã trên từng chiều và tại các đoạn có tiếp xúc. Cần kiểm tra cả kết quả robot thực hiện, không chỉ tỷ lệ nén."
+      "text": "Bài báo đo trên RTX 4090: sinh một đoạn hành động dài một giây bằng π0-FAST mất khoảng 750 ms, còn π0 dùng diffusion mất khoảng 100 ms trong cùng nhóm thử. Đừng nhầm lợi ích giảm giờ GPU huấn luyện với tốc độ phản ứng của robot thật."
     }
   },
   {
