@@ -17,9 +17,9 @@ Giả sử trên bàn có ba khối giống nhau nhưng khác màu. Người dù
 **Token theo vật thể** là một mẩu thông tin đại diện cho một vật đã được nhận diện, chẳng hạn hình dạng và vị trí tương đối của chiếc cốc. Thay vì bắt mạng tự phát hiện mọi quan hệ từ hàng trăm nghìn điểm ảnh, VIMA có sẵn một số cấu trúc để chỉ tới vật cụ thể. Đây là lợi thế nhưng cũng là giả định: khi không tách được vật khỏi nền hoặc vật bị che khuất, vấn đề trở nên khó hơn. **Chú ý chéo (cross-attention)** giúp phần điều khiển tham khảo những thông tin liên quan trong prompt lúc quyết định thao tác.
 
 
-### ### Một lời giao việc có hai loại hình ảnh
+### Một lời giao việc có hai loại hình ảnh
 
-Giả sử mày đưa ảnh một chiếc cốc làm mẫu, rồi camera robot lại chụp được ba chiếc cốc trên bàn. Ảnh mẫu **không cho biết tọa độ để gắp**; nó chỉ giúp xác định đặc điểm của thứ cần tìm. Ảnh camera **không thay thế được lời giao việc**; nó cho biết những vật nào đang hiện diện và vị trí của chúng. Robot phải nối hai nguồn thông tin ấy trước khi tính hành động. Nếu chỉ nói “mô hình hiểu prompt đa phương thức” mà bỏ qua bước đối chiếu này, người đọc vẫn chưa biết phần khó nằm ở đâu.
+Giả sử người dùng đưa ảnh một chiếc cốc làm mẫu, rồi camera robot lại chụp được ba chiếc cốc trên bàn. Ảnh mẫu **không cho biết tọa độ để gắp**; nó chỉ giúp xác định đặc điểm của thứ cần tìm. Ảnh camera **không thay thế được lời giao việc**; nó cho biết những vật nào đang hiện diện và vị trí của chúng. Robot phải nối hai nguồn thông tin ấy trước khi tính hành động. Nếu chỉ nói “mô hình hiểu prompt đa phương thức” mà bỏ qua bước đối chiếu này, người đọc vẫn chưa biết phần khó nằm ở đâu.
 
 ## Phương pháp thực hiện
 
@@ -32,7 +32,7 @@ Giả sử mày đưa ảnh một chiếc cốc làm mẫu, rồi camera robot l
 Phải phân biệt hai năng lực: hiểu đúng vật cần chọn và thực hiện thành công thao tác kẹp/đặt. Một mô hình có thể làm tốt bước đầu mà vẫn thất bại ở bước sau.
 
 
-### ### Chú ý chéo thực sự giúp ích ở bước nào?
+### Chú ý chéo thực sự giúp ích ở bước nào?
 
 Hình dung mỗi vật trên bàn có một tấm thẻ thông tin, còn prompt có một tấm thẻ ghi “vật giống mẫu xanh”. Trong cơ chế chú ý chéo, biểu diễn dùng để dự đoán hành động có thể tham khảo những phần liên quan của prompt khi xử lý cảnh hiện tại. Nó không đơn giản là ghép hai đoạn chữ vào nhau: thông tin về vật cần chọn được sử dụng ngay trong quá trình quyết định. Sau khi chọn đúng vật, robot vẫn phải phát các lệnh tiếp cận, kẹp và đặt. Vì thế chọn đúng khối xanh mà kẹp trượt không chứng minh cơ chế tham chiếu prompt bị sai.
 
@@ -67,7 +67,7 @@ Hình 6 kiểm tra bộ mã hóa ảnh: giữ bài toán gần như giống nhau
 Bài báo báo cáo mức thành công cao hơn tối đa khoảng 2,9 lần so với kiến trúc đối chứng ở một số điều kiện thử và hiệu quả học từ dữ liệu cao hơn ở một số phép so. Đây không phải hệ số cải thiện cố định của mọi nhiệm vụ. Hãy xem riêng các mức thử: càng thay đổi nhiều yếu tố chưa thấy khi huấn luyện, tỷ lệ thành công nhìn chung càng giảm. Các biểu đồ ở Hình 4–7 giúp phân biệt lợi ích của việc tăng mô hình, tăng dữ liệu và thay cách đưa prompt vào bộ điều khiển.
 
 
-### ### Một phép thử nhỏ để tách hai nguyên nhân thất bại
+### Một phép thử nhỏ để tách hai nguyên nhân thất bại
 
 Giữ nguyên ba khối, câu lệnh và vị trí khay; chỉ thay ảnh mẫu từ xanh sang vàng. Nếu robot vẫn nhặt xanh, hãy nghi ngờ nó chưa dùng đúng ảnh tham chiếu. Nếu robot chuyển sang nhặt vàng nhưng làm rơi vật, lỗi nằm ở khả năng thao tác. Khi đọc VIMA-BENCH, hãy áp dụng cách tách này ở mức lớn hơn: cấp kiểm tra khó lên là do vật lạ, tổ hợp quan hệ lạ hay kiểu nhiệm vụ mới? Chỉ nhìn một tỷ lệ thành công tổng hợp sẽ che mất câu trả lời.
 
