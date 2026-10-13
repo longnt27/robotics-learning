@@ -2,7 +2,7 @@
 
 ### Vì sao cùng là nhặt đồ mà đổi bàn lại làm robot thất bại?
 
-Một chính sách điều khiển chỉ học nhặt cốc trên một chiếc bàn trắng có thể làm rất tốt ở đó nhưng thất bại khi sang bồn rửa hoặc gặp vật mới. Nguyên nhân không nhất thiết là mô hình yếu; có thể toàn bộ lượt thao tác mẫu đều quá giống nhau. BridgeData V2 được xây để tạo nguồn dữ liệu phong phú về thao tác, đồ vật và môi trường.
+Một chính sách điều khiển chỉ học nhặt cốc trên một chiếc bàn trắng có thể làm rất tốt ở đó nhưng thất bại khi sang bồn rửa hoặc gặp vật mới. Nguyên nhân không nhất thiết là mô hình yếu; có thể toàn bộ lần làm mẫu đều quá giống nhau. BridgeData V2 được xây để tạo nguồn dữ liệu phong phú về thao tác, đồ vật và môi trường.
 
 Đây là một **tập dữ liệu** chứ không phải kiến trúc chính sách điều khiển mới. Khi xem kết quả học máy, phải hỏi thuật toán nào được huấn luyện trên dữ liệu ấy và điều kiện đánh giá ra sao. Đừng nhầm việc có nhiều ví dụ với việc robot đã tự hiểu mọi công việc.
 
@@ -12,7 +12,7 @@ Một chính sách điều khiển chỉ học nhặt cốc trên một chiếc 
 
 ## Kiến thức nền cần nắm
 
-### Một lượt thao tác mẫu robot chứa những gì?
+### Một lần người điều khiển robot làm mẫu được ghi lại thế nào?
 
 Mỗi lần người vận hành làm một nhiệm vụ, hệ thống ghi ảnh camera, trạng thái robot, chuỗi lệnh điều khiển và câu mô tả mục tiêu. Những bản ghi phải được đồng bộ theo thời gian: ảnh ở thời điểm này mà lệnh lại thuộc thời điểm khác thì mô hình học sai quan hệ giữa quan sát và hành động.
 
@@ -36,7 +36,7 @@ Khi huấn luyện, chính sách điều khiển nhận quan sát và mục tiê
 
 Robot học rất nhiều lần nhặt rồi đặt vật vào khay. Sau đó ta yêu cầu xếp hai khối lên nhau. Việc xếp chồng khó hơn, nhưng các bước tiếp cận, kẹp và di chuyển đồ vẫn có thể tái sử dụng. Đây là ý tưởng chuyển giao giữa những kỹ năng có phần chung.
 
-Thử so hai chính sách điều khiển có số lượt thao tác mẫu gần nhau: một bên được học ba kỹ năng, bên kia mười ba. Nếu bên đa dạng hơn làm nhiệm vụ mới tốt hơn, ta có bằng chứng rằng loại kỹ năng được học quan trọng, không chỉ tổng số mẫu.
+Thử so hai chính sách điều khiển có số lần làm mẫu gần nhau: một bên được học ba kỹ năng, bên kia mười ba. Nếu bên đa dạng hơn làm nhiệm vụ mới tốt hơn, ta có bằng chứng rằng loại kỹ năng được học quan trọng, không chỉ tổng số mẫu.
 
 ## Kết quả thực nghiệm
 
@@ -64,7 +64,7 @@ Dữ liệu lớn cũng có thể bị lệch: nhiệm vụ thường gặp nhi�
 
 ### BridgeData V2, DROID và Open X-Embodiment bổ sung nhau thế nào?
 
-BridgeData V2 mở rộng số thao tác và môi trường trong một hệ thu dữ liệu tương đối nhất quán. DROID thu dữ liệu ở rất nhiều tòa nhà và bối cảnh ngoài phòng lab. Open X-Embodiment trộn dữ liệu từ nhiều kiểu robot khác nhau, vì thế đối diện thêm bài toán không gian hành động không đồng nhất.
+BridgeData V2 mở rộng số thao tác và môi trường trong một hệ thu dữ liệu tương đối nhất quán. DROID thu dữ liệu ở rất nhiều tòa nhà và bối cảnh ngoài phòng thí nghiệm. Open X-Embodiment trộn dữ liệu từ nhiều kiểu robot khác nhau, vì thế đối diện thêm bài toán không gian hành động không đồng nhất.
 
 Khi so hiệu quả, hãy nói rõ muốn kiểm tra đổi vật, đổi cảnh hay đổi phần cứng. Ba kiểu khái quát ấy không giống nhau, dù đôi khi đều được gọi chung là chuyển giao.
 

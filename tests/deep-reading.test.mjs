@@ -117,6 +117,22 @@ test("22 Vietnamese tutorials contain unique explanations instead of boilerplate
   }
 });
 
+test("Vietnamese proofreading does not reintroduce machine-like translations",()=>{
+  for(const slug of corpusSlugs){
+    const content=fs.readFileSync(path.join(root,"content/papers",slug+".md"),"utf8");
+    const prose=content.replace(/!\[[^\]]*\]\([^)]+\)/g,"").replace(/https?:\/\/\S+/g,"");
+    assert.doesNotMatch(prose,/lượt thao tác mẫu|phòng lab|lệnh motor|bộ điều khiển motor|cấp motor|hành động chunking|số số|lập lại kế hoạch/i,
+      slug+": awkward literal translation or repeated words");
+  }
+  const act=fs.readFileSync(path.join(root,"content/papers/act.md"),"utf8");
+  assert.match(act,/Action chunking/);
+  const qwen=fs.readFileSync(path.join(root,"content/papers/qwen-vla.md"),"utf8");
+  assert.doesNotMatch(qwen,/### Bốn chữ viết tắt trong quy trình huấn luyện/);
+  assert.match(qwen,/### Ví dụ vì sao cần học chuyển động trước khi gắn với ảnh/);
+  const octo=fs.readFileSync(path.join(root,"content/papers/octo.md"),"utf8");
+  assert.doesNotMatch(octo,/^chính sách điều khiển từng học/gm);
+});
+
 test("all figure translations are editorial, distinct from their original English",()=>{
   const entries=Object.values(figures).flat();
   assert.equal(entries.length,167);

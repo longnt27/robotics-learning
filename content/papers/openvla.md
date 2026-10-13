@@ -22,7 +22,7 @@ Mỗi token hành động là mã cho giá trị điều khiển, không phải 
 
 **Bước 1:** camera cung cấp ảnh, người dùng đưa câu lệnh, chẳng hạn “Bỏ quả táo vào khay”. **Bước 2:** bộ mã hóa ảnh chuyển cảnh thành đặc trưng. **Bước 3:** mạng ánh xạ biểu diễn ảnh để lõi ngôn ngữ có thể kết hợp với câu lệnh. **Bước 4:** lõi mô hình dự đoán token hành động; hệ thống giải mã token thành lệnh vận động.
 
-Robot thực hiện lệnh, lấy ảnh tiếp theo và tiếp tục. Nếu đem mô hình sang robot mới, ta cần tinh chỉnh trên lượt thao tác mẫu của robot ấy và kiểm tra cách mã hóa/giải mã hành động. Lỗi ở bước chuyển đổi lệnh có thể khiến một mô hình có hàm mất mát đẹp tạo chuyển động sai.
+Robot thực hiện lệnh, lấy ảnh tiếp theo và tiếp tục. Nếu đem mô hình sang robot mới, ta cần tinh chỉnh trên lần làm mẫu của robot ấy và kiểm tra cách mã hóa/giải mã hành động. Lỗi ở bước chuyển đổi lệnh có thể khiến một mô hình có hàm mất mát đẹp tạo chuyển động sai.
 
 ![Hình 2 gốc từ PDF bài báo, trang 4](/paper-figures/openvla/figure-2.webp)
 
@@ -80,6 +80,6 @@ Việc một mạng dùng lõi mô hình ngôn ngữ không tự khiến nó gi�
 
 ### Danh sách kiểm tra trước khi tự tinh chỉnh
 
-Bạn có ảnh và câu lệnh cùng thời điểm với hành động không? Dữ liệu đã chia train/kiểm tra theo lượt thực thi chưa? Vector lệnh là vị trí, độ thay đổi vị trí hay vận tốc? Đã ghi đúng giá trị trung bình/độ lệch chuẩn để giải chuẩn hóa chưa? Đã thử cho mô hình học một số ít lượt thao tác mẫu để bắt lỗi quy trình trước chưa?
+Bạn có ảnh và câu lệnh cùng thời điểm với hành động không? Dữ liệu đã chia train/kiểm tra theo lượt thực thi chưa? Vector lệnh là vị trí, độ thay đổi vị trí hay vận tốc? Đã ghi đúng giá trị trung bình/độ lệch chuẩn để giải chuẩn hóa chưa? Đã thử cho mô hình học một số ít lần làm mẫu để bắt lỗi quy trình trước chưa?
 
 Sau khi ổn, đánh giá cả tỷ lệ hoàn thành ngoài đời lẫn độ trễ và lệnh vượt giới hạn. Đó mới là cách nói một bản mô hình đã lưu đã dùng được trên robot đích.

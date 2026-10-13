@@ -4,7 +4,7 @@
 
 Một người dọn bàn có thể mở ngăn kéo, nhặt bút, đặt vào hộp rồi đóng lại rất nhanh. Video người làm việc dễ thu hơn việc điều khiển robot hàng trăm lần. Nhưng video ấy không cho biết góc từng khớp robot phải xoay bao nhiêu. Cánh tay người và tay robot cũng khác nhau về hình dạng, giới hạn chuyển động.
 
-MIMICPLAY chia việc thành hai phần: học **đích đến và trình tự** từ video người, rồi học **cách cử động robot thật** từ ít lượt thao tác mẫu robot. Đừng hiểu nhầm rằng cứ đưa video người vào là robot trực tiếp sao chép được động tác.
+MIMICPLAY chia việc thành hai phần: học **đích đến và trình tự** từ video người, rồi học **cách cử động robot thật** từ ít lần người điều khiển robot làm mẫu. Video người cung cấp mục tiêu và thứ tự thực hiện, không cung cấp sẵn các góc khớp phù hợp với cánh tay robot.
 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/mimicplay/figure-1.webp)
 
@@ -22,9 +22,9 @@ MIMICPLAY chia việc thành hai phần: học **đích đến và trình tự**
 
 ### Hai giai đoạn học của MIMICPLAY
 
-Giai đoạn đầu, hệ thống đọc video người thao tác và mục tiêu tương ứng, học cách sinh đường diễn tiến trong không gian kế hoạch ẩn. Nó cố nắm những điều cần xảy ra tiếp theo ở cảnh, không nhất thiết biết motor robot cụ thể phải quay ra sao.
+Giai đoạn đầu, hệ thống đọc video người thao tác và mục tiêu tương ứng, học cách sinh đường diễn tiến trong không gian kế hoạch ẩn. Nó cố nắm những điều cần xảy ra tiếp theo ở cảnh, không nhất thiết biết động cơ của robot cụ thể phải quay ra sao.
 
-Giai đoạn sau, mô hình lập kế hoạch được giữ cố định. Người nghiên cứu đưa vào một lượng nhỏ lượt thao tác mẫu robot và huấn luyện bộ điều khiển làm theo tín hiệu kế hoạch. Khi chạy, video prompt chỉ định nhiệm vụ; mạng lập kế hoạch tạo các mục tiêu trung gian, còn bộ điều khiển chuyển chúng thành thao tác. Nếu môi trường thay đổi, kế hoạch có thể được cập nhật.
+Giai đoạn sau, mô hình lập kế hoạch được giữ cố định. Người nghiên cứu đưa vào một lượng nhỏ lần người điều khiển robot làm mẫu và huấn luyện bộ điều khiển làm theo tín hiệu kế hoạch. Khi chạy, video prompt chỉ định nhiệm vụ; mạng lập kế hoạch tạo các mục tiêu trung gian, còn bộ điều khiển chuyển chúng thành thao tác. Nếu môi trường thay đổi, kế hoạch có thể được cập nhật.
 
 ![Hình 2 gốc từ PDF bài báo, trang 4](/paper-figures/mimicplay/figure-2.webp)
 
@@ -66,7 +66,7 @@ Biểu diễn ẩn cũng khó kiểm chứng bằng mắt; cần chạy và xem 
 
 MIMICPLAY và π0.5 đều coi nhiệm vụ dài là sự phối hợp nhiều bước nhỏ, nhưng cách học khác nhau. MIMICPLAY dùng video người để học kế hoạch ẩn, còn π0.5 kết hợp nhiều dữ liệu và dự đoán bước con cùng hành động từ một hệ VLA.
 
-PaLM-E cũng có thể tham gia suy luận mục tiêu cấp cao, nhưng không thay được bộ điều khiển motor. Khi đọc ba bài, hãy luôn hỏi mô-đun nào quyết định bước kế tiếp và mô-đun nào trực tiếp điều khiển robot.
+PaLM-E cũng có thể tham gia suy luận mục tiêu cấp cao, nhưng không thay được bộ điều khiển động cơ. Khi đọc ba bài, hãy luôn hỏi mô-đun nào quyết định bước kế tiếp và mô-đun nào trực tiếp điều khiển robot.
 
 ### Những bài nên đọc tiếp
 
@@ -77,6 +77,6 @@ PaLM-E cũng có thể tham gia suy luận mục tiêu cấp cao, nhưng không 
 
 ### Bài tập lập kế hoạch
 
-Viết nhiệm vụ “Dọn bàn học” thành bốn bước và gắn với mỗi bước một điều kiện thành công quan sát được: bút nằm trong hộp, sách xếp thành chồng, ngăn kéo đóng hẳn. Phân biệt phần video người có thể dạy với phần cần lượt thao tác mẫu robot.
+Viết nhiệm vụ “Dọn bàn học” thành bốn bước và gắn với mỗi bước một điều kiện thành công quan sát được: bút nằm trong hộp, sách xếp thành chồng, ngăn kéo đóng hẳn. Phân biệt phần video người có thể dạy với phần cần lần người điều khiển robot làm mẫu.
 
 Giả sử người chuyển hộp bút khi robot đang làm. Hãy chỉ ra bước nào của kế hoạch phải cập nhật. Làm được điều này sẽ giúp hiểu vì sao tầng lập kế hoạch không thể chỉ phát một chuỗi cố định từ đầu đến cuối.

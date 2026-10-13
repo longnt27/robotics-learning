@@ -2,7 +2,7 @@
 
 ### Vì sao không thể huấn luyện riêng một mô hình cho từng công việc?
 
-Một robot phục vụ trong bếp có thể cần nhặt cốc, mở ngăn kéo, đặt bát, gom rác và hàng trăm việc khác. Nếu mỗi việc có một mô hình riêng, mỗi khi đổi vị trí đồ vật hay cách nói lệnh ta lại phải thu thêm dữ liệu và huấn luyện lại. Cách đó nhanh chóng trở nên quá đắt. **RT-1 hỏi liệu một chính sách điều khiển duy nhất có thể học nhiều thao tác từ nhiều lượt thao tác mẫu robot thật hay không.**
+Một robot phục vụ trong bếp có thể cần nhặt cốc, mở ngăn kéo, đặt bát, gom rác và hàng trăm việc khác. Nếu mỗi việc có một mô hình riêng, mỗi khi đổi vị trí đồ vật hay cách nói lệnh ta lại phải thu thêm dữ liệu và huấn luyện lại. Cách đó nhanh chóng trở nên quá đắt. **RT-1 hỏi liệu một chính sách điều khiển duy nhất có thể học nhiều thao tác từ nhiều lần người điều khiển robot làm mẫu thật hay không.**
 
 Khác với bài toán nhận diện ảnh, hành động sai sẽ làm thay đổi thế giới. Nếu kẹp lệch một chút, chiếc cốc có thể trượt; quan sát ở bước sau sẽ khác hẳn dữ liệu mẫu. Vì vậy mô hình cần vừa hiểu câu lệnh vừa phát lệnh đủ nhanh để giữ điều khiển liên tục. Đóng góp RT-1 không chỉ là kiến trúc Transformer, mà là dữ liệu robot đa nhiệm được tổ chức để học chung.
 
@@ -16,7 +16,7 @@ Khác với bài toán nhận diện ảnh, hành động sai sẽ làm thay đ�
 
 **Học bắt chước (behavior cloning)** nghĩa là cho robot xem các cặp “camera nhìn thấy gì” và “người điều khiển đã làm gì”, rồi học dự đoán hành động tương ứng. **Điều kiện hóa theo câu lệnh** nghĩa là cùng một ảnh nhưng yêu cầu khác phải dẫn tới hành động khác. Trên cùng chiếc bàn, “nhặt cốc đỏ” khác “mở ngăn kéo”.
 
-**Token hành động** là cách chuyển các giá trị lệnh liên tục thành những mã rời rạc mà Transformer có thể dự đoán. Sau khi mạng sinh token, hệ thống giải mã chúng thành lệnh robot thật. **Dữ liệu đa dạng** quan trọng vì một nghìn lần nhặt đúng một cốc ở đúng một chỗ không tương đương một nghìn lượt với nhiều đồ vật, vị trí và cách diễn đạt. Cần đọc cả số lượng lẫn sự phong phú của lượt thao tác mẫu.
+**Token hành động** là cách chuyển các giá trị lệnh liên tục thành những mã rời rạc mà Transformer có thể dự đoán. Sau khi mạng sinh token, hệ thống giải mã chúng thành lệnh robot thật. **Dữ liệu đa dạng** quan trọng vì một nghìn lần nhặt đúng một cốc ở đúng một chỗ không tương đương một nghìn lượt với nhiều đồ vật, vị trí và cách diễn đạt. Cần đọc cả số lượng lẫn sự phong phú của lần làm mẫu.
 
 ## Phương pháp thực hiện
 

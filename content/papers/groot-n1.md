@@ -1,10 +1,10 @@
 ## Vì sao cần nghiên cứu này?
 
-### Vì sao robot hình người không thể chỉ học từ một tập lượt thao tác mẫu nhỏ?
+### Vì sao robot hình người cần dữ liệu lớn và đa dạng?
 
-Robot hai tay, robot di động và robot hình người có số khớp, kiểu kẹp và cảm biến rất khác nhau. Thu hàng triệu lượt thực hành đúng với mỗi phần cứng sẽ cực kỳ tốn kém. GR00T N1 tìm cách khai thác nhiều tầng dữ liệu: video người dễ thu, video tạo tổng hợp, lượt thao tác mẫu robot nhiều loại và dữ liệu chi tiết của robot mục tiêu.
+Robot hai tay, robot di động và robot hình người khác nhau về số khớp, kiểu kẹp và cảm biến. Vì vậy không thể gửi cùng một dãy góc khớp cho mọi robot. Thu hàng triệu lượt thực hành đúng với mỗi phần cứng sẽ cực kỳ tốn kém. GR00T N1 tìm cách khai thác nhiều tầng dữ liệu: video người dễ thu, video tạo tổng hợp, lần người điều khiển robot làm mẫu nhiều loại và dữ liệu chi tiết của robot mục tiêu.
 
-Bài toán không đơn giản là “mô hình nhìn video rồi bắt chước tay người”. Video người có thể giúp hiểu thứ tự và mục tiêu chuyển động, nhưng lệnh motor vẫn phải thích ứng với cấu trúc robot. Vì vậy GR00T có phần xử lý ảnh/câu lệnh và phần chuyên sinh hành động vận động.
+Bài toán không đơn giản là “mô hình nhìn video rồi bắt chước tay người”. Video người có thể giúp hiểu thứ tự và mục tiêu chuyển động, nhưng lệnh điều khiển động cơ vẫn phải thích ứng với cấu trúc robot. Vì vậy GR00T có phần xử lý ảnh/câu lệnh và phần chuyên sinh hành động vận động.
 
 ![Hình 1 gốc từ PDF bài báo, trang 2](/paper-figures/groot-n1/figure-1.webp)
 
@@ -28,7 +28,7 @@ Trong GR00T N1, **VLM** đọc ảnh và lệnh để hình thành biểu diễn
 
 ## Phương pháp thực hiện
 
-### Những gì diễn ra từ câu lệnh đến lệnh motor
+### Những gì diễn ra từ câu lệnh đến lệnh điều khiển động cơ
 
 Giả sử câu lệnh là “chuyển quả táo từ tay trái sang tay phải rồi đặt vào giỏ”. Camera ghi cảnh và trạng thái khớp ghi vị trí hiện tại. Mô hình VLM Eagle-2 biến ảnh/câu lệnh thành đặc trưng, sau đó chuyển thông tin liên quan sang các khối DiT bằng chú ý chéo.
 
@@ -38,7 +38,7 @@ Bộ sinh hành động nhận thêm biểu diễn trạng thái của robot và
 
 Có thể hình dung hệ thống như hai người cùng làm việc. Người thứ nhất nhìn camera và đọc yêu cầu để nhận ra chiếc hộp nào cần mở, chiếc cốc nào cần đặt vào. Người thứ hai nhận mục tiêu ấy cùng vị trí khớp hiện tại rồi tính cách chuyển động. Trong GR00T N1, phần đầu do mô hình ảnh–ngôn ngữ đảm nhiệm, phần sau do mạng DiT chuyên sinh hành động thực hiện. Kết nối bằng chú ý chéo cho phép nhánh vận động sử dụng thông tin thị giác thay vì tự suy ra mục tiêu từ nhiễu.
 
-Dữ liệu huấn luyện cũng có các vai trò khác nhau. Video người giúp học trình tự và hình dạng thao tác; lượt thao tác mẫu robot giúp học lệnh khớp khả thi; quỹ đạo tổng hợp mở rộng cảnh nhưng cần kiểm tra nhãn vận động suy ra có đúng không. Khó khăn lớn là cùng một hành vi ở hai robot có thể cần góc khớp hoàn toàn khác. Việc mã hóa loại robot và giải chuẩn hóa hành động là bước kỹ thuật bắt buộc.
+Dữ liệu huấn luyện cũng có các vai trò khác nhau. Video người giúp học trình tự và hình dạng thao tác; lần người điều khiển robot làm mẫu giúp học lệnh khớp khả thi; quỹ đạo tổng hợp mở rộng cảnh nhưng cần kiểm tra nhãn vận động suy ra có đúng không. Khó khăn lớn là cùng một hành vi ở hai robot có thể cần góc khớp hoàn toàn khác. Việc mã hóa loại robot và giải chuẩn hóa hành động là bước kỹ thuật bắt buộc.
 
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/groot-n1/figure-2.webp)
 
@@ -70,7 +70,7 @@ Hình 9 kiểm tra riêng việc bổ sung quỹ đạo sinh ở các chế đ�
 
 ### Hiệu năng phải gắn với phần cứng và dữ liệu
 
-Bài báo có phiên bản GR00T N1 khoảng hai tỷ tham số; một thiết lập báo thời gian sinh đoạn hành động khoảng 63,9 mili giây trên GPU L40. Đây không phải độ trễ bảo đảm cho mọi máy. Kết quả so mô hình đã huấn luyện trước với mô hình học từ đầu cần đặt cạnh số lượt thao tác mẫu của từng nhiệm vụ, ví dụ 30 hay 300 lượt. Nếu khoảng cách giảm khi có nhiều mẫu hơn, lợi ích nổi bật của huấn luyện trước có thể là tiết kiệm dữ liệu chứ chưa chắc đạt giới hạn cao hơn ở mọi nhiệm vụ.
+Bài báo có phiên bản GR00T N1 khoảng hai tỷ tham số; một thiết lập báo thời gian sinh đoạn hành động khoảng 63,9 mili giây trên GPU L40. Đây không phải độ trễ bảo đảm cho mọi máy. Kết quả so mô hình đã huấn luyện trước với mô hình học từ đầu cần đặt cạnh số lần làm mẫu của từng nhiệm vụ, ví dụ 30 hay 300 lượt. Nếu khoảng cách giảm khi có nhiều mẫu hơn, lợi ích nổi bật của huấn luyện trước có thể là tiết kiệm dữ liệu chứ chưa chắc đạt giới hạn cao hơn ở mọi nhiệm vụ.
 
 Khi đọc các ảnh ví dụ, chú ý phân biệt trường hợp robot chưa tinh chỉnh và trường hợp đã được học thêm dữ liệu của robot đích. Hai điều kiện này trả lời hai câu hỏi nghiên cứu khác nhau.
 
@@ -84,7 +84,7 @@ Khi đọc các ảnh ví dụ, chú ý phân biệt trường hợp robot chưa
 
 Robot hình người phải thỏa các ràng buộc cân bằng, tiếp xúc, giới hạn lực và an toàn mà dữ liệu video đơn thuần không mô tả đầy đủ. Khả năng vận động tay tốt trong một vài nhiệm vụ chưa có nghĩa robot tự giữ thăng bằng và làm được mọi việc nhà.
 
-Các loại dữ liệu khác nhau cũng có độ tin cậy khác nhau. Video tạo sinh có thể chứa chuyển động không tuân theo vật lý; lượt thao tác mẫu thật thì hiếm. Kết quả cần xem cả nguồn dữ liệu, loại robot thử và điều kiện khởi tạo, không chỉ tổng số giờ huấn luyện.
+Các loại dữ liệu khác nhau cũng có độ tin cậy khác nhau. Video tạo sinh có thể chứa chuyển động không tuân theo vật lý; lần làm mẫu thật thì hiếm. Kết quả cần xem cả nguồn dữ liệu, loại robot thử và điều kiện khởi tạo, không chỉ tổng số giờ huấn luyện.
 
 ## Liên hệ với nghiên cứu khác
 
@@ -108,4 +108,4 @@ PaLM-E tập trung đưa cảm giác từ thế giới thật vào suy luận đ
 
 Vẽ hai ô: phần hiểu ảnh/câu lệnh và phần sinh lệnh vận động. Từ đó đặt trạng thái robot, ảnh camera, câu lệnh và hành động nhiễu vào đúng vị trí đầu vào. Tiếp theo chỉ ra tại sao cần mã hóa khác nhau cho robot một tay và hai tay.
 
-Để kiểm chứng giá trị của video tổng hợp, thử so chính sách điều khiển được huấn luyện với cùng số lượt thao tác mẫu thật, có và không bổ sung video sinh. Đo tỷ lệ hoàn thành trên tình huống chưa gặp. Nếu không giữ số lượt và thiết lập thử tương đương, khó biết lợi ích đến từ đâu.
+Để kiểm chứng giá trị của video tổng hợp, thử so chính sách điều khiển được huấn luyện với cùng số lần làm mẫu thật, có và không bổ sung video sinh. Đo tỷ lệ hoàn thành trên tình huống chưa gặp. Nếu không giữ số lượt và thiết lập thử tương đương, khó biết lợi ích đến từ đâu.

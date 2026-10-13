@@ -2,7 +2,7 @@
 
 ### Vì sao robot cần luyện trong nhiều căn bếp?
 
-Dạy robot mở ngăn kéo trong một căn bếp mẫu không có nghĩa nó sẽ mở được mọi ngăn kéo. Tay nắm có thể khác, đồ vật đặt ở vị trí mới, lò vi sóng có cửa mở hướng khác. Thu đủ lượt thao tác mẫu ngoài đời cho mọi biến thể rất tốn kém. **RoboCasa tạo nhiều căn bếp, đồ vật và nhiệm vụ trong mô phỏng** để robot được thực hành trước khi chuyển sang môi trường mới.
+Dạy robot mở ngăn kéo trong một căn bếp mẫu không có nghĩa nó sẽ mở được mọi ngăn kéo. Tay nắm có thể khác, đồ vật đặt ở vị trí mới, lò vi sóng có cửa mở hướng khác. Thu đủ lần làm mẫu ngoài đời cho mọi biến thể rất tốn kém. **RoboCasa tạo nhiều căn bếp, đồ vật và nhiệm vụ trong mô phỏng** để robot được thực hành trước khi chuyển sang môi trường mới.
 
 Đây là nền tảng mô phỏng và nguồn dữ liệu, không phải chính sách điều khiển duy nhất. Khi nói RoboCasa làm chính sách điều khiển tốt hơn, thực chất ta đang kiểm tra dữ liệu hoặc môi trường huấn luyện tạo từ RoboCasa có giúp chính sách điều khiển hay không.
 
@@ -14,7 +14,7 @@ Dạy robot mở ngăn kéo trong một căn bếp mẫu không có nghĩa nó s
 
 ### Hiểu bốn thành phần của RoboCasa
 
-**Môi trường** là căn bếp với mặt bằng, tủ, thiết bị và bề mặt. **Đồ vật** là các mô hình ba chiều robot có thể nhặt, đặt hoặc tương tác. **Nhiệm vụ** xác định trạng thái cần đạt, ví dụ bỏ đồ vào ngăn kéo rồi đóng lại. **lượt thao tác mẫu** là chuỗi quan sát và hành động thể hiện cách hoàn thành việc đó.
+**Môi trường mô phỏng** là căn bếp với mặt bằng, tủ, thiết bị và bề mặt. **Đồ vật** là các mô hình ba chiều robot có thể nhặt, đặt hoặc tương tác. **Nhiệm vụ** xác định trạng thái cần đạt, ví dụ bỏ đồ vào ngăn kéo rồi đóng lại. **lần làm mẫu** là chuỗi quan sát và hành động thể hiện cách hoàn thành việc đó.
 
 RoboCasa có các thiết bị thực sự thay đổi trạng thái trong mô phỏng: cửa lò vi sóng mở được, núm bếp xoay được và đầu đốt bật tắt. Điều đó quan trọng hơn việc chỉ dựng căn bếp có ảnh đẹp, vì robot phải tạo ra thay đổi vật lý có thể kiểm tra.
 
@@ -48,7 +48,7 @@ RoboCasa có thể thay kích thước bếp, vị trí lò và mẫu đồ vậ
 
 ### Đọc kết quả dữ liệu sinh tự động
 
-Hình 7 so học từ 50 lượt thao tác mẫu người với các tập máy sinh gồm 100, 300 hoặc 3.000 lượt cho từng nhiệm vụ nhỏ. Khi số lượt máy sinh tăng, tỷ lệ thành công nhìn chung tăng và có thể vượt tập người trong những điều kiện thử. Điều này ủng hộ hướng dùng dữ liệu sinh tự động quy mô lớn, nhưng không có nghĩa một lượt thao tác mẫu máy sinh luôn tốt hơn một lượt thao tác mẫu người.
+Hình 7 so học từ 50 lần làm mẫu người với các tập máy sinh gồm 100, 300 hoặc 3.000 lượt cho từng nhiệm vụ nhỏ. Khi số lượt máy sinh tăng, tỷ lệ thành công nhìn chung tăng và có thể vượt tập người trong những điều kiện thử. Điều này ủng hộ hướng dùng dữ liệu sinh tự động quy mô lớn, nhưng không có nghĩa một lần làm mẫu máy sinh luôn tốt hơn một lần làm mẫu người.
 
 Hình 8 thử nhiệm vụ ghép nhiều bước. Dữ liệu các bước nhỏ giúp tinh chỉnh tốt hơn huấn luyện từ đầu, song kết quả vẫn chưa thật bền. Đó là khoảng cách từ biết từng kỹ năng tới hoàn thành một chuỗi công việc phức tạp.
 
@@ -66,13 +66,13 @@ Hình 8 thử nhiệm vụ ghép nhiều bước. Dữ liệu các bước nhỏ
 
 Trong mô phỏng, vật không hoàn toàn giống thật về ma sát, độ mềm, lực tiếp xúc hay camera. Một chính sách điều khiển mở cửa lò hoàn hảo trong phần mềm có thể làm trượt tay nắm khi dùng robot thật. Hiện tượng ấy thường được gọi là khoảng cách mô phỏng–thực tế.
 
-Hình 10 đánh giá lợi ích khi kết hợp dữ liệu mô phỏng với ít lượt thao tác mẫu thật. Kết luận có thể nêu là hỗ trợ chuyển giao trong những nhiệm vụ được thử, không phải mô phỏng đã giải quyết triệt để mọi khác biệt vật lý.
+Hình 10 đánh giá lợi ích khi kết hợp dữ liệu mô phỏng với ít lần làm mẫu thật. Kết luận có thể nêu là hỗ trợ chuyển giao trong những nhiệm vụ được thử, không phải mô phỏng đã giải quyết triệt để mọi khác biệt vật lý.
 
 ## Liên hệ với nghiên cứu khác
 
 ### Liên hệ với LIBERO và những bộ dữ liệu thật
 
-LIBERO nhấn mạnh cách đánh giá robot học nhiều nhiệm vụ theo thời gian trong môi trường mô phỏng. RoboCasa xây hệ thống sinh cảnh và dữ liệu nhiều căn bếp để học thao tác, rồi nghiên cứu lợi ích khi chuyển sang robot thật. BridgeData V2 và DROID lại ghi lượt thao tác mẫu vật lý tại các môi trường thực tế.
+LIBERO nhấn mạnh cách đánh giá robot học nhiều nhiệm vụ theo thời gian trong môi trường mô phỏng. RoboCasa xây hệ thống sinh cảnh và dữ liệu nhiều căn bếp để học thao tác, rồi nghiên cứu lợi ích khi chuyển sang robot thật. BridgeData V2 và DROID lại ghi lần làm mẫu vật lý tại các môi trường thực tế.
 
 Một quy trình có thể dùng cả hai: mô phỏng để bao phủ nhiều biến thể và dữ liệu thật để chỉnh những sai khác về hình ảnh, lực và cơ cấu. Đừng đánh đồng mô phỏng sinh nhiệm vụ với dữ liệu được kiểm chứng trên phần cứng.
 
@@ -87,4 +87,4 @@ Một quy trình có thể dùng cả hai: mô phỏng để bao phủ nhiều b
 
 Chọn thao tác mở ngăn kéo. Liệt kê ba thứ sẽ thay: vị trí tay nắm, độ mở của ngăn và vật cản trước mặt. Mỗi thay đổi tạo một bài kiểm tra xem chính sách điều khiển học quan hệ với đối tượng hay chỉ nhớ tọa độ.
 
-Sau đó giữ số lượt thao tác mẫu tương đương giữa hai tập: một tập chỉ dùng một căn bếp, tập kia dùng nhiều mặt bằng. Chạy thử trong căn bếp chưa thấy và đo thành công theo từng bước: tiếp cận tay nắm, kẹp đúng, kéo mở. Cách này cho biết nguồn lỗi rõ hơn một điểm tổng hợp.
+Sau đó giữ số lần làm mẫu tương đương giữa hai tập: một tập chỉ dùng một căn bếp, tập kia dùng nhiều mặt bằng. Chạy thử trong căn bếp chưa thấy và đo thành công theo từng bước: tiếp cận tay nắm, kẹp đúng, kéo mở. Cách này cho biết nguồn lỗi rõ hơn một điểm tổng hợp.
