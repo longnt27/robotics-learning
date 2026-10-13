@@ -66,8 +66,8 @@
         "value": "So tập dữ liệu bằng số mẫu nhưng khác diversity."
       },
       {
-        "label": "Distribution shift",
-        "value": "Môi trường test khác thống kê môi trường train."
+        "label": "Thay đổi phân bố dữ liệu",
+        "value": "Điều kiện kiểm tra khác những cảnh đã dùng để huấn luyện."
       }
     ],
     "intuition": "DROID ghi ảnh từ ba camera đồng bộ, có thông số hiệu chuẩn và dữ liệu độ sâu. Những chi tiết ấy quan trọng: nếu hai góc camera không khớp thời gian, mô hình có thể học nhầm quan hệ giữa vị trí vật và hành động.",
@@ -233,7 +233,7 @@
       },
       {
         "label": "HƯỚNG PHÁT TRIỂN",
-        "value": "Open X-Embodiment đưa thêm độ khác biệt giữa các embodiment."
+        "value": "Open X-Embodiment bổ sung dữ liệu từ nhiều loại robot có cấu trúc khác nhau."
       }
     ],
     "intuition": "Khi chọn dữ liệu cho một project, hãy hỏi lỗi cần giải là gặp đồ vật mới, gặp phòng mới hay đổi robot mới. Không nên chỉ tải nguồn có số quỹ đạo lớn nhất.",
