@@ -26,7 +26,9 @@ Bài báo còn giới thiệu ALOHA, hệ thống để người vận hành tr�
 
 ## Kiến thức nền cần nắm
 
-Một lần dự đoán `a_t` ở 50 Hz nghĩa là 50 decisions/giây, dễ sai số tích luỹ. **Action chunking** chuyển thành dự đoán `A_{t:t+H}`, giảm tần suất query nhưng vẫn có khả năng đóng vòng nếu overlap. **CVAE** mã hoá style của demonstration; latent `z` giúp phân biệt những chuyển động hai tay khác nhau cùng đạt mục đích.
+Ở tần số **50 Hz**, robot phải phát 50 lệnh trong mỗi giây. Nếu hai tay chỉ dự đoán từng lệnh rời rạc, những sai lệch nhỏ dễ tích lũy. **Action chunking** cho mạng sinh cả một đoạn chuyển động để các bước có quan hệ và phối hợp tốt hơn.
+
+**CVAE** giúp học sự đa dạng giữa những lần người thực hiện cùng nhiệm vụ. Biến ẩn z có thể biểu diễn kiểu kéo nhanh/chậm hoặc vị trí cầm khác nhau. **Temporal ensembling** kết hợp những dự đoán chồng nhau cho cùng thời điểm để giảm rung, nhưng không nên hiểu là phép lấy trung bình tùy tiện giữa hai đường đi đối lập.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -40,14 +42,15 @@ Một lần dự đoán `a_t` ở 50 Hz nghĩa là 50 decisions/giây, dễ sai 
 
 ## Phương pháp thực hiện
 
-ALOHA là hệ leader-follower giá thấp cho teleoperation hai tay ở **50 Hz**. Về learning, bài báo đưa ra **Action chunking with Transformers (ACT)**. Thay vì dự đoán một action, ACT dự đoán một chunk `a_t ... a_{t+k}`. CVAE latent variable hấp thụ multimodality/style variation giữa demonstrations, còn Transformer xử lý hình ảnh/state và sinh cả chuỗi.
+**ALOHA** là hệ thống người điều khiển hai tay robot từ xa, ghi lại ảnh, trạng thái khớp và lệnh chuyển động khoảng 50 Hz. **ACT (Action Chunking with Transformers)** học từ các bản ghi đó và dự đoán một đoạn hành động liên tiếp thay vì một lệnh.
+
+Trong huấn luyện, CVAE mã hóa những khác biệt giữa các chuỗi thao tác mẫu vào biến ẩn. Transformer kết hợp ảnh, trạng thái robot và biến ẩn để dự đoán cả đoạn. Khi thực thi, mạng liên tục tạo đoạn mới; các đoạn chồng nhau có thể được tổng hợp cho chuyển động mượt. Chính việc phải nối những đoạn được sinh ở thời điểm khác nhau dẫn đến các vấn đề sau này RTC nghiên cứu.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
 ![Hình 5 từ PDF gốc, trang 5](/paper-figures/act/figure-5.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Khi chạy, ACT query policy lặp lại và dùng **temporal ensembling** giữa các chunk overlap để làm chuyển động mượt. Đây chính là ancestor của vấn đề mà RTC bài báo sau này nghiên cứu: chunk giúp theo thời gian coherence nhưng tạo câu hỏi “khi chunk mới đến thì nối với chunk cũ thế nào?”.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -72,14 +75,15 @@ Ví dụ tự nghĩ: hai tay giữ túi, tay trái mở miệng túi trong khi t
 
 ## Ví dụ từng bước
 
-Hai tay cầm mép áo và kéo. Policy stepwise dễ rung khi hai tay chỉ cần lệch pha một chút; ACT sinh 50 actions tương quan để tay trái và phải di chuyển cùng nhịp. Ở mỗi quan sát, ACT tạo chunk mới chồng lên chunk cũ. **Temporal ensembling** dùng weighted average cho các action dự đoán cùng timestep.
+Robot dùng hai tay cầm mép áo và kéo căng. Nếu tay phải kéo trước khi tay trái giữ chắc, vải sẽ lệch. ACT dự đoán một chuỗi lệnh liên quan nhau để cả hai tay giữ nhịp phối hợp.
+
+Khi có ảnh mới, mô hình có thể tạo một đoạn dự đoán khác nhưng một số thời điểm hành động đã có trong đoạn cũ. Temporal ensembling kết hợp các dự đoán ấy với trọng số phù hợp. Nếu hai đoạn chọn hướng hoàn toàn trái nhau, phép kết hợp vẫn có thể tạo lệnh không hợp lý; nếu kết quả mới đến chậm, chỗ nối còn có thể giật.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
 ![Hình 7 từ PDF gốc, trang 7](/paper-figures/act/figure-7.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Đây cũng là nơi xuất hiện vấn đề RTC sẽ sửa: average nhiều action modes đôi khi tạo action sai; nếu mô hình chạy chậm, chunk stitching có thể gây jerk.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -93,7 +97,9 @@ Giả sử ngón kẹp tay phải bị trượt trước khi kéo. Nếu robot c
 
 ## Kết quả thực nghiệm
 
-ACT vượt các phương pháp đối chứng imitation-learning trước đó rất mạnh trong mô phỏng lẫn real bimanual nhiệm vụ. Bài báo báo second-best các phương pháp đối chứng có thể kém ACT tới hàng chục điểm, với chênh lệch khoảng **59, 49 và 29 điểm** ở một số thiết lập mô phỏng. Ablation cho thấy action chunking là yếu tố cực lớn: khi horizon tăng hợp lý, thành công có thể nhảy từ gần như không làm được lên mức đáng kể. Trên con người demonstration dữ liệu, bỏ CVAE cũng làm hiệu năng rơi rất mạnh, cho thấy multimodality của teleoperation không phải chuyện trang trí.
+ACT đạt kết quả tốt trong mô phỏng lẫn nhiệm vụ hai tay ngoài đời so với các phương pháp học bắt chước được thử. Trong một số thiết lập mô phỏng, chênh lệch tỷ lệ thành công lên tới **59, 49 và 29 điểm phần trăm**. Đây là kết quả của những nhiệm vụ cụ thể, không phải mức cải thiện cố định.
+
+Các **thí nghiệm loại bỏ từng thành phần** cho thấy việc dự đoán theo đoạn rất quan trọng; bỏ CVAE cũng khiến hiệu quả học từ demonstration người giảm đáng kể. Một số công việc chỉ cần khoảng **10–20 phút dữ liệu thao tác mẫu**, khiến ALOHA kết hợp ACT hấp dẫn với các nhóm nghiên cứu nhỏ.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -102,7 +108,6 @@ ACT vượt các phương pháp đối chứng imitation-learning trước đó 
 ![Hình 9 từ PDF gốc, trang 11](/paper-figures/act/figure-9.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Một điểm thực dụng là nhiều nhiệm vụ chỉ cần khoảng **10-20 phút demonstration** thay vì hàng giờ. Điều đó khiến ALOHA + ACT trở thành một recipe cực kỳ phổ biến cho phòng thí nghiệm nhỏ.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -116,9 +121,9 @@ Bài báo còn khảo sát tốc độ điều khiển từ xa: giảm tần s�
 
 ## Hạn chế và câu hỏi còn mở
 
-**Bài báo thừa nhận:** phần cứng không xử lý tốt high-force, multifinger hoặc những tương tác rất tinh vi. Các nhiệm vụ deformable/contact khó như mở wrapper, ziploc có thể fail dù những substep đơn giản như pick/pull đã làm được. 50 demos vẫn không đủ cho mọi nhiệm vụ và tác giả chỉ ra perception/pretraining/dữ liệu scale là hướng tiếp theo.
+**Hạn chế phần cứng:** ALOHA chưa phù hợp với mọi thao tác cần lực lớn, nhiều ngón hoặc tiếp xúc phức tạp với vật mềm. Một số nhiệm vụ mở túi, màng bọc hoặc khóa kéo vẫn thất bại dù robot làm được các bước nhặt và kéo đơn giản.
 
-**Phê bình thêm:** chunking đổi một loại lỗi lấy một loại lỗi khác: nó giảm compounding error nhưng giảm reactivity giữa chunk. Theo thời gian averaging có thể average hai mode action hợp lệ thành quỹ đạo không hợp lệ, đúng vấn đề RTC bài báo sau này nêu. Joint-space action và cấu hình phần cứng cũng khá embodiment-specific. ACT là một policy motor rất tốt, nhưng **không phải general VLA**, không giải ngôn ngữ understanding, cross-embodiment hay open-world khái quát về ngữ nghĩa.
+**Đánh đổi của action chunking:** đoạn dài giúp động tác nhất quán hơn nhưng có thể giảm khả năng phản ứng khi vật thay đổi. Kết hợp dự đoán chồng nhau cũng không phải lúc nào có lợi. ACT chủ yếu giải bài toán vận động từ demonstration, không phải mô hình VLA tổng quát có thể hiểu mọi câu lệnh hay điều khiển mọi cấu hình robot.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -149,9 +154,9 @@ RTC giải tầng thực thi: model mất thời gian sinh đoạn tiếp theo t
 
 ## Đọc code và tự kiểm chứng
 
-Chạy một nhiệm vụ ALOHA mô phỏng, thử chunk 10/50/100, bật tắt temporal aggregation. Quan sát cả action smoothness lẫn rollout đạt yêu cầu. Log giới hạn VRAM và inferred control độ trễ.
+Chọn một nhiệm vụ ALOHA mô phỏng và so các đoạn hành động dài **10, 50 và 100 bước**, có hoặc không có temporal ensembling. Đo tỷ lệ hoàn thành, độ giật của lệnh và thời gian mô hình sinh đoạn mới. Giữ nguyên dữ liệu để phép so có ý nghĩa.
 
-**Cách kiểm tra đọc hiểu:** Hãy tự giải thích *đầu vào*, *đầu ra*, *loss khi huấn luyện*, *quy trình đánh giá* và *kiểu lỗi* của bài báo. Nếu không nói được một trong năm thứ này, cần đọc lại phần tương ứng trước khi chạy benchmark.
+Nếu đoạn dài làm robot mượt nhưng không phản ứng kịp khi vật bị dịch chuyển, hãy ghi rõ sự đánh đổi. **Tự kiểm tra:** CVAE dùng để làm gì khi huấn luyện, tại sao không cần chuỗi demonstration tương lai khi robot chạy, và vì sao chồng đoạn chưa giải quyết hết độ trễ?
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

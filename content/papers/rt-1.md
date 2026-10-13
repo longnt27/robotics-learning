@@ -26,9 +26,9 @@ Khác với bài toán nhận diện ảnh, hành động sai sẽ làm thay đ�
 
 ## Kiến thức nền cần nắm
 
-RT-1 là **behavior cloning có điều kiện ngôn ngữ**: mạng nhận khung hình `o_t` và chỉ dẫn `l`, xuất action `a_t`. Khác phân loại có giám sát thông thường, lỗi dự đoán tự làm thay đổi quan sát về sau: khi gripper lệch 2 cm, camera nhìn một bối cảnh khác với demo, dẫn tới **compounding error**. Một policy đa nhiệm phải giải cả grounding (chỉ dẫn ám chỉ vật nào), perception và điều khiển trong một lần chạy forward.
+RT-1 học **bắt chước hành vi người điều khiển**: mạng nhận ảnh và câu lệnh, rồi dự đoán lệnh robot mà người vận hành đã thực hiện ở hoàn cảnh tương tự. Khác nhận diện ảnh thông thường, mỗi hành động sai có thể làm cảnh ở bước sau thay đổi; robot kẹp lệch hai centimét sẽ thấy một ảnh khác so với demonstration và có thể sai tiếp. Đó là **sai số tích lũy**.
 
-Việc tokenize action không biến robotics thành NLP theo nghĩa vật lý; nó chỉ đổi một vector liên tục thành một bài toán phân loại thuận tiện cho Transformer. Lượng tử hóa gây sai số và ảnh hưởng lớn ở chuyển động có độ chính xác cao.
+RT-1 chuyển lệnh liên tục thành những mã rời rạc gọi là token hành động để Transformer dễ dự đoán. Đây chỉ là cách biểu diễn lệnh robot, không biến chuyển động vật lý thành một bài toán ngôn ngữ thuần túy. Việc lượng tử hóa thành các mức cũng có thể gây sai số khi cần thao tác chính xác.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -42,9 +42,9 @@ Việc tokenize action không biến robotics thành NLP theo nghĩa vật lý; 
 
 ## Phương pháp thực hiện
 
-RT-1 huấn luyện một Transformer policy khoảng 35M tham số trên khoảng **130 nghìn episode**, thu trong **17 tháng** bằng **13 robot** và phủ hơn **700 chỉ dẫn/nhiệm vụ**. Ảnh đi qua EfficientNet, chỉ dẫn ngôn ngữ đi vào FiLM conditioning, sau đó TokenLearner nén token thị giác để Transformer vẫn chạy đủ nhanh cho robot. Các action được lượng tử hóa thành token thay vì hồi quy trực tiếp vector liên tục. Policy chạy ở khoảng 3 Hz, nên đây còn là một bài toán hệ thống chứ không chỉ độ chính xác khi đánh giá offline.
+RT-1 được huấn luyện với khoảng **130.000 lượt thực thi**, thu trong **17 tháng** bằng **13 robot cùng dòng**, bao phủ hơn **700 câu lệnh và nhiệm vụ**. EfficientNet xử lý ảnh; FiLM điều chỉnh cách xử lý ảnh theo câu lệnh để chú ý đúng đối tượng; TokenLearner rút gọn lượng thông tin trước khi đưa vào Transformer dự đoán lệnh.
 
-Điểm quan trọng hơn kiến trúc là cách bài báo làm ablation dữ liệu. Họ tách ảnh hưởng của **lượng dữ liệu**, **độ đa dạng nhiệm vụ**, **kích thước mô hình** và bổ sung thêm dữ liệu ngoài phân phối chính. Nhờ vậy RT-1 không chỉ nói “mô hình hoạt động tốt”, mà cung cấp một trong những bằng chứng sớm rằng **sự đa dạng của kinh nghiệm quan trọng ít nhất ngang tổng số mẫu thô**.
+Robot cần lấy ảnh rồi phát lệnh liên tục, nên hệ thống hướng tới tốc độ khoảng 3 Hz. Nhóm tác giả còn tách riêng các yếu tố như lượng dữ liệu, sự đa dạng nhiệm vụ và quy mô mô hình, để xác định thay đổi nào thực sự giúp robot làm tốt hơn khi gặp tình huống mới.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -71,14 +71,15 @@ Nếu chỉ nhớ một điều về sơ đồ RT-1, hãy nhớ **mỗi bộ ph�
 
 ## Ví dụ từng bước
 
-Giả sử lệnh **"lấy quả táo đỏ đặt vào bát"**. `EfficientNet` mã hoá ảnh có nhiều đồ vật; chỉ dẫn đi vào FiLM để điều chỉnh trọng số các đặc trưng thị giác theo từ "táo đỏ" và "bát". `TokenLearner` rút gọn token không gian. Transformer dự đoán các thành phần action như dịch chuyển gripper, góc quay, độ mở kẹp và terminate. Sau khi thực thi, robot chụp khung hình mới và lặp lại. Đây là **behavior cloning trong vòng lặp kín** chứ không phải việc lập kế hoạch cho chuỗi hành động dài.
+Giả sử lệnh là **“Lấy quả táo đỏ đặt vào bát.”** Camera ghi lại bàn có nhiều đồ vật. Phần nhận diện ảnh tạo đặc trưng, còn câu lệnh giúp mạng chú ý tới quả táo và cái bát. Sau khi TokenLearner rút gọn biểu diễn, Transformer sinh lệnh dịch đầu kẹp, xoay cổ tay, đóng hoặc mở kẹp.
+
+Robot thực hiện một bước rồi chụp ảnh mới để quyết định bước kế tiếp. Khi chuyển sang căn bếp khác, nó có thể sai vì ánh sáng, bố cục, vị trí vật hoặc cách cầm khác dữ liệu cũ. Muốn chẩn đoán, phải kiểm tra riêng lỗi nhận vật và lỗi điều khiển, không chỉ nhìn điểm thành công cuối cùng.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
 ![Hình 4 từ PDF gốc, trang 6](/paper-figures/rt-1/figure-4.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Khi chuyển robot sang một căn bếp khác, thất bại có thể do điều kiện chiếu sáng, vị trí đặt vật, hình học thao tác gắp hoặc hiểu biết về nhiệm vụ. Không thể chỉ nhìn tổng tỷ lệ thành công để biết nút thắt nằm ở đâu.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -92,7 +93,9 @@ Một lần chạy thành công trong bếp mới chỉ là một quan sát. Đ�
 
 ## Kết quả thực nghiệm
 
-Trên tập hơn 700 chỉ dẫn đã huấn luyện, RT-1 đạt khoảng **97% thành công**. Ở các nhóm kiểm tra khả năng khái quát như nhiệm vụ mới, distractor mới và phông nền mới, tác giả nêu mức cải thiện lớn so với phương pháp đối chứng trước đó, lần lượt khoảng **25, 36 và 18 điểm** trong các thiết lập được báo cáo. Một thí nghiệm rất đáng nhớ là khi thêm dữ liệu bin-picking từ Kuka vào mixture: khả năng khái quát sang bin-picking tăng gần gấp đôi mà hiệu năng trên tập nhiệm vụ gốc không bị phá đáng kể.
+Trên hơn **700 nhiệm vụ đã học**, RT-1 được báo cáo đạt khoảng **97% thành công**. Ở những phép thử khó hơn với vật gây nhiễu, nền và bố cục khác, nhóm tác giả cho thấy mức cải thiện đáng kể so với các phương pháp đối chứng trong cùng điều kiện. Việc bổ sung dữ liệu nhặt vật từ robot Kuka còn giúp một số kỹ năng chuyển giao mà không phá rõ rệt những nhiệm vụ gốc.
+
+Điểm quan trọng là **độ đa dạng của dữ liệu**, không chỉ số lượng demonstration. Giảm số loại nhiệm vụ có thể làm khả năng xử lý tình huống mới suy giảm mạnh hơn việc bỏ bớt một phần mẫu nhưng vẫn giữ nhiều kỹ năng khác nhau.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -100,7 +103,6 @@ Trên tập hơn 700 chỉ dẫn đã huấn luyện, RT-1 đạt khoảng **97%
 ![Hình 6 từ PDF gốc, trang 9](/paper-figures/rt-1/figure-6.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Các thí nghiệm ablation cũng cho thấy giảm **độ đa dạng nhiệm vụ** gây hại khả năng khái quát rất mạnh. Có những thiết lập mà bỏ 25% số nhiệm vụ gây tổn thất tương tự hoặc lớn hơn việc bỏ một lượng mẫu đáng kể nhưng vẫn giữ sự đa dạng. Đây là lý do RT-1 thường được nhắc như một bằng chứng sớm cho câu: **robotics cần mở rộng độ bao phủ nhiệm vụ, không chỉ lặp lại cùng một kỹ năng 100 nghìn lần**.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -114,9 +116,9 @@ Hình 6 là các thí nghiệm thay đổi cấu trúc dữ liệu, đo riêng t
 
 ## Hạn chế và câu hỏi còn mở
 
-**Bài báo thừa nhận:** RT-1 vẫn là imitation learning, nên về nguyên tắc khó vượt quá phạm vi hành vi của demonstrator. “Nhiệm vụ chưa xuất hiện khi huấn luyện” phần lớn là sự kết hợp lại các động tác cơ bản đã thấy, không phải robot tự phát minh kỹ năng vật lý mới. Căn bếp mới vẫn có cấu trúc khá gần phân phối dữ liệu huấn luyện, và những nhiệm vụ thao tác chưa đòi hỏi dexterity/contact cực cao. Mô hình lớn hơn cũng nhanh chóng gặp nút thắt về độ trễ vì control phải chạy thời gian thực.
+**Giới hạn của RT-1:** đây vẫn là mô hình học bắt chước. Những nhiệm vụ mới chủ yếu tổ hợp lại các kỹ năng đã có trong dữ liệu, chứ không phải robot tự phát minh động tác hoàn toàn mới. Các môi trường đánh giá khác bối cảnh học nhưng chưa phải mọi tình huống ngoài đời.
 
-**Phê bình thêm:** RT-1 gần như chưa chứng minh khả năng chuyển giao giữa những cấu trúc robot khác nhau theo nghĩa hiện đại; 13 robot vẫn là cùng họ thiết bị và cấu hình phần cứng hơn là 13 cấu trúc cơ khí khác biệt. Discrete action tokens và tần số điều khiển thấp cũng đặt trần cho những nhiệm vụ cần các điều chỉnh ở tần số cao. Tập dữ liệu rất lớn cho năm 2023 nhưng vẫn được thu thập theo hệ thống phân loại nhiệm vụ do con người thiết kế, nên tính đa nhiệm của nó vẫn giới hạn trong một tập bài toán tương đối hẹp. Cuối cùng, tỷ lệ thành công cao trên nhiệm vụ huấn luyện dễ khiến người đọc quên rằng **phục hồi sau sai sót, suy luận liên quan đến lực và trí nhớ trong nhiệm vụ kéo dài** gần như chưa được đụng tới.
+**Điều cần tránh hiểu sai:** 13 robot thu dữ liệu phần lớn thuộc cùng dòng thiết bị, không phải 13 cơ cấu cơ khí khác nhau. Lệnh rời rạc và nhịp điều khiển còn giới hạn các thao tác cực nhanh. Tỷ lệ thành công cao trên việc quen không chứng minh robot xử lý được mọi tình huống kẹp trượt, va chạm hoặc yêu cầu lực chính xác.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -147,9 +149,9 @@ RT-1 và Open X-Embodiment cũng liên hệ trực tiếp: khi dữ liệu đế
 
 ## Đọc code và tự kiểm chứng
 
-Làm một thử nghiệm nhỏ: huấn luyện BC trên ảnh + state với hai phiên bản `shared policy` và `separate policy per task`, đánh giá tỷ lệ thành công trên những bối cảnh thuộc tập kiểm tra. Đặt số demonstration cố định nhưng thay mức độ đa dạng nhiệm vụ. Quan sát thành công so với dữ liệu breadth, không chỉ loss khi huấn luyện.
+Hãy thu cùng lượng demonstration cho hai cách học: một chính sách chung thực hiện ba nhiệm vụ, và ba chính sách riêng mỗi cái chỉ học một việc. Sau đó giữ nguyên số mẫu nhưng thay số loại vật và bố cục. Đo tỷ lệ thành công khi robot tự chạy trong những cảnh chưa xuất hiện lúc học.
 
-**Cách kiểm tra đọc hiểu:** Hãy tự giải thích *đầu vào*, *đầu ra*, *loss khi huấn luyện*, *quy trình đánh giá* và *kiểu lỗi* của bài báo. Nếu không nói được một trong năm thứ này, cần đọc lại phần tương ứng trước khi chạy benchmark.
+Mỗi lần thất bại cần ghi rõ robot chọn sai vật, di chuyển sai hướng hay kẹp trượt. **Tự kiểm tra:** FiLM giúp sử dụng câu lệnh thế nào, TokenLearner giúp giảm chi phí gì, và vì sao ảnh cần được cập nhật sau mỗi bước?
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
