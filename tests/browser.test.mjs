@@ -243,7 +243,7 @@ try {
     // Wait until the deep-linked slide has rendered its math before checking the formula.
     await stage.locator('.brief-formula').waitFor({state:'visible',timeout:12000});
     await stage.locator('.katex').first().waitFor({state:'visible',timeout:12000});
-    assert.ok(await page.getByText(/Mathematical Intuition/i).first().isVisible(),'LaTeX/Intuition slide must exist');
+    assert.ok(await stage.getByText('Công thức khử nhiễu nên hiểu thế nào?',{exact:true}).isVisible(),'Vietnamese formula explanation slide must exist');
     assert.equal(new URL(page.url()).searchParams.get('slide'),'10');
     assert.ok(await stage.locator('.katex').count()>0,'Formula rendered as KaTeX');
     await stage.locator('.brief-slide-detail').waitFor({state:'visible'});
@@ -272,7 +272,8 @@ try {
     });
     assert.ok(visualHierarchy.title>visualHierarchy.lead+7,`Title must stand out: ${JSON.stringify(visualHierarchy)}`);
     assert.ok(visualHierarchy.card>=15&&visualHierarchy.detail>=15,`Card and explanation should remain legible: ${JSON.stringify(visualHierarchy)}`);
-    assert.ok(await stage.getByText('ĐẦU RA / DẠNG BIỂU DIỄN').isVisible(),'Fact cards use meaningful headings');
+    assert.ok(await stage.getByText('Đầu ra',{exact:true}).isVisible(),'Fact cards explain the action output');
+    assert.ok(await stage.getByText('Mục tiêu',{exact:true}).isVisible(),'Fact cards explain the modeling goal');
     await page.getByRole('button',{name:'Bật tắt ghi chú thuyết trình'}).click();
     assert.ok(await page.getByText('GHI CHÚ KHI TRÌNH BÀY').isVisible());
     await page.getByRole('button',{name:'Bật tắt ghi chú thuyết trình'}).click();
