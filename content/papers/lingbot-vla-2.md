@@ -29,6 +29,10 @@ Khớp tay | Đầu công tác | Kẹp | Ngón tay | Eo | Đầu | Bệ di độ
 
 Trước khi dùng dữ liệu robot mới, cần kiểm tra từng chiều: đơn vị là radian, mét hay độ biến đổi tương đối; hệ tọa độ đặt ở đâu; thống kê chuẩn hóa thuộc robot nào. Cách sắp xếp chung chỉ tạo giao diện dữ liệu nhất quán, không chứng minh mọi lệnh đều chuyển được giữa các phần cứng.
 
+### ### 55 chiều là sơ đồ chứa lệnh, không phải 55 khớp thật
+
+Hãy tưởng tượng một mẫu biểu có ô cho tay, bộ kẹp, đầu, eo và bệ di động. Robot chỉ có một cánh tay sẽ không điền mọi ô; robot có hai tay và bệ di động cần nhiều ô hơn. Biểu diễn 55 chiều của LingBot cũng hoạt động theo nguyên tắc ấy: mỗi nhóm chiều mang một loại thông tin, các chiều không phù hợp phải được nhận diện và bỏ qua đúng cách. Nếu hệ thống tưởng giá trị trong ô vị trí đầu kẹp là góc khớp, nó có thể phát lệnh sai nghiêm trọng. Vì vậy chuẩn hóa dữ liệu không chỉ là làm các con số có cùng khoảng giá trị.
+
 ![Hình 4 từ PDF gốc, trang 6](/paper-figures/lingbot-vla-2/figure-4.webp)
 
 ![Hình 11 từ PDF gốc, trang 15](/paper-figures/lingbot-vla-2/figure-11.webp)
@@ -45,9 +49,13 @@ Phần sinh hành động sử dụng nhiều nhánh chuyên gia (MoE) để tă
 
 Từ khoảng 90.000 giờ dữ liệu robot thô, nhóm nghiên cứu tuyển ra khoảng 50.000 giờ thuộc 20 cấu hình robot; bổ sung cỡ 10.000 giờ video góc nhìn người sau lọc. Nếu giữ quá nhiều đoạn tay đứng yên, di chuyển không tương tác hoặc camera mất dấu, mô hình sẽ ít thấy thao tác khó dù tổng thời lượng lớn.
 
-Trong bộ sinh hành động, MoE cho phép nhiều nhánh chuyên gia nhưng chỉ chọn một phần nhánh cho mỗi token. Một nhánh dùng chung luôn hoạt động; các nhánh khác được bộ chọn điều phối theo đặc trưng đầu vào. Một phép thử so mạng thường khoảng 0,6 tỷ tham số với MoE khoảng 1,6 tỷ tham số tổng nhưng chỉ cỡ 0,6 tỷ tham số hoạt động. Vì vậy cần nói rõ **cùng lượng tính toán hoạt động**, không phải hai mô hình có tổng số tham số bằng nhau.
+Trong bộ sinh hành động, MoE cho phép nhiều nhánh chuyên gia nhưng chỉ chọn một phần nhánh cho mỗi token. Một nhánh dùng chung luôn hoạt động; mạng chọn thêm một số nhánh chuyên gia theo thông tin đầu vào thay vì chạy tất cả chuyên gia cùng lúc. Một phép thử so mạng thường khoảng 0,6 tỷ tham số với MoE khoảng 1,6 tỷ tham số tổng nhưng chỉ cỡ 0,6 tỷ tham số hoạt động. Vì vậy cần nói rõ **cùng lượng tính toán hoạt động**, không phải hai mô hình có tổng số tham số bằng nhau.
 
 Hệ thống còn học dự đoán đặc trưng ảnh và độ sâu ở tương lai với tín hiệu từ các mô hình giáo viên. Nó không nhất thiết phải dựng toàn bộ ảnh tương lai; mục tiêu là khuyến khích mạng chú ý hậu quả của chuyển động, chẳng hạn cốc bị đẩy tới đâu. Chỉ một hàm mất mát dự đoán tốt chưa chứng minh mạng đã hiểu toàn bộ vật lý.
+
+### ### Vì sao thêm chuyên gia không có nghĩa mọi lệnh đắt gấp đôi?
+
+Một mạng có nhiều chuyên gia có thể có tổng số tham số lớn, nhưng với mỗi đầu vào nó chỉ kích hoạt một phần. Hình dung robot cần xử lý việc mở ngăn kéo và việc di chuyển bệ: những nhiệm vụ khác nhau có thể tận dụng các nhánh chuyên trách khác nhau, trong khi vẫn có kiến thức chung được chia sẻ. Khi so với mạng thường, phải nhìn **số tham số thực sự tham gia tính cho mỗi lượt**, không chỉ tổng tham số lưu trên bộ nhớ. Mục tiêu học dự đoán đặc trưng cảnh tương lai lại là chuyện khác: nó cung cấp thêm tín hiệu lúc huấn luyện về hậu quả của hành động, không có nghĩa lúc chạy phải nhìn thấy ảnh tương lai thật.
 
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/lingbot-vla-2/figure-2.webp)
 
@@ -78,6 +86,10 @@ Hình 13 so đặc trưng độ sâu/ảnh thật với dự đoán hiện tại
 Ở một nhóm nhiệm vụ GM-100 trên Agilex Cobot Magic, chỉ số tiến độ và tỷ lệ hoàn thành được báo cáo lần lượt khoảng 66,2 và 34,4 cho LingBot-VLA 2.0; phương án π0.5 khoảng 59,1 và 32,2. Trên một cấu hình Galaxea khác, các cặp lần lượt khoảng 34,6/15,6 và 27,4/8,9. **Tiến độ** có nghĩa robot làm được một phần chuỗi, còn **thành công** đòi hoàn thành mục tiêu cuối.
 
 Ở một nhóm nhiệm vụ xếp đồ trong tủ lạnh ngoài phân phối, tỷ lệ hoàn thành được báo cáo khoảng 13,3% với LingBot và 6,7% với π0.5. Nghe như gấp đôi, nhưng cả hai vẫn thất bại trong phần lớn lượt thử. Đây là lý do xem từng nhiệm vụ, độ khó và số bước quan trọng hơn việc chỉ chọn một con số tổng hợp có vẻ ấn tượng.
+
+### ### Đặt hai con số tiến độ và thành công cạnh nhau
+
+Giả sử nhiệm vụ gồm năm bước: tìm cốc, nhặt cốc, mở tủ, đặt cốc và đóng tủ. Robot làm được ba bước đầu nhưng thất bại ở bước bốn đã có **tiến độ**, song chưa **hoàn thành nhiệm vụ**. Vì vậy cặp số 66,2 và 34,4 trong một thiết lập đánh giá LingBot không thể hoán đổi cho nhau. Cũng tương tự, kết quả 13,3% trên nhóm việc xếp đồ ngoài điều kiện học cho thấy phần lớn lượt chạy vẫn thất bại, dù cao hơn mức 6,7% của đối chứng. Giải thích đúng phải nói đồng thời lợi thế tương đối và khả năng thực thi tuyệt đối còn hạn chế.
 
 ![Hình 6 từ PDF gốc, trang 8](/paper-figures/lingbot-vla-2/figure-6.webp)
 
