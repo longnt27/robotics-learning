@@ -22,6 +22,10 @@ Trong GR00T N1, **VLM** đọc ảnh và lệnh để hình thành biểu diễn
 
 **Biểu diễn nhận biết robot** giúp phần sinh lệnh hiểu đang điều khiển cánh tay đơn hay hệ hai tay nhiều khớp. Hai robot có thể chia sẻ ý tưởng “dịch tay sang trái”, nhưng góc khớp cụ thể không giống nhau. Đó là lý do mạng có bộ mã hóa riêng cho trạng thái và hành động theo từng cấu trúc.
 
+### ### Vì sao một người làm mẫu chưa đủ để điều khiển robot?
+
+Trong video, con người có thể chuyển quả táo giữa hai tay rất khéo. Robot nhìn video có thể nhận ra **tay nào đưa vật, tay nào nhận và lúc nào cần thả**. Nhưng các góc khớp tay người không chuyển thẳng thành góc khớp của máy: chiều dài cánh tay, bộ kẹp và giới hạn cơ học đều khác. Vì vậy cần tách kiến thức về **trình tự thao tác** khỏi kiến thức về **lệnh vận động khả thi**. GR00T N1 tận dụng nhiều loại dữ liệu và một bộ sinh hành động chuyên trách thay vì giả định chỉ xem video là điều khiển được động cơ.
+
 ![Hình 3 từ PDF gốc, trang 4](/paper-figures/groot-n1/figure-3.webp)
 
 ![Hình 4 từ PDF gốc, trang 6](/paper-figures/groot-n1/figure-4.webp)
@@ -38,7 +42,11 @@ Bộ sinh hành động nhận thêm biểu diễn trạng thái của robot và
 
 Có thể hình dung hệ thống như hai người cùng làm việc. Người thứ nhất nhìn camera và đọc yêu cầu để nhận ra chiếc hộp nào cần mở, chiếc cốc nào cần đặt vào. Người thứ hai nhận mục tiêu ấy cùng vị trí khớp hiện tại rồi tính cách chuyển động. Trong GR00T N1, phần đầu do mô hình ảnh–ngôn ngữ đảm nhiệm, phần sau do mạng DiT chuyên sinh hành động thực hiện. Kết nối bằng chú ý chéo cho phép nhánh vận động sử dụng thông tin thị giác thay vì tự suy ra mục tiêu từ nhiễu.
 
-Dữ liệu huấn luyện cũng có các vai trò khác nhau. Video người giúp học trình tự và hình dạng thao tác; lần người điều khiển robot làm mẫu giúp học lệnh khớp khả thi; quỹ đạo tổng hợp mở rộng cảnh nhưng cần kiểm tra nhãn vận động suy ra có đúng không. Khó khăn lớn là cùng một hành vi ở hai robot có thể cần góc khớp hoàn toàn khác. Việc mã hóa loại robot và giải chuẩn hóa hành động là bước kỹ thuật bắt buộc.
+Dữ liệu huấn luyện cũng có các vai trò khác nhau. Video người giúp học trình tự và ý nghĩa của thao tác; lần điều khiển robot làm mẫu cung cấp lệnh khớp có thể thực thi trên phần cứng; quỹ đạo tổng hợp mở rộng tình huống nhưng phải kiểm tra nhãn hành động suy ra từ video. Khó khăn lớn là cùng một hành vi ở hai robot có thể cần góc khớp hoàn toàn khác. Việc mã hóa loại robot và giải chuẩn hóa hành động là bước kỹ thuật bắt buộc.
+
+### ### Hai nhánh mạng giống hai câu hỏi nối tiếp nhau
+
+Câu hỏi thứ nhất là “vật nào cần di chuyển và mục tiêu ở đâu?”. Mô hình ảnh–ngôn ngữ xử lý ảnh và câu lệnh để tạo thông tin cho câu hỏi ấy. Câu hỏi thứ hai là “với vị trí khớp hiện tại, hai tay phải cử động ra sao?”. Bộ sinh hành động DiT nhận cả thông tin từ nhánh đầu lẫn trạng thái robot, rồi tạo đoạn lệnh chuyển động. Nếu robot chọn đúng quả táo nhưng hai tay va vào nhau, lỗi không nhất thiết nằm ở khâu hiểu câu lệnh. Ngược lại, một chuyển động rất mượt tới nhầm vật chưa chứng tỏ bộ sinh hành động yếu. Việc tách nhánh giúp ta định vị lỗi trước khi sửa mô hình.
 
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/groot-n1/figure-2.webp)
 
@@ -73,6 +81,10 @@ Hình 9 kiểm tra riêng việc bổ sung quỹ đạo sinh ở các chế đ�
 Bài báo có phiên bản GR00T N1 khoảng hai tỷ tham số; một thiết lập báo thời gian sinh đoạn hành động khoảng 63,9 mili giây trên GPU L40. Đây không phải độ trễ bảo đảm cho mọi máy. Kết quả so mô hình đã huấn luyện trước với mô hình học từ đầu cần đặt cạnh số lần làm mẫu của từng nhiệm vụ, ví dụ 30 hay 300 lượt. Nếu khoảng cách giảm khi có nhiều mẫu hơn, lợi ích nổi bật của huấn luyện trước có thể là tiết kiệm dữ liệu chứ chưa chắc đạt giới hạn cao hơn ở mọi nhiệm vụ.
 
 Khi đọc các ảnh ví dụ, chú ý phân biệt trường hợp robot chưa tinh chỉnh và trường hợp đã được học thêm dữ liệu của robot đích. Hai điều kiện này trả lời hai câu hỏi nghiên cứu khác nhau.
+
+### ### Đừng lấy một con số độ trễ làm tốc độ của mọi robot
+
+Thời gian sinh đoạn hành động khoảng 63,9 mili giây được báo trong một cấu hình dùng GPU L40. Đây là phép đo trên **thiết bị và cách triển khai cụ thể**, không phải đặc tính cố định của thuật toán. Muốn đánh giá một robot mới, cần biết độ dài đoạn lệnh, tần số điều khiển, thời gian camera truyền ảnh và chi phí chuyển lệnh tới động cơ. Với thí nghiệm dữ liệu tổng hợp, cần thêm phép so giữ nguyên lượng dữ liệu thật và chỉ thay lượng video sinh; như thế mới tách được lợi ích của nguồn dữ liệu này.
 
 ![Hình 9 từ PDF gốc, trang 16](/paper-figures/groot-n1/figure-9.webp)
 
