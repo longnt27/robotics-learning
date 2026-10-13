@@ -129,7 +129,7 @@ Tập dữ liệu không phải mô hình; mô hình không phải thuật toán
 
 <!-- END EXTENDED WALKTHROUGH -->
 
-## Đọc code và tự kiểm chứng
+## Xem mã nguồn và tự kiểm chứng
 
 Chọn dữ liệu của hai robot khác cấu trúc. Lập bảng cho mỗi trường: ảnh camera, trạng thái khớp, lệnh di chuyển, đơn vị và hệ tọa độ. Xác định trường nào thực sự tương đương và trường nào cần chuyển đổi hoặc che đi.
 

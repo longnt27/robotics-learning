@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Một robot có hai tay muốn mở túi, lắp linh kiện hoặc gấp vải phải phối hợp cả hai tay đúng thời điểm. Nếu cứ dự đoán một lệnh rồi mới nghĩ đến lệnh kế tiếp, những sai lệch rất nhỏ có thể tích lũy: một tay đã kéo nhưng tay kia chưa giữ chắc, thế là thao tác hỏng. Thu dữ liệu người điều khiển cho các công việc này cũng khá tốn kém. **ACT đề xuất cho mô hình dự đoán cả một đoạn hành động liên tiếp thay vì từng bước riêng lẻ.** Cùng với hệ thống thu dữ liệu ALOHA, công trình kiểm tra liệu robot có thể học các thao tác hai tay tinh vi từ số lượng demonstration tương đối ít hay không.
+Một robot có hai tay muốn mở túi, lắp linh kiện hoặc gấp vải phải phối hợp cả hai tay đúng thời điểm. Nếu cứ dự đoán một lệnh rồi mới nghĩ đến lệnh kế tiếp, những sai lệch rất nhỏ có thể tích lũy: một tay đã kéo nhưng tay kia chưa giữ chắc, thế là thao tác hỏng. Thu dữ liệu người điều khiển cho các công việc này cũng khá tốn kém. **ACT đề xuất cho mô hình dự đoán cả một đoạn hành động liên tiếp thay vì từng bước riêng lẻ.** Cùng với hệ thống thu dữ liệu ALOHA, công trình kiểm tra liệu robot có thể học các thao tác hai tay tinh vi từ số số lượt thao tác mẫu tương đối ít hay không.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -22,7 +22,7 @@ Bài báo còn giới thiệu ALOHA, hệ thống để người vận hành tr�
 
 ## Kiến thức nền cần nắm
 
-Ở tần số **50 Hz**, robot phải phát 50 lệnh trong mỗi giây. Nếu hai tay chỉ dự đoán từng lệnh rời rạc, những sai lệch nhỏ dễ tích lũy. **Action chunking** cho mạng sinh cả một đoạn chuyển động để các bước có quan hệ và phối hợp tốt hơn.
+Ở tần số **50 Hz**, robot phải phát 50 lệnh trong mỗi giây. Nếu hai tay chỉ dự đoán từng lệnh rời rạc, những sai lệch nhỏ dễ tích lũy. **hành động chunking** cho mạng sinh cả một đoạn chuyển động để các bước có quan hệ và phối hợp tốt hơn.
 
 **CVAE** giúp học sự đa dạng giữa những lần người thực hiện cùng nhiệm vụ. Biến ẩn z có thể biểu diễn kiểu kéo nhanh/chậm hoặc vị trí cầm khác nhau. **Temporal ensembling** kết hợp những dự đoán chồng nhau cho cùng thời điểm để giảm rung, nhưng không nên hiểu là phép lấy trung bình tùy tiện giữa hai đường đi đối lập.
 
@@ -87,7 +87,7 @@ Giả sử ngón kẹp tay phải bị trượt trước khi kéo. Nếu robot c
 
 ACT đạt kết quả tốt trong mô phỏng lẫn nhiệm vụ hai tay ngoài đời so với các phương pháp học bắt chước được thử. Trong một số thiết lập mô phỏng, chênh lệch tỷ lệ thành công lên tới **59, 49 và 29 điểm phần trăm**. Đây là kết quả của những nhiệm vụ cụ thể, không phải mức cải thiện cố định.
 
-Các **thí nghiệm loại bỏ từng thành phần** cho thấy việc dự đoán theo đoạn rất quan trọng; bỏ CVAE cũng khiến hiệu quả học từ demonstration người giảm đáng kể. Một số công việc chỉ cần khoảng **10–20 phút dữ liệu thao tác mẫu**, khiến ALOHA kết hợp ACT hấp dẫn với các nhóm nghiên cứu nhỏ.
+Các **thí nghiệm loại bỏ từng thành phần** cho thấy việc dự đoán theo đoạn rất quan trọng; bỏ CVAE cũng khiến hiệu quả học từ lượt thao tác mẫu do người thực hiện giảm đáng kể. Một số công việc chỉ cần khoảng **10–20 phút dữ liệu thao tác mẫu**, khiến ALOHA kết hợp ACT hấp dẫn với các nhóm nghiên cứu nhỏ.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -111,7 +111,7 @@ Bài báo còn khảo sát tốc độ điều khiển từ xa: giảm tần s�
 
 **Hạn chế phần cứng:** ALOHA chưa phù hợp với mọi thao tác cần lực lớn, nhiều ngón hoặc tiếp xúc phức tạp với vật mềm. Một số nhiệm vụ mở túi, màng bọc hoặc khóa kéo vẫn thất bại dù robot làm được các bước nhặt và kéo đơn giản.
 
-**Đánh đổi của action chunking:** đoạn dài giúp động tác nhất quán hơn nhưng có thể giảm khả năng phản ứng khi vật thay đổi. Kết hợp dự đoán chồng nhau cũng không phải lúc nào có lợi. ACT chủ yếu giải bài toán vận động từ demonstration, không phải mô hình VLA tổng quát có thể hiểu mọi câu lệnh hay điều khiển mọi cấu hình robot.
+**Đánh đổi của hành động chunking:** đoạn dài giúp động tác nhất quán hơn nhưng có thể giảm khả năng phản ứng khi vật thay đổi. Kết hợp dự đoán chồng nhau cũng không phải lúc nào có lợi. ACT chủ yếu giải bài toán vận động từ lượt thao tác mẫu, không phải mô hình VLA tổng quát có thể hiểu mọi câu lệnh hay điều khiển mọi cấu hình robot.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -140,11 +140,11 @@ RTC giải tầng thực thi: mô hình mất thời gian sinh đoạn tiếp th
 
 <!-- END EXTENDED WALKTHROUGH -->
 
-## Đọc code và tự kiểm chứng
+## Xem mã nguồn và tự kiểm chứng
 
 Chọn một nhiệm vụ ALOHA mô phỏng và so các đoạn hành động dài **10, 50 và 100 bước**, có hoặc không có temporal ensembling. Đo tỷ lệ hoàn thành, độ giật của lệnh và thời gian mô hình sinh đoạn mới. Giữ nguyên dữ liệu để phép so có ý nghĩa.
 
-Nếu đoạn dài làm robot mượt nhưng không phản ứng kịp khi vật bị dịch chuyển, hãy ghi rõ sự đánh đổi. **Tự kiểm tra:** CVAE dùng để làm gì khi huấn luyện, tại sao không cần chuỗi demonstration tương lai khi robot chạy, và vì sao chồng đoạn chưa giải quyết hết độ trễ?
+Nếu đoạn dài làm robot mượt nhưng không phản ứng kịp khi vật bị dịch chuyển, hãy ghi rõ sự đánh đổi. **Tự kiểm tra:** CVAE dùng để làm gì khi huấn luyện, tại sao không cần chuỗi lượt thao tác mẫu tương lai khi robot chạy, và vì sao chồng đoạn chưa giải quyết hết độ trễ?
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

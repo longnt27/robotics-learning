@@ -112,7 +112,7 @@ Hình 4 minh họa vì sao lựa chọn một quỹ đạo nhất quán quan tr�
 
 ## Hạn chế và câu hỏi còn mở
 
-**Giới hạn của phương pháp:** Diffusion Policy vẫn học bắt chước từ demonstration. Nếu dữ liệu thiếu loại thao tác cần làm hoặc chứa nhiều ví dụ sai, mạng không thể tự biết mọi cách xử lý đúng. Quá trình khử nhiễu nhiều lần cũng tốn thời gian hơn một mạng chỉ dự đoán hành động trong một lượt.
+**Giới hạn của phương pháp:** Diffusion Policy vẫn học bắt chước từ lượt thao tác mẫu. Nếu dữ liệu thiếu loại thao tác cần làm hoặc chứa nhiều ví dụ sai, mạng không thể tự biết mọi cách xử lý đúng. Quá trình khử nhiễu nhiều lần cũng tốn thời gian hơn một mạng chỉ dự đoán hành động trong một lượt.
 
 **Điều cần thận trọng khi so sánh:** kết quả tăng không nhất thiết chỉ do diffusion. Cách xử lý chuỗi, độ dài đoạn hành động, vòng quan sát lại và việc tinh chỉnh tham số đều ảnh hưởng. Khi triển khai robot thật, cần đo độ trễ từ ảnh camera tới lệnh điều khiển và kiểm tra cách nối các đoạn liên tiếp. Đây chính là nhóm vấn đề sau này RTC giải quyết.
 
@@ -145,7 +145,7 @@ RTC giải bài toán triển khai nảy sinh sau đó: nếu phải mất thờ
 
 <!-- END EXTENDED WALKTHROUGH -->
 
-## Đọc code và tự kiểm chứng
+## Xem mã nguồn và tự kiểm chứng
 
 Hãy thử nhiệm vụ Push-T ở chế độ dùng trạng thái vật. Giữ nguyên tập dữ liệu, thay số lượt khử nhiễu và độ dài đoạn hành động. Với cùng một quan sát, vẽ mười quỹ đạo được sinh ra và xem chúng có theo những đường đi hợp lệ khác nhau hay vô tình đâm vào vật cản.
 

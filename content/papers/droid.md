@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Một robot có thể làm việc rất tốt trong phòng thí nghiệm nhưng thất bại ngay khi gặp một chiếc bàn mới, ánh sáng khác hoặc nhiều đồ vật gây nhiễu. Nếu dữ liệu chỉ được thu tại vài nơi quen thuộc, mô hình có thể học thuộc phông nền thay vì học cách thao tác với vật. **DROID giải quyết vấn đề bằng cách thu demonstration trên cùng một hệ phần cứng tại nhiều tòa nhà và bối cảnh thực tế.** Bài báo kiểm tra xem học từ những trải nghiệm phong phú ấy có giúp robot hoạt động tốt hơn ở địa điểm và tình huống chưa từng gặp hay không.
+Một robot có thể làm việc rất tốt trong phòng thí nghiệm nhưng thất bại ngay khi gặp một chiếc bàn mới, ánh sáng khác hoặc nhiều đồ vật gây nhiễu. Nếu dữ liệu chỉ được thu tại vài nơi quen thuộc, mô hình có thể học thuộc phông nền thay vì học cách thao tác với vật. **DROID giải quyết vấn đề bằng cách thu lượt thao tác mẫu trên cùng một hệ phần cứng tại nhiều tòa nhà và bối cảnh thực tế.** Bài báo kiểm tra xem học từ những trải nghiệm phong phú ấy có giúp robot hoạt động tốt hơn ở địa điểm và tình huống chưa từng gặp hay không.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -113,7 +113,7 @@ Hình 10 thực sự kiểm tra vai trò của số cảnh: so một phần dữ
 
 DROID chủ yếu dùng một hệ robot chuẩn, nên nghiên cứu độ đa dạng cảnh và nhiệm vụ rõ hơn sự khác biệt giữa nhiều cấu trúc cơ khí. Dữ liệu vẫn thường là thao tác trên bàn; những việc cần lực lớn, vật mềm hoặc chuyển động toàn thân chưa được bao phủ đầy đủ.
 
-Các chính sách điều khiển trong thí nghiệm vẫn cần demonstration của nhiệm vụ đích; DROID không tự tạo ra một robot làm mọi việc mà không học thêm. Bộ dữ liệu cũng có ít ví dụ lỗi và phục hồi. Kết quả cần được hiểu trong phạm vi những cảnh, vật thể và số lần chạy đã kiểm tra.
+Các chính sách điều khiển trong thí nghiệm vẫn cần lượt thao tác mẫu của nhiệm vụ đích; DROID không tự tạo ra một robot làm mọi việc mà không học thêm. Bộ dữ liệu cũng có ít ví dụ lỗi và phục hồi. Kết quả cần được hiểu trong phạm vi những cảnh, vật thể và số lần chạy đã kiểm tra.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -142,11 +142,11 @@ Khi chọn dữ liệu cho một project, hãy hỏi lỗi cần giải là gặ
 
 <!-- END EXTENDED WALKTHROUGH -->
 
-## Đọc code và tự kiểm chứng
+## Xem mã nguồn và tự kiểm chứng
 
 Lấy một ít dữ liệu DROID, vẽ khoảng cách thời gian giữa ảnh và lệnh robot để phát hiện khung hình bị lệch. Xem một số video từ các địa điểm khác nhau và ghi lại sự thay đổi về ánh sáng, bàn, vật và góc camera.
 
-Tạo hai tập con có lượng demonstration bằng nhau, nhưng một tập có nhiều cảnh hơn. Huấn luyện cùng chính sách rồi so kết quả trên địa điểm mới. Nếu tập đa dạng có lợi, ghi cụ thể loại thay đổi được thử thay vì chỉ kết luận chung rằng “nhiều dữ liệu hơn là tốt”.
+Tạo hai tập con có số lượt thao tác mẫu bằng nhau, nhưng một tập có nhiều cảnh hơn. Huấn luyện cùng chính sách rồi so kết quả trên địa điểm mới. Nếu tập đa dạng có lợi, ghi cụ thể loại thay đổi được thử thay vì chỉ kết luận chung rằng “nhiều dữ liệu hơn là tốt”.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

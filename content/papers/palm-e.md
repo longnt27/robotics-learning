@@ -73,7 +73,7 @@ Bộ điều khiển riêng thực thi những bước như đưa tay tới, k�
 
 ## Kết quả thực nghiệm
 
-Bài báo cho thấy một mô hình có thể tham gia những bài toán robot, hỏi đáp về ảnh, mô tả ảnh và ngôn ngữ. Các phép thử so những trường hợp có hoặc không có dữ liệu và tham số học trước để kiểm tra khả năng chuyển kiến thức khi demonstration robot khan hiếm.
+Bài báo cho thấy một mô hình có thể tham gia những bài toán robot, hỏi đáp về ảnh, mô tả ảnh và ngôn ngữ. Các phép thử so những trường hợp có hoặc không có dữ liệu và tham số học trước để kiểm tra khả năng chuyển kiến thức khi lượt thao tác mẫu của robot khan hiếm.
 
 Khi tăng quy mô mô hình, mức **quên năng lực ngôn ngữ cũ** được báo cáo giảm trong các thiết lập thử. Đây là bằng chứng tích cực cho việc huấn luyện chung nhiều nguồn dữ liệu. Nhưng việc giữ điểm số ngôn ngữ tốt không tự chứng minh robot đã hiểu lực tiếp xúc hoặc biết điều khiển động tác chính xác.
 
@@ -126,7 +126,7 @@ Ba phương án không thể so trực tiếp bằng số tham số hoặc một
 
 <!-- END EXTENDED WALKTHROUGH -->
 
-## Đọc code và tự kiểm chứng
+## Xem mã nguồn và tự kiểm chứng
 
 Có thể dựng một bộ mã hóa minh họa: ánh xạ vector ảnh 512 chiều và trạng thái robot 12 chiều về cùng kích thước với token của Transformer, sau đó ghép vào một chuỗi. Kiểm tra cách đánh dấu vị trí và cách mạng nhận biết từng nguồn thông tin.
 

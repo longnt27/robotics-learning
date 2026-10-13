@@ -132,7 +132,7 @@ VIMA chủ yếu trả lời câu hỏi “người dùng có thể mô tả m�
 
 <!-- END EXTENDED WALKTHROUGH -->
 
-## Đọc code và tự kiểm chứng
+## Xem mã nguồn và tự kiểm chứng
 
 Có thể bắt đầu bằng một nhóm nhiệm vụ VIMA-BENCH nhỏ. Giữ nguyên bố cục bàn và cách điều khiển, sau đó thay duy nhất nội dung prompt: chỉ chữ, rồi chữ kết hợp ảnh vật mẫu. Ghi tỷ lệ robot chọn đúng đối tượng và tỷ lệ hoàn thành thao tác theo từng cấp độ kiểm tra. Hai tỷ lệ khác nhau sẽ giúp phân biệt **lỗi hiểu yêu cầu** với **lỗi thực thi chuyển động**.
 

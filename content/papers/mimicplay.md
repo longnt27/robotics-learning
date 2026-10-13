@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Video người dọn bàn, cắm hoa hay gấp khăn tương đối dễ thu thập. Nhưng người và robot có cấu trúc tay khác nhau, nên video ấy không thể trực tiếp biến thành góc khớp robot. **MIMICPLAY tách việc học thành hai tầng:** tầng đầu học trình tự và mục tiêu trung gian từ video người; tầng sau học cách điều khiển robot từ một lượng nhỏ demonstration do người vận hành. Nhờ cách chia này, hệ thống có thể tận dụng dữ liệu người rẻ hơn để làm những nhiệm vụ kéo dài nhiều bước, đồng thời vẫn cần dữ liệu robot để học chuyển động thực tế.
+Video người dọn bàn, cắm hoa hay gấp khăn tương đối dễ thu thập. Nhưng người và robot có cấu trúc tay khác nhau, nên video ấy không thể trực tiếp biến thành góc khớp robot. **MIMICPLAY tách việc học thành hai tầng:** tầng đầu học trình tự và mục tiêu trung gian từ video người; tầng sau học cách điều khiển robot từ một lượng nhỏ lượt thao tác mẫu do người vận hành. Nhờ cách chia này, hệ thống có thể tận dụng dữ liệu người rẻ hơn để làm những nhiệm vụ kéo dài nhiều bước, đồng thời vẫn cần dữ liệu robot để học chuyển động thực tế.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -38,7 +38,7 @@ MIMICPLAY chia việc thành **kế hoạch cấp cao** và **điều khiển c�
 
 ## Phương pháp thực hiện
 
-Giai đoạn đầu, mạng học từ video người thao tác để tạo một **kế hoạch ẩn**, biểu diễn các trạng thái hoặc mục tiêu trung gian mà nhiệm vụ cần đạt. Nó không nhất thiết sinh câu chữ hoặc góc khớp. Giai đoạn sau, mạng lập kế hoạch được giữ cố định; bộ điều khiển học từ một lượng nhỏ demonstration robot để thực hiện các bước theo kế hoạch đó.
+Giai đoạn đầu, mạng học từ video người thao tác để tạo một **kế hoạch ẩn**, biểu diễn các trạng thái hoặc mục tiêu trung gian mà nhiệm vụ cần đạt. Nó không nhất thiết sinh câu chữ hoặc góc khớp. Giai đoạn sau, mạng lập kế hoạch được giữ cố định; bộ điều khiển học từ một lượng nhỏ lượt thao tác mẫu của robot để thực hiện các bước theo kế hoạch đó.
 
 Khi robot chạy, video hoặc hình ảnh mục tiêu giúp phần lập kế hoạch tạo hướng đi tiếp theo. Bộ điều khiển nhận quan sát mới để phát lệnh cho tay máy. Cách tách này cho phép dùng video người để học trình tự thao tác, còn dữ liệu robot chịu trách nhiệm về cơ cấu và lệnh thực thi.
 
@@ -63,7 +63,7 @@ Giai đoạn sau, mô hình lập kế hoạch được giữ cố định. Ngư
 
 ## Ví dụ từng bước
 
-Một video cho thấy người mở ngăn kéo, lấy khăn và đặt khăn vào khay. MIMICPLAY có thể học thứ tự ba trạng thái ấy mà chưa cần biết góc khớp robot. Khi sử dụng tay máy thật, demonstration robot dạy cách tiếp cận tay nắm, kéo ngăn kéo và gắp khăn theo khả năng của kẹp.
+Một video cho thấy người mở ngăn kéo, lấy khăn và đặt khăn vào khay. MIMICPLAY có thể học thứ tự ba trạng thái ấy mà chưa cần biết góc khớp robot. Khi sử dụng tay máy thật, lượt thao tác mẫu của robot dạy cách tiếp cận tay nắm, kéo ngăn kéo và gắp khăn theo khả năng của kẹp.
 
 Nếu có người đẩy khay sang chỗ khác giữa nhiệm vụ, kế hoạch cũ cần cập nhật. Việc biểu diễn hai hành động “cùng đạt mục tiêu” không có nghĩa góc khớp tay người và tay robot phải giống nhau. Đây là chỗ quan trọng để phân biệt chuyển giao mục tiêu với sao chép chuyển động.
 
@@ -103,7 +103,7 @@ Hình 4 so nhiệm vụ được chỉ dẫn bằng video người và video rob
 
 Kế hoạch ẩn của MIMICPLAY vẫn phụ thuộc vào những bối cảnh và kiểu video được dùng để học. Những video người trong nghiên cứu được thu có chủ đích, không phải mọi video hỗn tạp trên Internet. Nhiệm vụ đánh giá chủ yếu là thao tác trên bàn, chưa đại diện cho robot di động làm việc trong nhiều phòng.
 
-Hơn nữa, video người không thay thế demonstration robot. Nếu kẹp robot không thể thực hiện một động tác, kế hoạch cấp cao không thể tự tạo ra lệnh vật lý chính xác. Kết quả cải thiện trong tập nhiệm vụ nghiên cứu chưa chứng minh mọi chuyển động người đều có thể chuyển sang robot.
+Hơn nữa, video người không thay thế lượt thao tác mẫu của robot. Nếu kẹp robot không thể thực hiện một động tác, kế hoạch cấp cao không thể tự tạo ra lệnh vật lý chính xác. Kết quả cải thiện trong tập nhiệm vụ nghiên cứu chưa chứng minh mọi chuyển động người đều có thể chuyển sang robot.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -132,7 +132,7 @@ PaLM-E cũng có thể tham gia suy luận mục tiêu cấp cao, nhưng không 
 
 <!-- END EXTENDED WALKTHROUGH -->
 
-## Đọc code và tự kiểm chứng
+## Xem mã nguồn và tự kiểm chứng
 
 Hãy chọn một nhiệm vụ có ba bước như mở ngăn kéo, lấy khăn, đặt khăn vào khay. Xây một mô hình học bắt chước đơn giản với ảnh hiện tại và **ảnh mục tiêu trung gian**, rồi so với mô hình không nhận ảnh mục tiêu. Đo tỷ lệ hoàn thành cả chuỗi, không chỉ một bước riêng.
 

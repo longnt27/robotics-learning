@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Nếu mỗi công việc của robot đều cần một mô hình riêng, một chiếc robot phục vụ trong bếp sẽ phải được huấn luyện lại khi đổi từ nhặt cốc sang mở ngăn kéo, rồi lại từ đầu khi đổi bối cảnh. **RT-1 đặt câu hỏi liệu một mô hình duy nhất có thể học nhiều nhiệm vụ nhờ lượng lớn demonstration robot thật hay không.** Mô hình phải hiểu câu lệnh và ảnh camera, đồng thời sinh lệnh đủ nhanh để robot liên tục điều khiển. Khó khăn còn nằm ở khả năng làm việc khi vật thể, phông nền hoặc cách bố trí khác dữ liệu đã học. Vì thế đóng góp RT-1 gắn liền với cả kiến trúc lẫn sự đa dạng dữ liệu huấn luyện.
+Nếu mỗi công việc của robot đều cần một mô hình riêng, một chiếc robot phục vụ trong bếp sẽ phải được huấn luyện lại khi đổi từ nhặt cốc sang mở ngăn kéo, rồi lại từ đầu khi đổi bối cảnh. **RT-1 đặt câu hỏi liệu một mô hình duy nhất có thể học nhiều nhiệm vụ nhờ lượng lớn lượt thao tác mẫu của robot thật hay không.** Mô hình phải hiểu câu lệnh và ảnh camera, đồng thời sinh lệnh đủ nhanh để robot liên tục điều khiển. Khó khăn còn nằm ở khả năng làm việc khi vật thể, phông nền hoặc cách bố trí khác dữ liệu đã học. Vì thế đóng góp RT-1 gắn liền với cả kiến trúc lẫn sự đa dạng dữ liệu huấn luyện.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -22,7 +22,7 @@ Khác với bài toán nhận diện ảnh, hành động sai sẽ làm thay đ�
 
 ## Kiến thức nền cần nắm
 
-RT-1 học **bắt chước hành vi người điều khiển**: mạng nhận ảnh và câu lệnh, rồi dự đoán lệnh robot mà người vận hành đã thực hiện ở hoàn cảnh tương tự. Khác nhận diện ảnh thông thường, mỗi hành động sai có thể làm cảnh ở bước sau thay đổi; robot kẹp lệch hai centimét sẽ thấy một ảnh khác so với demonstration và có thể sai tiếp. Đó là **sai số tích lũy**.
+RT-1 học **bắt chước hành vi người điều khiển**: mạng nhận ảnh và câu lệnh, rồi dự đoán lệnh robot mà người vận hành đã thực hiện ở hoàn cảnh tương tự. Khác nhận diện ảnh thông thường, mỗi hành động sai có thể làm cảnh ở bước sau thay đổi; robot kẹp lệch hai centimét sẽ thấy một ảnh khác so với lượt thao tác mẫu và có thể sai tiếp. Đó là **sai số tích lũy**.
 
 RT-1 chuyển lệnh liên tục thành những mã rời rạc gọi là token hành động để Transformer dễ dự đoán. Đây chỉ là cách biểu diễn lệnh robot, không biến chuyển động vật lý thành một bài toán ngôn ngữ thuần túy. Việc lượng tử hóa thành các mức cũng có thể gây sai số khi cần thao tác chính xác.
 
@@ -83,7 +83,7 @@ Một lần chạy thành công trong bếp mới chỉ là một quan sát. Đ�
 
 Trên hơn **700 nhiệm vụ đã học**, RT-1 được báo cáo đạt khoảng **97% thành công**. Ở những phép thử khó hơn với vật gây nhiễu, nền và bố cục khác, nhóm tác giả cho thấy mức cải thiện đáng kể so với các phương pháp đối chứng trong cùng điều kiện. Việc bổ sung dữ liệu nhặt vật từ robot Kuka còn giúp một số kỹ năng chuyển giao mà không phá rõ rệt những nhiệm vụ gốc.
 
-Điểm quan trọng là **độ đa dạng của dữ liệu**, không chỉ số lượng demonstration. Giảm số loại nhiệm vụ có thể làm khả năng xử lý tình huống mới suy giảm mạnh hơn việc bỏ bớt một phần mẫu nhưng vẫn giữ nhiều kỹ năng khác nhau.
+Điểm quan trọng là **độ đa dạng của dữ liệu**, không chỉ số số lượt thao tác mẫu. Giảm số loại nhiệm vụ có thể làm khả năng xử lý tình huống mới suy giảm mạnh hơn việc bỏ bớt một phần mẫu nhưng vẫn giữ nhiều kỹ năng khác nhau.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -135,9 +135,9 @@ RT-1 và Open X-Embodiment cũng liên hệ trực tiếp: khi dữ liệu đế
 
 <!-- END EXTENDED WALKTHROUGH -->
 
-## Đọc code và tự kiểm chứng
+## Xem mã nguồn và tự kiểm chứng
 
-Hãy thu cùng lượng demonstration cho hai cách học: một chính sách chung thực hiện ba nhiệm vụ, và ba chính sách riêng mỗi cái chỉ học một việc. Sau đó giữ nguyên số mẫu nhưng thay số loại vật và bố cục. Đo tỷ lệ thành công khi robot tự chạy trong những cảnh chưa xuất hiện lúc học.
+Hãy thu cùng số lượt thao tác mẫu cho hai cách học: một chính sách chung thực hiện ba nhiệm vụ, và ba chính sách riêng mỗi cái chỉ học một việc. Sau đó giữ nguyên số mẫu nhưng thay số loại vật và bố cục. Đo tỷ lệ thành công khi robot tự chạy trong những cảnh chưa xuất hiện lúc học.
 
 Mỗi lần thất bại cần ghi rõ robot chọn sai vật, di chuyển sai hướng hay kẹp trượt. **Tự kiểm tra:** FiLM giúp sử dụng câu lệnh thế nào, TokenLearner giúp giảm chi phí gì, và vì sao ảnh cần được cập nhật sau mỗi bước?
 

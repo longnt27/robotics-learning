@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Robot chỉ được dạy nhặt đồ trên một mặt bàn rất dễ lúng túng khi sang bàn khác, dù cách nhặt về cơ bản không thay đổi. Nguyên nhân thường nằm ở dữ liệu huấn luyện quá ít loại vật, môi trường và thao tác. Trong khi đó, tự thu lại demonstration cho mọi căn phòng và kiểu đồ vật rất đắt. **BridgeData V2 xây dựng một tập dữ liệu robot lớn với nhiều thao tác ở nhiều môi trường**, giúp nhóm nghiên cứu có nguồn dữ liệu chung để học và thử khả năng chuyển kỹ năng. Đây là một công trình về dữ liệu; nó không tự đề xuất một mạng điều khiển mới.
+Robot chỉ được dạy nhặt đồ trên một mặt bàn rất dễ lúng túng khi sang bàn khác, dù cách nhặt về cơ bản không thay đổi. Nguyên nhân thường nằm ở dữ liệu huấn luyện quá ít loại vật, môi trường và thao tác. Trong khi đó, tự thu lại lượt thao tác mẫu cho mọi căn phòng và kiểu đồ vật rất đắt. **BridgeData V2 xây dựng một tập dữ liệu robot lớn với nhiều thao tác ở nhiều môi trường**, giúp nhóm nghiên cứu có nguồn dữ liệu chung để học và thử khả năng chuyển kỹ năng. Đây là một công trình về dữ liệu; nó không tự đề xuất một mạng điều khiển mới.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -38,7 +38,7 @@ BridgeData V2 dùng nhiều góc camera; một phần có cả ảnh độ sâu.
 
 ## Phương pháp thực hiện
 
-BridgeData V2 có **60.096 quỹ đạo** trong **24 môi trường**, bao phủ hơn 100 đồ vật cùng các kỹ năng nhặt–đặt, đẩy, gom, xếp chồng và gấp đồ. Phần lớn là demonstration do người điều khiển; một phần bổ sung là những quỹ đạo nhặt–đặt được thu với các điều kiện thay đổi để tăng độ bao phủ.
+BridgeData V2 có **60.096 quỹ đạo** trong **24 môi trường**, bao phủ hơn 100 đồ vật cùng các kỹ năng nhặt–đặt, đẩy, gom, xếp chồng và gấp đồ. Phần lớn là lượt thao tác mẫu do người điều khiển; một phần bổ sung là những quỹ đạo nhặt–đặt được thu với các điều kiện thay đổi để tăng độ bao phủ.
 
 Nhóm tác giả huấn luyện nhiều thuật toán học bắt chước và học từ dữ liệu có sẵn, thay vì chỉ chọn một kiến trúc. Các thí nghiệm còn thay lượng dữ liệu, kích thước mô hình và số loại kỹ năng. Dữ liệu có thể được dùng với ảnh mục tiêu hoặc câu lệnh ngôn ngữ, miễn là chính sách điều khiển đọc đúng định dạng.
 
@@ -95,7 +95,7 @@ Mỗi phương pháp được thử 20 lần trong phép so đó; chênh lệch 
 
 ## Hạn chế và câu hỏi còn mở
 
-BridgeData V2 chủ yếu thu bằng một dòng tay máy, với các thao tác trên bàn và mức lực tương đối hạn chế. Chuyển sang robot có khớp, kẹp hoặc hệ tọa độ lệnh khác vẫn đòi ánh xạ và tinh chỉnh, chứ không chỉ tải lại checkpoint.
+BridgeData V2 chủ yếu thu bằng một dòng tay máy, với các thao tác trên bàn và mức lực tương đối hạn chế. Chuyển sang robot có khớp, kẹp hoặc hệ tọa độ lệnh khác vẫn đòi ánh xạ và tinh chỉnh, chứ không chỉ tải lại bản trọng số đã lưu.
 
 Phần lớn dữ liệu là lượt thao tác thành công nên chưa thể dạy đủ những tình huống tự phục hồi khi robot làm rơi hoặc kẹp hụt vật. Tập dữ liệu lớn cũng không bảo đảm bao phủ hết ngôn ngữ đời thường. Khi dùng trên phần cứng mới, cần kiểm tra riêng độ đồng bộ camera, trạng thái và lệnh điều khiển.
 
@@ -126,7 +126,7 @@ Khi so hiệu quả, hãy nói rõ muốn kiểm tra đổi vật, đổi cảnh
 
 <!-- END EXTENDED WALKTHROUGH -->
 
-## Đọc code và tự kiểm chứng
+## Xem mã nguồn và tự kiểm chứng
 
 Lấy một phần nhỏ của BridgeData V2, mở thử vài quỹ đạo với ảnh, trạng thái robot và lệnh để kiểm tra sự đồng bộ. Chia dữ liệu theo hai cách: ngẫu nhiên theo lượt thực thi và **giữ riêng những môi trường chưa thấy**. So tỷ lệ thành công để biết mạng dựa vào bối cảnh quen tới mức nào.
 

@@ -98,7 +98,7 @@ Khi thấy một điểm tổng hợp, hãy hỏi nó đã bao gồm điểm c�
 
 LIBERO là bộ mô phỏng với vật thể, chuyển động và điều kiện thành công được định nghĩa rõ. Những lỗi như camera thật bị che, lực kẹp thay đổi hay vật mềm biến dạng khó được phản ánh đầy đủ. Khi nhiều mô hình đạt điểm rất cao, tỷ lệ thành công trung bình cũng khó cho thấy khác biệt nhỏ giữa chúng.
 
-**Điều dễ bị hiểu sai:** báo cáo một điểm thành công trên LIBERO mà không đo việc học nối tiếp sẽ bỏ qua câu hỏi chính của benchmark. Robot làm tốt vài nhiệm vụ tại một thời điểm chưa chắc học thêm việc mới mà không quên; kết quả mô phỏng cũng chưa chứng minh năng lực ngoài đời.
+**Điều dễ bị hiểu sai:** báo cáo một điểm thành công trên LIBERO mà không đo việc học nối tiếp sẽ bỏ qua câu hỏi chính của bộ đánh giá. Robot làm tốt vài nhiệm vụ tại một thời điểm chưa chắc học thêm việc mới mà không quên; kết quả mô phỏng cũng chưa chứng minh năng lực ngoài đời.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -127,7 +127,7 @@ Một mô hình được tiền huấn luyện tốt vẫn có thể quên khi t
 
 <!-- END EXTENDED WALKTHROUGH -->
 
-## Đọc code và tự kiểm chứng
+## Xem mã nguồn và tự kiểm chứng
 
 Chạy một nhiệm vụ LIBERO trong mô phỏng với 10 lượt thao tác mẫu, rồi thử lại với 50 lượt. Tiếp theo cho một chính sách học hai nhiệm vụ A và B theo thứ tự. Ghi điểm A sau khi học A, và đo lại A sau khi học B để nhìn thấy mức quên.
 
