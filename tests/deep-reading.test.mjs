@@ -117,6 +117,20 @@ test("22 Vietnamese tutorials contain unique explanations instead of boilerplate
   }
 });
 
+test("Markdown lessons keep readable headings and professional teaching prose",()=>{
+  for(const slug of corpusSlugs){
+    const content=fs.readFileSync(path.join(root,"content/papers",slug+".md"),"utf8");
+    assert.doesNotMatch(content,/^#{2,6}\\s+#{1,6}\\s/m,
+      slug+": doubled Markdown heading markers make the lesson harder to navigate");
+    assert.doesNotMatch(content,/(?:^|[.!?]\\s+)(?:mô hình|chính sách điều khiển|lần làm mẫu)\\b/m,
+      slug+": unedited lowercase sentence start");
+    assert.doesNotMatch(content,/\\b(?:mày|tao)\\b/i,
+      slug+": informal assistant voice leaked into the published lesson");
+    assert.ok([...content.matchAll(/^### [^#\\n]/gm)].length>=12,
+      slug+": missing paper-specific teaching walkthroughs");
+  }
+});
+
 test("Vietnamese proofreading does not reintroduce machine-like translations",()=>{
   for(const slug of corpusSlugs){
     const content=fs.readFileSync(path.join(root,"content/papers",slug+".md"),"utf8");
