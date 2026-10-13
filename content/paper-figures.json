@@ -847,9 +847,10 @@
       "image": "/paper-figures/rt-2/figure-1.webp",
       "caption": "Figure 1 | RT-2 overview: we represent robot actions as another language, which can be cast into text tokens and trained together with Internet-scale vision-language datasets. During inference, the text tokens are de-tokenized into robot actions, enabling closed loop control. This allows us to leverage the backbone and pretraining of vision-language models in learning robotic policies, transferring some of their generalization, semantic understanding, and reasoning to robotic control. We demonstrate examples of RT-2 execution on the project website: robotics-transformer2.github.io.",
       "pdf": "https://arxiv.org/pdf/2307.15818",
-      "caption_vi": "Hình 1 | tổng quan RT-2: chúng tôi đại diện cho các hành động của robot như một ngôn ngữ khác, có thể được đúc thành mã thông báo văn bản và được đào tạo cùng với các bộ dữ liệu ngôn ngữ thị giác quy mô Internet. Trong quá trình suy luận, các mã thông báo văn bản được khử mã thành các hành động của robot, cho phép điều khiển vòng kín. Điều này cho phép chúng tôi tận dụng xương sống và đào tạo trước của các mô hình ngôn ngữ thị giác trong việc học các chính sách robot, chuyển một số khái quát hóa, hiểu ngữ nghĩa và lý luận của chúng sang điều khiển robot. Chúng tôi trình bày các ví dụ về thực thi RT-2 trên trang web của dự án: robotics-transformer2.github.io.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "ff43c9ed0b180d3264daacd128f42fe6a69b9afea672bca221a293c93aadc9b5"
+      "caption_vi": "Hình 1. Tổng quan RT-2. Nhóm tác giả xem hành động robot như một loại ngôn ngữ: mã hóa lệnh chuyển động thành token văn bản và huấn luyện chúng cùng dữ liệu ảnh–ngôn ngữ quy mô lớn trên Internet. Khi chạy, token đầu ra được giải mã thành lệnh robot; robot quan sát lại để điều khiển theo vòng kín. Cách này tận dụng phần mô hình đã học hiểu hình ảnh và câu chữ, chuyển một phần khả năng khái quát, hiểu ngữ nghĩa và suy luận sang thao tác robot. Video minh họa có trên trang dự án.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "ff43c9ed0b180d3264daacd128f42fe6a69b9afea672bca221a293c93aadc9b5",
+      "translation_reviewed": true
     },
     {
       "page": 5,
@@ -866,9 +867,10 @@
       "image": "/paper-figures/rt-2/figure-2.webp",
       "caption": "Figure 2 | RT-2 is able to generalize to a variety of real-world situations that require reasoning, symbol understanding, and human recognition. We study these challenging scenarios in detail in Section 4.",
       "pdf": "https://arxiv.org/pdf/2307.15818",
-      "caption_vi": "Hình 2 | RT-2 có thể khái quát hóa thành nhiều tình huống trong thế giới thực đòi hỏi phải suy luận, hiểu được biểu tượng và nhận diện con người. Chúng ta sẽ nghiên cứu chi tiết các tình huống đầy thách thức này trong Phần 4.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "989f8cbf8bdb8b474e9885239922dfd069d997ebec9def41e452d3d5c7804f48"
+      "caption_vi": "Hình 2. RT-2 xử lý một số tình huống đời thực cần suy luận: nhận biết ký hiệu, nhận dạng người hoặc hiểu một quan hệ chưa thấy trực tiếp khi huấn luyện. Các trường hợp khó này được phân tích thêm ở Mục 4 của bài báo.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "989f8cbf8bdb8b474e9885239922dfd069d997ebec9def41e452d3d5c7804f48",
+      "translation_reviewed": true
     },
     {
       "page": 7,
@@ -885,9 +887,10 @@
       "image": "/paper-figures/rt-2/figure-3.webp",
       "caption": "Figure 3 | Example generalization scenarios used for evaluation in Figures 4 and 6b and Tables 4 and 6.",
       "pdf": "https://arxiv.org/pdf/2307.15818",
-      "caption_vi": "Hình 3 | Kịch bản khái quát hoá ví dụ được sử dụng để đánh giá trong Hình 4 và 6b và Bảng 4 và 6.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "ddc418d1697f07502e7dc42e358ecb65993116d160c4a663e26547976b4e34c8"
+      "caption_vi": "Hình 3. Các tình huống kiểm tra khả năng khái quát được dùng trong Hình 4, Hình 6b và Bảng 4, 6. Chúng giúp phân biệt làm đúng nhiệm vụ quen thuộc với làm đúng khi môi trường hoặc yêu cầu thay đổi.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "ddc418d1697f07502e7dc42e358ecb65993116d160c4a663e26547976b4e34c8",
+      "translation_reviewed": true
     },
     {
       "page": 8,
@@ -904,9 +907,10 @@
       "image": "/paper-figures/rt-2/figure-4.webp",
       "caption": "Figure 4 | Overall performance of two instantiations of RT-2 and baselines across seen training tasks as well as unseen evaluations measuring generalization to novel objects, novel backgrounds, and novel environments. Appendix Table 4 details the full results.",
       "pdf": "https://arxiv.org/pdf/2307.15818",
-      "caption_vi": "Hình 4 | Hiệu suất tổng thể của hai bản khởi tạo của RT-2 và đường cơ sở trên các nhiệm vụ đào tạo đã thấy cũng như các đánh giá chưa thấy đo lường khái quát hóa cho các đối tượng mới, nền tảng mới và môi trường mới. Phụ lục 4 chi tiết kết quả đầy đủ.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "cfcc9fceaae019f0f90afe8ec830c7c64c60e62afa2d715b27b836140d9a35ec"
+      "caption_vi": "Hình 4. So sánh hai phiên bản RT-2 với các phương pháp đối chứng trên cả nhiệm vụ xuất hiện khi huấn luyện lẫn điều kiện chưa gặp: đồ vật mới, phông nền mới và môi trường mới. Bảng 4 trong phụ lục ghi đầy đủ các con số.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "cfcc9fceaae019f0f90afe8ec830c7c64c60e62afa2d715b27b836140d9a35ec",
+      "translation_reviewed": true
     },
     {
       "page": 9,
@@ -923,9 +927,10 @@
       "image": "/paper-figures/rt-2/figure-5.webp",
       "caption": "Figure 5 | Real-world out-of-distribution behaviors in the Language Table environment. Identical RT-2-PaLI-3B model checkpoint is used as in Tab. 1.",
       "pdf": "https://arxiv.org/pdf/2307.15818",
-      "caption_vi": "Hình 5 | Hành vi ngoài phân phối trong thế giới thực trong môi trường Bảng Ngôn ngữ. Điểm kiểm tra mô hình RT-2-PaLI-3B giống hệt nhau được dùng như trong Tab. 1.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "46b665d36da6f197bf3026791bed65109ac717bc4c5c6e018e5792811fdc0e66"
+      "caption_vi": "Hình 5. Ví dụ thao tác ngoài phân phối huấn luyện của RT-2 trong môi trường Language Table. Các trường hợp này đều dùng cùng checkpoint RT-2-PaLI-3B được báo cáo ở Bảng 1.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "46b665d36da6f197bf3026791bed65109ac717bc4c5c6e018e5792811fdc0e66",
+      "translation_reviewed": true
     },
     {
       "page": 10,
@@ -942,9 +947,10 @@
       "image": "/paper-figures/rt-2/figure-6.webp",
       "caption": "Figure 6 | Quantitative performance of RT-2 across (6a) emergent skills and (6b) size and training ablations. Appendix Tables 5 and 6 detail the full numerical results.",
       "pdf": "https://arxiv.org/pdf/2307.15818",
-      "caption_vi": "Hình 6 | Thực hiện định lượng RT-2 qua các kỹ năng mới nổi (6a) và kích thước (6b) và các thay đổi trong đào tạo. Phụ lục Bảng 5 và 6 chi tiết hóa các kết quả số học đầy đủ.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "e6367d6e7678513a5d2afa64185c2e71f90d1edf4bde7ddd558dea097abe656d"
+      "caption_vi": "Hình 6. Đánh giá định lượng RT-2: (6a) khả năng thể hiện các kỹ năng mới phát sinh từ việc học; (6b) thí nghiệm tách ảnh hưởng của quy mô mô hình và cách huấn luyện. Số liệu chi tiết nằm ở Bảng 5 và 6 trong phụ lục.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "e6367d6e7678513a5d2afa64185c2e71f90d1edf4bde7ddd558dea097abe656d",
+      "translation_reviewed": true
     },
     {
       "page": 11,
@@ -961,9 +967,10 @@
       "image": "/paper-figures/rt-2/figure-7.webp",
       "caption": "Figure 7 | Rollouts of RT-2 with chain-of-thought reasoning, where RT-2 generates both a plan and an action.",
       "pdf": "https://arxiv.org/pdf/2307.15818",
-      "caption_vi": "Hình 7 | Trình bày RT-2 với lý luận chuỗi suy nghĩ, trong đó RT-2 tạo ra cả kế hoạch và hành động.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "abb64a627cd26bbe2849766289606801d29e7e898f50e3e1596841e952caf2a5"
+      "caption_vi": "Hình 7. Một số lần RT-2 điều khiển robot đồng thời sinh các bước lập luận bằng chữ (chain-of-thought). Mô hình tạo ra cả kế hoạch cần làm và lệnh hành động để robot thực thi.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "abb64a627cd26bbe2849766289606801d29e7e898f50e3e1596841e952caf2a5",
+      "translation_reviewed": true
     }
   ],
   "bridgedata-v2": [
@@ -982,9 +989,10 @@
       "image": "/paper-figures/bridgedata-v2/figure-1.webp",
       "caption": "Figure 1 (BridgeData V2) We propose a large-scale robotic manipulation dataset containing 60,096 trajectories across 24 environments. The dataset includes skills such as pick-and-place, pushing, sweeping, stacking, folding, and more. Portions of the data include multiple camera views and depth data, and all of the data includes natural language labels.",
       "pdf": "https://arxiv.org/pdf/2308.12952",
-      "caption_vi": "Hình 1 (BridgeData V2) Chúng tôi đề xuất một bộ dữ liệu thao tác robot quy mô lớn chứa 60.096 quỹ đạo trên 24 môi trường. Bộ dữ liệu bao gồm các kỹ năng như chọn chỗ, đẩy, quét, xếp chồng, gấp, v.v. Các phần của dữ liệu bao gồm nhiều chế độ xem camera và dữ liệu chiều sâu, và tất cả dữ liệu bao gồm các nhãn ngôn ngữ tự nhiên.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "77d9f449964a7d5750d97ab1aeca45e58e20cb61c76163dc7f4584515e0e62e1"
+      "caption_vi": "Hình 1. BridgeData V2 là tập dữ liệu thao tác robot quy mô lớn gồm 60.096 quỹ đạo từ 24 môi trường khác nhau. Các kỹ năng gồm nhặt và đặt, đẩy, quét gom vật, xếp chồng, gấp đồ và nhiều thao tác khác. Một phần dữ liệu có nhiều góc camera và ảnh độ sâu; mọi quỹ đạo đều có nhãn chỉ dẫn bằng ngôn ngữ tự nhiên.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "77d9f449964a7d5750d97ab1aeca45e58e20cb61c76163dc7f4584515e0e62e1",
+      "translation_reviewed": true
     },
     {
       "page": 4,
@@ -1001,9 +1009,10 @@
       "image": "/paper-figures/bridgedata-v2/figure-2.webp",
       "caption": "Figure 2 (System setup) A picture of our robot setup showing the WidowX 250 robot arm and various cameras. For sensing, we use an RGBD camera that is fixed in an over-the-shoulder view, two RGB cameras with poses that are randomized during data collection, and an RGB camera attached to the robot’s wrist. The images are saved at a 640x480 resolution and the control frequency is 5 Hz. We collect demonstrations by teleoperating the robot with a VR controller. See Appendix C for additional details.",
       "pdf": "https://arxiv.org/pdf/2308.12952",
-      "caption_vi": "Hình 2 (Thiết lập hệ thống) Một hình ảnh thiết lập robot của chúng tôi cho thấy cánh tay robot WidowX 250 và các camera khác nhau. Để cảm biến, chúng tôi sử dụng một camera RGBD được cố định ở chế độ xem qua vai, hai camera RGB với các tư thế ngẫu nhiên trong quá trình thu thập dữ liệu, và một camera RGB gắn vào cổ tay robot. Hình ảnh được lưu ở độ phân giải 640x480 và tần số điều khiển là 5 Hz. Chúng tôi thu thập các minh họa bằng cách điều khiển từ xa robot với bộ điều khiển VR. Xem Phụ lục C để biết thêm chi tiết.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "feaea6dff75fb296ed914b6b9c2db550543e2f371178b98361830e6425eb6c48"
+      "caption_vi": "Hình 2. Hệ thống thu thập BridgeData V2 dùng cánh tay robot WidowX 250 và nhiều camera: một camera RGB-D cố định nhìn từ phía sau vai, hai camera RGB có vị trí được thay đổi giữa các lượt thu, cùng camera RGB gắn ở cổ tay. Ảnh được lưu ở độ phân giải 640 × 480; robot nhận lệnh ở tần số 5 Hz. Người vận hành điều khiển từ xa bằng tay cầm thực tế ảo. Phụ lục C mô tả chi tiết.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "feaea6dff75fb296ed914b6b9c2db550543e2f371178b98361830e6425eb6c48",
+      "translation_reviewed": true
     },
     {
       "page": 5,
@@ -1020,9 +1029,10 @@
       "image": "/paper-figures/bridgedata-v2/figure-3.webp",
       "caption": "Figure 3 (Dataset composition) (L) The various types of tasks in BridgeData V2. The majority of the data comes from foundational object manipulation tasks, such as pick-and-place, pushing, and sweeping. Additional data comes from environment manipulation, which includes opening and closing doors and drawers. The remaining data comes from more complex tasks, such as stacking blocks, folding cloths, and sweeping granular media. Some segments of the data contain mixtures of these categories. (R) The 24 environments in BridgeData V2, grouped into 4 categories. The majority of the data comes from 7 distinct toy kitchens, which include some combination of sinks, stoves, and microwaves. The remaining environments come from diverse sources, including various tabletops, standalone toy sinks, a toy laundry machine, and more.",
       "pdf": "https://arxiv.org/pdf/2308.12952",
-      "caption_vi": "Hình 3 (Thành phần bộ dữ liệu) ( L) Các loại nhiệm vụ khác nhau trong BridgeData V2. Phần lớn dữ liệu đến từ các nhiệm vụ thao tác đối tượng nền tảng, chẳng hạn như chọn và đặt, đẩy và quét. Dữ liệu bổ sung đến từ thao tác môi trường, bao gồm mở và đóng cửa và ngăn kéo. Dữ liệu còn lại đến từ các nhiệm vụ phức tạp hơn, chẳng hạn như xếp chồng khối, gấp vải và quét phương tiện dạng hạt.Một số phân đoạn của dữ liệu chứa hỗn hợp các loại này. (R) 24 môi trường trong BridgeData V2, được nhóm thành 4 loại. Phần lớn dữ liệu đến từ 7 bếp đồ chơi riêng biệt, bao gồm một số kết hợp của bồn rửa, bếp lò và lò vi sóng. Các môi trường còn lại đến từ nhiều nguồn khác nhau, bao gồm các mặt bàn khác nhau, bồn đồ chơi độc lập, máy giặt đồ chơi và nhiều hơn nữa.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "cb23490338b428b76056e20253f7bde03577cb4e2e53b57146de20eda3d20db6"
+      "caption_vi": "Hình 3. Thành phần dữ liệu BridgeData V2. Bên trái: phần lớn dữ liệu là kỹ năng cơ bản như nhặt–đặt, đẩy và quét gom; phần khác gồm mở/đóng cửa, ngăn kéo hoặc việc khó hơn như xếp khối, gấp vải và gom hạt nhỏ. Một số quỹ đạo kết hợp nhiều nhóm thao tác. Bên phải: 24 môi trường thuộc bốn nhóm; dữ liệu nhiều nhất đến từ bảy bộ bếp đồ chơi khác nhau, ngoài ra có bàn thao tác, bồn rửa đồ chơi, máy giặt đồ chơi và những không gian khác.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "cb23490338b428b76056e20253f7bde03577cb4e2e53b57146de20eda3d20db6",
+      "translation_reviewed": true
     },
     {
       "page": 8,
@@ -1039,9 +1049,10 @@
       "image": "/paper-figures/bridgedata-v2/figure-5.webp",
       "caption": "Figure 5 (Scaling analysis) (L) Performance of goal-conditioned behavior cloning trained on BridgeData V2 improves with higher capacity models and larger training sets, suggesting that our dataset provides an effective foundation for studying scalable policy learning. (R) We compared the performance of GCBC trained on a dataset with only 3 skills and a dataset with all 13 skills, keeping the size of the datasets approximately the same. On an unseen task, the policy trained with greater skill diversity performed significantly better, indicating positive transfer between skills. We used 20 trials per policy in this experiment.",
       "pdf": "https://arxiv.org/pdf/2308.12952",
-      "caption_vi": "Hình 5 (Phân tích quy mô) ( L) Hiệu suất nhân bản hành vi điều kiện mục tiêu được đào tạo trên BridgeData V2 cải thiện với các mô hình năng lực cao hơn và các bộ đào tạo lớn hơn, cho thấy rằng Bộ dữ liệu cung cấp một nền tảng hiệu quả để nghiên cứu học chính sách mở rộng. (R) Chúng tôi so sánh hiệu suất của GCBC được đào tạo trên một bộ dữ liệu chỉ với 3 kỹ năng và một bộ dữ liệu với tất cả 13 kỹ năng, giữ cho kích thước của các bộ dữ liệu gần như giống nhau. Trong một nhiệm vụ vô hình, chính sách được đào tạo với sự đa dạng kỹ năng lớn hơn đã thực hiện tốt hơn đáng kể, cho thấy sự chuyển giao tích cực giữa các kỹ năng. Chúng tôi đã sử dụng 20 thử nghiệm cho mỗi chính sách trong thí nghiệm này.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "9f54c873f77a43d8d7a7912bdb1e0fabacce313fe9c061fb70dfa21998c0b6f3"
+      "caption_vi": "Hình 5. Phân tích tác dụng của quy mô và độ đa dạng dữ liệu. Bên trái: policy học bắt chước có điều kiện mục tiêu (GCBC) làm tốt hơn khi mô hình có dung lượng lớn hơn và được huấn luyện bằng nhiều dữ liệu hơn. Bên phải: giữ kích thước tập huấn luyện gần bằng nhau, nhưng so mô hình học từ 3 kỹ năng với mô hình học từ cả 13 kỹ năng. Với nhiệm vụ chưa gặp, tập đa dạng kỹ năng cho kết quả cao hơn đáng kể, cho thấy kỹ năng cũ hỗ trợ nhau khi chuyển sang nhiệm vụ mới. Mỗi policy được chạy thử 20 lần.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "9f54c873f77a43d8d7a7912bdb1e0fabacce313fe9c061fb70dfa21998c0b6f3",
+      "translation_reviewed": true
     }
   ],
   "mimicplay": [
@@ -1060,9 +1071,10 @@
       "image": "/paper-figures/mimicplay/figure-1.webp",
       "caption": "Figure 1: Human is able to complete a long-horizon task much faster than a teleoperated robot. This observation inspires us to develop MIMICPLAY, a hierarchical imitation learning algorithm that learns a high-level planner from cheap human play data and a low-level control policy from a small amount of multi-task teleoperated robot demonstrations. We show that MIMICPLAY significantly improves sample efficiency and robustness of imitation learning algorithms in long-horizon tasks.",
       "pdf": "https://arxiv.org/pdf/2302.12422",
-      "caption_vi": "Hình 1: Con người có thể hoàn thành một nhiệm vụ đường chân trời dài nhanh hơn nhiều so với một robot điều khiển từ xa. Quan sát này truyền cảm hứng cho chúng tôi để phát triển MIMICPLAY, một thuật toán học bắt chước phân cấp mà học một kế hoạch cấp cao từ dữ liệu chơi con người giá rẻ và một chính sách kiểm soát cấp thấp từ một Một số lượng nhỏ các minh họa robot điều khiển từ xa đa nhiệm vụ. Chúng tôi cho thấy MIMICPLAY cải thiện đáng kể hiệu quả mẫu và sự mạnh mẽ của các thuật toán học bắt chước trong các tác vụ đường chân trời dài.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "6ff2ed7209ee1f7930271d687abd2f6fc9c8b84e6521743df98a912fb8ef2d1e"
+      "caption_vi": "Hình 1. Người có thể thực hiện nhiệm vụ gồm nhiều bước nhanh hơn đáng kể so với việc điều khiển robot từ xa làm cùng việc. Từ quan sát đó, MIMICPLAY đề xuất học bắt chước hai tầng: tầng lập kế hoạch được học từ video người thao tác dễ thu thập, còn tầng điều khiển robot được học từ lượng nhỏ demonstration robot do người điều khiển. Cách chia tầng giúp tận dụng dữ liệu tốt hơn và tăng khả năng chịu nhiễu trong nhiệm vụ dài.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "6ff2ed7209ee1f7930271d687abd2f6fc9c8b84e6521743df98a912fb8ef2d1e",
+      "translation_reviewed": true
     },
     {
       "page": 4,
@@ -1079,9 +1091,10 @@
       "image": "/paper-figures/mimicplay/figure-2.webp",
       "caption": "Figure 2: Overview of MIMICPLAY. (a) Training Stage 1: using cheap human play data to train a goal-conditioned trajectory generation model to build a latent plan space that contains high-level guidance for diverse task goals. (b) Training Stage 2: using a small amount of teleoperation data to train a low-level robot controller conditioned on the latent plans generated by the pre-trained (frozen) planner. (c) Testing: Given a single long-horizon task video prompt (either human motion video or robot teleoperation video), MIMICPLAY generates latent plans and guides the low-level controller to accomplish the task.",
       "pdf": "https://arxiv.org/pdf/2302.12422",
-      "caption_vi": "Hình 2: Tổng quan về MIMICPLAY. (a) Huấn luyện Giai đoạn 1: sử dụng dữ liệu chơi của con người giá rẻ để huấn luyện mô hình tạo quỹ đạo điều kiện mục tiêu để xây dựng không gian kế hoạch tiềm ẩn có chứa hướng dẫn cấp cao cho các mục tiêu nhiệm vụ đa dạng. (b) Huấn luyện Giai đoạn 2: sử dụng một lượng nhỏ dữ liệu hoạt động từ xa để huấn luyện một bộ điều khiển robot cấp thấp có điều kiện dựa trên các kế hoạch tiềm ẩn được tạo ra bởi kế hoạch được đào tạo trước (đóng băng). (c) Thử nghiệm: Đưa ra một nhắc nhở video tác vụ có đường chân trời dài (video chuyển động của con người hoặc video từ xa của robot), MIMICPLAY tạo ra các kế hoạch tiềm ẩn và hướng dẫn bộ điều khiển cấp thấp thực hiện nhiệm vụ.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "c31fbb1598b89a45595d3749b61aa451831a15f925a09ff1a2a3aee3d5946209"
+      "caption_vi": "Hình 2. Quy trình MIMICPLAY. (a) Giai đoạn huấn luyện 1: dùng dữ liệu video người thao tác để huấn luyện mô hình dự đoán quỹ đạo theo mục tiêu, tạo không gian kế hoạch ẩn cho nhiều mục tiêu. (b) Giai đoạn 2: giữ cố định mô hình lập kế hoạch đã học, dùng ít demonstration robot để học bộ điều khiển cấp thấp dựa trên kế hoạch ẩn đó. (c) Khi kiểm tra: từ một video prompt cho nhiệm vụ dài, của người hoặc robot, hệ thống sinh kế hoạch ẩn rồi chỉ dẫn bộ điều khiển hoàn thành từng bước.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "c31fbb1598b89a45595d3749b61aa451831a15f925a09ff1a2a3aee3d5946209",
+      "translation_reviewed": true
     },
     {
       "page": 5,
@@ -1098,9 +1111,10 @@
       "image": "/paper-figures/mimicplay/figure-3.webp",
       "caption": "Figure 3: Evaluation Tasks. We design six environments with long-horizon tasks for a Franka Emika robot arm, with initial (left) and goal (right) states shown in images. Tasks include: (a) Kitchen environment: 3 individual tasks including cooking food with oven. (b) Study Desk environment: 7 individual tasks including tidying up the desk. (c) Flower: flower insertion into a vase. (d) Whiteboard: erasing curve lines. (e) Sandwich: ingredient selection for cheeseburger or sandwich. (f) Cloth: folding a towel twice. See the Appendix for details.",
       "pdf": "https://arxiv.org/pdf/2302.12422",
-      "caption_vi": "Hình 3: Nhiệm vụ đánh giá. Chúng tôi thiết kế sáu môi trường với các nhiệm vụ đường chân trời dài cho một cánh tay robot Franka Emika, với các trạng thái ban đầu (trái) và mục tiêu (phải) được hiển thị trong hình ảnh. Nhiệm vụ bao gồm: (a) Môi trường nhà bếp: 3 nhiệm vụ riêng lẻ bao gồm nấu ăn với lò nướng. (b) Môi trường Bộ môn: 7 nhiệm vụ riêng lẻ bao gồm dọn dẹp bàn làm việc. (c) Hoa: cắm hoa vào bình hoa. (d) Bảng trắng: xoá các đường cong. (e) Sandwich: lựa chọn nguyên liệu cho bánh mì kẹp phô mai hoặc sandwich. (f) Vải: gấp khăn hai lần. Xem Phụ lục để biết thêm chi tiết.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "3bf373617483422840287e6e2db05a76ac2835335c9a631e99f43d9136f367a7"
+      "caption_vi": "Hình 3. Sáu môi trường đánh giá nhiệm vụ dài trên tay máy Franka Emika, mỗi trường hợp có ảnh trạng thái đầu (trái) và đích (phải). (a) Bếp: ba nhiệm vụ, có thao tác nấu bằng lò. (b) Bàn học: bảy nhiệm vụ, có dọn bàn. (c) Cắm hoa vào lọ. (d) Xóa nét vẽ cong trên bảng. (e) Chọn nguyên liệu làm bánh mì kẹp hoặc hamburger phô mai. (f) Gấp khăn hai lần. Chi tiết nằm trong phụ lục.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "3bf373617483422840287e6e2db05a76ac2835335c9a631e99f43d9136f367a7",
+      "translation_reviewed": true
     },
     {
       "page": 7,
@@ -1117,9 +1131,10 @@
       "image": "/paper-figures/mimicplay/figure-4.webp",
       "caption": "Figure 4: Evaluation of multi-task policy prompted with robot/human videos in the Study Desk environment.",
       "pdf": "https://arxiv.org/pdf/2302.12422",
-      "caption_vi": "Hình 4: Đánh giá chính sách đa nhiệm vụ được nhắc nhở bằng video robot/người trong môi trường Bộ phận Nghiên cứu.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "8309b459f389abc0547590c8bb7bdd2532e4ff625d12a53ceb982d90480b6c11"
+      "caption_vi": "Hình 4. Đánh giá policy đa nhiệm MIMICPLAY trong môi trường Bàn học khi prompt hướng dẫn là video người hoặc video thao tác của robot. Hình giúp so sánh tác động của nguồn video lên khả năng hoàn thành nhiệm vụ.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "8309b459f389abc0547590c8bb7bdd2532e4ff625d12a53ceb982d90480b6c11",
+      "translation_reviewed": true
     },
     {
       "page": 8,
@@ -1136,9 +1151,10 @@
       "image": "/paper-figures/mimicplay/figure-5.webp",
       "caption": "Figure 5: Qualitative visualization of the latent plans before the disturbance and re-planning. Column 1: third- person view. Column 2: visualization of the latent plan before disturbance. Column 3: human disturbance; the red arrow indicts the direction of disturbance. Column 4: visualization of real-time re-planning capabilities, which show robustness against disturbance. Column 5: robot recovers with the updated task plan.",
       "pdf": "https://arxiv.org/pdf/2302.12422",
-      "caption_vi": "Hình 5: Hình ảnh định tính của các phương án tiềm ẩn trước nhiễu loạn và lập lại kế hoạch. Cột 1: Góc nhìn của người thứ ba. Cột 2: Hình ảnh của phương án tiềm ẩn trước nhiễu loạn. Cột 3: nhiễu do con người; mũi tên màu đỏ chỉ hướng nhiễu. Cột 4: hiển thị khả năng lập kế hoạch lại thời gian thực, cho thấy khả năng chống nhiễu mạnh mẽ. Cột 5: robot hồi phục với kế hoạch nhiệm vụ được cập nhật.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "3f290c7ae2cc8afb93d76f645d0ab3a30d781b3340dd367f037525e36daf6e20"
+      "caption_vi": "Hình 5. Kế hoạch ẩn của MIMICPLAY trước và sau khi bị làm nhiễu. Cột 1: góc nhìn bên ngoài. Cột 2: kế hoạch trước khi có tác động. Cột 3: người làm thay đổi trạng thái môi trường; mũi tên đỏ chỉ hướng tác động. Cột 4: hệ thống lập lại kế hoạch ngay khi phát hiện thay đổi. Cột 5: robot khôi phục hoạt động theo kế hoạch đã cập nhật.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "3f290c7ae2cc8afb93d76f645d0ab3a30d781b3340dd367f037525e36daf6e20",
+      "translation_reviewed": true
     }
   ],
   "open-x-embodiment": [
@@ -1157,9 +1173,10 @@
       "image": "/paper-figures/open-x-embodiment/figure-1.webp",
       "caption": "Fig. 1: We propose an open, large-scale dataset for robot learning curated from 21 institutions across the globe. The dataset represents diverse behaviors, robot embodiments and environments, and enables learning generalized robotic policies.",
       "pdf": "https://arxiv.org/pdf/2310.08864",
-      "caption_vi": "Hình 1: Chúng tôi đề xuất một bộ dữ liệu mở, quy mô lớn cho việc học của robot được quản lý từ 21 tổ chức trên toàn cầu. Bộ dữ liệu đại diện cho các hành vi đa dạng, hiện thân và môi trường robot, và cho phép học các chính sách robot tổng quát.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "58470b32d4476e86b678f18c0b4998dcb656e4f9646f08f2e4bfff1c02513d0c"
+      "caption_vi": "Hình 1. Bộ dữ liệu mở quy mô lớn do 21 tổ chức trên thế giới cùng đóng góp. Dữ liệu bao phủ nhiều hành vi, hình dạng/cấu trúc robot và môi trường, nhằm giúp học các policy có khả năng chuyển sang nhiều loại robot.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "58470b32d4476e86b678f18c0b4998dcb656e4f9646f08f2e4bfff1c02513d0c",
+      "translation_reviewed": true
     },
     {
       "page": 3,
@@ -1176,9 +1193,10 @@
       "image": "/paper-figures/open-x-embodiment/figure-2.webp",
       "caption": "Fig. 2: The Open X-Embodiment Dataset. (a): the dataset consists of 60 individual datasets across 22 embodiments. (b): the Franka robot has the largest diversity in visually distinct scenes due to the large number of Franka datasets, (c): xArm and Google Robot contribute the most number of trajectories due to a few large datasets, (d, e): the dataset contains a great diversity of skills and common objects.",
       "pdf": "https://arxiv.org/pdf/2310.08864",
-      "caption_vi": "Hình 2: bộ dữ liệu Open X-Embodiment. (a) : bộ dữ liệu bao gồm 60 bộ dữ liệu riêng lẻ trên 22 hiện tượng. (b): robot Franka có sự đa dạng lớn nhất trong các cảnh trực quan khác biệt do số lượng lớn các bộ dữ liệu Franka, (c): xArm và Google Robot đóng góp nhiều quỹ đạo nhất do đến một vài bộ dữ liệu lớn, (d, e): bộ dữ liệu chứa sự đa dạng lớn về kỹ năng và đối tượng chung.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "660dbf469060ecac6a5f4d8d717875f63c470580cf40a7c493ab992bb5d4ec25"
+      "caption_vi": "Hình 2. Thành phần Open X-Embodiment. (a) Gồm 60 bộ dữ liệu thành phần từ 22 kiểu robot. (b) Franka có bối cảnh ảnh đa dạng nhất vì tập hợp từ nhiều nguồn Franka. (c) xArm và Google Robot đóng góp nhiều quỹ đạo nhất nhờ một số tập lớn. (d, e) Tập hợp bao phủ nhiều kỹ năng và vật thể thường gặp.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "660dbf469060ecac6a5f4d8d717875f63c470580cf40a7c493ab992bb5d4ec25",
+      "translation_reviewed": true
     },
     {
       "page": 4,
@@ -1195,9 +1213,10 @@
       "image": "/paper-figures/open-x-embodiment/figure-3.webp",
       "caption": "Fig. 3: RT-1-X and RT-2-X both take images and a text instruction as input and output discretized end-effector actions. RT-1-X is an architecture designed for robotics, with a FiLM [116] conditioned EfficientNet [117] and a Transformer [118]. RT-2-X builds on a VLM backbone by representing actions as another language, and training action text tokens together with vision-language data.",
       "pdf": "https://arxiv.org/pdf/2310.08864",
-      "caption_vi": "Hình 3: RT-1-X và RT-2-X đều chụp ảnh và một chỉ dẫn văn bản dưới dạng các hành động đầu vào và đầu ra được cụ thể hóa. RT-1-X là một kiến trúc được thiết kế cho robot, với một FiLM [116] điều kiện EfficientNet [117] và một Transformer [118]. RT-2-X xây dựng trên một xương sống VLM bằng cách đại diện cho hành động như một ngôn ngữ khác và huấn luyện các thẻ văn bản hành động cùng với dữ liệu ngôn ngữ thị giác.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "45c5e4f3e25696088d878b42343b05152a7ebe06564e24d403fbe8d016d51478"
+      "caption_vi": "Hình 3. RT-1-X và RT-2-X đều nhận ảnh cùng câu lệnh văn bản và tạo các lệnh ở đầu công tác robot đã được rời rạc hóa. RT-1-X thiết kế riêng cho robot, dùng EfficientNet điều kiện hóa bằng FiLM và Transformer. RT-2-X xây trên nền mô hình ảnh–ngôn ngữ (VLM): coi hành động như một loại token ngôn ngữ rồi học token hành động cùng dữ liệu ảnh và chữ.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "45c5e4f3e25696088d878b42343b05152a7ebe06564e24d403fbe8d016d51478",
+      "translation_reviewed": true
     },
     {
       "page": 5,
@@ -1214,9 +1233,10 @@
       "image": "/paper-figures/open-x-embodiment/figure-4.webp",
       "caption": "Fig. 4: RT-1-X mean success rate is 50% higher than that of either the Original Method or RT-1. RT-1 and RT-1-X have the same network architecture. Therefore the performance increase can be attributed to co-training on the robotics data mixture. The lab logos indicate the physical location of real robot evaluation, and the robot pictures indicate the embodiment used for the evaluation.",
       "pdf": "https://arxiv.org/pdf/2310.08864",
-      "caption_vi": "Hình 4: RT-1-X có tỷ lệ thành công cao hơn 50% so với phương pháp gốc hoặc RT-1. RT-1 và RT-1-X có cùng kiến trúc mạng. Do đó, sự gia tăng hiệu suất có thể được quy cho việc đồng đào tạo trên hỗn hợp dữ liệu robot. Biểu tượng phòng thí nghiệm chỉ ra vị trí vật lý của việc đánh giá robot thực, và hình ảnh robot chỉ ra hiện tượng được sử dụng để đánh giá.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "9788fa04e8bcd7f40dda9f0002c78a75846a64732c4090e7ad68780f3f488cc3"
+      "caption_vi": "Hình 4. Tỷ lệ thành công trung bình của RT-1-X cao hơn 50% so với cả phương pháp gốc và RT-1. RT-1 và RT-1-X dùng cùng kiến trúc mạng, nên phần cải thiện trong thiết lập này chủ yếu gắn với việc huấn luyện chung từ dữ liệu nhiều robot. Logo phòng thí nghiệm cho biết địa điểm thử robot thật; ảnh robot cho biết cấu hình phần cứng được đánh giá.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "9788fa04e8bcd7f40dda9f0002c78a75846a64732c4090e7ad68780f3f488cc3",
+      "translation_reviewed": true
     },
     {
       "page": 6,
@@ -1233,9 +1253,10 @@
       "image": "/paper-figures/open-x-embodiment/figure-5.webp",
       "caption": "Fig. 5: To assess transfer between embodiments, we evaluate the RT-2-X model on out-of-distribution skills. These skills are in the Bridge dataset, but not in the Google Robot dataset (the embodiment they are evaluated on). across robotic datasets. Contrary to previous RT-2 findings, co-fine-tuning and fine-tuning have similar performance in both the Emergent Skills and Generalization Evaluation (row (4) vs row (7)), which we attribute to the fact that the robotics data used in RT-2-X is much more diverse than the previously used robotics datasets.",
       "pdf": "https://arxiv.org/pdf/2310.08864",
-      "caption_vi": "Hình 5: Để đánh giá sự chuyển giao giữa các biểu tượng, chúng tôi đánh giá mô hình RT-2-X về kỹ năng ngoài phân phối. Những kỹ năng này nằm trong bộ dữ liệu Bridge, nhưng không nằm trong bộ dữ liệu Google Robot (hiện thân mà chúng được đánh giá). trên các bộ dữ liệu robot. Trái ngược với những phát hiện RT-2 trước đây, đồng tinh chỉnh và tinh chỉnh có hiệu suất tương tự trong cả Kỹ năng đột sinh và Đánh giá tổng quát hóa (hàng (4) so với hàng (7)), mà chúng tôi quy cho thực tế là dữ liệu robot được sử dụng trong RT-2-X đa dạng hơn nhiều so với các bộ dữ liệu robot được sử dụng trước đây.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "3114aa6d2996e7b55ccabe499322d4d398551b5be0b61c99002a1dafbab21c07"
+      "caption_vi": "Hình 5. Thử khả năng chuyển kỹ năng giữa các loại robot. RT-2-X được kiểm tra trên những thao tác có trong Bridge nhưng không có trong bộ dữ liệu Google Robot, dù robot đánh giá thuộc kiểu Google Robot. Khác kết quả RT-2 trước đó, hai cách huấn luyện bổ sung kết hợp dữ liệu và tinh chỉnh riêng cho hiệu quả gần nhau ở cả kỹ năng mới và bài kiểm tra khái quát. Nhóm tác giả cho rằng nguyên nhân là dữ liệu robot của RT-2-X đa dạng hơn rõ rệt.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "3114aa6d2996e7b55ccabe499322d4d398551b5be0b61c99002a1dafbab21c07",
+      "translation_reviewed": true
     }
   ],
   "droid": [
@@ -1254,9 +1275,10 @@
       "image": "/paper-figures/droid/figure-1.webp",
       "caption": "Fig. 1: We introduce DROID (Distributed Robot Interaction Dataset), an “in-the-wild” robot manipulation dataset with 76k trajectories or 350 hours of interaction data, collected across 564 scenes, 86 tasks, and 52 buildings over the course of 12 months. Each DROID episode contains three synchronized RGB camera streams, camera calibration, depth information, and natural language instructions. We demonstrate that training with DROID leads to policies with higher performance, greater robustness, and improved generalization ability. We open source the full dataset, pre-trained model checkpoints, and a detailed guide for reproducing our robot setup.",
       "pdf": "https://arxiv.org/pdf/2403.12945",
-      "caption_vi": "Hình 1: Chúng tôi giới thiệu DROID (Distributed Robot Interaction Dataset), một bộ dữ liệu thao tác robot \"hoang dã\" với quỹ đạo 76k hoặc dữ liệu tương tác 350 giờ, được thu thập qua 564 cảnh, 86 Mỗi tập phim DROID chứa ba luồng camera RGB đồng bộ, hiệu chỉnh camera, thông tin chuyên sâu và hướng dẫn ngôn ngữ tự nhiên. Chúng tôi chứng minh rằng đào tạo với DROID dẫn đến các chính sách với hiệu suất cao hơn, mạnh mẽ hơn, và cải thiện khả năng khái quát hoá. Chúng tôi mở bộ dữ liệu đầy đủ, các điểm kiểm tra mô hình đã được đào tạo trước, và một hướng dẫn chi tiết để tái tạo lại thiết lập robot của chúng tôi.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "4c249368d7d147f61ae826da16f1aa760ff4786f6ceabc55a02acbf4c81130ac"
+      "caption_vi": "Hình 1. DROID (Distributed Robot Interaction Dataset) gồm khoảng 76.000 quỹ đạo, tương đương 350 giờ robot tương tác thực tế, được ghi trong 12 tháng ở 564 bối cảnh, 86 nhiệm vụ và 52 tòa nhà. Mỗi lượt ghi có ba luồng camera màu được đồng bộ, thông số hiệu chuẩn camera, thông tin độ sâu và câu lệnh tự nhiên. Huấn luyện thêm với DROID giúp policy tăng hiệu quả, độ bền và khả năng khái quát trong các thử nghiệm. Nhóm tác giả công bố dữ liệu, checkpoint và hướng dẫn tái tạo hệ thống.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "4c249368d7d147f61ae826da16f1aa760ff4786f6ceabc55a02acbf4c81130ac",
+      "translation_reviewed": true
     },
     {
       "page": 4,
@@ -1273,9 +1295,10 @@
       "image": "/paper-figures/droid/figure-2.webp",
       "caption": "Fig. 2: The DROID robot platform. We use the same hardware setup across all 13 institutions to streamline data collection while maximizing portability and flexibility. The setup consists of a Franka Panda 7DoF robot arm, two adjustable Zed 2 stereo cameras, a wrist- mounted Zed Mini stereo camera, and an Oculus Quest 2 headset with controllers for teleoperation. Everything is mounted on a portable, height-adjustable desk for quick scene changes.",
       "pdf": "https://arxiv.org/pdf/2403.12945",
-      "caption_vi": "Hình 2: Nền tảng robot DROID. Chúng tôi sử dụng cùng một thiết lập phần cứng ở tất cả 13 tổ chức để hợp lý hóa việc thu thập dữ liệu trong khi tối đa hóa tính di động và linh hoạt. Thiết lập bao gồm một cánh tay robot Franka Panda 7DoF, hai camera âm thanh nổi Zed 2 có thể điều chỉnh, một camera âm thanh nổi Zed Mini gắn trên cổ tay và tai nghe Oculus Quest 2 với bộ điều khiển để thao tác từ xa. Tất cả mọi thứ được gắn trên một bàn di động, có thể điều chỉnh chiều cao để thay đổi cảnh một cách nhanh chóng.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "e9d0e240d035e6ac24d288c8b4dd6da5aeba60a94b2c3f69fe4d9c8b30619fdc"
+      "caption_vi": "Hình 2. Bộ thiết bị thu dữ liệu DROID được chuẩn hóa giữa 13 tổ chức để dễ mang tới nhiều nơi. Hệ thống gồm tay máy Franka Panda bảy bậc tự do, hai camera nổi ZED 2 có thể điều chỉnh, một ZED Mini gắn cổ tay và kính Oculus Quest 2 cùng bộ điều khiển phục vụ thao tác từ xa. Tất cả đặt trên bàn di động có thể chỉnh chiều cao để nhanh chóng đổi bối cảnh.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "e9d0e240d035e6ac24d288c8b4dd6da5aeba60a94b2c3f69fe4d9c8b30619fdc",
+      "translation_reviewed": true
     },
     {
       "page": 5,
@@ -1292,9 +1315,10 @@
       "image": "/paper-figures/droid/figure-3.webp",
       "caption": "Fig. 3: Distribution of verbs and objects in DROID. Top: Distribution of verbs after de-duplication with GPT-4. DROID has a long tail of diverse tasks that span a wide range of behaviors. We also visualize the verb distributions for existing large manipulation datasets and find that only Bridge V2 [59] has a comparable long tail of skills (for a detailed view of verb distributions for all datasets, see Appendix, Fig. 18). Bottom: Distribution of objects the robot interacts with in DROID, sorted by category (best viewed zoomed in; for a detailed view, see Fig. 19).",
       "pdf": "https://arxiv.org/pdf/2403.12945",
-      "caption_vi": "Hình 3: Phân phối động từ và đối tượng trong DROID. Trên cùng: Phân phối động từ sau khi khử trùng bằng GPT-4. DROID có một đuôi dài các nhiệm vụ đa dạng trải rộng trên một loạt các hành vi. Chúng tôi cũng hình dung các phân phối động từ cho các bộ dữ liệu thao tác lớn hiện có và thấy rằng chỉ Bridge V2 [59] có một đuôi dài các kỹ năng tương đương (để xem chi tiết các phân phối động từ cho tất cả các bộ dữ liệu, xem Phụ lục, Hình. 18) Dưới cùng: Phân phối các đối tượng mà robot tương tác trong DROID, được sắp xếp theo danh mục (xem zoom tốt nhất; để xem chi tiết, xem Hình 19).",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "55b25dfb38db2afb694453f9d868b6ff7575dff1c405f5c418e66820d8172d20"
+      "caption_vi": "Hình 3. Phân phối động từ thao tác và các vật thể trong DROID. Phía trên: phân phối động từ sau khi dùng GPT-4 gộp những cách gọi trùng nhau. DROID có nhiều kỹ năng ít gặp tạo thành phần đuôi dài; trong các tập lớn được so sánh, chỉ BridgeData V2 có độ đa dạng kỹ năng hiếm tương tự. Phía dưới: phân phối vật thể được phân theo nhóm. Các hình 18–19 trong phụ lục có biểu đồ chi tiết hơn.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "55b25dfb38db2afb694453f9d868b6ff7575dff1c405f5c418e66820d8172d20",
+      "translation_reviewed": true
     },
     {
       "page": 6,
@@ -1311,9 +1335,10 @@
       "image": "/paper-figures/droid/figure-4.webp",
       "caption": "Fig. 4: Number of scenes per scene type. DROID has an order of magnitude more scenes than other large robot manipulation datasets, spanning a much wider range of scene types. We manually verified or confirmed with the authors that scene count and type for prior datasets is accurately reported.",
       "pdf": "https://arxiv.org/pdf/2403.12945",
-      "caption_vi": "Hình 4: Số lượng cảnh cho mỗi loại cảnh. DROID có một thứ tự các cảnh lớn hơn so với các bộ dữ liệu thao tác robot lớn khác, trải rộng một phạm vi rộng hơn nhiều các loại cảnh. Chúng tôi đã xác minh bằng tay hoặc xác nhận với tác giả rằng số lượng cảnh và loại cho các bộ dữ liệu trước đó được báo cáo chính xác.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "b94053f4ac44f3d9d91e6cd94a5fd6aa3146bcbb3b8c4e61a070a524b9a1a32e"
+      "caption_vi": "Hình 4. Số lượng bối cảnh theo từng loại trong DROID. Bộ dữ liệu này có số bối cảnh lớn hơn khoảng một bậc độ lớn so với các bộ dữ liệu thao tác robot lớn trước đó, đồng thời trải rộng trên nhiều kiểu không gian hơn. Nhóm tác giả xác nhận thủ công số lượng và loại bối cảnh được báo cáo ở những tập dùng để so sánh.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "b94053f4ac44f3d9d91e6cd94a5fd6aa3146bcbb3b8c4e61a070a524b9a1a32e",
+      "translation_reviewed": true
     },
     {
       "page": 6,
@@ -1330,9 +1355,10 @@
       "image": "/paper-figures/droid/figure-5.webp",
       "caption": "Fig. 5: Third-person camera viewpoints in DROID (subsampled). DROID episodes cover a total of 1417 camera viewpoints along with intrinsic and extrinsic stereo camera calibration. Brighter colors indicate regions of higher viewpoint density.",
       "pdf": "https://arxiv.org/pdf/2403.12945",
-      "caption_vi": "Hình 5: Các điểm nhìn của máy ảnh góc nhìn thứ ba trong DROID (được lấy mẫu). các tập DROID bao gồm tổng cộng 1417 điểm nhìn của máy ảnh cùng với hiệu chỉnh máy ảnh stereo nội tại và ngoại tại. Màu sáng hơn cho thấy khu vực có mật độ điểm nhìn cao hơn.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "51ae267de09874d1a79da4d5557ec67c42dc1e5fb711fe961bdf6ea3a7ef2c9b"
+      "caption_vi": "Hình 5. Các góc camera ngoài robot được lấy mẫu từ DROID. Tổng cộng các lần ghi bao phủ 1.417 góc nhìn, kèm thông số hiệu chuẩn bên trong và vị trí/tư thế camera nổi. Màu sáng biểu thị những vùng có nhiều góc nhìn được thu hơn.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "51ae267de09874d1a79da4d5557ec67c42dc1e5fb711fe961bdf6ea3a7ef2c9b",
+      "translation_reviewed": true
     },
     {
       "page": 7,
@@ -1349,9 +1375,10 @@
       "image": "/paper-figures/droid/figure-6.webp",
       "caption": "Fig. 6: Visualization of 3D interaction points relative to the robot base. We visualize the 3D location at which the gripper first closes in each trajectory, since closing the gripper often indicates meaningful object interactions. DROID’s interactions cover a larger part of the robot’s workspace, since the robot is moved freely between collection sessions instead of being placed in front of repetitive tabletop scenes.",
       "pdf": "https://arxiv.org/pdf/2403.12945",
-      "caption_vi": "Hình 6: Hình dung các điểm tương tác 3D liên quan đến cơ sở robot. Chúng tôi hình dung vị trí 3D mà tại đó bộ phận nắm bắt đóng lại đầu tiên trong mỗi quỹ đạo, vì việc đóng bộ phận nắm bắt thường chỉ ra sự tương tác có ý nghĩa của đối tượng. Các tương tác của DROID bao gồm một phần lớn không gian làm việc của robot, vì robot được di chuyển tự do giữa các phiên thu thập thay vì được đặt trước các cảnh trên bàn lặp đi lặp lại.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "fb92038db1223b0bf6b2195ff7c40fae9ff164a28a66c9cd189b2224bd1c7f7d"
+      "caption_vi": "Hình 6. Vị trí tương tác trong không gian ba chiều so với đế robot. Hình vẽ vị trí đầu kẹp lần đầu đóng lại trong mỗi quỹ đạo, một dấu hiệu thường cho thấy robot đang bắt đầu tương tác với vật. Các điểm phủ một vùng làm việc rộng hơn vì robot được chuyển tự do giữa các buổi thu dữ liệu, thay vì luôn đặt trước cùng một mặt bàn.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "fb92038db1223b0bf6b2195ff7c40fae9ff164a28a66c9cd189b2224bd1c7f7d",
+      "translation_reviewed": true
     },
     {
       "page": 8,
@@ -1368,9 +1395,10 @@
       "image": "/paper-figures/droid/figure-7.webp",
       "caption": "Fig. 7: Robot setups for policy evaluation. We cover a wide range of tasks and scenes, from lab evaluations to offices and real households, to reflect the diversity of use cases in real robot research. Depending on the task we collect between 50 and 150 demonstrations. We describe each task with out-of-distribution evaluation modifications in parenthesis, left to right: Close Waffle Maker: The robot needs to close a waffle maker (distractor objects). Place Chips on Plate: The robot needs to pick up the chips bag and place it on the provided plate (unseen chips bag and distractor objects). Put Apple in Pot: The robot needs to pick up the apple, place it in the pot, and close the lid (unseen distractor object). Toasting: The robot needs to pick up the object, place it in the toaster oven, and close the oven (toast a novel object). Clean up Desk: The robot needs to open the drawer, place the eraser that is on top of the desk inside the drawer, and close it (distractor objects on desk and in drawer). Cook Lentils: The robot needs to remove the pan lid, pick up and pour lentils into the pan, and turn on the stove(add distractor objects).",
       "pdf": "https://arxiv.org/pdf/2403.12945",
-      "caption_vi": "Hình 7: Thiết lập robot để đánh giá chính sách. Chúng tôi bao gồm một loạt các nhiệm vụ và cảnh, từ đánh giá phòng thí nghiệm đến văn phòng và hộ gia đình thực tế, để phản ánh sự đa dạng của các trường hợp sử dụng trong nghiên cứu robot thực tế. Tuỳ thuộc vào nhiệm vụ chúng tôi thu thập từ 50 đến 150 minh hoạ. Chúng tôi mô tả mỗi nhiệm vụ với các sửa đổi đánh giá ngoài phân phối trong dấu ngoặc đơn, từ trái sang phải: Đóng Waffle Maker: Robot cần đóng một nhà sản xuất waffle (các đối tượng khúc xạ). Đặt khoai tây chiên lên đĩa: Robot cần nhặt túi khoai tây chiên lên và đặt nó lên đĩa được cung cấp (không nhìn thấy túi khoai tây chiên và các vật thể gây phân tâm). Đặt quả táo vào nồi: Robot cần nhặt quả táo, đặt nó vào nồi và đóng nắp (không nhìn thấy vật gây xao nhãng). Nướng: Robot cần nhặt vật thể lên, đặt nó vào lò nướng bánh và đóng lò (chay một vật thể mới). Dọn dẹp bàn làm việc: Robot cần mở ngăn kéo, đặt cục tẩy nằm trên mặt bàn bên trong ngăn kéo, và đóng nó lại (các vật dụng phân tách trên bàn và trong ngăn kéo). Nấu đậu lăng: Robot cần mở nắp chảo, nhặt đậu lên và đổ vào chảo, và bật bếp (bổ sung các vật gây xao nhãng).",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "f2cab5b0a5ae494c29ce0c226c1590cd7bf387a5f14ffb188c449d96f3d80ced"
+      "caption_vi": "Hình 7. Sáu tình huống dùng đánh giá policy trong phòng lab, văn phòng và nhà ở; mỗi nhiệm vụ thu khoảng 50–150 demonstration. Từ trái qua phải: đóng máy nướng bánh waffle (thêm vật gây nhiễu); đặt túi khoai tây chiên lên đĩa (túi chưa thấy và vật gây nhiễu); bỏ táo vào nồi rồi đậy nắp (thêm vật lạ); đặt vật vào lò nướng bánh mì rồi đóng cửa (thử vật mới); dọn bàn bằng cách mở ngăn kéo, bỏ tẩy vào rồi đóng lại (thêm vật gây nhiễu); và nấu đậu lăng bằng cách mở nắp chảo, đổ đậu, bật bếp (thêm vật gây nhiễu).",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "f2cab5b0a5ae494c29ce0c226c1590cd7bf387a5f14ffb188c449d96f3d80ced",
+      "translation_reviewed": true
     },
     {
       "page": 9,
@@ -1387,9 +1415,10 @@
       "image": "/paper-figures/droid/figure-8.webp",
       "caption": "Fig. 8: Does DROID Improve Policy Performance and Robustness? We find that across all our evaluation tasks, co-training with DROID significantly improves both in distribution and OOD performance over both no co-training and co-training with the Open-X dataset. We compare success rate averaged across all tasks with standard error, and find DROID outperforms the next best method by 22% absolute success rate in-distribution and by 17% out of distribution.",
       "pdf": "https://arxiv.org/pdf/2403.12945",
-      "caption_vi": "Hình 8: DROID có cải thiện hiệu suất và tính bền vững của chính sách? Chúng tôi nhận thấy rằng trong tất cả các nhiệm vụ đánh giá của chúng tôi, đồng đào tạo với DROID cải thiện đáng kể cả trong phân phối và hiệu suất OOD so với cả hai không đồng đào tạo và đồng đào tạo với bộ dữ liệu Open-X. Chúng tôi so sánh tỷ lệ thành công trung bình trên tất cả các nhiệm vụ với lỗi tiêu chuẩn và tìm thấy DROID hoạt động tốt hơn phương pháp tốt nhất tiếp theo với tỷ lệ thành công tuyệt đối 22% trong phân phối và 17% ngoài phân phối.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "1b0867b13d4c88792b40ed70d1de68679b8352617adf1d565137bed58ebe5130"
+      "caption_vi": "Hình 8. Huấn luyện thêm với DROID có làm policy tốt và bền hơn không? Trên tất cả nhiệm vụ được thử, học chung với DROID cải thiện tỷ lệ thành công ở cả tình huống tương tự dữ liệu huấn luyện và tình huống ngoài phân phối, so với không học chung hoặc học chung với Open X. So với phương án tốt thứ hai, mức tăng tuyệt đối trung bình là 22 điểm phần trăm trong phân phối và 17 điểm phần trăm ngoài phân phối; thanh sai số là sai số chuẩn.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "1b0867b13d4c88792b40ed70d1de68679b8352617adf1d565137bed58ebe5130",
+      "translation_reviewed": true
     },
     {
       "page": 10,
@@ -1406,9 +1435,10 @@
       "image": "/paper-figures/droid/figure-9.webp",
       "caption": "Fig. 9: Representative policy rollout examples on the most challenging “Cook Lentils” task in the kitchen of one of the authors. Qualitatively, we find that policies co-trained with DROID perform smoother, more precise motions, allowing them to solve long-horizon tasks like lentil cooking even in the presence of unseen distractor objects. In contrast, policies trained only with in-domain demonstrations or co-trained with Open-X data [39] struggle with long-horizon tasks and out-of-distribution evaluation settings. See https://droid-dataset.github.io for rollout videos.",
       "pdf": "https://arxiv.org/pdf/2403.12945",
-      "caption_vi": "Hình 9: Các ví dụ triển khai chính sách đại diện về nhiệm vụ \"Cook Lentils\" đầy thách thức nhất trong nhà bếp của một trong các tác giả. Về chất lượng, chúng tôi thấy rằng các chính sách được đào tạo cùng với DROID thực hiện các chuyển động mượt mà hơn, chính xác hơn, cho phép họ giải quyết các nhiệm vụ có tầm nhìn xa như nấu ăn bằng đậu lăng ngay cả khi có sự hiện diện của các đối tượng gây sao lãng không nhìn thấy được. Ngược lại, các chính sách chỉ được đào tạo với các cuộc biểu tình trong miền hoặc được đào tạo cùng với dữ liệu Open-X [39] đấu tranh với các nhiệm vụ đường chân trời dài và các cài đặt đánh giá ngoài phân phối. Xem https://droid-dataset.github.io để xem video rollout.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "dbcf97f95901b53cc318fb00c10e27b5cbf5819a67bdfa92f262d9b76794bedd"
+      "caption_vi": "Hình 9. Ví dụ robot thực thi nhiệm vụ khó 'Nấu đậu lăng' trong bếp của một tác giả. Policy có học cùng DROID chuyển động mượt, chính xác hơn và có thể hoàn thành chuỗi nhiều bước khi xuất hiện vật gây nhiễu chưa từng gặp. Policy chỉ học demonstration của nhiệm vụ hoặc học chung với Open X thường gặp khó ở nhiệm vụ dài và điều kiện mới. Video có trên website DROID.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "dbcf97f95901b53cc318fb00c10e27b5cbf5819a67bdfa92f262d9b76794bedd",
+      "translation_reviewed": true
     },
     {
       "page": 10,
@@ -1425,9 +1455,10 @@
       "image": "/paper-figures/droid/figure-10.webp",
       "caption": "Fig. 10: How important is the scene diversity in DROID? We find that co-training on a subset of DROID with diverse scenes has higher OOD performance than co-training on a subset of DROID with only 20 scenes, suggesting the scene diversity of DROID is one of the driving factors behind strong policy performance when co-training.",
       "pdf": "https://arxiv.org/pdf/2403.12945",
-      "caption_vi": "Hình 10: Sự đa dạng cảnh quan trọng như thế nào trong DROID? Chúng tôi nhận thấy rằng đồng đào tạo trên một tập hợp con của DROID với các cảnh đa dạng có hiệu suất OOD cao hơn so với đồng đào tạo trên một tập hợp con của DROID chỉ với 20 cảnh, cho thấy sự đa dạng cảnh của DROID là Một trong những yếu tố thúc đẩy đằng sau hiệu suất chính sách mạnh mẽ khi đồng đào tạo.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "298682106c95624b75dca13fef34f1eae7ee5e0bb5e5f55957ed4f7408adff37"
+      "caption_vi": "Hình 10. Độ đa dạng cảnh quan trọng đến mức nào? Khi lấy cùng một phần dữ liệu DROID để học chung, phần có nhiều bối cảnh khác nhau cho hiệu quả tốt hơn ở bài kiểm tra ngoài phân phối so với phần chỉ có 20 bối cảnh. Điều này gợi ý số bối cảnh đa dạng là một nguyên nhân quan trọng giúp policy học chung với DROID hoạt động tốt.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "298682106c95624b75dca13fef34f1eae7ee5e0bb5e5f55957ed4f7408adff37",
+      "translation_reviewed": true
     }
   ],
   "octo": [
