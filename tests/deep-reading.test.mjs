@@ -79,6 +79,8 @@ test("22 Vietnamese tutorials contain unique explanations instead of boilerplate
       .replace(/\x60[^\x60]*\x60/g,"");
     assert.doesNotMatch(textOnly,/\b(?:model|dataset|baseline|training|input|output|pipeline|learned|generalization|understanding)\b/i,
       slug+": generic English jargon in Vietnamese prose");
+    assert.doesNotMatch(textOnly,/Action đoạn hành động|action đoạn hành động|phòng phòng thí nghiệm|Vật lý Intelligence|bản mô hình đã lưu VLM/i,
+      slug+": awkward mixed-language or double-translated phrase");
     // Editing the prose must never translate stable paper/figure URL slugs.
     for(const [,target] of content.matchAll(/\]\(\/paper\/([^)]+)\)/g)){
       assert.ok(corpusSlugs.includes(target),slug+": broken related-paper link: "+target);
@@ -103,7 +105,7 @@ test("22 Vietnamese tutorials contain unique explanations instead of boilerplate
       assert.equal(fig.translation_reviewed,true,slug+": not editorially reviewed "+fig.number);
       assert.equal(fig.caption_sha256,createHash("sha256").update(fig.caption).digest("hex"),
         slug+": English original changed without checking translation "+fig.number);
-      assert.doesNotMatch(fig.caption_vi,/sự mài mòn|không bắn|biến áp vani|gợi ý mulitimodal|tổn thất huấn luyện/i,
+      assert.doesNotMatch(fig.caption_vi,/sự mài mòn|không bắn|biến áp vani|gợi ý mulitimodal|tổn thất huấn luyện|phòng phòng thí nghiệm|tường minh dự đoán hành động/i,
         slug+": known bad technical translation "+fig.number);
     }
     for(const key of ["overview","method","worked"]){
