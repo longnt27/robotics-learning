@@ -15,29 +15,11 @@ RTC inference-time chạy được với existing flow action policy, nhưng đ�
 
 Hình 1 cho thấy hai action chunk chồng lên nhau và đoạn d action đầu tiên của chunk mới bị ràng buộc bởi các lệnh từ chunk trước đã phát ra. Trong một hệ thực tế, đây không phải optional smoothing: actuator không thể hoàn tác một chuyển động đã xảy ra trong lúc GPU còn tính toán. Training-time RTC muốn dạy model coi phần prefix ấy là điều kiện thay vì để inference tự tối ưu tốn kém mỗi lần nhận chunk mới.
 
-### Đào sâu: Điểm cốt lõi
+### Tại sao RTC phiên bản đầu vẫn tốn công lúc chạy?
 
-**Luận điểm.** Dạy model ngay lúc training cách tiếp nối committed prefix để inference không cần guidance đắt đỏ. Nó đặc biệt bất lợi khi inference delay lớn vì committed prefix dài hơn. Tác giả hỏi: nếu policy đã được huấn luyện để biết rằng một đoạn quỹ đạo có thể được cho trước, liệu có thể loại bỏ guidance ở runtime không?
+RTC ở thời điểm suy luận có thể lấy một mạng sinh hành động đã học trước rồi thêm ràng buộc để nối đoạn. Nhưng khi quá trình sinh phải chỉnh nhiều lần để giữ phần đã cam kết, chi phí tính toán tăng. **Training-time RTC chuyển việc học cách tôn trọng tiền tố sang giai đoạn huấn luyện**, để đến lúc chạy mô hình biết sinh phần tương lai từ các lệnh đã biết.
 
-**Vấn đề khoa học nằm ở đâu?** Guided inpainting có vector–Jacobian/backprop overhead dù robot chỉ cần một policy prediction. Một hệ thống robot có thể có hình ảnh đẹp, output trông hợp lý nhưng vẫn sai ở cơ cấu thực thi. Vì thế phải tách câu hỏi về dữ liệu, câu hỏi về representation, câu hỏi về policy và câu hỏi về đánh giá. Condition policy theo prefix ngay từ huấn luyện là đóng góp cần đọc cùng các giả định ấy, không phải câu slogan thay thế cho thí nghiệm.
-
-**Đọc đóng góp như một giả thuyết.** Cơ chế được đề xuất là Randomize độ dài prefix k; khóa phần đã committed, flow loss chỉ học suffix còn lại. Nếu nó thật sự hữu ích, điểm khác biệt phải xuất hiện tại chính nơi baseline gặp bottleneck. Không đủ chỉ liệt kê thành phần mới; cần giải thích tại sao dữ liệu hoặc observation hiện có không giải được bài toán với cách làm cũ.
-
-### Đào sâu: RTC inference-time trả thêm compute ở mọi chunk
-
-**Luận điểm.** Guided inpainting có vector–Jacobian/backprop overhead dù robot chỉ cần một policy prediction. RTC inference-time chạy được với existing flow action policy, nhưng để ép chunk mới khớp prefix đã commit, sampler phải thêm guided inpainting.
-
-**Tại sao lỗi này có hệ quả lớn?** Model flow thông thường không biết action prefix đã cam kết. Mỗi action làm thay đổi trạng thái môi trường và tạo ra observation tiếp theo. Một dự đoán hơi lệch có thể đẩy robot ra ngoài những trạng thái từng thấy trong demonstration, khiến bước sau khó phục hồi hơn. Bản thân rtc inference-time trả thêm compute ở mọi chunk vì thế ảnh hưởng đến toàn bộ rollout, chứ không chỉ một hàng trong bảng accuracy.
-
-**Thử nghĩ một phản ví dụ.** Nếu chỉ test các episode có điểm bắt đầu giống dữ liệu huấn luyện, policy có thể học shortcut về bối cảnh. Đổi nhẹ góc camera, vật thể hoặc thứ tự thao tác sẽ phơi bày liệu nó có dùng tín hiệu nhân quả phù hợp không. Vì vậy phải kiểm tra điều kiện test trước khi đọc tỷ lệ thành công.
-
-### Đào sâu: Model flow thông thường không biết action prefix đã cam kết
-
-**Luận điểm.** Runtime phải ép mẫu sinh khớp chunk cũ; rút ngắn latency bằng hack serving có giới hạn. Đây là biến thể của một nguyên lý ML rộng hơn: biến deployment constraint thành phân phối dữ liệu huấn luyện, thay vì sửa đầu ra bằng heuristic sau khi huấn luyện xong.
-
-**Hai quy trình khác nhau ra sao?** Phương pháp cũ gặp trở ngại: Runtime phải ép mẫu sinh khớp chunk cũ; rút ngắn latency bằng hack serving có giới hạn.. Thay đổi trọng tâm là: Condition policy theo prefix ngay từ huấn luyện. Câu hỏi có ích nhất không phải mạng mới có bao nhiêu lớp, mà là thông tin nào trước kia bị đánh mất và giờ được chuyển qua đúng mô-đun. Randomize độ dài prefix k; khóa phần đã committed, flow loss chỉ học suffix còn lại.
-
-**Đặt điều kiện đối chứng.** Nếu train hai cách với data budget khác nhau, hoặc một bên dùng pretrained encoder còn bên kia không, chênh lệch không đủ để gán cho cơ chế mới. Một ablation đúng phải giữ càng nhiều yếu tố càng tốt và thay đổi đúng thành phần tác giả muốn chứng minh.
+Đây là bài tiếp nối RTC đầu tiên, không phải thuật toán hoàn toàn không liên quan. Câu hỏi mới là: thay vì “sửa” chuỗi sinh ra để khớp đoạn cũ mỗi lần, liệu có thể huấn luyện policy ngay từ đầu cho bài toán ấy không?
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -55,13 +37,11 @@ Trong convention của bài báo, flow time `τ=0` là noise và `τ=1` là clea
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Ba khái niệm để nắm
+### Phân biệt tiền tố với phần tiếp theo
 
-**Luận điểm.** Hiểu ba khái niệm này trước khi đọc thuật toán. Mô hình flow vẫn map noise → phân phối dữ liệu sạch action, nhưng chỉ đối với phần postfix chưa biết; prefix đã có giá trị.
+**Tiền tố** là những hành động đã hoặc sẽ chắc chắn thực thi trước khi mô hình tính xong. **Hậu tố** là phần hành động tiếp theo cần dự đoán để robot tiếp tục. Gọi d là độ trễ theo số bước và H là độ dài chunk; s là số bước thực thi của một lần cập nhật. Để tiền tố còn nằm trong vùng hai chunk chồng nhau, cần thỏa d ≤ H − s.
 
-**Khái niệm thành cấu trúc tính toán.** Prefix length k: Số action cũ mà robot sẽ thực thi trước khi output tới. Hãy luôn hỏi: input tensor là gì, output tensor là gì, biểu diễn đó mang thông tin thời gian hay không, và vì sao không thể đơn giản thay bằng một vector khác. Mô hình flow vẫn map noise → phân phối dữ liệu sạch action, nhưng chỉ đối với phần postfix chưa biết; prefix đã có giá trị. Một thuật ngữ chỉ hữu ích khi nối được với dữ liệu và hành vi có thể quan sát.
-
-**Tránh ba sự nhầm lẫn.** Dataset đa dạng chưa phải model khái quát; có latent hoặc token chưa chắc học được semantics; loss offline tốt chưa chắc action thực thi ổn định. Phần kiến thức nền dùng để loại trừ các kết luận quá mạnh đó. Muốn khẳng định model dùng đúng khái niệm, hãy kiểm tra ablation và intermediate representation.
+Trong RTC huấn luyện sẵn, mạng không được tự sửa tiền tố. Nó nhìn những hành động cố định ở đầu chuỗi rồi học cách sinh các bước sau tương thích. Đây là sự khác nhau với mô hình chỉ nhìn ảnh mà không biết controller đang thực thi lệnh nào.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -127,53 +107,11 @@ Hình 2 trình bày chỗ conditioning được gắn vào action expert dạng 
 
 Tưởng tượng action chunk dài 32 và inference mới đến muộn 6 tick. Sáu lệnh đầu không thể sửa; cách naive cắt ghép có thể tạo cú nhảy giữa lệnh thứ 6 và thứ 7. Trong training, lấy demonstration chunk, đánh dấu một prefix dài d, đưa prefix vào condition cùng ảnh/state rồi yêu cầu model dự đoán phần còn lại sao cho khớp cả task và trạng thái cam kết. Đánh giá d=0,4,8,12, xem success, jerk ở boundary và inference latency. Nếu model chỉ tốt d=0, nó chưa học được mục tiêu của training-time RTC.
 
-### Đào sâu: Condition policy theo prefix ngay từ huấn luyện
+### Huấn luyện bộ sinh để hiểu những lệnh đã cam kết
 
-**Luận điểm.** Randomize độ dài prefix k; khóa phần đã committed, flow loss chỉ học suffix còn lại. Do đó huấn luyện randomize k không thay thế độ trễ estimator/runtime scheduling. Nó chỉ giúp mạng biết cách xử lý nhiều loại prefix mà estimator đưa ra.
+Trong giai đoạn train, người nghiên cứu lấy một chuỗi hành động đúng, chọn một phần đầu làm tiền tố giả định đã được controller thực hiện. Các giá trị tiền tố này được đưa vào mạng ở dạng thật, không thêm nhiễu. Phần hậu tố mới được thêm nhiễu để mạng học khử nhiễu và sinh ra những bước tiếp theo.
 
-**Giải thích không dùng tên model.** Randomize độ dài prefix k; khóa phần đã committed, flow loss chỉ học suffix còn lại. Thử mô tả bằng một câu chuyện đầu vào và đầu ra, tránh dựa vào từ như Transformer, flow, token hay MoE để thay thế giải thích. Điều quan trọng là hiểu cơ chế ấy biến thông tin quan sát thành điều gì có ích để robot ra quyết định.
-
-**Từ intuition tới phép thử.** Dạy model ngay lúc training cách tiếp nối committed prefix để inference không cần guidance đắt đỏ. Nếu ta loại bỏ cơ chế đó nhưng giữ nguyên dữ liệu và evaluator, lỗi nào kỳ vọng tăng lên? Nếu không dự đoán được loại lỗi, có thể ta chỉ đang học thuộc mô tả phương pháp mà chưa hiểu tại sao tác giả lựa chọn nó.
-
-### Đào sâu: Kiến trúc trong một sơ đồ
-
-**Luận điểm.** Dạy model ngay lúc training cách tiếp nối committed prefix để inference không cần guidance đắt đỏ. Vì τ=1 tương đương dữ liệu sạch, prefix đưa vào mạng nguyên bản, không nhiễu. Trong mỗi flow lấy mẫu vòng lặp inference, prefix cũng được overwrite bằng các action đã commit để đảm bảo chính xác.
-
-**Lần theo đầu vào đến đầu ra.** Sơ đồ nên được đọc theo thứ tự Demo chunk + sampled k → Giữ prefix sạch → Noise + train suffix flow → Inference completion trực tiếp. Mỗi mũi tên tương ứng với một thao tác thực: đọc cảm biến, xử lý tensor, trích đặc trưng, suy luận, giải mã hoặc gửi command. Nếu bỏ qua quá trình chuẩn hoá hay xử lý timestamp, sơ đồ vẫn đẹp nhưng implementation có thể fail.
-
-**Chỗ dễ sai khi triển khai.** Vì τ=1 tương đương dữ liệu sạch, prefix đưa vào mạng nguyên bản, không nhiễu. Trong mỗi flow lấy mẫu vòng lặp inference, prefix cũng được overwrite bằng các action đã commit để đảm bảo chính xác. Với mỗi module, hãy ghi checkpoint nào dùng, shape dữ liệu, đơn vị và hệ quy chiếu, thành phần nào có gradient và thành phần nào chỉ hiện diện lúc training. Sau đó log action trước và sau inverse normalization để phát hiện lỗi thuộc pipeline chứ không phải lỗi model.
-
-### Đào sâu: Mô hình biểu diễn cái gì?
-
-**Luận điểm.** Tensor chunk có mask chia committed vs future positions. k_est > k_real: mô hình bị buộc giữ lâu hơn cần thiết, thường giảm reactivity nhưng continuity tương đối dễ giữ. k_est < k_real: robot đã thực thi thêm action chưa được điều kiện vào prefix của chunk mới.
-
-**Action là một hợp đồng kỹ thuật.** ĐẦU RA / DẠNG BIỂU DIỄN: Prefix trong train lấy từ ground-truth demonstration. Một vector điều khiển có thể là joint angle, delta end-effector, gripper hoặc các token đã lượng tử hoá. Cần biết số chiều, đơn vị, hệ tọa độ, scaling và trục thời gian. k_est > k_real: mô hình bị buộc giữ lâu hơn cần thiết, thường giảm reactivity nhưng continuity tương đối dễ giữ. k_est < k_real: robot đã thực thi thêm action chưa được điều kiện vào prefix của chunk mới. Không xác định các yếu tố này thì chưa thể nối output model với phần cứng.
-
-**Kiểm tra trước khi train.** Lấy một trajectory đúng, encode rồi decode qua representation dự kiến. Đo reconstruction error trên từng chiều và vị trí thời gian quan trọng, nhất là khi tiếp xúc vật thể. Thử đổi horizon hoặc normalization mà giữ nguyên dữ liệu. Một adapter sai có thể phá mọi rollout dù bản thân network vẫn tối ưu được loss.
-
-### Đào sâu: Model học như thế nào?
-
-**Luận điểm.** Mẫu ngẫu nhiên k theo delay distribution. Trong thí nghiệm trên robot thật, tác giả huấn luyện với delay phân bố đều từ 0 đến 10 bước điều khiển, bao phủ khoảng độ trễ dự kiến đến 200 ms ở 50 Hz.
-
-**Loss phải có nguồn supervision.** MỤC TIÊU HỌC: Trong real robot experiment, k được train trong khoảng 0–10 steps (0–200 ms ở 50 Hz). Hãy chỉ ra batch gồm observation, state, instruction, target action hay target đặc trưng nào; rồi xác định mô hình đang học reconstruction, dự đoán chuỗi hay một phân phối có điều kiện. Cùng tên 'training' nhưng cách tạo target ở BC, diffusion, flow matching và mô hình dự đoán đặc trưng khác nhau căn bản.
-
-**Phân tách lỗi dữ liệu và lỗi thuật toán.** Trong thí nghiệm trên robot thật, tác giả huấn luyện với delay phân bố đều từ 0 đến 10 bước điều khiển, bao phủ khoảng độ trễ dự kiến đến 200 ms ở 50 Hz. Kiểm tra episode split trước khi chia thành window, kiểm tra timestamp camera/action, normalization, random seed và khả năng overfit một subset nhỏ. Nếu vài trajectory còn không học được, việc tăng model size hoặc đổi scheduler thường chỉ che lỗi implementation.
-
-**Đọc ablation đúng cách.** Train k cố định vs sampled trên dải delay. Khi đổi một module phải giữ data budget, training steps và quy trình đánh giá tương đương. Nếu nhiều thứ đổi cùng lúc, tác dụng thực sự là của toàn hệ thống, không thể kết luận một trick đơn lẻ tạo toàn bộ mức cải thiện.
-
-### Đào sâu: Mathematical Intuition
-
-**Luận điểm.** Chỉ tối ưu các action tương lai i>k; prefix a₁:k là phần không được sửa. Trong mỗi flow lấy mẫu vòng lặp inference, prefix cũng được overwrite bằng các action đã commit để đảm bảo chính xác.
-
-$$
-\mathcal L\propto\sum_{i>k}\|v_\theta(x_i,\,a_{1:k})-v_i^\star\|^2
-$$
-
-**Công thức đang mô tả thứ gì?** Chỉ tối ưu các action tương lai i>k; prefix a₁:k là phần không được sửa. Trước khi tính đạo hàm hoặc chuyển vế, hãy xác định đâu là observation, đâu là biến action, đâu là horizon/conditioning và đâu là tham số được học. Trong mỗi flow lấy mẫu vòng lặp inference, prefix cũng được overwrite bằng các action đã commit để đảm bảo chính xác. Ký hiệu ngắn gọn không nói hết cách chọn discretization, action mask hoặc runtime sampler.
-
-**Một phép thử bằng hai trajectory.** Hai lần thao tác có cùng mục tiêu nhưng trạng thái ban đầu khác nhau có thể cần action khác. Công thức này có cho phép output phụ thuộc vào thông tin phân biệt ấy không? Nếu nhiều demonstration hợp lệ khác nhau, model học một mode, average hay một phân phối đa mode? Đây mới là câu hỏi hiểu toán trong robot learning.
-
-**Giới hạn của suy luận từ công thức.** Đây là intuition của masked flow loss; xem bài gốc để biết chính xác parametrization. Một biểu thức xác suất hoặc phép nội suy không tự chứng minh model đã học vật lý hay robot sẽ thành công. Loss và nguồn target quyết định model có tín hiệu nào, còn evaluation mới cho biết hành vi thực hiện ngoài đời.
+Mô hình còn được thông báo độ trễ tương ứng để hiểu tiền tố dài hay ngắn. Trong một DiT dùng flow matching, có thể dùng bước thời gian khác nhau cho token tiền tố và token cần sinh. Nhờ vậy khi chạy, policy không phải sửa một đoạn mới hoàn toàn tự do cho vừa với lệnh cũ.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -190,15 +128,11 @@ Trong huấn luyện, mô hình đã thấy các mẫu với k=0,1,2,...10 (khô
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Một lần inference xảy ra ra sao?
+### Ví dụ robot pha espresso trong lúc model đang tính
 
-**Luận điểm.** Servo tiếp tục chạy buffer cũ trong khi model sinh suffix phù hợp committed prefix. Inference đầu vào nhận a_1...a_5 sạch. Mô hình chỉ phải sinh a_6...a_H sao cho điều kiện trên quan sát và prefix; khi kết quả tới, robot tiếp tục quỹ đạo hợp lý mà không hard switch sang một mode khác.
+Robot đang đưa dụng cụ nén cà phê xuống. Mô hình nhận ảnh mới, nhưng trong 100 ms tiếp theo tay robot vẫn tiếp tục chuyển động theo lệnh đã phát. Nếu mạng tạo ngay quỹ đạo nâng dụng cụ lên từ một vị trí chưa tới, chỗ nối sẽ giật hoặc sai lực nén.
 
-**Một tick điều khiển xảy ra thế nào?** XỬ LÝ ĐẦU VÀO: Model nhận prefix và observation, sinh suffix phù hợp ngay trong forward sampling. Ta nhận observation, tính conditioning, sinh action, giải mã và gửi lệnh xuống controller. Inference đầu vào nhận a_1...a_5 sạch. Mô hình chỉ phải sinh a_6...a_H sao cho điều kiện trên quan sát và prefix; khi kết quả tới, robot tiếp tục quỹ đạo hợp lý mà không hard switch sang một mode khác. Hãy ghi lại thời điểm ở mỗi bước vì latency từ ảnh đến actuator khác với thời gian chạy forward của riêng backbone.
-
-**Khi môi trường đổi giữa hai lần query.** Nếu vật thể dịch chuyển, mô hình có nhận observation mới đủ nhanh không; action nào đã cam kết và action nào có thể sửa? TẠO HÀNH ĐỘNG: Không cần gradient-based guidance ở runtime như RTC inference-time. Trả lời được mới hiểu policy có thực sự closed-loop hoặc chỉ phát một quỹ đạo cố định rồi hy vọng robot làm đúng.
-
-**Điều nên đo thêm.** Ngoài task success, hãy log tail latency, action jerk, lỗi ở điểm nối các action chunk và khả năng phục hồi sau disturbance. Một video chuyển động mượt không chứng minh robot làm đúng mục tiêu, còn throughput cao chưa chắc đảm bảo control loop ổn định.
+Training-time RTC được học từ các ví dụ “phần đầu đã xảy ra như thế này, hãy sinh phần sau”. Trong nhiệm vụ pha espresso còn có xay, nén, chiết và rót; nối chuyển động liên tục là quan trọng vì một thao tác sai có thể phá cả chuỗi.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -217,23 +151,11 @@ Trong huấn luyện, mô hình đã thấy các mẫu với k=0,1,2,...10 (khô
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Kết quả nói lên điều gì?
+### Kết quả phiên bản huấn luyện nên đọc thế nào?
 
-**Luận điểm.** Simulation Kinetix: tốt hơn rõ trong nhiều thiết lập delay cao, không thắng mọi k. Simulation: Tác giả dùng 12 nhiệm vụ động trong Kinetix từ RTC trước. So inference-time RTC với training-time RTC theo delay.
+Hình 3 đo độ trễ so với tỷ lệ giải xong trong mô phỏng; từ một số mức trễ, mạng được huấn luyện tiền tố làm tốt hơn bản phải áp ràng buộc ở suy luận. Nhưng Hình 5 ở robot thật cho thấy hai phiên bản RTC gần nhau về tỷ lệ thành công và thời gian; cả hai đều nhanh hơn cách chờ tuần tự.
 
-**Cách đọc bảng số liệu.** PHÁT HIỆN QUAN TRỌNG: Real robot box building/espresso với π0.6: latency khoảng 108 ms so 135 ms RTC inference-time. Trước khi so score, xác định metric đo thành công cuối hay progress từng bước, baseline dùng dữ liệu gì, số lần lặp, tập test và cách gộp các nhiệm vụ. Simulation: Tác giả dùng 12 nhiệm vụ động trong Kinetix từ RTC trước. So inference-time RTC với training-time RTC theo delay. Chênh lệch average đôi khi giấu những task thất bại nghiêm trọng.
-
-**Từ số sang kết luận có phạm vi.** CÁCH DIỄN GIẢI: Chênh 27 ms đáng kể với servo 50 Hz (chu kỳ 20 ms). Một mô hình khái quát tốt trên lệnh mới chưa chắc điều khiển contact-rich tốt; data diversity hiệu quả chưa bảo đảm chuyển được sang morphology lạ; model chạy nhanh chưa có nghĩa tail latency phù hợp servo. Phải kết luận theo đúng chiều mà thí nghiệm đo.
-
-**Độ tin cậy của bằng chứng.** Camera placement, calibration, noise, split, seed và budget huấn luyện đều ảnh hưởng outcome. Một kết quả đáng tin cần báo cáo đủ điều kiện để người đọc kiểm tra, và có đối chứng tránh nhiễu. Nếu thiếu, hãy nói rõ mức bất định thay vì tưởng tượng số liệu.
-
-### Đào sâu: Ablation và bằng chứng
-
-**Luận điểm.** Train k cố định vs sampled trên dải delay. So inference-time RTC với training-time RTC theo delay. Kết quả báo cáo cho thấy training-time method có lợi thế rõ khi delay tăng (d≥2 trong mô phỏng được mô tả), trong khi ở delay rất nhỏ đôi khi không mạnh bằng phương pháp đối chứng.
-
-**Ablation hỏi nguyên nhân, không chỉ điểm số.** YẾU TỐ ĐƯỢC THỬ: So outcome và runtime overhead, không chỉ flow validation loss. Loại bỏ một thành phần khiến performance giảm là dấu hiệu hữu ích trong thiết lập đã thử, nhưng chưa chứng minh nó là giải pháp duy nhất. So inference-time RTC với training-time RTC theo delay. Kết quả báo cáo cho thấy training-time method có lợi thế rõ khi delay tăng (d≥2 trong mô phỏng được mô tả), trong khi ở delay rất nhỏ đôi khi không mạnh bằng phương pháp đối chứng. Hãy tìm xem các đường baseline có chung dữ liệu, model capacity và ngân sách tối ưu không.
-
-**Đọc theo từng failure mode.** So inference-time RTC với training-time RTC theo delay. Kết quả báo cáo cho thấy training-time method có lợi thế rõ khi delay tăng (d≥2 trong mô phỏng được mô tả), trong khi ở delay rất nhỏ đôi khi không mạnh bằng phương pháp đối chứng. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
+Hai kết quả không mâu thuẫn. Lợi thế có thể phụ thuộc nhiệm vụ, độ trễ, phần cứng và cách sinh chunk. Khi đọc biểu đồ phải xem số lượt thử và khoảng sai số, không nên lấy ưu thế ở mô phỏng để tuyên bố mọi robot thật đều nhanh hơn.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -251,13 +173,11 @@ Trong huấn luyện, mô hình đã thấy các mẫu với k=0,1,2,...10 (khô
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Hạn chế cần nói thẳng
+### Giới hạn của việc biết tiền tố ngay từ lúc học
 
-**Luận điểm.** Tách rõ tác giả thừa nhận và nhận định phê bình độc lập. Error trong prefix sẽ đưa mô hình vào phân phối khác huấn luyện. Action commitment phụ thuộc robot thực: sensor-feedback và servo bộ điều khiển có thể khác lệnh đã gửi; committed action command không đảm bảo actuator thực hiện chính xác do contact/saturation.
+Huấn luyện mạng hiểu tiền tố đòi dữ liệu và cách lấy mẫu phù hợp với độ trễ khi triển khai. Nếu thời gian suy luận thật thay đổi rất khác các trường hợp đã học, policy có thể dự đoán không chính xác. Không thể chỉ dùng một độ trễ lý tưởng rồi mặc định GPU luôn đúng giờ.
 
-**Phân biệt điều tác giả chỉ ra và điều ta suy đoán.** Tác giả / phạm vi: Tác giả: delay distribution và prefix conditioning có thể lệch serving thực. Câu 'chưa đánh giá' không đồng nghĩa với 'đã thử và thất bại'. Câu 'có thể chịu rủi ro' không được viết thành số liệu âm tính. Error trong prefix sẽ đưa mô hình vào phân phối khác huấn luyện. Action commitment phụ thuộc robot thực: sensor-feedback và servo bộ điều khiển có thể khác lệnh đã gửi; committed action command không đảm bảo actuator thực hiện chính xác do contact/saturation. Ranh giới đó giúp đọc nghiên cứu nghiêm túc mà không tô hồng hoặc bác bỏ quá mức.
-
-**Ngoài benchmark còn có hệ thống thật.** Phê bình độc lập: Phê bình: output policy cũ có sai số; committed command khác actual actuator state khi contact. Khi chuyển sang robot khác, camera, workspace, DOF, actuator limits và controller đều có thể phá các giả định gốc. Cần kiểm tra safety, valid action range và các tình huống bắt đầu lệch chuẩn trước khi coi một policy là sẵn sàng triển khai.
+Việc giữ tiền tố cũng không giải quyết phát hiện vật mới, camera mất khung hình hoặc nguy cơ va chạm. Đây là một thành phần của hệ điều khiển, vẫn cần bộ đệm lệnh và kiểm tra an toàn bên ngoài.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -270,13 +190,11 @@ Trong huấn luyện, mô hình đã thấy các mẫu với k=0,1,2,...10 (khô
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Bài này đứng ở đâu trong lĩnh vực?
+### So sánh hai cách RTC bằng một câu
 
-**Luận điểm.** Không đọc paper như một hòn đảo riêng. Đọc thêm RTC inference-time, ACT, Diffusion Policy, π0.5. Nên so sánh cách tiếp cận, dữ liệu huấn luyện và phạm vi khái quát của từng công trình.
+RTC suy luận: **mạng sinh bình thường, quá trình lấy mẫu được ràng buộc để khớp hành động cũ**. RTC huấn luyện: **mạng đã được dạy cách nhận những hành động cũ và sinh tiếp**, nên thường ít cần chỉnh lại trong lúc chạy.
 
-**So sánh theo trục kỹ thuật.** NỀN TẢNG / TIỀN ĐỀ: RTC inference-time dùng sampler guidance để giữ prefix. Hãy xếp các nghiên cứu cạnh nhau theo nguồn dữ liệu, representation, khả năng hiểu lệnh, action generation, embodiment và latency thay vì chỉ theo năm công bố. Một mô hình mạnh về ngữ nghĩa không nhất thiết giỏi điều khiển tốc độ cao.
-
-**Không trộn quan hệ chủ đề với trích dẫn.** HƯỚNG PHÁT TRIỂN: Diffusion Policy và π0.5 đặt nền generative action chunks. Một công trình có thể là tiền đề kỹ thuật, một biến thể cùng nhiệm vụ hoặc hướng xử lý bottleneck còn bỏ ngỏ; các quan hệ ấy cần trình bày chính xác. Đọc thêm RTC inference-time, ACT, Diffusion Policy, π0.5. Nên so sánh cách tiếp cận, dữ liệu huấn luyện và phạm vi khái quát của từng công trình.
+Cả hai khác ACT và Diffusion Policy ở trọng tâm nghiên cứu: ACT và Diffusion Policy học cách tạo hành động có cấu trúc; RTC học cách thực thi các đoạn đó liên tục khi inference chậm. Nếu chưa biết phân biệt các tầng ấy, rất dễ so sai bản chất đóng góp.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -286,15 +204,11 @@ Bắt đầu bằng một toy mô hình có điều kiện flow trên vector `A 
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Nếu chỉ nhớ ba điều
+### Bài tập đánh dấu tiền tố
 
-**Luận điểm.** Chuyển runtime constraint thành training condition có thể giảm serving cost. Đánh giá MSE/thành công theo từng k, không chỉ average. Thêm artificial under-/over-estimated delays ở runtime và đo jerk.
+Giả sử chunk dài H = 16, mô hình chậm d = 5 bước, controller định thực thi s = 7 bước mỗi lần. Kiểm tra điều kiện d ≤ H − s: 5 ≤ 9 nên vẫn có vùng chồng hợp lệ. Hãy tô đỏ năm bước đã cam kết, tô vàng các bước còn chồng nhưng chưa thực thi và tô xanh những bước cần sinh mới.
 
-**Chọn điều cần mang sang dự án thật.** Train dải delay phản ánh thực tế hệ thống inference. Đừng cố sao chép toàn bộ hệ thống lớn ngay. Tìm một vấn đề cụ thể của robot mình rồi áp dụng đúng thành phần liên quan, với baseline đơn giản và một phép đo rõ ràng. Chuyển runtime constraint thành training condition có thể giảm serving cost.
-
-**Tái hiện tối thiểu.** Đánh giá MSE/thành công theo từng k, không chỉ average. Thêm artificial under-/over-estimated delays ở runtime và đo jerk. Bắt đầu bằng 1–2 episode kiểm được bằng mắt, ghi shape, unit và timestamp; tiếp theo mới mở rộng dataset, thêm nhiều seed và đánh giá held-out. Viết sẵn điều kiện pass/fail để không biến công việc thành quá trình tune vô tận.
-
-**Tự kiểm tra đã hiểu.** Sau khi đọc, phải giải thích được observation → representation → action; mô tả loss và supervision; rồi đọc đúng metric, baseline, limitation. Nếu thiếu một trong ba, quay lại chính phần đó thay vì học thuộc tên kiến trúc.
+Sau đó tưởng tượng mạng không được biết năm bước màu đỏ khi huấn luyện. Nó có thể chọn một quỹ đạo mới mâu thuẫn thế nào? Bài tập trục thời gian này là chìa khóa để hiểu Hình 1–2.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -407,5 +321,7 @@ Giả sử có hai episode cùng mục tiêu nhưng điều kiện bắt đầu 
 #### Kết quả nói lên điều gì?: Một phản ví dụ có ích
 
 Giả sử có hai episode cùng mục tiêu nhưng điều kiện bắt đầu hơi khác. Trong một episode, dữ liệu huấn luyện che phủ đầy đủ quỹ đạo; ở episode còn lại, robot gặp trạng thái hiếm hoặc vật thể dịch chuyển. Simulation Kinetix: tốt hơn rõ trong nhiều thiết lập delay cao, không thắng mọi k. Nên ghi lại thời điểm hành vi tách khỏi mục tiêu rồi tìm đúng nguồn lỗi thay vì chấm cả hai bằng một con số trung bình.
+
+
 
 <!-- END EXTENDED WALKTHROUGH -->
