@@ -1,101 +1,122 @@
 ## Vì sao cần nghiên cứu này?
 
-### Vì sao một mô hình cần hiểu nhiều loại nhiệm vụ robot?
+### Một mô hình cho nhiều công việc, nhưng không phải mọi công việc đều giống nhau
 
-Một robot có thể được giao “Nhặt chiếc cốc đỏ”, “Đi tới cạnh bàn” hoặc “Chiếc cốc nào gần cửa hơn?”. Các yêu cầu có đầu ra khác nhau: thao tác tay, điều hướng hoặc câu trả lời. Nếu mỗi loại dùng mạng hoàn toàn riêng, dữ liệu và kiến thức khó chia sẻ. Qwen-VLA nghiên cứu một mô hình có thể học từ nhiều nhóm dữ liệu, kết hợp hiểu ảnh–ngôn ngữ với sinh hành động robot.
+Hãy tưởng tượng một robot nhận ba yêu cầu: “Nhặt cốc đỏ”, “Đi tới cạnh bàn” và “Chiếc cốc nào gần cửa hơn?”. Yêu cầu đầu cần một chuỗi lệnh cho tay máy, yêu cầu thứ hai có thể cần các điểm dẫn đường, còn yêu cầu cuối cần câu trả lời bằng chữ. Chúng đều dựa vào ảnh và ngôn ngữ, nhưng **đầu ra và điều kiện thực thi khác nhau**. Nếu dùng một mô hình độc lập cho mỗi loại việc, kiến thức nhận biết vật, hiểu vị trí và làm theo chỉ dẫn khó được chia sẻ.
 
-Điểm quan trọng là **hiểu được lời yêu cầu không đồng nghĩa biết ngay cách cử động**. Vì thế phương pháp huấn luyện không chỉ cho mô hình học câu chữ, mà còn xây một bộ sinh hành động có kiến thức về cấu trúc chuyển động rồi gắn kiến thức ấy với ảnh thực tế.
+Qwen-VLA nghiên cứu cách dùng **một nền hiểu ảnh–ngôn ngữ** cùng **một bộ sinh hành động liên tục** để học từ dữ liệu thao tác tay máy, điều hướng và chuyển động của người. Đây là hướng hợp nhất cách *học và dự đoán*, không phải tuyên bố rằng một chuỗi góc khớp có thể dùng nguyên cho mọi robot.
+
+### Hiểu đúng chiếc cốc và kẹp đúng chiếc cốc là hai bài toán
+
+Một mô hình ảnh–ngôn ngữ có thể nhận ra chiếc cốc, nhưng chưa chắc tính được chuyển động vừa tránh va chạm vừa đóng kẹp đúng lúc. Ngược lại, một mạng học chuyển động từ hàng nghìn lượt làm mẫu có thể cầm nắm mượt nhưng chọn sai vật khi câu lệnh thay đổi. Qwen-VLA tách vai trò đó: **Qwen3.5-4B** phụ trách xử lý ảnh và câu lệnh; **bộ sinh hành động DiT khoảng 1,15 tỷ tham số** tạo chuỗi lệnh vật lý theo điều kiện đã hiểu (Mục 2.2 của paper).
 
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/qwen-vla/figure-1.webp)
 
-![Hình 4 từ PDF gốc, trang 17](/paper-figures/qwen-vla/figure-4.webp)
-
 ## Kiến thức nền
 
-### Phân biệt các giai đoạn học của Qwen-VLA
+### Bốn giai đoạn huấn luyện giải bốn việc khác nhau
 
-**T2A** là huấn luyện dự đoán hành động từ mô tả bằng chữ, chưa dùng ảnh: bộ giải mã DiT học hình dạng của những chuỗi chuyển động hợp lý. **CPT** tiếp tục huấn luyện với ảnh để gắn kiến thức vận động ấy vào vật thể và bối cảnh cụ thể. **SFT** học có giám sát theo nhiệm vụ với dữ liệu robot được chọn lọc. **RL** tiếp tục tối ưu nhờ phần thưởng sau khi robot thực thi.
+**T2A (Text-to-Action):** giữ cố định mạng ảnh–ngôn ngữ, chỉ huấn luyện bộ sinh DiT từ **câu lệnh, mô tả loại robot và chuỗi hành động mẫu**, cố ý **không đưa ảnh camera**. Mục tiêu là học dạng chuyển động và mối liên hệ giữa mô tả nhiệm vụ với các chuỗi hành động có thể có.
 
-T2A, CPT, SFT và RL là **các giai đoạn trong quy trình huấn luyện**, không phải bốn mô hình độc lập. Mỗi giai đoạn bổ sung một năng lực hoặc cách điều chỉnh: biết hình dạng chuyển động, gắn chuyển động với ảnh, học nhiệm vụ cụ thể rồi cải thiện qua phần thưởng thực thi.
+**CPT (Continued Pretraining):** mở huấn luyện cả hai phần và thêm ảnh thật, thao tác robot, chuyển động người, dữ liệu mô phỏng, điều hướng và dữ liệu ảnh–chữ. Lúc này mạng mới phải gắn câu “cầm cốc đỏ” với **chiếc cốc cụ thể xuất hiện trong cảnh**.
+
+**SFT (Supervised Fine-Tuning):** dùng dữ liệu làm mẫu được tuyển chọn để luyện cho các nhiệm vụ đích. Paper có **hai nhánh xuất phát từ CPT**: một nhánh học chung nhiều nhiệm vụ và một nhánh tinh chỉnh trên dữ liệu người điều khiển robot thật.
+
+**RL (Reinforcement Learning):** tiếp tục cải thiện nhánh đa nhiệm bằng phần thưởng hoàn thành khi chính sách thử hành động **trong mô phỏng SimplerEnv**. Đây **không phải** bằng chứng nhóm tác giả làm RL trực tiếp trên cánh tay ALOHA ngoài đời (Mục 4.2 và 5.2.3).
 
 ### Ví dụ vì sao cần học chuyển động trước khi gắn với ảnh
 
-Ví dụ ở T2A, câu “nhặt một khối rồi đặt bên phải khối khác” giúp bộ sinh học mẫu chuyển động, nhưng chưa biết tọa độ của hai khối trong ảnh hiện tại. Giai đoạn dùng ảnh mới buộc mạng liên hệ ngữ nghĩa với vật cụ thể. Đến giai đoạn thử thật, tỷ lệ thành công giúp kiểm tra phần nối giữa hai năng lực ấy.
+Nếu chỉ có câu “đặt khối xanh cạnh khối đỏ”, bộ sinh có thể học một đoạn thao tác gồm tiếp cận, kẹp, dịch chuyển và thả. Nhưng nó **không thể biết tọa độ** hai khối trên bàn trước mắt. T2A học kiểu chuyển động; CPT bổ sung khả năng dùng ảnh để chọn vị trí thật. Đó là lý do bài báo làm hai bước riêng, thay vì bắt bộ sinh hành động mới khởi tạo học đồng thời cả đặc trưng hình ảnh lẫn vận động.
 
-### Vì sao học chuyển động chỉ từ chữ vẫn chưa đủ?
+### Cùng một lời giao việc, hai robot có thể cần hai kiểu lệnh
 
-Câu “đặt khối xanh bên phải khối đỏ” giúp mô hình biết kiểu quan hệ mà nhiệm vụ yêu cầu, nhưng không thể cho biết hai khối đang ở tọa độ nào trong ảnh camera. Vì vậy giai đoạn học hành động từ văn bản (T2A) chỉ là bước chuẩn bị để bộ sinh học những mẫu chuyển động. Sang giai đoạn dùng ảnh, mạng mới phải nối **ý nghĩa câu lệnh** với **vật và vị trí hiện tại**. Nếu robot chọn đúng hai khối nhưng đặt sai hướng, có thể lỗi ở phần hiểu quan hệ; nếu nó nhắm đúng chỗ nhưng kẹp hụt, vấn đề có thể nằm ở lệnh vận động.
+Qwen-VLA đặt ở đầu câu lệnh một mô tả bằng chữ về loại robot, số tay, dạng điều khiển, tần số và số bước cần dự đoán. Một robot dùng lệnh thay đổi vị trí đầu kẹp; robot khác dùng góc khớp tuyệt đối; robot điều hướng dùng các điểm dẫn đường. **Mô tả bằng chữ xác định ý nghĩa lệnh**, không tự biến hai hệ tọa độ vật lý thành một.
 
+Trong mạng, dữ liệu hành động được đặt vào một khung số có độ dài chung: thiếu chiều nào thì chèn số 0 và dùng **mặt nạ** đánh dấu phần hợp lệ. Nhờ vậy các chiều thêm cho đủ kích thước không được tính vào sai số học. Việc thống nhất **hình dạng dữ liệu** không đồng nghĩa thống nhất hoàn toàn **ý nghĩa vật lý của các con số** (Mục 2.3–2.5, Bảng 10).
 
 ## Phương pháp thực hiện
 
-### Một lệnh điều khiển được hình thành ra sao?
+### Theo dõi một lần sinh lệnh trên robot
 
-Giả sử người dùng nói “Đặt hai chiếc dập ghim xanh lá cạnh nhau”. Ảnh camera cho biết hai vật đang ở đâu, phần thị giác–ngôn ngữ xử lý câu lệnh và cảnh. Bộ giải mã hành động DiT nhận điều kiện ấy cùng thông tin robot, tạo chuỗi chuyển động: tiếp cận vật thứ nhất, kẹp, đặt, rồi làm với vật thứ hai.
+Giả sử yêu cầu là “Đặt hai chiếc dập ghim xanh lá cạnh nhau”. Camera cung cấp ảnh hiện tại; mô tả phần cứng cho biết đang điều khiển loại robot nào; câu lệnh nói hai vật phải ở cạnh nhau. Qwen3.5 xử lý ảnh và chữ để tạo đặc trưng. Bộ sinh DiT nhận đặc trưng ấy cùng một đoạn hành động ban đầu còn nhiễu, rồi nhiều lần chỉnh để tạo **chuỗi lệnh liên tục** phù hợp với cảnh và dạng điều khiển.
 
-Trong lúc tiền huấn luyện T2A, mạng sinh hành động từ văn bản để học những mẫu chuyển động chung. Đến CPT/SFT, ảnh mới được gắn vào để chọn hành động đúng vị trí thực. Giai đoạn RL đánh giá kết quả khi robot chạy trong môi trường và đưa tín hiệu cải thiện. Không nên đồng nhất hàm mất mát T2A với tỷ lệ hoàn thành nhiệm vụ thật.
+Robot không được bảo đảm thành công chỉ vì mạng sinh ra quỹ đạo trông mượt. Bộ thực thi phải hiểu đúng đơn vị, hệ tọa độ, giới hạn khớp và độ mở kẹp. Sau khi thực hiện một phần đoạn, robot cần tiếp tục quan sát để điều chỉnh khi vật dịch chuyển.
 
-### Lệnh đa nhiệm cần được ghép với loại robot cụ thể
+### Tại sao bộ sinh học bằng khử nhiễu?
 
-Câu lệnh “đặt hai chiếc dập ghim xanh lá cạnh nhau” có thể cho robot hai tay nhưng lệnh phát ra vẫn phải hợp lệ với số khớp và vị trí camera. Mô hình cần biết mình đang điều khiển loại robot nào; cùng một câu chữ không xác định được độ dài cánh tay, hướng khớp hoặc phạm vi mở kẹp.
+Trong cách học gọi là **flow matching**, tác giả trộn một chuỗi hành động mẫu sạch với chuỗi ngẫu nhiên theo mức nhiễu τ. Mạng học hướng biến đổi để đi từ nhiễu về hành động mẫu, có điều kiện theo ảnh, câu lệnh và loại robot. Khi chạy, bộ sinh bắt đầu từ nhiễu rồi thực hiện một số bước tính toán để tạo lệnh. **Những bước khử nhiễu trong mạng không phải những bước robot đã di chuyển ngoài đời.**
 
-Ở chuỗi nhiệm vụ dài, hãy xem cách chia mục tiêu: tìm đúng đồ, nhặt từng món, đưa về nơi đặt, rồi kiểm tra đã xong chưa. Nếu sai vật nhưng động tác kẹp rất mượt, cần sửa phần nhận biết; nếu đúng vật nhưng kẹp hụt, cần xem bộ sinh hành động và dữ liệu vận động.
+Hàm mất mát chỉ tính trên những chiều và mốc thời gian thực sự thuộc robot hiện tại, tránh để các số 0 được thêm vào nhằm đủ kích thước làm sai quá trình học. Đây là cơ chế cần biết khi paper nói một bộ sinh dùng cho nhiều loại phần cứng, chứ không chỉ là ghép tất cả dữ liệu vào chung một bảng.
 
-### Cùng một câu lệnh vẫn cần biết đang điều khiển robot nào
+### Những gì khác nhau giữa lúc học và lúc dùng thật
 
-Giả sử hai robot đều nhận yêu cầu đặt hai chiếc dập ghim cạnh nhau. Robot A có một tay kẹp, robot B có hai tay và phạm vi chuyển động khác. Chuỗi lệnh đúng với A không thể dùng nguyên xi cho B, cho dù phần hiểu ảnh và câu lệnh cho ra cùng mục tiêu. Qwen-VLA kết hợp biểu diễn loại robot với bộ sinh hành động để tạo đầu ra phù hợp. Vì thế các phép thử đa nhiệm cần phân biệt ba bước: tìm đúng vật, chọn đúng trình tự và phát lệnh hợp lệ với phần cứng. Chỉ thành công ở một bước không chứng minh cả hệ thống đã giải được nhiệm vụ.
+Ở T2A, bộ sinh học từ chữ mà không nhìn camera; ở CPT/SFT, nó mới học đối chiếu vật trong ảnh với đích của câu lệnh. Nhánh SFT trên dữ liệu robot thật phải được phân biệt với **Qwen-VLA-Instruct**, phiên bản thu được khi thêm RL trong mô phỏng vào nhánh đa nhiệm. Vì vậy không được dùng tỷ lệ thành công của **ALOHA đã tinh chỉnh riêng** để nói chính xác hiệu quả của mô hình đa nhiệm **chưa tinh chỉnh** trên cùng phần cứng.
+
+### Trạng thái góc khớp có phải đầu vào bắt buộc không?
+
+**Không.** Bài báo thử không đưa trạng thái khớp, đưa trạng thái dưới dạng token chữ và đưa trạng thái liên tục trực tiếp vào DiT. Trên RoboTwin-2.0, mức tăng của các cách thêm trạng thái tương đối nhỏ: tối đa khoảng **0,7 điểm phần trăm** ở nhóm Easy và **1,3 điểm phần trăm** ở nhóm Hard. Vì thế thiết lập mặc định không bổ sung trạng thái khớp riêng (Bảng 12). Đừng nhầm **mô tả loại robot** trong prompt với **giá trị góc khớp tức thời** từ cảm biến.
 
 ![Hình 2 gốc từ PDF bài báo, trang 6](/paper-figures/qwen-vla/figure-2.webp)
 
 ## Ví dụ từng bước
 
-### Ví dụ phân chia nhiệm vụ dọn bàn
+### Khi cùng một mô hình nhận việc ngắn và việc dài
 
-Câu lệnh “Gom các chai đồ uống, để miếng bọt biển riêng” cần nhiều lần nhặt và đặt. Ở cấp nhiệm vụ, robot phải biết nhóm đồ nào cần gom, vật nào không đụng tới và khi nào đã xong. Ở cấp vận động, nó phải thực hiện từng đoạn tiến tới, kẹp, đưa sang vị trí đích và thả.
+Hình 3 lấy ví dụ **dữ liệu tạo bằng ROBOINF**, không phải bằng chứng hai nhiệm vụ này đã được robot thật thực thi thành công đúng như video minh họa. Nhiệm vụ ngắn là đặt hai chiếc dập ghim xanh lá cạnh nhau; một đoạn tương đối ngắn có thể gồm đưa tay tới, kẹp, dịch chuyển rồi đặt xuống.
 
-Hình 3 có ví dụ ngắn và dài để cho thấy độ khó tăng theo số bước. Nếu mô hình chọn đúng chai nhưng bỏ vào vùng dành cho miếng bọt biển, lỗi nằm ở cách hiểu nhiệm vụ/đích đặt. Nếu nó chọn đúng đích nhưng làm rơi chai, lỗi có thể ở bộ điều khiển và dữ liệu vận động.
+Ở nhiệm vụ dài “Gom đồ uống cùng một chỗ, để miếng bọt biển riêng”, robot phải nhận ra vật nào là đồ uống, lặp lại thao tác cho từng món và không nhầm miếng bọt biển. Nếu nhận nhầm vật thì cần kiểm tra phần hiểu ảnh–ngôn ngữ. Nếu chọn đúng vật nhưng làm rơi khi kẹp, vấn đề có thể nằm ở bộ sinh hành động hoặc bộ điều khiển thật. Nếu làm tốt từng lần nhặt nhưng bỏ sót món cuối, cần kiểm tra cách theo dõi tiến độ nhiệm vụ.
 
 ![Hình 3 từ PDF gốc, trang 11](/paper-figures/qwen-vla/figure-3.webp)
+
+### Ảnh robot thật giúp kiểm tra điều gì?
+
+Hình 4 cho thấy các nhóm nhiệm vụ ALOHA ngoài đời được dùng để đo tỷ lệ thành công. Hình 5 minh họa khả năng tiếp cận vật mới, chọn bóng theo màu và thích nghi với nền ảnh lạ. Đây là **minh họa định tính**; muốn kết luận mô hình tốt hơn đối chứng phải xem bảng số liệu, số lần chạy và định nghĩa thành công. Ví dụ mạng tiếp cận đúng kính râm nhưng không kẹp chắc được nó là một giới hạn cơ học, không thể gộp chung thành “không hiểu lệnh”.
+
+![Hình 4 từ PDF gốc, trang 17](/paper-figures/qwen-vla/figure-4.webp)
 
 ![Hình 5 từ PDF gốc, trang 21](/paper-figures/qwen-vla/figure-5.webp)
 
 ## Kết quả thực nghiệm
 
-### Thí nghiệm nào nói rõ vai trò từng bước học?
+### T2A thực sự giúp ở điều kiện nào? Đọc Hình 6
 
-Hình 6 kiểm tra trực tiếp giai đoạn T2A. Thay tỷ lệ dữ liệu tổng hợp, cách dự đoán cả chuỗi hay theo đoạn và phân phối thời gian flow matching; bản dự đoán cả chuỗi với khoảng 20% dữ liệu tổng hợp cho kết quả tốt nhất trong những cấu hình được thử. Nếu học T2A quá lâu, hiệu quả còn có thể giảm do học quá sát dữ liệu nguồn.
+Tác giả giữ quy trình SFT sau đó giống nhau và thử nhiều cách học T2A. Trên **Simpler-WidowX**, không dùng T2A cho tỷ lệ hoàn thành **60,9%**. Dùng T2A dự đoán **cả chuỗi** với **20% dữ liệu tổng hợp + 80% dữ liệu thật** đạt **71,1%**, tức **tăng 10,2 điểm phần trăm**. Đây là tỷ lệ dữ liệu **trong thí nghiệm T2A**, không phải công thức bắt buộc để trộn tất cả dữ liệu cho mọi robot.
 
-Hình 7 thử việc học chung dữ liệu ảnh–ngôn ngữ với dữ liệu hành động. Trên bài dễ, lợi ích ít thấy; trên bài phải phân biệt vật tinh vi hoặc hiểu lệnh ghép nhiều điều kiện, hiệu quả tăng rõ. Đây là bằng chứng **loại dữ liệu giúp nhóm năng lực tương ứng**, không phải càng trộn nhiều thứ càng tốt trong mọi trường hợp.
+Ở nhóm dùng 10% dữ liệu tổng hợp, dự đoán cả chuỗi đạt **65,4%** so với **60,4%** khi chỉ dự đoán từng đoạn. Việc đưa ảnh vào T2A trong phép thử tương ứng còn giảm kết quả từ 60,4% xuống **57,6%**. Bước huấn luyện T2A tốt nhất tại **2.000 lượt cập nhật (71,1%)**; kéo lên **40.000** chỉ còn **60,4%**. Như vậy phải tách tác dụng của cách dự đoán, loại dữ liệu và thời gian học, không thể quy mọi lợi thế cho riêng việc có thêm ảnh (Hình 6, Mục 5.2.1).
 
-### Đọc ba con số mà không đánh tráo điều kiện
+### Học chung ảnh–ngôn ngữ giúp khi nào? Đọc Hình 7
 
-Trong một phép thử trên robot ALOHA thuộc phân phối huấn luyện, một cấu hình Qwen-VLA có tiền huấn luyện được báo cáo khoảng 83,6% tỷ lệ thành công, so 48,5% ở phiên bản đối chứng. Ở một nhóm thao tác ngoài phân phối, điểm được báo cáo khoảng 76,9%. Nhưng trên bộ đánh giá DOMINO kiểm tra khả năng chuyển thẳng sang nhiệm vụ mới mà không tinh chỉnh, một kết quả được nêu là 26,6%.
-
-Ba số này đo các vấn đề khác nhau. Không được kết luận mô hình “thành công 80% với mọi robot” rồi bỏ qua mức 26,6% khi chuyển miền. Muốn so công bằng, phải ghi rõ robot, dữ liệu tiền huấn luyện, có tinh chỉnh hay không và định nghĩa nhiệm vụ thành công.
-
-### Vì sao phải đặt các con số đánh giá cạnh đúng nhiệm vụ?
-
-Một tỷ lệ thành công trên robot ALOHA quen thuộc với dữ liệu huấn luyện trả lời câu hỏi mô hình thực hiện kỹ năng đã học tốt đến đâu. Phép thử ngoài điều kiện quen cho biết nó xử lý thay đổi bối cảnh thế nào. Còn kết quả DOMINO khi chuyển thẳng sang nhiệm vụ mới mà không tinh chỉnh kiểm tra mức khái quát khó hơn. Bởi vậy các số như 83,6%, 76,9% và 26,6% không thể lấy trung bình hoặc xếp cùng một hàng để nói mô hình tốt hay kém. Phải ghi kèm robot, nguồn dữ liệu, có tinh chỉnh hay không và định nghĩa thành công.
+Khi thêm dữ liệu ảnh–ngôn ngữ vào lúc học hành động, kết quả trên LIBERO và Simpler-WidowX thay đổi ít. Nhưng ở nhóm cần nhận vật và hiểu quan hệ phức tạp, **RoboCasa-GR1 tăng từ 51,1% lên 56,0% (+4,9 điểm phần trăm)** và **RoboTwin-2.0 tăng từ 81,8% lên 86,4% (+4,6 điểm phần trăm)**. Hình 7 còn cho thấy DiT đã qua T2A học tiếp nhanh hơn DiT khởi tạo từ đầu. Đó là hai phép so khác nhau, không nên trộn thành một kết luận “cứ thêm dữ liệu là tốt”.
 
 ![Hình 6 từ PDF gốc, trang 22](/paper-figures/qwen-vla/figure-6.webp)
 
 ![Hình 7 từ PDF gốc, trang 24](/paper-figures/qwen-vla/figure-7.webp)
 
+### Đừng lấy kết quả ALOHA để quảng cáo kết quả mọi robot
+
+**Bảng 5:** ALOHA **được tinh chỉnh từ Qwen-VLA-Base** đạt **83,6%** trung bình trên nhóm nhiệm vụ quen; **cùng kiến trúc học từ đầu** đạt **48,5%**. Như vậy chênh lệch là **35,1 điểm phần trăm**, phản ánh lợi ích tiền huấn luyện trong phép so này. **Bảng 6:** phiên bản có tiền huấn luyện đạt **76,9%** trên năm nhóm thay đổi màu, vật, vị trí, nền và chỉ dẫn; bản học từ đầu chỉ đạt **36,2%**. Cả hai bảng đánh giá trên ALOHA với thiết lập học cho robot đích.
+
+Riêng **Qwen-VLA-Instruct đa nhiệm** được báo cáo **97,9%** trên LIBERO và **73,7%** trên Simpler-WidowX (Bảng 4), cùng **26,6%** tỷ lệ thành công không tinh chỉnh trên phép thử thao tác vật đang di chuyển **DOMINO** (Bảng 11). Đây là **các bài kiểm tra khác nhau**, không được lấy 83,6%, 76,9% và 26,6% đem xếp thành một thứ hạng duy nhất.
+
+### RL có giúp mọi bộ đánh giá tăng điểm không?
+
+RL chỉ thu dữ liệu khi mô hình thực thi **trong SimplerEnv mô phỏng**. Sau RL, điểm Simpler trong Bảng 11 tăng **70,8% → 73,7%**; DOMINO tăng nhẹ **25,7% → 26,6%**. Nhưng RoboTwin-Easy lại từ **86,3% xuống 86,1%**. Tác giả xem đó là thay đổi nhỏ, không phải thất bại lớn; song nói RL giúp tất cả các bộ đánh giá tăng điểm là sai. Muốn kiểm chứng lợi ích của RL, phải so đúng phiên bản **sau SFT** với **sau RL**, giữ chung bộ đánh giá.
+
 ## Hạn chế và câu hỏi còn mở
 
-### Những kết luận chưa nên rút ra
+### Những gì tác giả chưa chứng minh được
 
-Huấn luyện nhiều giai đoạn phức tạp hơn, tốn công cân bằng dữ liệu và khó xác định nguyên nhân khi một bước làm hiệu quả giảm. Một mô hình giỏi trả lời câu hỏi hoặc điều hướng chưa chắc thực hiện được thao tác tiếp xúc chính xác trên mọi kẹp robot.
+Tác giả thừa nhận dữ liệu hành động thật vẫn ít và kém đa dạng hơn dữ liệu ảnh–chữ, đặc biệt với vật hiếm, thao tác tiếp xúc phức tạp và nhiệm vụ dài. Học chung nhiều loại việc còn có đánh đổi: một số phép thử thuần ảnh–ngôn ngữ hoặc điều hướng **có thể giảm nhẹ** sau huấn luyện thiên về hành động (Mục 7). Không nên biến kết quả tốt trên các bộ đánh giá có sẵn thành lời khẳng định robot có thể hoạt động lâu ngày, tự phục hồi khi lỗi hoặc an toàn trên mọi phần cứng.
 
-Cách biểu diễn lệnh phải phù hợp loại robot đang chạy. Nếu đổi camera, khớp hoặc bộ điều khiển, cần kiểm chứng lại quá trình giải mã và an toàn. Tỷ lệ thành công trên một bộ nhiệm vụ ALOHA chưa đồng nghĩa có thể chuyển nguyên bản mô hình đã lưu sang mọi robot thật.
+### Hai rủi ro dễ bị bỏ qua khi tự triển khai
+
+Thứ nhất, **prompt ghi loại robot** không thay thế hiệu chuẩn camera, chuyển đổi tọa độ, kiểm tra đơn vị và giới hạn động cơ. Thứ hai, **mô hình sinh đoạn hành động** không bảo đảm nó phản hồi đủ nhanh hoặc có lực kẹp phù hợp trong tình huống vật bị trượt. Cần đo cả tỷ lệ hoàn thành, độ trễ điều khiển và các lần phải can thiệp. Khi chuyển sang robot mới, phải xác minh nguồn dữ liệu vận động và cách giải mã lệnh thay vì chỉ đổi tên robot trong prompt.
 
 ## Liên hệ với nghiên cứu khác
 
-### Qwen-VLA liên hệ thế nào với RT-2 và π0.5?
+### Qwen-VLA khác RT-2, π0.5 và GR00T ở đâu?
 
-RT-2 chứng minh hướng chuyển kiến thức ảnh–ngôn ngữ sang token hành động. π0.5 tách nguồn dữ liệu đa dạng và mức nhiệm vụ cao/thấp, dùng các phương pháp biểu diễn hành động khác nhau ở từng giai đoạn. Qwen-VLA cũng kết hợp nhiều nguồn tri thức nhưng tổ chức thành một quy trình T2A → CPT → SFT → RL có mục tiêu rõ cho từng bước.
-
-Điều nên so sánh là *từng giai đoạn giải thiếu sót gì*, có giúp robot hiểu vật mới hay sinh chuyển động tốt hơn không. Một sơ đồ có nhiều khối không tự chứng minh hệ thống mạnh hơn.
+[RT-2](/paper/rt-2) nghiên cứu chuyển kiến thức ảnh–ngôn ngữ thành token hành động. [Diffusion Policy](/paper/diffusion-policy) dùng quá trình khử nhiễu để sinh những đoạn chuyển động liên tục. [π0.5](/paper/pi-0-5) cũng khai thác dữ liệu đa nguồn và bộ sinh chuyển động nhưng khác cách tổ chức các giai đoạn học. [LingBot-VLA 2.0](/paper/lingbot-vla-2) và [GR00T N1](/paper/groot-n1) là những hướng khác để kết hợp hiểu cảnh với sinh hành động. Để so công bằng, cần nhìn **bộ dữ liệu, cách điều khiển, phần cứng, phạm vi tinh chỉnh và độ trễ**, không chỉ tên kiến trúc.
 
 ### Những bài nên đọc tiếp
 
@@ -107,8 +128,12 @@ RT-2 chứng minh hướng chuyển kiến thức ảnh–ngôn ngữ sang token
 
 ## Đọc mã nguồn và tự kiểm chứng
 
-### Tự thiết kế phép thử tách ảnh hưởng của prompt
+### Một phép thử nhỏ để thấy mô hình có dùng ảnh và lời chỉ dẫn
 
-Giữ cùng ảnh hai vật và cùng bộ giải mã, thử hai prompt: “Đặt hai vật cạnh nhau” và “Đặt vật xanh bên trái vật đỏ”. Nếu robot bỏ qua quan hệ trong prompt, hai chuỗi thao tác có thể giống nhau sai mục tiêu. Tiếp tục giữ câu lệnh nhưng đổi vị trí vật để kiểm tra mạng dùng ảnh hay nhớ chỗ cũ.
+Đặt hai vật có màu khác nhau trong camera. Giữ ảnh cố định, lần lượt yêu cầu “đặt vật xanh bên trái vật đỏ” và “đặt vật đỏ bên trái vật xanh”. Chọn vật nào và đặt vào đâu phải đổi theo câu lệnh. Tiếp theo, giữ nguyên câu lệnh nhưng đổi vị trí vật: quỹ đạo phải dựa vào ảnh mới thay vì tọa độ cũ. Cuối cùng thử đúng nhiệm vụ trên hai cấu trúc robot với quy ước điều khiển khác nhau và kiểm tra lệnh giải mã có hợp lệ hay không.
 
-Khi đọc thí nghiệm loại bỏ từng thành phần (ablation), hãy diễn đạt “thử bỏ hoặc đổi cơ chế để đo tác dụng”, không dịch thành “mài mòn”. Ghi rõ thay prompt, giai đoạn T2A hay việc trộn dữ liệu để không nhầm nguồn cải thiện.
+### Tự đặt câu hỏi trước khi tin vào con số
+
+Khi đọc Hình 6–7 hay Bảng 4–6 và 11, hãy ghi lần lượt: **(1)** mô hình đang ở giai đoạn nào, **(2)** có được tinh chỉnh trên robot đích không, **(3)** đang thử trong mô phỏng hay ngoài đời, **(4)** phương pháp đối chứng có dùng cùng lượng dữ liệu không, **(5)** chỉ số là tỷ lệ thành công hay tiến độ. Làm được năm việc này thì những con số 71,1%, 83,6% và 26,6% không còn dễ bị hiểu nhầm thành một kết quả chung.
+
+*Nguồn để tự đối chiếu: [Qwen-VLA, bản toàn văn chính thức arXiv 2605.30280v2](https://arxiv.org/html/2605.30280), đặc biệt Mục 2–5.2, Hình 1–7 và Bảng 4–6, 10–12.*
