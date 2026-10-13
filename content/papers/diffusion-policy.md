@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Behavior cloning kiểu regression thường giả định một quan sát có một action target “trung bình”. Nhưng robot demonstrations rất hay **multimodal**: cùng một bối cảnh có thể vòng obstacle bên trái hoặc bên phải, grasp vật thể từ nhiều hướng, hoặc có nhiều quỹ đạo đều hợp lệ. MSE regression có xu hướng average các mode và tạo ra action chẳng mode nào muốn, một cách khá sáng tạo để robot đâm đúng vào giữa chướng ngại vật. Ngoài ra actions có theo thời gian correlation mạnh, nên dự đoán từng timestep độc lập làm quỹ đạo rung và dễ tích lũy lỗi.
+Hãy tưởng tượng robot cần đi vòng một vật cản. Nó có thể đi bên trái hoặc bên phải, cả hai đều đúng. Nếu mô hình học một hành động “trung bình” từ hai cách này, robot có thể chọn đường đi thẳng vào vật cản. Đây là nhược điểm của cách học bắt chước dự đoán trực tiếp một giá trị khi dữ liệu có nhiều phương án hợp lệ. **Diffusion Policy học cách tạo ra cả đoạn chuyển động bằng quá trình khử nhiễu**, nhờ đó có thể chọn một phương án rồi thực hiện nhất quán. Công trình còn nghiên cứu việc quan sát lại trong khi chạy để robot sửa kế hoạch khi môi trường thay đổi.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 

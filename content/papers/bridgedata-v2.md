@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Một trong những lý do robotics chậm hơn vision/NLP là tập dữ liệu thường nhỏ, đóng và gắn chết với một phòng thí nghiệm. Nếu một nhóm khác không có đúng robot, đúng table, đúng camera và đúng vật thể thì gần như không tái sử dụng được. BridgeData V2 muốn xây một tập dữ liệu mà policy được huấn luyện ở Berkeley vẫn có cơ hội làm được việc ở setup khác, đồng thời đủ đa nhiệm vụ để mô hình phải thật sự đọc mục tiêu/ngôn ngữ thay vì đoán nhiệm vụ từ bối cảnh.
+Robot chỉ được dạy nhặt đồ trên một mặt bàn rất dễ lúng túng khi sang bàn khác, dù cách nhặt về cơ bản không thay đổi. Nguyên nhân thường nằm ở dữ liệu huấn luyện quá ít loại vật, môi trường và thao tác. Trong khi đó, tự thu lại demonstration cho mọi căn phòng và kiểu đồ vật rất đắt. **BridgeData V2 xây dựng một tập dữ liệu robot lớn với nhiều thao tác ở nhiều môi trường**, giúp nhóm nghiên cứu có nguồn dữ liệu chung để học và thử khả năng chuyển kỹ năng. Đây là một công trình về dữ liệu; nó không tự đề xuất một mạng điều khiển mới.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 

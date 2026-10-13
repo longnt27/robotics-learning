@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Mỗi robotics phòng thí nghiệm thường có một robot, một bộ điều khiển, một schema action và một tập dữ liệu riêng. Nếu dữ liệu của Franka không giúp WidowX và dữ liệu của Kuka không giúp mobile manipulator thì robotics không thể scale kiểu foundation mô hình; mỗi embodiment sẽ mãi là một silo. Open X-Embodiment hỏi: **có thể chuẩn hóa kinh nghiệm của nhiều robot đủ để huấn luyện một policy chung và tạo positive chuyển giao hay không?**
+Mỗi phòng thí nghiệm thường dùng một loại robot, camera và cách biểu diễn lệnh riêng. Nếu dữ liệu của robot Franka không thể hỗ trợ robot WidowX, mỗi nhóm sẽ phải học lại gần như từ đầu dù hai robot cùng biết nhặt và đặt vật. **Open X-Embodiment gom dữ liệu từ nhiều tổ chức và nhiều cấu trúc robot để kiểm tra khả năng học chung và chuyển kỹ năng.** Thử thách không chỉ là đưa file về cùng định dạng: góc khớp, vị trí đầu kẹp và số chiều hành động có thể mang ý nghĩa khác nhau giữa các robot. Phải xử lý sự khác biệt ấy trước khi mong dữ liệu chung mang lại lợi ích.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

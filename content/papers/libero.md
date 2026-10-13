@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Lifelong learning không chỉ hỏi “nhiệm vụ mới làm được bao nhiêu %”, mà còn hỏi hai câu khó hơn: **học nhiệm vụ cũ có giúp học nhiệm vụ mới nhanh hơn không**, và **học nhiệm vụ mới có làm quên nhiệm vụ cũ không**. Các benchmark robot trước đó không tách rõ kiến thức khai báo như vật thể/quan hệ không gian với kiến thức quy trình như chuyển động/chuỗi mục tiêu. LIBERO được xây để kiểm tra chính xác các dạng chuyển giao đó trong môi trường thao tác robot có kiểm soát.
+Robot được dạy đặt cốc vào khay, rồi học thêm mở ngăn kéo. Sau khi học việc thứ hai, liệu nó còn làm đúng việc thứ nhất không? Và việc đã biết đặt cốc có giúp học mở ngăn kéo nhanh hơn không? **LIBERO được xây dựng để nghiên cứu việc học nhiều nhiệm vụ nối tiếp nhau**, trong đó mô hình có thể chuyển kiến thức hoặc quên kỹ năng cũ. Bộ nhiệm vụ chia riêng những thay đổi về vị trí, vật thể và mục tiêu để người nghiên cứu hiểu rõ hơn tại sao một cách học có hiệu quả hoặc thất bại. Đây là bộ đánh giá, không phải mô hình điều khiển mới.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Nhiều robot tập dữ liệu lớn vẫn được thu thập trong vài phòng thí nghiệm setup được dựng cẩn thận. Mô hình có thể thấy nhiều các quỹ đạo nhưng bối cảnh statistics gần như giống nhau, nên nó học shortcut về phông nền/camera/table thay vì manipulation invariants. DROID muốn kiểm tra thesis: **nếu cùng một robot được mang đi rất nhiều tòa nhà, phòng, operator và vật thể setup, khả năng khái quát có tăng đáng kể không?**
+Một robot có thể làm việc rất tốt trong phòng thí nghiệm nhưng thất bại ngay khi gặp một chiếc bàn mới, ánh sáng khác hoặc nhiều đồ vật gây nhiễu. Nếu dữ liệu chỉ được thu tại vài nơi quen thuộc, mô hình có thể học thuộc phông nền thay vì học cách thao tác với vật. **DROID giải quyết vấn đề bằng cách thu demonstration trên cùng một hệ phần cứng tại nhiều tòa nhà và bối cảnh thực tế.** Bài báo kiểm tra xem học từ những trải nghiệm phong phú ấy có giúp robot hoạt động tốt hơn ở địa điểm và tình huống chưa từng gặp hay không.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 

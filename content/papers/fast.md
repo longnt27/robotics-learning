@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Autoregressive VLA có một vấn đề hơi ngu nhưng chí mạng: action liên tục stream ở 20-50 Hz tạo quá nhiều tokens nếu discretize từng dimension từng timestep. Sequence dài làm huấn luyện chậm, inference chậm và đặc biệt tệ ở dexterous/high-frequency các quỹ đạo. Nếu nén action quá mạnh thì lại mất độ chính xác. FAST hỏi: **có biểu diễn nào nén smooth robot các quỹ đạo thành ít tokens mà vẫn bảo toàn motor detail đủ tốt không?**
+Robot có thể tạo hàng chục lệnh điều khiển mỗi giây. Nếu biến từng con số ở từng thời điểm thành một token riêng, mô hình phải dự đoán một chuỗi rất dài dù chuyển động thực tế chỉ là một đường cong tương đối mượt. Điều này khiến huấn luyện tốn công và khó xử lý chuyển động tần số cao. **FAST nén cả đoạn chuyển động bằng cách biểu diễn tín hiệu trong miền tần số, rồi mới biến nó thành token.** Mục tiêu là giảm số token cần dự đoán mà vẫn giữ được chi tiết đủ chính xác để robot thực hiện những thao tác khéo léo.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 

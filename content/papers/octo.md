@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-RT-X cho thấy cross-embodiment pretraining có tiềm năng nhưng ecosystem còn thiếu một checkpoint mở, practical và adaptation-friendly. Một phòng thí nghiệm nhỏ không muốn huấn luyện foundation policy từ đầu; họ muốn lấy mô hình có vật lý prior sẵn rồi fine-tune bằng 50-100 demonstrations của robot mình. Octo sinh ra để trả lời đúng use case đó.
+Một phòng thí nghiệm nhỏ khó có đủ dữ liệu và GPU để huấn luyện mô hình điều khiển robot từ đầu. Nhưng họ có thể có vài chục hoặc vài trăm demonstration của robot mình. **Octo cung cấp một policy nguồn mở đã học trên nhiều loại nhiệm vụ robot, rồi cho phép tinh chỉnh nhanh trên dữ liệu mới.** Kiến trúc được thiết kế để có thể thay đổi loại quan sát hoặc dạng lệnh đầu ra mà không nhất thiết phải huấn luyện lại toàn bộ phần mạng chung. Tất nhiên vẫn phải kiểm tra cách chuyển lệnh cho phần cứng đích; một checkpoint không tự chạy được với mọi cấu trúc robot.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 

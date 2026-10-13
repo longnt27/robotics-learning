@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Bimanual manipulation khó ở hai phía cùng lúc: phần cứng teleoperation đắt và imitation learning có horizon rất dài. Nếu dự đoán từng action 50 Hz, một nhiệm vụ vài chục giây có hàng nghìn decision, nên chỉ cần policy hơi lệch một chút là compounding error đủ giết cả episode. Bài báo muốn chứng minh rằng **low-cost phần cứng + một biểu diễn theo thời gian tốt hơn** có thể học các kỹ năng hai tay khá tinh vi với lượng demo nhỏ.
+Một robot có hai tay muốn mở túi, lắp linh kiện hoặc gấp vải phải phối hợp cả hai tay đúng thời điểm. Nếu cứ dự đoán một lệnh rồi mới nghĩ đến lệnh kế tiếp, những sai lệch rất nhỏ có thể tích lũy: một tay đã kéo nhưng tay kia chưa giữ chắc, thế là thao tác hỏng. Thu dữ liệu người điều khiển cho các công việc này cũng khá tốn kém. **ACT đề xuất cho mô hình dự đoán cả một đoạn hành động liên tiếp thay vì từng bước riêng lẻ.** Cùng với hệ thống thu dữ liệu ALOHA, công trình kiểm tra liệu robot có thể học các thao tác hai tay tinh vi từ số lượng demonstration tương đối ít hay không.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 

@@ -11,7 +11,7 @@
 <!-- END ADDITIONAL PDF FIGURES -->
 Khi một công ty robot muốn deploy cùng policy lên cả robot hai tay, humanoid và mobile manipulator, họ gặp ít nhất ba vấn đề: (1) dữ liệu không đồng nhất không sạch và không chung schema, (2) một dense action mạng có thể bị nghẽn dung lượng mô hình khi nhiều robot/nhiệm vụ cạnh tranh, (3) robot phải hiểu **future consequences** thay vì chỉ matching next-action pattern. LingBot-VLA 2.0 chọn giải cả ba, trong một pipeline phù hợp cho production fleet.
 
-Nó không cố chứng minh một kiến trúc magic nào đập tan π0.5. Contribution nằm ở **engineering research**: quy trình tuyển lọc dữ liệu hàng chục nghìn giờ, unified biểu diễn cho whole-body, sparse MoE để tăng dung lượng mô hình và auxiliary future-state learning. Đây rất gần công việc của một team VLA pretraining nội bộ.
+Một công ty có thể thu hàng chục nghìn giờ robot thao tác mà mô hình vẫn hoạt động kém nếu các bản ghi bị lệch thời gian, lệnh điều khiển khác đơn vị hoặc nhiệm vụ hiếm bị lấn át bởi nhiệm vụ phổ biến. **LingBot-VLA 2.0 nghiên cứu cả một quy trình xây dựng mô hình VLA thực dụng:** tuyển chọn dữ liệu, đưa lệnh từ nhiều loại robot về cấu trúc chung, phân bổ năng lực mô hình bằng MoE và bổ sung mục tiêu dự đoán trạng thái tương lai. Muốn hiểu bài này, cần xem từng phần đóng góp như thế nào, chứ không thể chỉ nhìn số giờ dữ liệu hoặc số tham số.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Long-horizon manipulation cần rất nhiều demonstration vì robot phải biết cả **cấu trúc nhiệm vụ** lẫn **low-level control**. Thu hàng giờ teleoperation cho từng environment rất tốn. Trong khi đó một người có thể đứng trước bối cảnh và “chơi” với đồ vật cực nhanh, tạo ra hành vi ở cấp độ cao coverage rẻ hơn nhiều. Vấn đề là bàn tay người và robot arm không cùng morphology/action không gian. MimicPlay hỏi: **ta có thể lấy cái “plan” từ quá trình con người thao tác tự do mà không cần retarget mọi khung hình thành robot joint action không?**
+Video người dọn bàn, cắm hoa hay gấp khăn tương đối dễ thu thập. Nhưng người và robot có cấu trúc tay khác nhau, nên video ấy không thể trực tiếp biến thành góc khớp robot. **MIMICPLAY tách việc học thành hai tầng:** tầng đầu học trình tự và mục tiêu trung gian từ video người; tầng sau học cách điều khiển robot từ một lượng nhỏ demonstration do người vận hành. Nhờ cách chia này, hệ thống có thể tận dụng dữ liệu người rẻ hơn để làm những nhiệm vụ kéo dài nhiều bước, đồng thời vẫn cần dữ liệu robot để học chuyển động thực tế.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
