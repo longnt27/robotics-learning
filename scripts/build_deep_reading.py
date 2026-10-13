@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build extended Vietnamese research tutorials from reviewed, paper-specific data.
+"""Legacy generator for research tutorials. Requires --force on curated chapters.
 
 The existing chapters and slide claims are human-reviewed primary inputs; the
 generated paragraphs are educational interpretations and proposed tests, not
@@ -173,6 +173,7 @@ ANGLES=[
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--only",default="")
+    ap.add_argument("--force",action="store_true",help="Explicitly overwrite already curated explanations")
     args=ap.parse_args()
     manifest=json.loads((ROOT/"content/paper-figures.json").read_text())
     guides=json.loads((ROOT/"content/figure-guides.json").read_text())
@@ -183,6 +184,8 @@ def main():
     for path in files:
         slug=path.stem
         original=path.read_text()
+        if START in original and not args.force:
+            raise RuntimeError(f"{slug}: chapter already has curated text; use --force only to intentionally replace it")
         if START in original:
             original=re.sub(re.escape(START)+r"[\s\S]*?"+re.escape(END)+r"\n*","",original)
         slides=json.loads((ROOT/"content/slides"/(slug+".json")).read_text())

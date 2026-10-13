@@ -2,32 +2,33 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
+import { createHash } from "node:crypto";
 
 const root=path.resolve(import.meta.dirname,"..");
-const baselines={
-  "act": 808,
-  "bridgedata-v2": 810,
-  "diffusion-policy": 912,
-  "droid": 738,
-  "fast": 696,
-  "groot-n1": 1868,
-  "libero": 893,
-  "lingbot-vla-2": 2132,
-  "mimicplay": 810,
-  "octo": 739,
-  "open-x-embodiment": 766,
-  "openvla": 734,
-  "palm-e": 881,
-  "pi-0-5": 777,
-  "qwen-vla": 1871,
-  "rdt-1b": 708,
-  "robocasa": 745,
-  "rt-1": 1254,
-  "rt-2": 851,
-  "rtc-inference": 1882,
-  "rtc-training": 1594,
-  "vima": 791
-};
+const corpusSlugs=[
+  "act",
+  "bridgedata-v2",
+  "diffusion-policy",
+  "droid",
+  "fast",
+  "groot-n1",
+  "libero",
+  "lingbot-vla-2",
+  "mimicplay",
+  "octo",
+  "open-x-embodiment",
+  "openvla",
+  "palm-e",
+  "pi-0-5",
+  "qwen-vla",
+  "rdt-1b",
+  "robocasa",
+  "rt-1",
+  "rt-2",
+  "rtc-inference",
+  "rtc-training",
+  "vima",
+];
 const figures=JSON.parse(fs.readFileSync(path.join(root,"content/paper-figures.json"),"utf8"));
 const guides=JSON.parse(fs.readFileSync(path.join(root,"content/figure-guides.json"),"utf8"));
 const countWords=(markdown)=>markdown
@@ -35,41 +36,76 @@ const countWords=(markdown)=>markdown
   .replace(/https?:\/\/\S+/g,"")
   .split(/\s+/).filter(Boolean).length;
 
-test("all twenty-two scientific chapters contain at least five times the prior explanation",()=>{
-  assert.equal(Object.keys(baselines).length,22);
-  assert.deepEqual(Object.keys(figures).sort(),Object.keys(baselines).sort());
-  assert.deepEqual(Object.keys(guides).sort(),Object.keys(baselines).sort());
+test("all 22 chapters teach concepts with paper-specific examples, not template padding",()=>{
+  assert.equal(corpusSlugs.length,22);
+  assert.deepEqual(Object.keys(figures).sort(),[...corpusSlugs].sort());
+  assert.deepEqual(Object.keys(guides).sort(),[...corpusSlugs].sort());
   const counts=Object.values(figures).map(items=>items.length);
-  assert.ok(counts.reduce((total,n)=>total+n,0)>44,'No more fixed two-figure cutoff');
-  assert.ok(new Set(counts).size>=3,'Number of figures must depend on source paper');
-  for(const [slug,previousWords] of Object.entries(baselines)){
+  assert.ok(counts.reduce((total,n)=>total+n,0)>44,"Do not cap source figures at two per paper");
+  assert.ok(new Set(counts).size>=3,"Figure count must depend on the paper");
+  const usedTitles=new Map();
+  for(const slug of corpusSlugs){
     const content=fs.readFileSync(path.join(root,"content/papers",slug+".md"),"utf8");
-    const current=countWords(content);
-    assert.ok(current>=previousWords*5,`${slug}: expected ≥${previousWords*5} words, got ${current}`);
-    assert.ok(content.includes("#### Đọc hình gốc:"),`${slug}: no illustrated source explanation`);
-    assert.ok(content.includes("#### Ví dụ từng bước để hiểu cơ chế"),`${slug}: missing worked example`);
-    assert.ok(content.includes("### Đào sâu:"),`${slug}: missing technical walkthrough`);
-    assert.ok(figures[slug].length>=2,`${slug}: fewer than two verified paper figures`);
+    assert.ok(countWords(content)>=1450,slug+": chapter needs substantive teaching");
+    const blocks=[...content.matchAll(/<!-- BEGIN EXTENDED WALKTHROUGH -->([\s\S]*?)<!-- END EXTENDED WALKTHROUGH -->/g)].map(match=>match[1]);
+    assert.ok(blocks.length>=8,slug+": expected section-by-section explanations");
+    const topics=["Vì sao cần nghiên cứu này?","Phương pháp thực hiện","Kết quả thực nghiệm","Hạn chế và câu hỏi còn mở","Liên hệ với nghiên cứu khác"];
+    for(const topic of topics)assert.ok(content.includes("## "+topic),slug+": missing "+topic);
+    assert.match(content,/#### Đọc hình gốc:/,slug+": missing visual reading guide");
+    assert.match(content,/#### Ví dụ từng bước để hiểu cơ chế/,slug+": missing worked example");
+    assert.doesNotMatch(content,/### Đào sâu:|\*\*(?:Luận điểm|Hai quy trình khác nhau ra sao\?|Vấn đề khoa học nằm ở đâu\?)\.\*\*/,
+      slug+": old boilerplate still present");
+    const explanations=blocks.flatMap(block=>[...block.matchAll(/^### ([^\n]+)/gm)].map(match=>match[1]));
+    assert.ok(explanations.length>=7,slug+": needs clear educational subheadings");
+    for(const title of explanations){
+      const reuse=usedTitles.get(title)||new Set();
+      reuse.add(slug);usedTitles.set(title,reuse);
+    }
+    for(const section of blocks){
+      const own=section.replace(/!\[[^\]]*\]\([^)]+\)/g,"").trim();
+      assert.ok(own.length>=100,slug+": empty walkthrough section");
+    }
     for(const fig of figures[slug]){
-      assert.match(fig.caption,/^fig(?:ure)?\.?\s*\d+/i,`${slug}: unverified PDF caption`);
-      assert.ok(fig.pdf.startsWith("https://"),`${slug}: missing PDF provenance`);
-      assert.ok(Number.isInteger(fig.page)&&fig.page>0,`${slug}: invalid PDF page`);
-      assert.ok(fig.bbox.length===4,`${slug}: missing source crop coordinates`);
-      assert.ok(fig.image.startsWith("/paper-figures/"+slug+"/"),`${slug}: bad image location`);
-      assert.ok(fs.existsSync(path.join(root,"public",fig.image)),`${slug}: missing image bytes ${fig.image}`);
-      assert.ok(content.includes("]("+fig.image+")"),`${slug}: figure not embedded`);
-      assert.ok(fig.caption.trim().length>=35,`${slug}: source author caption is missing`);
-      assert.ok(fig.caption_vi?.trim().length>=12,`${slug}: missing Vietnamese translation for Figure ${fig.number}`);
+      assert.match(fig.caption,/^fig(?:ure)?\.?\s*\d+/i,slug+": original figure caption missing");
+      assert.ok(fig.pdf.startsWith("https://"),slug+": missing original PDF");
+      assert.ok(Number.isInteger(fig.page)&&fig.page>0,slug+": bad PDF page");
+      assert.equal(fig.bbox.length,4,slug+": missing source crop");
+      assert.ok(fig.image.startsWith("/paper-figures/"+slug+"/"));
+      assert.ok(fs.existsSync(path.join(root,"public",fig.image)),slug+": missing image bytes: "+fig.image);
+      assert.ok(content.includes("]("+fig.image+")"),slug+": figure not shown");
+      assert.ok(fig.caption_vi?.trim().length>=30,slug+": short translated caption "+fig.number);
       assert.ok(/[àáạảãăâđèéẹẻẽêếìíịỉĩòóọỏõôốơớùúụủũưứỳýỵỷỹ]/i.test(fig.caption_vi),
-        `${slug}: translation lacks Vietnamese diacritics`);
-      assert.match(fig.translation_method,/envit5-translation/,`${slug}: translation provenance missing`);
-      assert.match(fig.caption_sha256,/^[a-f0-9]{64}$/,`${slug}: translation source hash missing`);
-      assert.ok(!content.includes("Xem caption đầy đủ trong PDF"),`${slug}: redundant fake caption remains`);
+        slug+": Vietnamese diacritics missing in figure "+fig.number);
+      assert.equal(fig.translation_method,"manual-editorial-from-original-english",slug+": unedited machine translation "+fig.number);
+      assert.equal(fig.translation_reviewed,true,slug+": review marker missing "+fig.number);
+      assert.equal(fig.caption_sha256,createHash("sha256").update(fig.caption).digest("hex"),
+        slug+": original source caption changed without re-review "+fig.number);
+      assert.doesNotMatch(fig.caption_vi,/\b(?:sự mài mòn|không bắn|biến áp vani|gợi ý mulitimodal|tổn thất huấn luyện)\b/i,
+        slug+": mistranslated scientific term in caption "+fig.number);
     }
     for(const key of ["overview","method","worked"]){
-      assert.ok(guides[slug][key].split(/\s+/).length>=60,`${slug}: ${key} lacks meaningful paper-specific detail`);
+      assert.ok(guides[slug][key].split(/\s+/).length>=60,slug+": "+key+" guide missing");
     }
+    assert.ok(!content.includes("Xem caption đầy đủ trong PDF"),slug+": fake caption placeholder");
   }
+  for(const [title,papers] of usedTitles){
+    assert.ok(papers.size<=4,"Template heading reused across too many papers: "+title);
+  }
+});
+
+test("all figure translations are editorial, distinct from their original English",()=>{
+  const entries=Object.values(figures).flat();
+  assert.equal(entries.length,167);
+  for(const entry of entries){
+    assert.notEqual(entry.caption_vi.trim(),entry.caption.trim());
+    assert.ok(entry.caption_vi.trim().length>=30);
+  }
+  const component=fs.readFileSync(path.join(root,"components/paper-figure.tsx"),"utf8");
+  assert.match(component,/BẢN DỊCH ĐÃ BIÊN TẬP/);
+  assert.doesNotMatch(component,/BẢN DỊCH TIẾNG VIỆT \{isTranslated \? "\(\s*TỰ ĐỘNG/);
+  const script=fs.readFileSync(path.join(root,"scripts/translate_paper_captions.py"),"utf8");
+  assert.match(script,/figure\.get\("translation_reviewed"\)/,
+    "Machine translator must not overwrite editorial translations");
 });
 
 test("Markdown hides generator markers without discarding real explanatory sections",()=>{

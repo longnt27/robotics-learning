@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Behavior cloning kiểu regression thường giả định một quan sát có một action target “trung bình”. Nhưng robot demonstrations rất hay **multimodal**: cùng một bối cảnh có thể vòng obstacle bên trái hoặc bên phải, grasp vật thể từ nhiều hướng, hoặc có nhiều quỹ đạo đều hợp lệ. MSE regression có xu hướng average các mode và tạo ra action chẳng mode nào muốn, một cách khá sáng tạo để robot đâm đúng vào giữa chướng ngại vật. Ngoài ra actions có theo thời gian correlation mạnh, nên dự đoán từng timestep độc lập làm quỹ đạo rung và dễ tích lũy lỗi.
+Hãy tưởng tượng robot cần đi vòng một vật cản. Nó có thể đi bên trái hoặc bên phải, cả hai đều đúng. Nếu mô hình học một hành động “trung bình” từ hai cách này, robot có thể chọn đường đi thẳng vào vật cản. Đây là nhược điểm của cách học bắt chước dự đoán trực tiếp một giá trị khi dữ liệu có nhiều phương án hợp lệ. **Diffusion Policy học cách tạo ra cả đoạn chuyển động bằng quá trình khử nhiễu**, nhờ đó có thể chọn một phương án rồi thực hiện nhất quán. Công trình còn nghiên cứu việc quan sát lại trong khi chạy để robot sửa kế hoạch khi môi trường thay đổi.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -16,29 +16,11 @@ Behavior cloning kiểu regression thường giả định một quan sát có m
 
 Hình 1 đối chiếu cách biểu diễn policy: một ánh xạ tường minh từ observation sang action, một hàm năng lượng ẩn và một quá trình sinh mẫu từ nhiễu. Trường hợp một trạng thái có hai hướng thao tác hợp lệ rất quan trọng: hồi quy MSE có thể tạo action trung bình nằm giữa hai mode và chẳng mode nào thật sự khả thi. Diffusion Policy mô hình hóa cả phân phối trên chuỗi hành động, vì thế có thể sinh một phương án nhất quán thay vì ép mọi demonstration vào một giá trị trung bình.
 
-### Đào sâu: Điểm cốt lõi
+### Vì sao lấy trung bình hành động có thể làm robot đâm vào vật?
 
-**Luận điểm.** Sinh một quỹ đạo chuyển động đa phương án thay vì học action trung bình dễ va chạm. Behavior cloning kiểu regression thường giả định một quan sát có một action target “trung bình”.
+Giả sử robot muốn đẩy một khối qua chướng ngại. Trong dữ liệu huấn luyện, một nửa người vận hành vòng bên trái và nửa còn lại vòng bên phải. Cả hai đều đúng. Nếu mạng học dự đoán một giá trị bằng cách giảm sai số bình phương, nó có thể chọn quỹ đạo ở giữa hai hướng, tức đi thẳng vào chướng ngại. Vấn đề không nằm ở thiếu nhãn, mà ở chỗ **một trạng thái có thể có nhiều đáp án vận động hợp lệ**.
 
-**Vấn đề khoa học nằm ở đâu?** Robot vòng bên trái hoặc bên phải đều hợp lệ; action regression dễ trung bình hóa thành đường đâm giữa chướng ngại. Một hệ thống robot có thể có hình ảnh đẹp, output trông hợp lý nhưng vẫn sai ở cơ cấu thực thi. Vì thế phải tách câu hỏi về dữ liệu, câu hỏi về representation, câu hỏi về policy và câu hỏi về đánh giá. Học phân phối của cả action chunk bằng denoising là đóng góp cần đọc cùng các giả định ấy, không phải câu slogan thay thế cho thí nghiệm.
-
-**Đọc đóng góp như một giả thuyết.** Cơ chế được đề xuất là Khởi đầu từ nhiễu, lặp bước chỉnh để tạo một quỹ đạo khả thi nhất quán theo thời gian. Nếu nó thật sự hữu ích, điểm khác biệt phải xuất hiện tại chính nơi baseline gặp bottleneck. Không đủ chỉ liệt kê thành phần mới; cần giải thích tại sao dữ liệu hoặc observation hiện có không giải được bài toán với cách làm cũ.
-
-### Đào sâu: Một quan sát có thể dẫn đến nhiều đường đi đều đúng
-
-**Luận điểm.** Robot vòng bên trái hoặc bên phải đều hợp lệ; action regression dễ trung bình hóa thành đường đâm giữa chướng ngại. MSE regression có xu hướng average các mode và tạo ra action chẳng mode nào muốn, một cách khá sáng tạo để robot đâm đúng vào giữa chướng ngại vật.
-
-**Tại sao lỗi này có hệ quả lớn?** MSE action regression gom nhiều mode thành trung bình. Mỗi action làm thay đổi trạng thái môi trường và tạo ra observation tiếp theo. Một dự đoán hơi lệch có thể đẩy robot ra ngoài những trạng thái từng thấy trong demonstration, khiến bước sau khó phục hồi hơn. Bản thân một quan sát có thể dẫn đến nhiều đường đi đều đúng vì thế ảnh hưởng đến toàn bộ rollout, chứ không chỉ một hàng trong bảng accuracy.
-
-**Thử nghĩ một phản ví dụ.** Nếu chỉ test các episode có điểm bắt đầu giống dữ liệu huấn luyện, policy có thể học shortcut về bối cảnh. Đổi nhẹ góc camera, vật thể hoặc thứ tự thao tác sẽ phơi bày liệu nó có dùng tín hiệu nhân quả phù hợp không. Vì vậy phải kiểm tra điều kiện test trước khi đọc tỷ lệ thành công.
-
-### Đào sâu: MSE action regression gom nhiều mode thành trung bình
-
-**Luận điểm.** Dự đoán độc lập từng bước cũng dễ khiến quỹ đạo giật và sai số tích lũy. Ngoài ra actions có theo thời gian correlation mạnh, nên dự đoán từng timestep độc lập làm quỹ đạo rung và dễ tích lũy lỗi.
-
-**Hai quy trình khác nhau ra sao?** Phương pháp cũ gặp trở ngại: Dự đoán độc lập từng bước cũng dễ khiến quỹ đạo giật và sai số tích lũy.. Thay đổi trọng tâm là: Học phân phối của cả action chunk bằng denoising. Câu hỏi có ích nhất không phải mạng mới có bao nhiêu lớp, mà là thông tin nào trước kia bị đánh mất và giờ được chuyển qua đúng mô-đun. Khởi đầu từ nhiễu, lặp bước chỉnh để tạo một quỹ đạo khả thi nhất quán theo thời gian.
-
-**Đặt điều kiện đối chứng.** Nếu train hai cách với data budget khác nhau, hoặc một bên dùng pretrained encoder còn bên kia không, chênh lệch không đủ để gán cho cơ chế mới. Một ablation đúng phải giữ càng nhiều yếu tố càng tốt và thay đổi đúng thành phần tác giả muốn chứng minh.
+Diffusion Policy không ép các demonstration về một đường đi “trung bình”. Nó học cách tạo ra cả chuỗi hành động giống các đường đi hợp lệ, rồi lấy mẫu để chọn một đường nhất quán trong mỗi lần chạy. Đây là ý chính cần giữ khi đọc công thức khử nhiễu.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -50,13 +32,11 @@ Mô hình diffusion học loại noise từ quỹ đạo. **Denoising timestep**
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Ba khái niệm để nắm
+### Hiểu ba cách dự đoán trước khi nhìn công thức
 
-**Luận điểm.** Hiểu ba khái niệm này trước khi đọc thuật toán. Mô hình diffusion học loại noise từ quỹ đạo. Denoising timestep hoàn toàn khác timestep robot: một cái là số vòng sinh, cái kia là thời gian vật lý trong action horizon.
+**Policy tường minh** có thể nhận ảnh rồi dự đoán trực tiếp lệnh; khi nhiều cách thao tác cùng đúng, một giá trị trung bình dễ trở thành phương án tồi. **Policy ngầm** đánh giá xem một hành động phù hợp với quan sát tới mức nào rồi tìm hành động có điểm tốt. Cách này linh hoạt nhưng khâu tìm kiếm có thể khó tối ưu hoặc chạy không ổn định.
 
-**Khái niệm thành cấu trúc tính toán.** Multimodality: Nhiều quỹ đạo đúng tương ứng cùng observation. Hãy luôn hỏi: input tensor là gì, output tensor là gì, biểu diễn đó mang thông tin thời gian hay không, và vì sao không thể đơn giản thay bằng một vector khác. Mô hình diffusion học loại noise từ quỹ đạo. Denoising timestep hoàn toàn khác timestep robot: một cái là số vòng sinh, cái kia là thời gian vật lý trong action horizon. Một thuật ngữ chỉ hữu ích khi nối được với dữ liệu và hành vi có thể quan sát.
-
-**Tránh ba sự nhầm lẫn.** Dataset đa dạng chưa phải model khái quát; có latent hoặc token chưa chắc học được semantics; loss offline tốt chưa chắc action thực thi ổn định. Phần kiến thức nền dùng để loại trừ các kết luận quá mạnh đó. Muốn khẳng định model dùng đúng khái niệm, hãy kiểm tra ablation và intermediate representation.
+**Mô hình diffusion** bắt đầu từ một chuỗi lệnh ngẫu nhiên, rồi sửa đi sửa lại theo hướng mô hình đã học cho đến khi trông giống chuyển động hợp lệ trong dữ liệu. **Đoạn hành động (action chunk)** là nhiều bước liên tiếp được dự đoán cùng lúc. Nhờ vậy mô hình không cần tự chọn hướng mới một cách thiếu nhất quán ở từng khung hình.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -85,53 +65,11 @@ Hình 2 là ảnh từ các benchmark robot thật. Nó nhắc rằng quality c�
 
 Ví dụ có hai demonstration mở ngăn kéo: một người đưa gripper tiếp cận từ trái, người khác từ phải. Nếu output là trung bình trực tiếp của hai quỹ đạo, robot có thể đi thẳng vào mép ngăn kéo. Diffusion model bắt đầu từ action trajectory nhiễu, denoise qua nhiều bước để chọn một mode hợp lệ theo ảnh quan sát. Chỉ thực thi một phần đầu chunk, sau đó quan sát lại và replan. Điều này cho phép đóng vòng, nhưng số bước denoising ảnh hưởng latency. Một so sánh tử tế phải nhìn trade-off giữa chất lượng mẫu và tốc độ inference.
 
-### Đào sâu: Học phân phối của cả action chunk bằng denoising
+### Từ ảnh camera tới chuỗi chuyển động
 
-**Luận điểm.** Khởi đầu từ nhiễu, lặp bước chỉnh để tạo một quỹ đạo khả thi nhất quán theo thời gian. Điểm bản chất không phải chỉ “dùng diffusion vì đang hot”, mà là diffusion có thể đại diện nhiều mode của phân phối action và vẫn tạo quỹ đạo temporal-coherent.
+**Bước 1:** lấy một số quan sát mới nhất từ camera và trạng thái robot. **Bước 2:** sinh một đoạn chuỗi hành động toàn nhiễu, coi như chưa biết robot sẽ đi đâu. **Bước 3:** mạng dự đoán phần nhiễu cần loại bỏ dựa trên hình ảnh và chuỗi hiện tại. Lặp nhiều lần, đoạn chuyển động dần trở nên có cấu trúc: tiếp cận khối, chạm đúng cạnh, rồi đẩy.
 
-**Giải thích không dùng tên model.** Khởi đầu từ nhiễu, lặp bước chỉnh để tạo một quỹ đạo khả thi nhất quán theo thời gian. Thử mô tả bằng một câu chuyện đầu vào và đầu ra, tránh dựa vào từ như Transformer, flow, token hay MoE để thay thế giải thích. Điều quan trọng là hiểu cơ chế ấy biến thông tin quan sát thành điều gì có ích để robot ra quyết định.
-
-**Từ intuition tới phép thử.** Sinh một quỹ đạo chuyển động đa phương án thay vì học action trung bình dễ va chạm. Nếu ta loại bỏ cơ chế đó nhưng giữ nguyên dữ liệu và evaluator, lỗi nào kỳ vọng tăng lên? Nếu không dự đoán được loại lỗi, có thể ta chỉ đang học thuộc mô tả phương pháp mà chưa hiểu tại sao tác giả lựa chọn nó.
-
-### Đào sâu: Kiến trúc trong một sơ đồ
-
-**Luận điểm.** Sinh một quỹ đạo chuyển động đa phương án thay vì học action trung bình dễ va chạm. Mô hình bắt đầu từ noise rồi denoise thành một quỹ đạo, điều kiện trên thị giác quan sát và state.
-
-**Lần theo đầu vào đến đầu ra.** Sơ đồ nên được đọc theo thứ tự Ảnh + trạng thái → Noisy action chunk → Conditional denoiser → Quỹ đạo → thực thi ngắn. Mỗi mũi tên tương ứng với một thao tác thực: đọc cảm biến, xử lý tensor, trích đặc trưng, suy luận, giải mã hoặc gửi command. Nếu bỏ qua quá trình chuẩn hoá hay xử lý timestamp, sơ đồ vẫn đẹp nhưng implementation có thể fail.
-
-**Chỗ dễ sai khi triển khai.** Mô hình bắt đầu từ noise rồi denoise thành một quỹ đạo, điều kiện trên thị giác quan sát và state. Với mỗi module, hãy ghi checkpoint nào dùng, shape dữ liệu, đơn vị và hệ quy chiếu, thành phần nào có gradient và thành phần nào chỉ hiện diện lúc training. Sau đó log action trước và sau inverse normalization để phát hiện lỗi thuộc pipeline chứ không phải lỗi model.
-
-### Đào sâu: Mô hình biểu diễn cái gì?
-
-**Luận điểm.** Một chunk A có kích thước horizon × action DoF. Nó dùng receding-horizon control: dự đoán một horizon tương đối dài, thực thi một đoạn ngắn, rồi observe và replan.
-
-**Action là một hợp đồng kỹ thuật.** ĐẦU RA / DẠNG BIỂU DIỄN: Denoiser dự đoán nhiễu hoặc quỹ đạo sạch theo observation. Một vector điều khiển có thể là joint angle, delta end-effector, gripper hoặc các token đã lượng tử hoá. Cần biết số chiều, đơn vị, hệ tọa độ, scaling và trục thời gian. Nó dùng receding-horizon control: dự đoán một horizon tương đối dài, thực thi một đoạn ngắn, rồi observe và replan. Không xác định các yếu tố này thì chưa thể nối output model với phần cứng.
-
-**Kiểm tra trước khi train.** Lấy một trajectory đúng, encode rồi decode qua representation dự kiến. Đo reconstruction error trên từng chiều và vị trí thời gian quan trọng, nhất là khi tiếp xúc vật thể. Thử đổi horizon hoặc normalization mà giữ nguyên dữ liệu. Một adapter sai có thể phá mọi rollout dù bản thân network vẫn tối ưu được loss.
-
-### Đào sâu: Model học như thế nào?
-
-**Luận điểm.** Lấy ground-truth action sequences từ demonstrations. Chính recipe này sau đó xuất hiện với biến thể flow matching trong π-series, RDT, GR00T, Qwen-VLA và một đống mô hình khác.
-
-**Loss phải có nguồn supervision.** MỤC TIÊU HỌC: Thêm Gaussian noise ở mức k và học loại nhiễu. Hãy chỉ ra batch gồm observation, state, instruction, target action hay target đặc trưng nào; rồi xác định mô hình đang học reconstruction, dự đoán chuỗi hay một phân phối có điều kiện. Cùng tên 'training' nhưng cách tạo target ở BC, diffusion, flow matching và mô hình dự đoán đặc trưng khác nhau căn bản.
-
-**Phân tách lỗi dữ liệu và lỗi thuật toán.** Chính recipe này sau đó xuất hiện với biến thể flow matching trong π-series, RDT, GR00T, Qwen-VLA và một đống mô hình khác. Kiểm tra episode split trước khi chia thành window, kiểm tra timestamp camera/action, normalization, random seed và khả năng overfit một subset nhỏ. Nếu vài trajectory còn không học được, việc tăng model size hoặc đổi scheduler thường chỉ che lỗi implementation.
-
-**Đọc ablation đúng cách.** Sự khác nhau giữa CNN và Transformer action backbones và các horizon. Khi đổi một module phải giữ data budget, training steps và quy trình đánh giá tương đương. Nếu nhiều thứ đổi cùng lúc, tác dụng thực sự là của toàn hệ thống, không thể kết luận một trick đơn lẻ tạo toàn bộ mức cải thiện.
-
-### Đào sâu: Mathematical Intuition
-
-**Luận điểm.** Trộn action thật A với nhiễu ε; khi học, mạng biết cách đảo quá trình để tìm quỹ đạo hợp lệ. Regress với MSE một action trung bình có thể tạo con đường đi thẳng vào chướng ngại. Generative mô hình dự đoán phân phối có nhiều đỉnh sẽ lấy mẫu thuộc một mode thay vì average.
-
-$$
-x_k=\sqrt{\bar\alpha_k}\,A+\sqrt{1-\bar\alpha_k}\,\epsilon
-$$
-
-**Công thức đang mô tả thứ gì?** Trộn action thật A với nhiễu ε; khi học, mạng biết cách đảo quá trình để tìm quỹ đạo hợp lệ. Trước khi tính đạo hàm hoặc chuyển vế, hãy xác định đâu là observation, đâu là biến action, đâu là horizon/conditioning và đâu là tham số được học. Regress với MSE một action trung bình có thể tạo con đường đi thẳng vào chướng ngại. Generative mô hình dự đoán phân phối có nhiều đỉnh sẽ lấy mẫu thuộc một mode thay vì average. Ký hiệu ngắn gọn không nói hết cách chọn discretization, action mask hoặc runtime sampler.
-
-**Một phép thử bằng hai trajectory.** Hai lần thao tác có cùng mục tiêu nhưng trạng thái ban đầu khác nhau có thể cần action khác. Công thức này có cho phép output phụ thuộc vào thông tin phân biệt ấy không? Nếu nhiều demonstration hợp lệ khác nhau, model học một mode, average hay một phân phối đa mode? Đây mới là câu hỏi hiểu toán trong robot learning.
-
-**Giới hạn của suy luận từ công thức.** Ký hiệu mô tả forward noise thường gặp trong diffusion. Một biểu thức xác suất hoặc phép nội suy không tự chứng minh model đã học vật lý hay robot sẽ thành công. Loss và nguồn target quyết định model có tín hiệu nào, còn evaluation mới cho biết hành vi thực hiện ngoài đời.
+**Bước 4:** robot chỉ thực thi một phần đầu của đoạn đã sinh. Sau đó camera cung cấp ảnh mới và mô hình tạo đoạn tiếp theo. Đây là điều khiển có quan sát lại, khác với việc phát một quỹ đạo duy nhất rồi để robot chạy hết. Trong kiến trúc CNN, FiLM đưa thông tin quan sát vào các lớp xử lý; trong bản Transformer, chú ý chéo kết nối token hành động với đặc trưng quan sát.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -149,15 +87,11 @@ Tạo demo Push-T: quan sát gồm tọa độ pusher và vật T. Với cùng s
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Một lần inference xảy ra ra sao?
+### Hình dung bài toán đẩy khối chữ T
 
-**Luận điểm.** Bắt đầu từ noise, model khử nhiễu theo nhiều vòng để sinh một chunk có điều kiện theo quan sát. Inference bắt đầu từ noise, lặp nhiều bước đến action chunk hợp lệ. Robot chỉ thực thi a_0...a_m, chụp quan sát mới, rồi replan.
+Trên bàn, khối chữ T cần được đẩy vào vùng đích. Robot có thể vòng một bên rồi đổi hướng đẩy, hoặc bắt đầu từ bên khác mà vẫn tới đúng chỗ. Diffusion Policy học sự khác biệt giữa những phương án này. Khi đã chọn tiếp cận từ bên phải trong một lần chạy, chuỗi lệnh cần tiếp tục theo cách đó, không đột nhiên nhảy sang trái ở bước kế.
 
-**Một tick điều khiển xảy ra thế nào?** XỬ LÝ ĐẦU VÀO: Chạy denoising nhiều vòng dưới điều kiện observation. Ta nhận observation, tính conditioning, sinh action, giải mã và gửi lệnh xuống controller. Inference bắt đầu từ noise, lặp nhiều bước đến action chunk hợp lệ. Robot chỉ thực thi a_0...a_m, chụp quan sát mới, rồi replan. Hãy ghi lại thời điểm ở mỗi bước vì latency từ ảnh đến actuator khác với thời gian chạy forward của riêng backbone.
-
-**Khi môi trường đổi giữa hai lần query.** Nếu vật thể dịch chuyển, mô hình có nhận observation mới đủ nhanh không; action nào đã cam kết và action nào có thể sửa? TẠO HÀNH ĐỘNG: Chạy vài action, đọc camera mới và replan; đổi lại có inference latency. Trả lời được mới hiểu policy có thực sự closed-loop hoặc chỉ phát một quỹ đạo cố định rồi hy vọng robot làm đúng.
-
-**Điều nên đo thêm.** Ngoài task success, hãy log tail latency, action jerk, lỗi ở điểm nối các action chunk và khả năng phục hồi sau disturbance. Một video chuyển động mượt không chứng minh robot làm đúng mục tiêu, còn throughput cao chưa chắc đảm bảo control loop ổn định.
+Bây giờ người dùng xê dịch khối trong lúc robot đang đi tới vùng đích. Nếu camera cập nhật đủ nhanh, policy có cơ hội nhận ra vị trí mới và tạo chuỗi lệnh sửa sai. Ví dụ ở Hình 9 cho thấy hiện tượng này trong thí nghiệm; nhưng nó không có nghĩa mọi loại nhiễu đều được xử lý tốt.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -177,23 +111,11 @@ Kết quả có sức ảnh hưởng nhất là qualitative: quỹ đạo mượ
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Kết quả nói lên điều gì?
+### Đọc kết quả và thí nghiệm tách thành phần
 
-**Luận điểm.** Đánh giá 12 nhiệm vụ thuộc 4 nhóm benchmark. Trên 12 nhiệm vụ thuộc 4 benchmark families, tác giả nêu cải thiện trung bình rất lớn so với các phương pháp đối chứng điều khiển từ thị giác, khoảng 46.9% theo cách tổng hợp của tác giả.
+Điểm cần theo dõi không chỉ là tỷ lệ thành công tổng hợp. Hình 4 so khả năng giữ một cách đi xuyên suốt lần thực thi; Hình 5 thay loại lệnh vị trí/vận tốc; Hình 6 thay độ dài đoạn hành động và độ trễ. Một đoạn quá dài có thể mượt nhưng khó phản ứng với vật bị di chuyển; đoạn quá ngắn có thể cập nhật nhanh nhưng dễ dao động. Đấy là sự đánh đổi có ý nghĩa thực tế.
 
-**Cách đọc bảng số liệu.** PHÁT HIỆN QUAN TRỌNG: Bài báo báo trung bình cải thiện khoảng 46,9% theo cách tổng hợp của tác giả. Trước khi so score, xác định metric đo thành công cuối hay progress từng bước, baseline dùng dữ liệu gì, số lần lặp, tập test và cách gộp các nhiệm vụ. Trên 12 nhiệm vụ thuộc 4 benchmark families, tác giả nêu cải thiện trung bình rất lớn so với các phương pháp đối chứng điều khiển từ thị giác, khoảng 46.9% theo cách tổng hợp của tác giả. Chênh lệch average đôi khi giấu những task thất bại nghiêm trọng.
-
-**Từ số sang kết luận có phạm vi.** CÁCH DIỄN GIẢI: Nhiệm vụ thực như mug flipping và sauce pouring cho thấy lợi thế trên nhiều baseline. Một mô hình khái quát tốt trên lệnh mới chưa chắc điều khiển contact-rich tốt; data diversity hiệu quả chưa bảo đảm chuyển được sang morphology lạ; model chạy nhanh chưa có nghĩa tail latency phù hợp servo. Phải kết luận theo đúng chiều mà thí nghiệm đo.
-
-**Độ tin cậy của bằng chứng.** Camera placement, calibration, noise, split, seed và budget huấn luyện đều ảnh hưởng outcome. Một kết quả đáng tin cần báo cáo đủ điều kiện để người đọc kiểm tra, và có đối chứng tránh nhiễu. Nếu thiếu, hãy nói rõ mức bất định thay vì tưởng tượng số liệu.
-
-### Đào sâu: Ablation và bằng chứng
-
-**Luận điểm.** Sự khác nhau giữa CNN và Transformer action backbones và các horizon. Với nhiệm vụ trên robot thật như mug flipping, sauce pouring/spreading, diffusion policy đạt thành công cao trong khi một số phương pháp đối chứng LSTM-GMM hoặc hồi quy thất bại hoặc kém rõ rệt.
-
-**Ablation hỏi nguyên nhân, không chỉ điểm số.** YẾU TỐ ĐƯỢC THỬ: Cải thiện không chỉ đến từ diffusion: receding horizon và tuning đều góp phần. Loại bỏ một thành phần khiến performance giảm là dấu hiệu hữu ích trong thiết lập đã thử, nhưng chưa chứng minh nó là giải pháp duy nhất. Với nhiệm vụ trên robot thật như mug flipping, sauce pouring/spreading, diffusion policy đạt thành công cao trong khi một số phương pháp đối chứng LSTM-GMM hoặc hồi quy thất bại hoặc kém rõ rệt. Hãy tìm xem các đường baseline có chung dữ liệu, model capacity và ngân sách tối ưu không.
-
-**Đọc theo từng failure mode.** Với nhiệm vụ trên robot thật như mug flipping, sauce pouring/spreading, diffusion policy đạt thành công cao trong khi một số phương pháp đối chứng LSTM-GMM hoặc hồi quy thất bại hoặc kém rõ rệt. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
+**Ablation** tức thử bỏ hoặc đổi riêng một thành phần để xem tác dụng của nó. Thí nghiệm này không phải “nghiên cứu phá vỡ”. Khi đọc các biểu đồ, hãy hỏi tỷ lệ thành công được đo trên bao nhiêu lượt chạy và đường sai số có lớn không. Kết quả loss tốt hơn chưa chắc dẫn tới thao tác tốt hơn, như so sánh với IBC ở Hình 7.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -205,13 +127,11 @@ Kết quả có sức ảnh hưởng nhất là qualitative: quỹ đạo mượ
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Hạn chế cần nói thẳng
+### Giới hạn của quá trình sinh nhiều bước
 
-**Luận điểm.** Tách rõ tác giả thừa nhận và nhận định phê bình độc lập. Iterative denoising làm inference đắt hơn one-shot regression, gây khó cho high-frequency control.
+Sinh chuỗi bằng khử nhiễu thường cần nhiều lượt tính toán. Nếu robot cần lệnh mỗi vài chục mili giây mà GPU chậm, chính sách có thể không kịp trả lời. Dự đoán đoạn dài giúp che bớt độ trễ nhưng không xóa được sai số camera, tiếp xúc hoặc khác biệt phần cứng.
 
-**Phân biệt điều tác giả chỉ ra và điều ta suy đoán.** Tác giả / phạm vi: Tác giả: iterative denoising đắt hơn one-shot regression; dữ liệu BC giới hạn ceiling. Câu 'chưa đánh giá' không đồng nghĩa với 'đã thử và thất bại'. Câu 'có thể chịu rủi ro' không được viết thành số liệu âm tính. Iterative denoising làm inference đắt hơn one-shot regression, gây khó cho high-frequency control. Ranh giới đó giúp đọc nghiên cứu nghiêm túc mà không tô hồng hoặc bác bỏ quá mức.
-
-**Ngoài benchmark còn có hệ thống thật.** Phê bình độc lập: Phê bình: multi-modality không phải nút thắt của mọi nhiệm vụ; cần cân nhắc latency khi triển khai 50 Hz. Khi chuyển sang robot khác, camera, workspace, DOF, actuator limits và controller đều có thể phá các giả định gốc. Cần kiểm tra safety, valid action range và các tình huống bắt đầu lệch chuẩn trước khi coi một policy là sẵn sàng triển khai.
+Ngoài ra, mô hình học các kiểu thao tác dựa trên dữ liệu quan sát. Nếu bài kiểm tra đòi dạng tiếp xúc hoàn toàn khác, mạng có thể sinh chuỗi trông mượt nhưng vẫn sai. Không nên dùng một video thao tác đẹp để suy ra mô hình đã hiểu đầy đủ vật lý của môi trường.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -226,13 +146,11 @@ Nếu muốn đặt bài này vào bản đồ VLA, hãy xem tiếp các hướn
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Bài này đứng ở đâu trong lĩnh vực?
+### Kết nối với ACT, FAST và RTC
 
-**Luận điểm.** Không đọc paper như một hòn đảo riêng. Đọc thêm RDT-1B, GR00T N1, π0.5, RTC (inference). Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau.
+ACT cũng dự đoán đoạn hành động nhưng dùng Transformer và CVAE để học từ demonstration; Diffusion Policy dùng quá trình khử nhiễu để sinh chuỗi có nhiều khả năng. FAST lại không phải một policy diffusion khác: nó là cách mã hóa và nén chuỗi hành động thành token để mô hình tự hồi quy dự đoán dễ hơn.
 
-**So sánh theo trục kỹ thuật.** NỀN TẢNG / TIỀN ĐỀ: RDT-1B và π0.5 phát triển action generative modeling ở quy mô VLA. Hãy xếp các nghiên cứu cạnh nhau theo nguồn dữ liệu, representation, khả năng hiểu lệnh, action generation, embodiment và latency thay vì chỉ theo năm công bố. Một mô hình mạnh về ngữ nghĩa không nhất thiết giỏi điều khiển tốc độ cao.
-
-**Không trộn quan hệ chủ đề với trích dẫn.** HƯỚNG PHÁT TRIỂN: RTC giải quyết chuyện nối chunk và delay của generative policies. Một công trình có thể là tiền đề kỹ thuật, một biến thể cùng nhiệm vụ hoặc hướng xử lý bottleneck còn bỏ ngỏ; các quan hệ ấy cần trình bày chính xác. Đọc thêm RDT-1B, GR00T N1, π0.5, RTC (inference). Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau.
+RTC giải bài toán triển khai nảy sinh sau đó: nếu phải mất thời gian mới sinh xong chunk tiếp theo, làm sao nối hai chuỗi mà robot không giật hoặc dừng? Ba hướng nghiên cứu bổ sung nhau: **sinh hành động → biểu diễn hành động → thực thi hành động đúng nhịp**.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -244,15 +162,11 @@ Dùng Push-T state phương pháp đối chứng trong repo chính thức. Plot 
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Nếu chỉ nhớ ba điều
+### Tự thử để thấy vì sao nhiều phương án là quan trọng
 
-**Luận điểm.** Generative action model tránh bình quân hóa những quỹ đạo đúng khác nhau. Dùng Push-T state phương pháp đối chứng trong repo chính thức. Plot 10 sampled các quỹ đạo cho cùng quan sát; thay số denoising steps 100/20/5, horizon và action horizon, đo thành công và độ trễ.
+Vẽ hai đường đi tránh một khối trên giấy: một vòng trái, một vòng phải. Lấy trung bình điểm tương ứng của hai đường, rồi nhìn xem đường trung bình có đi qua vật cản không. Đây là cách hình dung đơn giản hạn chế của dự đoán hành động trung bình.
 
-**Chọn điều cần mang sang dự án thật.** Ưu tiên khi thao tác có multimodal action và chunk consistency. Đừng cố sao chép toàn bộ hệ thống lớn ngay. Tìm một vấn đề cụ thể của robot mình rồi áp dụng đúng thành phần liên quan, với baseline đơn giản và một phép đo rõ ràng. Generative action model tránh bình quân hóa những quỹ đạo đúng khác nhau.
-
-**Tái hiện tối thiểu.** Dùng Push-T state phương pháp đối chứng trong repo chính thức. Plot 10 sampled các quỹ đạo cho cùng quan sát; thay số denoising steps 100/20/5, horizon và action horizon, đo thành công và độ trễ. Bắt đầu bằng 1–2 episode kiểm được bằng mắt, ghi shape, unit và timestamp; tiếp theo mới mở rộng dataset, thêm nhiều seed và đánh giá held-out. Viết sẵn điều kiện pass/fail để không biến công việc thành quá trình tune vô tận.
-
-**Tự kiểm tra đã hiểu.** Sau khi đọc, phải giải thích được observation → representation → action; mô tả loss và supervision; rồi đọc đúng metric, baseline, limitation. Nếu thiếu một trong ba, quay lại chính phần đó thay vì học thuộc tên kiến trúc.
+Tiếp tục đặt câu hỏi: tại mỗi lần cập nhật camera, diffusion sinh lại toàn bộ đoạn hay chỉ phần sẽ được thực thi? Nếu tăng độ dài đoạn, lỗi nào có thể xuất hiện? Nếu nguồn ảnh bị trễ, đường đi mượt có đủ chứng minh điều khiển an toàn? Trả lời được sẽ giúp đọc đúng hơn phần đánh giá thực nghiệm.
 
 <!-- END EXTENDED WALKTHROUGH -->
 

@@ -178,8 +178,8 @@ try {
     const originalCaption=await figure.locator('.paper-figure-caption-text').innerText();
     assert.match(originalCaption,/^Figure 1: Top: LIBERO has four procedurally-generated task suites/i);
     assert.ok(originalCaption.length>280,'Show the complete original research caption, not the alt text');
-    assert.ok(await figure.getByText('CAPTION GỐC (EN)').isVisible());
-    assert.ok(await figure.getByText(/BẢN DỊCH TIẾNG VIỆT/).isVisible());
+    assert.ok(await figure.getByText('CHÚ THÍCH GỐC (TIẾNG ANH)').isVisible());
+    assert.ok(await figure.getByText('BẢN DỊCH ĐÃ BIÊN TẬP').isVisible());
     const translated=await figure.locator('.paper-figure-caption-vi').innerText();
     assert.ok(translated.length>=75,'Vietnamese figure explanation must be substantive');
     assert.match(translated,/[àáạảãăâđèéẹẻẽêếìíịỉĩòóọỏõôốơớùúụủũưứỳýỵỷỹ]/i);

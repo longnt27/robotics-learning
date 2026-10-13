@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-RT-1 học dữ liệu robot rất tốt nhưng chỉ biết những concept mà robot tập dữ liệu đủ lớn để dạy nó. Dữ liệu robot đắt và ngữ nghĩa coverage nghèo hơn dữ liệu trên web hàng nghìn lần. Trong khi đó VLM đã biết “banana”, “trash”, “Taylor Swift”, spatial ngôn ngữ, loại vật thể và nhiều abstraction khác mà robot có thể chưa từng thấy. RT-2 hỏi câu cực tham vọng: **có thể chuyển giao web-scale vision-language kiến thức thẳng vào action policy, thay vì huấn luyện khả năng hiểu ngữ nghĩa lại bằng robot demonstrations không?**
+Một robot đã học nhặt cốc có thể chưa từng nghe câu “Lấy vật dùng để uống nước”. Trong khi đó, mô hình ảnh–ngôn ngữ được học từ Internet có thể biết chiếc cốc dùng để làm gì. **RT-2 nghiên cứu việc chuyển kiến thức ngữ nghĩa từ mô hình ảnh–ngôn ngữ sang hệ điều khiển robot.** Phương pháp biểu diễn lệnh robot thành token để huấn luyện chung với dữ liệu ảnh và văn bản. Mục tiêu là robot không chỉ lặp lại những câu lệnh đã có demonstration, mà còn nhận ra một số ý nghĩa và vật thể chưa từng được dạy trực tiếp qua dữ liệu robot.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -11,29 +11,11 @@ RT-1 học dữ liệu robot rất tốt nhưng chỉ biết những concept mà
 
 Hình 1 là câu trả lời trực quan cho ý tưởng trung tâm của RT-2: action robot có thể biểu diễn như token văn bản trong cùng interface với mô hình vision-language đã học kiến thức trên web. Co-finetuning trộn dữ liệu web và robot để model dùng tri thức nhận biết vật thể/mối quan hệ khi sinh action. Hình này nói về chuyển giao ngữ nghĩa, không chứng minh mô hình tự có kỹ năng motor mới chỉ nhờ đọc văn bản web. Skill vận động vẫn cần supervision từ robot demonstrations.
 
-### Đào sâu: Điểm cốt lõi
+### Tri thức ngôn ngữ giúp robot làm gì?
 
-**Luận điểm.** Tri thức thị giác–ngôn ngữ học trên web có thể chuyển thành lựa chọn action của robot. RT-2 hỏi câu cực tham vọng: có thể chuyển giao web-scale vision-language kiến thức thẳng vào action policy, thay vì huấn luyện khả năng hiểu ngữ nghĩa lại bằng robot demonstrations không?
+Robot từng được dạy nhặt cốc, nhưng chưa từng nhận câu “Lấy vật mà tôi có thể uống từ đó”. Một mô hình ảnh–ngôn ngữ học từ web có thể biết chiếc cốc dùng để uống; policy robot biết cách kẹp cốc. **RT-2 tìm cách nối hai loại kiến thức** để robot hiểu những yêu cầu mới mà không phải thu thêm demonstration cho mọi cách diễn đạt.
 
-**Vấn đề khoa học nằm ở đâu?** Một policy chỉ nhìn robot dữ liệu khó hiểu những loại vật thể và mệnh lệnh chưa từng được annotate. Một hệ thống robot có thể có hình ảnh đẹp, output trông hợp lý nhưng vẫn sai ở cơ cấu thực thi. Vì thế phải tách câu hỏi về dữ liệu, câu hỏi về representation, câu hỏi về policy và câu hỏi về đánh giá. Đối xử action như một dạng token trong VLM là đóng góp cần đọc cùng các giả định ấy, không phải câu slogan thay thế cho thí nghiệm.
-
-**Đọc đóng góp như một giả thuyết.** Cơ chế được đề xuất là Co-training VLM tasks và robotics tasks để kiến thức web sống trong policy điều khiển. Nếu nó thật sự hữu ích, điểm khác biệt phải xuất hiện tại chính nơi baseline gặp bottleneck. Không đủ chỉ liệt kê thành phần mới; cần giải thích tại sao dữ liệu hoặc observation hiện có không giải được bài toán với cách làm cũ.
-
-### Đào sâu: Robot demo dạy được kỹ năng nhưng nghèo tri thức ngữ nghĩa
-
-**Luận điểm.** Một policy chỉ nhìn robot dữ liệu khó hiểu những loại vật thể và mệnh lệnh chưa từng được annotate. Dữ liệu robot đắt và ngữ nghĩa coverage nghèo hơn dữ liệu trên web hàng nghìn lần. Trong khi đó VLM đã biết “banana”, “trash”, “Taylor Swift”, spatial ngôn ngữ, loại vật thể và nhiều abstraction khác mà robot có thể chưa từng thấy.
-
-**Tại sao lỗi này có hệ quả lớn?** RT-1 biết thao tác trong các nhiệm vụ đã huấn luyện. Mỗi action làm thay đổi trạng thái môi trường và tạo ra observation tiếp theo. Một dự đoán hơi lệch có thể đẩy robot ra ngoài những trạng thái từng thấy trong demonstration, khiến bước sau khó phục hồi hơn. Bản thân robot demo dạy được kỹ năng nhưng nghèo tri thức ngữ nghĩa vì thế ảnh hưởng đến toàn bộ rollout, chứ không chỉ một hàng trong bảng accuracy.
-
-**Thử nghĩ một phản ví dụ.** Nếu chỉ test các episode có điểm bắt đầu giống dữ liệu huấn luyện, policy có thể học shortcut về bối cảnh. Đổi nhẹ góc camera, vật thể hoặc thứ tự thao tác sẽ phơi bày liệu nó có dùng tín hiệu nhân quả phù hợp không. Vì vậy phải kiểm tra điều kiện test trước khi đọc tỷ lệ thành công.
-
-### Đào sâu: RT-1 biết thao tác trong các nhiệm vụ đã huấn luyện
-
-**Luận điểm.** Nhưng knowledge về vật thể/cấu trúc thế giới kém đa dạng hơn vốn học từ web của VLM. Nếu chỉ fine-tune VLM trên robot action dữ liệu, mô hình dễ quên kiến thức từ web. Nếu chỉ bolt-on một action head, biểu diễn alignment không mạnh bằng việc cùng huấn luyện trong một token interface.
-
-**Hai quy trình khác nhau ra sao?** Phương pháp cũ gặp trở ngại: Nhưng knowledge về vật thể/cấu trúc thế giới kém đa dạng hơn vốn học từ web của VLM.. Thay đổi trọng tâm là: Đối xử action như một dạng token trong VLM. Câu hỏi có ích nhất không phải mạng mới có bao nhiêu lớp, mà là thông tin nào trước kia bị đánh mất và giờ được chuyển qua đúng mô-đun. Co-training VLM tasks và robotics tasks để kiến thức web sống trong policy điều khiển.
-
-**Đặt điều kiện đối chứng.** Nếu train hai cách với data budget khác nhau, hoặc một bên dùng pretrained encoder còn bên kia không, chênh lệch không đủ để gán cho cơ chế mới. Một ablation đúng phải giữ càng nhiều yếu tố càng tốt và thay đổi đúng thành phần tác giả muốn chứng minh.
+RT-2 mã hóa lệnh chuyển động dưới dạng token để huấn luyện chung với dữ liệu ảnh và chữ. Điều này khác việc dùng chatbot chỉ nói robot nên làm gì: đầu ra cuối cùng vẫn được giải mã thành lệnh điều khiển vật lý.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -43,13 +25,11 @@ RT-1 học image-to-action theo demonstration. VLM đã nhìn lượng ảnh và
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Ba khái niệm để nắm
+### Ba khái niệm cần phân biệt
 
-**Luận điểm.** Hiểu ba khái niệm này trước khi đọc thuật toán. VLM đã nhìn lượng ảnh và text rộng hơn robot nhiều bậc độ lớn. RT-2 đưa ra giả thuyết: web ngữ nghĩa priors có thể giúp robot hiểu vật thể/mục tiêu chưa được annotate trong robot tập dữ liệu nếu action được biểu diễn chung như đầu ra tokens.
+**VLM** là mạng học quan hệ giữa hình ảnh và ngôn ngữ. **Token hành động** là mã rời rạc cho lệnh robot, phải giải mã về giá trị liên tục và đúng đơn vị. **Huấn luyện chung** cho mạng học cả dữ liệu web lẫn demonstration robot, dù hai nguồn có nhãn và mục đích khác nhau.
 
-**Khái niệm thành cấu trúc tính toán.** VLM: Mô hình thị giác và ngôn ngữ đã học tri thức web. Hãy luôn hỏi: input tensor là gì, output tensor là gì, biểu diễn đó mang thông tin thời gian hay không, và vì sao không thể đơn giản thay bằng một vector khác. VLM đã nhìn lượng ảnh và text rộng hơn robot nhiều bậc độ lớn. RT-2 đưa ra giả thuyết: web ngữ nghĩa priors có thể giúp robot hiểu vật thể/mục tiêu chưa được annotate trong robot tập dữ liệu nếu action được biểu diễn chung như đầu ra tokens. Một thuật ngữ chỉ hữu ích khi nối được với dữ liệu và hành vi có thể quan sát.
-
-**Tránh ba sự nhầm lẫn.** Dataset đa dạng chưa phải model khái quát; có latent hoặc token chưa chắc học được semantics; loss offline tốt chưa chắc action thực thi ổn định. Phần kiến thức nền dùng để loại trừ các kết luận quá mạnh đó. Muốn khẳng định model dùng đúng khái niệm, hãy kiểm tra ablation và intermediate representation.
+Biết rằng táo là trái cây hoặc cốc dùng để uống không đồng nghĩa biết lực kẹp bao nhiêu. Vì vậy cần phân biệt kiến thức ngữ nghĩa với kỹ năng vận động.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -72,53 +52,11 @@ Hình 2 tập hợp các ví dụ tình huống RT-2 được kiểm tra khả n
 
 Đưa robot vào cảnh có lon rỗng, khăn và đồ chơi, rồi hỏi 'hãy bỏ rác vào thùng'. VLM biết lon rỗng có thể thuộc nhóm rác; action supervision từ robot dạy thao tác pick/place. Ta kiểm tra trước xem policy chọn đúng vật thể, sau đó mới đo gripper có cầm được lon và đặt vào thùng hay không. Nếu nhận diện đúng nhưng grasp fail, đó là vấn đề motor/geometry chứ không phải semantic reasoning. Để tái hiện, tách evaluation thành seen instructions, novel object semantics và actual manipulation success.
 
-### Đào sâu: Đối xử action như một dạng token trong VLM
+### Một lần điều khiển RT-2 xảy ra như thế nào?
 
-**Luận điểm.** Co-training VLM tasks và robotics tasks để kiến thức web sống trong policy điều khiển. Co-finetuning là chi tiết sống còn. Nếu chỉ fine-tune VLM trên robot action dữ liệu, mô hình dễ quên kiến thức từ web.
+Camera cung cấp ảnh, người dùng cung cấp câu lệnh. Mô hình xử lý ảnh cùng ngôn ngữ, rồi dự đoán một chuỗi token biểu diễn hành động. Bộ giải mã chuyển token thành các giá trị điều khiển phù hợp với robot, chẳng hạn dịch đầu công tác và điều khiển kẹp.
 
-**Giải thích không dùng tên model.** Co-training VLM tasks và robotics tasks để kiến thức web sống trong policy điều khiển. Thử mô tả bằng một câu chuyện đầu vào và đầu ra, tránh dựa vào từ như Transformer, flow, token hay MoE để thay thế giải thích. Điều quan trọng là hiểu cơ chế ấy biến thông tin quan sát thành điều gì có ích để robot ra quyết định.
-
-**Từ intuition tới phép thử.** Tri thức thị giác–ngôn ngữ học trên web có thể chuyển thành lựa chọn action của robot. Nếu ta loại bỏ cơ chế đó nhưng giữ nguyên dữ liệu và evaluator, lỗi nào kỳ vọng tăng lên? Nếu không dự đoán được loại lỗi, có thể ta chỉ đang học thuộc mô tả phương pháp mà chưa hiểu tại sao tác giả lựa chọn nó.
-
-### Đào sâu: Kiến trúc trong một sơ đồ
-
-**Luận điểm.** Tri thức thị giác–ngôn ngữ học trên web có thể chuyển thành lựa chọn action của robot. Như vậy dự đoán “move x, rotate y, close gripper” về mặt optimization trở thành một dạng ngôn ngữ modeling đặc biệt.
-
-**Lần theo đầu vào đến đầu ra.** Sơ đồ nên được đọc theo thứ tự Web VLM + robot demos → Co-finetune chung → Action tokens → Decode → robot movement. Mỗi mũi tên tương ứng với một thao tác thực: đọc cảm biến, xử lý tensor, trích đặc trưng, suy luận, giải mã hoặc gửi command. Nếu bỏ qua quá trình chuẩn hoá hay xử lý timestamp, sơ đồ vẫn đẹp nhưng implementation có thể fail.
-
-**Chỗ dễ sai khi triển khai.** Như vậy dự đoán “move x, rotate y, close gripper” về mặt optimization trở thành một dạng ngôn ngữ modeling đặc biệt. Với mỗi module, hãy ghi checkpoint nào dùng, shape dữ liệu, đơn vị và hệ quy chiếu, thành phần nào có gradient và thành phần nào chỉ hiện diện lúc training. Sau đó log action trước và sau inverse normalization để phát hiện lỗi thuộc pipeline chứ không phải lỗi model.
-
-### Đào sâu: Mô hình biểu diễn cái gì?
-
-**Luận điểm.** Action liên tục được discretize theo dimension rồi token hóa. Trick đơn giản nhưng quan trọng là robot actions được discretize và biểu diễn như token trong cùng autoregressive vocabulary.
-
-**Action là một hợp đồng kỹ thuật.** ĐẦU RA / DẠNG BIỂU DIỄN: Cùng decoder dự đoán từ ngữ và action sequence. Một vector điều khiển có thể là joint angle, delta end-effector, gripper hoặc các token đã lượng tử hoá. Cần biết số chiều, đơn vị, hệ tọa độ, scaling và trục thời gian. Trick đơn giản nhưng quan trọng là robot actions được discretize và biểu diễn như token trong cùng autoregressive vocabulary. Không xác định các yếu tố này thì chưa thể nối output model với phần cứng.
-
-**Kiểm tra trước khi train.** Lấy một trajectory đúng, encode rồi decode qua representation dự kiến. Đo reconstruction error trên từng chiều và vị trí thời gian quan trọng, nhất là khi tiếp xúc vật thể. Thử đổi horizon hoặc normalization mà giữ nguyên dữ liệu. Một adapter sai có thể phá mọi rollout dù bản thân network vẫn tối ưu được loss.
-
-### Đào sâu: Model học như thế nào?
-
-**Luận điểm.** Trộn robot demonstrations với vision-language web tasks. RT-2 bắt đầu từ các VLM lớn như PaLI-X/PaLM-E family rồi co-finetune trên hai loại dữ liệu cùng lúc: web vision-language dữ liệu và robot các quỹ đạo.
-
-**Loss phải có nguồn supervision.** MỤC TIÊU HỌC: Fine-tune VLM thành VLA trong cùng interface token. Hãy chỉ ra batch gồm observation, state, instruction, target action hay target đặc trưng nào; rồi xác định mô hình đang học reconstruction, dự đoán chuỗi hay một phân phối có điều kiện. Cùng tên 'training' nhưng cách tạo target ở BC, diffusion, flow matching và mô hình dự đoán đặc trưng khác nhau căn bản.
-
-**Phân tách lỗi dữ liệu và lỗi thuật toán.** RT-2 bắt đầu từ các VLM lớn như PaLI-X/PaLM-E family rồi co-finetune trên hai loại dữ liệu cùng lúc: web vision-language dữ liệu và robot các quỹ đạo. Kiểm tra episode split trước khi chia thành window, kiểm tra timestamp camera/action, normalization, random seed và khả năng overfit một subset nhỏ. Nếu vài trajectory còn không học được, việc tăng model size hoặc đổi scheduler thường chỉ che lỗi implementation.
-
-**Đọc ablation đúng cách.** Co-finetuning khác fine-tune robot-only: dữ liệu web giúp giữ priors. Khi đổi một module phải giữ data budget, training steps và quy trình đánh giá tương đương. Nếu nhiều thứ đổi cùng lúc, tác dụng thực sự là của toàn hệ thống, không thể kết luận một trick đơn lẻ tạo toàn bộ mức cải thiện.
-
-### Đào sâu: Mathematical Intuition
-
-**Luận điểm.** VLM dự đoán chuỗi action như một chuỗi token được điều kiện hóa bởi ảnh I và lệnh ℓ. Nếu chỉ bolt-on một action head, biểu diễn alignment không mạnh bằng việc cùng huấn luyện trong một token interface.
-
-$$
-p_\theta(a_{1:T}\mid I,\ell)
-$$
-
-**Công thức đang mô tả thứ gì?** VLM dự đoán chuỗi action như một chuỗi token được điều kiện hóa bởi ảnh I và lệnh ℓ. Trước khi tính đạo hàm hoặc chuyển vế, hãy xác định đâu là observation, đâu là biến action, đâu là horizon/conditioning và đâu là tham số được học. Nếu chỉ bolt-on một action head, biểu diễn alignment không mạnh bằng việc cùng huấn luyện trong một token interface. Ký hiệu ngắn gọn không nói hết cách chọn discretization, action mask hoặc runtime sampler.
-
-**Một phép thử bằng hai trajectory.** Hai lần thao tác có cùng mục tiêu nhưng trạng thái ban đầu khác nhau có thể cần action khác. Công thức này có cho phép output phụ thuộc vào thông tin phân biệt ấy không? Nếu nhiều demonstration hợp lệ khác nhau, model học một mode, average hay một phân phối đa mode? Đây mới là câu hỏi hiểu toán trong robot learning.
-
-**Giới hạn của suy luận từ công thức.** Biểu thức mô tả khung tự hồi quy, không khẳng định model học được motor skills từ web. Một biểu thức xác suất hoặc phép nội suy không tự chứng minh model đã học vật lý hay robot sẽ thành công. Loss và nguồn target quyết định model có tín hiệu nào, còn evaluation mới cho biết hành vi thực hiện ngoài đời.
+Robot thực hiện một phần lệnh, quan sát lại và tiếp tục. Nếu vật thay đổi vị trí, lệnh sau phải dựa vào ảnh mới. Token sinh bởi RT-2 không phải những câu để đọc cho người nghe; chúng là mã mà bộ điều khiển cần hiểu đúng.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -137,15 +75,11 @@ Yêu cầu robot "bỏ rác vào thùng" trong khi robot demos có pick/place nh
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Một lần inference xảy ra ra sao?
+### Ví dụ “lấy đồ uống được” trên bàn
 
-**Luận điểm.** Nhận ảnh robot và một lệnh ngôn ngữ. Điểm cần theo dõi trong source code/diagram là các action dimensions được serialize thành tokens; loss huấn luyện có thể chia sẻ decoder với đầu ra ngôn ngữ, nhưng vật lý meaning đến từ robot examples.
+Cùng một bàn có cốc, đĩa và đồ chơi. Người dùng yêu cầu “Nhặt vật để uống nước”. Robot phải dùng kiến thức về công dụng để chọn cốc, rồi mới giải quyết việc đi tới, kẹp và nhấc lên. Nếu robot nhận đúng cốc nhưng đánh rơi, lỗi nằm ở vận động chứ không nhất thiết do hiểu ngôn ngữ.
 
-**Một tick điều khiển xảy ra thế nào?** XỬ LÝ ĐẦU VÀO: Sử dụng semantic knowledge từ pretraining để chọn mục tiêu. Ta nhận observation, tính conditioning, sinh action, giải mã và gửi lệnh xuống controller. Điểm cần theo dõi trong source code/diagram là các action dimensions được serialize thành tokens; loss huấn luyện có thể chia sẻ decoder với đầu ra ngôn ngữ, nhưng vật lý meaning đến từ robot examples. Hãy ghi lại thời điểm ở mỗi bước vì latency từ ảnh đến actuator khác với thời gian chạy forward của riêng backbone.
-
-**Khi môi trường đổi giữa hai lần query.** Nếu vật thể dịch chuyển, mô hình có nhận observation mới đủ nhanh không; action nào đã cam kết và action nào có thể sửa? TẠO HÀNH ĐỘNG: Sinh action tokens để executor điều khiển thao tác đã học. Trả lời được mới hiểu policy có thực sự closed-loop hoặc chỉ phát một quỹ đạo cố định rồi hy vọng robot làm đúng.
-
-**Điều nên đo thêm.** Ngoài task success, hãy log tail latency, action jerk, lỗi ở điểm nối các action chunk và khả năng phục hồi sau disturbance. Một video chuyển động mượt không chứng minh robot làm đúng mục tiêu, còn throughput cao chưa chắc đảm bảo control loop ổn định.
+Nếu nó kẹp một chiếc bát sai mục tiêu, vấn đề có thể nằm ở việc nối câu lệnh với vật thể. Tách hai lỗi giúp đọc RT-2 đúng hơn thay vì gom mọi thất bại thành “mô hình không thông minh”.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -163,23 +97,11 @@ Các qualitative examples gây ảnh hưởng lớn vì robot có thể hiểu n
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Kết quả nói lên điều gì?
+### Đọc các mức khái quát trong kết quả
 
-**Luận điểm.** Generalization với vật thể hoặc lệnh mới mạnh hơn các baseline robot-only. Bài báo báo hiệu năng khái quát gần gấp đôi một số phương pháp đối chứng mạnh và, trong nhóm “emergent suy luận ngữ nghĩa” được thiết kế để test kiến thức từ web chuyển giao, RT-2-PaLI-X đạt tỷ lệ thành công trung bình cao hơn RT-1 nhiều lần, có nhóm hơn 3x.
+RT-2 được thử trên nhiệm vụ đã học và những tình huống mới về đồ vật, nền, môi trường hoặc yêu cầu ngữ nghĩa. Hình 6 còn tách ảnh hưởng của quy mô mô hình và cách huấn luyện. Khi đọc, cần phân biệt dữ liệu robot chưa từng có thao tác tương ứng với dữ liệu web có thể đã từng chứa khái niệm ấy.
 
-**Cách đọc bảng số liệu.** PHÁT HIỆN QUAN TRỌNG: Một số nhóm emergent semantic reasoning được báo cáo cải thiện trên 3 lần RT-1. Trước khi so score, xác định metric đo thành công cuối hay progress từng bước, baseline dùng dữ liệu gì, số lần lặp, tập test và cách gộp các nhiệm vụ. Bài báo báo hiệu năng khái quát gần gấp đôi một số phương pháp đối chứng mạnh và, trong nhóm “emergent suy luận ngữ nghĩa” được thiết kế để test kiến thức từ web chuyển giao, RT-2-PaLI-X đạt tỷ lệ thành công trung bình cao hơn RT-1 nhiều lần, có nhóm hơn 3x. Chênh lệch average đôi khi giấu những task thất bại nghiêm trọng.
-
-**Từ số sang kết luận có phạm vi.** CÁCH DIỄN GIẢI: Kết quả trên các nhóm seen tasks vẫn cạnh tranh với RT-1. Một mô hình khái quát tốt trên lệnh mới chưa chắc điều khiển contact-rich tốt; data diversity hiệu quả chưa bảo đảm chuyển được sang morphology lạ; model chạy nhanh chưa có nghĩa tail latency phù hợp servo. Phải kết luận theo đúng chiều mà thí nghiệm đo.
-
-**Độ tin cậy của bằng chứng.** Camera placement, calibration, noise, split, seed và budget huấn luyện đều ảnh hưởng outcome. Một kết quả đáng tin cần báo cáo đủ điều kiện để người đọc kiểm tra, và có đối chứng tránh nhiễu. Nếu thiếu, hãy nói rõ mức bất định thay vì tưởng tượng số liệu.
-
-### Đào sâu: Ablation và bằng chứng
-
-**Luận điểm.** Co-finetuning khác fine-tune robot-only: dữ liệu web giúp giữ priors. Điểm thắng nằm ở vật thể mới, unseen chỉ dẫn và khái quát về ngữ nghĩa. Bài báo báo hiệu năng khái quát gần gấp đôi một số phương pháp đối chứng mạnh và, trong nhóm “emergent suy luận ngữ nghĩa” được thiết kế để test kiến thức từ web chuyển giao, RT-2-PaLI-X đạt tỷ lệ thành công trung bình cao hơn RT-1 nhiều lần, có nhóm hơn 3x.
-
-**Ablation hỏi nguyên nhân, không chỉ điểm số.** YẾU TỐ ĐƯỢC THỬ: Semantic gain không chứng minh học được động tác vật lý mới không có trong robot demos. Loại bỏ một thành phần khiến performance giảm là dấu hiệu hữu ích trong thiết lập đã thử, nhưng chưa chứng minh nó là giải pháp duy nhất. Điểm thắng nằm ở vật thể mới, unseen chỉ dẫn và khái quát về ngữ nghĩa. Bài báo báo hiệu năng khái quát gần gấp đôi một số phương pháp đối chứng mạnh và, trong nhóm “emergent suy luận ngữ nghĩa” được thiết kế để test kiến thức từ web chuyển giao, RT-2-PaLI-X đạt tỷ lệ thành công trung bình cao hơn RT-1 nhiều lần, có nhóm hơn 3x. Hãy tìm xem các đường baseline có chung dữ liệu, model capacity và ngân sách tối ưu không.
-
-**Đọc theo từng failure mode.** Điểm thắng nằm ở vật thể mới, unseen chỉ dẫn và khái quát về ngữ nghĩa. Bài báo báo hiệu năng khái quát gần gấp đôi một số phương pháp đối chứng mạnh và, trong nhóm “emergent suy luận ngữ nghĩa” được thiết kế để test kiến thức từ web chuyển giao, RT-2-PaLI-X đạt tỷ lệ thành công trung bình cao hơn RT-1 nhiều lần, có nhóm hơn 3x. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
+Một con số thành công cao trong một nhóm bài kiểm tra chưa có nghĩa mô hình có thể giải mọi câu lệnh chưa thấy. Phải xem từng dạng mới được đánh giá.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -191,13 +113,11 @@ Các qualitative examples gây ảnh hưởng lớn vì robot có thể hiểu n
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Hạn chế cần nói thẳng
+### Giới hạn của cách biến hành động thành token
 
-**Luận điểm.** Tách rõ tác giả thừa nhận và nhận định phê bình độc lập. Bài báo thừa nhận: kiến thức từ web không tự tạo ra kỹ năng vận động mới. Nếu robot chưa từng học động tác vật lý tương ứng, biết nghĩa của chỉ dẫn không đủ.
+Token chỉ giúp mô hình dùng chung một cách biểu diễn, không tự bảo đảm an toàn cho robot. Nếu đổi sang robot có số khớp khác, cùng các mã số có thể không còn ý nghĩa như cũ. Độ trễ suy luận, góc camera bị che và vật thể biến dạng vẫn là các trở ngại vật lý.
 
-**Phân biệt điều tác giả chỉ ra và điều ta suy đoán.** Tác giả / phạm vi: Tác giả: inference VLM lớn tốn compute; web knowledge không tự dạy kỹ năng cơ khí. Câu 'chưa đánh giá' không đồng nghĩa với 'đã thử và thất bại'. Câu 'có thể chịu rủi ro' không được viết thành số liệu âm tính. Bài báo thừa nhận: kiến thức từ web không tự tạo ra kỹ năng vận động mới. Nếu robot chưa từng học động tác vật lý tương ứng, biết nghĩa của chỉ dẫn không đủ. Ranh giới đó giúp đọc nghiên cứu nghiêm túc mà không tô hồng hoặc bác bỏ quá mức.
-
-**Ngoài benchmark còn có hệ thống thật.** Phê bình độc lập: Phê bình: benchmark semantic tương đối nhỏ và mô hình/dữ liệu không thật sự reproducible công khai. Khi chuyển sang robot khác, camera, workspace, DOF, actuator limits và controller đều có thể phá các giả định gốc. Cần kiểm tra safety, valid action range và các tình huống bắt đầu lệch chuẩn trước khi coi một policy là sẵn sàng triển khai.
+Vì thế checkpoint VLM mạnh về ảnh/ngôn ngữ chưa chắc phù hợp ngay với robot đích; cần xác minh action space và thực hiện kiểm tra từng bước trước khi chạy thật.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -211,13 +131,11 @@ Nếu muốn đặt bài này vào bản đồ VLA, hãy xem tiếp các hướn
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Bài này đứng ở đâu trong lĩnh vực?
+### RT-2 khác PaLM-E, RT-1 và OpenVLA
 
-**Luận điểm.** Không đọc paper như một hòn đảo riêng. Đọc thêm RT-1, OpenVLA, Qwen-VLA. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau.
+RT-1 chứng minh khả năng học nhiều thao tác từ dữ liệu robot. PaLM-E đưa quan sát vào suy luận đa phương thức, thường ở mức kế hoạch. RT-2 kết hợp token hành động và dữ liệu ảnh–ngôn ngữ trong một mạng. OpenVLA tiếp tục phát triển hướng VLA có checkpoint nguồn mở, có thể tinh chỉnh cho robot mới.
 
-**So sánh theo trục kỹ thuật.** NỀN TẢNG / TIỀN ĐỀ: PaLM-E giải thích sensor grounding trong ngôn ngữ model. Hãy xếp các nghiên cứu cạnh nhau theo nguồn dữ liệu, representation, khả năng hiểu lệnh, action generation, embodiment và latency thay vì chỉ theo năm công bố. Một mô hình mạnh về ngữ nghĩa không nhất thiết giỏi điều khiển tốc độ cao.
-
-**Không trộn quan hệ chủ đề với trích dẫn.** HƯỚNG PHÁT TRIỂN: OpenVLA và Qwen-VLA tiếp tục nghiên cứu open/flow VLA và action representation. Một công trình có thể là tiền đề kỹ thuật, một biến thể cùng nhiệm vụ hoặc hướng xử lý bottleneck còn bỏ ngỏ; các quan hệ ấy cần trình bày chính xác. Đọc thêm RT-1, OpenVLA, Qwen-VLA. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau.
+Đọc các bài này không nên xếp hạng bằng số tham số. Cần hỏi mạng tạo câu trả lời, kế hoạch cấp cao hay lệnh vận động trực tiếp; dữ liệu và robot thử khác nhau thế nào.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -229,15 +147,11 @@ Trên một VLM nhỏ tự thêm vocabulary cho 7 action dimensions; so sánh qu
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Nếu chỉ nhớ ba điều
+### Tự kiểm tra bằng ba câu lệnh
 
-**Luận điểm.** VLA có thể tận dụng tri thức web để làm rõ “làm gì với cái gì”. Trên một VLM nhỏ tự thêm vocabulary cho 7 action dimensions; so sánh quantization error theo bins.
+Giữ nguyên cảnh, lần lượt yêu cầu “nhặt cốc”, “nhặt vật đựng nước” và “nhặt cốc đỏ”. So sánh vật được chọn. Sau đó giữ câu lệnh, thay vị trí đồ vật để xem model có bám vào camera hay chỉ nhớ tọa độ.
 
-**Chọn điều cần mang sang dự án thật.** Dùng chung web/robot data khi fine-tune để kiểm soát forgetting. Đừng cố sao chép toàn bộ hệ thống lớn ngay. Tìm một vấn đề cụ thể của robot mình rồi áp dụng đúng thành phần liên quan, với baseline đơn giản và một phép đo rõ ràng. VLA có thể tận dụng tri thức web để làm rõ “làm gì với cái gì”.
-
-**Tái hiện tối thiểu.** Trên một VLM nhỏ tự thêm vocabulary cho 7 action dimensions; so sánh quantization error theo bins. Bắt đầu bằng 1–2 episode kiểm được bằng mắt, ghi shape, unit và timestamp; tiếp theo mới mở rộng dataset, thêm nhiều seed và đánh giá held-out. Viết sẵn điều kiện pass/fail để không biến công việc thành quá trình tune vô tận.
-
-**Tự kiểm tra đã hiểu.** Sau khi đọc, phải giải thích được observation → representation → action; mô tả loss và supervision; rồi đọc đúng metric, baseline, limitation. Nếu thiếu một trong ba, quay lại chính phần đó thay vì học thuộc tên kiến trúc.
+Cuối cùng kiểm tra các token hành động được giải mã bằng cách nào, có chuẩn hóa ngược không và có đúng hệ tọa độ robot không. Đây là phần cần hiểu trước khi nghĩ tới chạy RT-2 trên thiết bị thật.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
