@@ -24,7 +24,7 @@ Nếu robot luôn thực hành trên một chiếc bàn, dưới một dàn đè
 
 DROID ghi ảnh từ ba camera đồng bộ, có thông số hiệu chuẩn và dữ liệu độ sâu. Những chi tiết ấy quan trọng: nếu hai góc camera không khớp thời gian, mô hình có thể học nhầm quan hệ giữa vị trí vật và hành động.
 
-### ### Đổi địa điểm khác đổi loại robot
+### Đổi địa điểm khác đổi loại robot
 
 DROID dùng bộ thiết bị tương đối thống nhất nhưng mang tới nhiều phòng và địa điểm khác nhau. Nhờ vậy, người nghiên cứu có thể kiểm tra xem **đổi ánh sáng, đồ đạc, góc camera và người thao tác** ảnh hưởng thế nào mà không đồng thời thay toàn bộ cấu trúc tay máy. Điều này khác với Open X-Embodiment, nơi dữ liệu còn đến từ nhiều loại robot có lệnh điều khiển không giống nhau. Phân biệt hai nguồn đa dạng ấy rất quan trọng: mạng làm tốt ở phòng mới chưa chắc dùng được ngay trên tay máy có số khớp khác.
 
@@ -37,7 +37,7 @@ Nhóm nghiên cứu chuẩn hóa một bộ thiết bị có thể mang tới nh
 
 Từ các quỹ đạo này, chính sách điều khiển có thể được học chung với dữ liệu nhiệm vụ đích. Sau đó người ta đánh giá không chỉ ở bối cảnh quen mà còn với đồ vật hoặc vật gây nhiễu chưa thấy. Đây là phép thử xem nguồn dữ liệu rộng có thực sự giúp tăng độ bền không.
 
-### ### Hãy tưởng tượng hai lần thu dữ liệu cùng một nhiệm vụ
+### Hãy tưởng tượng hai lần thu dữ liệu cùng một nhiệm vụ
 
 Ở lần thứ nhất, robot nhặt chiếc chai đặt sát cửa sổ dưới ánh sáng mạnh. Ở lần thứ hai, vẫn là chiếc chai nhưng nằm giữa nhiều đồ vật trên bàn tối màu. Người vận hành đều hoàn thành thao tác và hệ thống ghi ảnh, trạng thái cùng lệnh đã thực hiện. Nếu chỉ có lần thứ nhất, mạng dễ dựa vào dấu hiệu nền; có thêm lần thứ hai, nó phải học cách tìm chai trong các bối cảnh khác nhau. Đây là cơ chế mà DROID muốn khai thác bằng hệ thống thu thập phân tán. Nó không bảo đảm mọi bối cảnh mới đều được bao phủ, nhưng giúp đánh giá vượt ra ngoài một phòng thí nghiệm duy nhất.
 
@@ -67,7 +67,7 @@ Hình 10 thực sự kiểm tra vai trò của số cảnh: so một phần dữ
 
 Khi bổ sung DROID vào dữ liệu huấn luyện nhiệm vụ đích, nhóm tác giả báo cáo mức tăng trung bình khoảng 22 điểm phần trăm trong điều kiện quen và 17 điểm phần trăm trong điều kiện ngoài phân phối so với phương án đối chứng tốt thứ hai. Hình 10 còn cho thấy tập con có nhiều cảnh thường tốt hơn tập con ít cảnh dù có số quỹ đạo tương tự. Điều này ủng hộ việc thu dữ liệu phong phú về bối cảnh, không chỉ cố kéo dài giờ thu ở một chiếc bàn.
 
-### ### Vì sao phải so tập nhiều cảnh với tập ít cảnh?
+### Vì sao phải so tập nhiều cảnh với tập ít cảnh?
 
 Giả sử hai tập đều có số lượt thao tác tương đương, nhưng một tập chỉ lấy từ vài chục căn phòng còn tập kia đến từ nhiều nơi hơn. Nếu mô hình huấn luyện trên tập thứ hai tốt hơn khi gặp cảnh mới, ta có bằng chứng trực tiếp hơn về giá trị của **đa dạng bối cảnh**. So một tập lớn với một tập nhỏ hơn rất nhiều lại không tách được nguyên nhân: mô hình có thể thắng vì vừa có nhiều mẫu vừa có nhiều cảnh. Các con số tăng theo điểm phần trăm trong bài cũng phải được đọc như chênh lệch tỷ lệ thành công, không phải hệ số tăng gấp bao nhiêu lần.
 
