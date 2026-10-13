@@ -2771,9 +2771,10 @@
       "image": "/paper-figures/rtc-inference/figure-1.webp",
       "caption": "Figure 1: Top: Real-time chunking (RTC) enables the robot to perform highly dexterous and dynamic tasks, such as lighting a match—even in the presence of inference delays in excess of 300 milliseconds, corresponding to more than 30% of the model’s prediction horizon. Bottom: RTC performs the same robot motion 20% faster than synchronous inference [5, 30, 8, 24, 31, 59], and smoother than all competing methods, including temporal ensembling [68]. The shown positions, velocities, and accelerations correspond to the shoulder joint of one arm, and are taken from the first 10 seconds of a real autonomous match-lighting rollout.",
       "pdf": "https://arxiv.org/pdf/2506.07339",
-      "caption_vi": "Hình 1: Trên cùng: Phân tách thời gian thực (RTC) cho phép robot thực hiện các nhiệm vụ khéo léo và năng động, chẳng hạn như chiếu sáng một que diêm-ngay cả khi có sự trễ suy luận vượt quá 300 mili giây, tương ứng với hơn 30% chân trời dự đoán của mô hình. Dưới cùng: RTC thực hiện cùng một chuyển động robot nhanh hơn 20% so với suy luận đồng bộ [5, 30, 8, 24, 31, 59] và mượt hơn tất cả các phương pháp cạnh tranh, bao gồm cả ghép thời gian [68]. Các vị trí, vận tốc và gia tốc được hiển thị tương ứng với khớp vai của một cánh tay, và được lấy từ 10 giây đầu tiên của một màn chiếu sáng tự động thực sự.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "01a641c07c7d754f5f97c063c619e0d340e71bfaae617c067bb9323c993c5749"
+      "caption_vi": "Hình 1. RTC giúp robot làm các thao tác nhanh và khéo, như quẹt diêm, ngay cả khi mô hình mất hơn 300 mili giây mới sinh được hành động tiếp theo (hơn 30% khoảng thời gian một đoạn dự đoán). So với cách chờ mô hình xong mới chạy, RTC thực hiện cùng chuyển động nhanh hơn 20% và mượt hơn các phương pháp đối chứng, kể cả temporal ensembling. Các đường vị trí, vận tốc và gia tốc là của khớp vai trong 10 giây đầu của một lượt robot tự quẹt diêm.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "01a641c07c7d754f5f97c063c619e0d340e71bfaae617c067bb9323c993c5749",
+      "translation_reviewed": true
     },
     {
       "page": 3,
@@ -2790,9 +2791,10 @@
       "image": "/paper-figures/rtc-inference/figure-2.webp",
       "caption": "Figure 2: An illustration of a typical bifurcation be- tween consecutive chunks. Inference is started between timesteps 3 and 4. The original chunk that was execut- ing, {at} (black), had planned to go above the obstacle while the newly generated chunk {a′ t} (red) goes be- low the obstacle. However, {a′ t} is not available until d = 7 steps later. A naive asynchronous algorithm might jump from a10 to a′ 11, inducing a very high, out- of-distribution acceleration. Temporal ensembling [68], i.e., interpolating between chunks, reduces the acceler- ation but produces poor actions.",
       "pdf": "https://arxiv.org/pdf/2506.07339",
-      "caption_vi": "Hình 2: Một minh hoạ về sự phân chia điển hình giữa các khối liên tiếp.Sự suy luận được bắt đầu giữa thời gian 3 và 4. Đoạn ban đầu đang thực hiện, {at} (màu đen), đã lên kế hoạch đi lên trên chướng ngại vật trong khi đoạn mới được tạo ra {a t} (màu đỏ) đi xuống dưới chướng ngại vật.Tuy nhiên, {a t} không có sẵn cho đến khi d = 7 bước sau đó. Một thuật toán không đồng bộ ngây thơ có thể nhảy từ a10 đến a 11, tạo ra gia tốc ngoài phân phối rất cao. Tập hợp thời gian [68], tức là nội suy giữa các khối, làm giảm gia tốc nhưng tạo ra các hành động kém.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "c864c5e3e6a248bbdd2f117843718ae2178961e3823fb8c234fa614edd1c8aa0"
+      "caption_vi": "Hình 2. Vì sao nối hai đoạn hành động có thể gây giật. Robot đang thực hiện đoạn màu đen, dự định vòng phía trên vật cản. Trong khi đó mô hình bắt đầu tính đoạn mới giữa bước 3 và 4, nhưng phải đợi d = 7 bước mới trả về; đoạn màu đỏ lại định vòng phía dưới vật cản. Cách chạy bất đồng bộ đơn giản có thể nhảy thẳng từ hành động a10 sang a′11, gây gia tốc đột ngột chưa có trong dữ liệu huấn luyện. Lấy trung bình hai đoạn giúp giảm gia tốc nhưng lại tạo ra hành động không đúng đường nào.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "c864c5e3e6a248bbdd2f117843718ae2178961e3823fb8c234fa614edd1c8aa0",
+      "translation_reviewed": true
     },
     {
       "page": 4,
@@ -2809,9 +2811,10 @@
       "image": "/paper-figures/rtc-inference/figure-3.webp",
       "caption": "Figure 3: A diagram illustrating how action generation attends to the previous action chunk in real-time chunking. If inference starts after the execution of a−1 and the inference delay is d = 4, then the newly generated chunk will not be available until after a3 is consumed. Therefore, a0:3 are “frozen” and are attended to with a full guidance weight of 1. In the intermediate region, a4:10, actions from the previous chunk are available but may be updated, since inference will have finished before a4 is needed. This region is attended to with an exponentially decreasing guidance weight. Finally, the last s = 5 actions are beyond the end of the previous chunk, and need to be freshly generated. The execution horizon, s, is a hyperparameter constrained by d ≤s ≤H −d.",
       "pdf": "https://arxiv.org/pdf/2506.07339",
-      "caption_vi": "Hình 3: Một sơ đồ minh họa cách tạo hành động tham dự vào đoạn hành động trước đó trong phân tách thời gian thực. Nếu suy luận bắt đầu sau khi thực hiện a1 và độ trễ suy luận là d = 4, thì đoạn mới được tạo sẽ không có sẵn cho đến khi a3 được tiêu thụ. Do đó, a 0: 3 là \"đóng băng\" và được tham dự với trọng lượng hướng dẫn đầy đủ là 1. Trong vùng trung gian, a 4: 10, các hành động từ đoạn trước có sẵn nhưng có thể được cập nhật, vì suy luận sẽ hoàn thành trước khi cần a 4. Vùng này được tham dự với một trọng số hướng dẫn giảm theo hàm mũ. Cuối cùng, các hành động s = 5 cuối cùng nằm ngoài kết thúc của đoạn trước, và cần được tạo mới. Đường chân trời thực hiện, s, là một hyperparameter bị hạn chế bởi d s H d.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "fed1ee01c2041e0642dfc886677582bb9628c8ab9827da55a0e9ce3a62ac35f3"
+      "caption_vi": "Hình 3. Cách RTC tạo đoạn hành động mới dựa trên đoạn cũ. Giả sử bắt đầu suy luận sau khi robot dùng a−1 và mất d = 4 bước mới có kết quả: bốn hành động a0–a3 đã được cam kết, không được thay đổi, nên có trọng số ràng buộc bằng 1. Các bước a4–a10 vẫn có dự đoán từ đoạn cũ nhưng còn có thể sửa; trọng số ràng buộc giảm dần. Năm bước cuối vượt ra ngoài đoạn cũ nên phải sinh mới hoàn toàn. Độ dài thực thi s cần thỏa d ≤ s ≤ H − d.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "fed1ee01c2041e0642dfc886677582bb9628c8ab9827da55a0e9ce3a62ac35f3",
+      "translation_reviewed": true
     },
     {
       "page": 5,
@@ -2828,9 +2831,10 @@
       "image": "/paper-figures/rtc-inference/figure-4.webp",
       "caption": "Figure 4: A comparison of naive in- painting (hard masking) and our pro- posed soft masking method: note that hard masking does not match the frozen region very well and produces faster changes in direction.",
       "pdf": "https://arxiv.org/pdf/2506.07339",
-      "caption_vi": "Hình 4: Một so sánh về sơn ngây thơ (mặt nạ cứng) và phương pháp mặt nạ mềm được đề xuất của chúng tôi: lưu ý rằng mặt nạ cứng không phù hợp với khu vực đóng băng rất tốt và tạo ra những thay đổi về hướng nhanh hơn.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "cd79aa8555bfba475e8e154de9285620a2093776420f497e66f678c7d5a232bc"
+      "caption_vi": "Hình 4. So sánh hai cách giữ các hành động đã biết khi sinh đoạn mới. Cách inpainting dùng mặt nạ cứng không khớp tốt với phần hành động cố định và khiến hướng chuyển động thay đổi gấp. RTC đề xuất mặt nạ mềm để chuyển tiếp êm hơn giữa phần đã cam kết và phần có thể điều chỉnh.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "cd79aa8555bfba475e8e154de9285620a2093776420f497e66f678c7d5a232bc",
+      "translation_reviewed": true
     },
     {
       "page": 7,
@@ -2847,9 +2851,10 @@
       "image": "/paper-figures/rtc-inference/figure-5.webp",
       "caption": "Figure 5: Top left: Kinetix environments; each involves getting a green object on the left to touch a blue one on the right. Bottom left: Execution horizon vs. solve rate with a fixed inference delay of 1. Only RTC and BID take full advantage of faster updates, showing strictly increasing performance with decreasing execution horizon. Right: Inference delay vs. solve rate with a fixed execution horizon of s = max(d, 1). RTC outperforms all baselines. Furthermore, soft masking (Sec. 3.2) improves performance at lower inference delays and execution horizons. Each data point represents 2048 trials, and 95% Wilson score intervals are shaded in.",
       "pdf": "https://arxiv.org/pdf/2506.07339",
-      "caption_vi": "Hình 5: Trên cùng bên trái: Môi trường Kinetix; mỗi môi trường liên quan đến việc đưa một đối tượng màu xanh lá cây ở bên trái để chạm vào một đối tượng màu xanh ở bên phải. Dưới cùng bên trái: Đường chân trời thực hiện so với tỷ lệ giải quyết với độ trễ suy luận cố định là 1. Chỉ RTC và BID tận dụng tối đa các cập nhật nhanh hơn, hiển thị hiệu suất tăng chặt chẽ với chân trời thực hiện giảm. Phải: Độ trễ suy luận so với tốc độ giải quyết với chân trời thực hiện cố định là s = max (d, 1). RTC hoạt động tốt hơn tất cả các đường cơ sở.Hơn nữa, mặt nạ mềm (Sec. 3.2) cải thiện hiệu suất ở độ trễ suy luận thấp hơn và chân trời thực thi thấp hơn. Mỗi điểm dữ liệu đại diện cho 2048 thử nghiệm và 95% khoảng điểm Wilson được tô màu.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "879ee827d5a92fc80b19c81803b8b17987026588540d9bab23cac9f9b8d13ba0"
+      "caption_vi": "Hình 5. Đánh giá trên môi trường Kinetix: robot phải đưa vật màu xanh lá ở trái chạm vật xanh dương ở phải. Trái dưới: khi cố định độ trễ suy luận bằng 1 bước, giảm độ dài phần thực thi giúp tăng tỷ lệ giải xong; RTC và BID tận dụng được tốt nhất việc cập nhật nhanh. Bên phải: tăng độ trễ suy luận khi chọn s = max(d, 1), RTC vẫn vượt các phương pháp đối chứng. Mặt nạ mềm hữu ích rõ ở độ trễ và độ dài thực thi nhỏ. Mỗi điểm lấy từ 2.048 lượt thử, vùng tô là khoảng tin cậy Wilson 95%.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "879ee827d5a92fc80b19c81803b8b17987026588540d9bab23cac9f9b8d13ba0",
+      "translation_reviewed": true
     },
     {
       "page": 8,
@@ -2866,9 +2871,10 @@
       "image": "/paper-figures/rtc-inference/figure-6.webp",
       "caption": "Figure 6: Top: Controller steps (equivalent to elapsed time with inference pauses removed multiplied by 50Hz) vs. cumulative progress for each task, aggregated across all delays. Progress is measured in discrete steps corresponding to the subsections of each task. Left: Time (including inference pauses) vs. cumulative progress aggregated across all tasks. The x-axis is log scale to better show progress during both short and long-horizon tasks. Right: Inference delay vs. average throughput, defined as the proportion of task completed divided by duration of episode averaged over episodes. Error bars are ±1 SEM. Average throughput gives a balanced view of both speed and performance for each method. Neither TE variant can run at +100 or +200ms of injected latency, causing such high oscillations that the robot’s protective stop is triggered.",
       "pdf": "https://arxiv.org/pdf/2506.07339",
-      "caption_vi": "Hình 6: Trên cùng: Các bước điều khiển (tương đương với thời gian trôi qua với các khoảng dừng suy luận được loại bỏ nhân với 50 Hz) so với tiến độ tích luỹ cho mỗi tác vụ, được tổng hợp qua tất cả các sự chậm trễ. Tiến độ được đo bằng các bước riêng biệt tương ứng với các tiểu mục của mỗi nhiệm vụ.Trái: Thời gian (bao gồm cả các khoảng dừng suy luận) so với tiến độ tích luỹ được tổng hợp trên tất cả các nhiệm vụ. Trục x là log scale để hiển thị tốt hơn tiến trình trong cả hai ngắn và dài-chân dung nhiệm vụ. Phải: Suy luận độ trễ so với thông lượng trung bình, được định nghĩa là tỷ lệ tác vụ hoàn thành chia cho thời gian tập trung bình trên các tập. Thanh lỗi là 1 SEM. Thông lượng trung bình cho một cái nhìn cân bằng về cả tốc độ và hiệu suất cho mỗi phương pháp. Cả biến thể TE đều không thể chạy ở độ trễ +100 hoặc +200 ms, gây ra dao động cao đến mức dừng bảo vệ của robot được kích hoạt.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "bf0d34207e61e8ed3c4735c409abad7c5ca2b65b716797581d7001110294f6a0"
+      "caption_vi": "Hình 6. Đánh giá tiến độ và tốc độ thực thi. Phía trên: số bước bộ điều khiển (tính theo 50 Hz, đã loại khoảng dừng chờ mô hình) so với mức tiến độ của từng nhiệm vụ. Bên trái: thời gian thật tính cả lúc dừng so với tổng tiến độ, gộp nhiều nhiệm vụ; trục ngang theo thang log để nhìn rõ cả nhiệm vụ ngắn và dài. Bên phải: độ trễ suy luận so với thông lượng thực hiện, được đo bằng phần nhiệm vụ hoàn thành chia cho thời gian một lượt, rồi lấy trung bình. Thanh sai số ±1 sai số chuẩn. Hai bản temporal ensembling không thể chạy khi cộng thêm 100 hoặc 200 ms trễ vì dao động mạnh kích hoạt cơ chế dừng bảo vệ robot.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "bf0d34207e61e8ed3c4735c409abad7c5ca2b65b716797581d7001110294f6a0",
+      "translation_reviewed": true
     }
   ],
   "rtc-training": [
@@ -2887,9 +2893,10 @@
       "image": "/paper-figures/rtc-training/figure-1.webp",
       "caption": "Fig. 1: A diagram illustrating two overlapping action chunks. The d actions between t and t + d, taken from the previous chunk, are the action prefix (red). From the diagram, we can easily see that we must satisfy the constraint t + d ≤t −s + H →d ≤H −s to have a valid action prefix. Note that inference-time RTC uses all H −s overlapping actions (red and yellow) to guide the generation of the current chunk, whereas training-time RTC only uses the first d actions (red).",
       "pdf": "https://arxiv.org/pdf/2512.05964",
-      "caption_vi": "Hình 1: Một sơ đồ minh hoạ hai khối hành động chồng lên nhau. Các hành động d giữa t và t + d, lấy từ đoạn trước đó, là tiền tố hành động (màu đỏ). Từ sơ đồ, chúng ta có thể dễ dàng thấy rằng chúng ta phải thoả mãn ràng buộc t + d t s + H d H s để có tiền tố hành động hợp lệ. Lưu ý rằng RTC thời gian suy luận sử dụng tất cả các hành động chồng chéo của H (màu đỏ và màu vàng) để hướng dẫn việc tạo ra đoạn hiện tại, trong khi RTC thời gian huấn luyện chỉ sử dụng các hành động d đầu tiên (màu đỏ).",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "db7b543dd92834b29b184810241973bd21381bcbe08f40988aae53fce66ff8e0"
+      "caption_vi": "Hình 1. Hai đoạn hành động chồng nhau. d hành động đầu tiên từ t đến t+d lấy từ đoạn cũ, tô đỏ, được gọi là tiền tố hành động. Để tiền tố còn nằm trong đoạn chồng nhau, phải có t+d ≤ t−s+H, tương đương d ≤ H−s. RTC ở lúc suy luận dùng toàn bộ H−s hành động chồng nhau (đỏ và vàng) dẫn hướng đoạn mới; còn RTC huấn luyện sẵn chỉ dựa vào d hành động đầu màu đỏ.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "db7b543dd92834b29b184810241973bd21381bcbe08f40988aae53fce66ff8e0",
+      "translation_reviewed": true
     },
     {
       "page": 2,
@@ -2906,9 +2913,10 @@
       "image": "/paper-figures/rtc-training/figure-2.webp",
       "caption": "Fig. 2: An illustration of our conditioning architecture, as applied to a standard diffusion transformer such as the π0.6 action expert. We always feed in ground-truth, non-noisy prefix actions, while learning to denoise the postfix actions. The flow matching timestep differs between tokens, which indicates the inference delay to the model.",
       "pdf": "https://arxiv.org/pdf/2512.05964",
-      "caption_vi": "Hình 2: Một minh họa về kiến trúc điều kiện của chúng tôi, như được áp dụng cho một biến áp khuếch tán tiêu chuẩn như chuyên gia hành độngπ0.6. Chúng tôi luôn ăn theo sự thật mặt đất, các hành động tiền tố không ồn ào, trong khi học cách làm biến đổi các hành động hậu tố. Thời gian khớp dòng chảy khác nhau giữa các thẻ, cho thấy độ trễ suy luận đối với mô hình.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "dc2aa1735a33cd4eb647247160a125d47a951f27079f54dd874db00612d142de"
+      "caption_vi": "Hình 2. Cách điều kiện hóa tiền tố trong Diffusion Transformer, ví dụ action expert của π0.6. Trong lúc học, mô hình luôn nhận những hành động tiền tố thật, không thêm nhiễu, rồi học khử nhiễu phần hành động theo sau. Mỗi token có bước thời gian flow matching khác nhau để báo cho mạng biết phần nào đã cam kết do độ trễ suy luận.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "dc2aa1735a33cd4eb647247160a125d47a951f27079f54dd874db00612d142de",
+      "translation_reviewed": true
     },
     {
       "page": 3,
@@ -2925,9 +2933,10 @@
       "image": "/paper-figures/rtc-training/figure-3.webp",
       "caption": "Fig. 3: Simulated results: inference delay vs. solve rate with a fixed execution horizon of s = max(d, 1). Training-time RTC performs better than inference- time RTC at inference delays of 2 or higher. Each data point represents 2048 trials, and 95% Wilson score intervals are shaded in.",
       "pdf": "https://arxiv.org/pdf/2512.05964",
-      "caption_vi": "Hình 3: Kết quả mô phỏng: độ trễ suy luận so với tỷ lệ giải quyết với chân trời thực hiện cố định s = max (d, 1 ). RTC thời gian huấn luyện thực hiện tốt hơn RTC không suy luận ở độ trễ suy luận từ 2 trở lên. Mỗi điểm dữ liệu đại diện cho 2048 thử nghiệm và 95% khoảng điểm Wilson được tô màu.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "920138be2e5f231c3999357275117ad658f02eac7c1720e421160b37a3c48536"
+      "caption_vi": "Hình 3. Kết quả trong mô phỏng khi thay độ trễ suy luận và đặt độ dài thực thi s = max(d, 1). Từ độ trễ hai bước trở lên, RTC được học ràng buộc ngay trong huấn luyện cho tỷ lệ giải xong cao hơn RTC chỉ áp dụng ở suy luận. Mỗi điểm lấy từ 2.048 lượt thử, vùng tô là khoảng tin cậy Wilson 95%.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "920138be2e5f231c3999357275117ad658f02eac7c1720e421160b37a3c48536",
+      "translation_reviewed": true
     },
     {
       "page": 3,
@@ -2944,9 +2953,10 @@
       "image": "/paper-figures/rtc-training/figure-4.webp",
       "caption": "Fig. 4: Real-world evaluation tasks: building a cardboard box and making espresso (including grinding, tamping, extracting, and pouring).",
       "pdf": "https://arxiv.org/pdf/2512.05964",
-      "caption_vi": "Hình 4: Nhiệm vụ đánh giá thực tế: làm một hộp các tông và pha espresso (bao gồm nghiền, dán, tách và rót).",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "ebf785929a152a8fb4e343903d6d9eb62d8850b3476cb909a191e8a6759ca686"
+      "caption_vi": "Hình 4. Hai bài đánh giá robot thật: dựng một hộp bìa carton và pha espresso. Quy trình pha cà phê gồm xay hạt, nén cà phê, chiết xuất và rót ra cốc, vì thế đòi phối hợp nhiều động tác nối tiếp nhau.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "ebf785929a152a8fb4e343903d6d9eb62d8850b3476cb909a191e8a6759ca686",
+      "translation_reviewed": true
     },
     {
       "page": 3,
@@ -2963,9 +2973,10 @@
       "image": "/paper-figures/rtc-training/figure-5.webp",
       "caption": "Fig. 5: Real-world results: success rate and duration for espresso making and box building. Training-time and inference-time RTC perform similarly, while both improving speed over synchronous inference. Error bars represent 68% Wilson score intervals for success rate and ±1 SEM for duration.",
       "pdf": "https://arxiv.org/pdf/2512.05964",
-      "caption_vi": "Hình 5: Kết quả thực tế: tỷ lệ thành công và thời gian cho việc pha espresso và đóng hộp. RTC thời gian huấn luyện và thời gian suy luận thực hiện tương tự nhau, trong khi cả hai đều cải thiện tốc độ so với suy luận đồng bộ. Các thanh lỗi đại diện cho 68% khoảng điểm Wilson cho tỷ lệ thành công và 1 SEM cho thời gian.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "410ef7feef8b6ac88680a4497ac3aecd1bc4da2902a7fe231b7bd28ac8e1449e"
+      "caption_vi": "Hình 5. Kết quả robot thật: tỷ lệ thành công và thời gian hoàn thành hai nhiệm vụ pha espresso, dựng hộp giấy. RTC huấn luyện sẵn và RTC áp dụng khi suy luận đạt hiệu quả gần nhau trong thiết lập này; cả hai đều nhanh hơn cách chạy tuần tự phải dừng chờ suy luận. Thanh sai số của tỷ lệ thành công là khoảng Wilson 68%, của thời gian là ±1 sai số chuẩn.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "410ef7feef8b6ac88680a4497ac3aecd1bc4da2902a7fe231b7bd28ac8e1449e",
+      "translation_reviewed": true
     }
   ],
   "qwen-vla": [
@@ -2984,9 +2995,10 @@
       "image": "/paper-figures/qwen-vla/figure-1.webp",
       "caption": "Figure 1: Overview of Qwen-VLA, a unified embodied model trained on mixed manipulation, navigation, and vision-language understanding data to generate both robot actions and textual responses.",
       "pdf": "https://arxiv.org/pdf/2605.30280",
-      "caption_vi": "Hình 1: Tổng quan về Qwen-VLA, một mô hình thể hiện thống nhất được đào tạo về thao tác hỗn hợp, định hướng và dữ liệu hiểu ngôn ngữ thị giác để tạo ra cả hành động của robot và phản hồi văn bản.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "33083037ebcdeb1ed09c8fa2bee0bc964ef15366c62b5e72982d143e7fd8417f"
+      "caption_vi": "Hình 1. Qwen-VLA là mô hình robot thống nhất, được học từ cả dữ liệu thao tác tay máy, điều hướng và hiểu ảnh–ngôn ngữ. Nó có thể tạo lệnh chuyển động cho robot hoặc trả lời bằng văn bản tùy dạng yêu cầu.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "33083037ebcdeb1ed09c8fa2bee0bc964ef15366c62b5e72982d143e7fd8417f",
+      "translation_reviewed": true
     },
     {
       "page": 6,
@@ -3003,9 +3015,10 @@
       "image": "/paper-figures/qwen-vla/figure-2.webp",
       "caption": "Figure 2: Training recipe of Qwen-VLA. Stage I (T2A) trains the DiT action decoder to reconstruct actions from text alone, building a structured action prior without visual input. Stage II (CPT) unfreezes both modules to ground this prior in visual observations. Stage III (SFT) branches into multi-task and real-robot tracks, and Stage IV (RL) optimizes closed-loop task success via environment rewards.",
       "pdf": "https://arxiv.org/pdf/2605.30280",
-      "caption_vi": "Hình 2: Huấn luyện công thức của Qwen-VLA. Giai đoạn I (T2A) huấn luyện bộ giải mã hành động DiT để tái tạo các hành động từ văn bản một mình, xây dựng một hành động có cấu trúc trước đó mà không có đầu vào trực quan. Giai đoạn II (CPT) giải phóng cả hai mô-đun để nền tảng này trước trong các quan sát trực quan. Stage III (SFT) phân nhánh thành các track đa nhiệm vụ và robot thực tế, và Stage IV (RL) tối ưu hóa thành công nhiệm vụ vòng kín thông qua các phần thưởng môi trường.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "3867ac55c42ac1d138412c733a2893aa7f6e286ff961b6c1f567526a4343e9ca"
+      "caption_vi": "Hình 2. Bốn bước huấn luyện Qwen-VLA. Bước I (T2A): chỉ dùng văn bản để học bộ giải mã hành động DiT tái tạo chuyển động, tạo kiến thức nền về cấu trúc hành động trước khi có ảnh. Bước II (CPT): mở cập nhật cả hai mô-đun để gắn kiến thức hành động với quan sát camera. Bước III (SFT): chia thành hướng đa nhiệm và hướng robot thật. Bước IV (RL): dùng phần thưởng khi robot tương tác với môi trường để tăng tỷ lệ hoàn thành trong điều khiển vòng kín.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "3867ac55c42ac1d138412c733a2893aa7f6e286ff961b6c1f567526a4343e9ca",
+      "translation_reviewed": true
     },
     {
       "page": 11,
@@ -3022,9 +3035,10 @@
       "image": "/paper-figures/qwen-vla/figure-3.webp",
       "caption": "Figure 3: Examples of data generated through ROBOINF. The top row shows a short-horizon task, “Place the two green staplers side by side,” which consists of a compact sequence of reaching, grasping, transporting, and placing. The bottom row shows a long-horizon task, “Group the drinks together and leave the cleaning sponge by itself,” which requires multiple object manipulations and can be decomposed into subtask segments such as picking and placing each drink.",
       "pdf": "https://arxiv.org/pdf/2605.30280",
-      "caption_vi": "Hình 3: Ví dụ về dữ liệu được tạo ra thông qua ROBOINF. Hàng trên cùng cho thấy một nhiệm vụ chân trời ngắn, \"Đặt hai dập ghim màu xanh lá cây cạnh nhau\", bao gồm một chuỗi nhỏ gọn của việc vươn tới, nắm bắt, vận chuyển và đặt. Hàng dưới cùng hiển thị một nhiệm vụ có chân trời dài, \"Nhóm đồ uống lại với nhau và để miếng bọt biển làm sạch một mình\", đòi hỏi nhiều thao tác đối tượng và có thể được phân tách thành nhiệm vụ phụ Ví dụ, bạn có thể nói: \" Tôi muốn uống một ly rượu vang, nhưng tôi không muốn uống rượu vang.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "067d8467a7cbf97f48284f4a86e20fa7c6cc9cc39f53b5dad20da1a31bcac9a4"
+      "caption_vi": "Hình 3. Ví dụ dữ liệu tạo bằng ROBOINF. Hàng trên là nhiệm vụ ngắn 'Đặt hai chiếc dập ghim xanh lá cạnh nhau', gồm đưa tay tới, kẹp, di chuyển và đặt xuống. Hàng dưới là nhiệm vụ dài 'Gom đồ uống cùng một chỗ, để miếng bọt biển riêng', đòi nhiều thao tác với các vật khác nhau nên có thể chia thành các bước nhặt–đặt nhỏ.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "067d8467a7cbf97f48284f4a86e20fa7c6cc9cc39f53b5dad20da1a31bcac9a4",
+      "translation_reviewed": true
     },
     {
       "page": 17,
@@ -3041,9 +3055,10 @@
       "image": "/paper-figures/qwen-vla/figure-4.webp",
       "caption": "Figure 4: Overview of real-world evaluation tasks on the ALOHA bimanual platform.",
       "pdf": "https://arxiv.org/pdf/2605.30280",
-      "caption_vi": "Hình 4: Tổng quan về các nhiệm vụ đánh giá thực tế trên nền tảng đôi ALOHA.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "e4446f2da218454d108ed4cdba6fdc60293458ec8d66ad453883259f2ed190a4"
+      "caption_vi": "Hình 4. Tổng quan các nhiệm vụ robot thật dùng để đánh giá Qwen-VLA trên hệ hai tay ALOHA.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "e4446f2da218454d108ed4cdba6fdc60293458ec8d66ad453883259f2ed190a4",
+      "translation_reviewed": true
     },
     {
       "page": 21,
@@ -3060,9 +3075,10 @@
       "image": "/paper-figures/qwen-vla/figure-5.webp",
       "caption": "Figure 5: Qualitative out-of-distribution generalization of Qwen-VLA-Base on the ALOHA dual-arm robot. Top-left: color-conditioned grasping of green, blue, red, and yellow balls. Top-right: upper two panels show grasping of novel objects (green broccoli, toy duck); lower two panels show a compositional “clean up the table” task with sequential pick-and-place into a bin (blue umbrella, toy duck, bottled yogurt). Bottom-left: interaction with completely unseen objects (sunglasses, plush doll, toy duck). Bottom-right: atomic action transfer through uncapping a pen and placing the cap, robust to unseen yellow backgrounds.",
       "pdf": "https://arxiv.org/pdf/2605.30280",
-      "caption_vi": "Hình 5: Định tính tổng quát của Qwen-VLA-Base trên robot hai cánh tay ALOHA. Trên cùng bên trái: nắm được các quả bóng màu xanh lá cây, xanh dương, đỏ và vàng. Top-right: hai bảng trên cho thấy việc nắm bắt các đối tượng mới lạ (bông cải xanh, vịt đồ chơi); hai bảng dưới cho thấy nhiệm vụ \" dọn dẹp bàn\" với việc chọn và đặt liên tiếp vào thùng (dù xanh, vịt đồ chơi, sữa chua đóng chai). Bottom-left: tương tác với các vật thể hoàn toàn không nhìn thấy (kính, búp bê sang trọng, vịt đồ chơi) Bottom-right: chuyển hành động nguyên tử thông qua việc mở nắp bút và đặt nắp, mạnh mẽ với nền màu vàng không nhìn thấy được.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "09cde82ad9c0a1e1980f6d68447143850b370ca19158dcb9e9dafedc1a761c02"
+      "caption_vi": "Hình 5. Những ví dụ Qwen-VLA-Base làm việc ngoài điều kiện huấn luyện trên robot hai tay ALOHA. Góc trên trái: nhặt bóng theo màu xanh lá, xanh dương, đỏ, vàng. Góc trên phải: gắp đồ vật mới như bông cải và vịt đồ chơi, sau đó dọn bàn bằng chuỗi nhặt–đặt ô xanh, vịt và chai sữa chua vào thùng. Góc dưới trái: tương tác với kính râm, thú bông và vịt chưa từng thấy. Góc dưới phải: mở nắp bút rồi đặt nắp, ngay cả khi phông nền vàng chưa từng thấy.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "09cde82ad9c0a1e1980f6d68447143850b370ca19158dcb9e9dafedc1a761c02",
+      "translation_reviewed": true
     },
     {
       "page": 22,
@@ -3079,9 +3095,10 @@
       "image": "/paper-figures/qwen-vla/figure-6.webp",
       "caption": "Figure 6: T2A pretraining ablations. (a) Data composition and prediction mode. SFT success rate (%) vs. synthetic data ratio in the T2A corpus. The dashed line marks the baseline without T2A (60.9%). Full- sequence prediction with ∼20% synthetic + 80% real data achieves the best result (71.1%, +10.2 pp over no T2A). Chunk prediction consistently underperforms full-sequence (e.g. +4.9 pp at 10% synthetic), and including image tokens during T2A further hurts chunk-mode performance (−2.9 pp), confirming that images should be fully suppressed at T2A. (b) Flow-matching timestep distribution. The combination of Sigmoid-Normal p(τ) at T2A and Beta p(τ) at SFT achieves the highest success rate (71.1%); reversing the choice at either stage degrades performance. (c) T2A training duration. Performance peaks at 2,000 steps (71.1%) and plateaus through 10,000 steps; 40,000 steps causes a slight drop due to overfitting to the T2A corpus.",
       "pdf": "https://arxiv.org/pdf/2605.30280",
-      "caption_vi": "Hình 6: Cắt bỏ T2A trước đào tạo. (a) Thành phần dữ liệu và chế độ dự đoán. Tỷ lệ thành công SFT (%) so với tỷ lệ dữ liệu tổng hợp trong tập hợp T2A. Đường gạch gạch đánh dấu đường cơ sở không có T2A (60,9% ). Dự đoán dãy đầy đủ với 20% tổng hợp + 80% dữ liệu thực đạt được kết quả tốt nhất (71,1%, +10,2 pp trên không có T2A). Dự đoán Chunk liên tục thực hiện dưới dãy đầy đủ (ví dụ +4,9 pp ở mức tổng hợp 10%), và bao gồm các thẻ hình ảnh trong T2A tiếp tục gây tổn thương hiệu suất chế độ chunk (?? 2,9 pp), xác nhận rằng hình ảnh nên được triệt tiêu hoàn toàn ở T2A. (b) Phân bố nhịp tim phù hợp. Sự kết hợp của Sigmoid-Normal p(?? ) tại T2A và Beta p(?? ) tại SFT đạt tỷ lệ thành công cao nhất (71,1% ); đảo ngược lựa chọn ở một trong hai giai đoạn làm giảm hiệu suất. (c) Thời gian huấn luyện T2A.Hiệu suất đạt đỉnh ở 2.000 bước (71,1%) và cao nguyên qua 10.000 bước; 40.000 bước gây giảm nhẹ do quá phù hợp với T2A corpus.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "2fa4e745df52fd369683cb6d8ee4483a711068af64d710592c690d8eeb34d9c4"
+      "caption_vi": "Hình 6. Các thí nghiệm tách ảnh hưởng của tiền huấn luyện văn bản–hành động (T2A). (a) Thay tỷ lệ dữ liệu tổng hợp và cách dự đoán: mô hình không có T2A đạt 60,9%; dự đoán cả chuỗi với khoảng 20% dữ liệu tổng hợp và 80% dữ liệu thật đạt cao nhất 71,1%, tăng 10,2 điểm phần trăm. Dự đoán theo đoạn kém hơn; thêm token ảnh vào giai đoạn T2A còn làm kết quả theo đoạn giảm 2,9 điểm. (b) Phân phối bước thời gian flow matching: dùng Sigmoid-Normal ở T2A và Beta ở SFT cho kết quả tốt nhất. (c) Huấn luyện T2A khoảng 2.000 bước là đủ đạt 71,1%; tới 10.000 bước gần như không tăng, còn 40.000 bước hơi giảm vì học quá sát dữ liệu T2A.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "2fa4e745df52fd369683cb6d8ee4483a711068af64d710592c690d8eeb34d9c4",
+      "translation_reviewed": true
     },
     {
       "page": 24,
@@ -3098,9 +3115,10 @@
       "image": "/paper-figures/qwen-vla/figure-7.webp",
       "caption": "Figure 7: Vision-language co-training ablations. (a) Impact of VL data on action learning. Task-average success rate (%) across four benchmarks for VLA-Only (action data only) vs. VL+VLA (action + vision- language data co-training). On simpler benchmarks (Libero, Simpler-WidowX) the two configurations perform comparably, confirming that VL co-training introduces no interference. On benchmarks that demand fine-grained object recognition and compositional instruction parsing, VL+VLA yields clear gains: +4.9 pp on RoboCasa-GR1 (51.1% →56.0%) and +4.6 pp on RoboTwin-2.0 (81.8% →86.4%). (b) Transferability of pretrained DiT. SFT success rate (%) on RoboCasa-GR1 vs. training steps (k) when pairing the original Qwen3.5 VLM backbone with a DiT decoder initialised from scratch vs. a pretrained DiT. The pretrained DiT converges faster and reaches a higher peak.",
       "pdf": "https://arxiv.org/pdf/2605.30280",
-      "caption_vi": "Hình 7: Cắt bỏ đồng đào tạo về thị giác-ngôn ngữ. (a) Tác động của dữ liệu VL lên việc học hành động. Tác vụ-tỷ lệ thành công trung bình (%) trên bốn điểm chuẩn cho VLA-Chỉ (chỉ dữ liệu hành động) so với. Đồng huấn luyện dữ liệu ngôn ngữ thị giác VL+VLA (hành động + đồng huấn luyện dữ liệu ngôn ngữ thị giác ). Trên các điểm chuẩn đơn giản hơn (Libero, Đơn giản hóa-WidowX) hai cấu hình thực hiện tương đương, xác nhận rằng đồng huấn luyện VL không có nhiễu. Trên các điểm chuẩn yêu cầu nhận dạng đối tượng hạt mịn và phân tích lệnh thành phần, VL + VLA mang lại lợi ích rõ ràng: +4,9 pp trên RoboCasa-GR1 (51,1%?? 56,0% ) và +4,6 pp trên RoboTwin-2.0 (81,8%?? 86,4% ). (b) Khả năng chuyển giao của DiT. SFT được đào tạo trước tỷ lệ thành công (%) trên RoboCasa-GR1 so với các bước đào tạo (k) khi ghép xương sống Qwen3.5 VLM gốc với bộ giải mã DiT được khởi tạo từ đầu so với DiT được đào tạo trước. DiT được đào tạo trước hội tụ nhanh hơn và đạt đến đỉnh cao hơn.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "ab4c23f035f5e74f36442d6fda068c899bc6d3eb45c91e65fe7235d666253ab9"
+      "caption_vi": "Hình 7. Kiểm tra ảnh hưởng của việc học chung dữ liệu hình ảnh–ngôn ngữ (VL) với dữ liệu robot (VLA). (a) Ở bài đơn giản LIBERO và Simpler-WidowX, hai cách học gần nhau; ở tác vụ cần nhận đúng vật và hiểu yêu cầu nhiều bước, học chung tốt hơn: RoboCasa-GR1 tăng từ 51,1% lên 56,0% và RoboTwin-2.0 từ 81,8% lên 86,4%. (b) Khi dùng cùng nền Qwen3.5, bộ giải mã DiT đã tiền huấn luyện hội tụ nhanh và đạt tỷ lệ thành công cao hơn DiT khởi tạo từ đầu trên RoboCasa-GR1.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "ab4c23f035f5e74f36442d6fda068c899bc6d3eb45c91e65fe7235d666253ab9",
+      "translation_reviewed": true
     }
   ],
   "lingbot-vla-2": [
@@ -3119,9 +3137,10 @@
       "image": "/paper-figures/lingbot-vla-2/figure-1.webp",
       "caption": "Figure 1. Overview of LingBot-VLA 2.0. We revamp the data processing pipeline and curate 60,000 hours of pretraining data, including 50,000 hours of robot trajectories across 20 robot configurations and 10,000 hours of egocentric human videos. Moreover, our model supports degrees of freedom for the head, waist, mobile base, and dexterous hands, enabling robots to handle more complex real-world tasks. We formulate future prediction as a proxy task, leveraging a video representation model for semantic priors and a depth estimation model for geometric cues.",
       "pdf": "https://arxiv.org/pdf/2607.06403",
-      "caption_vi": "Hình 1. Tổng quan về LingBot-VLA 2.0. Chúng tôi cải tiến đường ống xử lý dữ liệu và quản lý 60,000 giờ dữ liệu huấn luyện, bao gồm 50,000 giờ về quỹ đạo của robot trên 20 cấu hình robot và 10,000 giờ về video vị kỷ của con người. Hơn nữa, mô hình của chúng tôi hỗ trợ mức độ tự do cho đầu, eo, đế di động và bàn tay khéo léo, cho phép robot xử lý các nhiệm vụ phức tạp hơn trong thế giới thực. Chúng tôi xây dựng dự đoán tương lai như một nhiệm vụ ủy nhiệm, tận dụng mô hình trình bày video cho những tiền lệ về ngữ nghĩa và mô hình ước lượng chiều sâu cho các tín hiệu hình học.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "1715e00aed57d60daaf88877b43384720194552c4c0ff48881ad5fc9cc2899a0"
+      "caption_vi": "Hình 1. Tổng quan LingBot-VLA 2.0. Quy trình xử lý dữ liệu được thiết kế lại để chọn 60.000 giờ học trước: 50.000 giờ quỹ đạo từ 20 cấu hình robot và 10.000 giờ video góc nhìn người. Model hỗ trợ chuyển động đầu, eo, bệ di động và bàn tay nhiều khớp. Để học hệ quả của hành động, mô hình dự đoán đặc trưng tương lai, lấy tín hiệu ngữ nghĩa từ mạng biểu diễn video và thông tin hình học từ mạng ước lượng độ sâu.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "1715e00aed57d60daaf88877b43384720194552c4c0ff48881ad5fc9cc2899a0",
+      "translation_reviewed": true
     },
     {
       "page": 3,
@@ -3138,9 +3157,10 @@
       "image": "/paper-figures/lingbot-vla-2/figure-2.webp",
       "caption": "Figure 2. Visualization of the pre-training dataset used by LingBot-VLA-2.0. The dataset includes 20 robot embodiments with degrees of freedom in the arms, heads, waists, mobile bases, and dexterous hands.",
       "pdf": "https://arxiv.org/pdf/2607.06403",
-      "caption_vi": "Hình 2. Hình dung bộ dữ liệu trước đào tạo của LingBot-VLA-2.0. Bộ dữ liệu bao gồm 20 biểu tượng robot với các bậc tự do ở cánh tay, đầu, eo, đế di động và bàn tay khéo léo.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "f447a4ac876d02faa1936051c24e1165878b507120532b386c34407f1d25e8f5"
+      "caption_vi": "Hình 2. Một số ví dụ trong tập dữ liệu học trước LingBot-VLA 2.0. Tập hợp gồm 20 kiểu robot khác nhau, từ cánh tay, đầu, eo, bệ di động đến bàn tay có nhiều khớp và bậc tự do.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "f447a4ac876d02faa1936051c24e1165878b507120532b386c34407f1d25e8f5",
+      "translation_reviewed": true
     },
     {
       "page": 4,
@@ -3157,9 +3177,10 @@
       "image": "/paper-figures/lingbot-vla-2/figure-3.webp",
       "caption": "Figure 3. Data processing pipeline.",
       "pdf": "https://arxiv.org/pdf/2607.06403",
-      "caption_vi": "Hình 3. Đường ống xử lý dữ liệu.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "d090235db4b63849cabbec8d98326e1ab4e84d60c47dc0936901b72067aaee07"
+      "caption_vi": "Hình 3. Sơ đồ các bước thu nhận, làm sạch, chuẩn hóa và tuyển chọn dữ liệu trước khi đưa vào huấn luyện LingBot-VLA 2.0.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "d090235db4b63849cabbec8d98326e1ab4e84d60c47dc0936901b72067aaee07",
+      "translation_reviewed": true
     },
     {
       "page": 6,
@@ -3176,9 +3197,10 @@
       "image": "/paper-figures/lingbot-vla-2/figure-4.webp",
       "caption": "Figure 4. Unified action representation. We map heterogeneous embodiment controls into compact action vectors composed of shared body-part components.",
       "pdf": "https://arxiv.org/pdf/2607.06403",
-      "caption_vi": "Hình 4. Biểu diễn hành động thống nhất. Chúng tôi lập bản đồ các điều khiển hiện tượng không đồng nhất thành các vector hành động nhỏ gọn gồm các thành phần phần thân chung.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "f70899c219822d5ba66910e6f1983f6596099c641b21bbf5ccd5e91355337b5f"
+      "caption_vi": "Hình 4. Cách biểu diễn hành động dùng chung. Lệnh từ các robot có cấu trúc khác nhau được ánh xạ vào vector gọn gồm các phần tương ứng với từng bộ phận cơ thể; nhờ vậy mô hình học từ nhiều robot mà không coi mọi khớp của chúng giống hệt nhau.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "f70899c219822d5ba66910e6f1983f6596099c641b21bbf5ccd5e91355337b5f",
+      "translation_reviewed": true
     },
     {
       "page": 8,
@@ -3195,9 +3217,10 @@
       "image": "/paper-figures/lingbot-vla-2/figure-5.webp",
       "caption": "Figure 5. Per-action statistics of the subtask annotations: duration composition, frequency (fraction of all subtasks), total time (fraction of the total annotated time), and mean duration. Actions are grouped as in Tab. 2; idle is filtered out of the training data and omitted here.",
       "pdf": "https://arxiv.org/pdf/2607.06403",
-      "caption_vi": "Hình 5. Thống kê theo từng hành động trong các nhãn tác vụ con: tỷ trọng thời lượng, tần suất (tỷ lệ trong tổng số tác vụ con), tổng thời gian (tỷ lệ trong tổng thời gian được gán nhãn) và thời lượng trung bình. Các hành động được nhóm như ở Bảng 2; trạng thái idle đã bị loại khỏi dữ liệu huấn luyện nên không được hiển thị tại đây.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon); editor correction of PDF text overlap",
-      "caption_sha256": "e7630e735fc383c2f51d1590d5806d203ed146832764998514af5ac53c4256fa"
+      "caption_vi": "Hình 5. Thống kê các thao tác nhỏ được gắn nhãn: tỷ trọng thời gian, tần suất xuất hiện trong tổng số thao tác, tổng thời gian chiếm trong dữ liệu và thời lượng trung bình của từng thao tác. Cách nhóm động tác theo Bảng 2; khoảng không hoạt động (idle) đã được loại khỏi huấn luyện nên không xuất hiện trong biểu đồ.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "e7630e735fc383c2f51d1590d5806d203ed146832764998514af5ac53c4256fa",
+      "translation_reviewed": true
     },
     {
       "page": 8,
@@ -3214,9 +3237,10 @@
       "image": "/paper-figures/lingbot-vla-2/figure-6.webp",
       "caption": "Figure 6. Word cloud of the manipulated objects in the subtask annotations, sized by frequency.",
       "pdf": "https://arxiv.org/pdf/2607.06403",
-      "caption_vi": "Hình 6. Đám mây từ của các đối tượng thao tác trong chú thích subtask, kích thước theo tần số.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "8b87916e78b41b4bad64c4fd3f7dd914d95e0dabd0df16f7fb606bb6ebb8a4c6"
+      "caption_vi": "Hình 6. Đám mây từ thể hiện các đồ vật robot tương tác trong phần dữ liệu có nhãn thao tác nhỏ. Tên đồ vật càng lớn thì xuất hiện càng thường xuyên.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "8b87916e78b41b4bad64c4fd3f7dd914d95e0dabd0df16f7fb606bb6ebb8a4c6",
+      "translation_reviewed": true
     },
     {
       "page": 9,
@@ -3233,9 +3257,10 @@
       "image": "/paper-figures/lingbot-vla-2/figure-7.webp",
       "caption": "Figure 7. Comparable active-parameter scaling comparison between Dense model and MoE model using training loss on pre-training data and validation action error on GM-100 tasks.",
       "pdf": "https://arxiv.org/pdf/2607.06403",
-      "caption_vi": "Hình 7. So sánh tỷ lệ tham số hoạt động so sánh giữa mô hình Dense và mô hình MoE sử dụng tổn thất đào tạo đối với dữ liệu trước đào tạo và lỗi hành động thẩm định đối với nhiệm vụ GM-100.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "7f0f7982fb8499b8234cfd764c499c32263cd5084d0a092aaf8b0698d0367bfd"
+      "caption_vi": "Hình 7. So sánh mạng thông thường (Dense) và mạng nhiều chuyên gia (MoE) khi giữ số tham số thật sự hoạt động ở mức tương đương. Hai chỉ số là loss trên dữ liệu học trước và sai số hành động trên bộ nhiệm vụ GM-100. Biểu đồ giúp kiểm tra MoE có mang lợi ích riêng khi không được dùng nhiều phép tính hơn hay không.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "7f0f7982fb8499b8234cfd764c499c32263cd5084d0a092aaf8b0698d0367bfd",
+      "translation_reviewed": true
     },
     {
       "page": 13,
@@ -3252,9 +3277,10 @@
       "image": "/paper-figures/lingbot-vla-2/figure-8.webp",
       "caption": "Figure 8. Per-subtask performance on the long-horizon mobile manipulation benchmark. Bars report the mean subtask completion score (%) across 15 trials under both in-domain (ID) and out-of-distribution (OOD) settings.",
       "pdf": "https://arxiv.org/pdf/2607.06403",
-      "caption_vi": "Hình 8. Hiệu suất cho mỗi tác vụ phụ trên chuẩn thao tác di động đường chân trời dài. Các thanh báo cáo điểm hoàn thành tác vụ phụ trung bình (%) trong 15 thử nghiệm dưới cả cài đặt trong miền (ID) và ngoài phân phối (OOD).",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "59f48c4d8f0ab064d294a6e37fa580f5fb67f9cd28e1e01c43317881d7b69aa7"
+      "caption_vi": "Hình 8. Hiệu quả theo từng thao tác con trong benchmark robot di động có nhiệm vụ dài. Mỗi cột là điểm hoàn thành trung bình của một thao tác con, tính theo phần trăm trên 15 lượt thử, tách điều kiện giống dữ liệu huấn luyện (ID) và ngoài phân phối (OOD).",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "59f48c4d8f0ab064d294a6e37fa580f5fb67f9cd28e1e01c43317881d7b69aa7",
+      "translation_reviewed": true
     },
     {
       "page": 14,
@@ -3271,9 +3297,10 @@
       "image": "/paper-figures/lingbot-vla-2/figure-9.webp",
       "caption": "Figure 9. Illustration of the long-horizon mobile manipulation experiments platform.",
       "pdf": "https://arxiv.org/pdf/2607.06403",
-      "caption_vi": "Hình 9. Minh họa nền tảng thí nghiệm thao tác di động đường chân trời dài.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "5143d117ce4f3ccc074f107a544567e2a65eff82c578dc0c0fe5551afb2cf86d"
+      "caption_vi": "Hình 9. Thiết bị và không gian dùng làm thí nghiệm thao tác robot di động gồm nhiều bước nối tiếp nhau, phục vụ việc đánh giá LingBot-VLA 2.0.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "5143d117ce4f3ccc074f107a544567e2a65eff82c578dc0c0fe5551afb2cf86d",
+      "translation_reviewed": true
     },
     {
       "page": 15,
@@ -3290,9 +3317,10 @@
       "image": "/paper-figures/lingbot-vla-2/figure-10.webp",
       "caption": "Figure 10. Results on the four GM-100 real-robot tasks.",
       "pdf": "https://arxiv.org/pdf/2607.06403",
-      "caption_vi": "Hình 10. Kết quả của bốn nhiệm vụ robot thực tế GM-100",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "bf74fd2771e9b498163cc9af0abd35cdfe339b804051191de90c2db3d5cf21a4"
+      "caption_vi": "Hình 10. Kết quả trên bốn nhiệm vụ robot thật thuộc bộ đánh giá GM-100. Đây là các phép thử tương tác vật lý để đối chiếu với chỉ số sai số hành động thu được khi đánh giá offline.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "bf74fd2771e9b498163cc9af0abd35cdfe339b804051191de90c2db3d5cf21a4",
+      "translation_reviewed": true
     },
     {
       "page": 15,
@@ -3309,9 +3337,10 @@
       "image": "/paper-figures/lingbot-vla-2/figure-11.webp",
       "caption": "Figure 11. Per-dimension MeanStd-normalized action distributions for joint and EEF action spaces. The first column shows the pooled distribution over all four tasks, while the remaining columns show task-specific distributions. The gap measures task-to-pooled distribution alignment based on per-dimension median and IQR differences.",
       "pdf": "https://arxiv.org/pdf/2607.06403",
-      "caption_vi": "Hình 11. Phân bố hoạt động bình thường hóa MeanStd trên mỗi chiều cho các không gian hành động theo khớp và EEF. Cột đầu tiên cho thấy phân phối gộp trên tất cả bốn nhiệm vụ, trong khi các cột còn lại hiển thị các phân phối dành riêng cho từng nhiệm vụ. Khoảng cách đo lường liên kết phân phối nhiệm vụ-phân phối chung dựa trên sự khác biệt giữa trung vị mỗi chiều và IQR.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "125715e2a473130a8f6ab55ec7eb9bffd56fb537cddbab24a6d321b4b90a192f"
+      "caption_vi": "Hình 11. Phân phối hành động sau chuẩn hóa MeanStd theo từng chiều đối với lệnh khớp và lệnh ở đầu công tác (EEF). Cột đầu là phân phối gộp của cả bốn nhiệm vụ; những cột sau là từng nhiệm vụ riêng. Chỉ số gap đo độ lệch giữa phân phối từng nhiệm vụ và phân phối chung bằng chênh lệch trung vị cùng khoảng tứ phân vị (IQR) của từng chiều.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "125715e2a473130a8f6ab55ec7eb9bffd56fb537cddbab24a6d321b4b90a192f",
+      "translation_reviewed": true
     },
     {
       "page": 16,
@@ -3328,9 +3357,10 @@
       "image": "/paper-figures/lingbot-vla-2/figure-12.webp",
       "caption": "Figure 12. Action targets and normalization statistics for the four GM-100 tasks. Left: relQpos substantially reduces the action scale compared with absQpos. Right: normalization changes the effective dynamic range of MeanStd-normalized relQpos; Q01–Q99 is shown in the actual unclipped setting.",
       "pdf": "https://arxiv.org/pdf/2607.06403",
-      "caption_vi": "Hình 12. Mục tiêu hành động và thống kê chuẩn hóa cho bốn nhiệm vụ GM-100. Bên trái: relQpos giảm đáng kể quy mô hành động so với absQpos. Phải: chuẩn hóa thay đổi dải động hiệu quả của relQpos bình thường MeanStd; Q01-Q99 được hiển thị trong cài đặt thực tế chưa được cắt.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "c94ddcdd381f44063c9a90dd1cbb57ce4aecbc500a89ce7ca70ceb47216a1097"
+      "caption_vi": "Hình 12. Giá trị lệnh mục tiêu và các thống kê dùng để chuẩn hóa trên bốn nhiệm vụ GM-100. Bên trái: lệnh thay đổi tương đối vị trí khớp (relQpos) có biên độ nhỏ hơn rõ rệt so với lệnh vị trí khớp tuyệt đối (absQpos). Bên phải: phép chuẩn hóa thay đổi khoảng giá trị hoạt động thực tế của relQpos; dải Q01–Q99 được vẽ trước khi cắt ngưỡng.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "c94ddcdd381f44063c9a90dd1cbb57ce4aecbc500a89ce7ca70ceb47216a1097",
+      "translation_reviewed": true
     },
     {
       "page": 17,
@@ -3347,9 +3377,10 @@
       "image": "/paper-figures/lingbot-vla-2/figure-13.webp",
       "caption": "Figure 13. Causal perception results of LingBot-VLA 2.0 under visual distillation. Left: depth/DINO-Video-PCA ground truth and prediction for current image. Right: depth/DINO-Video-PCA ground truth and prediction for future image.",
       "pdf": "https://arxiv.org/pdf/2607.06403",
-      "caption_vi": "Hình 13. Kết quả nhận thức nhân quả của LingBot-VLA 2.0 dưới chưng cất thị giác. Bên trái: độ sâu/DINO-Video-PCA chân lý và dự đoán hình ảnh hiện tại. Phải: độ sâu/DINO-Video-PCA chân lý và dự đoán cho hình ảnh trong tương lai.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "6db741ac543b6430e87ec9678460198597e71cd5e235c0e4a86a7b18267e8c3b"
+      "caption_vi": "Hình 13. Kết quả học đặc trưng cảm nhận của LingBot-VLA 2.0 khi dùng mục tiêu chưng cất từ mô hình thị giác. Bên trái: độ sâu và đặc trưng DINO-Video-PCA thật so với dự đoán cho ảnh hiện tại. Bên phải: các đại lượng tương tự cho ảnh tương lai. Phép so sánh cho thấy mô hình có học được tín hiệu hình học và ngữ nghĩa liên quan đến diễn tiến của cảnh hay không.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "6db741ac543b6430e87ec9678460198597e71cd5e235c0e4a86a7b18267e8c3b",
+      "translation_reviewed": true
     }
   ]
 }
