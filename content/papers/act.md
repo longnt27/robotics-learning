@@ -14,9 +14,9 @@ Bài báo còn giới thiệu ALOHA, hệ thống để người vận hành tr�
 
 ### Những khái niệm cần biết trước khi đọc sơ đồ
 
-**Action chunking** là dự đoán nhiều lệnh liên tiếp thay vì lệnh kế tiếp duy nhất. **Transformer** học mối quan hệ giữa ảnh, trạng thái khớp và các thời điểm trong đoạn chuyển động. **CVAE** dùng biến ẩn z để học sự khác nhau giữa những lượt thao tác mẫu đều thành công, chẳng hạn người này mở túi nhanh hơn người kia.
+**Action chunking** là dự đoán nhiều lệnh liên tiếp thay vì lệnh kế tiếp duy nhất. **Transformer** học mối quan hệ giữa ảnh, trạng thái khớp và các thời điểm trong đoạn chuyển động. **CVAE** dùng biến ẩn z để học sự khác nhau giữa những lần làm mẫu đều thành công, chẳng hạn người này mở túi nhanh hơn người kia.
 
-**Temporal ensembling** là kết hợp các dự đoán bị chồng ở cùng một thời điểm để chuyển động mượt hơn. Nó không có nghĩa lấy trung bình tùy tiện hai cách đi hoàn toàn đối lập. Điểm quan trọng nhất là phân biệt ba công dụng: chunking giữ sự phối hợp theo thời gian, CVAE biểu diễn độ đa dạng lượt thao tác mẫu, còn ensembling giảm dao động khi thực thi.
+**Temporal ensembling** kết hợp nhiều dự đoán cùng chỉ tới một thời điểm để chuyển động mượt hơn. Nó không có nghĩa lấy trung bình tùy tiện hai cách đi hoàn toàn đối lập. Điểm quan trọng nhất là phân biệt ba công dụng: chunking giữ sự phối hợp theo thời gian, CVAE học những khác biệt giữa các cách làm mẫu thành công, còn ensembling giảm dao động khi thực thi.
 
 ## Phương pháp thực hiện
 
@@ -52,7 +52,7 @@ Bài báo còn khảo sát tốc độ điều khiển từ xa: giảm tần s�
 
 ### Số liệu và phạm vi kết luận
 
-**Đối chiếu số liệu:** Trên một số nhiệm vụ mô phỏng, khoảng cách so với phương pháp đối chứng tốt tiếp theo được báo cáo lên tới 59, 49 hoặc 29 điểm phần trăm trong các thiết lập tương ứng. Không nên dùng những con số ấy như kết quả mặc định của ACT. Hình 9 cho biết điều gì xảy ra khi thay độ dài đoạn dự đoán, bật/tắt tổng hợp hành động chồng nhau hoặc bỏ CVAE. Một số nhiệm vụ được thu bằng khoảng 10–20 phút lượt thao tác mẫu, nhưng lượng dữ liệu cần thiết vẫn thay đổi mạnh theo độ khó.
+**Đối chiếu số liệu:** Trên một số nhiệm vụ mô phỏng, khoảng cách so với phương pháp đối chứng tốt tiếp theo được báo cáo lên tới 59, 49 hoặc 29 điểm phần trăm trong các thiết lập tương ứng. Không nên dùng những con số ấy như kết quả mặc định của ACT. Hình 9 cho biết điều gì xảy ra khi thay độ dài đoạn dự đoán, bật/tắt tổng hợp hành động chồng nhau hoặc bỏ CVAE. Một số nhiệm vụ được thu bằng khoảng 10–20 phút lần làm mẫu, nhưng lượng dữ liệu cần thiết vẫn thay đổi mạnh theo độ khó.
 
 ![Hình 6 từ PDF gốc, trang 5](/paper-figures/act/figure-6.webp)
 
@@ -79,7 +79,7 @@ RTC giải tầng thực thi: mô hình mất thời gian sinh đoạn tiếp th
 ### Những bài nên đọc tiếp
 
 - [RTC (suy luận)](/paper/rtc-inference)
-- [RTC (training)](/paper/rtc-training)
+- [RTC (huấn luyện)](/paper/rtc-training)
 
 ## Đọc mã nguồn và tự kiểm chứng
 

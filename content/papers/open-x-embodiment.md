@@ -2,7 +2,7 @@
 
 ### Vì sao gom dữ liệu nhiều robot khó hơn gom ảnh?
 
-Một ảnh chiếc cốc có thể được dùng để dạy nhiều loại mô hình nhìn ảnh. Nhưng lệnh “dịch khớp số 3 thêm 0,1” không có cùng ý nghĩa trên hai tay máy khác nhau. Robot A dùng kẹp hai ngón, robot B có bàn tay nhiều khớp; số chiều và đơn vị lệnh cũng khác. **Open X-Embodiment tìm cách kết hợp lượt thao tác mẫu từ nhiều hệ robot** để chính sách học được điều chung mà không nhầm lệnh của chúng.
+Một ảnh chiếc cốc có thể được dùng để dạy nhiều loại mô hình nhìn ảnh. Nhưng lệnh “dịch khớp số 3 thêm 0,1” không có cùng ý nghĩa trên hai tay máy khác nhau. Robot A dùng kẹp hai ngón, robot B có bàn tay nhiều khớp; số chiều và đơn vị lệnh cũng khác. **Open X-Embodiment tìm cách kết hợp lần làm mẫu từ nhiều hệ robot** để chính sách học được điều chung mà không nhầm lệnh của chúng.
 
 Điểm chính của công trình là dữ liệu đa tổ chức và kiểm tra khả năng chuyển giữa robot, không chỉ là thêm một tập dữ liệu thật lớn.
 

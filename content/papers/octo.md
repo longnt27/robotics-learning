@@ -26,7 +26,7 @@ Hai robot có thể cùng hiểu “đặt cốc vào khay” nhưng một bên 
 
 Đầu tiên mô tả nhiệm vụ được mã hóa bằng mô hình ngôn ngữ đã học trước; camera được một mạng ảnh gọn chuyển thành đặc trưng. Transformer xử lý cả hai nhóm token và lịch sử cần thiết, tạo các token trung gian cho nhánh dự đoán hành động.
 
-Khi chuyển sang robot mới, ta có thể thêm quan sát như cảm biến lực hoặc đổi nhánh lệnh điều khiển mà không phải thay toàn bộ mạng nền. Một số tham số vẫn cần tinh chỉnh bằng lượt thao tác mẫu của robot đích. Chính cách tách phần chung và phần riêng làm Octo phù hợp cho nghiên cứu thích nghi nhiều thiết bị.
+Khi chuyển sang robot mới, ta có thể thêm quan sát như cảm biến lực hoặc đổi nhánh lệnh điều khiển mà không phải thay toàn bộ mạng nền. Một số tham số vẫn cần tinh chỉnh bằng lần làm mẫu của robot đích. Chính cách tách phần chung và phần riêng làm Octo phù hợp cho nghiên cứu thích nghi nhiều thiết bị.
 
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/octo/figure-2.webp)
 
@@ -36,7 +36,7 @@ Khi chuyển sang robot mới, ta có thể thêm quan sát như cảm biến l�
 
 ### Ví dụ từ tay máy đơn sang robot hai tay
 
-chính sách điều khiển từng học nhiều nhiệm vụ nhặt và đặt bằng tay máy đơn. Khi chuyển sang robot hai tay, khái niệm vị trí đích hoặc quan sát vật thể có thể hữu ích, nhưng lệnh hai tay phối hợp có số chiều và ràng buộc khác. Người nghiên cứu cần gắn nhánh đầu ra phù hợp và đưa lượt thao tác mẫu về hai tay để tinh chỉnh.
+Một chính sách điều khiển từng học nhiều nhiệm vụ nhặt và đặt bằng tay máy đơn. Khi chuyển sang robot hai tay, khái niệm vị trí đích hoặc quan sát vật thể có thể hữu ích, nhưng lệnh hai tay phối hợp có số chiều và ràng buộc khác. Người nghiên cứu cần gắn nhánh đầu ra phù hợp và đưa lần làm mẫu về hai tay để tinh chỉnh.
 
 Nếu chỉ lấy lệnh cũ gửi xuống robot mới, chuyển động có thể sai hoàn toàn. Vì vậy khả năng tinh chỉnh nhanh phải được chứng minh bằng dữ liệu robot đích và tỷ lệ thành công sau khi tinh chỉnh, không chỉ nhìn tên kiến trúc.
 
@@ -50,7 +50,7 @@ Hình 6 cho thấy tăng kích thước mô hình giúp cải thiện trong mộ
 
 ### Số liệu và phạm vi kết luận
 
-**Đối chiếu số liệu:** Trong một số phép thử chưa tinh chỉnh, Octo đạt tỷ lệ thành công trung bình cao hơn RT-1-X khoảng 29% tương đối theo cách tính trong bài báo. Lợi thế quan trọng hơn là thích nghi: sau khi tinh chỉnh bằng cỡ 100 lượt thao tác mẫu của robot đích, Octo có thể vượt một số phương pháp huấn luyện từ đầu trong các thiết lập được báo cáo. Khi xem Hình 4–6, phải tách kết quả dùng trực tiếp checkpoint và kết quả sau tinh chỉnh; số dữ liệu dành cho robot mới quyết định ý nghĩa phép so.
+**Đối chiếu số liệu:** Trong một số phép thử chưa tinh chỉnh, Octo đạt tỷ lệ thành công trung bình cao hơn RT-1-X khoảng 29% tương đối theo cách tính trong bài báo. Lợi thế quan trọng hơn là thích nghi: sau khi tinh chỉnh bằng cỡ 100 lần làm mẫu của robot đích, Octo có thể vượt một số phương pháp huấn luyện từ đầu trong các thiết lập được báo cáo. Khi xem Hình 4–6, phải tách kết quả dùng trực tiếp checkpoint và kết quả sau tinh chỉnh; số dữ liệu dành cho robot mới quyết định ý nghĩa phép so.
 
 ![Hình 6 từ PDF gốc, trang 8](/paper-figures/octo/figure-6.webp)
 
@@ -60,7 +60,7 @@ Hình 6 cho thấy tăng kích thước mô hình giúp cải thiện trong mộ
 
 Octo học từ một tập con được chọn của Open X, nên không phải tất cả robot và kỹ năng ngoài đời đều có mặt. Khi đổi cảm biến hoặc hành động, nhánh mới có thể cần dữ liệu đủ tốt; chỉ linh hoạt về cấu trúc không bảo đảm robot hoạt động thành công.
 
-Tốc độ suy luận và an toàn của lệnh motor cũng cần kiểm tra trên phần cứng. Một chính sách điều khiển tổng quát rất tốt trên dữ liệu ghi sẵn vẫn có thể chậm hoặc thiếu chính xác ở bài toán kẹp nhỏ.
+Tốc độ suy luận và an toàn của lệnh điều khiển động cơ cũng cần kiểm tra trên phần cứng. Một chính sách điều khiển tổng quát rất tốt trên dữ liệu ghi sẵn vẫn có thể chậm hoặc thiếu chính xác ở bài toán kẹp nhỏ.
 
 ## Liên hệ với nghiên cứu khác
 
@@ -68,7 +68,7 @@ Tốc độ suy luận và an toàn của lệnh motor cũng cần kiểm tra tr
 
 RT-X là hướng thử học chung từ dữ liệu nhiều robot. Octo phát triển kiến trúc mở có thể thay quan sát/đầu ra; OpenVLA dùng lõi mô hình ảnh–ngôn ngữ để dự đoán token lệnh. Các mô hình khác về kiến trúc và cách tinh chỉnh, không chỉ khác tên.
 
-Khi chọn nền tảng để nghiên cứu, hãy xét bộ dữ liệu hỗ trợ robot đích, dạng lệnh đầu ra, chi phí huấn luyện và số lượt thao tác mẫu cần cho một nhiệm vụ mới.
+Khi chọn nền tảng để nghiên cứu, hãy xét bộ dữ liệu hỗ trợ robot đích, dạng lệnh đầu ra, chi phí huấn luyện và số lần làm mẫu cần cho một nhiệm vụ mới.
 
 ### Những bài nên đọc tiếp
 
@@ -79,6 +79,6 @@ Khi chọn nền tảng để nghiên cứu, hãy xét bộ dữ liệu hỗ tr�
 
 ### Tự thử xây một phép đánh giá
 
-Chọn hai robot có cùng nhiệm vụ “nhặt và đặt” nhưng nhận lệnh khác nhau. Trên robot thứ hai, so chính sách điều khiển từ đầu với Octo được tinh chỉnh bằng cùng 20, 50 hoặc 100 lượt thao tác mẫu. Đo tỷ lệ thành công theo lượng dữ liệu tăng.
+Chọn hai robot có cùng nhiệm vụ “nhặt và đặt” nhưng nhận lệnh khác nhau. Trên robot thứ hai, so chính sách điều khiển từ đầu với Octo được tinh chỉnh bằng cùng 20, 50 hoặc 100 lần làm mẫu. Đo tỷ lệ thành công theo lượng dữ liệu tăng.
 
 Nếu thêm camera cổ tay, hãy xem việc mở rộng đầu vào thực sự có cải thiện so với cấu hình không thêm không. Đây là cách thử đóng góp của kiến trúc thay vì chỉ kể rằng Octo hỗ trợ nhiều loại tín hiệu.

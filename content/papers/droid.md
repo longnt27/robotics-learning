@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-### Vì sao dữ liệu thu ở một phòng lab chưa đủ?
+### Vì sao chỉ thu dữ liệu trong một phòng thí nghiệm là chưa đủ?
 
 Nếu robot luôn thực hành trên một chiếc bàn, dưới một dàn đèn và với người vận hành quen thuộc, nó có thể vô tình ghi nhớ bối cảnh. Sang căn bếp khác, camera nhìn từ góc mới và đồ vật chưa gặp, chính sách điều khiển sẽ sai dù nhiệm vụ “nhặt rồi đặt” vẫn giống. **DROID mở rộng việc thu dữ liệu ra nhiều tòa nhà và phòng làm việc thật**, để mô hình học được sự đa dạng thường gặp khi triển khai.
 
@@ -66,7 +66,7 @@ Hình 10 thực sự kiểm tra vai trò của số cảnh: so một phần dữ
 
 ### DROID vẫn có những điểm giới hạn
 
-Các ví dụ được thu bằng một bộ thiết bị tương đối đồng nhất, vì vậy kết quả không chứng minh lệnh có thể chuyển trực tiếp sang robot có cấu trúc tay khác. Phần lớn lượt thao tác mẫu cũng phản ánh những nơi và nhiệm vụ nhóm thu thập chọn, không phải phân phối đầy đủ của mọi nhà ở trên thế giới.
+Các ví dụ được thu bằng một bộ thiết bị tương đối đồng nhất, vì vậy kết quả không chứng minh lệnh có thể chuyển trực tiếp sang robot có cấu trúc tay khác. Phần lớn lần làm mẫu cũng phản ánh những nơi và nhiệm vụ nhóm thu thập chọn, không phải phân phối đầy đủ của mọi nhà ở trên thế giới.
 
 Một bộ dữ liệu nhiều quỹ đạo có thể có lỗi thời gian, calibration hoặc nhãn câu lệnh. Việc tuyển lọc và đánh giá trên robot thật vẫn bắt buộc trước khi dùng cho hệ thống vận hành thực tế.
 
@@ -87,6 +87,6 @@ Khi chọn dữ liệu cho một project, hãy hỏi lỗi cần giải là gặ
 
 ### Bài tập để kiểm tra độ phụ thuộc vào bối cảnh
 
-Giữ cùng câu lệnh “nhặt túi khoai tây chiên”, nhưng đặt túi trên ba mặt bàn có màu và ánh sáng khác nhau. Huấn luyện từ cùng số lượt thao tác mẫu, lần lượt chọn tập có ít cảnh và tập đa dạng. Đo tỷ lệ thành công trên cảnh chưa xuất hiện khi học.
+Giữ cùng câu lệnh “nhặt túi khoai tây chiên”, nhưng đặt túi trên ba mặt bàn có màu và ánh sáng khác nhau. Huấn luyện từ cùng số lần làm mẫu, lần lượt chọn tập có ít cảnh và tập đa dạng. Đo tỷ lệ thành công trên cảnh chưa xuất hiện khi học.
 
 Nếu chính sách điều khiển thất bại khi thêm một vật giống túi khác bên cạnh, đó còn là vấn đề phân biệt vật đích. Việc ghi loại lỗi giúp hiểu DROID hỗ trợ phần nào, không chỉ nhận một điểm tổng hợp.

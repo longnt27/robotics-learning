@@ -2,7 +2,7 @@
 
 ### Vì sao nhiều giờ dữ liệu vẫn chưa đủ để robot làm tốt?
 
-Một công ty thu hàng chục nghìn giờ lượt thao tác mẫu từ nhiều kiểu robot. Nhưng video có thể bị lệch thời gian, hành động dùng nhiều đơn vị khác nhau và dữ liệu các việc thường gặp áp đảo việc hiếm. Nếu trộn nguyên tất cả vào mạng lớn, mô hình có thể học cả lỗi và sự thiên lệch. LingBot-VLA 2.0 giải vấn đề ở **toàn quy trình**, từ tuyển lọc dữ liệu, biểu diễn hành động đến kiến trúc sinh lệnh và học dự đoán tương lai.
+Một công ty thu hàng chục nghìn giờ lần làm mẫu từ nhiều kiểu robot. Nhưng video có thể bị lệch thời gian, hành động dùng nhiều đơn vị khác nhau và dữ liệu các việc thường gặp áp đảo việc hiếm. Nếu trộn nguyên tất cả vào mạng lớn, mô hình có thể học cả lỗi và sự thiên lệch. LingBot-VLA 2.0 giải vấn đề ở **toàn quy trình**, từ tuyển lọc dữ liệu, biểu diễn hành động đến kiến trúc sinh lệnh và học dự đoán tương lai.
 
 Đừng đọc tên MoE rồi tưởng bài chỉ thay vài lớp mạng. Bốn phần cốt lõi là chất lượng dữ liệu, chuẩn hành động dùng chung, phân bổ dung lượng mô hình và tín hiệu học về diễn biến cảnh sau khi robot hành động.
 
