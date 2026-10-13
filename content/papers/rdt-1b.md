@@ -16,7 +16,7 @@ RDT-1B dùng Diffusion Transformer để học và sinh các đoạn hành độ
 
 **Không gian hành động chung** cho phép kết hợp dữ liệu nhiều robot, nhưng phải có cách mã hóa phù hợp từng loại. Cùng một chiều số trong vector không mặc nhiên đại diện cho cùng khớp giữa hai robot.
 
-### ### Hai tay không chỉ làm hai việc độc lập
+### Hai tay không chỉ làm hai việc độc lập
 
 Giả sử một tay giữ hộp, tay kia đặt vật vào hộp. Nếu tay giữ buông trước khi tay còn lại đặt xong, cả chuỗi thất bại mặc dù mỗi tay có thể đã đi tới vị trí riêng đúng. Robot hai tay phải học **mối liên hệ về thời điểm và vị trí** giữa các khớp. RDT-1B sinh một đoạn hành động chung cho hai tay thay vì coi mỗi chuyển động là một dự đoán tách biệt. Thách thức còn lớn hơn khi dữ liệu đến từ nhiều robot có độ dài tay và kiểu kẹp khác nhau.
 
@@ -30,7 +30,7 @@ Mô hình nhận ảnh từ camera ngoài và camera hai cổ tay, câu lệnh n
 
 DiT kết hợp những điều kiện ấy và liên tục dự đoán cách chỉnh chuỗi hành động. Sau nhiều bước, mô hình thu được đoạn lệnh cho hai tay. Robot thực hiện và có thể lấy quan sát mới cho lần dự đoán sau. Các phần chuẩn hóa như QKNorm/RMSNorm góp phần giữ huấn luyện ổn định; chúng không phải những lệnh điều khiển động cơ độc lập.
 
-### ### Vì sao mạng cần cả ảnh, trạng thái khớp và nhịp điều khiển?
+### Vì sao mạng cần cả ảnh, trạng thái khớp và nhịp điều khiển?
 
 Ảnh camera cho biết đồ vật đang ở đâu; camera cổ tay giúp thấy vùng kẹp khi tiếp xúc. Trạng thái khớp cho biết tay đang ở vị trí nào để tránh dự đoán lệnh không thể thực hiện ngay. Tần số điều khiển cho biết khoảng thời gian giữa hai lệnh: cùng một độ dịch chuyển có ý nghĩa khác nếu lệnh được gửi rất nhanh hay rất chậm. Bộ sinh DiT dùng những thông tin ấy khi khử nhiễu chuỗi hành động. Các kỹ thuật ổn định như QKNorm và RMSNorm giúp mô hình học thuận lợi hơn, nhưng chúng không thay thế được thông tin camera hay trạng thái khớp.
 
@@ -58,7 +58,7 @@ Hình 5 nêu trạng thái ban đầu, mức thay đổi và mục tiêu từng 
 
 Bài báo báo cáo RDT-1B cải thiện tỷ lệ thành công trung bình khoảng 56% tương đối so với các phương pháp đối chứng được chọn. Những phép thử ít dữ liệu, có trường hợp chỉ một đến năm lần làm mẫu, cho thấy giá trị của việc huấn luyện trước đối với kỹ năng phối hợp hai tay. Khi đọc kết quả, cần phân biệt nhiệm vụ mẫu trong mô phỏng, robot thật và phép thử không cần tinh chỉnh; không nên lấy một mức tăng gộp để khẳng định mọi thao tác hai tay đều dễ hơn tương ứng.
 
-### ### Đọc thử nghiệm ổn định khác thử nghiệm thành công
+### Đọc thử nghiệm ổn định khác thử nghiệm thành công
 
 Một đường hàm mất mát ổn định trong Hình 4 cho thấy quá trình huấn luyện có khả năng hội tụ thuận lợi hơn. Nó **chưa chứng minh** tay robot sẽ kẹp đúng vật hay rót đúng lượng nước. Các nhiệm vụ thực thi trong Hình 5 và bảng kết quả mới kiểm tra khả năng vận động. Tương tự, mức cải thiện trung bình khoảng 56% tương đối phải gắn với tập đối chứng và cách tính của tác giả; nếu phương pháp đối chứng đạt 25%, tăng 56% tương đối nghĩa là khoảng 39%, chứ không phải 81%. Ví dụ số học này chỉ để giải thích cách đọc tỷ lệ.
 
