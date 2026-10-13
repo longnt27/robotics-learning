@@ -22,7 +22,7 @@ T2A, CPT, SFT và RL là **các giai đoạn trong quy trình huấn luyện**, 
 
 Ví dụ ở T2A, câu “nhặt một khối rồi đặt bên phải khối khác” giúp bộ sinh học mẫu chuyển động, nhưng chưa biết tọa độ của hai khối trong ảnh hiện tại. Giai đoạn dùng ảnh mới buộc mạng liên hệ ngữ nghĩa với vật cụ thể. Đến giai đoạn thử thật, tỷ lệ thành công giúp kiểm tra phần nối giữa hai năng lực ấy.
 
-### ### Vì sao học chuyển động chỉ từ chữ vẫn chưa đủ?
+### Vì sao học chuyển động chỉ từ chữ vẫn chưa đủ?
 
 Câu “đặt khối xanh bên phải khối đỏ” giúp mô hình biết kiểu quan hệ mà nhiệm vụ yêu cầu, nhưng không thể cho biết hai khối đang ở tọa độ nào trong ảnh camera. Vì vậy giai đoạn học hành động từ văn bản (T2A) chỉ là bước chuẩn bị để bộ sinh học những mẫu chuyển động. Sang giai đoạn dùng ảnh, mạng mới phải nối **ý nghĩa câu lệnh** với **vật và vị trí hiện tại**. Nếu robot chọn đúng hai khối nhưng đặt sai hướng, có thể lỗi ở phần hiểu quan hệ; nếu nó nhắm đúng chỗ nhưng kẹp hụt, vấn đề có thể nằm ở lệnh vận động.
 
@@ -41,7 +41,7 @@ Câu lệnh “đặt hai chiếc dập ghim xanh lá cạnh nhau” có thể c
 
 Ở chuỗi nhiệm vụ dài, hãy xem cách chia mục tiêu: tìm đúng đồ, nhặt từng món, đưa về nơi đặt, rồi kiểm tra đã xong chưa. Nếu sai vật nhưng động tác kẹp rất mượt, cần sửa phần nhận biết; nếu đúng vật nhưng kẹp hụt, cần xem bộ sinh hành động và dữ liệu vận động.
 
-### ### Cùng một câu lệnh vẫn cần biết đang điều khiển robot nào
+### Cùng một câu lệnh vẫn cần biết đang điều khiển robot nào
 
 Giả sử hai robot đều nhận yêu cầu đặt hai chiếc dập ghim cạnh nhau. Robot A có một tay kẹp, robot B có hai tay và phạm vi chuyển động khác. Chuỗi lệnh đúng với A không thể dùng nguyên xi cho B, cho dù phần hiểu ảnh và câu lệnh cho ra cùng mục tiêu. Qwen-VLA kết hợp biểu diễn loại robot với bộ sinh hành động để tạo đầu ra phù hợp. Vì thế các phép thử đa nhiệm cần phân biệt ba bước: tìm đúng vật, chọn đúng trình tự và phát lệnh hợp lệ với phần cứng. Chỉ thành công ở một bước không chứng minh cả hệ thống đã giải được nhiệm vụ.
 
@@ -73,7 +73,7 @@ Trong một phép thử trên robot ALOHA thuộc phân phối huấn luyện, m
 
 Ba số này đo các vấn đề khác nhau. Không được kết luận mô hình “thành công 80% với mọi robot” rồi bỏ qua mức 26,6% khi chuyển miền. Muốn so công bằng, phải ghi rõ robot, dữ liệu tiền huấn luyện, có tinh chỉnh hay không và định nghĩa nhiệm vụ thành công.
 
-### ### Vì sao phải đặt các con số đánh giá cạnh đúng nhiệm vụ?
+### Vì sao phải đặt các con số đánh giá cạnh đúng nhiệm vụ?
 
 Một tỷ lệ thành công trên robot ALOHA quen thuộc với dữ liệu huấn luyện trả lời câu hỏi mô hình thực hiện kỹ năng đã học tốt đến đâu. Phép thử ngoài điều kiện quen cho biết nó xử lý thay đổi bối cảnh thế nào. Còn kết quả DOMINO khi chuyển thẳng sang nhiệm vụ mới mà không tinh chỉnh kiểm tra mức khái quát khó hơn. Bởi vậy các số như 83,6%, 76,9% và 26,6% không thể lấy trung bình hoặc xếp cùng một hàng để nói mô hình tốt hay kém. Phải ghi kèm robot, nguồn dữ liệu, có tinh chỉnh hay không và định nghĩa thành công.
 
