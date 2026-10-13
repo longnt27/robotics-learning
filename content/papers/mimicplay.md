@@ -26,7 +26,9 @@ MIMICPLAY chia việc thành hai phần: học **đích đến và trình tự**
 
 ## Kiến thức nền cần nắm
 
-Video con người rẻ hơn robot demo nhưng **không trực tiếp có robot actions**. Một video cho biết mục tiêu và chuỗi trạng thái trung gian; robot actions vẫn cần robot demos và bộ điều khiển. Tách high-level plan và thực thi ở cấp độ thấp giúp chuyển giao phần biết "làm gì tiếp" qua embodiment.
+Video người làm việc có thể ghi lại **mục tiêu và thứ tự các bước**, nhưng không chứa sẵn góc khớp robot. Người có thể cầm khăn bằng ngón tay rất dễ, còn kẹp robot phải dùng một cách cầm khác. Vì thế việc học từ video người không đồng nghĩa trực tiếp bắt chước lệnh vận động.
+
+MIMICPLAY chia việc thành **kế hoạch cấp cao** và **điều khiển cấp thấp**. Phần thứ nhất học từ video xem cần làm gì tiếp theo; phần thứ hai học bằng dữ liệu robot để biến kế hoạch ấy thành chuyển động phù hợp với phần cứng.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -40,14 +42,15 @@ Video con người rẻ hơn robot demo nhưng **không trực tiếp có robot 
 
 ## Phương pháp thực hiện
 
-Method tách policy thành hai tầng. Tầng high-level học một **latent plan** từ quá trình con người thao tác tự do video, dựa trên future human-hand quỹ đạo/thị giác động lực học. Tầng low-level nhận robot quan sát + latent plan rồi học robot action từ một lượng nhỏ teleoperation. Để xử lý human-robot gap, biểu diễn được align sao cho plan chứa task-relevant chuyển động intention thay vì joint-specific details.
+Giai đoạn đầu, mạng học từ video người thao tác để tạo một **kế hoạch ẩn**, biểu diễn các trạng thái hoặc mục tiêu trung gian mà nhiệm vụ cần đạt. Nó không nhất thiết sinh câu chữ hoặc góc khớp. Giai đoạn sau, mạng lập kế hoạch được giữ cố định; bộ điều khiển học từ một lượng nhỏ demonstration robot để thực hiện các bước theo kế hoạch đó.
+
+Khi robot chạy, video hoặc hình ảnh mục tiêu giúp phần lập kế hoạch tạo hướng đi tiếp theo. Bộ điều khiển nhận quan sát mới để phát lệnh cho tay máy. Cách tách này cho phép dùng video người để học trình tự thao tác, còn dữ liệu robot chịu trách nhiệm về cơ cấu và lệnh thực thi.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
 ![Hình 4 từ PDF gốc, trang 7](/paper-figures/mimicplay/figure-4.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Bài báo còn dùng multimodal quỹ đạo modeling, vì một người có thể hoàn thành cùng subgoal bằng nhiều đường khác nhau. Quan trọng là high-level prior được học từ dữ liệu thu từ con người, còn embodiment grounding vẫn để robot demonstrations đảm nhiệm.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -72,14 +75,15 @@ Giai đoạn sau, mô hình lập kế hoạch được giữ cố định. Ngư
 
 ## Ví dụ từng bước
 
-Trong video người mở ngăn kéo rồi lấy khăn, một mô hình có thể học latent progress: tiến tới ngăn kéo → mở → lấy khăn. Policy robot thấy cùng thị giác mục tiêu rồi dùng một số ít robot các quỹ đạo để học manipulation primitive. Đây không phải đơn giản copy 3D khớp của con người chuyển động vào robot joint không gian.
+Một video cho thấy người mở ngăn kéo, lấy khăn và đặt khăn vào khay. MIMICPLAY có thể học thứ tự ba trạng thái ấy mà chưa cần biết góc khớp robot. Khi sử dụng tay máy thật, demonstration robot dạy cách tiếp cận tay nắm, kéo ngăn kéo và gắp khăn theo khả năng của kẹp.
+
+Nếu có người đẩy khay sang chỗ khác giữa nhiệm vụ, kế hoạch cũ cần cập nhật. Việc biểu diễn hai hành động “cùng đạt mục tiêu” không có nghĩa góc khớp tay người và tay robot phải giống nhau. Đây là chỗ quan trọng để phân biệt chuyển giao mục tiêu với sao chép chuyển động.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
 ![Hình 5 từ PDF gốc, trang 8](/paper-figures/mimicplay/figure-5.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Nếu video người chứa viewpoint riêng, key obstacle là cross-domain alignment. Không nên gọi đặc trưng similarity là action equivalence.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -93,9 +97,9 @@ Giả sử có người đẩy hộp bút sang bên phải giữa nhiệm vụ. 
 
 ## Kết quả thực nghiệm
 
-Trên **14 nhiệm vụ thao tác trên robot thật**, MimicPlay cải thiện thành công và khả năng khái quát so với các phương pháp imitation learning đối chứng. Bài báo báo pretraining từ video con người thao tác tự do mang lại hơn **23 điểm** cải thiện trong một số tổng hợp, kiến trúc hierarchical tốt hơn end-to-end khoảng **15 điểm**, và trên unseen subgoal compositions có mức cải thiện hơn **35 điểm**. Chỉ khoảng **10 phút** trong bối cảnh đó đã có thể mang lại lợi ích đáng kể.
+Trong **14 nhiệm vụ robot thật**, MIMICPLAY cải thiện kết quả so với những phương pháp học bắt chước đối chứng. Các thí nghiệm được báo cáo có nhóm tăng trên **23 điểm phần trăm** nhờ học trước từ video người; thiết kế hai tầng tốt hơn cách xử lý một tầng ở một số điều kiện, và lợi ích còn thấy khi mục tiêu gồm nhiều bước chưa xuất hiện nguyên vẹn lúc huấn luyện.
 
-Kết quả quan trọng về mặt ý tưởng là: dữ liệu thu từ con người không cần biến thành exact robot action mới có ích. Nó có thể cung cấp **nhiệm vụ geometry, subgoal sequencing và prior về chuyển động**, rồi dữ liệu robot chỉ cần dạy phần embodiment-specific thực thi.
+Kết quả quan trọng là video người không cần cung cấp lệnh robot chính xác vẫn có thể giúp học **thứ tự thao tác và mục tiêu trung gian**. Dữ liệu robot khi ấy tập trung vào việc thực hiện những bước ấy trên cơ cấu cụ thể.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -109,9 +113,9 @@ Hình 4 so nhiệm vụ được chỉ dẫn bằng video người và video rob
 
 ## Hạn chế và câu hỏi còn mở
 
-**Bài báo thừa nhận:** latent lập kế hoạch khá scene-specific, đánh giá chủ yếu tabletop và chưa có mobile manipulation. Cross-embodiment biểu diễn vẫn chưa thật sự universal; tác giả gợi ý contrastive/cycle-consistency và biểu diễn tốt hơn cho tương lai.
+Kế hoạch ẩn của MIMICPLAY vẫn phụ thuộc vào những bối cảnh và kiểu video được dùng để học. Những video người trong nghiên cứu được thu có chủ đích, không phải mọi video hỗn tạp trên Internet. Nhiệm vụ đánh giá chủ yếu là thao tác trên bàn, chưa đại diện cho robot di động làm việc trong nhiều phòng.
 
-**Phê bình thêm:** video con người ở đây vẫn là **in-domain quá trình con người thao tác tự do được thu thập có chủ đích**, không phải Internet-scale thô egocentric video. Hand quỹ đạo extraction và camera geometry đã cho method tín hiệu giám sát khá sạch. Robot demonstrations vẫn là điều kiện bắt buộc để biến plan thành executable actions. Vì vậy MimicPlay là proof rằng video con người hữu ích, nhưng chưa trả lời bài toán 2026 khó hơn: **làm sao ăn hàng chục nghìn giờ video hỗn loạn từ nhiều người, nhiều camera, nhiều bối cảnh và nhiều embodiment**.
+Hơn nữa, video người không thay thế demonstration robot. Nếu kẹp robot không thể thực hiện một động tác, kế hoạch cấp cao không thể tự tạo ra lệnh vật lý chính xác. Kết quả cải thiện trong tập nhiệm vụ nghiên cứu chưa chứng minh mọi chuyển động người đều có thể chuyển sang robot.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -142,9 +146,9 @@ PaLM-E cũng có thể tham gia suy luận mục tiêu cấp cao, nhưng không 
 
 ## Đọc code và tự kiểm chứng
 
-Làm toy goal-conditioned BC: encode khung hình hiện tại + một future khung hình làm subgoal, huấn luyện action head từ robot demos. Ablate bỏ future khung hình và xem long-horizon completion.
+Hãy chọn một nhiệm vụ có ba bước như mở ngăn kéo, lấy khăn, đặt khăn vào khay. Xây một mô hình học bắt chước đơn giản với ảnh hiện tại và **ảnh mục tiêu trung gian**, rồi so với mô hình không nhận ảnh mục tiêu. Đo tỷ lệ hoàn thành cả chuỗi, không chỉ một bước riêng.
 
-**Cách kiểm tra đọc hiểu:** Hãy tự giải thích *đầu vào*, *đầu ra*, *loss khi huấn luyện*, *quy trình đánh giá* và *kiểu lỗi* của bài báo. Nếu không nói được một trong năm thứ này, cần đọc lại phần tương ứng trước khi chạy benchmark.
+Thử thay vị trí khay giữa chừng để xem phần kế hoạch có cần cập nhật không. Nếu mạng chỉ làm được khi không có thay đổi, nó có thể đang ghi nhớ quỹ đạo thay vì thực sự dùng mục tiêu.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

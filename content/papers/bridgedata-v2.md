@@ -26,7 +26,9 @@ Một policy chỉ học nhặt cốc trên một chiếc bàn trắng có thể
 
 ## Kiến thức nền cần nắm
 
-Tập dữ liệu robotics thường bị giới hạn trong phòng phòng thí nghiệm, vật thể set, camera angle và nhiệm vụ collection protocol; số lượng episode lớn chưa chắc làm phân phối đủ rộng. **Sự đa dạng** cần định nghĩa ở nhiều trục: phông nền, vật thể đích, primitive, bối cảnh geometry và demonstrator.
+Một tập dữ liệu nhiều quỹ đạo chưa chắc đa dạng. Nếu các lần nhặt đồ đều diễn ra trên cùng một bàn và một phông nền, robot có thể học thuộc cảnh thay vì học thao tác. Cần xem **sự đa dạng** theo nhiều chiều: môi trường, vật thể, loại kỹ năng, góc camera và cách người vận hành thực hiện.
+
+Mỗi lượt ghi lại thường chứa chuỗi ảnh, trạng thái khớp, câu lệnh nhiệm vụ và hành động theo thời gian. Ảnh và lệnh phải đồng bộ; nếu một khung hình bị ghép với lệnh của thời điểm khác, mô hình có thể học phản ứng sai.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -40,14 +42,15 @@ BridgeData V2 dùng nhiều góc camera; một phần có cả ảnh độ sâu.
 
 ## Phương pháp thực hiện
 
-Tập dữ liệu có **60,096 các quỹ đạo** trên **24 environments**, hơn 100 vật thể và nhiều kỹ năng như pick-place, push, sweep, stack, fold. Trong đó 50,365 các quỹ đạo là demonstrations của 13 kỹ năng và thêm 9,731 các quỹ đạo từ một randomized pick-and-place policy để tăng robustness. Robot là một platform low-cost công khai, giúp các phòng thí nghiệm khác có thể dựng phần cứng gần tương thích. Dữ liệu hỗ trợ cả **goal-image conditioning** và **natural-language conditioning**.
+BridgeData V2 có **60.096 quỹ đạo** trong **24 môi trường**, bao phủ hơn 100 đồ vật cùng các kỹ năng nhặt–đặt, đẩy, gom, xếp chồng và gấp đồ. Phần lớn là demonstration do người điều khiển; một phần bổ sung là những quỹ đạo nhặt–đặt được thu với các điều kiện thay đổi để tăng độ bao phủ.
+
+Nhóm tác giả huấn luyện nhiều thuật toán học bắt chước và học từ dữ liệu có sẵn, thay vì chỉ chọn một kiến trúc. Các thí nghiệm còn thay lượng dữ liệu, kích thước mô hình và số loại kỹ năng. Dữ liệu có thể được dùng với ảnh mục tiêu hoặc câu lệnh ngôn ngữ, miễn là policy đọc đúng định dạng.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
 ![Hình 5 từ PDF gốc, trang 8](/paper-figures/bridgedata-v2/figure-5.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Bài báo không ép một thuật toán duy nhất mà huấn luyện **6 imitation/offline-RL methods** để xem tập dữ liệu có hữu ích xuyên kiến trúc không. Họ còn làm scaling ablations về kích thước mô hình, tập dữ liệu size và kỹ năng sự đa dạng.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -72,9 +75,9 @@ Khi huấn luyện, policy nhận quan sát và mục tiêu rồi học dự đo
 
 ## Ví dụ từng bước
 
-Nếu huấn luyện pick-place 20 nghìn lần trên đúng một bàn sạch, policy có thể thành chuyên gia của... chiếc bàn đó. BridgeData V2 cho nhiều bối cảnh/nhiệm vụ, để policy cần nhận ra affordance dù phông nền thay đổi. Chia huấn luyện/test theo episode ngẫu nhiên có thể leak environment; một phép thử mạnh hơn là bối cảnh trong tập kiểm tra/nhiệm vụ.
+Nếu robot xem 20.000 lượt nhặt đồ trên một chiếc bàn trắng, nó có thể làm rất tốt ở đó nhưng thất bại trên bàn có khăn trải. BridgeData V2 cho nhiều bối cảnh và loại vật hơn, buộc mạng tìm dấu hiệu liên quan tới vật thay vì nhớ màu bàn.
 
-Khi trộn tập dữ liệu, cần kiểm tra khung hình rate, units và action normalization. Tên cột `action` giống nhau không chứng minh ngữ nghĩa giống nhau.
+Khi chia tập dữ liệu để kiểm tra, không nên lấy các khung ảnh gần nhau của cùng một lần làm bỏ vào cả phần huấn luyện lẫn phần kiểm tra. Một phép thử có ý nghĩa hơn là giữ riêng **một số môi trường hoặc nhiệm vụ chưa xuất hiện lúc học**. Cũng cần kiểm tra đơn vị hành động, tần số và cách chuẩn hóa trước khi trộn dữ liệu.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -88,9 +91,9 @@ Thử so hai policy có số demonstration gần nhau: một bên được học
 
 ## Kết quả thực nghiệm
 
-Điểm chính không phải một con số SOTA đơn lẻ mà là xu hướng nhất quán: **nhiều dữ liệu hơn, mô hình lớn hơn và kỹ năng sự đa dạng cao hơn đều cải thiện khả năng khái quát**. Trong các đánh giá seen/unseen, nhiều method như GCBC, diffusion-style goal-conditioned BC, CRL và RT-1 đều học được policy usable từ BridgeData V2. Cross-institution chuyển giao không về zero, chứng minh tập dữ liệu có giá trị ngoài phòng thí nghiệm thu thập ban đầu.
+Xu hướng chung trong các thí nghiệm là tăng lượng dữ liệu, dung lượng mô hình và **sự phong phú kỹ năng** có thể giúp policy xử lý nhiệm vụ mới tốt hơn. Nhiều phương pháp khác nhau học được hành vi robot hữu ích từ BridgeData V2; vì thế bộ dữ liệu có giá trị không chỉ cho một kiểu mạng.
 
-Một ablation đáng nhớ là khi giữ mẫu count gần nhau nhưng tăng sự đa dạng kỹ năng, unseen hiệu năng tăng mạnh. Điều này echo RT-1: thêm hàng chục nghìn replay của cùng hành vi không thay thế được coverage của nhiều hành vi khác nhau.
+Một phép thử quan trọng giữ số lượng mẫu gần tương đương nhưng tăng số loại kỹ năng được học. Khi kết quả trên nhiệm vụ chưa gặp tăng, đó là bằng chứng cho lợi ích của **độ đa dạng**, không chỉ việc lặp thêm một hành động quen thuộc. Tuy vậy, cần đọc đúng bộ nhiệm vụ và số lượt thử trước khi suy rộng.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -104,9 +107,9 @@ Mỗi phương pháp được thử 20 lần trong phép so đó; chênh lệch 
 
 ## Hạn chế và câu hỏi còn mở
 
-**Bài báo thừa nhận:** tập dữ liệu vẫn là một robot family, thao tác chủ yếu tabletop, low-force và tương đối ít động lực học phức tạp. Tác giả coi mở rộng nhiều environment, robot và dữ liệu type là hướng cần làm tiếp.
+BridgeData V2 chủ yếu thu bằng một dòng tay máy, với các thao tác trên bàn và mức lực tương đối hạn chế. Chuyển sang robot có khớp, kẹp hoặc hệ tọa độ lệnh khác vẫn đòi ánh xạ và tinh chỉnh, chứ không chỉ tải lại checkpoint.
 
-**Phê bình thêm:** 60k các quỹ đạo từng rất lớn nhưng đến 2026 chỉ còn là medium scale. Cross-institution không phải cross-embodiment; cùng kinematics/action convention vẫn làm chuyển giao dễ hơn rất nhiều. Tập dữ liệu cũng chủ yếu là successful demonstrations nên không dạy phục hồi/thất bại recognition tốt. Language labels mô tả một ontology interaction tương đối sạch, khác khá xa headcam “cám lợn” ngoài đời. Vì vậy BridgeData V2 là golden tập dữ liệu cho **scalable robot imitation**, nhưng không phải bằng chứng rằng một mô hình đã học universal vật lý intelligence.
+Phần lớn dữ liệu là lượt thao tác thành công nên chưa thể dạy đủ những tình huống tự phục hồi khi robot làm rơi hoặc kẹp hụt vật. Tập dữ liệu lớn cũng không bảo đảm bao phủ hết ngôn ngữ đời thường. Khi dùng trên phần cứng mới, cần kiểm tra riêng độ đồng bộ camera, trạng thái và lệnh điều khiển.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -137,9 +140,9 @@ Khi so hiệu quả, hãy nói rõ muốn kiểm tra đổi vật, đổi cảnh
 
 ## Đọc code và tự kiểm chứng
 
-Tải một subset nhỏ, xem RGB/state/action các quỹ đạo, tạo split `random` và `held-out scene` rồi so sánh khả năng khái quát gap. Lập histogram action scale để tránh normalization lỗi.
+Lấy một phần nhỏ của BridgeData V2, mở thử vài quỹ đạo với ảnh, trạng thái robot và lệnh để kiểm tra sự đồng bộ. Chia dữ liệu theo hai cách: ngẫu nhiên theo lượt thực thi và **giữ riêng những môi trường chưa thấy**. So tỷ lệ thành công để biết mạng dựa vào bối cảnh quen tới mức nào.
 
-**Cách kiểm tra đọc hiểu:** Hãy tự giải thích *đầu vào*, *đầu ra*, *loss khi huấn luyện*, *quy trình đánh giá* và *kiểu lỗi* của bài báo. Nếu không nói được một trong năm thứ này, cần đọc lại phần tương ứng trước khi chạy benchmark.
+Vẽ phân phối giá trị của từng chiều hành động và ghi rõ đơn vị trước/sau chuẩn hóa. Nếu đổi robot, đừng mặc định cột hành động có cùng tên cũng mang cùng ý nghĩa vật lý.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

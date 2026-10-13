@@ -29,7 +29,9 @@ Nếu robot luôn thực hành trên một chiếc bàn, dưới một dàn đè
 
 ## Kiến thức nền cần nắm
 
-Bottleneck thực tế là thu dữ liệu robot **ngoài phòng phòng thí nghiệm**: lighting, vật thể, operator kỹ năng và phông nền thay đổi làm phân phối phức tạp hơn số lượng episode. DROID tập trung vào protocol thu thập để policy học từ nhiều cảnh đời thực.
+Robot ngoài phòng thí nghiệm gặp **nhiều ánh sáng, phông nền, đồ vật và vị trí camera khác nhau**. Dù có rất nhiều quỹ đạo, dữ liệu ghi mãi ở một bàn vẫn có thể khiến mô hình dựa vào dấu hiệu không liên quan, như màu tường. DROID ưu tiên sự đa dạng cảnh thật thay vì chỉ tăng số lượt làm cùng một việc.
+
+Các bản ghi phải đồng bộ ảnh, trạng thái và lệnh. Khi thời điểm ảnh bị lệch so với hành động, policy có thể học phản ứng muộn hoặc sai. Chất lượng thu thập và kiểm tra dữ liệu vì vậy quan trọng không kém số giờ.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -43,14 +45,15 @@ DROID ghi ảnh từ ba camera đồng bộ, có thông số hiệu chuẩn và 
 
 ## Phương pháp thực hiện
 
-DROID thu khoảng **76 nghìn các quỹ đạo / 350 giờ**, trong **564 bối cảnh**, **86 nhiệm vụ**, **52 buildings** với khoảng **50 collectors**. Hardware được chuẩn hóa quanh Franka + camera setup để nhiều institution có thể thu dữ liệu nhưng action không gian vẫn thống nhất. Tập dữ liệu cố tình ưu tiên “in-the-wild” environmental variation thay vì chỉ tăng quỹ đạo count trong một phòng thí nghiệm.
+DROID thu khoảng **76.000 quỹ đạo, tương đương 350 giờ** thao tác, trong **564 bối cảnh, 86 nhiệm vụ và 52 tòa nhà**. Bộ thiết bị được chuẩn hóa với tay máy Franka cùng các camera, rồi mang đến nhiều tổ chức để thu ở không gian thực tế khác nhau. Nhờ đó dữ liệu thay đổi rộng về cảnh nhưng vẫn dễ dùng chung một kiểu lệnh robot.
+
+Nhóm tác giả huấn luyện policy trên dữ liệu này rồi so những tập con có **cùng lượng mẫu nhưng khác số bối cảnh**. Thiết kế đó cho phép kiểm tra liệu sự đa dạng môi trường có lợi ích riêng, thay vì mọi cải thiện đơn giản do dữ liệu nhiều hơn.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
 ![Hình 10 từ PDF gốc, trang 10](/paper-figures/droid/figure-10.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Bài báo huấn luyện diffusion-style policies và làm matched-data ablation: cùng số demonstrations nhưng chọn từ nhiều bối cảnh hơn hoặc ít bối cảnh hơn. Điều này cho phép tách **quantity** khỏi **environment sự đa dạng**.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -75,14 +78,15 @@ Từ các quỹ đạo này, policy có thể được học chung với dữ li
 
 ## Ví dụ từng bước
 
-Ở cùng nhiệm vụ pick-place, một bối cảnh có bàn kính phản quang, bối cảnh khác có khăn và đồ vật cluttered. DROID-style collection khiến thị giác encoder phải học affordance thay vì memorize màu bàn. Nhưng dữ liệu còn phụ thuộc vào con người operator và phần cứng robot; action frequency/camera alignment có thể trở thành confound.
+Robot phải nhặt một túi khoai tây chiên trên bàn. Trong phòng lab quen thuộc, túi nằm trên bàn gỗ sạch; khi đổi môi trường, bàn có khăn, phản chiếu ánh sáng và nhiều đồ khác. Nếu chỉ học thuộc vị trí và nền, mạng sẽ chọn sai vật hoặc đi sai hướng.
+
+DROID cho mạng thấy nhiều kiểu cảnh để học dấu hiệu quan trọng hơn về vật và chỗ kẹp. Khi kiểm tra dữ liệu, cần đối chiếu thời gian của ảnh, trạng thái khớp và lệnh; lệch vài khung hình có thể gây nhiễu nhãn lớn dù mọi tệp vẫn đọc được.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
 ![Hình 9 từ PDF gốc, trang 10](/paper-figures/droid/figure-9.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Trong dữ liệu audit, inspect synchronization giữa RGB khung hình timestamps và proprioception/action timestamps; lệch vài khung hình cũng có thể tạo label noise rất lớn.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -96,7 +100,9 @@ Dữ liệu ở nhiều bếp giúp policy có cơ hội học những dấu hi�
 
 ## Kết quả thực nghiệm
 
-Khi thêm DROID vào dữ liệu của nhiệm vụ đích theo mixture, tác giả báo cáo mức cải thiện khoảng **22 điểm ở in-domain** và **17 điểm ở out-of-domain** so với thiết lập đối chứng tốt thứ hai trong các nhiệm vụ được đánh giá. Toàn bộ DROID tốt hơn subset nhỏ, nhưng điểm quan trọng hơn là **tập con có nhiều bối cảnh tốt hơn tập con ít đa dạng với cùng số mẫu**. Nói cách khác, 7 nghìn quỹ đạo đi khắp nơi có thể đáng hơn 7 nghìn quỹ đạo quay đi quay lại trong 20 bối cảnh.
+Khi huấn luyện chung với DROID, nhóm tác giả báo cáo mức cải thiện trung bình khoảng **22 điểm phần trăm** trong điều kiện gần dữ liệu học và **17 điểm phần trăm** ở tình huống khác dữ liệu, so với phương pháp đối chứng tốt thứ hai trong phép thử.
+
+Điểm rất đáng chú ý: với số quỹ đạo gần tương đương, tập con ghi ở **nhiều bối cảnh hơn** có kết quả tốt hơn tập con chỉ từ ít địa điểm. Đó là bằng chứng trực tiếp rằng sự phong phú về cảnh mang giá trị riêng, không chỉ do tăng số lượt thao tác.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -104,7 +110,6 @@ Khi thêm DROID vào dữ liệu của nhiệm vụ đích theo mixture, tác gi
 ![Hình 8 từ PDF gốc, trang 9](/paper-figures/droid/figure-8.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Đây là một evidence rất trực tiếp cho data-collection strategy mà người đọc đang thấy ở headcam: coverage của phân phối có giá trị độc lập với số giờ.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -118,9 +123,9 @@ Hình 10 thực sự kiểm tra vai trò của số cảnh: so một phần dữ
 
 ## Hạn chế và câu hỏi còn mở
 
-**Bài báo thừa nhận:** DROID vẫn dùng một main robot phần cứng, nên chủ yếu giải bối cảnh/độ đa dạng nhiệm vụ chứ không giải cross-embodiment. Scope manipulation vẫn tabletop-ish và chưa chạm hết dynamic/deformable/contact-rich world.
+DROID chủ yếu dùng một hệ robot chuẩn, nên nghiên cứu độ đa dạng cảnh và nhiệm vụ rõ hơn sự khác biệt giữa nhiều cấu trúc cơ khí. Dữ liệu vẫn thường là thao tác trên bàn; những việc cần lực lớn, vật mềm hoặc chuyển động toàn thân chưa được bao phủ đầy đủ.
 
-**Phê bình thêm:** 350 giờ là lớn với real robot 2024 nhưng nhỏ so với 10k-50k giờ pretraining corpora 2026. Policies trong bài báo vẫn cần target-task demonstrations, nên DROID là prior chứ không tạo zero-shot generalist. Tập dữ liệu chủ yếu lọc successful/usable các quỹ đạo, thiếu thất bại/phục hồi. Real đánh giá cũng chỉ có số nhiệm vụ và rollouts hạn chế, nên con số gain không nên extrapolate thành “độ đa dạng bối cảnh giải khả năng khái quát”. Nó giải một phần rất quan trọng, nhưng chỉ một phần.
+Các policy trong thí nghiệm vẫn cần demonstration của nhiệm vụ đích; DROID không tự tạo ra một robot làm mọi việc mà không học thêm. Bộ dữ liệu cũng có ít ví dụ lỗi và phục hồi. Kết quả cần được hiểu trong phạm vi những cảnh, vật thể và số lần chạy đã kiểm tra.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -151,9 +156,9 @@ Khi chọn dữ liệu cho một project, hãy hỏi lỗi cần giải là gặ
 
 ## Đọc code và tự kiểm chứng
 
-Dùng mẫu DROID video + state, plot timestamp delta, quỹ đạo smoothness và coverage. Xây 1 trang data-quality báo cáo trước khi huấn luyện policy.
+Lấy một ít dữ liệu DROID, vẽ khoảng cách thời gian giữa ảnh và lệnh robot để phát hiện khung hình bị lệch. Xem một số video từ các địa điểm khác nhau và ghi lại sự thay đổi về ánh sáng, bàn, vật và góc camera.
 
-**Cách kiểm tra đọc hiểu:** Hãy tự giải thích *đầu vào*, *đầu ra*, *loss khi huấn luyện*, *quy trình đánh giá* và *kiểu lỗi* của bài báo. Nếu không nói được một trong năm thứ này, cần đọc lại phần tương ứng trước khi chạy benchmark.
+Tạo hai tập con có lượng demonstration bằng nhau, nhưng một tập có nhiều cảnh hơn. Huấn luyện cùng chính sách rồi so kết quả trên địa điểm mới. Nếu tập đa dạng có lợi, ghi cụ thể loại thay đổi được thử thay vì chỉ kết luận chung rằng “nhiều dữ liệu hơn là tốt”.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

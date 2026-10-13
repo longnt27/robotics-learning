@@ -21,7 +21,9 @@ Một ảnh chiếc cốc có thể được dùng để dạy nhiều loại m�
 
 ## Kiến thức nền cần nắm
 
-Cross-embodiment không phải chỉ concat mọi `action` vào một tensor. Các robot khác nhau về degrees of freedom, tần số điều khiển, camera convention, proprioception và gripper command semantics. Tập dữ liệu mixture có thể scale kiến thức nhưng cũng dễ tạo conflict nếu không thống nhất biểu diễn.
+Hai robot cùng biết nhặt vật nhưng có số khớp, kiểu kẹp, vị trí camera và lệnh điều khiển khác nhau. Vì thế **không thể chỉ nối mọi vector hành động thành một tập dữ liệu chung**. Cột thứ nhất của robot này có thể là độ dịch đầu kẹp, còn ở robot khác lại là góc khớp.
+
+Học từ nhiều loại robot đòi thống nhất định dạng hoặc giữ thông tin về **cấu hình robot** để biết từng lệnh có ý nghĩa gì. Mục tiêu là chuyển kiến thức chung về thao tác, không phải coi mọi phần cứng là một thiết bị.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -35,14 +37,15 @@ Tập dữ liệu trộn từ nhiều robot phải thống nhất thông tin t�
 
 ## Phương pháp thực hiện
 
-Dự án gom dữ liệu từ **22 robot embodiments và 21 tổ chức**, tổng cộng hơn **1 triệu các quỹ đạo/episodes**, hàng trăm kỹ năng và nhiệm vụ instances. Các tập dữ liệu khác nhau được chuyển về một interface chuẩn, trong khi vẫn giữ metadata/action semantics cần thiết. Trên corpus đó, consortium huấn luyện **RT-1-X** và **RT-2-X**, tức các phiên bản cross-embodiment của RT-1/RT-2.
+Open X-Embodiment tập hợp hơn **một triệu quỹ đạo** từ **22 kiểu robot** và **21 tổ chức**. Các nguồn được chuyển về những cấu trúc dữ liệu có thể dùng chung trong khi vẫn giữ thông tin cần thiết về loại robot, camera và lệnh. Từ nguồn ấy, nhóm nghiên cứu huấn luyện RT-1-X và RT-2-X, hai phiên bản học trên dữ liệu nhiều robot.
+
+Điểm kỹ thuật quan trọng không phải ép toàn bộ robot thành một không gian khớp duy nhất. Hệ thống cần biết cách mỗi loại lệnh được mã hóa và chuẩn hóa. Sau đó mới có thể kiểm tra liệu ví dụ từ robot A có giúp robot B làm việc tốt hơn so với chỉ học dữ liệu của chính B.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
 ![Hình 3 từ PDF gốc, trang 4](/paper-figures/open-x-embodiment/figure-3.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Quan trọng về mặt infrastructure là bài báo không cố ép mọi robot thành cùng một phần cứng. Nó xây một format và hỗn hợp dữ liệu huấn luyện để mô hình có thể học biểu diễn dùng chung, rồi đo xem dữ liệu từ robot A có giúp robot B hay không.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -67,9 +70,9 @@ Khi huấn luyện, mô hình nhìn ảnh cùng câu lệnh từ nhiều nguồn
 
 ## Ví dụ từng bước
 
-Robot A điều khiển EEF delta XYZ + gripper, robot B điều khiển joint angles; trộn thô vectors sẽ khiến action channel 1 mang hai nghĩa. RT-X-style huấn luyện phải gắn embodiment, normalize, map hoặc giữ schema tương ứng; inference cần biết policy đầu ra được robot nhận theo convention nào.
+Robot A nhận lệnh dịch đầu kẹp theo ba trục và điều khiển đóng/mở kẹp. Robot B nhận trực tiếp góc từng khớp. Nếu trộn nguyên các số ấy, cùng một chiều trong dữ liệu có thể mang hai ý nghĩa trái nhau. Trước khi huấn luyện phải chọn cách biểu diễn có thể dùng chung hoặc gắn bộ chuyển đổi riêng cho từng robot.
 
-So sánh multi-dataset checkpoint với single-dataset checkpoint trên cùng robot target giúp tách chuyển giao thật với lợi ích chỉ do thêm mẫu.
+Để đo lợi ích chuyển giao, giữ nguyên robot đích B và bài kiểm tra. So một policy chỉ học dữ liệu B với policy còn học thêm dữ liệu A đã chuyển đổi đúng. Khi điều kiện khác gần tương đương, chênh lệch mới giúp đánh giá ích lợi của học chung.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -83,7 +86,9 @@ Nếu đưa nguyên góc khớp của A sang B, thao tác có thể vô nghĩa h
 
 ## Kết quả thực nghiệm
 
-RT-1-X đạt tỷ lệ thành công trung bình cao hơn khoảng **50%** so với việc chỉ dùng phương pháp/tập dữ liệu riêng lẻ trong aggregate comparison của bài báo. RT-2-X cho khả năng khái quát mạnh hơn rất rõ, có thiết lập khoảng **3x** so với mô hình chỉ huấn luyện trên embodiment được đánh giá. Ablation trên Bridge và các subsets cho thấy dữ liệu từ embodiment khác có thể tạo **positive chuyển giao**, và gains tăng khi mô hình đủ dung lượng mô hình để hấp thụ heterogeneity.
+Trong các phép thử tổng hợp, RT-1-X đạt tỷ lệ thành công trung bình cao hơn khoảng **50%** so với một số thiết lập chỉ học dữ liệu riêng lẻ. RT-2-X cũng thể hiện khả năng khái quát mạnh hơn trong một số tình huống, có nhóm thử cải thiện nhiều lần.
+
+Các kết quả này cho thấy dữ liệu robot khác **có thể giúp** robot đích, nhất là khi mô hình đủ khả năng học từ nguồn đa dạng. Tuy nhiên, không phải mọi cặp robot hoặc bộ dữ liệu đều chuyển giao tốt. Cần xem rõ robot đích, nhiệm vụ, nguồn dữ liệu và phép tính mức cải thiện.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -91,7 +96,6 @@ RT-1-X đạt tỷ lệ thành công trung bình cao hơn khoảng **50%** so v�
 ![Hình 5 từ PDF gốc, trang 6](/paper-figures/open-x-embodiment/figure-5.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Bài báo này không chứng minh “mọi robot đều học lẫn nhau”, nhưng nó chứng minh đủ để thay đổi hướng field: cross-embodiment pretraining từ đó trở thành một assumption hợp lý để đầu tư thay vì một fantasy.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -105,9 +109,9 @@ Khi đọc câu “cao hơn 50%”, cần biết đó là mức tăng tương đ
 
 ## Hạn chế và câu hỏi còn mở
 
-**Bài báo thừa nhận:** morphology/cảm biến/action sự đa dạng vẫn chưa phủ những embodiment thật sự cực khác nhau. Bài báo cũng chưa giải được criterion nào dự đoán dữ liệu source nào sẽ positive chuyển giao và source nào sẽ gây negative chuyển giao. Generalization sang một robot hoàn toàn mới chưa được test theo nghĩa mạnh nhất.
+Nguồn dữ liệu từ các phòng thí nghiệm không cân bằng về số lượng, nhiệm vụ và góc camera. Nhiều thiết bị vẫn là tay máy thao tác trên bàn, có dạng kẹp tương đối giống nhau; vì thế 22 kiểu robot chưa đại diện đầy đủ cho tất cả cơ cấu ngoài đời.
 
-**Phê bình thêm:** tập dữ liệu contribution rất lệch về quantity và phân phối nhiệm vụ giữa các phòng thí nghiệm. Nhiều robot vẫn là tabletop manipulators với abstraction EEF/gripper tương đối giống nhau, nên “22 embodiments” nghe rộng hơn mức độ đa dạng đặc tính vật lý thật. Chuẩn hóa action có thể che hoặc làm méo morphology-specific semantics. RT-2-X lại cực lớn và khó reproduce. Open X chứng minh pooling **có thể** hữu ích, chưa chứng minh một universal action không gian đã được giải.
+**Chuẩn hóa dữ liệu không loại bỏ mọi khác biệt phần cứng.** Cách chuyển đổi lệnh có thể làm mất thông tin riêng của một loại robot, còn model lớn vẫn đắt để huấn luyện. Công trình chứng minh học chung giữa các nguồn robot có ích trong những trường hợp được thử, chứ chưa giải xong vấn đề điều khiển thống nhất mọi robot.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -139,9 +143,9 @@ Tập dữ liệu không phải model; model không phải thuật toán chuyể
 
 ## Đọc code và tự kiểm chứng
 
-Đọc schema RLDS của hai embodiments, liệt kê từng field/units/action khung hình và viết validator. Chạy thống kê phân phối per robot trước khi nghĩ đến huấn luyện scale lớn.
+Chọn dữ liệu của hai robot khác cấu trúc. Lập bảng cho mỗi trường: ảnh camera, trạng thái khớp, lệnh di chuyển, đơn vị và hệ tọa độ. Xác định trường nào thực sự tương đương và trường nào cần chuyển đổi hoặc che đi.
 
-**Cách kiểm tra đọc hiểu:** Hãy tự giải thích *đầu vào*, *đầu ra*, *loss khi huấn luyện*, *quy trình đánh giá* và *kiểu lỗi* của bài báo. Nếu không nói được một trong năm thứ này, cần đọc lại phần tương ứng trước khi chạy benchmark.
+Trước khi huấn luyện lớn, vẽ phân phối từng chiều hành động riêng cho từng robot và thử giải mã vài mẫu. Nếu cùng giá trị lại gây hai chuyển động khác nhau, cần sửa cách biểu diễn trước.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
