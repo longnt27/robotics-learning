@@ -1,4 +1,4 @@
-> **Bài do bạn cung cấp.** [Qwen-VLA: Unifying Vision-Language-Action Modeling across Tasks, Environments, and Robot Embodiments](https://arxiv.org/abs/2605.30280), Qwen Team, arXiv 2026. Đọc song song với **Figure 2** về kiến trúc, **Tables 1–2** về hỗn hợp dữ liệu/embodiment, và **Tables 4–6** về kết quả. Tên “Qwen-VLA” không có nghĩa mọi năng lực đã khái quát ngang nhau.
+> **Gợi ý đọc:** [Qwen-VLA](https://arxiv.org/abs/2605.30280), Qwen Team (2026). Hình 2 trình bày bốn giai đoạn huấn luyện; các bảng thực nghiệm giúp thấy từng giai đoạn hỗ trợ những kỹ năng nào. Không phải mọi loại robot và nhiệm vụ đều khái quát như nhau.
 
 ## Vì sao cần nghiên cứu này?
 
@@ -11,9 +11,9 @@
 <!-- END ADDITIONAL PDF FIGURES -->
 Robot có thể được nghiên cứu theo ba nhóm lớn: cánh tay thao tác vật, robot tự di chuyển và mô hình dự đoán quỹ đạo. Mỗi nhóm thường dùng kiểu cảm biến và dạng lệnh riêng. Ngay cả trong thao tác tay máy, hai robot có thể khác số khớp, hệ tọa độ và tần số điều khiển. Nếu phải huấn luyện một bản trọng số đã lưu riêng cho mỗi cấu hình, rất nhiều kiến thức về đồ vật và cách thực hiện công việc không được chia sẻ. Qwen-VLA tìm cách xây phần biểu diễn chung, đồng thời vẫn nhận biết robot nào đang được điều khiển.
 
-Một robot có thể phải nhặt đồ vật, di chuyển trong phòng hoặc trả lời câu hỏi về thứ camera đang nhìn thấy. Các việc ấy đòi những dạng kết quả khác nhau, trong khi nhiều kiến thức về đồ vật và ngôn ngữ có thể dùng chung. **Qwen-VLA tổ chức việc học thành nhiều giai đoạn để kết nối hiểu ảnh–ngôn ngữ với sinh hành động robot.** Bộ sinh hành động trước hết học cấu trúc chuyển động từ mô tả bằng chữ, sau đó học liên hệ với ảnh thật, tiếp tục tinh chỉnh theo nhiệm vụ và cuối cùng có thể tối ưu bằng phần thưởng khi robot tương tác với môi trường.
+Mỗi loại yêu cầu cần kết quả khác nhau: thao tác vật, điều hướng hoặc câu trả lời. Những phần liên quan tới nhận biết ảnh có thể dùng chung, còn cách tạo lệnh cần được tách theo robot. Các việc ấy đòi những dạng kết quả khác nhau, trong khi nhiều kiến thức về đồ vật và ngôn ngữ có thể dùng chung. **Qwen-VLA tổ chức việc học thành nhiều giai đoạn để kết nối hiểu ảnh–ngôn ngữ với sinh hành động robot.** Bộ sinh hành động trước hết học cấu trúc chuyển động từ mô tả bằng chữ, sau đó học liên hệ với ảnh thật, tiếp tục tinh chỉnh theo nhiệm vụ và cuối cùng có thể tối ưu bằng phần thưởng khi robot tương tác với môi trường.
 
-Khó khăn là **ý nghĩa vật lý của lệnh không đồng nhất**. Một vector 7 chiều có thể là end-effector translation/rotation/gripper; robot khác 14 joint angles; agent navigation lại xuất waypoint và heading. Đưa tất cả vào cùng mảng dữ liệu padding mà không mô tả embodiment sẽ khiến mô hình học mapping mơ hồ. Vì vậy kiến trúc phải đồng thời giải VLM grounding, biểu diễn/điều kiện hóa và sinh hành động.
+Khó nhất là cùng một dãy số có thể mang ý nghĩa hoàn toàn khác: robot A dùng lệnh dịch đầu kẹp, robot B nhận góc 14 khớp, còn robot di động nhận vận tốc hoặc điểm đến. Vì vậy mô hình phải biết đang điều khiển loại robot nào và chuyển lệnh cho đúng phần cứng.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -51,18 +51,20 @@ Qwen-VLA kết hợp phần hiểu ảnh–ngôn ngữ Qwen với bộ sinh chu�
 Quy trình học gồm **bốn giai đoạn**. Đầu tiên mạng học mối quan hệ giữa lời mô tả và chuyển động (T2A). Tiếp theo nó gắn chuyển động với ảnh thực tế trong giai đoạn học tiếp (CPT). Sau đó mô hình được **tinh chỉnh có giám sát (SFT)** cho từng nhóm nhiệm vụ. Cuối cùng, **học tăng cường (RL)** tận dụng phần thưởng khi robot chạy để tiếp tục cải thiện. Các bước này có mục tiêu khác nhau; không nên gộp thành một lần huấn luyện chung không phân biệt.
 
 ```text
-instruction + embodiment description + visual input
-                            │
-                 Qwen visual-language backbone
-                            │ conditioned features
-                            ▼
-                 DiT action / trajectory expert
-                 noisy actions + flow time τ
-                            │ multiple Euler steps
-                            ▼
-                continuous chunk / waypoint / trajectory
-                            │
-                    embodiment-specific adapter
+Câu lệnh + loại robot + ảnh camera
+                  │
+       Mô hình ảnh–ngôn ngữ Qwen
+                  │
+       Đặc trưng định hướng hành động
+                  ▼
+          Bộ sinh DiT
+     Chuỗi nhiễu + thời gian flow τ
+                  │
+          Các bước sinh liên tiếp
+                  ▼
+       Đoạn chuyển động liên tục
+                  │
+    Bộ chuyển lệnh cho robot cụ thể
 ```
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -142,11 +144,11 @@ Cách biểu diễn lệnh phải phù hợp loại robot đang chạy. Nếu đ
 
 ## Liên hệ với nghiên cứu khác
 
-- [PaLM-E](/paper/palm-e) mở hướng đưa thị giác/đầu vào cảm biến vào mô hình ngôn ngữ đã huấn luyện trước.
-- [RT-2](/paper/rt-2) và [OpenVLA](/paper/openvla) là nhánh VLM-to-hành động discrete tokens.
-- [Diffusion Policy](/paper/diffusion-policy), [RDT-1B](/paper/rdt-1b) và [GR00T N1](/paper/groot-n1) giúp hiểu liên tục sinh hành động heads.
-- [Open X-Embodiment](/paper/open-x-embodiment) là bài học cốt lõi về hỗn hợp dữ liệu và embodiment alignment.
-- [LingBot-VLA 2.0](/paper/lingbot-vla-2) cũng xử lý multi-embodiment, nhưng chọn canonical whole-body hành động và sparse MoE.
+- [PaLM-E](/paper/palm-e) cho thấy cách đưa ảnh và trạng thái cảm biến vào mô hình ngôn ngữ.
+- [RT-2](/paper/rt-2) cùng OpenVLA biểu diễn lệnh robot bằng token rời rạc.
+- [Diffusion Policy](/paper/diffusion-policy), [RDT-1B](/paper/rdt-1b) cùng Diffusion Policy và GR00T N1 nghiên cứu việc sinh chuỗi hành động liên tục.
+- [Open X-Embodiment](/paper/open-x-embodiment) cho thấy những khó khăn khi trộn dữ liệu từ nhiều cấu hình robot.
+- [LingBot-VLA 2.0](/paper/lingbot-vla-2) cũng phục vụ nhiều kiểu robot, nhưng dùng biểu diễn hành động toàn thân và MoE.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

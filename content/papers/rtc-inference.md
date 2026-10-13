@@ -1,8 +1,8 @@
-> **Bài do bạn cung cấp.** [Real-Time Execution of Action Chunking Flow Policies](https://arxiv.org/abs/2506.07339), NeurIPS 2025. Đây là bài báo về **lúc chạy của chính sách điều khiển**, không phải một mạng nền huấn luyện trước mới. Đọc cùng **Figure 2–3**, **Section 3**, **Section 4** và **Appendix A**.
+> **Gợi ý đọc:** [Real-Time Execution of Action Chunking Flow Policies](https://arxiv.org/abs/2506.07339), NeurIPS 2025. Hình 2–3 giải thích vì sao các đoạn lệnh bị giật khi nối; Mục 3–4 kiểm tra cách RTC giữ chuyển động liên tục.
 
 ## Vì sao cần nghiên cứu này?
 
-### Mô hình nghĩ 100 ms, robot cần hành động mỗi 20 ms
+### Mô hình tính 100 ms, robot cần lệnh mới mỗi 20 ms
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -16,9 +16,9 @@ Một robot có thể cần lệnh mới mỗi 20 mili giây, nhưng mô hình V
 1. **Chạy tuần tự:** robot thực hiện xong đoạn A rồi dừng chờ mạng sinh đoạn B. Thời gian chờ có thể phá hỏng thao tác đang cần lực hoặc chuyển động liên tục.
 2. **Chạy song song đơn giản:** mạng tạo đoạn B trong khi robot chạy A, nhưng B có thể chọn một hướng đi khác ngay tại điểm nối, khiến robot đổi tốc độ hoặc gia tốc đột ngột.
 
-Ví dụ tránh chướng ngại: chunk cũ đi vòng **phía trên**, chunk mới đi vòng **phía dưới**. Cả hai quỹ đạo riêng lẻ có thể đúng. Nối chúng giữa chừng tạo một cú bẻ lái nguy hiểm. Averaging hai quỹ đạo cũng không chắc hữu ích: trung bình giữa “trái” và “phải” có thể là “đi thẳng vào vật cản”.
+Ví dụ tránh chướng ngại: chunk cũ đi vòng **phía trên**, chunk mới đi vòng **phía dưới**. Cả hai quỹ đạo riêng lẻ có thể đúng. Nối chúng giữa chừng tạo một cú bẻ lái nguy hiểm. Lấy trung bình hai đường đi cũng không chắc hữu ích: giữa “vòng trái” và “vòng phải” có thể là “đi thẳng vào vật cản”.
 
-Vì vậy vấn đề bài báo thật sự giải không phải chỉ **độ trễ**, mà là **online lập lại kế hoạch với các hành động đã commit trong thế giới vật lý**.
+Vấn đề không chỉ là **độ trễ** mà còn là **lập lại kế hoạch khi robot đang chạy**, trong khi những lệnh đã thực thi không thể sửa được nữa.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -63,26 +63,26 @@ Những bước đã cam kết bị giữ cố định. Phần tương lai còn 
 <!-- END ADDITIONAL PDF FIGURES -->
 
 ```text
-CONTROL LOOP (50 Hz)                  INFERENCE LOOP
-  observe current state                receive observation
-  execute next buffered action         estimate latency d
-  observe next state                    use committed actions
-  execute next buffered action         guided flow sampling
-               ...                     publish next chunk
-  swap when new chunk ready  <────────────┘
+VÒNG ĐIỀU KHIỂN (50 Hz)        VÒNG TÍNH LỆNH
+  Đọc trạng thái hiện tại           Nhận quan sát
+  Chạy lệnh đã có                   Ước tính độ trễ d
+  Quan sát lại                      Giữ lệnh đã phát
+  Chạy lệnh tiếp theo               Sinh đoạn có ràng buộc
+       ...                          Trả về đoạn mới
+  Chuyển sang đoạn mới    <──────────────┘
 ```
 
 ```text
-OLD:   a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 ...
-              ↑ inference starts
-             └──── d steps of latency ────┐
-NEW:           [fixed actions] [future...]
+ĐOẠN CŨ:  a0 a1 a2 a3 a4 a5 a6 a7 a8 a9...
+               ↑ Bắt đầu tính đoạn mới
+               └── Mất d bước mới có kết quả ──┐
+ĐOẠN MỚI:     [lệnh đã cam kết] [lệnh tương lai...]
 ```
 
 ```text
-NEW ACTION HORIZON
-| hard-frozen | soft overlap / decaying guidance | free future |
-      1.0             0.9 → 0.6 → 0.2             0
+ĐOẠN HÀNH ĐỘNG MỚI
+| Cố định hoàn toàn | Điều chỉnh mềm | Sinh phần mới |
+         1,0          0,9 → 0,6 → 0,2       0
 ```
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -156,10 +156,10 @@ Ngoài ra, tính liên tục về vị trí chưa luôn bảo đảm giới hạ
 
 ## Liên hệ với nghiên cứu khác
 
-- [ACT / ALOHA](/paper/act) giới thiệu hành động chunking và temporal aggregation, nền của bài toán.
-- [Diffusion Policy](/paper/diffusion-policy) giải thích liên tục sinh hành động chính sách điều khiển có thể inpaint.
-- [π0.5](/paper/pi-0-5) là chính sách điều khiển nền trong real-robot thí nghiệm.
-- [Training-time RTC](/paper/rtc-training) chuyển constraint từ suy luận ràng buộc dẫn hướng sang huấn luyện mục tiêu huấn luyện. Hai bài báo nên đọc liền nhau.
+- [ACT / ALOHA](/paper/act) giải thích cách dự đoán theo đoạn và kết hợp những dự đoán chồng nhau, nền tảng của RTC.
+- [Diffusion Policy](/paper/diffusion-policy) trình bày cách sinh chuỗi hành động bằng khử nhiễu, từ đó hiểu việc giữ cố định một phần lệnh (inpainting).
+- [π0.5](/paper/pi-0-5) cung cấp bối cảnh các mô hình VLA sinh chuyển động liên tục và độ trễ khi chạy robot thật.
+- [Training-time RTC](/paper/rtc-training) dạy mạng cách nối lệnh mới với lệnh cũ ngay từ lúc huấn luyện, thay vì chỉ ràng buộc ở suy luận.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

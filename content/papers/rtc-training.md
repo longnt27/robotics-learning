@@ -1,4 +1,4 @@
-> **Bài do bạn cung cấp.** [Training-Time Action Conditioning for Efficient Real-Time Chunking](https://arxiv.org/abs/2512.05964), Vật lý Intelligence. Bài báo ngắn nhưng tinh tế: nó **thay đổi dữ liệu/mục tiêu huấn luyện lúc huấn luyện** để giảm overhead lúc chạy của suy luận-time RTC. Nên đọc ngay sau [RTC đầu tiên](/paper/rtc-inference).
+> **Gợi ý đọc:** [Training-Time Action Conditioning for Efficient Real-Time Chunking](https://arxiv.org/abs/2512.05964), từ nhóm Physical Intelligence. Bài này dạy mạng nhận những lệnh đã cam kết **ngay trong huấn luyện**, để không cần sửa quá nhiều khi robot chạy. Nên đọc sau [RTC lúc suy luận](/paper/rtc-inference).
 
 ## Vì sao cần nghiên cứu này?
 
@@ -52,19 +52,19 @@ Với DiT dùng flow matching, thời điểm sinh có thể được thiết l�
 <!-- END ADDITIONAL PDF FIGURES -->
 
 ```text
-k = 0: [ noise noise noise noise noise noise ]
-k = 2: [ a1 a2 | noise noise noise noise ]
-k = 4: [ a1 a2 a3 a4 | noise noise ]
+k = 0: [nhiễu nhiễu nhiễu nhiễu nhiễu nhiễu]
+k = 2: [a1 a2 | nhiễu nhiễu nhiễu nhiễu]
+k = 4: [a1 a2 a3 a4 | nhiễu nhiễu]
 ```
 
 ```text
-input:  observation + task instruction + robot state
-        clean prefix a1...ak
-        noisy postfix a{k+1}...aH
-        per-position flow times
+ĐẦU VÀO: quan sát + câu lệnh + trạng thái robot
+          tiền tố đã biết a1...ak
+          hậu tố còn nhiễu a{k+1}...aH
+          thời điểm flow cho từng vị trí
 
-network: velocity field on postfix
-loss:    only postfix positions
+MẠNG:    dự đoán cách sinh phần hậu tố
+MỤC TIÊU: chỉ tính sai số trên phần hậu tố
 ```
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -142,10 +142,10 @@ Việc giữ tiền tố cũng không giải quyết phát hiện vật mới, c
 
 ## Liên hệ với nghiên cứu khác
 
-- [RTC inference-time](/paper/rtc-inference) là phương pháp đối chứng trực tiếp và nơi giải thích guided inpainting.
-- [ACT](/paper/act) giúp hiểu temporal aggregation và chunk boundary.
-- [Diffusion Policy](/paper/diffusion-policy) giải thích flow/diffusion conditional quỹ đạo lấy mẫu.
-- [π0.5](/paper/pi-0-5) là representative modern flow-based VLA stack; bài báo huấn luyện-time này đánh giá trực tiếp π0.6.
+- [RTC inference-time](/paper/rtc-inference) là phiên bản trước: ràng buộc đoạn mới ngay trong quá trình suy luận.
+- [ACT](/paper/act) giới thiệu đoạn hành động và cách làm mượt các dự đoán chồng nhau.
+- [Diffusion Policy](/paper/diffusion-policy) giúp hiểu cách mô hình khử nhiễu sinh chuỗi chuyển động có điều kiện.
+- [π0.5](/paper/pi-0-5) là ví dụ VLA sinh chuyển động bằng phương pháp flow matching; nghiên cứu RTC này còn thử trực tiếp trên π0.6.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

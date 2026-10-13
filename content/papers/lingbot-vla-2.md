@@ -1,4 +1,4 @@
-> **Bài do bạn cung cấp** (file tên `MoE.pdf`). Tên đầy đủ: [From Foundation to Application: Improving VLA Models in Practice](https://arxiv.org/abs/2607.06403), giới thiệu **LingBot-VLA 2.0**. Đừng để tên file làm nhầm rằng bài báo chỉ nói về MoE: nội dung là hệ thống gồm dữ liệu processing, unified biểu diễn hành động, MoE action expert, predictive distillation và đánh giá robot thật.
+> **Gợi ý đọc:** [From Foundation to Application: Improving VLA Models in Practice](https://arxiv.org/abs/2607.06403) giới thiệu LingBot-VLA 2.0. Trọng tâm là cả quy trình gồm làm sạch dữ liệu, thống nhất dạng lệnh, mạng MoE và học dự đoán trạng thái tương lai, không chỉ riêng MoE.
 
 ## Vì sao cần nghiên cứu này?
 
@@ -11,7 +11,7 @@
 <!-- END ADDITIONAL PDF FIGURES -->
 Một mô hình muốn dùng trên robot hai tay, robot hình người và tay máy di động sẽ gặp ba trở ngại chính: dữ liệu thu từ nhiều hệ thống không đồng nhất và không phải lúc nào cũng sạch; một mạng dùng chung có thể thiếu năng lực để học đủ kỹ năng khác nhau; và robot cần hiểu hành động sẽ làm cảnh thay đổi ra sao, không chỉ bắt chước lệnh tiếp theo. LingBot-VLA 2.0 xây một quy trình giải đồng thời ba nhóm vấn đề ấy, từ dữ liệu đầu vào tới bộ sinh chuyển động.
 
-Một công ty có thể thu hàng chục nghìn giờ robot thao tác mà mô hình vẫn hoạt động kém nếu các bản ghi bị lệch thời gian, lệnh điều khiển khác đơn vị hoặc nhiệm vụ hiếm bị lấn át bởi nhiệm vụ phổ biến. **LingBot-VLA 2.0 nghiên cứu cả một quy trình xây dựng mô hình VLA thực dụng:** tuyển chọn dữ liệu, đưa lệnh từ nhiều loại robot về cấu trúc chung, phân bổ năng lực mô hình bằng MoE và bổ sung mục tiêu dự đoán trạng thái tương lai. Muốn hiểu bài này, cần xem từng phần đóng góp như thế nào, chứ không thể chỉ nhìn số giờ dữ liệu hoặc số tham số.
+Dữ liệu nhiều không có nghĩa dữ liệu sạch: nếu ảnh và lệnh lệch thời gian hoặc mỗi robot dùng một đơn vị khác nhau, mạng sẽ học sai. LingBot xử lý các vấn đề ấy từ bước làm sạch đến mô hình điều khiển; vì vậy phải đánh giá từng thành phần thay vì chỉ đếm giờ dữ liệu.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -64,21 +64,21 @@ Hệ thống ánh xạ lệnh các robot sang một biểu diễn chung **55 chi
 <!-- END ADDITIONAL PDF FIGURES -->
 
 ```text
-headcam frames ───────────┬──────────────┐
-                          │              │
-                       SLAM          hand pose
-                          │              │
-                   camera motion     hand in camera
-                          └─────┬────────┘
-                                 ▼
-                      world-space hand track
-                                 ▼
-                    action relative to current view
+Ảnh từ camera trên đầu ───────┬────────────────┐
+                             │                │
+                            SLAM        Tư thế bàn tay
+                             │                │
+                      Chuyển động camera  Vị trí tay
+                             └──────┬─────────┘
+                                    ▼
+                     Quỹ đạo tay trong thế giới
+                                    ▼
+                     Lệnh theo góc nhìn hiện tại
 ```
 
 ```text
-arm | EEF | gripper | fingers | waist | head | base | reserved
- 14    14      2        12       4       2      3       4
+Tay | Đầu kẹp | Kẹp | Ngón | Eo | Đầu | Bệ | Dự phòng
+ 14      14       2      12     4      2    3       4
 ```
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -154,11 +154,11 @@ Một hệ nhiều thành phần có thể cải thiện tổng thể nhưng kh�
 
 ## Liên hệ với nghiên cứu khác
 
-- [Open X-Embodiment](/paper/open-x-embodiment) là tiền đề để nghĩ về mixture đa cơ cấu robot và semantics hành động.
-- [GR00T N1](/paper/groot-n1) cũng dùng VLM+action expert và video con người nhưng kiến trúc dữ liệu/experts khác.
-- [Qwen-VLA](/paper/qwen-vla) giải cùng bài toán generalist, dùng embodiment description thay vì chỉ phụ thuộc 55D schema.
-- [Diffusion Policy](/paper/diffusion-policy) và [RDT-1B](/paper/rdt-1b) cung cấp nền sinh hành động learning.
-- [DROID](/paper/droid) cho góc nhìn thu dữ liệu robot ở nhiều môi trường đời thật.
+- [Open X-Embodiment](/paper/open-x-embodiment) là ví dụ nền tảng về việc phối trộn dữ liệu từ nhiều cấu trúc robot.
+- [GR00T N1](/paper/groot-n1) cũng kết hợp mạng hiểu ảnh–ngôn ngữ và bộ sinh hành động, có sử dụng video người.
+- [Qwen-VLA](/paper/qwen-vla) cùng giải bài toán đa robot, nhưng dùng cách điều kiện hóa theo cấu hình khác với biểu diễn 55 chiều.
+- [Diffusion Policy](/paper/diffusion-policy) cùng RDT-1B giải thích cách học sinh chuỗi hành động có điều kiện.
+- [DROID](/paper/droid) cho thấy giá trị của dữ liệu robot ghi ở nhiều địa điểm thực tế.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

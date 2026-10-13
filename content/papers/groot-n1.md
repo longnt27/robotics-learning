@@ -1,4 +1,4 @@
-> **Bài do bạn cung cấp.** Bản gốc: [GR00T N1, arXiv:2503.14734](https://arxiv.org/abs/2503.14734). Đọc cùng sơ đồ kiến trúc ở **Figure 3** và bảng kết quả thực nghiệm ở **Section 4**. Bài giải thích dưới đây phân biệt những gì tác giả chứng minh với suy luận kỹ thuật.
+> **Gợi ý đọc:** Đối chiếu [bài báo gốc](https://arxiv.org/abs/2503.14734), Hình 3 (kiến trúc) và Mục 4 (thực nghiệm). Những nhận xét về khả năng triển khai được phân biệt với kết quả tác giả thực sự kiểm chứng.
 
 ## Vì sao cần nghiên cứu này?
 
@@ -13,9 +13,9 @@
 <!-- END ADDITIONAL PDF FIGURES -->
 Robot hình người có camera, hai tay và nhiều khớp, nhưng việc chuyển câu “gấp chiếc áo này” thành hàng trăm lệnh vận động vẫn khó. Trước đây một kỹ năng thường cần nhiều lượt thao tác mẫu đúng với chính robot đó: người vận hành phải làm mẫu, ghi ảnh và trạng thái khớp, huấn luyện rồi kiểm tra trên thiết bị. Trong khi ấy có rất nhiều video người thao tác và các mô hình đã học hiểu đồ vật từ ảnh, văn bản. GR00T N1 tìm cách tận dụng nguồn kiến thức rộng ấy mà vẫn sinh hành động đúng với cơ cấu robot.
 
-Robot hình người có thể học điều gì từ video người? Người có bàn tay năm ngón, còn một robot có thể chỉ dùng kẹp hai ngón; chiều dài tay, giới hạn khớp và cách cảm nhận thế giới cũng khác nhau. Vì thế không thể lấy nguyên góc khớp người rồi gửi xuống robot. **GR00T N1 tìm cách tận dụng nhiều nguồn dữ liệu để học cả cách hiểu nhiệm vụ lẫn cách tạo hành động phù hợp với từng loại robot.** Công trình chia việc thành phần xử lý ảnh và ngôn ngữ cùng phần chuyên sinh chuyển động, rồi kiểm tra khả năng thích nghi với robot thật.
+Video người không thể trực tiếp biến thành góc khớp robot: tay người có năm ngón nhưng robot có thể chỉ có kẹp hai ngón. GR00T N1 học cách diễn tiến công việc từ video, rồi dùng dữ liệu vận động của robot để thực thi trên cơ cấu phù hợp.
 
-NVIDIA chọn kiến trúc hai hệ thống: một phần hiểu thông tin và một phần tạo chuyển động. Đây là lời đáp thực dụng cho câu hỏi “VLM lớn có đủ để trực tiếp điều khiển robot không?”: tác giả không bắt text decoder gánh mọi thứ.
+Hai phần của mô hình giải hai câu hỏi khác nhau: “Vật nào cần thao tác và đích ở đâu?” và “Robot phải chuyển động thế nào để đạt đích?”.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -34,7 +34,7 @@ Bài toán không đơn giản là “mô hình nhìn video rồi bắt chước
 
 Cần phân biệt **mô hình hiểu ảnh–ngôn ngữ (VLM)** với **mô hình sinh chuyển động**. VLM có thể nhận ra áo nằm ở đâu và hiểu câu “gấp áo”, nhưng không tự suy ra quỹ đạo khớp đủ chính xác để hai tay cầm áo. Phần sinh hành động liên tục được học từ những ví dụ vận động.
 
-**hành động chunk** là cả đoạn lệnh trong tương lai gồm H bước và D chiều hành động. Mô hình cần sinh đoạn phù hợp với trạng thái robot hiện tại. Khi một nhiệm vụ có nhiều cách làm đúng, phương pháp sinh bằng diffusion hoặc flow matching giúp biểu diễn nhiều đường đi hợp lệ thay vì ép về một chuyển động trung bình.
+**Đoạn hành động (action chunk)** gồm H bước liên tiếp, mỗi bước có D giá trị điều khiển. Mô hình cần sinh đoạn phù hợp với trạng thái robot hiện tại. Khi một nhiệm vụ có nhiều cách làm đúng, phương pháp sinh bằng diffusion hoặc flow matching giúp biểu diễn nhiều đường đi hợp lệ thay vì ép về một chuyển động trung bình.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -70,22 +70,21 @@ Khi chạy, action expert sinh đoạn lệnh cho robot cụ thể, thay vì coi
 <!-- END ADDITIONAL PDF FIGURES -->
 
 ```text
-camera + instruction + robot state
+Ảnh camera + câu lệnh + trạng thái robot
                 │
                 ▼
-      VLM / System 2
-  semantic + visual features
+       VLM: hiểu cảnh và mục tiêu
                 │
                 ▼
-    Action expert / System 1
-    noisy action trajectory
+      Bộ sinh hành động (DiT)
+       Chuỗi lệnh ban đầu có nhiễu
                 │
-       flow matching sampler
+        Sinh bằng flow matching
                 ▼
-     H × D continuous actions
+      H bước × D chiều điều khiển
                 │
                 ▼
-       robot controller
+         Bộ điều khiển robot
 ```
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
@@ -165,11 +164,11 @@ Các loại dữ liệu khác nhau cũng có độ tin cậy khác nhau. Video t
 
 ## Liên hệ với nghiên cứu khác
 
-- [RT-2](/paper/rt-2) đi từ VLM sang token hành động; GR00T tách liên tục sinh action expert.
-- [Diffusion Policy](/paper/diffusion-policy) cung cấp mô hình tư duy về denoising hành động chuỗi.
-- [Open X-Embodiment](/paper/open-x-embodiment) giúp hiểu lý do và thách thức của hỗn hợp dữ liệu đa cơ cấu robot.
-- [Qwen-VLA](/paper/qwen-vla) dùng cùng bài toán multi-embodiment nhưng có embodiment-conditioned prompts và DiT hành động liên tục head.
-- [LingBot-VLA 2.0](/paper/lingbot-vla-2) mở rộng theo hướng sparse MoE, whole-body vector lệnh và predictive động lực học tín hiệu giám sát.
+- [RT-2](/paper/rt-2) mã hóa lệnh robot thành token; GR00T N1 tách mạng hiểu ảnh–ngôn ngữ khỏi mạng sinh chuyển động liên tục.
+- [Diffusion Policy](/paper/diffusion-policy) giải thích cách chỉnh dần chuỗi hành động nhiễu thành chuyển động hợp lệ.
+- [Open X-Embodiment](/paper/open-x-embodiment) cho thấy thách thức khi phối trộn dữ liệu từ nhiều loại robot.
+- [Qwen-VLA](/paper/qwen-vla) cũng nhận biết loại robot để sinh các hành động DiT phù hợp với cấu hình cụ thể.
+- [LingBot-VLA 2.0](/paper/lingbot-vla-2) tập trung vào mạng nhiều chuyên gia (MoE), lệnh cho nhiều bộ phận cơ thể và dự đoán trạng thái tương lai.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
