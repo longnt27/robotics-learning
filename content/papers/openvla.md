@@ -11,7 +11,7 @@ Một mô hình VLA mạnh nhưng không có mã nguồn và checkpoint sẽ r�
 
 Một nhóm nghiên cứu muốn dạy robot nhặt đồ có thể phải tự thu dữ liệu lớn và tự thiết kế mạng từ đầu. OpenVLA cung cấp mô hình đã được huấn luyện trên gần một triệu lượt robot cùng mã nguồn và checkpoint công khai. Người dùng có thể **tinh chỉnh mô hình nền bằng dữ liệu robot của mình** thay vì bắt đầu từ số không.
 
-Nhưng “nguồn mở” không đồng nghĩa “cắm vào robot nào cũng chạy”. Model vẫn cần ảnh đúng kiểu, câu lệnh phù hợp và cách giải mã hành động tương ứng với phần cứng đích.
+Nhưng “nguồn mở” không đồng nghĩa “cắm vào robot nào cũng chạy”. mô hình vẫn cần ảnh đúng kiểu, câu lệnh phù hợp và cách giải mã hành động tương ứng với phần cứng đích.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -52,7 +52,7 @@ Nhóm tác giả còn thử nhiều phương án tinh chỉnh: cập nhật toà
 
 **Bước 1:** camera cung cấp ảnh, người dùng đưa câu lệnh, chẳng hạn “Bỏ quả táo vào khay”. **Bước 2:** bộ mã hóa ảnh chuyển cảnh thành đặc trưng. **Bước 3:** mạng ánh xạ biểu diễn ảnh để lõi ngôn ngữ có thể kết hợp với câu lệnh. **Bước 4:** lõi mô hình dự đoán token hành động; hệ thống giải mã token thành lệnh vận động.
 
-Robot thực hiện lệnh, lấy ảnh tiếp theo và tiếp tục. Nếu đem model sang robot mới, ta cần fine-tune trên demonstration của robot ấy và kiểm tra cách mã hóa/giải mã hành động. Lỗi ở bước chuyển đổi lệnh có thể khiến một model có loss đẹp tạo chuyển động sai.
+Robot thực hiện lệnh, lấy ảnh tiếp theo và tiếp tục. Nếu đem mô hình sang robot mới, ta cần tinh chỉnh trên demonstration của robot ấy và kiểm tra cách mã hóa/giải mã hành động. Lỗi ở bước chuyển đổi lệnh có thể khiến một mô hình có hàm mất mát đẹp tạo chuyển động sai.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -66,9 +66,9 @@ Nếu lấy thống kê của robot khác, cùng token có thể dẫn đến l�
 
 ### Ví dụ tinh chỉnh trên tay máy Franka
 
-Giả sử robot Franka cần nhặt những đồ vật khác với tập huấn luyện gốc. Ta ghi các lượt người điều khiển Franka thực hiện nhiệm vụ, chuyển ảnh, câu lệnh và hành động vào định dạng dữ liệu model nhận. Sau đó tinh chỉnh một phần hoặc toàn bộ tham số.
+Giả sử robot Franka cần nhặt những đồ vật khác với tập huấn luyện gốc. Ta ghi các lượt người điều khiển Franka thực hiện nhiệm vụ, chuyển ảnh, câu lệnh và hành động vào định dạng dữ liệu mô hình nhận. Sau đó tinh chỉnh một phần hoặc toàn bộ tham số.
 
-Khi kiểm tra, không chỉ xem model có nhặt đúng vật quen thuộc không mà còn thử vật gây nhiễu, câu nói khác và vị trí mới. Nếu nó hiểu đúng vật nhưng kẹp hụt, cần xác minh camera và cách biến token thành lệnh trước khi quy kết cho khả năng suy luận.
+Khi kiểm tra, không chỉ xem mô hình có nhặt đúng vật quen thuộc không mà còn thử vật gây nhiễu, câu nói khác và vị trí mới. Nếu nó hiểu đúng vật nhưng kẹp hụt, cần xác minh camera và cách biến token thành lệnh trước khi quy kết cho khả năng suy luận.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -90,7 +90,7 @@ Một kết quả thực dụng là **LoRA chỉ cập nhật khoảng 1,4% tham
 
 ### Khi nào OpenVLA thực sự hơn mô hình khác?
 
-Trên các phép thử WidowX và Google Robot, OpenVLA đạt kết quả tốt so với các policy tổng quát được đem đối chiếu. Tuy nhiên kết quả không giống nhau ở mọi nhóm; ví dụ một số kiểm tra khái quát ngữ nghĩa vẫn có đối thủ tốt hơn.
+Trên các phép thử WidowX và Google Robot, OpenVLA đạt kết quả tốt so với các chính sách điều khiển tổng quát được đem đối chiếu. Tuy nhiên kết quả không giống nhau ở mọi nhóm; ví dụ một số kiểm tra khái quát ngữ nghĩa vẫn có đối thủ tốt hơn.
 
 Khi thích nghi robot mới, Diffusion Policy huấn luyện riêng có thể mạnh ở một nhiệm vụ hẹp, còn mô hình tổng quát đã học trước như Octo và OpenVLA có lợi thế trên tập lệnh/phông nền đa dạng. Hãy so các hệ thống cùng dữ liệu tinh chỉnh và cùng số lượt chạy, thay vì coi một điểm tổng hợp là lời khẳng định tuyệt đối.
 
@@ -140,7 +140,7 @@ Nếu GPU hạn chế, thử lượng tử hóa rồi đo bộ nhớ và độ t
 
 ### Danh sách kiểm tra trước khi tự tinh chỉnh
 
-Bạn có ảnh và câu lệnh cùng thời điểm với hành động không? Dữ liệu đã chia train/test theo lượt thực thi chưa? Vector lệnh là vị trí, độ thay đổi vị trí hay vận tốc? Đã ghi đúng giá trị trung bình/độ lệch chuẩn để giải chuẩn hóa chưa? Đã thử cho model học một số ít demonstration để bắt lỗi pipeline trước chưa?
+Bạn có ảnh và câu lệnh cùng thời điểm với hành động không? Dữ liệu đã chia huấn luyện/kiểm tra theo lượt thực thi chưa? Vector lệnh là vị trí, độ thay đổi vị trí hay vận tốc? Đã ghi đúng giá trị trung bình/độ lệch chuẩn để giải chuẩn hóa chưa? Đã thử cho mô hình học một số ít demonstration để bắt lỗi quy trình trước chưa?
 
 Sau khi ổn, đánh giá cả tỷ lệ hoàn thành ngoài đời lẫn độ trễ và lệnh vượt giới hạn. Đó mới là cách nói một checkpoint đã dùng được trên robot đích.
 

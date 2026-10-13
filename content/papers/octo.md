@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Một phòng thí nghiệm nhỏ khó có đủ dữ liệu và GPU để huấn luyện mô hình điều khiển robot từ đầu. Nhưng họ có thể có vài chục hoặc vài trăm demonstration của robot mình. **Octo cung cấp một policy nguồn mở đã học trên nhiều loại nhiệm vụ robot, rồi cho phép tinh chỉnh nhanh trên dữ liệu mới.** Kiến trúc được thiết kế để có thể thay đổi loại quan sát hoặc dạng lệnh đầu ra mà không nhất thiết phải huấn luyện lại toàn bộ phần mạng chung. Tất nhiên vẫn phải kiểm tra cách chuyển lệnh cho phần cứng đích; một checkpoint không tự chạy được với mọi cấu trúc robot.
+Một phòng thí nghiệm nhỏ khó có đủ dữ liệu và GPU để huấn luyện mô hình điều khiển robot từ đầu. Nhưng họ có thể có vài chục hoặc vài trăm demonstration của robot mình. **Octo cung cấp một chính sách điều khiển nguồn mở đã học trên nhiều loại nhiệm vụ robot, rồi cho phép tinh chỉnh nhanh trên dữ liệu mới.** Kiến trúc được thiết kế để có thể thay đổi loại quan sát hoặc dạng lệnh đầu ra mà không nhất thiết phải huấn luyện lại toàn bộ phần mạng chung. Tất nhiên vẫn phải kiểm tra cách chuyển lệnh cho phần cứng đích; một checkpoint không tự chạy được với mọi cấu trúc robot.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -12,9 +12,9 @@ Một phòng thí nghiệm nhỏ khó có đủ dữ liệu và GPU để huấn
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/octo/figure-1.webp)
 
 
-### Một policy có thể điều khiển nhiều robot không?
+### Một chính sách điều khiển có thể điều khiển nhiều robot không?
 
-Mỗi loại robot có camera, lệnh và nhiệm vụ khác nhau. Nếu chỉ huấn luyện một policy cho mỗi thiết bị, ta rất khó tận dụng kinh nghiệm chung về nhặt, đặt và di chuyển vật. Octo dùng một mạng Transformer đã học từ nhiều nguồn dữ liệu, sau đó cho phép tinh chỉnh nhanh với một robot mới.
+Mỗi loại robot có camera, lệnh và nhiệm vụ khác nhau. Nếu chỉ huấn luyện một chính sách điều khiển cho mỗi thiết bị, ta rất khó tận dụng kinh nghiệm chung về nhặt, đặt và di chuyển vật. Octo dùng một mạng Transformer đã học từ nhiều nguồn dữ liệu, sau đó cho phép tinh chỉnh nhanh với một robot mới.
 
 Đóng góp ở đây không phải tuyên bố mọi robot dùng được cùng một vector lệnh. Điều đáng chú ý là **kiến trúc có thể thay phần đầu vào và đầu ra mà vẫn tái sử dụng được phần học chung**.
 
@@ -69,15 +69,15 @@ Khi chuyển sang robot mới, ta có thể thêm quan sát như cảm biến l�
 
 ## Ví dụ từng bước
 
-Robot A từng học nhiều việc nhặt và đặt. Nay muốn dùng Octo cho robot B có camera đặt khác và kẹp rộng hơn. Trước tiên phải kiểm tra ảnh, trạng thái và lệnh của B có cùng quy ước với dữ liệu model đã học không. Nếu khác, cần bộ chuyển đổi thích hợp.
+Robot A từng học nhiều việc nhặt và đặt. Nay muốn dùng Octo cho robot B có camera đặt khác và kẹp rộng hơn. Trước tiên phải kiểm tra ảnh, trạng thái và lệnh của B có cùng quy ước với dữ liệu mô hình đã học không. Nếu khác, cần bộ chuyển đổi thích hợp.
 
-Sau đó thu một lượng demonstration của B để tinh chỉnh. Khi đánh giá, thử số lượng mẫu tăng dần, chẳng hạn 20, 50 và 100 lượt. Nếu checkpoint đã huấn luyện trước học nhanh hơn một policy bắt đầu từ đầu với cùng dữ liệu B, đó mới là bằng chứng có ích về chuyển giao.
+Sau đó thu một lượng demonstration của B để tinh chỉnh. Khi đánh giá, thử số lượng mẫu tăng dần, chẳng hạn 20, 50 và 100 lượt. Nếu checkpoint đã huấn luyện trước học nhanh hơn một chính sách điều khiển bắt đầu từ đầu với cùng dữ liệu B, đó mới là bằng chứng có ích về chuyển giao.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
 ### Ví dụ từ tay máy đơn sang robot hai tay
 
-Policy từng học nhiều nhiệm vụ nhặt và đặt bằng tay máy đơn. Khi chuyển sang robot hai tay, khái niệm vị trí đích hoặc quan sát vật thể có thể hữu ích, nhưng lệnh hai tay phối hợp có số chiều và ràng buộc khác. Người nghiên cứu cần gắn nhánh đầu ra phù hợp và đưa demonstration về hai tay để tinh chỉnh.
+chính sách điều khiển từng học nhiều nhiệm vụ nhặt và đặt bằng tay máy đơn. Khi chuyển sang robot hai tay, khái niệm vị trí đích hoặc quan sát vật thể có thể hữu ích, nhưng lệnh hai tay phối hợp có số chiều và ràng buộc khác. Người nghiên cứu cần gắn nhánh đầu ra phù hợp và đưa demonstration về hai tay để tinh chỉnh.
 
 Nếu chỉ lấy lệnh cũ gửi xuống robot mới, chuyển động có thể sai hoàn toàn. Vì vậy khả năng tinh chỉnh nhanh phải được chứng minh bằng dữ liệu robot đích và tỷ lệ thành công sau khi tinh chỉnh, không chỉ nhìn tên kiến trúc.
 
@@ -101,7 +101,7 @@ Lợi thế quan trọng của Octo là **tinh chỉnh với ít demonstration**
 
 Hình 4 thể hiện nhiều loại nhiệm vụ trên chín thiết lập robot thật, gồm nhặt đồ, thao tác dài và lắp vật chính xác. Hình 5 kiểm tra việc dùng checkpoint trực tiếp trong những môi trường nằm trong nguồn học trước; điều này khác với thử trên môi trường hoàn toàn chưa thấy.
 
-Hình 6 cho thấy tăng kích thước model giúp cải thiện trong một số phép thử, nhưng số lượt ở từng nhiệm vụ cần được đọc cùng kết quả. Quan trọng nhất là tách điểm của model chưa tinh chỉnh khỏi điểm sau khi sử dụng dữ liệu đích.
+Hình 6 cho thấy tăng kích thước mô hình giúp cải thiện trong một số phép thử, nhưng số lượt ở từng nhiệm vụ cần được đọc cùng kết quả. Quan trọng nhất là tách điểm của mô hình chưa tinh chỉnh khỏi điểm sau khi sử dụng dữ liệu đích.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -117,7 +117,7 @@ Kiến trúc có thể thay nhánh đầu ra không có nghĩa bộ chuyển đ�
 
 Octo học từ một tập con được chọn của Open X, nên không phải tất cả robot và kỹ năng ngoài đời đều có mặt. Khi đổi cảm biến hoặc hành động, nhánh mới có thể cần dữ liệu đủ tốt; chỉ linh hoạt về cấu trúc không bảo đảm robot hoạt động thành công.
 
-Tốc độ suy luận và an toàn của lệnh motor cũng cần kiểm tra trên phần cứng. Một policy tổng quát rất tốt offline vẫn có thể chậm hoặc thiếu chính xác ở bài toán kẹp nhỏ.
+Tốc độ suy luận và an toàn của lệnh motor cũng cần kiểm tra trên phần cứng. Một chính sách điều khiển tổng quát rất tốt offline vẫn có thể chậm hoặc thiếu chính xác ở bài toán kẹp nhỏ.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -142,13 +142,13 @@ Khi chọn nền tảng để nghiên cứu, hãy xét bộ dữ liệu hỗ tr�
 
 Lấy một tập dữ liệu robot nhỏ và trước tiên chạy bộ đọc dữ liệu, kiểm tra ảnh, trạng thái, lệnh và mặt nạ chiều hành động. Chỉ khi mọi đầu vào đúng mới tải checkpoint và thử suy luận. Nếu thiếu tài nguyên, có thể kiểm tra quy trình dữ liệu trên máy cá nhân trước, còn chạy mô hình trên GPU phù hợp.
 
-So cùng nhiệm vụ giữa Octo tinh chỉnh và chính sách huấn luyện từ đầu, giữ lượng demonstration bằng nhau. Ghi tỷ lệ thành công cùng thời gian và bộ nhớ cần thiết, không chỉ kiểm tra model có xuất được một vector lệnh.
+So cùng nhiệm vụ giữa Octo tinh chỉnh và chính sách huấn luyện từ đầu, giữ lượng demonstration bằng nhau. Ghi tỷ lệ thành công cùng thời gian và bộ nhớ cần thiết, không chỉ kiểm tra mô hình có xuất được một vector lệnh.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
 ### Tự thử xây một phép đánh giá
 
-Chọn hai robot có cùng nhiệm vụ “nhặt và đặt” nhưng nhận lệnh khác nhau. Trên robot thứ hai, so policy từ đầu với Octo được tinh chỉnh bằng cùng 20, 50 hoặc 100 demonstration. Đo tỷ lệ thành công theo lượng dữ liệu tăng.
+Chọn hai robot có cùng nhiệm vụ “nhặt và đặt” nhưng nhận lệnh khác nhau. Trên robot thứ hai, so chính sách điều khiển từ đầu với Octo được tinh chỉnh bằng cùng 20, 50 hoặc 100 demonstration. Đo tỷ lệ thành công theo lượng dữ liệu tăng.
 
 Nếu thêm camera cổ tay, hãy xem việc mở rộng đầu vào thực sự có cải thiện so với cấu hình không thêm không. Đây là cách thử đóng góp của kiến trúc thay vì chỉ kể rằng Octo hỗ trợ nhiều loại tín hiệu.
 

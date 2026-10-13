@@ -16,7 +16,7 @@ Thu hàng trăm nghìn lượt robot làm việc trong những căn bếp thật
 
 Dạy robot mở ngăn kéo trong một căn bếp mẫu không có nghĩa nó sẽ mở được mọi ngăn kéo. Tay nắm có thể khác, đồ vật đặt ở vị trí mới, lò vi sóng có cửa mở hướng khác. Thu đủ demonstration ngoài đời cho mọi biến thể rất tốn kém. **RoboCasa tạo nhiều căn bếp, đồ vật và nhiệm vụ trong mô phỏng** để robot được thực hành trước khi chuyển sang môi trường mới.
 
-Đây là nền tảng mô phỏng và nguồn dữ liệu, không phải policy duy nhất. Khi nói RoboCasa làm policy tốt hơn, thực chất ta đang kiểm tra dữ liệu hoặc môi trường huấn luyện tạo từ RoboCasa có giúp chính sách điều khiển hay không.
+Đây là nền tảng mô phỏng và nguồn dữ liệu, không phải chính sách điều khiển duy nhất. Khi nói RoboCasa làm chính sách điều khiển tốt hơn, thực chất ta đang kiểm tra dữ liệu hoặc môi trường huấn luyện tạo từ RoboCasa có giúp chính sách điều khiển hay không.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -58,7 +58,7 @@ Bản công bố có hơn **100.000 quỹ đạo**. Khi huấn luyện, một nh
 
 Nhóm tác giả xây nhiều mặt bằng bếp, đặt đồ vật và thiết bị có cơ cấu hoạt động, rồi định nghĩa nhiệm vụ. Mô hình ngôn ngữ lớn hỗ trợ gợi ý những việc hợp lý trong bếp; tuy nhiên môi trường vẫn cần quy tắc thực thi và tiêu chí hoàn thành rõ ràng.
 
-Robot hoặc công cụ sinh quỹ đạo thực hiện các nhiệm vụ nhỏ, từ mở cửa tủ tới chuyển vật vào khay. Các quỹ đạo được ghi lại cùng quan sát và câu lệnh. Policy sau đó học bắt chước hoặc được tinh chỉnh trên nguồn dữ liệu này. Một phần đánh giá được thực hiện trên robot thật để kiểm tra liệu kỹ năng mô phỏng có chuyển được hay không.
+Robot hoặc công cụ sinh quỹ đạo thực hiện các nhiệm vụ nhỏ, từ mở cửa tủ tới chuyển vật vào khay. Các quỹ đạo được ghi lại cùng quan sát và câu lệnh. chính sách điều khiển sau đó học bắt chước hoặc được tinh chỉnh trên nguồn dữ liệu này. Một phần đánh giá được thực hiện trên robot thật để kiểm tra liệu kỹ năng mô phỏng có chuyển được hay không.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -66,7 +66,7 @@ Robot hoặc công cụ sinh quỹ đạo thực hiện các nhiệm vụ nhỏ,
 
 Chọn thao tác **mở ngăn kéo**. Ở lần thứ nhất, tay nắm nằm bên trái mặt bàn trắng; lần khác là tủ tối màu, robot nhìn từ góc khác và tay nắm đặt cao hơn. Môi trường vẫn biết khi nào ngăn kéo thực sự mở đủ để tính hoàn thành.
 
-Huấn luyện trên một nhóm căn bếp rồi thử ở bố cục chưa thấy. Nếu policy mở đúng trong mô phỏng nhưng khi sang nhà thật lại kẹp trượt tay nắm, nguyên nhân có thể là khác biệt lực tiếp xúc hoặc vị trí camera. Cần đánh giá hai phần riêng thay vì coi mô phỏng là bằng chứng đủ.
+Huấn luyện trên một nhóm căn bếp rồi thử ở bố cục chưa thấy. Nếu chính sách điều khiển mở đúng trong mô phỏng nhưng khi sang nhà thật lại kẹp trượt tay nắm, nguyên nhân có thể là khác biệt lực tiếp xúc hoặc vị trí camera. Cần đánh giá hai phần riêng thay vì coi mô phỏng là bằng chứng đủ.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -81,7 +81,7 @@ Huấn luyện trên một nhóm căn bếp rồi thử ở bố cục chưa th�
 
 Nhiệm vụ có thể chia thành mở cửa lò, đặt bát rau vào, đóng cửa, chọn chế độ và bật lò. Nếu chỉ học thao tác “đặt bát”, robot chưa chắc biết mở/đóng cửa hoặc xoay núm. Vì vậy cần nhiều nhiệm vụ thành phần và cách ghép chúng thành công việc dài.
 
-RoboCasa có thể thay kích thước bếp, vị trí lò và mẫu đồ vật để policy không học thuộc một tọa độ. Nhưng mô phỏng chỉ hữu ích nếu các chuyển động/tiếp xúc quan trọng có tính chất đủ gần thiết bị thật.
+RoboCasa có thể thay kích thước bếp, vị trí lò và mẫu đồ vật để chính sách điều khiển không học thuộc một tọa độ. Nhưng mô phỏng chỉ hữu ích nếu các chuyển động/tiếp xúc quan trọng có tính chất đủ gần thiết bị thật.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -112,13 +112,13 @@ Hình 8 thử nhiệm vụ ghép nhiều bước. Dữ liệu các bước nhỏ
 
 Quỹ đạo sinh tự động vẫn có thể giật hoặc va chạm dù môi trường tính là thành công. Mô hình ngôn ngữ lớn có thể gợi ý nhiệm vụ, nhưng các điều kiện và quy tắc thực thi vẫn cần được con người kiểm tra. Các tình huống vật mềm, thao tác hai tay và lực phức tạp chưa được bao phủ hết.
 
-Đặc biệt, **tăng số quỹ đạo không bù được một mô phỏng có sai lệch vật lý cố định**. Nếu ma sát hoặc cảm biến khác ngoài đời, sinh thêm một triệu mẫu cùng lỗi ấy có thể khiến model học nhầm chắc hơn. Kết quả phải kiểm chứng trên robot thật và nhiệm vụ đích.
+Đặc biệt, **tăng số quỹ đạo không bù được một mô phỏng có sai lệch vật lý cố định**. Nếu ma sát hoặc cảm biến khác ngoài đời, sinh thêm một triệu mẫu cùng lỗi ấy có thể khiến mô hình học nhầm chắc hơn. Kết quả phải kiểm chứng trên robot thật và nhiệm vụ đích.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
 ### Khoảng cách giữa mô phỏng và đời thật
 
-Trong mô phỏng, vật không hoàn toàn giống thật về ma sát, độ mềm, lực tiếp xúc hay camera. Một policy mở cửa lò hoàn hảo trong phần mềm có thể làm trượt tay nắm khi dùng robot thật. Hiện tượng ấy thường được gọi là khoảng cách mô phỏng–thực tế.
+Trong mô phỏng, vật không hoàn toàn giống thật về ma sát, độ mềm, lực tiếp xúc hay camera. Một chính sách điều khiển mở cửa lò hoàn hảo trong phần mềm có thể làm trượt tay nắm khi dùng robot thật. Hiện tượng ấy thường được gọi là khoảng cách mô phỏng–thực tế.
 
 Hình 10 đánh giá lợi ích khi kết hợp dữ liệu mô phỏng với ít demonstration thật. Kết luận có thể nêu là hỗ trợ chuyển giao trong những nhiệm vụ được thử, không phải mô phỏng đã giải quyết triệt để mọi khác biệt vật lý.
 
@@ -137,7 +137,7 @@ Nếu muốn đặt bài này vào bản đồ VLA, hãy xem tiếp các hướn
 
 LIBERO nhấn mạnh cách đánh giá robot học nhiều nhiệm vụ theo thời gian trong môi trường mô phỏng. RoboCasa xây hệ thống sinh cảnh và dữ liệu nhiều căn bếp để học thao tác, rồi nghiên cứu lợi ích khi chuyển sang robot thật. BridgeData V2 và DROID lại ghi demonstration vật lý tại các môi trường thực tế.
 
-Một pipeline có thể dùng cả hai: mô phỏng để bao phủ nhiều biến thể và dữ liệu thật để chỉnh những sai khác về hình ảnh, lực và cơ cấu. Đừng đánh đồng mô phỏng sinh nhiệm vụ với dữ liệu được kiểm chứng trên phần cứng.
+Một quy trình có thể dùng cả hai: mô phỏng để bao phủ nhiều biến thể và dữ liệu thật để chỉnh những sai khác về hình ảnh, lực và cơ cấu. Đừng đánh đồng mô phỏng sinh nhiệm vụ với dữ liệu được kiểm chứng trên phần cứng.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -151,7 +151,7 @@ Huấn luyện cùng một chính sách rồi thử trên căn bếp chưa dùng
 
 ### Bài tập thiết kế nhiệm vụ mô phỏng có ích
 
-Chọn thao tác mở ngăn kéo. Liệt kê ba thứ sẽ thay: vị trí tay nắm, độ mở của ngăn và vật cản trước mặt. Mỗi thay đổi tạo một bài kiểm tra xem policy học quan hệ với đối tượng hay chỉ nhớ tọa độ.
+Chọn thao tác mở ngăn kéo. Liệt kê ba thứ sẽ thay: vị trí tay nắm, độ mở của ngăn và vật cản trước mặt. Mỗi thay đổi tạo một bài kiểm tra xem chính sách điều khiển học quan hệ với đối tượng hay chỉ nhớ tọa độ.
 
 Sau đó giữ số demonstration tương đương giữa hai tập: một tập chỉ dùng một căn bếp, tập kia dùng nhiều mặt bằng. Chạy thử trong căn bếp chưa thấy và đo thành công theo từng bước: tiếp cận tay nắm, kẹp đúng, kéo mở. Cách này cho biết nguồn lỗi rõ hơn một điểm tổng hợp.
 

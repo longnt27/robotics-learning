@@ -1,10 +1,10 @@
-> **Bài do bạn cung cấp.** [Training-Time Action Conditioning for Efficient Real-Time Chunking](https://arxiv.org/abs/2512.05964), Vật lý Intelligence. Bài báo ngắn nhưng tinh tế: nó **thay đổi dữ liệu/mục tiêu huấn luyện lúc huấn luyện** để giảm overhead runtime của inference-time RTC. Nên đọc ngay sau [RTC đầu tiên](/paper/rtc-inference).
+> **Bài do bạn cung cấp.** [Training-Time Action Conditioning for Efficient Real-Time Chunking](https://arxiv.org/abs/2512.05964), Vật lý Intelligence. Bài báo ngắn nhưng tinh tế: nó **thay đổi dữ liệu/mục tiêu huấn luyện lúc huấn luyện** để giảm overhead lúc chạy của inference-time RTC. Nên đọc ngay sau [RTC đầu tiên](/paper/rtc-inference).
 
 ## Vì sao cần nghiên cứu này?
 
-RTC phiên bản đầu có thể nối các đoạn hành động ngay lúc suy luận, nhưng cần thêm phép tính để buộc đoạn mới khớp những lệnh robot đang thực hiện. Thật trớ trêu nếu một kỹ thuật nhằm che độ trễ lại khiến chính mô hình chậm thêm. **Training-time RTC đề xuất huấn luyện policy từ đầu để nó biết cách nhận phần hành động đã cam kết và chỉ sinh tiếp phần tương lai.** Cách tiếp cận này chuyển một phần công việc từ thời điểm robot đang chạy sang giai đoạn huấn luyện, với mục tiêu duy trì chuyển động liên tục mà giảm chi phí suy luận.
+RTC phiên bản đầu có thể nối các đoạn hành động ngay lúc suy luận, nhưng cần thêm phép tính để buộc đoạn mới khớp những lệnh robot đang thực hiện. Thật trớ trêu nếu một kỹ thuật nhằm che độ trễ lại khiến chính mô hình chậm thêm. **Training-time RTC đề xuất huấn luyện chính sách điều khiển từ đầu để nó biết cách nhận phần hành động đã cam kết và chỉ sinh tiếp phần tương lai.** Cách tiếp cận này chuyển một phần công việc từ thời điểm robot đang chạy sang giai đoạn huấn luyện, với mục tiêu duy trì chuyển động liên tục mà giảm chi phí suy luận.
 
-Bài học rộng hơn là **đưa giới hạn của hệ thống thực vào bài toán huấn luyện**, thay vì đợi model sinh xong rồi mới sửa lệnh. Robot không sống trong một thế giới mà mọi phép tính đều hoàn thành ngay tức khắc: thời gian suy luận có thể thay đổi vì GPU bận, mạng chậm hoặc nhiều yêu cầu đến cùng lúc. Vì thế mô hình nên học ngay cách tiếp tục từ những hành động đã được bộ điều khiển cam kết.
+Bài học rộng hơn là **đưa giới hạn của hệ thống thực vào bài toán huấn luyện**, thay vì đợi mô hình sinh xong rồi mới sửa lệnh. Robot không sống trong một thế giới mà mọi phép tính đều hoàn thành ngay tức khắc: thời gian suy luận có thể thay đổi vì GPU bận, mạng chậm hoặc nhiều yêu cầu đến cùng lúc. Vì thế mô hình nên học ngay cách tiếp tục từ những hành động đã được bộ điều khiển cam kết.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -15,7 +15,7 @@ Bài học rộng hơn là **đưa giới hạn của hệ thống thực vào b
 
 RTC ở thời điểm suy luận có thể lấy một mạng sinh hành động đã học trước rồi thêm ràng buộc để nối đoạn. Nhưng khi quá trình sinh phải chỉnh nhiều lần để giữ phần đã cam kết, chi phí tính toán tăng. **Training-time RTC chuyển việc học cách tôn trọng tiền tố sang giai đoạn huấn luyện**, để đến lúc chạy mô hình biết sinh phần tương lai từ các lệnh đã biết.
 
-Đây là bài tiếp nối RTC đầu tiên, không phải thuật toán hoàn toàn không liên quan. Câu hỏi mới là: thay vì “sửa” chuỗi sinh ra để khớp đoạn cũ mỗi lần, liệu có thể huấn luyện policy ngay từ đầu cho bài toán ấy không?
+Đây là bài tiếp nối RTC đầu tiên, không phải thuật toán hoàn toàn không liên quan. Câu hỏi mới là: thay vì “sửa” chuỗi sinh ra để khớp đoạn cũ mỗi lần, liệu có thể huấn luyện chính sách điều khiển ngay từ đầu cho bài toán ấy không?
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -23,7 +23,7 @@ RTC ở thời điểm suy luận có thể lấy một mạng sinh hành độn
 
 Gọi H là số lệnh trong một đoạn, k là số bước đầu **đã hoặc chắc chắn sẽ thực hiện** trước khi mô hình mới tính xong. Khi sinh đoạn tiếp theo, robot không được xóa những bước ấy. Mô hình cần học dự đoán phần hành động còn lại với điều kiện những bước đầu đã biết.
 
-Trong flow matching, mạng vẫn học chuyển nhiễu thành hành động hợp lệ. Tuy nhiên **tiền tố đã cam kết được giữ sạch**, chỉ phần phía sau được thêm nhiễu rồi học sinh mới. Điều này không có nghĩa lấy một hành động đầu rồi nội suy đường thẳng tới hành động cuối; model vẫn sinh cả chuỗi có cấu trúc.
+Trong flow matching, mạng vẫn học chuyển nhiễu thành hành động hợp lệ. Tuy nhiên **tiền tố đã cam kết được giữ sạch**, chỉ phần phía sau được thêm nhiễu rồi học sinh mới. Điều này không có nghĩa lấy một hành động đầu rồi nội suy đường thẳng tới hành động cuối; mô hình vẫn sinh cả chuỗi có cấu trúc.
 
 ```text
 p(a_{k+1:H} | observation, a_{1:k}, k)
@@ -76,7 +76,7 @@ loss:    only postfix positions
 
 Trong giai đoạn train, người nghiên cứu lấy một chuỗi hành động đúng, chọn một phần đầu làm tiền tố giả định đã được controller thực hiện. Các giá trị tiền tố này được đưa vào mạng ở dạng thật, không thêm nhiễu. Phần hậu tố mới được thêm nhiễu để mạng học khử nhiễu và sinh ra những bước tiếp theo.
 
-Mô hình còn được thông báo độ trễ tương ứng để hiểu tiền tố dài hay ngắn. Trong một DiT dùng flow matching, có thể dùng bước thời gian khác nhau cho token tiền tố và token cần sinh. Nhờ vậy khi chạy, policy không phải sửa một đoạn mới hoàn toàn tự do cho vừa với lệnh cũ.
+Mô hình còn được thông báo độ trễ tương ứng để hiểu tiền tố dài hay ngắn. Trong một DiT dùng flow matching, có thể dùng bước thời gian khác nhau cho token tiền tố và token cần sinh. Nhờ vậy khi chạy, chính sách điều khiển không phải sửa một đoạn mới hoàn toàn tự do cho vừa với lệnh cũ.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -94,7 +94,7 @@ Nếu mạng sinh chuỗi mới như thể tay robot chưa ép tới vị trí �
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Ví dụ robot pha espresso trong lúc model đang tính
+### Ví dụ robot pha espresso trong lúc mô hình đang tính
 
 Robot đang đưa dụng cụ nén cà phê xuống. Mô hình nhận ảnh mới, nhưng trong 100 ms tiếp theo tay robot vẫn tiếp tục chuyển động theo lệnh đã phát. Nếu mạng tạo ngay quỹ đạo nâng dụng cụ lên từ một vị trí chưa tới, chỗ nối sẽ giật hoặc sai lực nén.
 
@@ -126,7 +126,7 @@ Hai kết quả không mâu thuẫn. Lợi thế có thể phụ thuộc nhiệm
 
 ## Hạn chế và câu hỏi còn mở
 
-Cách huấn luyện cần lấy mẫu độ trễ tương đối giống tình huống robot sẽ gặp khi chạy. Nếu GPU lúc triển khai thường chậm hơn nhiều so với các độ trễ đã học, policy có thể dự đoán sai cách nối đoạn. Khi huấn luyện cùng lúc nhiều độ dài tiền tố, năng lực mạng cũng bị chia cho nhiều trường hợp.
+Cách huấn luyện cần lấy mẫu độ trễ tương đối giống tình huống robot sẽ gặp khi chạy. Nếu GPU lúc triển khai thường chậm hơn nhiều so với các độ trễ đã học, chính sách điều khiển có thể dự đoán sai cách nối đoạn. Khi huấn luyện cùng lúc nhiều độ dài tiền tố, năng lực mạng cũng bị chia cho nhiều trường hợp.
 
 Phương pháp không khai thác toàn bộ đoạn tương lai chồng nhau bằng ràng buộc mềm tinh vi như RTC lúc suy luận. Đồng thời nó không thay thế kiểm tra va chạm, giới hạn lực hoặc xử lý camera bị mất tín hiệu. Độ mượt là điều kiện hữu ích, nhưng chưa phải đủ cho an toàn.
 
@@ -134,7 +134,7 @@ Phương pháp không khai thác toàn bộ đoạn tương lai chồng nhau b�
 
 ### Giới hạn của việc biết tiền tố ngay từ lúc học
 
-Huấn luyện mạng hiểu tiền tố đòi dữ liệu và cách lấy mẫu phù hợp với độ trễ khi triển khai. Nếu thời gian suy luận thật thay đổi rất khác các trường hợp đã học, policy có thể dự đoán không chính xác. Không thể chỉ dùng một độ trễ lý tưởng rồi mặc định GPU luôn đúng giờ.
+Huấn luyện mạng hiểu tiền tố đòi dữ liệu và cách lấy mẫu phù hợp với độ trễ khi triển khai. Nếu thời gian suy luận thật thay đổi rất khác các trường hợp đã học, chính sách điều khiển có thể dự đoán không chính xác. Không thể chỉ dùng một độ trễ lý tưởng rồi mặc định GPU luôn đúng giờ.
 
 Việc giữ tiền tố cũng không giải quyết phát hiện vật mới, camera mất khung hình hoặc nguy cơ va chạm. Đây là một thành phần của hệ điều khiển, vẫn cần bộ đệm lệnh và kiểm tra an toàn bên ngoài.
 
@@ -145,7 +145,7 @@ Việc giữ tiền tố cũng không giải quyết phát hiện vật mới, c
 - [RTC inference-time](/paper/rtc-inference) là phương pháp đối chứng trực tiếp và nơi giải thích guided inpainting.
 - [ACT](/paper/act) giúp hiểu temporal aggregation và chunk boundary.
 - [Diffusion Policy](/paper/diffusion-policy) giải thích flow/diffusion conditional quỹ đạo lấy mẫu.
-- [π0.5](/paper/pi-0-5) là representative modern flow-based VLA stack; bài báo training-time này đánh giá trực tiếp π0.6.
+- [π0.5](/paper/pi-0-5) là representative modern flow-based VLA stack; bài báo huấn luyện-time này đánh giá trực tiếp π0.6.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -153,7 +153,7 @@ Việc giữ tiền tố cũng không giải quyết phát hiện vật mới, c
 
 RTC suy luận: **mạng sinh bình thường, quá trình lấy mẫu được ràng buộc để khớp hành động cũ**. RTC huấn luyện: **mạng đã được dạy cách nhận những hành động cũ và sinh tiếp**, nên thường ít cần chỉnh lại trong lúc chạy.
 
-Cả hai khác ACT và Diffusion Policy ở trọng tâm nghiên cứu: ACT và Diffusion Policy học cách tạo hành động có cấu trúc; RTC học cách thực thi các đoạn đó liên tục khi inference chậm. Nếu chưa biết phân biệt các tầng ấy, rất dễ so sai bản chất đóng góp.
+Cả hai khác ACT và Diffusion Policy ở trọng tâm nghiên cứu: ACT và Diffusion Policy học cách tạo hành động có cấu trúc; RTC học cách thực thi các đoạn đó liên tục khi suy luận chậm. Nếu chưa biết phân biệt các tầng ấy, rất dễ so sai bản chất đóng góp.
 
 <!-- END EXTENDED WALKTHROUGH -->
 

@@ -17,7 +17,7 @@ Robot có thể tạo hàng chục lệnh điều khiển mỗi giây. Nếu bi�
 
 Giả sử robot di chuyển tay theo một đường cong mượt, được ghi lại hàng trăm lần mỗi giây. Nếu mỗi giá trị lệnh được biến thành một token riêng, mô hình phải dự đoán rất nhiều token gần như giống nhau. Chuỗi dài khiến huấn luyện chậm và dễ sai ở tần số cao. **FAST tìm cách nén cả chuỗi hành động theo thời gian trước khi chuyển thành token**, thay vì mã hóa từng mẫu riêng lẻ.
 
-Điểm cốt lõi: FAST là cách biểu diễn hành động, không phải một mô hình nhận biết ảnh hay policy hoàn toàn độc lập. Nó giúp một kiểu mô hình sinh token làm việc hiệu quả hơn trên dữ liệu robot.
+Điểm cốt lõi: FAST là cách biểu diễn hành động, không phải một mô hình nhận biết ảnh hay chính sách điều khiển hoàn toàn độc lập. Nó giúp một kiểu mô hình sinh token làm việc hiệu quả hơn trên dữ liệu robot.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -125,7 +125,7 @@ FAST cũng chưa tự loại bỏ mọi độ trễ của mô hình sinh token t
 
 ### Khi nào nén hành động có thể gây hại?
 
-Một quỹ đạo đưa tay qua khoảng trống có thể rất mượt và dễ nén. Nhưng khi cắm linh kiện vào khe nhỏ hoặc khép gripper ngay lúc chạm vật, thay đổi đột ngột có thể quan trọng. Nếu bộ mã hóa làm mất tín hiệu ấy, policy sẽ sinh hành động mượt nhưng sai thời điểm.
+Một quỹ đạo đưa tay qua khoảng trống có thể rất mượt và dễ nén. Nhưng khi cắm linh kiện vào khe nhỏ hoặc khép gripper ngay lúc chạm vật, thay đổi đột ngột có thể quan trọng. Nếu bộ mã hóa làm mất tín hiệu ấy, chính sách điều khiển sẽ sinh hành động mượt nhưng sai thời điểm.
 
 Do đó nên đo sai số sau khi mã hóa–giải mã trên từng chiều và tại các đoạn có tiếp xúc. Cần kiểm tra cả kết quả robot thực hiện, không chỉ tỷ lệ nén.
 
@@ -156,7 +156,7 @@ Thay độ dài đoạn và mức nén, đo **số token**, sai số tái tạo 
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Tự làm phép thử nhỏ trước khi huấn luyện policy
+### Tự làm phép thử nhỏ trước khi huấn luyện chính sách điều khiển
 
 Lấy 100 điểm vị trí của một chuyển động mượt. Áp dụng DCT, giữ số hệ số thấp rồi dựng lại đường. Đo sai số tổng thể và sai số ở chỗ chuyển hướng. Tiếp đó làm với một chuỗi có bước nhảy đột ngột tương ứng hành động đóng kẹp.
 

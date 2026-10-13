@@ -126,9 +126,9 @@ Robot đang giữ táo bằng tay trái, tay phải phải đưa tới đúng v�
 
 ## Kết quả thực nghiệm
 
-GR00T N1 được thử trên những nhiệm vụ mô phỏng và thao tác hai tay ở robot thật. Các kết quả trong bài báo cho thấy việc học trước từ nhiều nguồn dữ liệu có thể giúp model thích nghi với nhiệm vụ đích bằng ít demonstration hơn các chính sách huấn luyện từ đầu trong cùng điều kiện.
+GR00T N1 được thử trên những nhiệm vụ mô phỏng và thao tác hai tay ở robot thật. Các kết quả trong bài báo cho thấy việc học trước từ nhiều nguồn dữ liệu có thể giúp mô hình thích nghi với nhiệm vụ đích bằng ít demonstration hơn các chính sách huấn luyện từ đầu trong cùng điều kiện.
 
-Nhưng cần đọc từng bảng với đúng **số demonstration, kiểu robot, nhiệm vụ và giai đoạn tinh chỉnh**. Một video robot chuyền táo thành công ở bố cục mới là minh họa đáng chú ý, không đủ chứng minh model sẽ làm mọi nhiệm vụ chưa từng học. Hiệu quả hệ thống còn phụ thuộc chất lượng dữ liệu tổng hợp và cách chuyển dữ liệu người thành nhãn hành động robot.
+Nhưng cần đọc từng bảng với đúng **số demonstration, kiểu robot, nhiệm vụ và giai đoạn tinh chỉnh**. Một video robot chuyền táo thành công ở bố cục mới là minh họa đáng chú ý, không đủ chứng minh mô hình sẽ làm mọi nhiệm vụ chưa từng học. Hiệu quả hệ thống còn phụ thuộc chất lượng dữ liệu tổng hợp và cách chuyển dữ liệu người thành nhãn hành động robot.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -143,7 +143,7 @@ Nhưng cần đọc từng bảng với đúng **số demonstration, kiểu robo
 
 Hình 5 và Hình 13 trình bày các video được mô hình sinh từ ảnh ban đầu cùng prompt thay đổi. Mục tiêu là tạo thêm quỹ đạo/hình ảnh cho những việc khó hoặc đắt nếu phải quay bằng robot thật. Có thể tạo các góc nhìn khác nhau, thay vật thể hoặc nối nhiều đoạn thành nhiệm vụ dài.
 
-Hình 9 kiểm tra riêng việc bổ sung quỹ đạo sinh ở các chế độ dữ liệu ít/nhiều. Điều quan trọng là video tổng hợp không tự có nhãn hành động robot chính xác; cần suy ra lệnh bằng phương pháp phù hợp, chẳng hạn mô hình động học ngược, và xác minh chất lượng. Nếu nhãn sai, thêm dữ liệu còn có thể làm policy kém.
+Hình 9 kiểm tra riêng việc bổ sung quỹ đạo sinh ở các chế độ dữ liệu ít/nhiều. Điều quan trọng là video tổng hợp không tự có nhãn hành động robot chính xác; cần suy ra lệnh bằng phương pháp phù hợp, chẳng hạn mô hình động học ngược, và xác minh chất lượng. Nếu nhãn sai, thêm dữ liệu còn có thể làm chính sách điều khiển kém.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -193,7 +193,7 @@ Giữ nguyên câu lệnh nhưng thay ảnh, rồi giữ ảnh nhưng thay câu 
 
 Vẽ hai ô: phần hiểu ảnh/câu lệnh và phần sinh lệnh vận động. Từ đó đặt trạng thái robot, ảnh camera, câu lệnh và hành động nhiễu vào đúng vị trí đầu vào. Tiếp theo chỉ ra tại sao cần mã hóa khác nhau cho robot một tay và hai tay.
 
-Để kiểm chứng giá trị của video tổng hợp, thử so policy được huấn luyện với cùng số demonstration thật, có và không bổ sung video sinh. Đo tỷ lệ hoàn thành trên tình huống chưa gặp. Nếu không giữ số lượt và thiết lập thử tương đương, khó biết lợi ích đến từ đâu.
+Để kiểm chứng giá trị của video tổng hợp, thử so chính sách điều khiển được huấn luyện với cùng số demonstration thật, có và không bổ sung video sinh. Đo tỷ lệ hoàn thành trên tình huống chưa gặp. Nếu không giữ số lượt và thiết lập thử tương đương, khó biết lợi ích đến từ đâu.
 
 <!-- END EXTENDED WALKTHROUGH -->
 

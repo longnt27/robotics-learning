@@ -20,7 +20,7 @@ Một công ty có thể thu hàng chục nghìn giờ robot thao tác mà mô h
 
 ### Vì sao nhiều giờ dữ liệu vẫn chưa đủ để robot làm tốt?
 
-Một công ty thu hàng chục nghìn giờ demonstration từ nhiều kiểu robot. Nhưng video có thể bị lệch thời gian, hành động dùng nhiều đơn vị khác nhau và dữ liệu các việc thường gặp áp đảo việc hiếm. Nếu trộn nguyên tất cả vào mạng lớn, model có thể học cả lỗi và sự thiên lệch. LingBot-VLA 2.0 giải vấn đề ở **toàn quy trình**, từ tuyển lọc dữ liệu, biểu diễn hành động đến kiến trúc sinh lệnh và học dự đoán tương lai.
+Một công ty thu hàng chục nghìn giờ demonstration từ nhiều kiểu robot. Nhưng video có thể bị lệch thời gian, hành động dùng nhiều đơn vị khác nhau và dữ liệu các việc thường gặp áp đảo việc hiếm. Nếu trộn nguyên tất cả vào mạng lớn, mô hình có thể học cả lỗi và sự thiên lệch. LingBot-VLA 2.0 giải vấn đề ở **toàn quy trình**, từ tuyển lọc dữ liệu, biểu diễn hành động đến kiến trúc sinh lệnh và học dự đoán tương lai.
 
 Đừng đọc tên MoE rồi tưởng bài chỉ thay vài lớp mạng. Bốn phần cốt lõi là chất lượng dữ liệu, chuẩn hành động dùng chung, phân bổ dung lượng mô hình và tín hiệu học về diễn biến cảnh sau khi robot hành động.
 
@@ -45,7 +45,7 @@ Dữ liệu đa robot còn cần **biểu diễn hành động thống nhất**:
 
 Robot hai tay, robot di động và robot hình người có số khớp khác nhau. LingBot dùng một **cách biểu diễn hành động gồm nhiều phần theo bộ phận cơ thể**, tổng cộng 55 chiều, để sắp xếp dữ liệu về một cấu trúc chung. Những chiều không dùng trên robot này cần được nhận biết/che đi; số 55 không có nghĩa robot nào cũng có 55 bậc tự do thật.
 
-**Chuẩn hóa hành động** quan trọng vì một robot dùng góc khớp tuyệt đối, robot khác dùng độ thay đổi góc, và biên độ các chiều khác nhau. Sai bước giải chuẩn hóa có thể khiến lệnh vượt quá giới hạn dù số model sinh ra nhìn có vẻ nhỏ.
+**Chuẩn hóa hành động** quan trọng vì một robot dùng góc khớp tuyệt đối, robot khác dùng độ thay đổi góc, và biên độ các chiều khác nhau. Sai bước giải chuẩn hóa có thể khiến lệnh vượt quá giới hạn dù số mô hình sinh ra nhìn có vẻ nhỏ.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -86,7 +86,7 @@ arm | EEF | gripper | fingers | waist | head | base | reserved
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/lingbot-vla-2/figure-2.webp)
 
 
-### Từng phần trong pipeline LingBot hoạt động ra sao?
+### Từng phần trong quy trình LingBot hoạt động ra sao?
 
 Đầu tiên dữ liệu robot và video người được tuyển chọn, đồng bộ, gắn nhãn và chuyển sang biểu diễn thống nhất. Camera cùng câu lệnh được bộ phận thị giác–ngôn ngữ xử lý; trạng thái robot và dạng hành động của từng loại phần cứng được mã hóa tương ứng.
 
@@ -106,7 +106,7 @@ Với nhiệm vụ dọn bàn, phần nhận biết ảnh xác định vật c�
 
 Robot cần đi tới bàn, nhận biết vật cần lấy, điều khiển tay kẹp, đặt vật vào hộp rồi tiếp tục di chuyển. Lệnh cho bệ di động có dạng khác lệnh cổ tay, đầu hay ngón kẹp. Một biểu diễn hành động dùng chung phải giữ đúng ý nghĩa từng phần khi chuyển sang robot khác.
 
-MoE có thể giúp mạng dành năng lực cho các mẫu động tác đa dạng, nhưng không sửa được nhãn sai. Mục tiêu dự đoán đặc trưng tương lai có thể khuyến khích model hiểu rằng sau khi nhấc cốc, vị trí cốc thay đổi; song phải có thí nghiệm tách riêng mục tiêu đó để biết nó thực sự giúp thao tác.
+MoE có thể giúp mạng dành năng lực cho các mẫu động tác đa dạng, nhưng không sửa được nhãn sai. Mục tiêu dự đoán đặc trưng tương lai có thể khuyến khích mô hình hiểu rằng sau khi nhấc cốc, vị trí cốc thay đổi; song phải có thí nghiệm tách riêng mục tiêu đó để biết nó thực sự giúp thao tác.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -130,7 +130,7 @@ Các thí nghiệm khác kiểm tra chuỗi nhiệm vụ dài, độ chính xác
 
 ### Đọc các phép so dữ liệu, MoE và chuẩn hóa
 
-Hình 7 so model Dense với MoE khi số tham số hoạt động tương đương. Đó là điều kiện quan trọng để lợi thế, nếu có, không đơn giản do dùng nhiều phép tính hơn. Hình 11–12 so phân phối hành động theo từng nhiệm vụ; các cột có cùng tên chiều vẫn có thể khác biên độ và cách điều khiển. Vì vậy đọc các biểu đồ chuẩn hóa là bước kỹ thuật bắt buộc, không phải phần trang trí.
+Hình 7 so mô hình Dense với MoE khi số tham số hoạt động tương đương. Đó là điều kiện quan trọng để lợi thế, nếu có, không đơn giản do dùng nhiều phép tính hơn. Hình 11–12 so phân phối hành động theo từng nhiệm vụ; các cột có cùng tên chiều vẫn có thể khác biên độ và cách điều khiển. Vì vậy đọc các biểu đồ chuẩn hóa là bước kỹ thuật bắt buộc, không phải phần trang trí.
 
 Hình 13 so đặc trưng độ sâu/ảnh thật với dự đoán hiện tại và tương lai, nhằm kiểm tra tín hiệu học bổ sung. Để quy lợi ích cho nó, cần giữ các nguồn dữ liệu và thành phần khác tương đương. Với nhiệm vụ dài, Hình 8 đo tỷ lệ hoàn thành từng bước con, không chỉ câu trả lời cuối.
 
@@ -148,7 +148,7 @@ Dữ liệu đa robot có thể sai lệch thời gian, khác đơn vị hoặc 
 
 Một hệ nhiều thành phần có thể cải thiện tổng thể nhưng khó biết phần nào thật sự tạo khác biệt nếu nhiều thứ đổi cùng lúc. MoE tăng dung lượng tham số nhưng có thêm bài toán định tuyến/chia tải. Video người không tự có lệnh khớp robot. Nhãn độ sâu hoặc đặc trưng tương lai cũng có thể sai khi camera bị che.
 
-Đưa model sang phần cứng mới vẫn cần kiểm tra camera, sơ đồ khớp, mask hành động và thống kê chuẩn hóa. Một vector 55 chiều hợp lệ về mặt phần mềm chưa bảo đảm là lệnh an toàn trên robot thật.
+Đưa mô hình sang phần cứng mới vẫn cần kiểm tra camera, sơ đồ khớp, mask hành động và thống kê chuẩn hóa. Một vector 55 chiều hợp lệ về mặt phần mềm chưa bảo đảm là lệnh an toàn trên robot thật.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -166,7 +166,7 @@ Một hệ nhiều thành phần có thể cải thiện tổng thể nhưng kh�
 
 Open X-Embodiment đặt nền cho học trên nhiều loại robot. RDT nghiên cứu bộ sinh hành động phối hợp hai tay có điều kiện từ nhiều tín hiệu. GR00T N1 xây hệ VLM và action expert, tận dụng dữ liệu người/robot đa dạng. LingBot-VLA 2.0 cũng đi theo hướng hệ thống nhưng nhấn mạnh việc tuyển lọc dữ liệu, cấu trúc hành động chuẩn và MoE.
 
-Không nên chỉ hỏi model nào có nhiều tham số nhất. Cần biết nó học từ dữ liệu sạch đến đâu, loại robot thử gì, và các thí nghiệm tách thành phần có chỉ ra nguồn cải thiện hay không.
+Không nên chỉ hỏi mô hình nào có nhiều tham số nhất. Cần biết nó học từ dữ liệu sạch đến đâu, loại robot thử gì, và các thí nghiệm tách thành phần có chỉ ra nguồn cải thiện hay không.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -174,7 +174,7 @@ Không nên chỉ hỏi model nào có nhiều tham số nhất. Cần biết n�
 
 Tạo hai robot giả lập: robot A có lệnh đầu kẹp bảy chiều, robot B có 14 chiều khớp và kẹp. Viết bộ chuyển đổi sang biểu diễn **55 chiều**, gắn mặt nạ cho các chiều không có rồi thử giải chuẩn hóa ngược để chắc giá trị vật lý được giữ đúng.
 
-Tiếp theo tạo mạng MoE nhỏ với vài chuyên gia, ghi số lần mỗi chuyên gia được chọn theo nhiệm vụ và loại robot. So model có/không có MoE khi giữ số phép tính hoạt động và dữ liệu gần tương đương. Cuối cùng mới thử thêm mục tiêu dự đoán đặc trưng tương lai, để biết rõ từng cải tiến mang lại điều gì.
+Tiếp theo tạo mạng MoE nhỏ với vài chuyên gia, ghi số lần mỗi chuyên gia được chọn theo nhiệm vụ và loại robot. So mô hình có/không có MoE khi giữ số phép tính hoạt động và dữ liệu gần tương đương. Cuối cùng mới thử thêm mục tiêu dự đoán đặc trưng tương lai, để biết rõ từng cải tiến mang lại điều gì.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -182,7 +182,7 @@ Tiếp theo tạo mạng MoE nhỏ với vài chuyên gia, ghi số lần mỗi 
 
 Hãy vẽ ba robot: cánh tay đơn, robot hai tay và robot di động. Ghi những chiều hành động mà mỗi robot thật sự có. Giải thích vì sao cách biểu diễn 55 chiều cần thông tin loại robot và cách che những phần không dùng.
 
-Tiếp đó chọn một bài toán nhặt cốc và đề xuất ba phép thử: giữ dữ liệu, chỉ thay Dense/MoE; giữ model, chỉ thay cách chuẩn hóa; giữ mọi thứ, chỉ thêm mục tiêu dự đoán đặc trưng tương lai. Nếu có thể diễn đạt rõ từng thử nghiệm kiểm chứng giả thuyết nào, bạn đã hiểu đóng góp quan trọng nhất của LingBot.
+Tiếp đó chọn một bài toán nhặt cốc và đề xuất ba phép thử: giữ dữ liệu, chỉ thay Dense/MoE; giữ mô hình, chỉ thay cách chuẩn hóa; giữ mọi thứ, chỉ thêm mục tiêu dự đoán đặc trưng tương lai. Nếu có thể diễn đạt rõ từng thử nghiệm kiểm chứng giả thuyết nào, bạn đã hiểu đóng góp quan trọng nhất của LingBot.
 
 <!-- END EXTENDED WALKTHROUGH -->
 

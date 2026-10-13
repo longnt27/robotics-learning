@@ -1,4 +1,4 @@
-> **Bài do bạn cung cấp.** [Real-Time Execution of Action Chunking Flow Policies](https://arxiv.org/abs/2506.07339), NeurIPS 2025. Đây là bài báo về **runtime của policy**, không phải một backbone pretraining mới. Đọc cùng **Figure 2–3**, **Section 3**, **Section 4** và **Appendix A**.
+> **Bài do bạn cung cấp.** [Real-Time Execution of Action Chunking Flow Policies](https://arxiv.org/abs/2506.07339), NeurIPS 2025. Đây là bài báo về **lúc chạy của chính sách điều khiển**, không phải một backbone huấn luyện trước mới. Đọc cùng **Figure 2–3**, **Section 3**, **Section 4** và **Appendix A**.
 
 ## Vì sao cần nghiên cứu này?
 
@@ -11,7 +11,7 @@
 <!-- END ADDITIONAL PDF FIGURES -->
 Một robot có thể cần lệnh mới mỗi 20 mili giây, nhưng mô hình VLA lại mất cả trăm mili giây mới tính xong đoạn hành động tiếp theo. Nếu robot đứng yên chờ, thao tác quẹt diêm hoặc giữ vật có thể bị phá hỏng. Nếu robot chạy tiếp rồi đột ngột chuyển sang đoạn mới, hai đoạn có thể khác hướng và gây giật mạnh. **RTC giải bài toán nối các đoạn hành động khi mô hình suy luận chậm:** cho robot tiếp tục thực thi trong khi mạng tính toán, đồng thời giữ các lệnh đã cam kết và điều chỉnh phần chuyển động còn lại để đường đi liên tục.
 
-**Action chunking** giải quyết được một nửa bài toán. Thay vì chỉ dự đoán lệnh ở một thời điểm, policy sinh cả đoạn hành động tiếp theo, nhờ đó robot có thể tiếp tục chạy các lệnh đang có trong bộ đệm ngay cả khi mạng bận tính toán. Nhưng khi đoạn mới đến, hai cách tổ chức thực thi thông thường vẫn gây vấn đề:
+**Action chunking** giải quyết được một nửa bài toán. Thay vì chỉ dự đoán lệnh ở một thời điểm, chính sách điều khiển sinh cả đoạn hành động tiếp theo, nhờ đó robot có thể tiếp tục chạy các lệnh đang có trong bộ đệm ngay cả khi mạng bận tính toán. Nhưng khi đoạn mới đến, hai cách tổ chức thực thi thông thường vẫn gây vấn đề:
 
 1. **Chạy tuần tự:** robot thực hiện xong đoạn A rồi dừng chờ mạng sinh đoạn B. Thời gian chờ có thể phá hỏng thao tác đang cần lực hoặc chuyển động liên tục.
 2. **Chạy song song đơn giản:** mạng tạo đoạn B trong khi robot chạy A, nhưng B có thể chọn một hướng đi khác ngay tại điểm nối, khiến robot đổi tốc độ hoặc gia tốc đột ngột.
@@ -140,7 +140,7 @@ Hình 6 đo tiến độ theo thời gian và thông lượng thực hiện. Kh�
 
 ## Hạn chế và câu hỏi còn mở
 
-RTC phải thêm phép tính để dẫn hướng quá trình sinh chuỗi; chi phí này có thể làm suy luận chậm hơn. Phương pháp cũng phù hợp nhất với những policy sinh hành động bằng diffusion hoặc flow, không phải lập tức áp dụng y hệt cho mọi bộ giải mã sinh token.
+RTC phải thêm phép tính để dẫn hướng quá trình sinh chuỗi; chi phí này có thể làm suy luận chậm hơn. Phương pháp cũng phù hợp nhất với những chính sách điều khiển sinh hành động bằng diffusion hoặc flow, không phải lập tức áp dụng y hệt cho mọi bộ giải mã sinh token.
 
 Nếu độ trễ thực tế dài hơn dự tính, phần lệnh bị coi là “chưa cam kết” có thể đã tới bộ điều khiển. Ngoài ra, quỹ đạo mượt không tự bảo đảm tránh va chạm, giới hạn lực hoặc vận tốc. Hệ thống robot thật vẫn cần kiểm tra an toàn và theo dõi những lần suy luận chậm bất thường.
 
@@ -157,9 +157,9 @@ Ngoài ra, tính liên tục về vị trí chưa luôn bảo đảm giới hạ
 ## Liên hệ với nghiên cứu khác
 
 - [ACT / ALOHA](/paper/act) giới thiệu action chunking và temporal aggregation, nền của bài toán.
-- [Diffusion Policy](/paper/diffusion-policy) giải thích liên tục generative action policy có thể inpaint.
-- [π0.5](/paper/pi-0-5) là policy nền trong real-robot thí nghiệm.
-- [Training-time RTC](/paper/rtc-training) chuyển constraint từ inference guidance sang huấn luyện mục tiêu huấn luyện. Hai bài báo nên đọc liền nhau.
+- [Diffusion Policy](/paper/diffusion-policy) giải thích liên tục generative action chính sách điều khiển có thể inpaint.
+- [π0.5](/paper/pi-0-5) là chính sách điều khiển nền trong real-robot thí nghiệm.
+- [Training-time RTC](/paper/rtc-training) chuyển constraint từ suy luận guidance sang huấn luyện mục tiêu huấn luyện. Hai bài báo nên đọc liền nhau.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

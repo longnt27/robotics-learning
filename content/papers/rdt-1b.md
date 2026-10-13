@@ -94,7 +94,7 @@ Những phép thử ít demonstration cũng cho thấy lợi ích của phần h
 
 ### Hiểu thí nghiệm và hình biểu diễn
 
-Hình 4 kiểm tra độ ổn định khi bỏ QKNorm/RMSNorm và vai trò của một số thành phần đầu ra. Nếu đường loss dao động mạnh, tối ưu hóa có thể gặp khó ngay trước khi robot thực thi. Các phép thử điều khiển còn tách kỹ năng đi thẳng và rót chính xác lượng nước.
+Hình 4 kiểm tra độ ổn định khi bỏ QKNorm/RMSNorm và vai trò của một số thành phần đầu ra. Nếu đường hàm mất mát dao động mạnh, tối ưu hóa có thể gặp khó ngay trước khi robot thực thi. Các phép thử điều khiển còn tách kỹ năng đi thẳng và rót chính xác lượng nước.
 
 Hình 5 nêu trạng thái ban đầu, mức thay đổi và mục tiêu từng nhiệm vụ. Đừng chỉ nhìn ảnh cuối; cần xem điều kiện thành công có đòi đúng lượng nước hay chỉ làm chuyển động gần đúng.
 
@@ -137,7 +137,7 @@ Việc tăng số tham số không phải đóng góp duy nhất: khả năng bi
 
 Lấy một đoạn hành động mẫu từ robot hai tay. Kiểm tra từng chiều là góc khớp, vị trí đầu kẹp hay lệnh đóng kẹp; thử chuẩn hóa rồi **giải chuẩn hóa** để chắc đã khôi phục đúng giá trị và đơn vị. Với các chiều không tồn tại ở một robot, xem mặt nạ có ngăn chúng ảnh hưởng hàm mất mát không.
 
-Sau đó so chuỗi lệnh sinh ra với giới hạn khớp và thứ tự kẹp–buông trong bài chuyển khối giữa hai tay. Đây là những kiểm tra vật lý quan trọng hơn chỉ nhìn điểm loss.
+Sau đó so chuỗi lệnh sinh ra với giới hạn khớp và thứ tự kẹp–buông trong bài chuyển khối giữa hai tay. Đây là những kiểm tra vật lý quan trọng hơn chỉ nhìn điểm hàm mất mát.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

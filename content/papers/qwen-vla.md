@@ -24,7 +24,7 @@ Khó khăn là **action semantics không đồng nhất**. Một vector 7 chiề
 
 Một robot có thể được giao “Nhặt chiếc cốc đỏ”, “Đi tới cạnh bàn” hoặc “Chiếc cốc nào gần cửa hơn?”. Các yêu cầu có đầu ra khác nhau: thao tác tay, điều hướng hoặc câu trả lời. Nếu mỗi loại dùng mạng hoàn toàn riêng, dữ liệu và kiến thức khó chia sẻ. Qwen-VLA nghiên cứu một mô hình có thể học từ nhiều nhóm dữ liệu, kết hợp hiểu ảnh–ngôn ngữ với sinh hành động robot.
 
-Điểm quan trọng là **hiểu được lời yêu cầu không đồng nghĩa biết ngay cách cử động**. Vì thế phương pháp huấn luyện không chỉ cho model học câu chữ, mà còn xây một bộ sinh action có kiến thức về cấu trúc chuyển động rồi gắn kiến thức ấy với ảnh thực tế.
+Điểm quan trọng là **hiểu được lời yêu cầu không đồng nghĩa biết ngay cách cử động**. Vì thế phương pháp huấn luyện không chỉ cho mô hình học câu chữ, mà còn xây một bộ sinh action có kiến thức về cấu trúc chuyển động rồi gắn kiến thức ấy với ảnh thực tế.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -74,7 +74,7 @@ instruction + embodiment description + visual input
 
 Giả sử người dùng nói “Đặt hai chiếc dập ghim xanh lá cạnh nhau”. Ảnh camera cho biết hai vật đang ở đâu, phần thị giác–ngôn ngữ xử lý câu lệnh và cảnh. Bộ giải mã hành động DiT nhận điều kiện ấy cùng thông tin robot, tạo chuỗi chuyển động: tiếp cận vật thứ nhất, kẹp, đặt, rồi làm với vật thứ hai.
 
-Trong lúc tiền huấn luyện T2A, mạng sinh hành động từ văn bản để học những mẫu chuyển động chung. Đến CPT/SFT, ảnh mới được gắn vào để chọn hành động đúng vị trí thực. Giai đoạn RL đánh giá kết quả khi robot chạy trong môi trường và đưa tín hiệu cải thiện. Không nên đồng nhất loss T2A với tỷ lệ hoàn thành nhiệm vụ thật.
+Trong lúc tiền huấn luyện T2A, mạng sinh hành động từ văn bản để học những mẫu chuyển động chung. Đến CPT/SFT, ảnh mới được gắn vào để chọn hành động đúng vị trí thực. Giai đoạn RL đánh giá kết quả khi robot chạy trong môi trường và đưa tín hiệu cải thiện. Không nên đồng nhất hàm mất mát T2A với tỷ lệ hoàn thành nhiệm vụ thật.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -82,7 +82,7 @@ Trong lúc tiền huấn luyện T2A, mạng sinh hành động từ văn bản 
 
 Câu lệnh **“Đưa chiếc đĩa vào bồn rửa”** có thể yêu cầu chuyển động khác nhau ở robot một tay và robot có bệ di động. Cả hai cần nhận biết chiếc đĩa và bồn; robot di động còn phải tới gần bồn trước khi đưa tay ra.
 
-Phần VLM xác định đồ vật, mục tiêu và bối cảnh. Bộ sinh DiT tạo chuỗi lệnh phù hợp thông tin robot. Bộ chuyển đổi đầu ra phải đưa chuỗi về đúng dạng khớp, đầu kẹp hoặc vận tốc bệ. Nếu thay cấu hình robot nhưng không đổi cách diễn giải lệnh, model có thể đưa ra vector hợp lệ về kích thước mà vẫn vô nghĩa về vật lý.
+Phần VLM xác định đồ vật, mục tiêu và bối cảnh. Bộ sinh DiT tạo chuỗi lệnh phù hợp thông tin robot. Bộ chuyển đổi đầu ra phải đưa chuỗi về đúng dạng khớp, đầu kẹp hoặc vận tốc bệ. Nếu thay cấu hình robot nhưng không đổi cách diễn giải lệnh, mô hình có thể đưa ra vector hợp lệ về kích thước mà vẫn vô nghĩa về vật lý.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -97,7 +97,7 @@ Phần VLM xác định đồ vật, mục tiêu và bối cảnh. Bộ sinh DiT
 
 Câu lệnh “Gom các chai đồ uống, để miếng bọt biển riêng” cần nhiều lần nhặt và đặt. Ở cấp nhiệm vụ, robot phải biết nhóm đồ nào cần gom, vật nào không đụng tới và khi nào đã xong. Ở cấp vận động, nó phải thực hiện từng đoạn tiến tới, kẹp, đưa sang vị trí đích và thả.
 
-Hình 3 có ví dụ ngắn và dài để cho thấy độ khó tăng theo số bước. Nếu model chọn đúng chai nhưng bỏ vào vùng dành cho miếng bọt biển, lỗi nằm ở cách hiểu nhiệm vụ/đích đặt. Nếu nó chọn đúng đích nhưng làm rơi chai, lỗi có thể ở bộ điều khiển và dữ liệu vận động.
+Hình 3 có ví dụ ngắn và dài để cho thấy độ khó tăng theo số bước. Nếu mô hình chọn đúng chai nhưng bỏ vào vùng dành cho miếng bọt biển, lỗi nằm ở cách hiểu nhiệm vụ/đích đặt. Nếu nó chọn đúng đích nhưng làm rơi chai, lỗi có thể ở bộ điều khiển và dữ liệu vận động.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -134,7 +134,7 @@ Ngoài ra, hiểu ảnh tốt không đủ để điều khiển tiếp xúc ch�
 
 ### Những kết luận chưa nên rút ra
 
-Huấn luyện nhiều giai đoạn phức tạp hơn, tốn công cân bằng dữ liệu và khó xác định nguyên nhân khi một bước làm hiệu quả giảm. Một model giỏi trả lời câu hỏi hoặc điều hướng chưa chắc thực hiện được thao tác tiếp xúc chính xác trên mọi gripper.
+Huấn luyện nhiều giai đoạn phức tạp hơn, tốn công cân bằng dữ liệu và khó xác định nguyên nhân khi một bước làm hiệu quả giảm. Một mô hình giỏi trả lời câu hỏi hoặc điều hướng chưa chắc thực hiện được thao tác tiếp xúc chính xác trên mọi gripper.
 
 Cách biểu diễn lệnh phải phù hợp loại robot đang chạy. Nếu đổi camera, khớp hoặc bộ điều khiển, cần kiểm chứng lại quá trình giải mã và an toàn. Tỷ lệ thành công trên một bộ nhiệm vụ ALOHA chưa đồng nghĩa có thể chuyển nguyên checkpoint sang mọi robot thật.
 
@@ -142,7 +142,7 @@ Cách biểu diễn lệnh phải phù hợp loại robot đang chạy. Nếu đ
 
 ## Liên hệ với nghiên cứu khác
 
-- [PaLM-E](/paper/palm-e) mở hướng đưa thị giác/đầu vào cảm biến vào mô hình ngôn ngữ đã pretrain.
+- [PaLM-E](/paper/palm-e) mở hướng đưa thị giác/đầu vào cảm biến vào mô hình ngôn ngữ đã huấn luyện trước.
 - [RT-2](/paper/rt-2) và [OpenVLA](/paper/openvla) là nhánh VLM-to-action discrete tokens.
 - [Diffusion Policy](/paper/diffusion-policy), [RDT-1B](/paper/rdt-1b) và [GR00T N1](/paper/groot-n1) giúp hiểu liên tục generative action heads.
 - [Open X-Embodiment](/paper/open-x-embodiment) là bài học cốt lõi về hỗn hợp dữ liệu và embodiment alignment.
