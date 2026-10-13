@@ -2227,9 +2227,10 @@
       "image": "/paper-figures/groot-n1/figure-1.webp",
       "caption": "Figure 1: Data Pyramid for Robot Foundation Model Training. GR00T N1’s heterogeneous training corpora can be represented as a pyramid: data quantity de- creases, and embodiment-specificity increases, moving from the bottom to the top.",
       "pdf": "https://arxiv.org/pdf/2503.14734",
-      "caption_vi": "Hình 1: Kim tự tháp dữ liệu cho đào tạo mô hình nền tảng robot. Cơ sở huấn luyện không đồng nhất của GR00T N1 có thể được biểu diễn dưới dạng kim tự tháp: số lượng dữ liệu giảm và tính đặc trưng hiện thân tăng, di chuyển từ dưới lên trên.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "3a04bc4326be49c1c4fd09bccad7ce9f0b9b6a9137e1ce8e32b89def4498f2c6"
+      "caption_vi": "Hình 1. Tháp dữ liệu dùng để huấn luyện mô hình nền tảng GR00T N1. Đi từ tầng dưới lên trên, lượng dữ liệu giảm dần nhưng thông tin ngày càng gắn với cơ thể và thao tác cụ thể của robot. Vì thế video tổng quát có thể nhiều hơn, còn demonstration đúng cấu hình robot thường hiếm và đắt hơn.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "3a04bc4326be49c1c4fd09bccad7ce9f0b9b6a9137e1ce8e32b89def4498f2c6",
+      "translation_reviewed": true
     },
     {
       "page": 3,
@@ -2246,9 +2247,10 @@
       "image": "/paper-figures/groot-n1/figure-2.webp",
       "caption": "Figure 2: GR00T N1 Model Overview. Our model is a Vision-Language-Action (VLA) model that adopts a dual-system design. We convert the image observation and language instruction into a sequence of tokens to be processed by the Vision-Language Model (VLM) backbone. The VLM outputs, together with robot state and action encodings, are passed to the Diffusion Transformer module to generate motor actions.",
       "pdf": "https://arxiv.org/pdf/2503.14734",
-      "caption_vi": "Hình 2: Tổng quan mô hình GR00T N1. Mô hình của chúng tôi là mô hình Tầm nhìn-Ngôn ngữ-Hành động (VLA) thông qua thiết kế hệ thống kép. Chúng tôi chuyển đổi việc quan sát hình ảnh và hướng dẫn ngôn ngữ thành một chuỗi các tín hiệu được xử lý bởi xương sống Mô hình Tầm nhìn-Ngôn ngữ (VLM). Các đầu ra VLM, cùng với các mã hóa trạng thái và hành động của robot, được truyền đến mô-đun biến đổi Diffusion để tạo ra các hành động của động cơ.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "4859fe81b3c133afc98cf72d96c1befb133701d12a3bdedc21ff3a4c4572b1b2"
+      "caption_vi": "Hình 2. Tổng quan GR00T N1 với thiết kế hai hệ thống. Ảnh camera và câu lệnh được biến thành token cho mô hình thị giác–ngôn ngữ (VLM) xử lý. Đầu ra VLM được kết hợp với trạng thái robot và biểu diễn hành động, rồi đưa sang Diffusion Transformer để sinh lệnh vận động.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "4859fe81b3c133afc98cf72d96c1befb133701d12a3bdedc21ff3a4c4572b1b2",
+      "translation_reviewed": true
     },
     {
       "page": 4,
@@ -2265,9 +2267,10 @@
       "image": "/paper-figures/groot-n1/figure-3.webp",
       "caption": "Figure 3: GR00T N1 Model Architecture. GR00T N1 is trained on a diverse set of embodiments ranging from single-arm robot arms to bimanual humanoid dexterous hands. To deal with different robot embodiment’s state observation and action, we use DiT blocks with an embodiment-aware state and action encoder to embed the robot’s state and action inputs. GR00T N1 model leverages latent embeddings of the Eagle-2 model to incorporate the robot’s visual observation and language instructions. The vision language tokens will then be fed into the DiT blocks through cross-attention layers.",
       "pdf": "https://arxiv.org/pdf/2503.14734",
-      "caption_vi": "Hình 3: Mô hình Kiến trúc GR00T N1. GR00T N1 được đào tạo trên một tập hợp các hiện tượng khác nhau, từ cánh tay robot một cánh tay đến bàn tay khéo léo hình người hai tay. Để đối phó với các hiện tượng khác nhau của robot quan sát và hành động, chúng tôi sử dụng các khối DiT với một hiện tượng nhận thức trạng thái và bộ mã hóa hành động để nhúng trạng thái và đầu vào hành động của robot. Mô hình GR00T N1 tận dụng việc nhúng tiềm ẩn của mô hình Eagle-2 để kết hợp các hướng dẫn ngôn ngữ và quan sát trực quan của robot. Các thẻ thông báo ngôn ngữ tầm nhìn sau đó sẽ được đưa vào các khối DiT thông qua các lớp chú ý chéo.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "bc63612d71e00acb08dfbb4cb206243d75c85378085df62fc63894a2a068e1ee"
+      "caption_vi": "Hình 3. Kiến trúc GR00T N1 dùng được cho nhiều cấu trúc robot, từ cánh tay đơn đến robot hai tay với bàn tay nhiều khớp. Vì trạng thái và dạng lệnh giữa các robot khác nhau, hệ thống dùng bộ mã hóa trạng thái/hành động nhận biết loại robot, đưa các đặc trưng đó vào các khối DiT. Đặc trưng ảnh và câu lệnh đến từ Eagle-2, được kết nối với DiT bằng chú ý chéo.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "bc63612d71e00acb08dfbb4cb206243d75c85378085df62fc63894a2a068e1ee",
+      "translation_reviewed": true
     },
     {
       "page": 6,
@@ -2284,9 +2287,10 @@
       "image": "/paper-figures/groot-n1/figure-4.webp",
       "caption": "Figure 4: Latent Actions. We retrieve similar latent embeddings across various embodiments. The left images illustrate the latent action that corresponds to moving the right arm (or hand) to the left, while the right images illustrate the latent action that corresponds to moving the right arm (or hand) to the right. Note that this general latent action is not only consistent in different robot embodiments, but also in human embodiment.",
       "pdf": "https://arxiv.org/pdf/2503.14734",
-      "caption_vi": "Hình 4: Hành động tiềm ẩn. Chúng ta lấy lại các phép nhúng tiềm ẩn tương tự trên các hiện tượng khác nhau. Các hình ảnh bên trái minh hoạ hành động tiềm ẩn tương ứng với việc di chuyển cánh tay phải (hoặc bàn tay) sang trái, trong khi các hình ảnh bên phải minh hoạ hành động tiềm ẩn tương ứng với việc di chuyển cánh tay phải (hoặc bàn tay) sang phải. Lưu ý rằng hành động tiềm ẩn chung này không chỉ nhất quán trong các hiện thân robot khác nhau, mà còn trong hiện thân của con người.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "a57bcd75e3d2210a472d8aa669dcd149430aea24f73c09638d933ef7e20cd19d"
+      "caption_vi": "Hình 4. Biểu diễn hành động ẩn có điểm chung giữa các robot. Bên trái là các thao tác dịch tay/cánh tay phải về bên trái; bên phải là dịch về bên phải. Những chuyển động mang cùng ý nghĩa có biểu diễn ẩn gần nhau dù phần cứng robot khác nhau, thậm chí tương đồng với chuyển động tay người.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "a57bcd75e3d2210a472d8aa669dcd149430aea24f73c09638d933ef7e20cd19d",
+      "translation_reviewed": true
     },
     {
       "page": 7,
@@ -2303,9 +2307,10 @@
       "image": "/paper-figures/groot-n1/figure-5.webp",
       "caption": "Figure 5: Synthetically Generated Videos. We leverage off-the-shelf video generation models to create neural trajectories to increase the quantity and diversity of our training datasets. These generated data can be used for both pre- and post-training of our GR00T N1. (1) The first three rows are generated from the same initial frames but with different prompts (change left or right, the location to place the object), (2) the following two are from the same initial frames but replace the object to pick up, (3) the next row showcases the video model generating a robot trajectory which is very challenging to generate in simulation (spilling contents inside a mesh cup into a bin), and (4) the last row is generated from an initial frame from simulation data. We use the red rectangles to indicate the initial frames.",
       "pdf": "https://arxiv.org/pdf/2503.14734",
-      "caption_vi": "Hình 5: Các video được tạo ra một cách tổng hợp. Chúng tôi tận dụng các mô hình tạo video có sẵn để tạo ra các quỹ đạo thần kinh nhằm tăng số lượng và sự đa dạng của các bộ dữ liệu đào tạo của chúng tôi. Những dữ liệu được tạo ra này có thể được sử dụng cho cả trước và sau đào tạo của GR00T N1 của chúng tôi. (1) Ba hàng đầu tiên được tạo ra từ cùng một khung ban đầu nhưng với các dấu nhắc khác nhau (thay đổi bên trái hoặc bên phải, vị trí để đặt đối tượng), (2) hai hàng sau đây là từ cùng một khung ban đầu nhưng thay thế đối tượng để nhặt, (3) hàng tiếp theo trưng bày mô hình video tạo ra một quỹ đạo robot rất khó để tạo ra trong mô phỏng (nội dung tràn Chúng tôi sử dụng các hình chữ nhật màu đỏ để chỉ các khung ban đầu.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "9b487bb751a67362d97e555059f4cc3facf78ac5a64882d627ac4514c02d26d6"
+      "caption_vi": "Hình 5. Video chuyển động được tạo bằng mô hình sinh video để tăng lượng và độ đa dạng dữ liệu huấn luyện GR00T N1. Ba hàng đầu xuất phát từ cùng ảnh ban đầu nhưng đổi prompt hướng chuyển hoặc vị trí đặt vật. Hai hàng tiếp theo đổi vật cần nhặt. Hàng sau nữa minh họa một nhiệm vụ khó mô phỏng là đổ vật qua cốc lưới. Hàng cuối bắt đầu từ ảnh mô phỏng. Khung đỏ đánh dấu ảnh đầu tiên.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "9b487bb751a67362d97e555059f4cc3facf78ac5a64882d627ac4514c02d26d6",
+      "translation_reviewed": true
     },
     {
       "page": 10,
@@ -2322,9 +2327,10 @@
       "image": "/paper-figures/groot-n1/figure-6.webp",
       "caption": "Figure 6: Data Collection via Teleoperation. Our teleoperation infrastructure supports multiple devices to capture human hand motion, including 6-DoF wrist poses and hand skeletons. Robot actions are produced through retargeting and executed on robots in real and simulation environments.",
       "pdf": "https://arxiv.org/pdf/2503.14734",
-      "caption_vi": "Hình 6: Thu thập dữ liệu qua hoạt động từ xa. Cơ sở hạ tầng hoạt động từ xa của chúng tôi hỗ trợ nhiều thiết bị để ghi lại chuyển động của bàn tay con người, bao gồm tư thế cổ tay 6-DoF và bộ xương bàn tay. Các hành động của robot được tạo ra thông qua việc nhắm lại mục tiêu và thực hiện trên robot trong môi trường thực và mô phỏng.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "913113c7208b0f4742992906136bd8e20289034a0899a566da5ef0dd251bbedf"
+      "caption_vi": "Hình 6. Quy trình thu demonstration bằng điều khiển từ xa. Nhiều thiết bị ghi chuyển động tay người, gồm tư thế cổ tay sáu bậc tự do và các khớp bàn tay. Các chuyển động ấy được ánh xạ sang khớp/lệnh robot rồi thực hiện trên robot thật hoặc trong mô phỏng.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "913113c7208b0f4742992906136bd8e20289034a0899a566da5ef0dd251bbedf",
+      "translation_reviewed": true
     },
     {
       "page": 11,
@@ -2341,9 +2347,10 @@
       "image": "/paper-figures/groot-n1/figure-7.webp",
       "caption": "Figure 7: Simulation Tasks. Our simulation experiments use tasks from two open-source benchmarks (Robo- Casa (Nasiriany et al., 2024) in the top row and DexMimicGen (Jiang et al., 2024) in the middle row) and a newly developed suite of tabletop manipulation tasks that closely resemble our real-world tasks (bottom row). We provide Omniverse renderings of the tasks above.",
       "pdf": "https://arxiv.org/pdf/2503.14734",
-      "caption_vi": "Hình 7: Nhiệm vụ mô phỏng. Các thí nghiệm mô phỏng của chúng tôi sử dụng các nhiệm vụ từ hai điểm chuẩn mã nguồn mở (Robo-Casa (Nasiriany et al., 2024) ở hàng trên cùng và DexMimicGen (Jiang et al., 2024) ở hàng giữa) và một điểm chuẩn mới (Robo-Casa (Nasiriany et al., 2024) ở hàng giữa). Chúng tôi đã phát triển bộ các nhiệm vụ thao tác trên bàn gần giống với các nhiệm vụ trong thế giới thực của chúng tôi (hàng dưới cùng).",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "47ad728d2be59ef12ca74517dce7d5a98eaf31506a767753f3dea8961d63367c"
+      "caption_vi": "Hình 7. Những nhiệm vụ mô phỏng được dùng thử GR00T N1. Hàng trên là nhiệm vụ từ RoboCasa, hàng giữa từ DexMimicGen, hàng dưới là nhóm thao tác trên bàn được thiết kế để gần với bài toán robot thật. Các ảnh được dựng bằng Omniverse.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "47ad728d2be59ef12ca74517dce7d5a98eaf31506a767753f3dea8961d63367c",
+      "translation_reviewed": true
     },
     {
       "page": 13,
@@ -2360,9 +2367,10 @@
       "image": "/paper-figures/groot-n1/figure-8.webp",
       "caption": "Figure 8: Real-World Tasks. All images are captured from policy rollouts of GR00T-N1-2B and models post- trained from GR00T-N1-2B. (Top) Pre-training evaluations. We design two manipulation tasks to assess our pretrained models. The left image shows a left-to-right handover, while the right image illustrates the placement of novel objects into an unseen target container. (Bottom) Post-training evaluations. We introduce four distinct task categories. From top to bottom, we present examples of object-to-container pick-and-place, articulated object manipulation, industrial object manipulation, and multi-agent coordination.",
       "pdf": "https://arxiv.org/pdf/2503.14734",
-      "caption_vi": "Hình 8: Các nhiệm vụ thực tế trong thế giới. Tất cả các hình ảnh được chụp từ việc triển khai chính sách của GR00T-N1-2B và các mô hình được đào tạo sau từ GR00T-N1-2B. (Top) Đánh giá trước đào tạo. Chúng tôi thiết kế hai nhiệm vụ thao tác để đánh giá các mô hình đã được đào tạo trước. Hình ảnh bên trái cho thấy một bàn giao từ trái sang phải, trong khi hình ảnh bên phải minh họa vị trí của các đối tượng mới vào một thùng chứa mục tiêu vô hình. ( Dưới cùng) Đánh giá sau đào tạo. Chúng tôi giới thiệu bốn loại nhiệm vụ riêng biệt. Từ trên xuống dưới, chúng tôi trình bày các ví dụ về chọn vị trí đối tượng đến côngtenơ, thao tác đối tượng khớp nối, thao tác đối tượng công nghiệp và phối hợp đa tác nhân.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "f0d494205c3aac8f474e124b5e57644d11b1e4de486a0f491974b4b3d8e86d12"
+      "caption_vi": "Hình 8. Những nhiệm vụ robot thật, lấy ảnh từ các lượt chạy GR00T-N1-2B trước và sau tinh chỉnh. Hàng trên là kiểm tra sau tiền huấn luyện: chuyển vật từ tay trái sang phải và bỏ đồ vật mới vào vật chứa chưa thấy. Phần dưới là bốn nhóm nhiệm vụ sau tinh chỉnh: nhặt và đặt vào hộp, thao tác đồ có khớp, thao tác công nghiệp và phối hợp nhiều tác thể.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "f0d494205c3aac8f474e124b5e57644d11b1e4de486a0f491974b4b3d8e86d12",
+      "translation_reviewed": true
     },
     {
       "page": 16,
@@ -2379,9 +2387,10 @@
       "image": "/paper-figures/groot-n1/figure-9.webp",
       "caption": "Figure 9: Neural Trajectories Ablations. In the RoboCasa simulation, we show using neural trajectories for post-training across 3 data regimes (30, 100, and 300 per task). In the real world, we show results only on the low-data regime (10% of the demonstrations). We co-train with 3k neural trajectories per task for RoboCasa and 100 neural trajectories per task for real-world tasks. We explore using both latent and IDM-labeled actions in simulation and only IDM-labeled actions for the real robot.",
       "pdf": "https://arxiv.org/pdf/2503.14734",
-      "caption_vi": "Hình 9: Ablations quỹ đạo thần kinh. Trong mô phỏng RoboCasa, chúng tôi cho thấy việc sử dụng quỹ đạo thần kinh cho sau đào tạo trên 3 chế độ dữ liệu (30, 100 và 300 cho mỗi nhiệm vụ). Trong thế giới thực, chúng tôi chỉ cho kết quả trên chế độ dữ liệu thấp (10% các minh họa ). Chúng tôi đào tạo với 3k quỹ đạo thần kinh cho mỗi nhiệm vụ cho RoboCasa và 100 quỹ đạo thần kinh cho mỗi nhiệm vụ trong thế giới thực. Chúng tôi khám phá bằng cách sử dụng cả hai hành động được dán nhãn tiềm ẩn và IDM trong mô phỏng và chỉ các hành động được dán nhãn IDM cho robot thực.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "632f54601f44c92f14f26f45281dfa31ef17ec15e3797b9c2eaefcb406d643d6"
+      "caption_vi": "Hình 9. Thí nghiệm tách riêng ảnh hưởng của quỹ đạo sinh bằng mô hình video. Trong RoboCasa, huấn luyện bổ sung được thử với 30, 100 và 300 demonstration thật cho mỗi nhiệm vụ, kết hợp 3.000 quỹ đạo tổng hợp. Với robot thật, nhóm tác giả thử chế độ ít dữ liệu (10% demonstration), bổ sung 100 quỹ đạo tổng hợp mỗi nhiệm vụ. Trong mô phỏng, so cả nhãn action ẩn và action suy ra bằng mô hình động học ngược (IDM); trên robot thật chỉ dùng nhãn IDM.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "632f54601f44c92f14f26f45281dfa31ef17ec15e3797b9c2eaefcb406d643d6",
+      "translation_reviewed": true
     },
     {
       "page": 20,
@@ -2398,9 +2407,10 @@
       "image": "/paper-figures/groot-n1/figure-10.webp",
       "caption": "Figure 10: Average policy success rate on simulated manipulation tasks with varying numbers of demonstrations.",
       "pdf": "https://arxiv.org/pdf/2503.14734",
-      "caption_vi": "Hình 10: Tỷ lệ thành công chính sách trung bình trên các nhiệm vụ thao tác mô phỏng với số lượng biểu diễn khác nhau.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "cc6d3d0a6eb419410d0d2267c566431e0e8bbd043d541125e67939ea16b7dc54"
+      "caption_vi": "Hình 10. Tỷ lệ thành công trung bình của policy trên các nhiệm vụ mô phỏng khi thay số lượng demonstration. Hình dùng để xem việc tăng dữ liệu có tiếp tục cải thiện khả năng thao tác hay không.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "cc6d3d0a6eb419410d0d2267c566431e0e8bbd043d541125e67939ea16b7dc54",
+      "translation_reviewed": true
     },
     {
       "page": 21,
@@ -2417,9 +2427,10 @@
       "image": "/paper-figures/groot-n1/figure-11.webp",
       "caption": "Figure 11: Pre-training Qualitative Example. While prompting the pretrained GR00T-N1-2B model with a post-training task instruction, we even increase the difficulty by placing the apple to the left of both hands. Despite not having encountered this setup during training, the model successfully places the red apple into the basket via a two-handed handover, albeit with jerkier motion.",
       "pdf": "https://arxiv.org/pdf/2503.14734",
-      "caption_vi": "Hình 11: Tiền huấn luyện Định tính Ví dụ. Trong khi thúc đẩy mô hình GR00T-N1-2B được huấn luyện với một hướng dẫn nhiệm vụ sau huấn luyện, chúng tôi thậm chí tăng độ khó bằng cách đặt quả táo ở bên trái của cả hai tay. Mặc dù không gặp phải thiết lập này trong quá trình đào tạo, người mẫu đã đặt thành công quả táo đỏ vào giỏ thông qua một bàn giao hai tay, mặc dù với chuyển động giật mạnh hơn.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "df3c394423e0b267bf1c96ff07442f0d8478b1c50bf8fe19623a37dda722baee"
+      "caption_vi": "Hình 11. Ví dụ định tính sau tiền huấn luyện. Nhóm tác giả giao cho GR00T-N1-2B chưa tinh chỉnh một nhiệm vụ của giai đoạn sau, đồng thời đặt quả táo ở bên trái cả hai tay để tăng độ khó. Dù chưa gặp đúng bố cục ấy khi học, robot vẫn chuyển quả táo đỏ từ tay này sang tay kia rồi bỏ vào giỏ; chuyển động còn hơi giật.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "df3c394423e0b267bf1c96ff07442f0d8478b1c50bf8fe19623a37dda722baee",
+      "translation_reviewed": true
     },
     {
       "page": 21,
@@ -2436,9 +2447,10 @@
       "image": "/paper-figures/groot-n1/figure-12.webp",
       "caption": "Figure 12: Post-training Qualitative Example. (Top) Post-trained GR00T-N1-2B successfully places the cucumber into the basket, whereas the Diffusion Policy fails due to an inaccurate grasp. (Bottom) The post- trained model successfully picks the lemon from the cutting board and puts it into the pan while the Diffusion Policy remains stuck.",
       "pdf": "https://arxiv.org/pdf/2503.14734",
-      "caption_vi": "Hình 12: Sau đào tạo Ví dụ định tính. (Top) Sau đào tạo GR00T-N1-2B đặt dưa chuột thành công vào giỏ, trong khi chính sách khuếch tán thất bại do nắm bắt không chính xác. (Dưới cùng) Mô hình sau khi được đào tạo đã chọn thành công quả chanh từ bảng cắt và đặt nó vào chảo trong khi Chính sách khuếch tán vẫn bị kẹt.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "e889e1eb324b2f554936f41b60b3d75410083f8ecc6f4e57157701d59de47fb6"
+      "caption_vi": "Hình 12. Ví dụ sau tinh chỉnh. Hàng trên: GR00T-N1-2B đã tinh chỉnh bỏ dưa chuột vào giỏ, trong khi Diffusion Policy trượt do kẹp sai vị trí. Hàng dưới: model đã tinh chỉnh nhặt quả chanh từ thớt và bỏ vào chảo, còn Diffusion Policy bị kẹt.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "e889e1eb324b2f554936f41b60b3d75410083f8ecc6f4e57157701d59de47fb6",
+      "translation_reviewed": true
     },
     {
       "page": 22,
@@ -2455,9 +2467,10 @@
       "image": "/paper-figures/groot-n1/figure-13.webp",
       "caption": "Figure 13: More Examples of Neural Generated Trajectories. We highlight 4 key capabilities of neural trajectories: (1) The first three rows shows an example of a multi-view trajectory generated for the post-training in RoboCasa; we achieve this by concatenating the views as a 4-grid video during training. (2) The following two rows show two consecutive sequences, where the initial frame of the latter is from the end of the former, highlighting the possibility of generating trajectories of tasks requiring composition of atomic tasks. (3) The following two rows illustrate the capability of our models to generate trajectories with articulated objects and liquids, which are known to be very challenging in simulation. (4) The last row is generated from an in-painted initial frame, showcasing that we can generate more diverse videos without having to collect novel initial frames in the real-world and be bound by human labor. We use the red rectangles to indicate the initial frames.",
       "pdf": "https://arxiv.org/pdf/2503.14734",
-      "caption_vi": "Figure 13: More Examples of Neural Generated Trajectories (bằng tiếng Anh). Chúng tôi làm nổi bật 4 khả năng chính của quỹ đạo thần kinh: (1) Ba hàng đầu tiên cho thấy một ví dụ về quỹ đạo đa góc nhìn được tạo ra cho hậu đào tạo trong RoboCasa; chúng tôi đạt được điều này bằng cách nối các lượt xem thành một video 4 lưới trong quá trình huấn luyện. (2) Hai hàng sau đây cho thấy hai chuỗi liên tiếp, trong đó khung đầu tiên của chuỗi thứ hai là từ cuối của chuỗi đầu tiên, làm nổi bật khả năng tạo ra quỹ đạo của các tác vụ đòi hỏi thành phần của các tác vụ nguyên tử. (3) Hai hàng sau đây minh hoạ khả năng của các mô hình của chúng tôi để tạo ra quỹ đạo với các vật thể có khớp nối và chất lỏng, được biết là rất thách thức trong mô phỏng. (4) Hàng cuối cùng được tạo ra từ một khung hình ban đầu được vẽ sẵn, cho thấy rằng chúng ta có thể tạo ra nhiều video đa dạng hơn mà không cần phải thu thập các khung hình ban đầu mới lạ trong thế giới thực và bị ràng buộc bởi lao động của con người. Chúng ta sử dụng hình chữ nhật màu đỏ để biểu thị các khung hình ban đầu.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "5a973105abda8b37862e8508004cb8f0807be9ab8dae52a7df04f21fed0eb354"
+      "caption_vi": "Hình 13. Bốn kiểu quỹ đạo sinh bằng mô hình video. (1) Ba hàng đầu cho thấy video nhiều góc nhìn dùng trong RoboCasa: ghép bốn góc camera thành lưới 2×2 khi huấn luyện. (2) Hai hàng tiếp là hai đoạn liên tiếp, lấy khung kết thúc của đoạn đầu làm đầu vào đoạn sau, giúp tạo nhiệm vụ nhiều bước. (3) Hai hàng tiếp thể hiện tương tác với vật có khớp và chất lỏng, vốn khó mô phỏng. (4) Hàng cuối dùng ảnh ban đầu đã chỉnh sửa vùng ảnh để tạo thêm video đa dạng mà không cần quay cảnh mới ngoài đời. Khung đỏ là ảnh xuất phát.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "5a973105abda8b37862e8508004cb8f0807be9ab8dae52a7df04f21fed0eb354",
+      "translation_reviewed": true
     },
     {
       "page": 25,
@@ -2474,9 +2487,10 @@
       "image": "/paper-figures/groot-n1/figure-14.webp",
       "caption": "Figure 14: Human Egocentric Video Dataset Samples. We use seven human video datasets for pre-training. The images above show examples from each of the seven datasets with their corresponding language annotations.",
       "pdf": "https://arxiv.org/pdf/2503.14734",
-      "caption_vi": "Hình 14: Các mẫu bộ dữ liệu video lấy cảm xúc của con người. Chúng tôi sử dụng bảy bộ dữ liệu video của con người để huấn luyện trước. Các hình ảnh trên cho thấy các ví dụ từ mỗi bộ dữ liệu với chú thích ngôn ngữ tương ứng.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "77f749d6958127c3007ab6e788fef0c941d3a9dfa3555a72bb4cf2327d6df9d8"
+      "caption_vi": "Hình 14. Các ví dụ video góc nhìn thứ nhất của người dùng để huấn luyện trước GR00T N1. Dữ liệu được lấy từ bảy nguồn video người, mỗi nguồn có câu chú thích ngôn ngữ tương ứng.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "77f749d6958127c3007ab6e788fef0c941d3a9dfa3555a72bb4cf2327d6df9d8",
+      "translation_reviewed": true
     }
   ],
   "pi-0-5": [
@@ -2495,9 +2509,10 @@
       "image": "/paper-figures/pi-0-5/figure-1.webp",
       "caption": "Fig. 1: The π0.5 model transfers knowledge from a heterogeneous range of data sources, including other robots, high-level subtask prediction, verbal instructions, and data from the web, in order to enable broad generalization across environments and objects. π0.5 can control a mobile manipulator to clean kitchens and bedrooms in new homes that were not present in the training data, performing complex multi-stage behaviors with durations of 10 to 15 minutes.",
       "pdf": "https://arxiv.org/pdf/2504.16054",
-      "caption_vi": "Hình 1: Mô hình 0.5 chuyển giao kiến thức từ một loạt các nguồn dữ liệu không đồng nhất, bao gồm các robot khác, dự đoán nhiệm vụ phụ cấp cao, hướng dẫn bằng lời nói và dữ liệu từ web, để cho phép khái quát rộng khắp môi trường và đối tượng. 0.5 có thể điều khiển một bộ thao tác di động để dọn dẹp nhà bếp và phòng ngủ trong những ngôi nhà mới không có trong dữ liệu huấn luyện, thực hiện các hành vi phức tạp nhiều giai đoạn với khoảng thời gian từ 10 đến 15 phút.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "ce1c0448fc4534c282507ef843bb6b6d9351b58971b9b1877b0bd2219b35300d"
+      "caption_vi": "Hình 1. π0.5 kết hợp tri thức từ nhiều loại dữ liệu: robot khác nhau, dự đoán bước con của nhiệm vụ, lời hướng dẫn của người và dữ liệu web, nhằm chuyển kỹ năng tới môi trường, đồ vật mới. Trong thử nghiệm, robot di động dùng π0.5 dọn bếp và phòng ngủ ở những ngôi nhà không có trong tập huấn luyện, hoàn thành chuỗi thao tác phức tạp kéo dài khoảng 10–15 phút.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "ce1c0448fc4534c282507ef843bb6b6d9351b58971b9b1877b0bd2219b35300d",
+      "translation_reviewed": true
     },
     {
       "page": 2,
@@ -2514,9 +2529,10 @@
       "image": "/paper-figures/pi-0-5/figure-2.webp",
       "caption": "Fig. 2: π0.5 cleaning a new kitchen. The robot is tasked with cleaning a kitchen in a home that was not in the training data. The model is given general tasks (close the cabinets, put the items in the drawer, wipe the spill, and put the dishes in the sink), which it performs by both predicting subtasks to accomplish (e.g., pick up the plate) and emitting low-level actions.",
       "pdf": "https://arxiv.org/pdf/2504.16054",
-      "caption_vi": "Hình 2:π0.5 dọn dẹp một nhà bếp mới. Robot được giao nhiệm vụ dọn dẹp một nhà bếp trong một ngôi nhà không có trong dữ liệu đào tạo. Mô hình được đưa ra các nhiệm vụ chung (gắn tủ, đặt các mặt hàng vào ngăn kéo, lau nước tràn và đặt bát đĩa vào bồn rửa), mà nó thực hiện bằng cả hai dự đoán nhiệm vụ phụ để hoàn thành (ví dụ, nhặt biển số lên) và phát ra hành động ở mức thấp.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "01ad842d56bfd9b8f8f981369e9a4c037512867a3ae8108b35f0243be37eabc5"
+      "caption_vi": "Hình 2. π0.5 dọn một căn bếp chưa từng gặp. Robot nhận các mục tiêu chung như đóng tủ, cất đồ vào ngăn kéo, lau chất lỏng bị đổ và bỏ bát đĩa vào bồn. Mô hình tự chia thành bước nhỏ, chẳng hạn 'nhặt đĩa', rồi sinh các lệnh chuyển động cần thiết cho từng bước.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "01ad842d56bfd9b8f8f981369e9a4c037512867a3ae8108b35f0243be37eabc5",
+      "translation_reviewed": true
     },
     {
       "page": 4,
@@ -2533,9 +2549,10 @@
       "image": "/paper-figures/pi-0-5/figure-3.webp",
       "caption": "Fig. 3: Model overview. π0.5 is trained in two stages. First, a pre-training stage combines all of the different data sources to produce an initial VLA with discrete tokens. This stage uses data from diverse robotic platforms, high-level semantic action prediction, and data from the web. Robotic data uses the FAST action tokenizer to represent actions as discrete tokens [64]. Second, a post-training stage specializes the model for low-level and high-level inferences for mobile manipulation, leveraging the most task-relevant data, including verbal instructions from human supervisors. This stage uses flow matching to represent the action distribution, enabling efficient real-time inference and the ability to represent fine-grained continuous action sequences. At inference time, the model first infers a high-level subtask, and then predicts the actions based on this subtask.",
       "pdf": "https://arxiv.org/pdf/2504.16054",
-      "caption_vi": "Hình 3: Mô hình tổng quan.π0.5 được đào tạo theo hai giai đoạn. Đầu tiên, giai đoạn tiền đào tạo kết hợp tất cả các nguồn dữ liệu khác nhau để tạo ra VLA ban đầu với các mã thông báo rời rạc. Giai đoạn này sử dụng dữ liệu từ các nền tảng robot khác nhau, dự đoán hành động ngữ nghĩa cấp cao và dữ liệu từ web. Dữ liệu robot sử dụng bộ token hành động FAST để biểu diễn các hành động như các thẻ bài rời rạc [64]. Thứ hai, giai đoạn hậu đào tạo chuyên về mô hình cho các suy luận cấp thấp và cấp cao cho thao tác di động, tận dụng dữ liệu liên quan đến nhiệm vụ nhất, bao gồm hướng dẫn bằng lời nói từ người giám sát con người. Giai đoạn này sử dụng kết hợp dòng chảy để đại diện cho phân phối hành động, cho phép suy luận thời gian thực hiệu quả và khả năng đại diện cho các chuỗi hành động liên tục mịn. Tại thời điểm suy luận, mô hình đầu tiên đưa vào một subtask cấp cao, và sau đó dự đoán các hành động dựa trên subtask này.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "c0d47076fecd3fe2b7b67c818d534339cabba4f63898aa9e3cbe81a6a0678ef8"
+      "caption_vi": "Hình 3. Hai giai đoạn huấn luyện π0.5. Giai đoạn đầu học chung dữ liệu từ nhiều robot, ví dụ dự đoán bước con cấp cao và dữ liệu hình ảnh–ngôn ngữ từ web; hành động robot được biến thành token rời rạc bằng FAST. Giai đoạn sau tập trung vào robot di động và nhiệm vụ mục tiêu, bổ sung lời chỉ dẫn người hướng dẫn; phần điều khiển hành động liên tục dùng flow matching để suy luận đủ nhanh. Khi chạy, mô hình chọn bước con trước rồi mới sinh chuỗi chuyển động phù hợp với bước đó.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "c0d47076fecd3fe2b7b67c818d534339cabba4f63898aa9e3cbe81a6a0678ef8",
+      "translation_reviewed": true
     },
     {
       "page": 6,
@@ -2552,9 +2569,10 @@
       "image": "/paper-figures/pi-0-5/figure-4.webp",
       "caption": "Fig. 4: Examples from pre-training and post-training tasks. π0.5 is pre-trained on data from mobile manipulators (MM), non-mobile robots in diverse environments (ME), and cross-embodiment data collected under laboratory conditions (CE), as well as high-level subtask prediction (HL), and multi-modal web data (WD). In a post-training phase, we additionally use verbal instructions (VI), and omit the laboratory cross-embodiment data (CE) to focus the model on mobile manipulation and diverse environments. The figure displays an exemplary subset of the tasks in each category.",
       "pdf": "https://arxiv.org/pdf/2504.16054",
-      "caption_vi": "Hình 4: Ví dụ từ các nhiệm vụ trước và sau huấn luyện.π0.5 là dữ liệu được huấn luyện trước từ các robot thao tác di động (MM), robot không di động trong môi trường đa dạng (ME) và dữ liệu hồn vía chéo. được thu thập trong điều kiện phòng thí nghiệm (CE), cũng như dự đoán subtask cấp cao (HL) và dữ liệu web đa phương thức (WD). Trong giai đoạn sau huấn luyện, chúng tôi sử dụng thêm hướng dẫn bằng lời nói (VI) và bỏ qua dữ liệu hồn vía chéo trong phòng thí nghiệm (CE) để tập trung mô hình vào thao tác di động và môi trường đa dạng. Hình vẽ hiển thị một tập hợp con mẫu mực của các nhiệm vụ trong mỗi loại.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "c4a52d1431605230c0aae1d8c7e5bc724450895f7584643a2d364d8033fcdfe2"
+      "caption_vi": "Hình 4. Ví dụ dữ liệu trước và sau tinh chỉnh π0.5. Trước tinh chỉnh có robot di động (MM), robot cố định ở nhiều môi trường (ME), robot nhiều kiểu thu trong phòng lab (CE), dự đoán bước con cấp cao (HL) và dữ liệu web đa phương thức (WD). Sau đó bổ sung chỉ dẫn bằng lời của người (VI), đồng thời bỏ nhóm CE để tập trung vào thao tác di động trong nhiều môi trường. Hình trưng bày một số nhiệm vụ thuộc từng nhóm.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "c4a52d1431605230c0aae1d8c7e5bc724450895f7584643a2d364d8033fcdfe2",
+      "translation_reviewed": true
     },
     {
       "page": 7,
@@ -2571,9 +2589,10 @@
       "image": "/paper-figures/pi-0-5/figure-5.webp",
       "caption": "Fig. 5: Robot system overview. We use two mobile manipulator platforms – each has four cameras (forward, backward, and both wrists), two 6 DoF arms with parallel jaw grippers, a mobile base, and a torso lift mechanism. The π0.5 model controls the joints and grippers of each arm, base velocity, and the lift position, resulting in 18-19 DoF state and action spaces.",
       "pdf": "https://arxiv.org/pdf/2504.16054",
-      "caption_vi": "Hình 5: Tổng quan về hệ thống robot. Chúng tôi sử dụng hai nền tảng thao tác di động - mỗi nền tảng có bốn camera (về phía trước, phía sau và cả hai cổ tay), hai cánh tay 6 DoF với hàm kẹp song song, đế di động và cơ chế nâng thân. Mô hình 0,5 điều khiển các khớp và tay cầm của mỗi cánh tay, vận tốc cơ sở và vị trí nâng, dẫn đến trạng thái DoF 18-19 và không gian hành động.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "a8276373b18a2c56d6ae334603adaa69293f1ff8d147264f684497d7f43e1cca"
+      "caption_vi": "Hình 5. Hai loại robot di động dùng để thử π0.5. Mỗi robot có bốn camera: trước, sau và trên hai cổ tay; hai cánh tay sáu bậc tự do với kẹp hai ngón; bệ di động; thân nâng hạ. π0.5 điều khiển khớp và kẹp của từng tay, vận tốc bệ và độ cao thân, tạo không gian trạng thái/hành động gồm khoảng 18–19 chiều.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "a8276373b18a2c56d6ae334603adaa69293f1ff8d147264f684497d7f43e1cca",
+      "translation_reviewed": true
     },
     {
       "page": 8,
@@ -2590,9 +2609,10 @@
       "image": "/paper-figures/pi-0-5/figure-6.webp",
       "caption": "Fig. 6: Evaluation environments. We evaluate π0.5 in entirely new kitchens and bedrooms that were not seen during training, with novel objects, backgrounds, and layouts. We use a set of mock rooms for controlled, reproducible quantitative comparisons (left) and real homes for a realistic final evaluation (right).",
       "pdf": "https://arxiv.org/pdf/2504.16054",
-      "caption_vi": "Hình 6: Đánh giá môi trường. Chúng tôi đánh giáπ0.5 trong các căn bếp và phòng ngủ hoàn toàn mới mà không thấy trong quá trình đào tạo, với các đồ vật, nền và bố cục mới lạ. Chúng tôi sử dụng một bộ phòng giả lập để so sánh định lượng có kiểm soát và tái tạo (trái) và nhà thực để đánh giá cuối cùng thực tế (phải).",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "7daf36dec4a159bf52082b825950a2153d0d7b6942838e8f02fc3614c385623f"
+      "caption_vi": "Hình 6. Các môi trường đánh giá π0.5 là bếp và phòng ngủ hoàn toàn mới, với đồ vật, phông nền và bố trí khác dữ liệu huấn luyện. Bên trái là phòng giả lập dựng để so sánh định lượng có thể lặp lại; bên phải là nhà ở thật để kiểm tra tính thực tế.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "7daf36dec4a159bf52082b825950a2153d0d7b6942838e8f02fc3614c385623f",
+      "translation_reviewed": true
     },
     {
       "page": 8,
@@ -2609,9 +2629,10 @@
       "image": "/paper-figures/pi-0-5/figure-7.webp",
       "caption": "Fig. 7: Evaluation in real homes. We evaluated π0.5 in three kitchens and three bedrooms in real homes that were not seen during training. We evaluate the tasks ‘items in drawer’, ‘laundry basket’, and ‘dishes in sink,’ and find π0.5 to be successful at these tasks in these completely new, real homes.",
       "pdf": "https://arxiv.org/pdf/2504.16054",
-      "caption_vi": "Hình 7: Đánh giá trong nhà thực tế. Chúng tôi đánh giáπ0.5 trong ba bếp và ba phòng ngủ trong nhà thực tế mà không thấy trong quá trình đào tạo. Chúng tôi đánh giá các nhiệm vụ \"các món đồ trong ngăn kéo\", \"hộp giặt\" và \"các món rửa trong bồn rửa\" và tìm ra 0,5 bảng để thành công trong các nhiệm vụ này trong những ngôi nhà thực sự hoàn toàn mới này.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "664bcbd76cd71293cb21630b4ed4951bf6868ada63a49b46c0d344260d99a0a2"
+      "caption_vi": "Hình 7. Thử π0.5 tại ba bếp và ba phòng ngủ của các ngôi nhà chưa xuất hiện trong dữ liệu huấn luyện. Những nhiệm vụ được kiểm tra gồm bỏ đồ vào ngăn kéo, bỏ đồ vào giỏ quần áo và đưa bát đĩa vào bồn. Mô hình thực hiện thành công các nhiệm vụ trong các nhà thật mới này.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "664bcbd76cd71293cb21630b4ed4951bf6868ada63a49b46c0d344260d99a0a2",
+      "translation_reviewed": true
     },
     {
       "page": 9,
@@ -2628,9 +2649,10 @@
       "image": "/paper-figures/pi-0-5/figure-8.webp",
       "caption": "Fig. 8: Evaluating performance with different numbers of locations. Performance over the four test tasks — “dishes in sink”, “items in drawer”, “laundry basket”, “make bed” — improves with more training environments. The dashed green line and green bar show a baseline model that includes the test homes in the training set. Compared to this model, our best model achieves similar performance, despite not seeing any data from the test homes.",
       "pdf": "https://arxiv.org/pdf/2504.16054",
-      "caption_vi": "Hình 8: Đánh giá hiệu suất với số lượng vị trí khác nhau. Hiệu suất qua bốn nhiệm vụ thử nghiệm-\" đánh bóng trong bồn rửa \", \" đồ trong ngăn kéo \", \" giỏ giặt \", \" dọn giường \"-được cải thiện với nhiều môi trường đào tạo hơn. Đường màu xanh lá cây và thanh màu xanh lá cây cho thấy một mô hình cơ sở bao gồm các nhà thử nghiệm trong bộ đào tạo. So với mô hình này, mô hình tốt nhất của chúng tôi đạt được hiệu suất tương tự, mặc dù không thấy bất kỳ dữ liệu nào từ các nhà thử nghiệm.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "5da63d53655f42056ff4f56bd1cfbf3335eb0c8f1f8123fa89896754da679f78"
+      "caption_vi": "Hình 8. Ảnh hưởng của số lượng địa điểm huấn luyện. Trên bốn nhiệm vụ rửa bát/để bát vào bồn, cất đồ vào ngăn kéo, bỏ đồ vào giỏ và dọn giường, kết quả tăng khi thêm môi trường học. Đường/cột xanh đứt nét là phương pháp đối chứng được học cả nhà dùng làm bài kiểm tra. Mô hình π0.5 tốt nhất đạt hiệu quả gần phương án ấy dù chưa từng thấy dữ liệu của nhà kiểm tra.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "5da63d53655f42056ff4f56bd1cfbf3335eb0c8f1f8123fa89896754da679f78",
+      "translation_reviewed": true
     },
     {
       "page": 9,
@@ -2647,9 +2669,10 @@
       "image": "/paper-figures/pi-0-5/figure-9.webp",
       "caption": "Fig. 9: Evaluating language following with different numbers of training locations. We evaluate language following rate and success rate for picking up user-indicated items and placing them into drawers or sinks, averaged over seen object categories (“in-distribution”) or unseen categories (“out-of- distribution”). Performance increases steadily as we increase the number of training locations.",
       "pdf": "https://arxiv.org/pdf/2504.16054",
-      "caption_vi": "Hình 9: Đánh giá việc theo dõi ngôn ngữ với số lượng địa điểm đào tạo khác nhau. Chúng tôi đánh giá tỷ lệ theo dõi ngôn ngữ và tỷ lệ thành công trong việc chọn các mặt hàng do người dùng chỉ định và đặt chúng vào các ngăn kéo hoặc bồn rửa, trung bình trên các danh mục đối tượng đã thấy (\"trong phân phối\") hoặc các danh mục chưa thấy (\"ngoài phân phối\"). Hiệu suất tăng đều đặn khi chúng ta tăng số lượng các địa điểm huấn luyện.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "55cb0670af67c693bc736422f86225676ff99a18bc040c5836c22a0810b572e9"
+      "caption_vi": "Hình 9. Khả năng làm đúng câu lệnh theo số lượng địa điểm huấn luyện. Robot phải nhặt đúng món đồ người dùng chỉ ra rồi bỏ vào ngăn kéo hoặc bồn. Biểu đồ tách những nhóm vật đã gặp khi học và nhóm vật chưa gặp. Cả tỷ lệ bám chỉ dẫn lẫn tỷ lệ hoàn thành tăng dần khi dữ liệu có nhiều địa điểm hơn.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "55cb0670af67c693bc736422f86225676ff99a18bc040c5836c22a0810b572e9",
+      "translation_reviewed": true
     },
     {
       "page": 10,
@@ -2666,9 +2689,10 @@
       "image": "/paper-figures/pi-0-5/figure-10.webp",
       "caption": "Fig. 10: Training recipe ablations, mock homes. We evaluate variants of our model that exclude different parts of the training mixture on all four test tasks (10 trials per policy and task). Including cross-embodiment data, both in diverse environments (ME) and for diverse tasks in laboratory settings (CE) is important for good performance, with large degradation when either or both of these data sources are removed. Web data (WD) does not make a significant difference in these experiments, but we will see in Figures 11 and 13 that it impacts object generalization and high-level performance.",
       "pdf": "https://arxiv.org/pdf/2504.16054",
-      "caption_vi": "Hình 10: Huấn luyện cắt bỏ công thức, nhà giả lập. Chúng tôi đánh giá các biến thể của mô hình của chúng tôi loại trừ các phần khác nhau của hỗn hợp huấn luyện trên cả bốn nhiệm vụ thử nghiệm (10 thử nghiệm cho mỗi chính sách và nhiệm vụ). Bao gồm dữ liệu hồn vía chéo, cả trong môi trường đa dạng (ME) và cho các nhiệm vụ đa dạng trong môi trường phòng thí nghiệm (CE) rất quan trọng cho hiệu suất tốt, với sự suy giảm lớn khi một trong hai hoặc cả hai nguồn dữ liệu này bị loại bỏ. Dữ liệu web (WD) không tạo ra sự khác biệt đáng kể trong các thí nghiệm này, nhưng chúng ta sẽ thấy trong Hình 11 và 13 rằng nó tác động đến khái quát hóa đối tượng và hiệu suất cao.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "8155661b6c34b1a241b72008972a99b610e0b40de6fb33cf993722273dcae590"
+      "caption_vi": "Hình 10. Thí nghiệm loại bỏ từng nguồn dữ liệu trong quy trình huấn luyện π0.5, trên bốn bài kiểm tra ở nhà giả lập (mỗi policy và nhiệm vụ 10 lượt). Dữ liệu từ nhiều robot (CE) và dữ liệu robot ở môi trường đa dạng (ME) đều rất quan trọng: bỏ một hoặc cả hai làm kết quả giảm mạnh. Dữ liệu web (WD) chưa tạo khác biệt rõ trong phép thử này, nhưng có vai trò ở khả năng hiểu vật mới và dự đoán bước cấp cao trong Hình 11, 13.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "8155661b6c34b1a241b72008972a99b610e0b40de6fb33cf993722273dcae590",
+      "translation_reviewed": true
     },
     {
       "page": 10,
@@ -2685,9 +2709,10 @@
       "image": "/paper-figures/pi-0-5/figure-11.webp",
       "caption": "Fig. 11: Training recipe ablations, language following. Evaluating language following with in-distribution and out-of-distribution objects after training on different numbers of locations. Including web data (WD) is important for out- of-distribution (OOD) performance in particular. Cross-embodiment (CE) and diverse environment (ME) data both have a large impact on in-distribution and out-of-distribution performance.",
       "pdf": "https://arxiv.org/pdf/2504.16054",
-      "caption_vi": "Hình 11: Huấn luyện cắt bỏ công thức, ngôn ngữ theo sau. Đánh giá ngôn ngữ theo sau với các đối tượng trong phân phối và ngoài phân phối sau khi huấn luyện trên số lượng địa điểm khác nhau. Bao gồm dữ liệu web (WD) rất quan trọng đối với hiệu suất ngoài phân phối (OOD) nói riêng. Hóa thân chéo (CE) và dữ liệu môi trường đa dạng (ME) đều có tác động lớn đến hiệu suất phân phối trong và ngoài phân phối.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "328570fc2373238c535f580a0c00f4e129826ff374382f749f3251c794595db6"
+      "caption_vi": "Hình 11. Thí nghiệm bỏ từng nguồn dữ liệu khi kiểm tra khả năng làm đúng câu lệnh, trên vật đã thấy và chưa thấy sau huấn luyện ở nhiều địa điểm. Dữ liệu web (WD) đặc biệt quan trọng đối với đồ vật ngoài phân phối huấn luyện. Dữ liệu từ robot khác (CE) và môi trường đa dạng (ME) đều ảnh hưởng lớn ở cả hai nhóm đồ vật.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "328570fc2373238c535f580a0c00f4e129826ff374382f749f3251c794595db6",
+      "translation_reviewed": true
     },
     {
       "page": 10,
@@ -2704,9 +2729,10 @@
       "image": "/paper-figures/pi-0-5/figure-12.webp",
       "caption": "Fig. 12: Comparing π0.5 with other models. Our full model significantly outperforms both π0 and π0-FAST+Flow in the mock home test environments.",
       "pdf": "https://arxiv.org/pdf/2504.16054",
-      "caption_vi": "Hình 12: So sánhπ0.5 với các mô hình khác. Mô hình đầy đủ của chúng tôi hoạt động tốt hơn đáng kể cảπ0 vàπ0-FAST + Flow trong môi trường thử nghiệm mô phỏng tại nhà.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "ad1a08e0dcdaaf8a89cdfe558bb741274457d3670d490d9de23b04f7729f4cb1"
+      "caption_vi": "Hình 12. So sánh π0.5 đầy đủ với π0 và π0-FAST+Flow trong các phòng thử nghiệm giả lập. Mô hình π0.5 hoàn chỉnh đạt kết quả cao hơn rõ rệt ở các bài kiểm tra này.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "ad1a08e0dcdaaf8a89cdfe558bb741274457d3670d490d9de23b04f7729f4cb1",
+      "translation_reviewed": true
     },
     {
       "page": 11,
@@ -2723,9 +2749,10 @@
       "image": "/paper-figures/pi-0-5/figure-13.webp",
       "caption": "Fig. 13: Evaluation of the high-level inference process. While the full π0.5 model with high-level and low-level inference attains the best results, using only low-level inference (“implicit HL”) with the full π0.5 model also benefits from the inclusion of high-level subtask examples in training. In contrast, excluding verbal instructions (no VI) or web data (no WD) leads to a significant degradation in performance, and zero-shot prompting a large API-based model (GPT-4) performs worse.",
       "pdf": "https://arxiv.org/pdf/2504.16054",
-      "caption_vi": "Hình 13: Đánh giá quá trình suy luận mức độ cao. Trong khi mô hình 0,5 đầy đủ với suy luận cấp cao và cấp thấp đạt được kết quả tốt nhất, chỉ sử dụng suy luận cấp thấp (\"HL ẩn\") với mô hình 0,5 đầy đủ cũng có lợi từ bao gồm các ví dụ subtask cấp cao trong huấn luyện. Ngược lại, loại trừ các hướng dẫn bằng lời nói (không có VI) hoặc dữ liệu web (không có WD) dẫn đến sự suy giảm đáng kể về hiệu suất và zero-shot khiến mô hình dựa trên API lớn (GPT-4) hoạt động kém hơn.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "76fafbddfed0ba2b4343295fdd3759ffe1e72a7895ba92e4445fb1c510d11a3e"
+      "caption_vi": "Hình 13. Kiểm tra vai trò của suy luận cấp cao trong π0.5. Mô hình đầy đủ vừa chọn bước con vừa sinh hành động cấp thấp cho kết quả tốt nhất. Nếu chỉ dùng nhánh điều khiển cấp thấp, mô hình vẫn hưởng lợi từ việc từng học ví dụ chia bước trong huấn luyện. Ngược lại, bỏ chỉ dẫn bằng lời (VI) hoặc dữ liệu web (WD) làm hiệu quả giảm mạnh. Việc dùng GPT-4 lớn qua API chỉ bằng prompt không cần huấn luyện thêm cũng kém hơn.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "76fafbddfed0ba2b4343295fdd3759ffe1e72a7895ba92e4445fb1c510d11a3e",
+      "translation_reviewed": true
     }
   ],
   "rtc-inference": [
