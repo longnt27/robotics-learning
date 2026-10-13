@@ -18,15 +18,25 @@ Khác với bài toán nhận diện ảnh, hành động sai sẽ làm thay đ�
 
 **Token hành động** là cách chuyển các giá trị lệnh liên tục thành những mã rời rạc mà Transformer có thể dự đoán. Sau khi mạng sinh token, hệ thống giải mã chúng thành lệnh robot thật. **Dữ liệu đa dạng** quan trọng vì một nghìn lần nhặt đúng một cốc ở đúng một chỗ không tương đương một nghìn lượt với nhiều đồ vật, vị trí và cách diễn đạt. Cần đọc cả số lượng lẫn sự phong phú của lần làm mẫu.
 
+
+### ### Học bắt chước không phải học thuộc một đường đi
+
+Hãy tưởng tượng người vận hành làm mẫu thao tác “đặt cốc vào bồn” ở nhiều vị trí cốc khác nhau. Mạng không được chỉ nhớ rằng luôn dịch tay 20 cm sang trái; nó phải học liên hệ giữa **ảnh hiện tại**, **yêu cầu** và **lệnh người đã chọn**. Cũng bởi vậy, tập dữ liệu có hàng nghìn lượt nhặt cùng một chiếc cốc ở đúng một vị trí vẫn có thể kém hữu ích hơn một tập nhỏ hơn nhưng đa dạng hơn về vật, bố cục và câu nói. Mục tiêu của RT-1 là làm chung nhiều việc, chứ không chứng minh robot có thể suy ra mọi kỹ năng mới từ một câu chữ.
+
 ## Phương pháp thực hiện
 
 ### Đi theo đường đi của một câu lệnh
 
-**Bước 1:** người dùng đưa câu “Đặt chiếc cốc đỏ vào bồn rửa”; camera gửi những ảnh gần đây nhất. **Bước 2:** mô hình mã hóa câu lệnh bằng USE để có biểu diễn ý nghĩa, sau đó dùng FiLM điều chỉnh cách EfficientNet xử lý ảnh theo câu lệnh ấy. Nói đơn giản, cùng một ảnh nhưng khi câu lệnh nhắc “cốc đỏ”, mạng sẽ được hướng chú ý nhiều hơn tới thông tin liên quan.
+**Bước 1:** người dùng đưa câu “Đặt chiếc cốc đỏ vào bồn rửa”; camera gửi những ảnh gần đây nhất. **Bước 2:** mô hình mã hóa câu lệnh bằng USE để có biểu diễn ý nghĩa, sau đó dùng FiLM điều chỉnh cách EfficientNet xử lý ảnh theo câu lệnh ấy. Nói cụ thể hơn, FiLM thay đổi cách các kênh đặc trưng ảnh được xử lý theo câu lệnh: yêu cầu “cốc đỏ” và “mở ngăn kéo” tạo điều kiện khác nhau dù camera nhìn cùng một cảnh.
 
-**Bước 3:** TokenLearner rút gọn những đặc trưng ảnh–ngôn ngữ trước khi đưa vào Transformer, tránh phải xử lý quá nhiều token ở mỗi bước. **Bước 4:** Transformer dự đoán token hành động; chúng được giải mã thành lệnh dịch chuyển đầu công tác và điều khiển kẹp. **Bước 5:** robot thực thi một bước, rồi lại quan sát và quyết định.
+**Bước 3:** TokenLearner rút gọn những đặc trưng ảnh–ngôn ngữ trước khi đưa vào Transformer, tránh phải xử lý quá nhiều token ở mỗi bước. **Bước 4:** Transformer dự đoán token hành động; chúng được giải mã thành lệnh dịch chuyển đầu công tác và điều khiển kẹp. **Bước 5:** robot thực thi lệnh, nhận quan sát mới và quyết định tiếp. Lỗi nhỏ ở một bước có thể làm cảnh thay đổi nên vòng lặp quan sát rất quan trọng.
 
 Nếu chỉ nhớ một điều về sơ đồ RT-1, hãy nhớ **mỗi bộ phận giải quyết một trở ngại cụ thể: hiểu câu lệnh, lọc ảnh, rút gọn thông tin và sinh lệnh đủ nhanh.**
+
+
+### ### Mỗi thành phần của RT-1 gỡ một nút thắt khác nhau
+
+USE biến câu lệnh thành biểu diễn ngôn ngữ; FiLM dùng biểu diễn ấy để điều chỉnh cách EfficientNet xử lý ảnh. TokenLearner rút gọn số đặc trưng quan trọng để Transformer không phải xử lý toàn bộ ảnh như một chuỗi khổng lồ. Cuối cùng, Transformer dự đoán các mã hành động có thể giải ngược thành lệnh robot. Thử bỏ từng khối sẽ trả lời câu hỏi cụ thể: robot mất khả năng phân biệt yêu cầu, quá chậm để điều khiển, hay mất chất lượng dự đoán theo thời gian? Nói “đưa ảnh qua Transformer rồi ra hành động” bỏ qua chính lý do từng bộ phận được thiết kế.
 
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/rt-1/figure-2.webp)
 
@@ -50,9 +60,14 @@ Hình 6 là các thí nghiệm thay đổi cấu trúc dữ liệu, đo riêng t
 
 
 
-### Số liệu và phạm vi kết luận
+### Đọc tỷ lệ 97% cùng điều kiện thu dữ liệu
 
-**Đối chiếu số liệu:** Trên nhóm hơn 700 cách chỉ dẫn đã được học, RT-1 đạt khoảng 97% tỷ lệ thành công theo báo cáo. Những phép thử với đồ vật gây nhiễu, nền mới và nhiệm vụ mới cho kết quả khác nhau, nên không thể dùng 97% để mô tả mọi điều kiện. Một thí nghiệm bổ sung dữ liệu nhặt đồ trong thùng từ robot Kuka cũng cho thấy dữ liệu mới có thể hỗ trợ kỹ năng liên quan mà không làm giảm mạnh hiệu quả của các công việc gốc. Điều cần học từ đây là cách thiết kế các tập kiểm tra tách biệt.
+Trên nhóm hơn 700 cách chỉ dẫn đã được học, RT-1 đạt khoảng 97% tỷ lệ thành công theo báo cáo. Những phép thử với đồ vật gây nhiễu, nền mới và nhiệm vụ mới cho kết quả khác nhau, nên không thể dùng 97% để mô tả mọi điều kiện. Một thí nghiệm bổ sung dữ liệu nhặt đồ trong thùng từ robot Kuka cũng cho thấy dữ liệu mới có thể hỗ trợ kỹ năng liên quan mà không làm giảm mạnh hiệu quả của các công việc gốc. Điều cần học từ đây là cách thiết kế các tập kiểm tra tách biệt.
+
+
+### ### Thử đổi đúng một yếu tố để hiểu kết quả khái quát
+
+Giữ nguyên chiếc bàn và đồ vật, đổi lệnh từ “nhặt cốc đỏ” sang “nhặt cốc xanh” để kiểm tra điều kiện hóa theo ngôn ngữ. Giữ nguyên lệnh nhưng thay khăn trải bàn và thêm vật gây nhiễu để kiểm tra khả năng thích nghi thị giác. Cuối cùng, yêu cầu một việc chưa có trong dữ liệu làm mẫu để kiểm tra giới hạn học nhiệm vụ mới. Ba trường hợp này không giống nhau. Vì thế tỷ lệ thành công khoảng 97% ở nhóm chỉ dẫn quen thuộc của RT-1 không thể tự động dùng để mô tả cả ba nhóm thử.
 
 ![Hình 5 từ PDF gốc, trang 7](/paper-figures/rt-1/figure-5.webp)
 
