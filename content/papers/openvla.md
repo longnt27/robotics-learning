@@ -16,7 +16,7 @@ OpenVLA kết hợp hai bộ mã hóa ảnh DINOv2 và SigLIP để nhận thôn
 
 Mỗi token hành động là mã cho giá trị điều khiển, không phải chữ giải thích cho người. Trước khi gửi lệnh xuống robot, cần giải mã và khôi phục đơn vị/hệ tọa độ đúng. Số bảy chiều trong đầu ra của nghiên cứu là một quy ước cụ thể, không có nghĩa mọi robot đều có đúng bảy khớp.
 
-### ### Vì sao mô hình ngôn ngữ có thể sinh lệnh thay vì sinh chữ?
+### Vì sao mô hình ngôn ngữ có thể sinh lệnh thay vì sinh chữ?
 
 Thông thường một mô hình ngôn ngữ chọn token tiếp theo để tạo câu. OpenVLA tận dụng khả năng ấy nhưng quy ước một số token đại diện cho **giá trị hành động robot**. Chẳng hạn một token có thể tương ứng với một khoảng giá trị dịch chuyển theo một trục, chứ không phải từ “trái” hoặc “phải” để người đọc. Ghép các token rồi giải mã mới tạo thành lệnh điều khiển. Vì vậy điểm khó không nằm ở việc mô hình có thể tạo một chuỗi token, mà ở việc chuỗi ấy giữ đúng ý nghĩa vật lý trên phần cứng thật.
 
@@ -29,7 +29,7 @@ Thông thường một mô hình ngôn ngữ chọn token tiếp theo để tạ
 
 Robot thực hiện lệnh, lấy ảnh tiếp theo và tiếp tục. Nếu đem mô hình sang robot mới, ta cần tinh chỉnh trên lần làm mẫu của robot ấy và kiểm tra cách mã hóa/giải mã hành động. Lỗi ở bước chuyển đổi lệnh có thể khiến một mô hình có hàm mất mát đẹp tạo chuyển động sai.
 
-### ### Điểm nào dễ gây lỗi khi tinh chỉnh sang tay máy mới?
+### Điểm nào dễ gây lỗi khi tinh chỉnh sang tay máy mới?
 
 Hãy hình dung mô hình đã học với robot nhận lệnh dịch chuyển đầu kẹp nhưng tay máy mới lại điều khiển trực tiếp góc khớp. Dù nhận đúng ảnh chiếc táo, đầu ra cũ không thể gửi thẳng cho động cơ mới. Cần kiểm tra chuẩn hóa, quy ước bảy chiều hành động, đơn vị và cách chuyển sang bộ điều khiển của robot đích. Sau đó mới quyết định có tinh chỉnh toàn bộ mạng hay dùng LoRA để cập nhật ít tham số hơn. Một kết quả tốt trên tập dữ liệu ghi sẵn vẫn phải được xác nhận bằng thao tác thật vì lỗi giải mã có thể chỉ xuất hiện khi cánh tay di chuyển.
 
@@ -57,7 +57,7 @@ Khi thích nghi robot mới, Diffusion Policy huấn luyện riêng có thể m�
 
 Trong nhóm 29 nhiệm vụ dùng để so các mô hình robot tổng quát, OpenVLA được báo cáo cao hơn RT-2-X khoảng 16,5 điểm phần trăm trung bình trong điều kiện của tác giả. Khi tinh chỉnh, LoRA với mức hạng 32 cho kết quả khoảng 68,2% so với 69,7% khi cập nhật toàn bộ tham số, trong khi chỉ huấn luyện khoảng 1,4% tham số. Đây là ví dụ thực tế cho thấy tiết kiệm bộ nhớ có thể ít làm giảm chất lượng trong một thiết lập, không phải bảo đảm tương tự trên mọi GPU hay nhiệm vụ.
 
-### ### LoRA tiết kiệm tham số, nhưng kiểm tra chất lượng thế nào?
+### LoRA tiết kiệm tham số, nhưng kiểm tra chất lượng thế nào?
 
 Trong phép thử được báo cáo, LoRA cập nhật một phần nhỏ tham số mà vẫn đạt tỷ lệ thành công gần với việc cập nhật toàn bộ mô hình. Đây là bằng chứng thực tế về khả năng tinh chỉnh tiết kiệm **trong điều kiện ấy**, không bảo đảm mọi nhiệm vụ đều mất ít chất lượng. Một so sánh đầy đủ cần ghi bộ dữ liệu tinh chỉnh, phần cứng, thời gian suy luận, số lần thao tác thành công và lệnh bất thường. Nếu kết quả chỉ tốt hơn nhờ thay nhiều dữ liệu hoặc một quy trình chuẩn hóa khác, không nên quy hết lợi thế cho riêng phương pháp tinh chỉnh.
 
@@ -93,6 +93,6 @@ Việc một mạng dùng lõi mô hình ngôn ngữ không tự khiến nó gi�
 
 ### Danh sách kiểm tra trước khi tự tinh chỉnh
 
-Bạn có ảnh và câu lệnh cùng thời điểm với hành động không? Dữ liệu đã chia train/kiểm tra theo lượt thực thi chưa? Vector lệnh là vị trí, độ thay đổi vị trí hay vận tốc? Đã ghi đúng giá trị trung bình/độ lệch chuẩn để giải chuẩn hóa chưa? Đã thử cho mô hình học một số ít lần làm mẫu để bắt lỗi quy trình trước chưa?
+Bạn có ảnh và câu lệnh cùng thời điểm với hành động không? Dữ liệu đã chia huấn luyện/kiểm tra theo lượt thực thi chưa? Vector lệnh là vị trí, độ thay đổi vị trí hay vận tốc? Đã ghi đúng giá trị trung bình/độ lệch chuẩn để giải chuẩn hóa chưa? Đã thử cho mô hình học một số ít lần làm mẫu để bắt lỗi quy trình trước chưa?
 
 Sau khi ổn, đánh giá cả tỷ lệ hoàn thành ngoài đời lẫn độ trễ và lệnh vượt giới hạn. Đó mới là cách nói một bản mô hình đã lưu đã dùng được trên robot đích.
