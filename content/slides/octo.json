@@ -1,259 +1,259 @@
 [
   {
     "type": "cover",
-    "title": "Điểm cốt lõi",
-    "lead": "Một generalist robot policy mở có thể pretrain trên hỗn hợp robot rồi fine-tune nhanh vào nhiệm vụ mới.",
+    "title": "Octo: mô hình nền cho nhiều robot",
+    "lead": "Mỗi loại robot có camera, lệnh và nhiệm vụ khác nhau. Nếu chỉ huấn luyện một chính sách điều khiển cho mỗi thiết bị, ta rất khó tận dụng kinh nghiệm chung về nhặt, đặt và di chuyển vật.",
     "items": [
-      "Biến generalist policy thành một nền tảng có thể fine-tune"
+      "Biến generalist chính sách điều khiển thành một nền tảng có thể fine-tune"
     ],
-    "intuition": "Học shared Transformer với observation, language/goal conditioning và action head có thể thích nghi.",
+    "intuition": "Đóng góp ở đây không phải tuyên bố mọi robot dùng được cùng một vector lệnh. Điều đáng chú ý là kiến trúc có thể thay phần đầu vào và đầu ra mà vẫn tái sử dụng được phần học chung.",
     "detail": {
-      "label": "BỐI CẢNH NGHIÊN CỨU",
-      "text": "Một phòng thí nghiệm nhỏ không muốn huấn luyện foundation policy từ đầu; họ muốn lấy mô hình có vật lý prior sẵn rồi fine-tune bằng 50-100 demonstrations của robot mình."
+      "label": "GIẢI THÍCH",
+      "text": "Đóng góp ở đây không phải tuyên bố mọi robot dùng được cùng một vector lệnh. Điều đáng chú ý là kiến trúc có thể thay phần đầu vào và đầu ra mà vẫn tái sử dụng được phần học chung."
     }
   },
   {
     "type": "problem",
-    "title": "VLA và policy đa robot thiếu checkpoint dễ tái dùng",
-    "lead": "Dataset lớn không đủ nếu các nhóm khác không thể reproduce và adapt policy.",
+    "title": "Vì sao không nên học riêng từ đầu cho từng tay máy?",
+    "lead": "Mỗi loại robot có camera, lệnh và nhiệm vụ khác nhau. Nếu chỉ huấn luyện một chính sách điều khiển cho mỗi thiết bị, ta rất khó tận dụng kinh nghiệm chung về nhặt, đặt và di chuyển vật.",
     "items": [
-      "Train policy từ đầu cho từng nhiệm vụ tiêu tốn demonstrations"
+      "Train chính sách điều khiển từ đầu cho từng nhiệm vụ tiêu tốn lần làm mẫu"
     ],
-    "intuition": "Closed foundation policy gây khó kiểm tra các giả thuyết về data mixture và generalization.",
+    "intuition": "Đóng góp ở đây không phải tuyên bố mọi robot dùng được cùng một vector lệnh. Điều đáng chú ý là kiến trúc có thể thay phần đầu vào và đầu ra mà vẫn tái sử dụng được phần học chung.",
     "detail": {
-      "label": "NGUYÊN NHÂN CỐT LÕI",
-      "text": "RT-X cho thấy cross-embodiment pretraining có tiềm năng nhưng ecosystem còn thiếu một checkpoint mở, practical và adaptation-friendly."
+      "label": "GIẢI THÍCH",
+      "text": "Mỗi loại robot có camera, lệnh và nhiệm vụ khác nhau. Nếu chỉ huấn luyện một chính sách điều khiển cho mỗi thiết bị, ta rất khó tận dụng kinh nghiệm chung về nhặt, đặt và di chuyển vật. Octo dùng một mạng Transformer đã học từ nhiều nguồn dữ liệu, sau đó cho phép tinh chỉnh nhanh với một robot mới."
     }
   },
   {
     "type": "contrast",
-    "title": "Train policy từ đầu cho từng nhiệm vụ tiêu tốn demonstrations",
-    "lead": "Closed foundation policy gây khó kiểm tra các giả thuyết về data mixture và generalization.",
+    "title": "Dùng lại kiến thức không đồng nghĩa dùng chung lệnh khớp",
+    "lead": "Đóng góp ở đây không phải tuyên bố mọi robot dùng được cùng một vector lệnh. Điều đáng chú ý là kiến trúc có thể thay phần đầu vào và đầu ra mà vẫn tái sử dụng được phần học chung.",
     "items": [
-      "Biến generalist policy thành một nền tảng có thể fine-tune",
-      "Học shared Transformer với observation, language/goal conditioning và action head có thể thích nghi."
+      "Biến generalist chính sách điều khiển thành một nền tảng có thể fine-tune",
+      "Học shared Transformer với observation, language/goal conditioning và hành động head có thể thích nghi."
     ],
-    "intuition": "Học shared Transformer với observation, language/goal conditioning và action head có thể thích nghi.",
+    "intuition": "Mỗi loại robot có camera, lệnh và nhiệm vụ khác nhau. Nếu chỉ huấn luyện một chính sách điều khiển cho mỗi thiết bị, ta rất khó tận dụng kinh nghiệm chung về nhặt, đặt và di chuyển vật. Octo dùng một mạng Transformer đã học từ nhiều nguồn dữ liệu, sau đó cho phép tinh chỉnh nhanh với một robot mới.",
     "detail": {
-      "label": "VÌ SAO CẦN THAY ĐỔI",
-      "text": "Điểm đáng giá là tác giả coi fine-tuning interface là first-class design mục tiêu. Người dùng có thể thay quan sát/action head và adapt mô hình sang new embodiment mà không huấn luyện toàn bộ stack từ zero."
+      "label": "GIẢI THÍCH",
+      "text": "Nếu chỉ lấy lệnh cũ gửi xuống robot mới, chuyển động có thể sai hoàn toàn. Vì vậy khả năng tinh chỉnh nhanh phải được chứng minh bằng dữ liệu robot đích và tỷ lệ thành công sau khi tinh chỉnh, không chỉ nhìn tên kiến trúc."
     }
   },
   {
     "type": "intuition",
-    "title": "Biến generalist policy thành một nền tảng có thể fine-tune",
-    "lead": "Học shared Transformer với observation, language/goal conditioning và action head có thể thích nghi.",
+    "title": "Hình dung chuyển từ robot một tay sang hai tay",
+    "lead": "Một chính sách điều khiển từng học nhiều nhiệm vụ nhặt và đặt bằng tay máy đơn. Khi chuyển sang robot hai tay, khái niệm vị trí đích hoặc quan sát vật thể có thể hữu ích, nhưng lệnh hai tay phối hợp có số chiều và ràng buộc khác.",
     "items": [
-      "Một generalist robot policy mở có thể pretrain trên hỗn hợp robot rồi fine-tune nhanh vào nhiệm vụ mới."
+      "Một generalist robot chính sách điều khiển mở có thể pretrain trên hỗn hợp robot rồi fine-tune nhanh vào nhiệm vụ mới."
     ],
-    "intuition": "Học shared Transformer với observation, language/goal conditioning và action head có thể thích nghi.",
+    "intuition": "Nếu chỉ lấy lệnh cũ gửi xuống robot mới, chuyển động có thể sai hoàn toàn. Vì vậy khả năng tinh chỉnh nhanh phải được chứng minh bằng dữ liệu robot đích và tỷ lệ thành công sau khi tinh chỉnh, không chỉ nhìn tên kiến trúc.",
     "detail": {
-      "label": "GIẢI THÍCH CƠ CHẾ",
-      "text": "Octo là Transformer policy khoảng 93M parameters, pretrain trên khoảng 800 nghìn episodes từ 25 các tập dữ liệu trong Open X-Embodiment."
+      "label": "GIẢI THÍCH",
+      "text": "Một chính sách điều khiển từng học nhiều nhiệm vụ nhặt và đặt bằng tay máy đơn. Khi chuyển sang robot hai tay, khái niệm vị trí đích hoặc quan sát vật thể có thể hữu ích, nhưng lệnh hai tay phối hợp có số chiều và ràng buộc khác. Người nghiên cứu cần gắn nhánh đầu ra phù hợp và đưa lần làm mẫu về hai tay để tinh chỉnh."
     }
   },
   {
     "type": "concepts",
-    "title": "Ba khái niệm để nắm",
-    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "title": "Kiến trúc nền và phần gắn thêm",
+    "lead": "Backbone là phần mạng xử lý thông tin chung; Octo dùng Transformer. Token nhiệm vụ biểu diễn yêu cầu người dùng, còn token quan sát biểu diễn ảnh camera. Nhánh đầu ra biến biểu diễn đã học thành lệnh phù hợp với robot đích.",
     "items": [
       {
-        "label": "Generalist pretraining",
+        "label": "Generalist huấn luyện trước",
         "value": "Học pattern điều khiển chung trên hỗn hợp dữ liệu."
       },
       {
-        "label": "Action head",
-        "value": "Biến hidden representation thành hành động."
+        "label": "hành động head",
+        "value": "Biến hidden biểu diễn thành hành động."
       },
       {
         "label": "Fine-tuning",
         "value": "Tận dụng prior để học robot/nhiệm vụ đích nhanh."
       }
     ],
-    "intuition": "Transformer nhận image và goal/language conditioning.",
+    "intuition": "Hai robot có thể cùng hiểu “đặt cốc vào khay” nhưng một bên nhận lệnh vị trí đầu kẹp, bên kia nhận góc khớp. Phần nhánh đầu ra giúp xử lý sự khác biệt ấy, nhưng vẫn phải chọn đúng biểu diễn và chuẩn hóa hành động.",
     "detail": {
-      "label": "NỀN TẢNG KỸ THUẬT",
-      "text": "Nó học reusable behaviors từ đa tập dữ liệu rồi điều chỉnh lại theo embodiment mới. Đây là khác biệt quan trọng với claim \"universal robot bộ điều khiển\"."
+      "label": "GIẢI THÍCH",
+      "text": "Hai robot có thể cùng hiểu “đặt cốc vào khay” nhưng một bên nhận lệnh vị trí đầu kẹp, bên kia nhận góc khớp. Phần nhánh đầu ra giúp xử lý sự khác biệt ấy, nhưng vẫn phải chọn đúng biểu diễn và chuẩn hóa hành động."
     }
   },
   {
     "type": "pipeline",
-    "title": "Kiến trúc trong một sơ đồ",
-    "lead": "Một generalist robot policy mở có thể pretrain trên hỗn hợp robot rồi fine-tune nhanh vào nhiệm vụ mới.",
+    "title": "Cách Octo tiếp nhận ảnh, lệnh và trạng thái",
+    "lead": "Đầu tiên mô tả nhiệm vụ được mã hóa bằng mô hình ngôn ngữ đã học trước; camera được một mạng ảnh gọn chuyển thành đặc trưng.",
     "items": [
-      "Open X robot datasets",
+      "Open X robot tập dữ liệu",
       "Shared Transformer",
-      "Diffusion action head",
+      "Diffusion hành động head",
       "Robot-specific fine-tuning"
     ],
-    "intuition": "Nhận quan sát và goal trên robot đích.",
+    "intuition": "Khi chuyển sang robot mới, ta có thể thêm quan sát như cảm biến lực hoặc đổi nhánh lệnh điều khiển mà không phải thay toàn bộ mạng nền. Một số tham số vẫn cần tinh chỉnh bằng lần làm mẫu của robot đích.",
     "detail": {
-      "label": "ĐIỂM NHẤN TRIỂN KHAI",
-      "text": "Kiến trúc được thiết kế modular: nhận ngôn ngữ hoặc mục tiêu hình ảnh, nhiều camera, proprioception và có readout/action heads thay được."
+      "label": "GIẢI THÍCH",
+      "text": "Khi chuyển sang robot mới, ta có thể thêm quan sát như cảm biến lực hoặc đổi nhánh lệnh điều khiển mà không phải thay toàn bộ mạng nền. Một số tham số vẫn cần tinh chỉnh bằng lần làm mẫu của robot đích. Chính cách tách phần chung và phần riêng làm Octo phù hợp cho nghiên cứu thích nghi nhiều thiết bị."
     }
   },
   {
     "type": "representation",
-    "title": "Mô hình biểu diễn cái gì?",
-    "lead": "Transformer nhận image và goal/language conditioning.",
+    "title": "Đầu ra phải thích ứng với phần cứng",
+    "lead": "Hai robot có thể cùng hiểu “đặt cốc vào khay” nhưng một bên nhận lệnh vị trí đầu kẹp, bên kia nhận góc khớp. Phần nhánh đầu ra giúp xử lý sự khác biệt ấy, nhưng vẫn phải chọn đúng biểu diễn và chuẩn hóa hành động.",
     "items": [
       {
         "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
-        "value": "Action head diffusion biểu diễn chuyển động liên tục theo thời gian."
+        "value": "hành động head diffusion biểu diễn chuyển động liên tục theo thời gian."
       },
       {
         "label": "ĐÁNH ĐỔI KỸ THUẬT",
-        "value": "Adapt state/action conventions là khâu cần làm cho target robot."
+        "value": "Adapt trạng thái/hành động conventions là khâu cần làm cho target robot."
       }
     ],
-    "intuition": "Adapt state/action conventions là khâu cần làm cho target robot.",
+    "intuition": "Đầu tiên mô tả nhiệm vụ được mã hóa bằng mô hình ngôn ngữ đã học trước; camera được một mạng ảnh gọn chuyển thành đặc trưng. Transformer xử lý cả hai nhóm token và lịch sử cần thiết, tạo các token trung gian cho nhánh dự đoán hành động.",
     "detail": {
-      "label": "CHI TIẾT BIỂU DIỄN",
-      "text": "Sinh action dùng diffusion-style head, tránh phải ép mọi action liên tục thành autoregressive text tokens."
+      "label": "GIẢI THÍCH",
+      "text": "Đầu tiên mô tả nhiệm vụ được mã hóa bằng mô hình ngôn ngữ đã học trước; camera được một mạng ảnh gọn chuyển thành đặc trưng. Transformer xử lý cả hai nhóm token và lịch sử cần thiết, tạo các token trung gian cho nhánh dự đoán hành động."
     }
   },
   {
     "type": "training",
-    "title": "Model học như thế nào?",
-    "lead": "Huấn luyện trên hỗn hợp robot data quy mô lớn.",
+    "title": "Octo học từ nhiều bộ dữ liệu robot",
+    "lead": "Đầu tiên mô tả nhiệm vụ được mã hóa bằng mô hình ngôn ngữ đã học trước; camera được một mạng ảnh gọn chuyển thành đặc trưng.",
     "items": [
       {
         "label": "MỤC TIÊU HỌC",
-        "value": "Checkpoint mở để nhóm khác tiếp tục training."
+        "value": "Checkpoint mở để nhóm khác tiếp tục huấn luyện."
       },
       {
         "label": "DỮ LIỆU / QUY TRÌNH",
         "value": "Đánh giá few-shot adaptation qua nhiệm vụ/robot."
       }
     ],
-    "intuition": "Test nhiều conditioning dạng language và goal image.",
+    "intuition": "Khi chuyển sang robot mới, ta có thể thêm quan sát như cảm biến lực hoặc đổi nhánh lệnh điều khiển mà không phải thay toàn bộ mạng nền. Một số tham số vẫn cần tinh chỉnh bằng lần làm mẫu của robot đích.",
     "detail": {
-      "label": "CÁCH HUẤN LUYỆN",
-      "text": "Phần mạnh nhất là adaptation: với cỡ 100 demonstrations, fine-tuned Octo vượt các phương pháp đối chứng huấn luyện từ đầu hoặc chuyên biệt mạnh trên nhiều domain, có mức cải thiện tổng hợp mà tác giả nêu lên đến 52% so với phương pháp đối chứng tốt nhất tiếp theo."
+      "label": "GIẢI THÍCH",
+      "text": "Đối chiếu số liệu: Trong một số phép thử chưa tinh chỉnh, Octo đạt tỷ lệ thành công trung bình cao hơn RT-1-X khoảng 29% tương đối theo cách tính trong bài báo. Lợi thế quan trọng hơn là thích nghi: sau khi tinh chỉnh bằng cỡ 100 lần làm mẫu của robot đích, Octo có thể vượt một số phương pháp huấn luyện từ đầu trong các thiết lập được báo cáo."
     }
   },
   {
     "type": "inference",
-    "title": "Một lần inference xảy ra ra sao?",
-    "lead": "Nhận quan sát và goal trên robot đích.",
+    "title": "Tinh chỉnh để điều khiển robot mới",
+    "lead": "Khi chuyển sang robot mới, ta có thể thêm quan sát như cảm biến lực hoặc đổi nhánh lệnh điều khiển mà không phải thay toàn bộ mạng nền. Một số tham số vẫn cần tinh chỉnh bằng lần làm mẫu của robot đích.",
     "items": [
       {
         "label": "XỬ LÝ ĐẦU VÀO",
-        "value": "Transformer mã hóa context; action head sinh chunk."
+        "value": "Transformer mã hóa context; hành động head sinh chunk."
       },
       {
         "label": "TẠO HÀNH ĐỘNG",
         "value": "Thực thi và replan từ quan sát mới."
       }
     ],
-    "intuition": "Thực thi và replan từ quan sát mới.",
+    "intuition": "Một chính sách điều khiển từng học nhiều nhiệm vụ nhặt và đặt bằng tay máy đơn. Khi chuyển sang robot hai tay, khái niệm vị trí đích hoặc quan sát vật thể có thể hữu ích, nhưng lệnh hai tay phối hợp có số chiều và ràng buộc khác.",
     "detail": {
-      "label": "DIỄN BIẾN THỰC THI",
-      "text": "Policy nhận vision, nhiệm vụ conditioning (ngôn ngữ/mục tiêu) và state rồi dự đoán chunks."
+      "label": "GIẢI THÍCH",
+      "text": "Khi chọn nền tảng để nghiên cứu, hãy xét bộ dữ liệu hỗ trợ robot đích, dạng lệnh đầu ra, chi phí huấn luyện và số lần làm mẫu cần cho một nhiệm vụ mới."
     }
   },
   {
     "type": "equation",
-    "title": "Mathematical Intuition",
-    "lead": "Dựa vào observation o và mục tiêu g, model sinh cả đoạn chuyển động chứ không chỉ quyết định tức thì.",
+    "title": "Công thức biểu diễn chính sách điều khiển",
+    "lead": "Hai robot có thể cùng hiểu “đặt cốc vào khay” nhưng một bên nhận lệnh vị trí đầu kẹp, bên kia nhận góc khớp. Phần nhánh đầu ra giúp xử lý sự khác biệt ấy, nhưng vẫn phải chọn đúng biểu diễn và chuẩn hóa hành động.",
     "equation": "\\pi_\\theta(A_{t:t+H}\\mid o_t,\\,g)",
     "items": [
-      "Một cách nhìn gọn về policy interface."
+      "Một cách nhìn gọn về chính sách điều khiển interface."
     ],
-    "intuition": "Dựa vào observation o và mục tiêu g, model sinh cả đoạn chuyển động chứ không chỉ quyết định tức thì.",
+    "intuition": "Đầu tiên mô tả nhiệm vụ được mã hóa bằng mô hình ngôn ngữ đã học trước; camera được một mạng ảnh gọn chuyển thành đặc trưng. Transformer xử lý cả hai nhóm token và lịch sử cần thiết, tạo các token trung gian cho nhánh dự đoán hành động.",
     "detail": {
-      "label": "Ý NGHĨA CÔNG THỨC",
-      "text": "Người dùng có thể thay quan sát/action head và adapt mô hình sang new embodiment mà không huấn luyện toàn bộ stack từ zero."
+      "label": "GIẢI THÍCH CÔNG THỨC",
+      "text": "Nếu thêm camera cổ tay, hãy xem việc mở rộng đầu vào thực sự có cải thiện so với cấu hình không thêm không. Đây là cách thử đóng góp của kiến trúc thay vì chỉ kể rằng Octo hỗ trợ nhiều loại tín hiệu."
     }
   },
   {
     "type": "results",
-    "title": "Kết quả nói lên điều gì?",
-    "lead": "Octo là baseline mở có thể kiểm tra fine-tuning, thay vì chỉ inference demo.",
+    "title": "Kết quả chuyển giao phụ thuộc điều gì?",
+    "lead": "Hình 4 thể hiện nhiều loại nhiệm vụ trên chín thiết lập robot thật, gồm nhặt đồ, thao tác dài và lắp vật chính xác.",
     "items": [
       {
         "label": "PHÁT HIỆN QUAN TRỌNG",
-        "value": "Các thiết lập thích nghi ít dữ liệu hưởng lợi từ pretraining robot mixture."
+        "value": "Các thiết lập thích nghi ít dữ liệu hưởng lợi từ huấn luyện trước robot mixture."
       },
       {
         "label": "CÁCH DIỄN GIẢI",
         "value": "Hướng đóng góp là khả năng reuse và empirical transfer, không phải một architecture mới hoàn toàn."
       }
     ],
-    "intuition": "fine-tune success không chứng minh zero-shot universal control; diffusion head cũng có latency.",
+    "intuition": "Đối chiếu số liệu: Trong một số phép thử chưa tinh chỉnh, Octo đạt tỷ lệ thành công trung bình cao hơn RT-1-X khoảng 29% tương đối theo cách tính trong bài báo.",
     "detail": {
-      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
-      "text": "Ablations cho thấy độ đa dạng dữ liệu pretraining, dung lượng biểu diễn của mô hình và diffusion action head đều đóng góp."
+      "label": "GIẢI THÍCH",
+      "text": "Hình 4 thể hiện nhiều loại nhiệm vụ trên chín thiết lập robot thật, gồm nhặt đồ, thao tác dài và lắp vật chính xác. Hình 5 kiểm tra việc dùng bản mô hình đã lưu trực tiếp trong những môi trường nằm trong nguồn học trước; điều này khác với thử trên môi trường hoàn toàn chưa thấy."
     }
   },
   {
     "type": "ablation",
-    "title": "Ablation và bằng chứng",
-    "lead": "Test nhiều conditioning dạng language và goal image.",
+    "title": "Thử nghiệm phần gắn thêm và dữ liệu",
+    "lead": "Hình 6 cho thấy tăng kích thước mô hình giúp cải thiện trong một số phép thử, nhưng số lượt ở từng nhiệm vụ cần được đọc cùng kết quả.",
     "items": [
       {
         "label": "YẾU TỐ ĐƯỢC THỬ",
-        "value": "So from-scratch với fine-tune checkpoint; chú ý action normalization."
+        "value": "So from-scratch với fine-tune checkpoint; chú ý hành động normalization."
       }
     ],
-    "intuition": "Các thiết lập thích nghi ít dữ liệu hưởng lợi từ pretraining robot mixture.",
+    "intuition": "Hình 4 thể hiện nhiều loại nhiệm vụ trên chín thiết lập robot thật, gồm nhặt đồ, thao tác dài và lắp vật chính xác. Hình 5 kiểm tra việc dùng bản mô hình đã lưu trực tiếp trong những môi trường nằm trong nguồn học trước; điều này khác với thử trên môi trường hoàn toàn chưa thấy.",
     "detail": {
-      "label": "BẰNG CHỨNG BỔ SUNG",
-      "text": "Goal-image conditioning trên một số WidowX thiết lập tốt hơn ngôn ngữ khoảng 25 điểm, phản ánh hỗn hợp dữ liệu huấn luyện của Octo."
+      "label": "GIẢI THÍCH",
+      "text": "Hình 6 cho thấy tăng kích thước mô hình giúp cải thiện trong một số phép thử, nhưng số lượt ở từng nhiệm vụ cần được đọc cùng kết quả. Quan trọng nhất là tách điểm của mô hình chưa tinh chỉnh khỏi điểm sau khi sử dụng dữ liệu đích."
     }
   },
   {
     "type": "limits",
-    "title": "Hạn chế cần nói thẳng",
-    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "title": "Những giới hạn của mô hình robot tổng quát",
+    "lead": "Octo học từ một tập con được chọn của Open X, nên không phải tất cả robot và kỹ năng ngoài đời đều có mặt.",
     "items": [
       {
         "label": "Tác giả / phạm vi",
-        "value": "Tác giả: nhiều robot/action space vẫn khó đồng bộ và dataset mixture không cân bằng."
+        "value": "Tác giả: nhiều robot/hành động space vẫn khó đồng bộ và tập dữ liệu mixture không cân bằng."
       },
       {
         "label": "Phê bình độc lập",
         "value": "Phê bình: fine-tune success không chứng minh zero-shot universal control; diffusion head cũng có latency."
       }
     ],
-    "intuition": "Action head diffusion biểu diễn chuyển động liên tục theo thời gian.",
+    "intuition": "Tốc độ suy luận và an toàn của lệnh điều khiển động cơ cũng cần kiểm tra trên phần cứng. Một chính sách điều khiển tổng quát rất tốt trên dữ liệu ghi sẵn vẫn có thể chậm hoặc thiếu chính xác ở bài toán kẹp nhỏ.",
     "detail": {
-      "label": "PHẠM VI KẾT LUẬN",
-      "text": "Phê bình thêm: Octo mạnh nhất ở fine-tuning, không phải zero-shot universal control. 93M parameters giúp practical nhưng suy luận ngữ nghĩa kém xa VLM-based VLA lớn."
+      "label": "GIẢI THÍCH",
+      "text": "Tốc độ suy luận và an toàn của lệnh điều khiển động cơ cũng cần kiểm tra trên phần cứng. Một chính sách điều khiển tổng quát rất tốt trên dữ liệu ghi sẵn vẫn có thể chậm hoặc thiếu chính xác ở bài toán kẹp nhỏ."
     }
   },
   {
     "type": "relations",
-    "title": "Bài này đứng ở đâu trong lĩnh vực?",
-    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "title": "Octo khác OpenVLA và RT-X thế nào?",
+    "lead": "RT-X là hướng thử học chung từ dữ liệu nhiều robot. Octo phát triển kiến trúc mở có thể thay quan sát/đầu ra; OpenVLA dùng lõi mô hình ảnh–ngôn ngữ để dự đoán token lệnh.",
     "items": [
       {
         "label": "NỀN TẢNG / TIỀN ĐỀ",
-        "value": "Open X-Embodiment cung cấp data đa robot cho Octo."
+        "value": "Open X-Embodiment cung cấp dữ liệu đa robot cho Octo."
       },
       {
         "label": "HƯỚNG PHÁT TRIỂN",
-        "value": "OpenVLA chuyển sang hướng VLM-to-action tokens."
+        "value": "OpenVLA chuyển sang hướng VLM-to-hành động tokens."
       }
     ],
-    "intuition": "Open checkpoint thay đổi khả năng tái hiện nghiên cứu robotics.",
+    "intuition": "Khi chọn nền tảng để nghiên cứu, hãy xét bộ dữ liệu hỗ trợ robot đích, dạng lệnh đầu ra, chi phí huấn luyện và số lần làm mẫu cần cho một nhiệm vụ mới.",
     "detail": {
-      "label": "CÔNG TRÌNH LIÊN QUAN",
-      "text": "Đọc thêm Open X-Embodiment, OpenVLA. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+      "label": "GIẢI THÍCH",
+      "text": "RT-X là hướng thử học chung từ dữ liệu nhiều robot. Octo phát triển kiến trúc mở có thể thay quan sát/đầu ra; OpenVLA dùng lõi mô hình ảnh–ngôn ngữ để dự đoán token lệnh. Các mô hình khác về kiến trúc và cách tinh chỉnh, không chỉ khác tên."
     }
   },
   {
     "type": "closing",
-    "title": "Nếu chỉ nhớ ba điều",
-    "lead": "Open checkpoint thay đổi khả năng tái hiện nghiên cứu robotics.",
+    "title": "Điều cần nhớ về Octo",
+    "lead": "Chọn hai robot có cùng nhiệm vụ “nhặt và đặt” nhưng nhận lệnh khác nhau. Trên robot thứ hai, so chính sách điều khiển từ đầu với Octo được tinh chỉnh bằng cùng 20, 50 hoặc 100 lần làm mẫu.",
     "items": [
-      "Dùng Octo làm baseline cho robot-specific fine-tuning.",
-      "Luôn tách pretraining benefit khỏi chất lượng demo của robot đích."
+      "Dùng Octo làm phương pháp đối chứng cho robot-specific fine-tuning.",
+      "Luôn tách huấn luyện trước benefit khỏi chất lượng lần làm mẫu của robot đích."
     ],
-    "intuition": "Một generalist robot policy mở có thể pretrain trên hỗn hợp robot rồi fine-tune nhanh vào nhiệm vụ mới.",
+    "intuition": "Nếu thêm camera cổ tay, hãy xem việc mở rộng đầu vào thực sự có cải thiện so với cấu hình không thêm không. Đây là cách thử đóng góp của kiến trúc thay vì chỉ kể rằng Octo hỗ trợ nhiều loại tín hiệu.",
     "detail": {
-      "label": "THỬ NGHIỆM TIẾP THEO",
-      "text": "Chạy đã pretrain Octo trên một small tập dữ liệu, debug preprocessing trước. Nếu GPU không đủ, chỉ chạy dữ liệu loader và action mask tests trên Mac rồi inference trên Colab."
+      "label": "GIẢI THÍCH",
+      "text": "Chọn hai robot có cùng nhiệm vụ “nhặt và đặt” nhưng nhận lệnh khác nhau. Trên robot thứ hai, so chính sách điều khiển từ đầu với Octo được tinh chỉnh bằng cùng 20, 50 hoặc 100 lần làm mẫu. Đo tỷ lệ thành công theo lượng dữ liệu tăng."
     }
   }
 ]
