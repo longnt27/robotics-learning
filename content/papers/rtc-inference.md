@@ -24,7 +24,7 @@ Gọi `H` là số hành động mạng dự đoán mỗi lần, `D` là số ch
 
 **Flow matching** học trường chuyển động đưa một mẫu nhiễu tới chuỗi hành động có cấu trúc. Các bước biến đổi trong quá trình sinh mẫu không phải những bước robot đã đi. RTC tận dụng việc có thể cố định một phần chuỗi trong lúc sinh mẫu: hành động đã cam kết được giữ, phần tương lai được tạo cho phù hợp.
 
-### ### Quá khứ đã diễn ra, tương lai còn có thể sửa
+### Quá khứ đã diễn ra, tương lai còn có thể sửa
 
 Giả sử robot đang đưa tay vòng phía trên một vật cản. Trong lúc nó di chuyển, mô hình tính đoạn lệnh tiếp theo và bất ngờ đề xuất vòng phía dưới. Những lệnh tay robot đã nhận hoặc chắc chắn sẽ nhận trước lúc kết quả mới xuất hiện không thể bị thay thế ngược thời gian. RTC coi chúng là **tiền tố đã cam kết**, rồi sinh những bước còn lại sao cho đoạn mới nối tiếp được đường đang đi. Nếu chỉ lấy trung bình hai quỹ đạo vòng trên và vòng dưới, đường trung bình thậm chí có thể đi thẳng vào vật cản. Vì vậy RTC không phải một cách làm mượt số học đơn giản.
 
@@ -52,7 +52,7 @@ Nhận đoạn mới và tiếp tục      ←     Trả đoạn hành động m
 
 Một điểm dễ bỏ sót: nếu đoạn mới chọn đường đi hoàn toàn khác, việc kết hợp trung bình hai chuỗi không tự bảo đảm an toàn. RTC giữ cứng các bước không sửa được, rồi dùng mức ràng buộc giảm dần trên phần còn chồng nhau. Có thể hình dung đoạn mới gồm ba vùng: **đã cam kết, được điều chỉnh có giới hạn, được sinh tự do**. Cơ chế này giúp nối mượt nhưng vẫn cho phép phản ứng với ảnh camera mới. Việc ước lượng trễ sai hoặc GPU bị nghẽn bất chợt vẫn có thể làm bộ đệm cạn, nên robot thật cần cơ chế dừng dự phòng.
 
-### ### Đặt hai dòng thời gian cạnh nhau để hiểu cơ chế
+### Đặt hai dòng thời gian cạnh nhau để hiểu cơ chế
 
 Bộ điều khiển chạy 50 Hz, nghĩa là cứ 20 mili giây phải có một lệnh. Mô hình bắt đầu tính đoạn B khi robot còn đang thực thi đoạn A và mất 160 mili giây mới xong. Trong khoảng ấy đã trôi qua tám nhịp điều khiển: robot không thể đợi B mới quyết định các nhịp đó. RTC ràng buộc phần đầu B cho phù hợp với tám lệnh đã cam kết; vùng chồng còn có thể thay đổi thì được điều chỉnh mềm, phần tương lai chưa có trong A được sinh mới. Mấu chốt là **tính toán và thực thi chạy song song**, còn việc nối hai đoạn phải tôn trọng thứ tự thời gian thực.
 
@@ -84,7 +84,7 @@ Trong một thiết lập robot thật dùng π0.5 ở 50 Hz, bài báo báo th�
 
 Đừng so 76 với 97 rồi kết luận RTC kém: phải đo tổng thời gian hoàn thành, tỷ lệ thành công và mức giật ở điểm nối. Ngược lại, chỉ thấy robot chuyển động liên tục cũng chưa chứng minh nó đang đi đúng hướng.
 
-### ### Mô hình tính chậm hơn mà robot vẫn làm việc nhanh hơn?
+### Mô hình tính chậm hơn mà robot vẫn làm việc nhanh hơn?
 
 Trong một thiết lập, thời gian lấy mẫu một đoạn của RTC khoảng 97 mili giây, lớn hơn mức 76 mili giây của cách thông thường. Điều này không mâu thuẫn với lợi ích của RTC: robot có thể **tiếp tục thực thi đoạn cũ trong lúc GPU tính**, thay vì đứng chờ sau mỗi đoạn. Vì vậy ba chỉ số cần xem cùng nhau là thời gian tính một đoạn, thời gian hoàn thành toàn bộ nhiệm vụ và tỷ lệ hoàn thành. Nếu robot chạy liền mạch nhưng đi sai hướng, nó vẫn thất bại. Ngược lại, nếu GPU tính từng đoạn nhanh nhưng robot dừng liên tục, thời gian thực tế của nhiệm vụ có thể dài hơn.
 
