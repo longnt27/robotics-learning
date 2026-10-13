@@ -16,7 +16,7 @@ Bài báo đặt câu hỏi liệu tri thức của mô hình ngôn ngữ lớn,
 
 Trong sơ đồ, những màu khác nhau không phải chỉ để trang trí: chúng đánh dấu token đến từ nguồn nào. Khi đọc kết quả, hãy hỏi tín hiệu ảnh và trạng thái có thật sự được dùng hay mô hình chỉ đoán theo câu chữ. Chính vì vậy cần các phép thử thay đầu vào hoặc thay nguồn dữ liệu.
 
-### ### Biết phải lấy cốc nào không đồng nghĩa biết cách kẹp
+### Biết phải lấy cốc nào không đồng nghĩa biết cách kẹp
 
 Khi nghe yêu cầu “Lấy một món đồ để uống nước”, hệ thống cần biết chiếc cốc phù hợp hơn chiếc thìa. Đó là kiến thức về **nghĩa của đồ vật và yêu cầu**. Nhưng để nhấc chiếc cốc thật, robot còn phải xác định vị trí, hình dạng, lực kẹp và quỹ đạo tránh va chạm. PaLM-E nghiên cứu cách đưa ảnh cùng trạng thái vật lý vào mô hình ngôn ngữ để hỗ trợ phần suy luận; nó không tuyên bố một chuỗi token ngôn ngữ tự trở thành mô-men điều khiển của mọi khớp. Tách hai tầng này giúp hiểu vì sao bài báo có thể đánh giá cả nhiệm vụ suy luận lẫn robot.
 
@@ -29,7 +29,7 @@ Khi nghe yêu cầu “Lấy một món đồ để uống nước”, hệ th�
 
 **Bước 5:** một chính sách điều khiển cấp thấp hoặc bộ thực thi bên ngoài biến các bước ấy thành chuyển động robot, lấy thêm quan sát khi cần. Đừng nhầm “mô hình biết phải cầm cốc” với “mô hình biết ngay 7 góc khớp cần chuyển tới”; đó là hai bài toán kỹ thuật khác nhau.
 
-### ### Vì sao phải đưa cảm biến vào cùng lúc với câu lệnh?
+### Vì sao phải đưa cảm biến vào cùng lúc với câu lệnh?
 
 Giả sử câu lệnh là “Cất cốc sạch vào tủ”. Nếu chỉ đọc chữ, mô hình có thể biết cần mở tủ trước nhưng không biết cốc đang ở đâu, tủ nào đang mở hoặc tay robot đã cầm cốc chưa. Thông tin ảnh và trạng thái robot giúp quyết định bước tiếp theo dựa trên **tình hình hiện tại**. Sau khi thực thi một bước, cảnh có thể thay đổi nên việc quan sát lại là cần thiết. Nếu một hệ thống vẫn trả lời giống nhau khi ta đổi ảnh và trạng thái nhưng giữ nguyên câu chữ, cần nghi ngờ nó đang dựa quá nhiều vào kiến thức ngôn ngữ thay vì thế giới thật trước mắt.
 
@@ -61,7 +61,7 @@ Hình 5 đánh giá thêm khả năng ngôn ngữ vốn có: học thao tác rob
 
 Điểm nổi bật của PaLM-E không phải một tỷ lệ thành công dùng cho mọi robot. Bài báo đối chiếu nhiều loại nhiệm vụ và quy mô mô hình, trong đó có bản lớn 562 tỷ tham số. Nhìn Hình 2–3 để xem dữ liệu ảnh–ngôn ngữ và kiến thức từ mô hình học trước giúp gì khi lần người điều khiển robot làm mẫu rất ít; xem Hình 5 để biết việc học thêm dữ liệu robot ảnh hưởng năng lực ngôn ngữ cũ ra sao. Những phép thử này không thay thế phép đo kỹ năng kẹp và đặt trên robot thật.
 
-### ### Đọc kết quả chuyển giao từ cả hai phía
+### Đọc kết quả chuyển giao từ cả hai phía
 
 Công trình kiểm tra liệu kiến thức học từ ảnh và chữ ngoài dữ liệu robot có giúp nhiệm vụ robot khi số lần làm mẫu ít không. Nhưng chiều ngược lại cũng quan trọng: học thêm dữ liệu robot có làm mô hình kém đi ở các câu hỏi ngôn ngữ trước đó không? Vì vậy Hình 2–3 và Hình 5 cần được đọc cùng nhau. Một mô hình lớn có thể giữ năng lực ngôn ngữ tốt hơn nhưng điều đó không chứng minh nó đã học được cách cầm nắm chính xác trên mọi tay máy. Kết luận luôn phải gắn với nhiệm vụ được đo.
 
