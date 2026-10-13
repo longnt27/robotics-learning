@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Bimanual manipulation khó hơn gripper-arm control vì action dimension lớn, coordination giữa hai tay phức tạp và demonstration dữ liệu càng hiếm. VLA autoregressive tokenization cũng không phải lựa chọn tự nhiên cho liên tục chuyển động nhiều chiều. RDT-1B hỏi: **nếu dùng một diffusion Transformer rất lớn và một biểu diễn vật lý thống nhất, có thể pretrain foundation motor policy cho bimanual manipulation không?**
+Để chuyển một khối từ tay phải sang tay trái, robot phải phối hợp hai tay: một tay giữ chắc cho đến khi tay kia đã kẹp được. Những chuyển động này có nhiều cách thực hiện đúng, nhưng chỉ cần lệch thời điểm cũng có thể làm rơi vật. **RDT-1B dùng Diffusion Transformer để học và sinh cả đoạn hành động phối hợp hai tay**, từ hình ảnh, câu lệnh và trạng thái khớp. Công trình còn nghiên cứu cách biểu diễn dữ liệu cho nhiều cấu trúc robot và giữ quá trình huấn luyện ổn định khi mô hình có quy mô lớn.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

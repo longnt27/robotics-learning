@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Trước RT-1, phần lớn robot learning vẫn theo cách tiếp cận kiểu “một nhiệm vụ, một policy”, hoặc cùng lắm là một nhóm nhiệm vụ tương đối gần nhau. Cái thiếu không chỉ là kiến trúc tốt hơn, mà là bằng chứng rằng cách tiếp cận từng thành công ở NLP/vision - gom dữ liệu lớn, đa dạng rồi huấn luyện một mô hình chung - cũng có thể mở rộng quy mô trong robot học. Khó ở chỗ action của robot phải được tính và thực thi theo thời gian thực, dữ liệu đắt hơn Internet rất nhiều, và dịch chuyển phân phối dữ liệu giữa vật thể, phông nền, nhiệm vụ và bối cảnh dễ làm policy thất bại ngay. RT-1 vì thế hỏi một câu rất nền tảng: **nếu ta thật sự mở rộng quy mô dữ liệu robot thật và dùng một Transformer đủ lớn, khả năng khái quát có tăng một cách có hệ thống không?**
+Nếu mỗi công việc của robot đều cần một mô hình riêng, một chiếc robot phục vụ trong bếp sẽ phải được huấn luyện lại khi đổi từ nhặt cốc sang mở ngăn kéo, rồi lại từ đầu khi đổi bối cảnh. **RT-1 đặt câu hỏi liệu một mô hình duy nhất có thể học nhiều nhiệm vụ nhờ lượng lớn demonstration robot thật hay không.** Mô hình phải hiểu câu lệnh và ảnh camera, đồng thời sinh lệnh đủ nhanh để robot liên tục điều khiển. Khó khăn còn nằm ở khả năng làm việc khi vật thể, phông nền hoặc cách bố trí khác dữ liệu đã học. Vì thế đóng góp RT-1 gắn liền với cả kiến trúc lẫn sự đa dạng dữ liệu huấn luyện.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -161,48 +161,3 @@ Khi đọc lại RT-1, hãy tự trả lời: USE làm gì? FiLM thay đổi đi
 
 <!-- END EXTENDED WALKTHROUGH -->
 
-<!-- BEGIN EXTENDED WALKTHROUGH -->
-
-### Sổ tay kiểm chứng: từ giả thuyết tới thử nghiệm
-
-*Đây là các phép thử và ví dụ sư phạm, không phải kết quả thực nghiệm được tác giả báo cáo.*
-
-#### Điểm cốt lõi: Theo dấu một episode
-
-Đặt một quan sát cụ thể gồm ảnh, state và lệnh nhiệm vụ vào đầu pipeline. Với luận điểm 'Điểm cốt lõi', xác định khi nào thông tin mới được đọc, khi nào mô hình tạo action và khi nào phần cứng nhận lệnh. Cái thiếu không chỉ là kiến trúc tốt hơn, mà là bằng chứng rằng cách tiếp cận từng thành công ở NLP/vision - gom dữ liệu lớn, đa dạng rồi huấn luyện một mô hình chung - cũng có thể mở rộng quy mô trong robot học. Nếu không viết được chuỗi này, mô tả còn thiếu mắt xích quan trọng giữa mạng và hệ robot.
-
-#### Một nhiệm vụ, một policy không thể mở rộng: Theo dấu một episode
-
-Đặt một quan sát cụ thể gồm ảnh, state và lệnh nhiệm vụ vào đầu pipeline. Với luận điểm 'Một nhiệm vụ, một policy không thể mở rộng', xác định khi nào thông tin mới được đọc, khi nào mô hình tạo action và khi nào phần cứng nhận lệnh. Khó ở chỗ action của robot phải được tính và thực thi theo thời gian thực, dữ liệu đắt hơn Internet rất nhiều, và dịch chuyển phân phối dữ liệu giữa vật thể, phông nền, nhiệm vụ và bối cảnh dễ làm policy thất bại ngay. Nếu không viết được chuỗi này, mô tả còn thiếu mắt xích quan trọng giữa mạng và hệ robot.
-
-#### Policy chuyên biệt nhớ môi trường, không học được kỹ năng chung: Theo dấu một episode
-
-Đặt một quan sát cụ thể gồm ảnh, state và lệnh nhiệm vụ vào đầu pipeline. Với luận điểm 'Policy chuyên biệt nhớ môi trường, không học được kỹ năng chung', xác định khi nào thông tin mới được đọc, khi nào mô hình tạo action và khi nào phần cứng nhận lệnh. Trước RT-1, phần lớn robot learning vẫn theo cách tiếp cận kiểu “một nhiệm vụ, một policy”, hoặc cùng lắm là một nhóm nhiệm vụ tương đối gần nhau. Nếu không viết được chuỗi này, mô tả còn thiếu mắt xích quan trọng giữa mạng và hệ robot.
-
-#### Scale dữ liệu robot thật trước khi chỉ scale tham số: Theo dấu một episode
-
-Đặt một quan sát cụ thể gồm ảnh, state và lệnh nhiệm vụ vào đầu pipeline. Với luận điểm 'Scale dữ liệu robot thật trước khi chỉ scale tham số', xác định khi nào thông tin mới được đọc, khi nào mô hình tạo action và khi nào phần cứng nhận lệnh. RT-1 huấn luyện một Transformer policy khoảng 35M tham số trên khoảng 130 nghìn episode, thu trong 17 tháng bằng 13 robot và phủ hơn 700 chỉ dẫn/nhiệm vụ. Nếu không viết được chuỗi này, mô tả còn thiếu mắt xích quan trọng giữa mạng và hệ robot.
-
-#### Ba khái niệm để nắm: Theo dấu một episode
-
-Đặt một quan sát cụ thể gồm ảnh, state và lệnh nhiệm vụ vào đầu pipeline. Với luận điểm 'Ba khái niệm để nắm', xác định khi nào thông tin mới được đọc, khi nào mô hình tạo action và khi nào phần cứng nhận lệnh. Việc tokenize action không biến robotics thành NLP theo nghĩa vật lý; nó chỉ đổi một vector liên tục thành một bài toán phân loại thuận tiện cho Transformer. Nếu không viết được chuỗi này, mô tả còn thiếu mắt xích quan trọng giữa mạng và hệ robot.
-
-#### Kiến trúc trong một sơ đồ: Theo dấu một episode
-
-Đặt một quan sát cụ thể gồm ảnh, state và lệnh nhiệm vụ vào đầu pipeline. Với luận điểm 'Kiến trúc trong một sơ đồ', xác định khi nào thông tin mới được đọc, khi nào mô hình tạo action và khi nào phần cứng nhận lệnh. Ảnh đi qua EfficientNet, chỉ dẫn ngôn ngữ đi vào FiLM conditioning, sau đó TokenLearner nén token thị giác để Transformer vẫn chạy đủ nhanh cho robot. Nếu không viết được chuỗi này, mô tả còn thiếu mắt xích quan trọng giữa mạng và hệ robot.
-
-#### Mô hình biểu diễn cái gì?: Theo dấu một episode
-
-Đặt một quan sát cụ thể gồm ảnh, state và lệnh nhiệm vụ vào đầu pipeline. Với luận điểm 'Mô hình biểu diễn cái gì?', xác định khi nào thông tin mới được đọc, khi nào mô hình tạo action và khi nào phần cứng nhận lệnh. Khác phân loại có giám sát thông thường, lỗi dự đoán tự làm thay đổi quan sát về sau: khi gripper lệch 2 cm, camera nhìn một bối cảnh khác với demo, dẫn tới compounding error. Nếu không viết được chuỗi này, mô tả còn thiếu mắt xích quan trọng giữa mạng và hệ robot.
-
-#### Model học như thế nào?: Theo dấu một episode
-
-Đặt một quan sát cụ thể gồm ảnh, state và lệnh nhiệm vụ vào đầu pipeline. Với luận điểm 'Model học như thế nào?', xác định khi nào thông tin mới được đọc, khi nào mô hình tạo action và khi nào phần cứng nhận lệnh. Điểm quan trọng hơn kiến trúc là cách bài báo làm ablation dữ liệu. Họ tách ảnh hưởng của lượng dữ liệu, độ đa dạng nhiệm vụ, kích thước mô hình và bổ sung thêm dữ liệu ngoài phân phối chính. Nếu không viết được chuỗi này, mô tả còn thiếu mắt xích quan trọng giữa mạng và hệ robot.
-
-#### Một lần inference xảy ra ra sao?: Theo dấu một episode
-
-Đặt một quan sát cụ thể gồm ảnh, state và lệnh nhiệm vụ vào đầu pipeline. Với luận điểm 'Một lần inference xảy ra ra sao?', xác định khi nào thông tin mới được đọc, khi nào mô hình tạo action và khi nào phần cứng nhận lệnh. Giả sử lệnh "lấy quả táo đỏ đặt vào bát". EfficientNet mã hoá ảnh có nhiều đồ vật; chỉ dẫn đi vào FiLM để điều chỉnh trọng số các đặc trưng thị giác theo từ "táo đỏ" và "bát". Nếu không viết được chuỗi này, mô tả còn thiếu mắt xích quan trọng giữa mạng và hệ robot.
-
-
-
-<!-- END EXTENDED WALKTHROUGH -->

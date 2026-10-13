@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Dữ liệu robot thật vừa đắt vừa chậm, còn các simulator cũ thường nghèo bối cảnh, vật thể và độ đa dạng nhiệm vụ. Nếu foundation robot policy cần hàng trăm nghìn hay hàng triệu các quỹ đạo thì con người không thể teleoperate tất cả. RoboCasa đặt câu hỏi: **có thể dùng mô phỏng để tạo một phân phối household manipulation đủ rộng và đủ tự động để dữ liệu tổng hợp thật sự giúp generalist policy không?**
+Thu hàng trăm nghìn lượt robot làm việc trong những căn bếp thật tốn nhiều thời gian, công sức và phần cứng. Mô phỏng có thể giúp, nhưng một môi trường chỉ có vài căn bếp và ít đồ vật sẽ khiến robot học thuộc bố cục. **RoboCasa tạo một bộ môi trường bếp mô phỏng phong phú với nhiều đồ vật, thiết bị có thể tương tác và nhiệm vụ tự động sinh**, để huấn luyện những kỹ năng có cơ hội chuyển sang môi trường mới. Bài báo còn đánh giá việc kết hợp dữ liệu mô phỏng với ít demonstration robot thật, bởi chuyển động đẹp trong mô phỏng chưa đủ chứng minh làm được ngoài đời.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 

@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Robot trước PaLM-E thường có perception, lập kế hoạch và ngôn ngữ ở những module khá tách rời. Trong khi đó, LLM đã chứng minh một mô hình lớn có thể gom nhiều loại kiến thức và chuyển giao giữa nhiệm vụ. Vấn đề là LLM thuần text không trực tiếp “nhìn” camera, state robot hay point cloud. PaLM-E đặt câu hỏi: **có thể nhét liên tục cảm biến quan sát vào cùng token stream của một mô hình ngôn ngữ đã pretrain để nó reasoning về thế giới vật lý mà vẫn giữ được năng lực ngôn ngữ không?**
+Một robot hiểu câu lệnh “Hãy mang chiếc cốc lại đây” phải kết hợp hai nguồn thông tin: câu chữ cho biết mục tiêu và camera cho biết chiếc cốc đang ở đâu. Mô hình ngôn ngữ chỉ đọc văn bản có thể biết cốc là gì, nhưng không tự nhìn thấy căn phòng hiện tại. **PaLM-E nghiên cứu cách đưa hình ảnh và trạng thái robot vào cùng chuỗi đầu vào của mô hình ngôn ngữ**, để tận dụng kiến thức đã học cho suy luận về thế giới vật lý. Cần nhớ PaLM-E thường hỗ trợ hiểu và lập kế hoạch; việc biến kế hoạch thành góc khớp chính xác còn phụ thuộc bộ điều khiển robot.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

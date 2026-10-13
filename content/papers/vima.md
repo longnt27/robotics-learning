@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-Một robot thực tế không phải lúc nào cũng nhận nhiệm vụ dưới một string cố định. User có thể đưa text, ảnh mục tiêu, ảnh vật thể, hoặc một demonstration làm ví dụ. Những policy cũ thường xây interface riêng cho từng loại conditioning, nên rất khó có một mô hình chung và khó đo khả năng khái quát một cách có hệ thống. VIMA hỏi: **nếu mọi nhiệm vụ đặc tả đều được biểu diễn như một multimodal prompt, robot có thể học một interface chung giống mô hình nền tảng không?**
+Giả sử người dùng đưa ảnh một chiếc cốc mẫu và nói “Đặt vật giống thế này vào khay bên phải”. Chỉ từ câu chữ, robot chưa biết chọn chiếc cốc nào trên bàn. **VIMA đề xuất dùng prompt đa phương thức**, kết hợp lời mô tả, ảnh tham chiếu và thậm chí ví dụ thao tác để chỉ định nhiệm vụ. Mô hình phải nối thông tin trong prompt với những vật hiện có trong cảnh, rồi dự đoán hành động phù hợp. Công trình chủ yếu đánh giá trong môi trường mô phỏng có cấu trúc, nhằm tìm hiểu liệu cách giao nhiệm vụ linh hoạt ấy có giúp robot xử lý tổ hợp đồ vật và yêu cầu mới hay không.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

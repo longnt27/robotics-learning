@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-RT-1 học dữ liệu robot rất tốt nhưng chỉ biết những concept mà robot tập dữ liệu đủ lớn để dạy nó. Dữ liệu robot đắt và ngữ nghĩa coverage nghèo hơn dữ liệu trên web hàng nghìn lần. Trong khi đó VLM đã biết “banana”, “trash”, “Taylor Swift”, spatial ngôn ngữ, loại vật thể và nhiều abstraction khác mà robot có thể chưa từng thấy. RT-2 hỏi câu cực tham vọng: **có thể chuyển giao web-scale vision-language kiến thức thẳng vào action policy, thay vì huấn luyện khả năng hiểu ngữ nghĩa lại bằng robot demonstrations không?**
+Một robot đã học nhặt cốc có thể chưa từng nghe câu “Lấy vật dùng để uống nước”. Trong khi đó, mô hình ảnh–ngôn ngữ được học từ Internet có thể biết chiếc cốc dùng để làm gì. **RT-2 nghiên cứu việc chuyển kiến thức ngữ nghĩa từ mô hình ảnh–ngôn ngữ sang hệ điều khiển robot.** Phương pháp biểu diễn lệnh robot thành token để huấn luyện chung với dữ liệu ảnh và văn bản. Mục tiêu là robot không chỉ lặp lại những câu lệnh đã có demonstration, mà còn nhận ra một số ý nghĩa và vật thể chưa từng được dạy trực tiếp qua dữ liệu robot.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

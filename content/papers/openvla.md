@@ -1,6 +1,6 @@
 ## Vì sao cần nghiên cứu này?
 
-RT-2 chứng minh VLA mạnh nhưng mô hình, dữ liệu và quy trình huấn luyện phần lớn đóng. Robotics community cần một open checkpoint đủ mạnh để nghiên cứu **fine-tuning, parameter-efficient adaptation, quantization và downstream deployment**. OpenVLA đặt mục tiêu tạo một 7B VLA open-source cạnh tranh với các closed VLAs nhưng practical hơn cho phòng thí nghiệm bình thường.
+Một mô hình VLA mạnh nhưng không có mã nguồn và checkpoint sẽ rất khó được các phòng thí nghiệm nhỏ nghiên cứu, kiểm chứng hoặc điều chỉnh cho robot riêng. **OpenVLA cung cấp một mô hình ảnh–ngôn ngữ–hành động nguồn mở khoảng bảy tỷ tham số**, đã học từ nhiều lượt robot thao tác. Nhóm nghiên cứu có thể tải mô hình, tinh chỉnh bằng dữ liệu của robot đích và so sánh với những chính sách chuyên biệt. Điều cần chú ý là mô hình vẫn phải được chuyển đúng dạng lệnh cho phần cứng mới; nguồn mở không có nghĩa tự tương thích với mọi robot.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
