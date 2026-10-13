@@ -1,65 +1,65 @@
 [
   {
     "type": "cover",
-    "title": "Điểm cốt lõi",
-    "lead": "Một policy có thể học hàng trăm chỉ dẫn robot khi dữ liệu đủ rộng và kiến trúc đủ nhanh.",
+    "title": "RT-1: một mô hình học nhiều thao tác robot",
+    "lead": "Một robot phục vụ trong bếp có thể cần nhặt cốc, mở ngăn kéo, đặt bát, gom rác và hàng trăm việc khác. Nếu mỗi việc có một mô hình riêng, mỗi khi đổi vị trí đồ vật hay cách nói lệnh ta lại phải thu thêm dữ liệu và huấn luyện lại.",
     "items": [
       "Scale dữ liệu robot thật trước khi chỉ scale tham số"
     ],
-    "intuition": "Học chung nhiều chỉ dẫn bằng một Transformer nhỏ, conditioned theo ngôn ngữ và hình ảnh.",
+    "intuition": "Khác với bài toán nhận diện ảnh, hành động sai sẽ làm thay đổi thế giới. Nếu kẹp lệch một chút, chiếc cốc có thể trượt; quan sát ở bước sau sẽ khác hẳn dữ liệu mẫu. Vì vậy mô hình cần vừa hiểu câu lệnh vừa phát lệnh đủ nhanh để giữ điều khiển liên tục.",
     "detail": {
-      "label": "BỐI CẢNH NGHIÊN CỨU",
-      "text": "Cái thiếu không chỉ là kiến trúc tốt hơn, mà là bằng chứng rằng cách tiếp cận từng thành công ở NLP/vision - gom dữ liệu lớn, đa dạng rồi huấn luyện một mô hình chung - cũng có thể mở rộng quy mô trong robot học."
+      "label": "GIẢI THÍCH",
+      "text": "Khác với bài toán nhận diện ảnh, hành động sai sẽ làm thay đổi thế giới. Nếu kẹp lệch một chút, chiếc cốc có thể trượt; quan sát ở bước sau sẽ khác hẳn dữ liệu mẫu. Vì vậy mô hình cần vừa hiểu câu lệnh vừa phát lệnh đủ nhanh để giữ điều khiển liên tục. Đóng góp RT-1 không chỉ là kiến trúc Transformer, mà là dữ liệu robot đa nhiệm được tổ chức để học chung."
     }
   },
   {
     "type": "problem",
-    "title": "Một nhiệm vụ, một policy không thể mở rộng",
-    "lead": "Robot cần chia sẻ kỹ năng giữa nhiều công việc thay vì huấn luyện lại từ đầu cho từng yêu cầu.",
+    "title": "Tại sao không huấn luyện riêng từng nhiệm vụ?",
+    "lead": "Một robot phục vụ trong bếp có thể cần nhặt cốc, mở ngăn kéo, đặt bát, gom rác và hàng trăm việc khác. Nếu mỗi việc có một mô hình riêng, mỗi khi đổi vị trí đồ vật hay cách nói lệnh ta lại phải thu thêm dữ liệu và huấn luyện lại.",
     "items": [
-      "Policy chuyên biệt nhớ môi trường, không học được kỹ năng chung"
+      "chính sách điều khiển chuyên biệt nhớ môi trường, không học được kỹ năng chung"
     ],
-    "intuition": "Nhiều demo giống nhau không bù được thiếu đa dạng nhiệm vụ; control còn phải chạy đủ nhanh.",
+    "intuition": "Khác với bài toán nhận diện ảnh, hành động sai sẽ làm thay đổi thế giới. Nếu kẹp lệch một chút, chiếc cốc có thể trượt; quan sát ở bước sau sẽ khác hẳn dữ liệu mẫu. Vì vậy mô hình cần vừa hiểu câu lệnh vừa phát lệnh đủ nhanh để giữ điều khiển liên tục.",
     "detail": {
-      "label": "NGUYÊN NHÂN CỐT LÕI",
-      "text": "Khó ở chỗ action của robot phải được tính và thực thi theo thời gian thực, dữ liệu đắt hơn Internet rất nhiều, và dịch chuyển phân phối dữ liệu giữa vật thể, phông nền, nhiệm vụ và bối cảnh dễ làm policy thất bại ngay."
+      "label": "GIẢI THÍCH",
+      "text": "Một robot phục vụ trong bếp có thể cần nhặt cốc, mở ngăn kéo, đặt bát, gom rác và hàng trăm việc khác. Nếu mỗi việc có một mô hình riêng, mỗi khi đổi vị trí đồ vật hay cách nói lệnh ta lại phải thu thêm dữ liệu và huấn luyện lại. Cách đó nhanh chóng trở nên quá đắt. RT-1 hỏi liệu một chính sách điều khiển duy nhất có thể học nhiều thao tác từ nhiều lần người điều khiển robot làm mẫu thật hay không."
     }
   },
   {
     "type": "contrast",
-    "title": "Policy chuyên biệt nhớ môi trường, không học được kỹ năng chung",
-    "lead": "Nhiều demo giống nhau không bù được thiếu đa dạng nhiệm vụ; control còn phải chạy đủ nhanh.",
+    "title": "Một lệnh phải phù hợp cả ảnh và mục tiêu",
+    "lead": "Khác với bài toán nhận diện ảnh, hành động sai sẽ làm thay đổi thế giới. Nếu kẹp lệch một chút, chiếc cốc có thể trượt; quan sát ở bước sau sẽ khác hẳn dữ liệu mẫu.",
     "items": [
       "Scale dữ liệu robot thật trước khi chỉ scale tham số",
       "Học chung nhiều chỉ dẫn bằng một Transformer nhỏ, conditioned theo ngôn ngữ và hình ảnh."
     ],
-    "intuition": "Học chung nhiều chỉ dẫn bằng một Transformer nhỏ, conditioned theo ngôn ngữ và hình ảnh.",
+    "intuition": "Một robot phục vụ trong bếp có thể cần nhặt cốc, mở ngăn kéo, đặt bát, gom rác và hàng trăm việc khác. Nếu mỗi việc có một mô hình riêng, mỗi khi đổi vị trí đồ vật hay cách nói lệnh ta lại phải thu thêm dữ liệu và huấn luyện lại. Cách đó nhanh chóng trở nên quá đắt.",
     "detail": {
-      "label": "VÌ SAO CẦN THAY ĐỔI",
-      "text": "Trước RT-1, phần lớn robot learning vẫn theo cách tiếp cận kiểu “một nhiệm vụ, một policy”, hoặc cùng lắm là một nhóm nhiệm vụ tương đối gần nhau."
+      "label": "GIẢI THÍCH",
+      "text": "Một lần chạy thành công trong bếp mới chỉ là một quan sát. Để biết mô hình có thực sự bền, cần lặp lại nhiều lần, đổi vị trí cốc, loại khăn và cả cách diễn đạt câu lệnh. Vì vậy bài báo thiết kế các nhóm thử về vật gây nhiễu, phông nền và môi trường khác nhau."
     }
   },
   {
     "type": "intuition",
-    "title": "Scale dữ liệu robot thật trước khi chỉ scale tham số",
-    "lead": "Học chung nhiều chỉ dẫn bằng một Transformer nhỏ, conditioned theo ngôn ngữ và hình ảnh.",
+    "title": "Hình dung nhặt cốc trong bếp lạ",
+    "lead": "Robot từng học nhặt cốc trên bàn trắng. Sang một bếp có khăn trải hoa, người dùng vẫn ra lệnh nhặt cốc nhưng còn nhiều vật gây nhiễu xung quanh.",
     "items": [
-      "Một policy có thể học hàng trăm chỉ dẫn robot khi dữ liệu đủ rộng và kiến trúc đủ nhanh."
+      "Một chính sách điều khiển có thể học hàng trăm chỉ dẫn robot khi dữ liệu đủ rộng và kiến trúc đủ nhanh."
     ],
-    "intuition": "Học chung nhiều chỉ dẫn bằng một Transformer nhỏ, conditioned theo ngôn ngữ và hình ảnh.",
+    "intuition": "Một lần chạy thành công trong bếp mới chỉ là một quan sát. Để biết mô hình có thực sự bền, cần lặp lại nhiều lần, đổi vị trí cốc, loại khăn và cả cách diễn đạt câu lệnh. Vì vậy bài báo thiết kế các nhóm thử về vật gây nhiễu, phông nền và môi trường khác nhau.",
     "detail": {
-      "label": "GIẢI THÍCH CƠ CHẾ",
-      "text": "RT-1 huấn luyện một Transformer policy khoảng 35M tham số trên khoảng 130 nghìn episode, thu trong 17 tháng bằng 13 robot và phủ hơn 700 chỉ dẫn/nhiệm vụ."
+      "label": "GIẢI THÍCH",
+      "text": "Robot từng học nhặt cốc trên bàn trắng. Sang một bếp có khăn trải hoa, người dùng vẫn ra lệnh nhặt cốc nhưng còn nhiều vật gây nhiễu xung quanh. Đầu tiên, RT-1 phải tìm đúng cốc; tiếp theo là xác định hướng tiếp cận không vướng đồ khác; cuối cùng mới kẹp và nâng. Mỗi bước đều có thể sai vì hình ảnh khác các ví dụ huấn luyện."
     }
   },
   {
     "type": "concepts",
-    "title": "Ba khái niệm để nắm",
-    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "title": "Học bắt chước và token hành động",
+    "lead": "Học bắt chước (behavior cloning) nghĩa là cho robot xem các cặp “camera nhìn thấy gì” và “người điều khiển đã làm gì”, rồi học dự đoán hành động tương ứng.",
     "items": [
       {
         "label": "Behavior cloning",
-        "value": "Học action từ demonstration, không tự khám phá kỹ năng mới."
+        "value": "Học hành động từ lần làm mẫu, không tự khám phá kỹ năng mới."
       },
       {
         "label": "FiLM",
@@ -67,109 +67,109 @@
       },
       {
         "label": "TokenLearner",
-        "value": "Gom đặc trưng ảnh thành ít token để inference nhanh hơn."
+        "value": "Gom đặc trưng ảnh thành ít token để suy luận nhanh hơn."
       }
     ],
-    "intuition": "Đầu vào: chuỗi ảnh camera + câu lệnh",
+    "intuition": "Token hành động là cách chuyển các giá trị lệnh liên tục thành những mã rời rạc mà Transformer có thể dự đoán. Sau khi mạng sinh token, hệ thống giải mã chúng thành lệnh robot thật.",
     "detail": {
-      "label": "NỀN TẢNG KỸ THUẬT",
-      "text": "Việc tokenize action không biến robotics thành NLP theo nghĩa vật lý; nó chỉ đổi một vector liên tục thành một bài toán phân loại thuận tiện cho Transformer."
+      "label": "GIẢI THÍCH",
+      "text": "Token hành động là cách chuyển các giá trị lệnh liên tục thành những mã rời rạc mà Transformer có thể dự đoán. Sau khi mạng sinh token, hệ thống giải mã chúng thành lệnh robot thật. Dữ liệu đa dạng quan trọng vì một nghìn lần nhặt đúng một cốc ở đúng một chỗ không tương đương một nghìn lượt với nhiều đồ vật, vị trí và cách diễn đạt. Cần đọc cả số lượng lẫn sự phong phú của lần làm mẫu."
     }
   },
   {
     "type": "pipeline",
-    "title": "Kiến trúc trong một sơ đồ",
-    "lead": "Một policy có thể học hàng trăm chỉ dẫn robot khi dữ liệu đủ rộng và kiến trúc đủ nhanh.",
+    "title": "Từ câu lệnh tới điều khiển robot",
+    "lead": "Bước 1: người dùng đưa câu “Đặt chiếc cốc đỏ vào bồn rửa”; camera gửi những ảnh gần đây nhất. Bước 2: mô hình mã hóa câu lệnh bằng USE để có biểu diễn ý nghĩa, sau đó dùng FiLM điều chỉnh cách EfficientNet xử lý ảnh theo câu lệnh ấy.",
     "items": [
       "Ảnh + chỉ dẫn",
       "EfficientNet + FiLM",
       "TokenLearner + Transformer",
-      "Action đã lượng tử hóa"
+      "hành động đã lượng tử hóa"
     ],
-    "intuition": "Mỗi bước: ảnh mới và lệnh đi qua cùng policy.",
+    "intuition": "Bước 3: TokenLearner rút gọn những đặc trưng ảnh–ngôn ngữ trước khi đưa vào Transformer, tránh phải xử lý quá nhiều token ở mỗi bước. Bước 4: Transformer dự đoán token hành động; chúng được giải mã thành lệnh dịch chuyển đầu công tác và điều khiển kẹp.",
     "detail": {
-      "label": "ĐIỂM NHẤN TRIỂN KHAI",
-      "text": "Ảnh đi qua EfficientNet, chỉ dẫn ngôn ngữ đi vào FiLM conditioning, sau đó TokenLearner nén token thị giác để Transformer vẫn chạy đủ nhanh cho robot."
+      "label": "GIẢI THÍCH",
+      "text": "Bước 3: TokenLearner rút gọn những đặc trưng ảnh–ngôn ngữ trước khi đưa vào Transformer, tránh phải xử lý quá nhiều token ở mỗi bước. Bước 4: Transformer dự đoán token hành động; chúng được giải mã thành lệnh dịch chuyển đầu công tác và điều khiển kẹp. Bước 5: robot thực thi một bước, rồi lại quan sát và quyết định."
     }
   },
   {
     "type": "representation",
-    "title": "Mô hình biểu diễn cái gì?",
-    "lead": "Đầu vào: chuỗi ảnh camera + câu lệnh",
+    "title": "Mã hóa các chiều hành động như thế nào?",
+    "lead": "Token hành động là cách chuyển các giá trị lệnh liên tục thành những mã rời rạc mà Transformer có thể dự đoán. Sau khi mạng sinh token, hệ thống giải mã chúng thành lệnh robot thật.",
     "items": [
       {
         "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
-        "value": "Đầu ra: các chiều chuyển động, quay và gripper dưới dạng action token."
+        "value": "Đầu ra: các chiều chuyển động, quay và bộ kẹp dưới dạng hành động token."
       },
       {
         "label": "ĐÁNH ĐỔI KỸ THUẬT",
         "value": "Token hóa giúp dự đoán bằng phân loại nhưng introduce quantization error."
       }
     ],
-    "intuition": "Token hóa giúp dự đoán bằng phân loại nhưng introduce quantization error.",
+    "intuition": "Bước 1: người dùng đưa câu “Đặt chiếc cốc đỏ vào bồn rửa”; camera gửi những ảnh gần đây nhất. Bước 2: mô hình mã hóa câu lệnh bằng USE để có biểu diễn ý nghĩa, sau đó dùng FiLM điều chỉnh cách EfficientNet xử lý ảnh theo câu lệnh ấy.",
     "detail": {
-      "label": "CHI TIẾT BIỂU DIỄN",
-      "text": "Khác phân loại có giám sát thông thường, lỗi dự đoán tự làm thay đổi quan sát về sau: khi gripper lệch 2 cm, camera nhìn một bối cảnh khác với demo, dẫn tới compounding error."
+      "label": "GIẢI THÍCH",
+      "text": "Bước 1: người dùng đưa câu “Đặt chiếc cốc đỏ vào bồn rửa”; camera gửi những ảnh gần đây nhất. Bước 2: mô hình mã hóa câu lệnh bằng USE để có biểu diễn ý nghĩa, sau đó dùng FiLM điều chỉnh cách EfficientNet xử lý ảnh theo câu lệnh ấy. Nói đơn giản, cùng một ảnh nhưng khi câu lệnh nhắc “cốc đỏ”, mạng sẽ được hướng chú ý nhiều hơn tới thông tin liên quan."
     }
   },
   {
     "type": "training",
-    "title": "Model học như thế nào?",
-    "lead": "Khoảng 130.000 episode robot thật trong 17 tháng.",
+    "title": "RT-1 học từ những lần thao tác mẫu",
+    "lead": "Bước 1: người dùng đưa câu “Đặt chiếc cốc đỏ vào bồn rửa”; camera gửi những ảnh gần đây nhất. Bước 2: mô hình mã hóa câu lệnh bằng USE để có biểu diễn ý nghĩa, sau đó dùng FiLM điều chỉnh cách EfficientNet xử lý ảnh theo câu lệnh ấy.",
     "items": [
       {
         "label": "MỤC TIÊU HỌC",
-        "value": "Một policy học hơn 700 chỉ dẫn/nhiệm vụ."
+        "value": "Một chính sách điều khiển học hơn 700 chỉ dẫn/nhiệm vụ."
       },
       {
         "label": "DỮ LIỆU / QUY TRÌNH",
-        "value": "Giữ diversity nhiệm vụ quan trọng hơn chỉ lặp thêm demo."
+        "value": "Giữ diversity nhiệm vụ quan trọng hơn chỉ lặp thêm lần làm mẫu."
       }
     ],
-    "intuition": "Bớt diversity nhiệm vụ gây tổn thất đáng kể.",
+    "intuition": "Bước 3: TokenLearner rút gọn những đặc trưng ảnh–ngôn ngữ trước khi đưa vào Transformer, tránh phải xử lý quá nhiều token ở mỗi bước. Bước 4: Transformer dự đoán token hành động; chúng được giải mã thành lệnh dịch chuyển đầu công tác và điều khiển kẹp.",
     "detail": {
-      "label": "CÁCH HUẤN LUYỆN",
-      "text": "Điểm quan trọng hơn kiến trúc là cách bài báo làm ablation dữ liệu. Họ tách ảnh hưởng của lượng dữ liệu, độ đa dạng nhiệm vụ, kích thước mô hình và bổ sung thêm dữ liệu ngoài phân phối chính."
+      "label": "GIẢI THÍCH",
+      "text": "Nếu chỉ nhớ một điều về sơ đồ RT-1, hãy nhớ mỗi bộ phận giải quyết một trở ngại cụ thể: hiểu câu lệnh, lọc ảnh, rút gọn thông tin và sinh lệnh đủ nhanh."
     }
   },
   {
     "type": "inference",
-    "title": "Một lần inference xảy ra ra sao?",
-    "lead": "Mỗi bước: ảnh mới và lệnh đi qua cùng policy.",
+    "title": "Robot dự đoán và thực hiện từng bước",
+    "lead": "Bước 3: TokenLearner rút gọn những đặc trưng ảnh–ngôn ngữ trước khi đưa vào Transformer, tránh phải xử lý quá nhiều token ở mỗi bước.",
     "items": [
       {
         "label": "XỬ LÝ ĐẦU VÀO",
-        "value": "Model sinh action discrete, giải mã thành lệnh điều khiển."
+        "value": "mô hình sinh hành động discrete, giải mã thành lệnh điều khiển."
       },
       {
         "label": "TẠO HÀNH ĐỘNG",
         "value": "Thiết kế nhỏ gọn để kịp vòng điều khiển thực tế."
       }
     ],
-    "intuition": "Thiết kế nhỏ gọn để kịp vòng điều khiển thực tế.",
+    "intuition": "Robot từng học nhặt cốc trên bàn trắng. Sang một bếp có khăn trải hoa, người dùng vẫn ra lệnh nhặt cốc nhưng còn nhiều vật gây nhiễu xung quanh. Đầu tiên, RT-1 phải tìm đúng cốc; tiếp theo là xác định hướng tiếp cận không vướng đồ khác; cuối cùng mới kẹp và nâng.",
     "detail": {
-      "label": "DIỄN BIẾN THỰC THI",
-      "text": "Giả sử lệnh \"lấy quả táo đỏ đặt vào bát\". EfficientNet mã hoá ảnh có nhiều đồ vật; chỉ dẫn đi vào FiLM để điều chỉnh trọng số các đặc trưng thị giác theo từ \"táo đỏ\" và \"bát\"."
+      "label": "GIẢI THÍCH",
+      "text": "Đối chiếu số liệu: Trên nhóm hơn 700 cách chỉ dẫn đã được học, RT-1 đạt khoảng 97% tỷ lệ thành công theo báo cáo. Những phép thử với đồ vật gây nhiễu, nền mới và nhiệm vụ mới cho kết quả khác nhau, nên không thể dùng 97% để mô tả mọi điều kiện. Một thí nghiệm bổ sung dữ liệu nhặt đồ trong thùng từ robot Kuka cũng cho thấy dữ liệu mới có thể hỗ trợ kỹ năng liên quan mà không làm giảm mạnh hiệu quả của các công việc gốc."
     }
   },
   {
     "type": "equation",
-    "title": "Mathematical Intuition",
-    "lead": "Policy chọn action dựa trên những gì camera đã thấy và yêu cầu bằng ngôn ngữ.",
+    "title": "Đọc công thức dự đoán token hành động",
+    "lead": "Token hành động là cách chuyển các giá trị lệnh liên tục thành những mã rời rạc mà Transformer có thể dự đoán. Sau khi mạng sinh token, hệ thống giải mã chúng thành lệnh robot thật.",
     "equation": "p_\\theta(a_t\\mid o_{\\le t},\\ell)",
     "items": [
       "Đây là cách mô tả điều kiện của behavior cloning, không phải phương trình mới của tác giả."
     ],
-    "intuition": "Policy chọn action dựa trên những gì camera đã thấy và yêu cầu bằng ngôn ngữ.",
+    "intuition": "Bước 1: người dùng đưa câu “Đặt chiếc cốc đỏ vào bồn rửa”; camera gửi những ảnh gần đây nhất. Bước 2: mô hình mã hóa câu lệnh bằng USE để có biểu diễn ý nghĩa, sau đó dùng FiLM điều chỉnh cách EfficientNet xử lý ảnh theo câu lệnh ấy.",
     "detail": {
-      "label": "Ý NGHĨA CÔNG THỨC",
-      "text": "Các action được lượng tử hóa thành token thay vì hồi quy trực tiếp vector liên tục. Policy chạy ở khoảng 3 Hz, nên đây còn là một bài toán hệ thống chứ không chỉ độ chính xác khi đánh giá offline."
+      "label": "GIẢI THÍCH CÔNG THỨC",
+      "text": "RT-1 và Open X-Embodiment cũng liên hệ trực tiếp: khi dữ liệu đến từ nhiều kiểu robot, ngoài hình ảnh còn có vấn đề lệnh điều khiển của hai phần cứng không có cùng ý nghĩa. Chính vì vậy kết quả một chính sách điều khiển đa nhiệm là một bước tiến, không phải lời giải cuối cùng của chuyển giao sang mọi robot."
     }
   },
   {
     "type": "results",
-    "title": "Kết quả nói lên điều gì?",
-    "lead": "Khoảng 97% thành công trên nhóm chỉ dẫn đã huấn luyện trong thiết lập báo cáo.",
+    "title": "Đa dạng dữ liệu ảnh hưởng tới kết quả ra sao?",
+    "lead": "Hãy tưởng tượng hai tập đều có 10.000 lần robot thao tác. Tập A lặp lại một kiểu bếp và ít đồ vật; tập B có nhiều kỹ năng, đồ vật và cách đặt khác nhau. Tập A có thể cho hàm mất mát rất đẹp trên bối cảnh cũ nhưng dễ gặp sai ở bếp mới.",
     "items": [
       {
         "label": "PHÁT HIỆN QUAN TRỌNG",
@@ -180,80 +180,80 @@
         "value": "Thêm dữ liệu Kuka bin-picking có thể giúp kỹ năng mới mà không phá mạnh kỹ năng cũ."
       }
     ],
-    "intuition": "thành công ở các tổ hợp đã thấy không chứng minh robot biết thao tác mới ngoài support của dữ liệu.",
+    "intuition": "Đối chiếu số liệu: Trên nhóm hơn 700 cách chỉ dẫn đã được học, RT-1 đạt khoảng 97% tỷ lệ thành công theo báo cáo. Những phép thử với đồ vật gây nhiễu, nền mới và nhiệm vụ mới cho kết quả khác nhau, nên không thể dùng 97% để mô tả mọi điều kiện.",
     "detail": {
-      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
-      "text": "Trên tập hơn 700 chỉ dẫn đã huấn luyện, RT-1 đạt khoảng 97% thành công. Ở các nhóm kiểm tra khả năng khái quát như nhiệm vụ mới, distractor mới và phông nền mới, tác giả nêu mức cải thiện lớn so với phương pháp đối chứng trước đó, lần lượt khoảng 25, 36 và 18 điểm trong các thiết lập được báo cáo."
+      "label": "GIẢI THÍCH",
+      "text": "Hãy tưởng tượng hai tập đều có 10.000 lần robot thao tác. Tập A lặp lại một kiểu bếp và ít đồ vật; tập B có nhiều kỹ năng, đồ vật và cách đặt khác nhau. Tập A có thể cho hàm mất mát rất đẹp trên bối cảnh cũ nhưng dễ gặp sai ở bếp mới. Tập B buộc mô hình chú ý tới đặc điểm liên quan tới nhiệm vụ thay vì ghi nhớ nền."
     }
   },
   {
     "type": "ablation",
-    "title": "Ablation và bằng chứng",
-    "lead": "Bớt diversity nhiệm vụ gây tổn thất đáng kể.",
+    "title": "Thử thay cấu trúc và nguồn dữ liệu",
+    "lead": "Hình 6 là các thí nghiệm thay đổi cấu trúc dữ liệu, đo riêng tỷ lệ thành công trên nhiệm vụ đã gặp, chưa gặp và lúc có vật gây nhiễu.",
     "items": [
       {
         "label": "YẾU TỐ ĐƯỢC THỬ",
-        "value": "Hiệu quả phụ thuộc dữ liệu + cấu trúc điều kiện hóa thị giác/ngôn ngữ; không chỉ kích thước model."
+        "value": "Hiệu quả phụ thuộc dữ liệu + cấu trúc điều kiện hóa thị giác/ngôn ngữ; không chỉ kích thước mô hình."
       }
     ],
-    "intuition": "Các nhóm đánh giá khả năng khái quát mới, distractor và background có cải thiện đáng kể.",
+    "intuition": "Hãy tưởng tượng hai tập đều có 10.000 lần robot thao tác. Tập A lặp lại một kiểu bếp và ít đồ vật; tập B có nhiều kỹ năng, đồ vật và cách đặt khác nhau. Tập A có thể cho hàm mất mát rất đẹp trên bối cảnh cũ nhưng dễ gặp sai ở bếp mới.",
     "detail": {
-      "label": "BẰNG CHỨNG BỔ SUNG",
-      "text": "Một thí nghiệm rất đáng nhớ là khi thêm dữ liệu bin-picking từ Kuka vào mixture: khả năng khái quát sang bin-picking tăng gần gấp đôi mà hiệu năng trên tập nhiệm vụ gốc không bị phá đáng kể."
+      "label": "GIẢI THÍCH",
+      "text": "Hình 6 là các thí nghiệm thay đổi cấu trúc dữ liệu, đo riêng tỷ lệ thành công trên nhiệm vụ đã gặp, chưa gặp và lúc có vật gây nhiễu. Kết luận có căn cứ là sự đa dạng góp phần lớn vào hiệu quả và khả năng khái quát *trong những nhóm thử này*. Không nên diễn đạt thành “tăng dữ liệu bao nhiêu cũng vô ích”; thêm dữ liệu vẫn có thể giúp nếu mẫu mới mang thông tin hữu ích."
     }
   },
   {
     "type": "limits",
-    "title": "Hạn chế cần nói thẳng",
-    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "title": "RT-1 chưa chứng minh điều gì?",
+    "lead": "RT-1 học trên một hệ robot, một phạm vi camera và môi trường thu dữ liệu cụ thể. Khi đổi sang robot khác, hệ tọa độ lệnh, độ mở kẹp và vị trí camera thay đổi, nên không thể chỉ sao chép bản mô hình đã lưu rồi bảo robot mới chạy giống hệt.",
     "items": [
       {
         "label": "Tác giả / phạm vi",
-        "value": "Tác giả: policy vẫn học từ imitation và chỉ thấy một họ robot/cấu hình tương đối gần nhau."
+        "value": "Tác giả: chính sách điều khiển vẫn học từ imitation và chỉ thấy một họ robot/cấu hình tương đối gần nhau."
       },
       {
         "label": "Phê bình độc lập",
         "value": "Phê bình: thành công ở các tổ hợp đã thấy không chứng minh robot biết thao tác mới ngoài support của dữ liệu."
       }
     ],
-    "intuition": "Đầu ra: các chiều chuyển động, quay và gripper dưới dạng action token.",
+    "intuition": "Một chính sách điều khiển cũng có thể thất bại vì độ trễ hoặc giới hạn cơ học, dù nó hiểu đúng câu lệnh. Hãy tách lỗi chọn sai vật, lỗi quỹ đạo, lỗi kẹp và lỗi do môi trường thay đổi. Đọc video thành công cùng tỷ lệ thành công có số lần thử mới tránh được ấn tượng sai do vài đoạn quay đẹp.",
     "detail": {
-      "label": "PHẠM VI KẾT LUẬN",
-      "text": "Phê bình thêm: RT-1 gần như chưa chứng minh khả năng chuyển giao giữa những cấu trúc robot khác nhau theo nghĩa hiện đại; 13 robot vẫn là cùng họ thiết bị và cấu hình phần cứng hơn là 13 cấu trúc cơ khí khác biệt."
+      "label": "GIẢI THÍCH",
+      "text": "Một chính sách điều khiển cũng có thể thất bại vì độ trễ hoặc giới hạn cơ học, dù nó hiểu đúng câu lệnh. Hãy tách lỗi chọn sai vật, lỗi quỹ đạo, lỗi kẹp và lỗi do môi trường thay đổi. Đọc video thành công cùng tỷ lệ thành công có số lần thử mới tránh được ấn tượng sai do vài đoạn quay đẹp."
     }
   },
   {
     "type": "relations",
-    "title": "Bài này đứng ở đâu trong lĩnh vực?",
-    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "title": "RT-1 mở đường cho RT-2 như thế nào?",
+    "lead": "VIMA nhấn mạnh cách mô tả mục tiêu bằng prompt đa phương thức trong mô phỏng. RT-1 xây bằng chứng cho việc huấn luyện chính sách điều khiển từ lượng lớn dữ liệu robot thật với câu lệnh ngôn ngữ.",
     "items": [
       {
         "label": "NỀN TẢNG / TIỀN ĐỀ",
-        "value": "RT-2 tận dụng pretraining VLM để mở rộng tri thức ngữ nghĩa."
+        "value": "RT-2 tận dụng huấn luyện trước VLM để mở rộng tri thức ngữ nghĩa."
       },
       {
         "label": "HƯỚNG PHÁT TRIỂN",
         "value": "OpenVLA đưa thiết kế VLA token-based sang hướng open-weight."
       }
     ],
-    "intuition": "Đa dạng nhiệm vụ và dữ liệu thật là điều kiện khởi đầu của generalist policy.",
+    "intuition": "RT-1 và Open X-Embodiment cũng liên hệ trực tiếp: khi dữ liệu đến từ nhiều kiểu robot, ngoài hình ảnh còn có vấn đề lệnh điều khiển của hai phần cứng không có cùng ý nghĩa.",
     "detail": {
-      "label": "CÔNG TRÌNH LIÊN QUAN",
-      "text": "Đọc thêm RT-2, OpenVLA. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+      "label": "GIẢI THÍCH",
+      "text": "VIMA nhấn mạnh cách mô tả mục tiêu bằng prompt đa phương thức trong mô phỏng. RT-1 xây bằng chứng cho việc huấn luyện chính sách điều khiển từ lượng lớn dữ liệu robot thật với câu lệnh ngôn ngữ. RT-2 tiến thêm một bước: dùng phần tri thức đã học từ dữ liệu ảnh và chữ trên Internet để hỗ trợ hiểu những yêu cầu robot mới."
     }
   },
   {
     "type": "closing",
-    "title": "Nếu chỉ nhớ ba điều",
-    "lead": "Đa dạng nhiệm vụ và dữ liệu thật là điều kiện khởi đầu của generalist policy.",
+    "title": "Điều cần nhớ về RT-1",
+    "lead": "Lấy một cảnh có hai cốc và một ngăn kéo. Thử ra ba câu lệnh khác nhau trên cùng ảnh và ghi xem mô hình hướng tới đối tượng nào. Tiếp đó giữ câu lệnh cố định, thay khăn trải bàn hoặc đưa thêm vật gây nhiễu.",
     "items": [
-      "Bắt đầu bằng một shared policy rồi đo transfer theo nhiệm vụ.",
+      "Bắt đầu bằng một shared chính sách điều khiển rồi đo transfer theo nhiệm vụ.",
       "Đừng gọi thành công in-distribution là khả năng khái quát mở."
     ],
-    "intuition": "Một policy có thể học hàng trăm chỉ dẫn robot khi dữ liệu đủ rộng và kiến trúc đủ nhanh.",
+    "intuition": "Khi đọc lại RT-1, hãy tự trả lời: USE làm gì? FiLM thay đổi điều gì? Vì sao TokenLearner có ích cho tốc độ? Biểu đồ dữ liệu có đủ điều kiện để nói đa dạng quan trọng hay chưa? Trả lời được bốn câu ấy là đã hiểu phần xương sống.",
     "detail": {
-      "label": "THỬ NGHIỆM TIẾP THEO",
-      "text": "Đặt số demonstration cố định nhưng thay mức độ đa dạng nhiệm vụ. Quan sát thành công so với dữ liệu breadth, không chỉ loss khi huấn luyện."
+      "label": "GIẢI THÍCH",
+      "text": "Khi đọc lại RT-1, hãy tự trả lời: USE làm gì? FiLM thay đổi điều gì? Vì sao TokenLearner có ích cho tốc độ? Biểu đồ dữ liệu có đủ điều kiện để nói đa dạng quan trọng hay chưa? Trả lời được bốn câu ấy là đã hiểu phần xương sống."
     }
   }
 ]
