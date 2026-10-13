@@ -16,7 +16,7 @@ RT-2 mã hóa lệnh chuyển động dưới dạng token để huấn luyện 
 
 Biết rằng táo là trái cây hoặc cốc dùng để uống không đồng nghĩa biết lực kẹp bao nhiêu. Vì vậy cần phân biệt kiến thức ngữ nghĩa với kỹ năng vận động.
 
-### ### Hiểu được “đồ dùng để uống” là kiểu kiến thức nào?
+### Hiểu được “đồ dùng để uống” là kiểu kiến thức nào?
 
 Một người có thể không nói “nhặt chiếc cốc” mà yêu cầu “đưa vật tôi có thể uống nước từ đó”. Trong ảnh có cốc, thìa và quả táo, robot phải dựa vào **kiến thức về công dụng đồ vật** để chọn đúng cốc. Một chính sách chỉ ghi nhớ các câu lệnh đã được người điều khiển robot làm mẫu có thể không biết liên hệ ấy. RT-2 tận dụng kiến thức của mô hình ảnh–ngôn ngữ đã học từ những nguồn ngoài robot, rồi nối nó với khả năng sinh hành động. Tuy nhiên, hiểu chiếc cốc là đáp án không tự dạy cách kẹp chiếc cốc mới có hình dạng lạ.
 
@@ -29,7 +29,7 @@ Camera cung cấp ảnh, người dùng cung cấp câu lệnh. Mô hình xử l
 
 Robot thực hiện một phần lệnh, quan sát lại và tiếp tục. Nếu vật thay đổi vị trí, lệnh sau phải dựa vào ảnh mới. Token sinh bởi RT-2 không phải những câu để đọc cho người nghe; chúng là mã mà bộ điều khiển cần hiểu đúng.
 
-### ### Vì sao sinh token hành động không giống hỏi chatbot?
+### Vì sao sinh token hành động không giống hỏi chatbot?
 
 Mô hình ngôn ngữ thường tạo token để ghép thành một câu trả lời. RT-2 sử dụng các token đã quy ước để biểu diễn **lệnh vận động**, chẳng hạn dịch đầu kẹp hoặc đóng ngàm kẹp. Bộ giải mã phải biến chúng trở lại thành những giá trị đúng đơn vị, đúng hệ tọa độ và nằm trong giới hạn robot. Khi camera cập nhật ảnh mới, mô hình tiếp tục ra lệnh dựa trên cảnh hiện tại. Chính vì đầu ra là lệnh vật lý, một câu trả lời “đúng ý” nhưng mã hành động sai vẫn có thể làm robot thất bại. Tách hiểu yêu cầu và thực hiện chuyển động giúp xác định lỗi ở đâu.
 
@@ -63,7 +63,7 @@ Một con số thành công cao trong một nhóm bài kiểm tra chưa có ngh�
 
 RT-2 không nhất thiết vượt RT-1 rất xa trên những công việc đã thấy; lợi thế nổi bật nằm ở việc xử lý vật mới, chỉ dẫn mới và suy luận dựa vào kiến thức ngữ nghĩa. Trong một số nhóm thử, báo cáo ghi nhận mức cải thiện gấp nhiều lần so với mô hình đối chứng, nhưng đó là nhóm nhiệm vụ được thiết kế riêng chứ không đại diện toàn bộ robot. Khi xem Hình 4–6, hãy xác định rõ điểm số thuộc loại câu hỏi nào: nhận đúng vật, hiểu quan hệ hay hoàn thành chuyển động.
 
-### ### Câu hỏi “mới” phải mới theo nghĩa nào?
+### Câu hỏi “mới” phải mới theo nghĩa nào?
 
 Một lệnh có thể mới về câu chữ nhưng vẫn yêu cầu kỹ năng kẹp quen thuộc; một đồ vật có thể mới về màu và hình dạng nhưng cùng loại thao tác; nhiệm vụ khác hoàn toàn lại đòi kỹ năng vận động chưa học. Các nhóm ấy không đo cùng một năng lực. Nếu RT-2 tiến bộ rõ khi được hỏi “đồ dùng để uống” nhưng vẫn khó với một động tác kẹp lạ, kết quả đó hợp lý: tri thức ngữ nghĩa giúp chọn vật mà chưa chắc tạo ra kỹ năng cơ học mới. Khi đọc số liệu, phải ghi rõ loại thay đổi nào đang được kiểm tra trước khi nói robot đã biết xử lý “tình huống mới”.
 
