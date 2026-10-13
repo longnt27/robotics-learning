@@ -18,7 +18,7 @@ Bài toán không đơn giản là “mô hình nhìn video rồi bắt chước
 
 ### Tách hiểu cảnh khỏi tạo chuyển động
 
-Trong GR00T N1, **VLM** đọc ảnh và lệnh để hình thành biểu diễn ngữ nghĩa: vật cần nhặt là gì, mục tiêu ở đâu. **Action expert** dùng thông tin ấy, cùng trạng thái khớp và loại robot, để dự đoán chuyển động. Action expert được xây bằng Diffusion Transformer; nó sinh hành động chứ không viết câu trả lời cho người dùng.
+Trong GR00T N1, **VLM** đọc ảnh và lệnh để hình thành biểu diễn ngữ nghĩa: vật cần nhặt là gì, mục tiêu ở đâu. **Bộ sinh hành động (action expert)** dùng thông tin ấy, cùng trạng thái khớp và loại robot, để dự đoán chuyển động. Action expert được xây bằng Diffusion Transformer; nó sinh hành động chứ không viết câu trả lời cho người dùng.
 
 **Biểu diễn nhận biết robot** giúp phần sinh lệnh hiểu đang điều khiển cánh tay đơn hay hệ hai tay nhiều khớp. Hai robot có thể chia sẻ ý tưởng “dịch tay sang trái”, nhưng góc khớp cụ thể không giống nhau. Đó là lý do mạng có bộ mã hóa riêng cho trạng thái và hành động theo từng cấu trúc.
 
@@ -32,7 +32,7 @@ Trong GR00T N1, **VLM** đọc ảnh và lệnh để hình thành biểu diễn
 
 Giả sử câu lệnh là “chuyển quả táo từ tay trái sang tay phải rồi đặt vào giỏ”. Camera ghi cảnh và trạng thái khớp ghi vị trí hiện tại. Mô hình VLM Eagle-2 biến ảnh/câu lệnh thành đặc trưng, sau đó chuyển thông tin liên quan sang các khối DiT bằng chú ý chéo.
 
-Action expert nhận thêm biểu diễn trạng thái của robot và chuỗi hành động nhiễu, liên tục chỉnh chuỗi cho tới khi tạo ra đoạn lệnh vận động. Lệnh cần được chuyển về đúng dạng phần cứng thực thi. Robot nhận quan sát mới khi di chuyển. Mạng ngữ nghĩa giúp chọn việc cần làm; bộ sinh hành động mới quyết định quỹ đạo thực tế.
+Bộ sinh hành động nhận thêm biểu diễn trạng thái của robot và chuỗi hành động nhiễu, liên tục chỉnh chuỗi cho tới khi tạo ra đoạn lệnh vận động. Lệnh cần được chuyển về đúng dạng phần cứng thực thi. Robot nhận quan sát mới khi di chuyển. Mạng ngữ nghĩa giúp chọn việc cần làm; bộ sinh hành động mới quyết định quỹ đạo thực tế.
 
 ### Theo dõi một đoạn hành động qua hai nhánh mạng
 
@@ -90,7 +90,7 @@ Các loại dữ liệu khác nhau cũng có độ tin cậy khác nhau. Video t
 
 ### So với PaLM-E, RDT và π0.5
 
-PaLM-E tập trung đưa cảm giác từ thế giới thật vào suy luận đa phương thức. RDT chú trọng sinh đoạn hành động phối hợp hai tay bằng DiT. GR00T N1 dùng thiết kế hai phần: VLM hiểu cảnh và action expert sinh chuyển động, đồng thời trộn nhiều loại dữ liệu để học robot khác nhau.
+PaLM-E tập trung đưa cảm giác từ thế giới thật vào suy luận đa phương thức. RDT chú trọng sinh đoạn hành động phối hợp hai tay bằng DiT. GR00T N1 dùng thiết kế hai phần: VLM hiểu cảnh và bộ sinh hành động tạo chuyển động, đồng thời trộn nhiều loại dữ liệu để học robot khác nhau.
 
 π0.5 cũng quan tâm nguồn dữ liệu đa dạng và phân tầng nhiệm vụ dài, nhưng quy trình học và đối tượng đánh giá khác. Khi so, phải hỏi từng mạng đang dùng dữ liệu nào và có phải huấn luyện bổ sung cho robot đích không.
 

@@ -12,7 +12,7 @@ Mỗi loại robot có camera, lệnh và nhiệm vụ khác nhau. Nếu chỉ h
 
 ## Kiến thức nền cần nắm
 
-### Hiểu backbone và các phần gắn thêm
+### Hiểu mạng nền và các phần gắn thêm
 
 **Backbone** là phần mạng xử lý thông tin chung; Octo dùng Transformer. **Token nhiệm vụ** biểu diễn yêu cầu người dùng, còn **token quan sát** biểu diễn ảnh camera. **Nhánh đầu ra** biến biểu diễn đã học thành lệnh phù hợp với robot đích.
 
@@ -26,7 +26,7 @@ Hai robot có thể cùng hiểu “đặt cốc vào khay” nhưng một bên 
 
 Đầu tiên mô tả nhiệm vụ được mã hóa bằng mô hình ngôn ngữ đã học trước; camera được một mạng ảnh gọn chuyển thành đặc trưng. Transformer xử lý cả hai nhóm token và lịch sử cần thiết, tạo các token trung gian cho nhánh dự đoán hành động.
 
-Khi chuyển sang robot mới, ta có thể thêm quan sát như cảm biến lực hoặc đổi nhánh lệnh điều khiển mà không phải thay toàn bộ backbone. Một số tham số vẫn cần tinh chỉnh bằng lượt thao tác mẫu của robot đích. Chính cách tách phần chung và phần riêng làm Octo phù hợp cho nghiên cứu thích nghi nhiều thiết bị.
+Khi chuyển sang robot mới, ta có thể thêm quan sát như cảm biến lực hoặc đổi nhánh lệnh điều khiển mà không phải thay toàn bộ mạng nền. Một số tham số vẫn cần tinh chỉnh bằng lượt thao tác mẫu của robot đích. Chính cách tách phần chung và phần riêng làm Octo phù hợp cho nghiên cứu thích nghi nhiều thiết bị.
 
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/octo/figure-2.webp)
 

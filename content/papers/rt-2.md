@@ -64,7 +64,7 @@ Một con số thành công cao trong một nhóm bài kiểm tra chưa có ngh�
 
 Token chỉ giúp mô hình dùng chung một cách biểu diễn, không tự bảo đảm an toàn cho robot. Nếu đổi sang robot có số khớp khác, cùng các mã số có thể không còn ý nghĩa như cũ. Độ trễ suy luận, góc camera bị che và vật thể biến dạng vẫn là các trở ngại vật lý.
 
-Vì thế bản mô hình đã lưu VLM mạnh về ảnh/ngôn ngữ chưa chắc phù hợp ngay với robot đích; cần xác minh action space và thực hiện kiểm tra từng bước trước khi chạy thật.
+Vì thế mô hình ảnh–ngôn ngữ đã huấn luyện trước, dù giỏi nhận biết ảnh và hiểu câu chữ, chưa chắc phù hợp ngay với robot đích; cần xác minh không gian hành động (dạng lệnh, đơn vị và hệ tọa độ) và thực hiện kiểm tra từng bước trước khi chạy thật.
 
 ## Liên hệ với nghiên cứu khác
 

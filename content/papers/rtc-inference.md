@@ -14,9 +14,9 @@ Robot cần lệnh mới ở tần số 50 Hz, tức mỗi 20 mili giây. Nhưng
 
 ### Hiểu tiền tố đã cam kết và độ trễ
 
-**Action đoạn hành động** là đoạn gồm nhiều lệnh liên tiếp. **Độ trễ suy luận d** là số bước robot đi được trong lúc mô hình tạo đoạn mới. **Tiền tố đã cam kết** là các lệnh cũ mà bộ điều khiển chắc chắn sẽ thực hiện trước khi kết quả mới xuất hiện. Ta không thể xóa chúng bằng một dự đoán được sinh trễ.
+**Đoạn hành động (action chunk)** là đoạn gồm nhiều lệnh liên tiếp. **Độ trễ suy luận d** là số bước robot đi được trong lúc mô hình tạo đoạn mới. **Tiền tố đã cam kết** là các lệnh cũ mà bộ điều khiển chắc chắn sẽ thực hiện trước khi kết quả mới xuất hiện. Ta không thể xóa chúng bằng một dự đoán được sinh trễ.
 
-Ví dụ mạng bắt đầu nghĩ khi robot đang ở bước 3 và phải mất bốn bước mới xong. Khi mạng trả lời, robot đã thực thi bước 4–7. Đoạn mới cần phù hợp với quá khứ không còn sửa được này. Những lệnh tiếp theo thuộc vùng chồng nhau có thể được điều chỉnh mềm; các lệnh vượt khỏi đoạn cũ phải sinh mới.
+Ví dụ mạng bắt đầu tính lệnh khi robot đang ở bước 3 và phải mất bốn bước mới xong. Khi mạng trả lời, robot đã thực thi bước 4–7. Đoạn mới cần phù hợp với quá khứ không còn sửa được này. Những lệnh tiếp theo thuộc vùng chồng nhau có thể được điều chỉnh mềm; các lệnh vượt khỏi đoạn cũ phải sinh mới.
 
 ### Những đại lượng quan trọng khi triển khai
 

@@ -16,7 +16,7 @@ Diffusion Policy không ép các lượt thao tác mẫu về một đường đ
 
 **chính sách điều khiển tường minh** có thể nhận ảnh rồi dự đoán trực tiếp lệnh; khi nhiều cách thao tác cùng đúng, một giá trị trung bình dễ trở thành phương án tồi. **chính sách điều khiển ngầm** đánh giá xem một hành động phù hợp với quan sát tới mức nào rồi tìm hành động có điểm tốt. Cách này linh hoạt nhưng khâu tìm kiếm có thể khó tối ưu hoặc chạy không ổn định.
 
-**Mô hình diffusion** bắt đầu từ một chuỗi lệnh ngẫu nhiên, rồi sửa đi sửa lại theo hướng mô hình đã học cho đến khi trông giống chuyển động hợp lệ trong dữ liệu. **Đoạn hành động (action đoạn hành động)** là nhiều bước liên tiếp được dự đoán cùng lúc. Nhờ vậy mô hình không cần tự chọn hướng mới một cách thiếu nhất quán ở từng khung hình.
+**Mô hình diffusion** bắt đầu từ một chuỗi lệnh ngẫu nhiên, rồi sửa đi sửa lại theo hướng mô hình đã học cho đến khi trông giống chuyển động hợp lệ trong dữ liệu. **Đoạn hành động (action chunk)** là nhiều bước liên tiếp được dự đoán cùng lúc. Nhờ vậy mô hình không cần tự chọn hướng mới một cách thiếu nhất quán ở từng khung hình.
 
 ## Phương pháp thực hiện
 

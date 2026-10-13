@@ -39,7 +39,7 @@ Trước khi dùng dữ liệu robot mới, cần kiểm tra từng chiều: đ�
 
 Đầu tiên dữ liệu robot và video người được tuyển chọn, đồng bộ, gắn nhãn và chuyển sang biểu diễn thống nhất. Camera cùng câu lệnh được bộ phận thị giác–ngôn ngữ xử lý; trạng thái robot và dạng hành động của từng loại phần cứng được mã hóa tương ứng.
 
-Phần sinh hành động sử dụng nhiều nhánh chuyên gia (MoE) để tăng khả năng chứa kiến thức cho các kiểu nhiệm vụ khác nhau. Bên cạnh mục tiêu dự đoán lệnh, mạng được khuyến khích học đặc trưng cảnh hiện tại/tương lai qua mô hình hình ảnh–video và độ sâu. Khi robot hoạt động, những tín hiệu học bổ sung không có nghĩa phải chạy toàn bộ mô hình teacher để tạo lệnh mỗi bước. Cần tách những thành phần chỉ dùng khi huấn luyện khỏi phần thực sự chạy lúc suy luận.
+Phần sinh hành động sử dụng nhiều nhánh chuyên gia (MoE) để tăng khả năng chứa kiến thức cho các kiểu nhiệm vụ khác nhau. Bên cạnh mục tiêu dự đoán lệnh, mạng được khuyến khích học đặc trưng cảnh hiện tại/tương lai qua mô hình hình ảnh–video và độ sâu. Khi robot hoạt động, những tín hiệu học bổ sung không có nghĩa phải chạy toàn bộ mạng hướng dẫn (teacher) để tạo lệnh mỗi bước. Cần tách những thành phần chỉ dùng khi huấn luyện khỏi phần thực sự chạy lúc suy luận.
 
 ### Vì sao quy trình gồm tuyển dữ liệu, MoE và học hậu quả hành động?
 
@@ -101,7 +101,7 @@ Một hệ nhiều thành phần có thể cải thiện tổng thể nhưng kh�
 
 ### Liên hệ với GR00T, Open X và RDT
 
-Open X-Embodiment đặt nền cho học trên nhiều loại robot. RDT nghiên cứu bộ sinh hành động phối hợp hai tay có điều kiện từ nhiều tín hiệu. GR00T N1 xây hệ VLM và action expert, tận dụng dữ liệu người/robot đa dạng. LingBot-VLA 2.0 cũng đi theo hướng hệ thống nhưng nhấn mạnh việc tuyển lọc dữ liệu, cấu trúc hành động chuẩn và MoE.
+Open X-Embodiment đặt nền cho học trên nhiều loại robot. RDT nghiên cứu bộ sinh hành động phối hợp hai tay có điều kiện từ nhiều tín hiệu. GR00T N1 xây hệ VLM và bộ sinh hành động, tận dụng dữ liệu người/robot đa dạng. LingBot-VLA 2.0 cũng đi theo hướng hệ thống nhưng nhấn mạnh việc tuyển lọc dữ liệu, cấu trúc hành động chuẩn và MoE.
 
 Không nên chỉ hỏi mô hình nào có nhiều tham số nhất. Cần biết nó học từ dữ liệu sạch đến đâu, loại robot thử gì, và các thí nghiệm tách thành phần có chỉ ra nguồn cải thiện hay không.
 
@@ -119,4 +119,4 @@ Không nên chỉ hỏi mô hình nào có nhiều tham số nhất. Cần biế
 
 Hãy vẽ ba robot: cánh tay đơn, robot hai tay và robot di động. Ghi những chiều hành động mà mỗi robot thật sự có. Giải thích vì sao cách biểu diễn 55 chiều cần thông tin loại robot và cách che những phần không dùng.
 
-Tiếp đó chọn một bài toán nhặt cốc và đề xuất ba phép thử: giữ dữ liệu, chỉ thay Dense/MoE; giữ mô hình, chỉ thay cách chuẩn hóa; giữ mọi thứ, chỉ thêm mục tiêu dự đoán đặc trưng tương lai. Nếu có thể diễn đạt rõ từng thử nghiệm kiểm chứng giả thuyết nào, bạn đã hiểu đóng góp quan trọng nhất của LingBot.
+Tiếp đó chọn một bài toán nhặt cốc và đề xuất ba phép thử: giữ dữ liệu, chỉ thay mạng thường (Dense) bằng mạng nhiều chuyên gia (MoE); giữ mô hình, chỉ thay cách chuẩn hóa; giữ mọi thứ, chỉ thêm mục tiêu dự đoán đặc trưng tương lai. Nếu có thể diễn đạt rõ từng thử nghiệm kiểm chứng giả thuyết nào, bạn đã hiểu đóng góp quan trọng nhất của LingBot.
