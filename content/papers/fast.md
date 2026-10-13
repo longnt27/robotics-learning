@@ -20,7 +20,7 @@ Một chuyển động mượt có nhiều mẫu thời gian nhưng phần lớn
 
 **Lượng tử hóa** biến hệ số liên tục thành mã rời rạc; **BPE** ghép những mẫu mã thường gặp thành token để rút ngắn chuỗi. Nén quá mạnh có thể làm mất chi tiết tiếp xúc, nên không thể chỉ nhìn số token giảm mà kết luận mọi thứ đều tốt hơn.
 
-### ### Hệ số tần số nói được điều gì về đường tay robot?
+### Hệ số tần số nói được điều gì về đường tay robot?
 
 Hãy vẽ vị trí đầu kẹp theo thời gian. Một cú đưa tay dài, đều đặn tạo đường cong thay đổi chậm; một cú chạm nhanh hoặc đóng kẹp gấp tạo đoạn thay đổi đột ngột. Biến đổi cosin rời rạc (DCT) diễn tả chuỗi ấy bằng các thành phần biến thiên nhanh và chậm. Với chuyển động mượt, vài thành phần chậm có thể giữ được phần lớn hình dạng. Bởi vậy FAST nén ở **cấp cả đoạn chuyển động**, khác với việc lấy từng vị trí rồi chia vào những khoảng giá trị rời rạc. Hiểu điểm này quan trọng hơn việc nhớ tên DCT.
 
@@ -36,7 +36,7 @@ Hãy vẽ vị trí đầu kẹp theo thời gian. Một cú đưa tay dài, đ�
 
 Khi chạy, những token dự đoán được giải mã ngược: BPE → hệ số lượng tử → khôi phục hệ số → DCT ngược → chuỗi hành động theo thời gian → giải chuẩn hóa. Chỉ khi hoàn thành cả hai chiều chuyển đổi, robot mới nhận được lệnh vật lý đúng đơn vị.
 
-### ### Đi một vòng mã hóa rồi giải mã để hiểu FAST
+### Đi một vòng mã hóa rồi giải mã để hiểu FAST
 
 Giả sử đoạn hành động có 100 mốc thời gian. FAST chuẩn hóa các chiều, biến chuỗi sang hệ số tần số, lượng tử hóa rồi ghép các mã thường gặp thành token. Mô hình sinh token thay vì sinh toàn bộ giá trị ở 100 mốc. Khi cần phát lệnh, bộ giải mã làm ngược các bước ấy để khôi phục chuỗi hành động liên tục. Nếu thao tác chỉ là đưa tay qua khoảng trống, sai số nhỏ có thể chấp nhận được. Nếu ngay một mốc robot phải khép kẹp đúng lúc tiếp xúc, mất một đỉnh thay đổi nhanh có thể làm hỏng cả việc. Vì thế nén tốt không đồng nghĩa điều khiển tốt.
 
@@ -68,7 +68,7 @@ FAST+ hướng tới một bộ mã hóa dùng chung cho nhiều kiểu robot. K
 
 Trong một số thiết lập, dùng FAST cho phép huấn luyện mô hình sinh token hành động nhanh hơn tới khoảng năm lần so với cách chia từng mẫu thời gian thành token. Hình 6–11 vẫn đo tỷ lệ robot hoàn thành nhiệm vụ: nén nhanh hơn nhưng không giữ được chuyển động chính xác thì chẳng có ý nghĩa. FAST+ còn được đánh giá trên nhiều nguồn dữ liệu robot khác nhau nhằm kiểm tra tính dùng chung, thay vì chỉ tối ưu cho một kiểu tay máy.
 
-### ### Cách kiểm tra liệu việc nén có thật sự đáng giá
+### Cách kiểm tra liệu việc nén có thật sự đáng giá
 
 Đầu tiên đo số token cần sinh và tốc độ huấn luyện với cùng dữ liệu. Tiếp đó cho một chuỗi hành động đi qua bộ mã hóa–giải mã mà **chưa cần huấn luyện mô hình**, rồi đo sai số khôi phục theo thời gian, đặc biệt ở lúc chạm và thả vật. Cuối cùng mới chạy robot để đo tỷ lệ hoàn thành. Nếu nhanh hơn năm lần nhưng thường kẹp lệch thời điểm, cải thiện về tốc độ không đáng đánh đổi. Ba tầng đánh giá này giải thích vì sao các hình kết quả của FAST không thể chỉ đọc một cột về thời gian tính toán.
 
