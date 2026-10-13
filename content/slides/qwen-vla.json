@@ -1,121 +1,121 @@
 [
   {
     "type": "cover",
-    "title": "Điểm cốt lõi",
-    "lead": "Kết hợp Qwen VLM, mô tả embodiment và DiT flow expert để điều khiển nhiều loại robot.",
+    "title": "Qwen-VLA: học hiểu cảnh và sinh hành động",
+    "lead": "Một robot có thể được giao “Nhặt chiếc cốc đỏ”, “Đi tới cạnh bàn” hoặc “Chiếc cốc nào gần cửa hơn?”. Các yêu cầu có đầu ra khác nhau: thao tác tay, điều hướng hoặc câu trả lời.",
     "items": [
-      "Embodiment-aware prompting + continuous action expert"
+      "Embodiment-aware prompting + continuous hành động expert"
     ],
-    "intuition": "Text mô tả robot/control schema điều kiện hóa Qwen backbone; DiT sinh chunk liên tục.",
+    "intuition": "Điểm quan trọng là hiểu được lời yêu cầu không đồng nghĩa biết ngay cách cử động. Vì thế phương pháp huấn luyện không chỉ cho mô hình học câu chữ, mà còn xây một bộ sinh hành động có kiến thức về cấu trúc chuyển động rồi gắn kiến thức ấy với ảnh thực tế.",
     "detail": {
-      "label": "BỐI CẢNH NGHIÊN CỨU",
-      "text": "Trong khi đó, đã pretrain Qwen VLM đã học nhận diện vật, ngôn ngữ, không gian và nhiều quan hệ ngữ nghĩa."
+      "label": "GIẢI THÍCH",
+      "text": "Điểm quan trọng là hiểu được lời yêu cầu không đồng nghĩa biết ngay cách cử động. Vì thế phương pháp huấn luyện không chỉ cho mô hình học câu chữ, mà còn xây một bộ sinh hành động có kiến thức về cấu trúc chuyển động rồi gắn kiến thức ấy với ảnh thực tế."
     }
   },
   {
     "type": "problem",
-    "title": "Robot khác nhau về khớp, camera và command conventions",
-    "lead": "Một VLA chung phải biết action nào mang nghĩa gì khi chuyển giữa arm, mobile manipulator và navigation.",
+    "title": "Vì sao robot phải làm nhiều loại nhiệm vụ?",
+    "lead": "Một robot có thể được giao “Nhặt chiếc cốc đỏ”, “Đi tới cạnh bàn” hoặc “Chiếc cốc nào gần cửa hơn?”. Các yêu cầu có đầu ra khác nhau: thao tác tay, điều hướng hoặc câu trả lời.",
     "items": [
-      "Hardcode expert cho mỗi robot làm mất lợi thế pretraining chung"
+      "Hardcode expert cho mỗi robot làm mất lợi thế huấn luyện trước chung"
     ],
-    "intuition": "Autoregressive action tokens còn vướng độ chính xác và latency khi output dài.",
+    "intuition": "Điểm quan trọng là hiểu được lời yêu cầu không đồng nghĩa biết ngay cách cử động. Vì thế phương pháp huấn luyện không chỉ cho mô hình học câu chữ, mà còn xây một bộ sinh hành động có kiến thức về cấu trúc chuyển động rồi gắn kiến thức ấy với ảnh thực tế.",
     "detail": {
-      "label": "NGUYÊN NHÂN CỐT LÕI",
-      "text": "Các nhánh embodied learning thường sống trong ba hệ sinh thái tương đối riêng: robot manipulation với gripper/arms, mobile navigation với vị trí/hướng đi và quỹ đạo nhiệm vụ với kiểu trạng thái đầu ra khác nhau."
+      "label": "GIẢI THÍCH",
+      "text": "Một robot có thể được giao “Nhặt chiếc cốc đỏ”, “Đi tới cạnh bàn” hoặc “Chiếc cốc nào gần cửa hơn?”. Các yêu cầu có đầu ra khác nhau: thao tác tay, điều hướng hoặc câu trả lời. Nếu mỗi loại dùng mạng hoàn toàn riêng, dữ liệu và kiến thức khó chia sẻ. Qwen-VLA nghiên cứu một mô hình có thể học từ nhiều nhóm dữ liệu, kết hợp hiểu ảnh–ngôn ngữ với sinh hành động robot."
     }
   },
   {
     "type": "contrast",
-    "title": "Hardcode expert cho mỗi robot làm mất lợi thế pretraining chung",
-    "lead": "Autoregressive action tokens còn vướng độ chính xác và latency khi output dài.",
+    "title": "Hiểu lời yêu cầu không đủ để cử động đúng",
+    "lead": "Điểm quan trọng là hiểu được lời yêu cầu không đồng nghĩa biết ngay cách cử động.",
     "items": [
-      "Embodiment-aware prompting + continuous action expert",
-      "Text mô tả robot/control schema điều kiện hóa Qwen backbone; DiT sinh chunk liên tục."
+      "Embodiment-aware prompting + continuous hành động expert",
+      "chữ mô tả robot/control schema điều kiện hóa Qwen backbone; DiT sinh chunk liên tục."
     ],
-    "intuition": "Text mô tả robot/control schema điều kiện hóa Qwen backbone; DiT sinh chunk liên tục.",
+    "intuition": "Một robot có thể được giao “Nhặt chiếc cốc đỏ”, “Đi tới cạnh bàn” hoặc “Chiếc cốc nào gần cửa hơn?”. Các yêu cầu có đầu ra khác nhau: thao tác tay, điều hướng hoặc câu trả lời. Nếu mỗi loại dùng mạng hoàn toàn riêng, dữ liệu và kiến thức khó chia sẻ.",
     "detail": {
-      "label": "VÌ SAO CẦN THAY ĐỔI",
-      "text": "Nó muốn unified không chỉ ở phần perception/understanding mà còn tại action liên tục/quỹ đạo sinh."
+      "label": "GIẢI THÍCH",
+      "text": "Hình 3 có ví dụ ngắn và dài để cho thấy độ khó tăng theo số bước. Nếu mô hình chọn đúng chai nhưng bỏ vào vùng dành cho miếng bọt biển, lỗi nằm ở cách hiểu nhiệm vụ/đích đặt. Nếu nó chọn đúng đích nhưng làm rơi chai, lỗi có thể ở bộ điều khiển và dữ liệu vận động."
     }
   },
   {
     "type": "intuition",
-    "title": "Embodiment-aware prompting + continuous action expert",
-    "lead": "Text mô tả robot/control schema điều kiện hóa Qwen backbone; DiT sinh chunk liên tục.",
+    "title": "Hình dung nhiệm vụ gom đồ uống",
+    "lead": "Câu lệnh “Gom các chai đồ uống, để miếng bọt biển riêng” cần nhiều lần nhặt và đặt. Ở cấp nhiệm vụ, robot phải biết nhóm đồ nào cần gom, vật nào không đụng tới và khi nào đã xong.",
     "items": [
       "Kết hợp Qwen VLM, mô tả embodiment và DiT flow expert để điều khiển nhiều loại robot."
     ],
-    "intuition": "Text mô tả robot/control schema điều kiện hóa Qwen backbone; DiT sinh chunk liên tục.",
+    "intuition": "Hình 3 có ví dụ ngắn và dài để cho thấy độ khó tăng theo số bước. Nếu mô hình chọn đúng chai nhưng bỏ vào vùng dành cho miếng bọt biển, lỗi nằm ở cách hiểu nhiệm vụ/đích đặt. Nếu nó chọn đúng đích nhưng làm rơi chai, lỗi có thể ở bộ điều khiển và dữ liệu vận động.",
     "detail": {
-      "label": "GIẢI THÍCH CƠ CHẾ",
-      "text": "Thay vì huấn luyện hardcoded expert cho mỗi robot ngay từ đầu, Qwen-VLA đưa mô tả dạng text về embodiment và control convention vào prompt."
+      "label": "GIẢI THÍCH",
+      "text": "Câu lệnh “Gom các chai đồ uống, để miếng bọt biển riêng” cần nhiều lần nhặt và đặt. Ở cấp nhiệm vụ, robot phải biết nhóm đồ nào cần gom, vật nào không đụng tới và khi nào đã xong. Ở cấp vận động, nó phải thực hiện từng đoạn tiến tới, kẹp, đưa sang vị trí đích và thả."
     }
   },
   {
     "type": "concepts",
-    "title": "Ba khái niệm để nắm",
-    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "title": "T2A, CPT và SFT thực chất để làm gì?",
+    "lead": "T2A là huấn luyện dự đoán hành động từ mô tả bằng chữ, chưa dùng ảnh: bộ giải mã DiT học hình dạng của những chuỗi chuyển động hợp lý. CPT tiếp tục huấn luyện với ảnh để gắn kiến thức vận động ấy vào vật thể và bối cảnh cụ thể.",
     "items": [
       {
         "label": "Embodiment prompt",
-        "value": "Text khai báo thiết bị và quy ước điều khiển."
+        "value": "chữ khai báo thiết bị và quy ước điều khiển."
       },
       {
         "label": "DiT",
-        "value": "Diffusion Transformer sinh action trajectory."
+        "value": "Diffusion Transformer sinh hành động trajectory."
       },
       {
         "label": "Flow expert",
-        "value": "Sinh continuous actions từ noise dưới VLM condition."
+        "value": "Sinh continuous hành động từ nhiễu dưới VLM condition."
       }
     ],
-    "intuition": "Dữ liệu gồm context ảnh/video, text, robot state và action format.",
+    "intuition": "Các tên viết tắt này là tên những giai đoạn huấn luyện, không phải bốn kiến trúc độc lập. Thực ra chúng là bốn bước trong cùng quy trình học, được thiết kế để tránh phải học cả nhận biết ảnh và cấu trúc chuyển động từ đầu trong một lần.",
     "detail": {
-      "label": "NỀN TẢNG KỸ THUẬT",
-      "text": "DiT là Diffusion Transformer: dùng attention làm action generator thay vì pure MLP/U-Net, cho phép điều kiện trên đặc trưng từ VLM."
+      "label": "GIẢI THÍCH",
+      "text": "Các tên viết tắt này là tên những giai đoạn huấn luyện, không phải bốn kiến trúc độc lập. Thực ra chúng là bốn bước trong cùng quy trình học, được thiết kế để tránh phải học cả nhận biết ảnh và cấu trúc chuyển động từ đầu trong một lần."
     }
   },
   {
     "type": "pipeline",
-    "title": "Kiến trúc trong một sơ đồ",
-    "lead": "Kết hợp Qwen VLM, mô tả embodiment và DiT flow expert để điều khiển nhiều loại robot.",
+    "title": "Các nhánh mô hình phối hợp ra sao?",
+    "lead": "Giả sử người dùng nói “Đặt hai chiếc dập ghim xanh lá cạnh nhau”. Ảnh camera cho biết hai vật đang ở đâu, phần thị giác–ngôn ngữ xử lý câu lệnh và cảnh.",
     "items": [
       "Ảnh + lệnh + robot schema",
       "Qwen vision-language backbone",
-      "DiT / flow action expert",
-      "Action adapter robot cụ thể"
+      "DiT / flow hành động expert",
+      "hành động adapter robot cụ thể"
     ],
-    "intuition": "VLM lấy visual-language embedding có hiểu robot schema.",
+    "intuition": "Trong lúc tiền huấn luyện T2A, mạng sinh hành động từ văn bản để học những mẫu chuyển động chung. Đến CPT/SFT, ảnh mới được gắn vào để chọn hành động đúng vị trí thực. Giai đoạn RL đánh giá kết quả khi robot chạy trong môi trường và đưa tín hiệu cải thiện.",
     "detail": {
-      "label": "ĐIỂM NHẤN TRIỂN KHAI",
-      "text": "Qwen-VLA mở rộng Qwen vision-language stack. Đầu vào có hình ảnh/video context, text chỉ dẫn và thông tin robot."
+      "label": "GIẢI THÍCH",
+      "text": "Trong lúc tiền huấn luyện T2A, mạng sinh hành động từ văn bản để học những mẫu chuyển động chung. Đến CPT/SFT, ảnh mới được gắn vào để chọn hành động đúng vị trí thực. Giai đoạn RL đánh giá kết quả khi robot chạy trong môi trường và đưa tín hiệu cải thiện. Không nên đồng nhất hàm mất mát T2A với tỷ lệ hoàn thành nhiệm vụ thật."
     }
   },
   {
     "type": "representation",
-    "title": "Mô hình biểu diễn cái gì?",
-    "lead": "Dữ liệu gồm context ảnh/video, text, robot state và action format.",
+    "title": "Lệnh hành động phải phù hợp loại robot",
+    "lead": "Các tên viết tắt này là tên những giai đoạn huấn luyện, không phải bốn kiến trúc độc lập. Thực ra chúng là bốn bước trong cùng quy trình học, được thiết kế để tránh phải học cả nhận biết ảnh và cấu trúc chuyển động từ đầu trong một lần.",
     "items": [
       {
         "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
-        "value": "Embodiment text không tự giải dynamics chưa nhìn thấy."
+        "value": "Embodiment chữ không tự giải dynamics chưa nhìn thấy."
       },
       {
         "label": "ĐÁNH ĐỔI KỸ THUẬT",
-        "value": "Action masks, coordinate frames và normalization vẫn phải đúng tuyệt đối."
+        "value": "hành động masks, coordinate frames và normalization vẫn phải đúng tuyệt đối."
       }
     ],
-    "intuition": "Action masks, coordinate frames và normalization vẫn phải đúng tuyệt đối.",
+    "intuition": "Giả sử người dùng nói “Đặt hai chiếc dập ghim xanh lá cạnh nhau”. Ảnh camera cho biết hai vật đang ở đâu, phần thị giác–ngôn ngữ xử lý câu lệnh và cảnh.",
     "detail": {
-      "label": "CHI TIẾT BIỂU DIỄN",
-      "text": "Điều này hấp dẫn vì cùng backbone có thể nhận nhiều platform. Nhưng text prompt phải chính xác, và các tập dữ liệu vẫn cần đúng normalization, action masks, coordinate transforms, time horizon."
+      "label": "GIẢI THÍCH",
+      "text": "Giả sử người dùng nói “Đặt hai chiếc dập ghim xanh lá cạnh nhau”. Ảnh camera cho biết hai vật đang ở đâu, phần thị giác–ngôn ngữ xử lý câu lệnh và cảnh. Bộ giải mã hành động DiT nhận điều kiện ấy cùng thông tin robot, tạo chuỗi chuyển động: tiếp cận vật thứ nhất, kẹp, đặt, rồi làm với vật thứ hai."
     }
   },
   {
     "type": "training",
-    "title": "Model học như thế nào?",
-    "lead": "Pretraining multimodal trên hỗn hợp robot/nhiệm vụ.",
+    "title": "Huấn luyện Qwen-VLA qua nhiều giai đoạn",
+    "lead": "Giả sử người dùng nói “Đặt hai chiếc dập ghim xanh lá cạnh nhau”. Ảnh camera cho biết hai vật đang ở đâu, phần thị giác–ngôn ngữ xử lý câu lệnh và cảnh.",
     "items": [
       {
         "label": "MỤC TIÊU HỌC",
@@ -123,53 +123,53 @@
       },
       {
         "label": "DỮ LIỆU / QUY TRÌNH",
-        "value": "Quan tâm balance giữa manipulation, navigation và VLM data."
+        "value": "Quan tâm balance giữa manipulation, navigation và VLM dữ liệu."
       }
     ],
-    "intuition": "Không gộp 83,6% in-domain có post-training với 26,6% zero-shot khác benchmark.",
+    "intuition": "Trong lúc tiền huấn luyện T2A, mạng sinh hành động từ văn bản để học những mẫu chuyển động chung. Đến CPT/SFT, ảnh mới được gắn vào để chọn hành động đúng vị trí thực. Giai đoạn RL đánh giá kết quả khi robot chạy trong môi trường và đưa tín hiệu cải thiện.",
     "detail": {
-      "label": "CÁCH HUẤN LUYỆN",
-      "text": "Bài báo trộn robot manipulation các quỹ đạo, con người egocentric demonstrations, synthetic/dữ liệu mô phỏng, vision-language dữ liệu navigation, trajectory-centric tín hiệu giám sát và auxiliary vision-language nhiệm vụ."
+      "label": "GIẢI THÍCH",
+      "text": "Câu lệnh “đặt hai chiếc dập ghim xanh lá cạnh nhau” có thể cho robot hai tay nhưng lệnh phát ra vẫn phải hợp lệ với số khớp và vị trí camera. Mô hình cần biết mình đang điều khiển loại robot nào; cùng một câu chữ không xác định được độ dài cánh tay, hướng khớp hoặc phạm vi mở kẹp."
     }
   },
   {
     "type": "inference",
-    "title": "Một lần inference xảy ra ra sao?",
-    "lead": "VLM lấy visual-language embedding có hiểu robot schema.",
+    "title": "Khi chạy, Qwen-VLA tạo hành động thế nào?",
+    "lead": "Trong lúc tiền huấn luyện T2A, mạng sinh hành động từ văn bản để học những mẫu chuyển động chung. Đến CPT/SFT, ảnh mới được gắn vào để chọn hành động đúng vị trí thực.",
     "items": [
       {
         "label": "XỬ LÝ ĐẦU VÀO",
-        "value": "Action expert denoise/flow sample một continuous chunk."
+        "value": "hành động expert denoise/flow sample một continuous chunk."
       },
       {
         "label": "TẠO HÀNH ĐỘNG",
-        "value": "Robot-specific adapter xử lý action convention/units khi thực thi."
+        "value": "Robot-specific adapter xử lý hành động convention/units khi thực thi."
       }
     ],
-    "intuition": "Robot-specific adapter xử lý action convention/units khi thực thi.",
+    "intuition": "Câu lệnh “Gom các chai đồ uống, để miếng bọt biển riêng” cần nhiều lần nhặt và đặt. Ở cấp nhiệm vụ, robot phải biết nhóm đồ nào cần gom, vật nào không đụng tới và khi nào đã xong. Ở cấp vận động, nó phải thực hiện từng đoạn tiến tới, kẹp, đưa sang vị trí đích và thả.",
     "detail": {
-      "label": "DIỄN BIẾN THỰC THI",
-      "text": "Cùng một từ “left” có thể chỉ camera-left, world-left hoặc robot base-left. Nếu coordinate convention không rõ, ngay cả một mô hình lý tưởng cũng không thể dự đoán đúng lệnh thực thi."
+      "label": "GIẢI THÍCH",
+      "text": "Trong một phép thử trên robot ALOHA thuộc phân phối huấn luyện, một cấu hình Qwen-VLA có tiền huấn luyện được báo cáo khoảng 83,6% tỷ lệ thành công, so 48,5% ở phiên bản đối chứng. Ở một nhóm thao tác ngoài phân phối, điểm được báo cáo khoảng 76,9%. Nhưng trên bộ đánh giá DOMINO kiểm tra khả năng chuyển thẳng sang nhiệm vụ mới mà không tinh chỉnh, một kết quả được nêu là 26,6%."
     }
   },
   {
     "type": "equation",
-    "title": "Mathematical Intuition",
-    "lead": "Trajectory phụ thuộc camera I, lệnh ℓ và mô tả embodiment e; expert học hướng cập nhật action Aτ.",
+    "title": "Ý nghĩa của kiến trúc sinh hành động",
+    "lead": "Các tên viết tắt này là tên những giai đoạn huấn luyện, không phải bốn kiến trúc độc lập. Thực ra chúng là bốn bước trong cùng quy trình học, được thiết kế để tránh phải học cả nhận biết ảnh và cấu trúc chuyển động từ đầu trong một lần.",
     "equation": "v_\\theta(A_\\tau\\mid I,\\ell,e,\\tau)",
     "items": [
-      "Ký hiệu mô tả condition của flow action expert."
+      "Ký hiệu mô tả condition của flow hành động expert."
     ],
-    "intuition": "Trajectory phụ thuộc camera I, lệnh ℓ và mô tả embodiment e; expert học hướng cập nhật action Aτ.",
+    "intuition": "Giả sử người dùng nói “Đặt hai chiếc dập ghim xanh lá cạnh nhau”. Ảnh camera cho biết hai vật đang ở đâu, phần thị giác–ngôn ngữ xử lý câu lệnh và cảnh.",
     "detail": {
-      "label": "Ý NGHĨA CÔNG THỨC",
-      "text": "Khi một mô hình được huấn luyện đa embodiment, phải đánh giá cả per-domain tỷ lệ thành công của nhiệm vụ lẫn dấu hiệu negative chuyển giao: một domain cải thiện có làm domain khác tụt không?"
+      "label": "GIẢI THÍCH CÔNG THỨC",
+      "text": "Điều nên so sánh là *từng giai đoạn giải thiếu sót gì*, có giúp robot hiểu vật mới hay sinh chuyển động tốt hơn không. Một sơ đồ có nhiều khối không tự chứng minh hệ thống mạnh hơn."
     }
   },
   {
     "type": "results",
-    "title": "Kết quả nói lên điều gì?",
-    "lead": "ALOHA in-domain: báo cáo 83,6% trung bình vs 48,5% baseline trong Table 5.",
+    "title": "Kết quả thực nghiệm phải đọc theo nhóm",
+    "lead": "Hình 6 kiểm tra trực tiếp giai đoạn T2A.",
     "items": [
       {
         "label": "PHÁT HIỆN QUAN TRỌNG",
@@ -180,32 +180,32 @@
         "value": "Dynamic DOMINO zero-shot: 26,6%, nhắc rằng OOD thực sự còn rất khó."
       }
     ],
-    "intuition": "text robot schema không thay thế dữ liệu vận động; navigation và manipulation có dynamics/latency khác nhau.",
+    "intuition": "Trong một phép thử trên robot ALOHA thuộc phân phối huấn luyện, một cấu hình Qwen-VLA có tiền huấn luyện được báo cáo khoảng 83,6% tỷ lệ thành công, so 48,5% ở phiên bản đối chứng. Ở một nhóm thao tác ngoài phân phối, điểm được báo cáo khoảng 76,9%.",
     "detail": {
-      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
-      "text": "Trong thiết lập ALOHA trên robot thật, Qwen-VLA-ALOHA có pretraining được báo cáo tỷ lệ trung bình 83.6% tỷ lệ thành công in-domain, so với 48.5% cho một phiên bản đối chứng ở Bảng 5; ở OOD manipulations, tác giả nêu average 76.9% ở Bảng 6."
+      "label": "GIẢI THÍCH",
+      "text": "Hình 6 kiểm tra trực tiếp giai đoạn T2A. Thay tỷ lệ dữ liệu tổng hợp, cách dự đoán cả chuỗi hay theo đoạn và phân phối thời gian flow matching; bản dự đoán cả chuỗi với khoảng 20% dữ liệu tổng hợp cho kết quả tốt nhất trong những cấu hình được thử. Nếu học T2A quá lâu, hiệu quả còn có thể giảm do học quá sát dữ liệu nguồn."
     }
   },
   {
     "type": "ablation",
-    "title": "Ablation và bằng chứng",
-    "lead": "Không gộp 83,6% in-domain có post-training với 26,6% zero-shot khác benchmark.",
+    "title": "Thay từng giai đoạn học để kiểm chứng",
+    "lead": "Hình 7 thử việc học chung dữ liệu ảnh–ngôn ngữ với dữ liệu hành động. Trên bài dễ, lợi ích ít thấy; trên bài phải phân biệt vật tinh vi hoặc hiểu lệnh ghép nhiều điều kiện, hiệu quả tăng rõ.",
     "items": [
       {
         "label": "YẾU TỐ ĐƯỢC THỬ",
-        "value": "Pretraining giúp nhưng specialist/generalist vẫn có trade-off theo task."
+        "value": "huấn luyện trước giúp nhưng specialist/generalist vẫn có trade-off theo nhiệm vụ."
       }
     ],
-    "intuition": "OOD ALOHA: khoảng 76,9% trong Table 6.",
+    "intuition": "Hình 6 kiểm tra trực tiếp giai đoạn T2A. Thay tỷ lệ dữ liệu tổng hợp, cách dự đoán cả chuỗi hay theo đoạn và phân phối thời gian flow matching; bản dự đoán cả chuỗi với khoảng 20% dữ liệu tổng hợp cho kết quả tốt nhất trong những cấu hình được thử.",
     "detail": {
-      "label": "BẰNG CHỨNG BỔ SUNG",
-      "text": "Khi một bảng báo 83.6% cho supervised/post-trained ALOHA và một benchmark khác chỉ 26.6% zero-shot, không nên gộp thành “Qwen-VLA đạt tỷ lệ thành công 80% trên thế giới thật”."
+      "label": "GIẢI THÍCH",
+      "text": "Hình 7 thử việc học chung dữ liệu ảnh–ngôn ngữ với dữ liệu hành động. Trên bài dễ, lợi ích ít thấy; trên bài phải phân biệt vật tinh vi hoặc hiểu lệnh ghép nhiều điều kiện, hiệu quả tăng rõ. Đây là bằng chứng loại dữ liệu giúp nhóm năng lực tương ứng, không phải càng trộn nhiều thứ càng tốt trong mọi trường hợp."
     }
   },
   {
     "type": "limits",
-    "title": "Hạn chế cần nói thẳng",
-    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "title": "Giới hạn khi học và triển khai nhiều robot",
+    "lead": "Huấn luyện nhiều giai đoạn phức tạp hơn, tốn công cân bằng dữ liệu và khó xác định nguyên nhân khi một bước làm hiệu quả giảm.",
     "items": [
       {
         "label": "Tác giả / phạm vi",
@@ -213,47 +213,47 @@
       },
       {
         "label": "Phê bình độc lập",
-        "value": "Phê bình: text robot schema không thay thế dữ liệu vận động; navigation và manipulation có dynamics/latency khác nhau."
+        "value": "Phê bình: chữ robot schema không thay thế dữ liệu vận động; navigation và manipulation có dynamics/latency khác nhau."
       }
     ],
-    "intuition": "Embodiment text không tự giải dynamics chưa nhìn thấy.",
+    "intuition": "Cách biểu diễn lệnh phải phù hợp loại robot đang chạy. Nếu đổi camera, khớp hoặc bộ điều khiển, cần kiểm chứng lại quá trình giải mã và an toàn. Tỷ lệ thành công trên một bộ nhiệm vụ ALOHA chưa đồng nghĩa có thể chuyển nguyên bản mô hình đã lưu sang mọi robot thật.",
     "detail": {
-      "label": "PHẠM VI KẾT LUẬN",
-      "text": "Việc unify interface chưa có nghĩa hỗ trợ bất kỳ embodiment mới nào zero-shot. Inference với large VLM+DiT vẫn có độ trễ và VRAM cost."
+      "label": "GIẢI THÍCH",
+      "text": "Cách biểu diễn lệnh phải phù hợp loại robot đang chạy. Nếu đổi camera, khớp hoặc bộ điều khiển, cần kiểm chứng lại quá trình giải mã và an toàn. Tỷ lệ thành công trên một bộ nhiệm vụ ALOHA chưa đồng nghĩa có thể chuyển nguyên bản mô hình đã lưu sang mọi robot thật."
     }
   },
   {
     "type": "relations",
-    "title": "Bài này đứng ở đâu trong lĩnh vực?",
-    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "title": "Qwen-VLA nối tiếp RT-2 và π0.5 ra sao?",
+    "lead": "RT-2 chứng minh hướng chuyển kiến thức ảnh–ngôn ngữ sang token hành động. π0.5 tách nguồn dữ liệu đa dạng và mức nhiệm vụ cao/thấp, dùng các phương pháp biểu diễn hành động khác nhau ở từng giai đoạn.",
     "items": [
       {
         "label": "NỀN TẢNG / TIỀN ĐỀ",
-        "value": "RT-2/OpenVLA là hướng VLM-to-action tokens trước đó."
+        "value": "RT-2/OpenVLA là hướng VLM-to-hành động tokens trước đó."
       },
       {
         "label": "HƯỚNG PHÁT TRIỂN",
-        "value": "GR00T N1 và LingBot có các dạng continuous action experts khác để đối chiếu."
+        "value": "GR00T N1 và LingBot có các dạng continuous hành động experts khác để đối chiếu."
       }
     ],
-    "intuition": "Embodiment description là tín hiệu cần nhưng chưa đủ cho universal transfer.",
+    "intuition": "Điều nên so sánh là *từng giai đoạn giải thiếu sót gì*, có giúp robot hiểu vật mới hay sinh chuyển động tốt hơn không. Một sơ đồ có nhiều khối không tự chứng minh hệ thống mạnh hơn.",
     "detail": {
-      "label": "CÔNG TRÌNH LIÊN QUAN",
-      "text": "Đọc thêm PaLM-E, RT-2, OpenVLA, Diffusion Policy, RDT-1B. Nên so sánh cách tiếp cận, dữ liệu huấn luyện và phạm vi khái quát của từng công trình."
+      "label": "GIẢI THÍCH",
+      "text": "RT-2 chứng minh hướng chuyển kiến thức ảnh–ngôn ngữ sang token hành động. π0.5 tách nguồn dữ liệu đa dạng và mức nhiệm vụ cao/thấp, dùng các phương pháp biểu diễn hành động khác nhau ở từng giai đoạn. Qwen-VLA cũng kết hợp nhiều nguồn tri thức nhưng tổ chức thành một quy trình T2A → CPT → SFT → RL có mục tiêu rõ cho từng bước."
     }
   },
   {
     "type": "closing",
-    "title": "Nếu chỉ nhớ ba điều",
-    "lead": "Embodiment description là tín hiệu cần nhưng chưa đủ cho universal transfer.",
+    "title": "Điều cần nhớ về Qwen-VLA",
+    "lead": "Giữ cùng ảnh hai vật và cùng bộ giải mã, thử hai prompt: “Đặt hai vật cạnh nhau” và “Đặt vật xanh bên trái vật đỏ”. Nếu robot bỏ qua quan hệ trong prompt, hai chuỗi thao tác có thể giống nhau sai mục tiêu.",
     "items": [
-      "Kiểm tra action frames, masks và units trước khi đo benchmark.",
-      "Trình bày kết quả luôn kèm domain và post-training regime."
+      "Kiểm tra hành động frames, masks và units trước khi đo bộ đánh giá.",
+      "Trình bày kết quả luôn kèm domain và post-huấn luyện regime."
     ],
-    "intuition": "Kết hợp Qwen VLM, mô tả embodiment và DiT flow expert để điều khiển nhiều loại robot.",
+    "intuition": "Khi đọc thí nghiệm loại bỏ từng thành phần (ablation), hãy diễn đạt “thử bỏ hoặc đổi cơ chế để đo tác dụng”, không dịch thành “mài mòn”. Ghi rõ thay prompt, giai đoạn T2A hay việc trộn dữ liệu để không nhầm nguồn cải thiện.",
     "detail": {
-      "label": "THỬ NGHIỆM TIẾP THEO",
-      "text": "Log shapes tại từng đoạn, rồi thay embodiment prompt nhưng giữ nguyên hình ảnh + chỉ dẫn để kiểm tra mô hình interface và đầu ra conventions."
+      "label": "GIẢI THÍCH",
+      "text": "Khi đọc thí nghiệm loại bỏ từng thành phần (ablation), hãy diễn đạt “thử bỏ hoặc đổi cơ chế để đo tác dụng”, không dịch thành “mài mòn”. Ghi rõ thay prompt, giai đoạn T2A hay việc trộn dữ liệu để không nhầm nguồn cải thiện."
     }
   }
 ]
