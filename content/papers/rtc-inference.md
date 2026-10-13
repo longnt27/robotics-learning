@@ -80,7 +80,7 @@ Hình 6 đo tiến độ theo thời gian và thông lượng thực hiện. Kh�
 
 ### Tốc độ sinh một đoạn và tốc độ hoàn thành công việc không giống nhau
 
-Trong một thiết lập robot thật dùng π0.5 ở 50 Hz, bài báo báo thời gian lấy mẫu khoảng 76 mili giây cho cách thông thường và 97 mili giây cho RTC, chưa kể thời gian truyền dữ liệu qua mạng. Nghĩa là **RTC có thể tốn thêm thời gian tính cho mỗi đoạn**, chứ không nhất thiết làm mạng nhanh hơn. Lợi ích là robot vẫn thực thi trong lúc mạng tính toán, giảm thời gian đứng chờ và số lần phải làm lại. Các thử nghiệm còn cộng thêm 100–200 mili giây trễ để xem mức chịu đựng.
+Trong một thiết lập robot thật dùng π0.5 ở 50 Hz, bài báo ghi **76 mili giây cho π0.5 thông thường và 97 mili giây cho RTC** tại **Bảng 1 của phần phụ lục đo độ trễ**. Đây là thời gian chạy mô hình **trên GPU RTX 4090**, lấy trung bình 10 lần sau 5 lần làm nóng, chưa cộng truyền dữ liệu qua mạng. Mức tăng 21 mili giây không có nghĩa thời gian hoàn thành nhiệm vụ cũng chậm đi. Nghĩa là **RTC có thể tốn thêm thời gian tính cho mỗi đoạn**, chứ không nhất thiết làm mạng nhanh hơn. Lợi ích là robot vẫn thực thi trong lúc mạng tính toán, giảm thời gian đứng chờ và số lần phải làm lại. Các thử nghiệm còn cộng thêm 100–200 mili giây trễ để xem mức chịu đựng.
 
 Đừng so 76 với 97 rồi kết luận RTC kém: phải đo tổng thời gian hoàn thành, tỷ lệ thành công và mức giật ở điểm nối. Ngược lại, chỉ thấy robot chuyển động liên tục cũng chưa chứng minh nó đang đi đúng hướng.
 
