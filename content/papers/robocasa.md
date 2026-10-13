@@ -26,7 +26,9 @@ Dạy robot mở ngăn kéo trong một căn bếp mẫu không có nghĩa nó s
 
 ## Kiến thức nền cần nắm
 
-Robot deployment tốn kém, còn đánh giá ngoài đời không dễ chạy hàng trăm random seed. Simulators như RoboCasa cho procedural variation: layout, texture, vật thể placement, nhiệm vụ. Tuy vậy **simulator realism** khác **policy robustness ngoài đời**.
+Thu hàng trăm nghìn lần robot làm việc trong bếp thật rất tốn kém. Mô phỏng giúp tái tạo nhiều tình huống, nhưng **ảnh đẹp trong mô phỏng không đồng nghĩa robot làm được ngoài đời**. Cần phân biệt sự phong phú về bố cục, màu sắc, vật thể với độ chính xác của ma sát, lực và tiếp xúc.
+
+RoboCasa tạo nhiều căn bếp có thiết bị tương tác được và cho phép thay đổi mặt bằng, vật thể, vị trí và câu lệnh. Nó là môi trường sinh dữ liệu và kiểm tra chính sách điều khiển, không phải một mô hình VLA duy nhất.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -40,7 +42,9 @@ RoboCasa có các thiết bị thực sự thay đổi trạng thái trong mô p
 
 ## Phương pháp thực hiện
 
-RoboCasa xây khoảng **120 kitchen bối cảnh**, hơn **2,500 vật thể assets** thuộc hơn 150 categories và khoảng **100 nhiệm vụ**. Hệ thống dùng MimicGen-style sinh để biến một lượng nhỏ con người demonstrations thành số lượng lớn synthetic các quỹ đạo, kết hợp bối cảnh tạo theo quy tắc sinh, generative textures/assets và LLM-assisted tạo nhiệm vụ. Release ban đầu có hơn **100 nghìn các quỹ đạo**.
+RoboCasa cung cấp khoảng **120 bố cục bếp**, hơn **2.500 mô hình đồ vật** thuộc trên 150 nhóm và cỡ **100 nhiệm vụ**. Hệ thống dùng quy tắc tạo cảnh, công cụ sinh đồ vật/hình ảnh và mô hình ngôn ngữ lớn để gợi ý các công việc bếp có ý nghĩa. Từ số ít thao tác mẫu, phương pháp sinh quỹ đạo có thể tạo nhiều lượt thực thi trong các bối cảnh khác nhau.
+
+Bản công bố có hơn **100.000 quỹ đạo**. Khi huấn luyện, một nhiệm vụ như mở ngăn kéo có thể xuất hiện trên nhiều loại tủ, vị trí tay nắm và nền bếp. Mục tiêu là chính sách học được quan hệ giữa robot và đồ vật thay vì nhớ một tọa độ cố định.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -48,7 +52,6 @@ RoboCasa xây khoảng **120 kitchen bối cảnh**, hơn **2,500 vật thể as
 ![Hình 6 từ PDF gốc, trang 6](/paper-figures/robocasa/figure-6.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Điểm đáng chú ý là RoboCasa không chỉ là benchmark. Nó là **dữ liệu generator**: cùng nhiệm vụ có thể được render ở nhiều kitchen layout, vật thể instance, lighting và geometry, tạo phân phối randomization để policy học invariance.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -73,7 +76,9 @@ Robot hoặc công cụ sinh quỹ đạo thực hiện các nhiệm vụ nhỏ,
 
 ## Ví dụ từng bước
 
-Một nhiệm vụ mở ngăn kéo trong nhà bếp có thể randomize chất liệu tủ, hướng nhìn camera, vị trí robot, friction và vật thể instances. Huấn luyện trên một số house layouts, test trên held-out layout. Thành tích cao trong domain randomization chưa đảm bảo sim-to-real nếu camera, contact động lực học hoặc robot calibration sai.
+Chọn thao tác **mở ngăn kéo**. Ở lần thứ nhất, tay nắm nằm bên trái mặt bàn trắng; lần khác là tủ tối màu, robot nhìn từ góc khác và tay nắm đặt cao hơn. Môi trường vẫn biết khi nào ngăn kéo thực sự mở đủ để tính hoàn thành.
+
+Huấn luyện trên một nhóm căn bếp rồi thử ở bố cục chưa thấy. Nếu policy mở đúng trong mô phỏng nhưng khi sang nhà thật lại kẹp trượt tay nắm, nguyên nhân có thể là khác biệt lực tiếp xúc hoặc vị trí camera. Cần đánh giá hai phần riêng thay vì coi mô phỏng là bằng chứng đủ.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -81,7 +86,6 @@ Một nhiệm vụ mở ngăn kéo trong nhà bếp có thể randomize chất l
 ![Hình 10 từ PDF gốc, trang 8](/paper-figures/robocasa/figure-10.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-RoboCasa nên được xem vừa là dữ liệu generator vừa là stress-test environment, không phải một mô hình VLA.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -95,7 +99,9 @@ RoboCasa có thể thay kích thước bếp, vị trí lò và mẫu đồ vậ
 
 ## Kết quả thực nghiệm
 
-Các thí nghiệm cho thấy synthetic scaling giúp imitation hiệu năng và có chuyển giao sang real robot. Trong một real-kitchen comparison, mixture **Real + Sim** đạt khoảng **24.4%** trên seen vật thể so với **13.6%** của Real-only, và khoảng **9.3%** trên vật thể chưa xuất hiện khi huấn luyện so với **2.6%**. Tuy absolute thành công còn thấp, relative gains cho thấy sim dữ liệu không chỉ làm đẹp benchmark mô phỏng.
+Các phép thử cho thấy tăng lượng dữ liệu sinh trong mô phỏng có thể giúp chính sách học bắt chước tốt hơn. Khi chuyển sang một số nhiệm vụ robot thật, huấn luyện **kết hợp dữ liệu thật và mô phỏng** được báo cáo đạt khoảng **24,4%** trên vật quen so với **13,6%** khi chỉ dùng dữ liệu thật; trên vật mới là khoảng **9,3% so với 2,6%**.
+
+Đây là mức cải thiện có ý nghĩa trong phép thử, nhưng tỷ lệ thành công tuyệt đối vẫn thấp. Nhiệm vụ nhiều bước cũng khó hơn rõ rệt so với thao tác đơn. Vì vậy kết luận hợp lý là mô phỏng giúp bổ sung dữ liệu, chưa phải đã giải xong bài toán làm việc nhà.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -103,7 +109,6 @@ Các thí nghiệm cho thấy synthetic scaling giúp imitation hiệu năng và
 ![Hình 7 từ PDF gốc, trang 7](/paper-figures/robocasa/figure-7.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-RoboCasa cũng phơi ra một fact quan trọng: các **composite/longer-horizon nhiệm vụ** khó hơn atomic nhiệm vụ rất nhiều dù dữ liệu sinh scale được. Điều đó nhắc rằng số các quỹ đạo không tự giải nhiệm vụ lập kế hoạch/phục hồi.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -117,9 +122,9 @@ Hình 8 thử nhiệm vụ ghép nhiều bước. Dữ liệu các bước nhỏ
 
 ## Hạn chế và câu hỏi còn mở
 
-**Bài báo thừa nhận:** được tạo ra các quỹ đạo có thể jerky/collision-prone dù simulator đánh dấu thành công. LLM không tự sinh toàn bộ executable nhiệm vụ logic; con người vẫn phải viết/kiểm tra phần code đáng kể. Domain ban đầu tập trung kitchen, chưa phủ dexterous hands, deformables và bimanual sự đa dạng đầy đủ. Tác giả cũng coi real/sim/video mixture là hướng tiếp theo.
+Quỹ đạo sinh tự động vẫn có thể giật hoặc va chạm dù môi trường tính là thành công. Mô hình ngôn ngữ lớn có thể gợi ý nhiệm vụ, nhưng các điều kiện và quy tắc thực thi vẫn cần được con người kiểm tra. Các tình huống vật mềm, thao tác hai tay và lực phức tạp chưa được bao phủ hết.
 
-**Phê bình thêm:** hình ảnh tổng hợp sự đa dạng không đồng nghĩa với **độ đa dạng đặc tính vật lý**. Contact friction, deformable động lực học, force phản hồi và actuator imperfections là nơi simulator dễ nói dối nhất. Trong thế giới thực chuyển giao numbers trong bài báo còn khá thấp, nên không thể đọc thành “mô phỏng solved dữ liệu scarcity”. Một hệ thống tạo dữ liệu có thể sinh 1 triệu các quỹ đạo cực nhanh, nhưng nếu simulator bias giống nhau thì ta chỉ vừa nhân rộng một lỗi lên 1 triệu lần.
+Đặc biệt, **tăng số quỹ đạo không bù được một mô phỏng có sai lệch vật lý cố định**. Nếu ma sát hoặc cảm biến khác ngoài đời, sinh thêm một triệu mẫu cùng lỗi ấy có thể khiến model học nhầm chắc hơn. Kết quả phải kiểm chứng trên robot thật và nhiệm vụ đích.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -150,9 +155,9 @@ Một pipeline có thể dùng cả hai: mô phỏng để bao phủ nhiều bi�
 
 ## Đọc code và tự kiểm chứng
 
-Sinh 20 episodes hai bối cảnh variants, visualize variation axes. Với policy đơn giản, so sánh huấn luyện random textures vs fixed textures và held-out layout thành công.
+Sinh hai nhóm dữ liệu cho nhiệm vụ mở ngăn kéo: một nhóm từ cùng một bố cục, nhóm khác từ nhiều bố cục nhưng có số lượt bằng nhau. Kiểm tra video hoặc ảnh để biết chính xác những yếu tố nào đã thay đổi, ví dụ tay nắm, vật cản hay màu tủ.
 
-**Cách kiểm tra đọc hiểu:** Hãy tự giải thích *đầu vào*, *đầu ra*, *loss khi huấn luyện*, *quy trình đánh giá* và *kiểu lỗi* của bài báo. Nếu không nói được một trong năm thứ này, cần đọc lại phần tương ứng trước khi chạy benchmark.
+Huấn luyện cùng một chính sách rồi thử trên căn bếp chưa dùng để học. Nếu kết quả khác, phân tích robot chọn sai vị trí tay nắm hay gặp lỗi lúc kéo. Phép thử ấy hữu ích hơn chỉ đếm số ảnh tổng hợp đã tạo.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

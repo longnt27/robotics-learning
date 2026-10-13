@@ -26,13 +26,16 @@ Mỗi loại robot có camera, lệnh và nhiệm vụ khác nhau. Nếu chỉ h
 
 ## Kiến thức nền cần nắm
 
-Mục tiêu của Octo là **generalist đã pretrain policy có thể fine-tune**, không nhất thiết một mô hình zero-shot làm mọi robot. Nó học reusable behaviors từ đa tập dữ liệu rồi điều chỉnh lại theo embodiment mới. Đây là khác biệt quan trọng với claim "universal robot bộ điều khiển".
+Octo là một **chính sách điều khiển robot đã được huấn luyện trước** trên nhiều nhiệm vụ, sau đó có thể tinh chỉnh bằng dữ liệu của robot mới. Mục tiêu không phải một checkpoint điều khiển ngay mọi loại phần cứng mà không cần kiểm tra gì.
+
+Khi đổi robot, những kiến thức chung như nhận ra vật thể hoặc mục tiêu đặt vật có thể tái sử dụng. Tuy nhiên camera, trạng thái khớp và định dạng hành động khác nhau cần được xử lý ở các phần đầu vào/đầu ra tương ứng. Đây là lý do Octo quan tâm cả kiến trúc mạng lẫn giao diện để tinh chỉnh.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
 ![Hình 4 từ PDF gốc, trang 6](/paper-figures/octo/figure-4.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
+
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
 ### Hiểu backbone và các phần gắn thêm
@@ -45,14 +48,15 @@ Hai robot có thể cùng hiểu “đặt cốc vào khay” nhưng một bên 
 
 ## Phương pháp thực hiện
 
-Octo là Transformer policy khoảng 93M parameters, pretrain trên khoảng **800 nghìn episodes** từ **25 các tập dữ liệu** trong Open X-Embodiment. Kiến trúc được thiết kế modular: nhận ngôn ngữ hoặc mục tiêu hình ảnh, nhiều camera, proprioception và có readout/action heads thay được. Sinh action dùng diffusion-style head, tránh phải ép mọi action liên tục thành autoregressive text tokens.
+Octo dùng Transformer khoảng **93 triệu tham số**, huấn luyện trước từ khoảng **800.000 lượt thực thi** thuộc **25 bộ dữ liệu** trong Open X-Embodiment. Mô hình nhận ảnh, câu lệnh hoặc ảnh mục tiêu, trạng thái robot và lịch sử quan sát. Các nhánh xử lý tín hiệu và nhánh dự đoán hành động được thiết kế để thay đổi khi chuyển sang robot khác.
+
+Lệnh liên tục được sinh bằng một nhánh theo hướng diffusion, không cần biến mọi giá trị thành token văn bản. Khi muốn dùng một camera mới hoặc cấu trúc khớp mới, người nghiên cứu có thể thay bộ tiếp nhận hoặc nhánh hành động rồi tinh chỉnh bằng demonstration của thiết bị đích.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
 ![Hình 5 từ PDF gốc, trang 6](/paper-figures/octo/figure-5.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Điểm đáng giá là tác giả coi **fine-tuning interface** là first-class design mục tiêu. Người dùng có thể thay quan sát/action head và adapt mô hình sang new embodiment mà không huấn luyện toàn bộ stack từ zero.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -77,9 +81,9 @@ Khi chuyển sang robot mới, ta có thể thêm quan sát như cảm biến l�
 
 ## Ví dụ từng bước
 
-Một policy đã pretrain thấy nhiều kiểu pick-place. Khi có robot mới với gripper/camera geometry khác, fine-tune một subset episodes thay vì huấn luyện scratch. Policy nhận vision, nhiệm vụ conditioning (ngôn ngữ/mục tiêu) và state rồi dự đoán chunks. Thí nghiệm nên đo **dữ liệu efficiency** theo số demos tại target phần cứng; chỉ đo huấn luyện thành công sẽ đánh giá sai ý nghĩa pretraining.
+Robot A từng học nhiều việc nhặt và đặt. Nay muốn dùng Octo cho robot B có camera đặt khác và kẹp rộng hơn. Trước tiên phải kiểm tra ảnh, trạng thái và lệnh của B có cùng quy ước với dữ liệu model đã học không. Nếu khác, cần bộ chuyển đổi thích hợp.
 
-Octo tách khái niệm `task token` và biểu diễn action; đọc code cần tìm nơi prepare quan sát history và nơi đầu ra adapter biến policy action thành robot-specific commands.
+Sau đó thu một lượng demonstration của B để tinh chỉnh. Khi đánh giá, thử số lượng mẫu tăng dần, chẳng hạn 20, 50 và 100 lượt. Nếu checkpoint đã huấn luyện trước học nhanh hơn một policy bắt đầu từ đầu với cùng dữ liệu B, đó mới là bằng chứng có ích về chuyển giao.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -93,14 +97,15 @@ Nếu chỉ lấy lệnh cũ gửi xuống robot mới, chuyển động có th�
 
 ## Kết quả thực nghiệm
 
-Ở zero-shot evaluations qua nhiều platform, Octo đạt tỷ lệ thành công trung bình cao hơn **RT-1-X khoảng 29%** trong comparison của bài báo và có thiết lập cạnh tranh với RT-2-X 55B dù mô hình nhỏ hơn rất nhiều. Goal-image conditioning trên một số WidowX thiết lập tốt hơn ngôn ngữ khoảng **25 điểm**, phản ánh hỗn hợp dữ liệu huấn luyện của Octo.
+Trên một số phép thử robot thật không cần tinh chỉnh, Octo có tỷ lệ hoàn thành trung bình tốt hơn RT-1-X và trong vài trường hợp cạnh tranh với RT-2-X lớn hơn nhiều. Tuy nhiên hiệu quả thay đổi theo kiểu robot và dạng chỉ dẫn. Có thiết lập dùng ảnh mục tiêu tốt hơn câu lệnh văn bản vì nguồn học trước có phân bố dữ liệu không đồng đều.
+
+Lợi thế quan trọng của Octo là **tinh chỉnh với ít demonstration** trên robot đích. Một số phép thử chỉ cần cỡ 100 lượt và đạt kết quả tốt hơn những chính sách huấn luyện từ đầu. Khi đọc biểu đồ, hãy tách rõ kết quả chưa tinh chỉnh với kết quả đã học thêm trên robot mới.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
 ![Hình 6 từ PDF gốc, trang 8](/paper-figures/octo/figure-6.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Phần mạnh nhất là adaptation: với cỡ **100 demonstrations**, fine-tuned Octo vượt các phương pháp đối chứng huấn luyện từ đầu hoặc chuyên biệt mạnh trên nhiều domain, có mức cải thiện tổng hợp mà tác giả nêu lên đến **52%** so với phương pháp đối chứng tốt nhất tiếp theo. Ablations cho thấy độ đa dạng dữ liệu pretraining, dung lượng biểu diễn của mô hình và diffusion action head đều đóng góp.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -114,9 +119,9 @@ Hình 6 cho thấy tăng kích thước model giúp cải thiện trong một s�
 
 ## Hạn chế và câu hỏi còn mở
 
-**Bài báo thừa nhận:** wrist-camera và ngôn ngữ hiệu năng yếu hơn mong muốn vì hỗn hợp dữ liệu huấn luyện chỉ có tỷ lệ tương đối nhỏ mẫu chứa các modality đó. Dữ liệu phần lớn là optimal/successful demonstrations nên phục hồi chưa được học tốt. Pretraining chủ yếu single-/dual-arm manipulators, chưa mobile/navigation/dexterous rộng.
+Dữ liệu học trước của Octo không bao phủ đồng đều mọi loại camera và câu lệnh, nên những tín hiệu ít xuất hiện có thể cho kết quả kém. Bộ dữ liệu chủ yếu là những lần thao tác thành công; khả năng phục hồi sau lỗi chưa được dạy đầy đủ.
 
-**Phê bình thêm:** Octo mạnh nhất ở **fine-tuning**, không phải zero-shot universal control. 93M parameters giúp practical nhưng suy luận ngữ nghĩa kém xa VLM-based VLA lớn. Heterogeneous OXE dữ liệu vẫn có imbalance/action-convention problem, và modular heads nghĩa là một phần cross-embodiment alignment được xử lý thủ công ở interface. Vì vậy Octo rất giống “BERT cho robot policy” ở workflow, nhưng chưa phải “GPT-4 của vật lý intelligence”.
+Kiến trúc có thể thay nhánh đầu ra không có nghĩa bộ chuyển đổi action tự đúng. Khi đổi robot, cần kiểm tra giới hạn khớp, đơn vị, chuẩn hóa và tần số điều khiển. Octo thích hợp làm nền để tinh chỉnh hơn là một bộ điều khiển phổ quát cắm vào đâu cũng chạy.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -147,9 +152,9 @@ Khi chọn nền tảng để nghiên cứu, hãy xét bộ dữ liệu hỗ tr�
 
 ## Đọc code và tự kiểm chứng
 
-Chạy đã pretrain Octo trên một small tập dữ liệu, debug preprocessing trước. Nếu GPU không đủ, chỉ chạy dữ liệu loader và action mask tests trên Mac rồi inference trên Colab.
+Lấy một tập dữ liệu robot nhỏ và trước tiên chạy bộ đọc dữ liệu, kiểm tra ảnh, trạng thái, lệnh và mặt nạ chiều hành động. Chỉ khi mọi đầu vào đúng mới tải checkpoint và thử suy luận. Nếu thiếu tài nguyên, có thể kiểm tra quy trình dữ liệu trên máy cá nhân trước, còn chạy mô hình trên GPU phù hợp.
 
-**Cách kiểm tra đọc hiểu:** Hãy tự giải thích *đầu vào*, *đầu ra*, *loss khi huấn luyện*, *quy trình đánh giá* và *kiểu lỗi* của bài báo. Nếu không nói được một trong năm thứ này, cần đọc lại phần tương ứng trước khi chạy benchmark.
+So cùng nhiệm vụ giữa Octo tinh chỉnh và chính sách huấn luyện từ đầu, giữ lượng demonstration bằng nhau. Ghi tỷ lệ thành công cùng thời gian và bộ nhớ cần thiết, không chỉ kiểm tra model có xuất được một vector lệnh.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

@@ -21,7 +21,9 @@ Nhưng “nguồn mở” không đồng nghĩa “cắm vào robot nào cũng c
 
 ## Kiến thức nền cần nắm
 
-RT-2 gợi ý VLM-to-action là khả thi nhưng không phải open reproducible mô hình cho nhiều phòng thí nghiệm. OpenVLA cung cấp implementation, weights và LoRA fine-tuning, giúp mở phần lớn hệ thống để kiểm chứng ở mức mô hình code.
+RT-2 đã cho thấy cách kết hợp mô hình ảnh–ngôn ngữ với hành động robot, nhưng không cung cấp mọi thứ để các phòng thí nghiệm tự tái tạo. OpenVLA công khai mô hình, mã nguồn và trọng số để nhóm nghiên cứu có thể kiểm chứng và **tinh chỉnh cho thiết bị của mình**.
+
+Khi chạy robot, mô hình sinh token đại diện các giá trị hành động. Những token cần được giải mã, rồi khôi phục đơn vị và biên độ đúng cho phần cứng. LoRA là một cách tinh chỉnh chỉ cập nhật một phần nhỏ tham số; nó giúp giảm chi phí, không tự xử lý lỗi camera hay lệnh khớp.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -35,14 +37,15 @@ Mỗi token hành động là mã cho giá trị điều khiển, không phải 
 
 ## Phương pháp thực hiện
 
-OpenVLA dùng **Llama 2 7B** làm ngôn ngữ backbone và fuse đặc trưng thị giác từ **DINOv2 + SigLIP**, sau đó pretrain/fine-tune trên khoảng **970 nghìn robot demonstrations** từ Open X-Embodiment. Liên tục robot actions được discretize thành tokens để mô hình dùng cùng autoregressive next-token mục tiêu huấn luyện với VLM.
+OpenVLA dùng lõi ngôn ngữ **Llama 2 khoảng 7 tỷ tham số**, kết hợp đặc trưng ảnh từ **DINOv2 và SigLIP**. Mô hình được huấn luyện trên khoảng **970.000 lượt thao tác robot** thuộc Open X-Embodiment. Các giá trị lệnh liên tục được chuyển thành token rời rạc, để mạng dự đoán tuần tự như khi sinh token ngôn ngữ.
+
+Nhóm tác giả còn thử nhiều phương án tinh chỉnh: cập nhật toàn bộ tham số, LoRA và lượng tử hóa 4 hoặc 8 bit để tiết kiệm bộ nhớ. Khi đánh giá phải đo cả tỷ lệ thành công, thời gian và tài nguyên, không chỉ xem mô hình có tạo đúng số chiều hành động.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
 ![Hình 6 từ PDF gốc, trang 10](/paper-figures/openvla/figure-6.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Bài báo đặc biệt quan tâm tới adaptation. Họ thử full fine-tuning, LoRA với nhiều rank, quantization 4-bit/8-bit và evaluate memory/throughput/hiệu năng trade-off. Đây là lý do OpenVLA hữu ích như research substrate hơn là chỉ một leaderboard entry.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -67,9 +70,9 @@ Robot thực hiện lệnh, lấy ảnh tiếp theo và tiếp tục. Nếu đem
 
 ## Ví dụ từng bước
 
-Đầu vào gồm hình ảnh và chỉ dẫn, backbone VLM tạo hidden đặc trưng, decoder sinh discrete tokens mã hóa các action dimensions. Tại inference, tokenizer decode token IDs về giá trị action đã normalize; phía robot phải unnormalize theo statistics của tập dữ liệu/phần cứng. Sai normalizer có thể tạo action vô lý dù token độ chính xác cao.
+Người dùng nói **“Bỏ quả táo vào khay”**. Camera gửi ảnh cho bộ mã hóa thị giác; lõi mô hình kết hợp với câu lệnh và sinh token hành động. Hệ thống giải mã token thành các giá trị dịch chuyển, xoay hoặc đóng kẹp. Trước khi gửi xuống robot, những giá trị này phải được **giải chuẩn hóa bằng thống kê của đúng robot/tập dữ liệu**.
 
-OpenVLA là contrast hữu ích với π0.5: OpenVLA thường autoregressive **discrete action**, còn π0-style policy sinh action liên tục chunks qua flow-based expert.
+Nếu lấy thống kê của robot khác, cùng token có thể dẫn đến lệnh quá lớn hoặc sai hướng. Đó là lỗi chuyển đổi đầu ra, không nhất thiết do mô hình hiểu sai quả táo hay câu lệnh.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -83,7 +86,9 @@ Khi kiểm tra, không chỉ xem model có nhặt đúng vật quen thuộc khô
 
 ## Kết quả thực nghiệm
 
-Trên bộ 29 nhiệm vụ dùng để so generalist policies, OpenVLA báo tỷ lệ thành công trung bình cao hơn **RT-2-X khoảng 16.5 điểm** trong đánh giá của họ. Sau task-specific/multi-task fine-tuning, OpenVLA vượt Octo và Diffusion Policy đáng kể trên những thiết lập thao tác robot cần hiểu nhiều chỉ dẫn ngôn ngữ, tác giả nêu mức cải thiện tổng hợp khoảng **20.4%**.
+Trên các nhóm nhiệm vụ robot thật được so sánh, OpenVLA có kết quả tốt hơn một số chính sách tổng quát trước đó; mức chênh lệch phụ thuộc robot và nhiệm vụ. Khi tinh chỉnh cho robot đích, mô hình đặc biệt hữu ích ở tình huống có nhiều câu lệnh và vật gây nhiễu, nhưng một chính sách chuyên biệt như Diffusion Policy vẫn có thể mạnh ở nhiệm vụ hẹp.
+
+Một kết quả thực dụng là **LoRA chỉ cập nhật khoảng 1,4% tham số** trong một thiết lập mà giữ kết quả gần tinh chỉnh toàn bộ. Lượng tử hóa còn giúp giảm đáng kể bộ nhớ. Tuy nhiên cần phân biệt những kết quả này với khả năng của checkpoint chưa từng được tinh chỉnh.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -92,7 +97,6 @@ Trên bộ 29 nhiệm vụ dùng để so generalist policies, OpenVLA báo tỷ
 ![Hình 5 từ PDF gốc, trang 9](/paper-figures/openvla/figure-5.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-PEFT là phần rất thực dụng: **LoRA rank 32** đạt khoảng **68.2%** so với **69.7%** full fine-tuning nhưng chỉ huấn luyện khoảng **1.4% parameters** và memory giảm mạnh. 4-bit quantization trong một thiết lập giữ hiệu năng gần bf16, thậm chí số đo dao động **71.9 vs 71.3**, trong khi mô hình memory giảm từ khoảng 16.8 GB xuống 7 GB. Điều đó chứng minh VLA adaptation không nhất thiết cần một cụm H100.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -106,9 +110,9 @@ Khi thích nghi robot mới, Diffusion Policy huấn luyện riêng có thể m�
 
 ## Hạn chế và câu hỏi còn mở
 
-**Bài báo thừa nhận:** mô hình chỉ dùng single-image quan sát, thiếu quan sát history, multiview và proprioception phong phú. Autoregressive action inference chậm với high-frequency platforms như ALOHA. Reliability dưới 90% ở nhiều nhiệm vụ vẫn chưa đủ cho production, và do compute constraints bài báo không khám phá hết design không gian. Trên một số narrow dexterous nhiệm vụ, specialist Diffusion Policy vẫn mượt/tốt hơn.
+OpenVLA sử dụng quan sát ảnh còn khá hạn chế trong thiết lập công bố, thiếu lịch sử dài, nhiều góc camera và thông tin trạng thái phong phú ở một số trường hợp. Sinh token hành động tuần tự có thể gây độ trễ và sai số lượng tử hóa, nhất là nhiệm vụ cần tần số điều khiển cao.
 
-**Phê bình thêm:** action tokenization là một nút thắt kép: quantization làm mất độ chính xác, autoregression làm mất speed. Dung lượng mô hình ngôn ngữ 7B tham số không tự động biến thành motor dung lượng mô hình. Kết quả fine-tuned mạnh đôi khi dễ bị đọc nhầm thành zero-shot foundation capability. OpenVLA cũng kế thừa toàn bộ imbalance và action-schema mess của OXE. Giá trị lớn nhất của nó là **mở ra hệ sinh thái**, không phải chứng minh action-as-text đã là endpoint của kiến trúc VLA.
+Nguồn mở không đồng nghĩa hoạt động ổn định trên mọi robot. Một chính sách bảy tỷ tham số có thể hiểu chỉ dẫn tốt nhưng vẫn kẹp lệch hoặc phản ứng quá chậm. Cần đo hiệu quả trên robot thật, kiểm tra lệnh vượt giới hạn và báo cáo riêng trước/sau tinh chỉnh.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -140,9 +144,9 @@ Việc một mạng dùng lõi mô hình ngôn ngữ không tự khiến nó gi�
 
 ## Đọc code và tự kiểm chứng
 
-Chỉ chạy 4-bit inference T4, log processor đầu vào, token thị giác, logits/token IDs, decoded normalized action và unnormalized action. Đừng đốt quota vào full fine-tune ngay.
+Trước khi huấn luyện lớn, thử chạy suy luận một vài ảnh trên cấu hình GPU vừa đủ. Ghi lại ảnh/câu lệnh đầu vào, token hành động được sinh, vector sau giải mã và **vector sau giải chuẩn hóa**. Kiểm tra đơn vị, hệ tọa độ và giới hạn an toàn trước khi cho robot thật chuyển động.
 
-**Cách kiểm tra đọc hiểu:** Hãy tự giải thích *đầu vào*, *đầu ra*, *loss khi huấn luyện*, *quy trình đánh giá* và *kiểu lỗi* của bài báo. Nếu không nói được một trong năm thứ này, cần đọc lại phần tương ứng trước khi chạy benchmark.
+Nếu GPU hạn chế, thử lượng tử hóa rồi đo bộ nhớ và độ trễ. Chỉ nên tinh chỉnh sau khi quy trình dữ liệu, normalizer và bộ giải mã lệnh được xác minh, tránh tốn tài nguyên để học trên các nhãn sai.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
