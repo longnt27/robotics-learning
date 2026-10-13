@@ -55,7 +55,7 @@
   {
     "type": "concepts",
     "title": "Đoạn cũ, độ trễ và tiền tố đã cam kết",
-    "lead": "Đoạn hành động (đoạn hành động) là đoạn gồm nhiều lệnh liên tiếp. Độ trễ suy luận d là số bước robot đi được trong lúc mô hình tạo đoạn mới.",
+    "lead": "Đoạn hành động (action chunk) là đoạn gồm nhiều lệnh liên tiếp. Độ trễ suy luận d là số bước robot đi được trong lúc mô hình tạo đoạn mới.",
     "items": [
       {
         "label": "Control loop",
@@ -146,7 +146,7 @@
         "value": "Nối suffix được generate thành chunk tiếp theo; controller không phải pause."
       }
     ],
-    "intuition": "Đoạn A dự định cho tay robot vòng trên vật cản. Mạng tính đoạn B từ quan sát mới và tự chọn vòng dưới. Nếu chuyển từ bước 10 của A sang bước 11 của B, tay có thể đổi hướng tức thì với gia tốc rất lớn. Nếu lấy trung bình hai vị trí, đường giữa lại có thể đâm vào vật cản.",
+    "intuition": "Mô hình tạo đoạn mới dựa trên những bước đã cam kết của đoạn trước, nhờ vậy giảm nguy cơ chuyển đột ngột giữa hai đường đi khác nhau.",
     "detail": {
       "label": "GIẢI THÍCH",
       "text": "Trong một thiết lập robot thật dùng π0.5 ở 50 Hz, bài báo báo thời gian lấy mẫu khoảng 76 mili giây cho cách thông thường và 97 mili giây cho RTC, chưa kể thời gian truyền dữ liệu qua mạng. Nghĩa là RTC có thể tốn thêm thời gian tính cho mỗi đoạn, chứ không nhất thiết làm mạng nhanh hơn. Lợi ích là robot vẫn thực thi trong lúc mạng tính toán, giảm thời gian đứng chờ và số lần phải làm lại."
@@ -160,10 +160,10 @@
     "items": [
       "Đây là phép đổi latency thành số bước điều khiển."
     ],
-    "intuition": "Bước 1: robot đang thực thi đoạn A trong bộ đệm; mô hình nhận quan sát mới và bắt đầu tính đoạn B. Hai việc diễn ra đồng thời, không bắt robot dừng. Bước 2: ước tính d để xác định những bước của A sẽ được thực hiện trước khi B xong. Đặt ràng buộc rất mạnh cho các bước ấy.",
+    "intuition": "Nếu bộ điều khiển cần lệnh mỗi 20 mili giây và mô hình tính trong 80 mili giây, đã có khoảng bốn lệnh cũ được thực thi trong lúc chờ.",
     "detail": {
       "label": "GIẢI THÍCH CÔNG THỨC",
-      "text": "Hai cách có cùng mục tiêu nối hành động liên tục nhưng chi phí suy luận và cách đưa điều kiện vào mạng khác nhau. Đọc bài thứ hai sau khi hiểu các đoạn A/B, d và tiền tố đã cam kết của bài này sẽ dễ hơn nhiều."
+      "text": "Độ trễ d được quy ra số nhịp điều khiển: ví dụ 80 mili giây chia cho 20 mili giây mỗi nhịp bằng bốn. Những hành động robot đã thực hiện trong bốn nhịp đó không thể bị thay thế bằng đoạn dự đoán mới."
     }
   },
   {
