@@ -17,7 +17,7 @@
     "title": "Vì sao mã nguồn mở có ý nghĩa?",
     "lead": "Một nhóm nghiên cứu muốn dạy robot nhặt đồ có thể phải tự thu dữ liệu lớn và tự thiết kế mạng từ đầu. OpenVLA cung cấp mô hình đã được huấn luyện trên gần một triệu lượt robot cùng mã nguồn và bản mô hình đã lưu công khai.",
     "items": [
-      "chính sách điều khiển robot-only thiếu world knowledge"
+      "chính sách chỉ học dữ liệu robot có thể thiếu kiến thức chung về thế giới"
     ],
     "intuition": "Nhưng “nguồn mở” không đồng nghĩa “cắm vào robot nào cũng chạy”. mô hình vẫn cần ảnh đúng kiểu, câu lệnh phù hợp và cách giải mã hành động tương ứng với phần cứng đích.",
     "detail": {
@@ -31,7 +31,7 @@
     "lead": "Nhưng “nguồn mở” không đồng nghĩa “cắm vào robot nào cũng chạy”. mô hình vẫn cần ảnh đúng kiểu, câu lệnh phù hợp và cách giải mã hành động tương ứng với phần cứng đích.",
     "items": [
       "Tận dụng open VLM rồi fine-tune thành hành động predictor",
-      "Đưa ảnh và instruction vào VLM; dự đoán discretized hành động tokens và giải mã sang motor space."
+      "Đưa ảnh và câu lệnh vào mô hình, dự đoán token hành động rồi giải mã thành lệnh điều khiển robot."
     ],
     "intuition": "Một nhóm nghiên cứu muốn dạy robot nhặt đồ có thể phải tự thu dữ liệu lớn và tự thiết kế mạng từ đầu. OpenVLA cung cấp mô hình đã được huấn luyện trên gần một triệu lượt robot cùng mã nguồn và bản mô hình đã lưu công khai.",
     "detail": {
@@ -44,7 +44,7 @@
     "title": "Hình dung tinh chỉnh trên tay máy Franka",
     "lead": "Giả sử robot Franka cần nhặt những đồ vật khác với tập huấn luyện gốc. Ta ghi các lượt người điều khiển Franka thực hiện nhiệm vụ, chuyển ảnh, câu lệnh và hành động vào định dạng dữ liệu mô hình nhận.",
     "items": [
-      "Một VLA mã nguồn mở nối pretrained VLM với hành động tokens và hỗ trợ fine-tuning robot-specific."
+      "Mô hình mã nguồn mở kết hợp hiểu ảnh–ngôn ngữ với sinh hành động và có thể tinh chỉnh cho robot mới."
     ],
     "intuition": "Khi kiểm tra, không chỉ xem mô hình có nhặt đúng vật quen thuộc không mà còn thử vật gây nhiễu, câu nói khác và vị trí mới. Nếu nó hiểu đúng vật nhưng kẹp hụt, cần xác minh camera và cách biến token thành lệnh trước khi quy kết cho khả năng suy luận.",
     "detail": {
@@ -139,7 +139,7 @@
     "items": [
       {
         "label": "XỬ LÝ ĐẦU VÀO",
-        "value": "Instruction + ảnh tokens được language backbone xử lý."
+        "value": "Lõi mô hình kết hợp câu lệnh với đặc trưng ảnh."
       },
       {
         "label": "TẠO HÀNH ĐỘNG",
@@ -173,7 +173,7 @@
     "items": [
       {
         "label": "PHÁT HIỆN QUAN TRỌNG",
-        "value": "Đánh giá đa nhiệm cho thấy tiềm năng transfer từ VLM sang robot control."
+        "value": "Các phép thử nhiều nhiệm vụ cho thấy kiến thức ảnh–ngôn ngữ có thể hỗ trợ điều khiển robot."
       },
       {
         "label": "CÁCH DIỄN GIẢI",
@@ -233,7 +233,7 @@
       },
       {
         "label": "HƯỚNG PHÁT TRIỂN",
-        "value": "FAST giảm token length của hành động chuỗi; π0.5 chuyển sang continuous flow."
+        "value": "FAST rút ngắn chuỗi token hành động; π0.5 sử dụng cách sinh chuyển động liên tục ở giai đoạn điều khiển."
       }
     ],
     "intuition": "Việc một mạng dùng lõi mô hình ngôn ngữ không tự khiến nó giỏi hơn mọi chính sách diffusion ở mọi thao tác. Các lựa chọn phải dựa trên nhiệm vụ, phần cứng, dữ liệu và chi phí suy luận cụ thể.",
@@ -248,7 +248,7 @@
     "lead": "Bạn có ảnh và câu lệnh cùng thời điểm với hành động không? Dữ liệu đã chia train/kiểm tra theo lượt thực thi chưa? Vector lệnh là vị trí, độ thay đổi vị trí hay vận tốc? Đã ghi đúng giá trị trung bình/độ lệch chuẩn để giải chuẩn hóa chưa?",
     "items": [
       "Luôn inspect hành động tokenizer và normalization trước rollout.",
-      "Thành công suy luận không đồng nghĩa mô hình chạy được real-time trên robot."
+      "Chọn đúng hành động chưa bảo đảm mô hình phát lệnh đủ nhanh khi chạy trên robot thật."
     ],
     "intuition": "Sau khi ổn, đánh giá cả tỷ lệ hoàn thành ngoài đời lẫn độ trễ và lệnh vượt giới hạn. Đó mới là cách nói một bản mô hình đã lưu đã dùng được trên robot đích.",
     "detail": {
