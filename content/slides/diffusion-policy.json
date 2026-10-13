@@ -1,259 +1,268 @@
 [
   {
     "type": "cover",
-    "title": "Điểm cốt lõi",
-    "lead": "Sinh một quỹ đạo chuyển động đa phương án thay vì học action trung bình dễ va chạm.",
+    "title": "Diffusion Policy: khi có nhiều cách làm đều đúng",
+    "lead": "Cùng một đích, robot có thể đi vòng trái hoặc vòng phải. Diffusion Policy học sinh một quỹ đạo hợp lệ thay vì lấy trung bình hai hướng.",
     "items": [
-      "Học phân phối của cả action chunk bằng denoising"
+      "Sinh một quỹ đạo hợp lệ từ nhiều phương án có thể"
     ],
-    "intuition": "Khởi đầu từ nhiễu, lặp bước chỉnh để tạo một quỹ đạo khả thi nhất quán theo thời gian.",
+    "intuition": "Hai đường đi đều tránh được vật cản, nhưng đường ở giữa chúng có thể đâm thẳng vào vật cản.",
     "detail": {
-      "label": "BỐI CẢNH NGHIÊN CỨU",
-      "text": "Behavior cloning kiểu regression thường giả định một quan sát có một action target “trung bình”."
+      "label": "GIẢI THÍCH",
+      "text": "Bài toán có nhiều phương án chuyển động đúng cùng lúc. Mô hình hồi quy một giá trị trung bình dễ tạo ra hành động không thuộc phương án nào. Diffusion Policy tìm cách học phân bố của cả đoạn hành động để chọn một phương án nhất quán."
     }
   },
   {
     "type": "problem",
-    "title": "Một quan sát có thể dẫn đến nhiều đường đi đều đúng",
-    "lead": "Robot vòng bên trái hoặc bên phải đều hợp lệ; action regression dễ trung bình hóa thành đường đâm giữa chướng ngại.",
+    "title": "Tại sao lấy trung bình lại có thể nguy hiểm?",
+    "lead": "Nếu dữ liệu có người đi bên trái và người đi bên phải chướng ngại, trung bình hai quỹ đạo có thể đi thẳng vào giữa.",
     "items": [
-      "MSE action regression gom nhiều mode thành trung bình"
+      "Lối trái: hợp lệ",
+      "Lối phải: hợp lệ",
+      "Lấy trung bình: có thể va chạm"
     ],
-    "intuition": "Dự đoán độc lập từng bước cũng dễ khiến quỹ đạo giật và sai số tích lũy.",
+    "intuition": "Không phải thiếu dữ liệu: chính dữ liệu có nhiều đáp án đúng làm dự đoán trung bình trở nên không phù hợp.",
     "detail": {
-      "label": "NGUYÊN NHÂN CỐT LÕI",
-      "text": "MSE regression có xu hướng average các mode và tạo ra action chẳng mode nào muốn, một cách khá sáng tạo để robot đâm đúng vào giữa chướng ngại vật."
+      "label": "GIẢI THÍCH",
+      "text": "Trong điều khiển robot, một vị trí nằm giữa hai vị trí hợp lệ chưa chắc là vị trí an toàn. Điều này khác nhiều bài toán dự đoán số thông thường, nơi giá trị trung bình có thể chấp nhận được."
     }
   },
   {
     "type": "contrast",
-    "title": "MSE action regression gom nhiều mode thành trung bình",
-    "lead": "Dự đoán độc lập từng bước cũng dễ khiến quỹ đạo giật và sai số tích lũy.",
+    "title": "Cách dự đoán một đáp án khác cách sinh nhiều đáp án",
+    "lead": "Hồi quy thường cố cho ra một dự đoán gần trung bình của dữ liệu; mô hình diffusion có thể mô tả nhiều nhóm quỹ đạo khác nhau.",
     "items": [
-      "Học phân phối của cả action chunk bằng denoising",
-      "Khởi đầu từ nhiễu, lặp bước chỉnh để tạo một quỹ đạo khả thi nhất quán theo thời gian."
+      "Hồi quy: dễ chọn giá trị trung bình",
+      "Diffusion: sinh một phương án nhất quán"
     ],
-    "intuition": "Khởi đầu từ nhiễu, lặp bước chỉnh để tạo một quỹ đạo khả thi nhất quán theo thời gian.",
+    "intuition": "Một lần sinh hành động sẽ chọn và hoàn thiện một phương án, thay vì trộn hai phương án trái ngược.",
     "detail": {
-      "label": "VÌ SAO CẦN THAY ĐỔI",
-      "text": "Ngoài ra actions có theo thời gian correlation mạnh, nên dự đoán từng timestep độc lập làm quỹ đạo rung và dễ tích lũy lỗi."
+      "label": "GIẢI THÍCH",
+      "text": "Điểm cốt lõi không phải diffusion là từ khóa thời thượng. Nó hữu ích ở đây vì chuyển động robot thường có nhiều lời giải, và các lệnh trong cùng một đoạn cần ăn khớp theo thời gian."
     }
   },
   {
     "type": "intuition",
-    "title": "Học phân phối của cả action chunk bằng denoising",
-    "lead": "Khởi đầu từ nhiễu, lặp bước chỉnh để tạo một quỹ đạo khả thi nhất quán theo thời gian.",
+    "title": "Hình dung bài toán đẩy khối chữ T",
+    "lead": "Robot cần đẩy khối chữ T tới vùng đích trong khi hình dạng khối khiến nhiều đường đẩy khác nhau có thể thành công.",
     "items": [
-      "Sinh một quỹ đạo chuyển động đa phương án thay vì học action trung bình dễ va chạm."
+      "Chọn hướng tiếp cận",
+      "Đẩy theo một đường hợp lệ",
+      "Kiểm tra vị trí cuối"
     ],
-    "intuition": "Khởi đầu từ nhiễu, lặp bước chỉnh để tạo một quỹ đạo khả thi nhất quán theo thời gian.",
+    "intuition": "Một chuỗi hành động phải thống nhất từ đầu đến cuối; đổi hướng đột ngột giữa hai cách đẩy sẽ làm nhiệm vụ thất bại.",
     "detail": {
-      "label": "GIẢI THÍCH CƠ CHẾ",
-      "text": "Điểm bản chất không phải chỉ “dùng diffusion vì đang hot”, mà là diffusion có thể đại diện nhiều mode của phân phối action và vẫn tạo quỹ đạo temporal-coherent."
+      "label": "GIẢI THÍCH",
+      "text": "Khi xem minh họa đẩy khối chữ T, hãy theo dõi robot tiếp xúc với vật ở đâu, đẩy theo đường nào và có đạt vị trí cuối không. Đó là ví dụ trực quan cho lợi ích của việc sinh cả quỹ đạo."
     }
   },
   {
     "type": "concepts",
-    "title": "Ba khái niệm để nắm",
-    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "title": "Nhiễu và khử nhiễu đóng vai trò gì?",
+    "lead": "Mô hình bắt đầu từ một đoạn hành động ngẫu nhiên rồi sửa nhiều lần cho tới khi tạo ra chuỗi điều khiển có cấu trúc.",
     "items": [
       {
-        "label": "Multimodality",
-        "value": "Nhiều quỹ đạo đúng tương ứng cùng observation."
+        "label": "Khử nhiễu",
+        "value": "Chỉnh dần chuỗi ngẫu nhiên thành chuyển động."
       },
       {
-        "label": "Denoising time",
-        "value": "Chỉ số vòng sinh mẫu, khác timestep vật lý của robot."
+        "label": "Đoạn hành động",
+        "value": "Những lệnh robot sẽ thực hiện theo thời gian."
       },
       {
-        "label": "Receding horizon",
-        "value": "Dự đoán dài, chỉ thực thi ngắn rồi quan sát lại."
+        "label": "Hai loại bước",
+        "value": "Bước sinh trong mạng khác bước điều khiển ngoài đời."
       }
     ],
-    "intuition": "Một chunk A có kích thước horizon × action DoF.",
+    "intuition": "Các bước khử nhiễu là bước tính toán trong mạng, không phải từng nhịp chuyển động ngoài đời của robot.",
     "detail": {
-      "label": "NỀN TẢNG KỸ THUẬT",
-      "text": "Mô hình diffusion học loại noise từ quỹ đạo. Denoising timestep hoàn toàn khác timestep robot: một cái là số vòng sinh, cái kia là thời gian vật lý trong action horizon."
+      "label": "GIẢI THÍCH",
+      "text": "Cần phân biệt thời gian vật lý của đoạn hành động với số vòng mô hình thực hiện để khử nhiễu. Tăng số vòng có thể thay đổi độ chính xác và chi phí tính toán, nhưng không trực tiếp kéo dài nhiệm vụ ngoài đời."
     }
   },
   {
     "type": "pipeline",
-    "title": "Kiến trúc trong một sơ đồ",
-    "lead": "Sinh một quỹ đạo chuyển động đa phương án thay vì học action trung bình dễ va chạm.",
+    "title": "Từ ảnh camera tới đoạn chuyển động",
+    "lead": "Camera và trạng thái robot cung cấp bối cảnh; quá trình khử nhiễu sinh đoạn hành động phù hợp với bối cảnh ấy.",
     "items": [
-      "Ảnh + trạng thái",
-      "Noisy action chunk",
-      "Conditional denoiser",
-      "Quỹ đạo → thực thi ngắn"
+      "Quan sát và trạng thái robot",
+      "Bắt đầu từ chuỗi nhiễu",
+      "Khử nhiễu có điều kiện",
+      "Thực hiện một phần rồi nhìn lại"
     ],
-    "intuition": "Bắt đầu từ noise, model khử nhiễu theo nhiều vòng để sinh một chunk có điều kiện theo quan sát.",
+    "intuition": "Mô hình không biến một ảnh thành cả nhiệm vụ hoàn chỉnh; nó dự đoán đoạn tiếp theo rồi tiếp tục quan sát.",
     "detail": {
-      "label": "ĐIỂM NHẤN TRIỂN KHAI",
-      "text": "Mô hình bắt đầu từ noise rồi denoise thành một quỹ đạo, điều kiện trên thị giác quan sát và state."
+      "label": "GIẢI THÍCH",
+      "text": "Sau khi sinh một đoạn dài, robot thường chỉ thực hiện vài hành động đầu và chụp ảnh lại. Cách điều khiển này cho phép sửa quỹ đạo khi cảnh thay đổi thay vì tin tuyệt đối vào dự đoán cũ."
     }
   },
   {
     "type": "representation",
-    "title": "Mô hình biểu diễn cái gì?",
-    "lead": "Một chunk A có kích thước horizon × action DoF.",
+    "title": "Mô hình thực sự học phân bố của cái gì?",
+    "lead": "Đầu ra là cả chuỗi hành động có quan hệ theo thời gian, không chỉ một vị trí tay ở bước hiện tại.",
     "items": [
       {
-        "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
-        "value": "Denoiser dự đoán nhiễu hoặc quỹ đạo sạch theo observation."
+        "label": "Đầu ra",
+        "value": "Chuỗi hành động trong một khoảng thời gian."
       },
       {
-        "label": "ĐÁNH ĐỔI KỸ THUẬT",
-        "value": "Ghi nhớ: denoising steps không phải số control steps."
+        "label": "Mục tiêu",
+        "value": "Giữ được nhiều phương án hợp lệ và tính liên tục."
       }
     ],
-    "intuition": "Ghi nhớ: denoising steps không phải số control steps.",
+    "intuition": "Với cùng một ảnh, mạng có thể sinh các quỹ đạo khác nhau nhưng vẫn nằm trong những cách làm được học.",
     "detail": {
-      "label": "CHI TIẾT BIỂU DIỄN",
-      "text": "Nó dùng receding-horizon control: dự đoán một horizon tương đối dài, thực thi một đoạn ngắn, rồi observe và replan."
+      "label": "GIẢI THÍCH",
+      "text": "Các thành phần trong chuỗi phải phù hợp nhau: điểm tiếp xúc, hướng dịch chuyển và thời điểm thả vật. Nếu từng bước được chọn độc lập, chuyển động có thể rung hoặc mất nhất quán."
     }
   },
   {
     "type": "training",
-    "title": "Model học như thế nào?",
-    "lead": "Lấy ground-truth action sequences từ demonstrations.",
+    "title": "Mô hình học khử nhiễu ra sao?",
+    "lead": "Trong lúc huấn luyện, người ta thêm nhiễu vào đoạn hành động mẫu rồi dạy mô hình tìm cách loại nhiễu.",
     "items": [
       {
-        "label": "MỤC TIÊU HỌC",
-        "value": "Thêm Gaussian noise ở mức k và học loại nhiễu."
+        "label": "Dữ liệu",
+        "value": "Các đoạn thao tác mẫu có quan sát đi kèm."
       },
       {
-        "label": "DỮ LIỆU / QUY TRÌNH",
-        "value": "Mô hình hóa action multimodality theo cả chiều không gian lẫn thời gian."
+        "label": "Nhiệm vụ học",
+        "value": "Loại nhiễu khỏi đoạn hành động."
       }
     ],
-    "intuition": "Sự khác nhau giữa CNN và Transformer action backbones và các horizon.",
+    "intuition": "Mô hình phải dựa vào cả quan sát và trạng thái robot để biết quỹ đạo nào hợp lý với cảnh hiện tại.",
     "detail": {
-      "label": "CÁCH HUẤN LUYỆN",
-      "text": "Chính recipe này sau đó xuất hiện với biến thể flow matching trong π-series, RDT, GR00T, Qwen-VLA và một đống mô hình khác."
+      "label": "GIẢI THÍCH",
+      "text": "Qua nhiều ví dụ và mức nhiễu, mạng học cách chuyển một chuỗi ngẫu nhiên thành chuỗi gần hành động thật. Đây là cơ chế sinh hành động, khác với việc đoán từng giá trị bằng một lần hồi quy."
     }
   },
   {
     "type": "inference",
-    "title": "Một lần inference xảy ra ra sao?",
-    "lead": "Bắt đầu từ noise, model khử nhiễu theo nhiều vòng để sinh một chunk có điều kiện theo quan sát.",
+    "title": "Mỗi lần robot ra lệnh có phải khử nhiễu lại?",
+    "lead": "Khi điều khiển, mô hình lấy quan sát mới, sinh đoạn hành động và thực thi một phần ngắn.",
     "items": [
       {
-        "label": "XỬ LÝ ĐẦU VÀO",
-        "value": "Chạy denoising nhiều vòng dưới điều kiện observation."
+        "label": "Tính toán",
+        "value": "Khử nhiễu để tạo đoạn hành động mới."
       },
       {
-        "label": "TẠO HÀNH ĐỘNG",
-        "value": "Chạy vài action, đọc camera mới và replan; đổi lại có inference latency."
+        "label": "Thực thi",
+        "value": "Dùng một phần, quan sát lại, rồi dự đoán tiếp."
       }
     ],
-    "intuition": "Chạy vài action, đọc camera mới và replan; đổi lại có inference latency.",
+    "intuition": "Nếu robot thực hiện hết mọi lệnh cũ mà không nhìn lại, một vật bị di chuyển bất ngờ có thể khiến quỹ đạo không còn đúng.",
     "detail": {
-      "label": "DIỄN BIẾN THỰC THI",
-      "text": "Inference bắt đầu từ noise, lặp nhiều bước đến action chunk hợp lệ. Robot chỉ thực thi a_0...a_m, chụp quan sát mới, rồi replan."
+      "label": "GIẢI THÍCH",
+      "text": "Phương pháp điều khiển theo cửa sổ trượt giữ cân bằng giữa chuyển động mượt và khả năng phản hồi. Khử nhiễu nhiều vòng giúp sinh quỹ đạo nhưng cũng làm tăng độ trễ trước khi phát lệnh."
     }
   },
   {
     "type": "equation",
-    "title": "Mathematical Intuition",
-    "lead": "Trộn action thật A với nhiễu ε; khi học, mạng biết cách đảo quá trình để tìm quỹ đạo hợp lệ.",
+    "title": "Công thức khử nhiễu nên hiểu thế nào?",
+    "lead": "Công thức mô tả cách mạng từng bước biến chuỗi nhiễu thành một đoạn hành động có cấu trúc.",
     "equation": "x_k=\\sqrt{\\bar\\alpha_k}\\,A+\\sqrt{1-\\bar\\alpha_k}\\,\\epsilon",
     "items": [
-      "Ký hiệu mô tả forward noise thường gặp trong diffusion."
+      "Nhiều vòng chỉnh một chuỗi nhiễu thành lệnh điều khiển"
     ],
-    "intuition": "Trộn action thật A với nhiễu ε; khi học, mạng biết cách đảo quá trình để tìm quỹ đạo hợp lệ.",
+    "intuition": "Đây là những bước biến đổi trong mạng; đừng nhầm chúng với số bước robot di chuyển thật.",
     "detail": {
-      "label": "Ý NGHĨA CÔNG THỨC",
-      "text": "Regress với MSE một action trung bình có thể tạo con đường đi thẳng vào chướng ngại. Generative mô hình dự đoán phân phối có nhiều đỉnh sẽ lấy mẫu thuộc một mode thay vì average."
+      "label": "GIẢI THÍCH CÔNG THỨC",
+      "text": "Trong quá trình sinh, mô hình dùng thông tin camera và trạng thái hiện tại để định hướng việc giảm nhiễu. Kết quả cuối là chuỗi hành động được lấy mẫu từ phân bố đã học, không phải trung bình của mọi quỹ đạo."
     }
   },
   {
     "type": "results",
-    "title": "Kết quả nói lên điều gì?",
-    "lead": "Đánh giá 12 nhiệm vụ thuộc 4 nhóm benchmark.",
+    "title": "Kết quả phải đọc theo từng nhóm nhiệm vụ",
+    "lead": "Bài báo đánh giá nhiều nhiệm vụ mô phỏng và robot thật, trong đó có các thao tác đẩy, lật và rót.",
     "items": [
       {
-        "label": "PHÁT HIỆN QUAN TRỌNG",
-        "value": "Bài báo báo trung bình cải thiện khoảng 46,9% theo cách tổng hợp của tác giả."
+        "label": "Bằng chứng",
+        "value": "Các phép thử về thao tác trong mô phỏng và ngoài đời."
       },
       {
-        "label": "CÁCH DIỄN GIẢI",
-        "value": "Nhiệm vụ thực như mug flipping và sauce pouring cho thấy lợi thế trên nhiều baseline."
+        "label": "Cách hiểu",
+        "value": "Mức cải thiện tổng hợp phụ thuộc thiết lập đánh giá."
       }
     ],
-    "intuition": "multi-modality không phải nút thắt của mọi nhiệm vụ; cần cân nhắc latency khi triển khai 50 Hz.",
+    "intuition": "Con số cải thiện tổng hợp khoảng 46,9% theo cách báo cáo của tác giả không thể thay cho tỷ lệ thành công từng nhiệm vụ.",
     "detail": {
-      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
-      "text": "Trên 12 nhiệm vụ thuộc 4 benchmark families, tác giả nêu cải thiện trung bình rất lớn so với các phương pháp đối chứng điều khiển từ thị giác, khoảng 46.9% theo cách tổng hợp của tác giả."
+      "label": "GIẢI THÍCH",
+      "text": "Điều cần kiểm tra là so sánh với phương pháp đối chứng nào, dưới bộ nhiệm vụ nào và theo cách tổng hợp nào. Một kết quả cao trên thao tác lật cốc không tự suy rộng sang mọi loại robot hoặc mọi thời gian điều khiển."
     }
   },
   {
     "type": "ablation",
-    "title": "Ablation và bằng chứng",
-    "lead": "Sự khác nhau giữa CNN và Transformer action backbones và các horizon.",
+    "title": "Thử bỏ thành phần để biết nó có ích không",
+    "lead": "Các thí nghiệm thay cách biểu diễn quan sát, độ dài đoạn hành động và số bước sinh để xem ảnh hưởng tới kết quả.",
     "items": [
       {
-        "label": "YẾU TỐ ĐƯỢC THỬ",
-        "value": "Cải thiện không chỉ đến từ diffusion: receding horizon và tuning đều góp phần."
+        "label": "Thành phần được đổi",
+        "value": "Cách biểu diễn, độ dài đoạn và quá trình khử nhiễu."
+      },
+      {
+        "label": "Chỉ số",
+        "value": "Tỷ lệ hoàn thành và chi phí tính toán."
       }
     ],
-    "intuition": "Bài báo báo trung bình cải thiện khoảng 46,9% theo cách tổng hợp của tác giả.",
+    "intuition": "Bớt vòng khử nhiễu có thể chạy nhanh hơn nhưng phải kiểm tra có mất khả năng tạo chuyển động hợp lệ không.",
     "detail": {
-      "label": "BẰNG CHỨNG BỔ SUNG",
-      "text": "Với nhiệm vụ trên robot thật như mug flipping, sauce pouring/spreading, diffusion policy đạt thành công cao trong khi một số phương pháp đối chứng LSTM-GMM hoặc hồi quy thất bại hoặc kém rõ rệt."
+      "label": "THỬ NGHIỆM KIỂM CHỨNG",
+      "text": "Phép so công bằng cần giữ những điều kiện khác tương đương và đo cả thành công lẫn độ trễ. Một cấu hình tốt trên bài đẩy vật chưa chắc tốt nhất trên bài yêu cầu điều khiển tinh tế."
     }
   },
   {
     "type": "limits",
-    "title": "Hạn chế cần nói thẳng",
-    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "title": "Cái giá của việc sinh hành động nhiều vòng",
+    "lead": "Mỗi đoạn hành động cần nhiều lần khử nhiễu, khiến suy luận đắt hơn so với mạng dự đoán trực tiếp một lần.",
     "items": [
       {
-        "label": "Tác giả / phạm vi",
-        "value": "Tác giả: iterative denoising đắt hơn one-shot regression; dữ liệu BC giới hạn ceiling."
+        "label": "Giới hạn tính toán",
+        "value": "Nhiều vòng sinh có thể gây độ trễ cao."
       },
       {
-        "label": "Phê bình độc lập",
-        "value": "Phê bình: multi-modality không phải nút thắt của mọi nhiệm vụ; cần cân nhắc latency khi triển khai 50 Hz."
+        "label": "Giới hạn triển khai",
+        "value": "Cần bảo đảm an toàn và khả năng phản hồi."
       }
     ],
-    "intuition": "Denoiser dự đoán nhiễu hoặc quỹ đạo sạch theo observation.",
+    "intuition": "Nếu thời gian sinh vượt nhịp điều khiển, robot có thể phải chờ hoặc cần cơ chế nối các đoạn hành động.",
     "detail": {
-      "label": "PHẠM VI KẾT LUẬN",
-      "text": "Iterative denoising làm inference đắt hơn one-shot regression, gây khó cho high-frequency control."
+      "label": "GIẢI THÍCH",
+      "text": "Một quỹ đạo trông mượt không có nghĩa an toàn về lực, va chạm và giới hạn cơ học. Khi triển khai cần kiểm tra cả phản ứng với vật dịch chuyển và tình huống mô hình trả lệnh muộn."
     }
   },
   {
     "type": "relations",
-    "title": "Bài này đứng ở đâu trong lĩnh vực?",
-    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "title": "Điểm gặp nhau với ACT, RDT và RTC",
+    "lead": "ACT cũng sinh đoạn hành động nhưng dùng Transformer và CVAE; RDT mở rộng hướng sinh đoạn bằng DiT cho thao tác hai tay.",
     "items": [
       {
-        "label": "NỀN TẢNG / TIỀN ĐỀ",
-        "value": "RDT-1B và π0.5 phát triển action generative modeling ở quy mô VLA."
+        "label": "ACT và RDT",
+        "value": "Những cách khác nhau để học hoặc sinh chuỗi hành động."
       },
       {
-        "label": "HƯỚNG PHÁT TRIỂN",
-        "value": "RTC giải quyết chuyện nối chunk và delay của generative policies."
+        "label": "RTC",
+        "value": "Giải bài toán nối đoạn dưới độ trễ suy luận."
       }
     ],
-    "intuition": "Generative action model tránh bình quân hóa những quỹ đạo đúng khác nhau.",
+    "intuition": "RTC tập trung vào vấn đề thời gian chạy: đoạn cũ và đoạn mới nối nhau thế nào khi GPU có độ trễ.",
     "detail": {
-      "label": "CÔNG TRÌNH LIÊN QUAN",
-      "text": "Đọc thêm RDT-1B, GR00T N1, π0.5, RTC (inference). Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+      "label": "GIẢI THÍCH",
+      "text": "Các công trình không thể so chỉ bằng tên mô hình. Hãy hỏi chúng giải vấn đề học quỹ đạo, biểu diễn chuyển động hay điều khiển liên tục, và sử dụng loại robot nào để thử nghiệm."
     }
   },
   {
     "type": "closing",
-    "title": "Nếu chỉ nhớ ba điều",
-    "lead": "Generative action model tránh bình quân hóa những quỹ đạo đúng khác nhau.",
+    "title": "Ba điều cần nhớ về Diffusion Policy",
+    "lead": "Một trạng thái có thể có nhiều đường đi đúng; mô hình diffusion sinh một chuỗi nhất quán; robot vẫn cần nhìn lại khi môi trường đổi.",
     "items": [
-      "Ưu tiên khi thao tác có multimodal action và chunk consistency.",
-      "Đo closed-loop success, smoothness và inference latency cùng nhau."
+      "Không lấy trung bình máy móc các quỹ đạo",
+      "Sinh đoạn hành động có tính liên tục",
+      "Đánh giá cả chất lượng lẫn độ trễ"
     ],
-    "intuition": "Sinh một quỹ đạo chuyển động đa phương án thay vì học action trung bình dễ va chạm.",
+    "intuition": "Đừng lấy trung bình hai cách đi trái ngược rồi gọi đó là quỹ đạo an toàn.",
     "detail": {
-      "label": "THỬ NGHIỆM TIẾP THEO",
-      "text": "Dùng Push-T state phương pháp đối chứng trong repo chính thức. Plot 10 sampled các quỹ đạo cho cùng quan sát; thay số denoising steps 100/20/5, horizon và action horizon, đo thành công và độ trễ."
+      "label": "GIẢI THÍCH",
+      "text": "Muốn tự kiểm chứng, hãy giữ cùng một quan sát và sinh nhiều quỹ đạo. Xem chúng có hình thành những cách đi hợp lệ khác nhau không, đồng thời đo thành công và thời gian khử nhiễu."
     }
   }
 ]
