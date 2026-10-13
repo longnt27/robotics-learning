@@ -26,9 +26,9 @@ Diffusion Policy không ép các demonstration về một đường đi “trung
 
 ## Kiến thức nền cần nắm
 
-Vấn đề **multimodality**: cùng một bối cảnh có hai đường vòng chướng ngại hợp lệ. Regress với MSE một action trung bình có thể tạo con đường đi thẳng vào chướng ngại. Generative mô hình dự đoán phân phối có nhiều đỉnh sẽ lấy mẫu thuộc một mode thay vì average.
+Một trạng thái robot đôi khi có **nhiều cách xử lý đều đúng**. Khi cần tránh vật cản, robot có thể đi vòng trái hoặc vòng phải. Nếu mô hình cố dự đoán một đường đi trung bình giữa hai cách, nó lại có thể đi thẳng vào vật cản. Đây là lý do cần học cả phân phối của những chuỗi hành động hợp lệ.
 
-Mô hình diffusion học loại noise từ quỹ đạo. **Denoising timestep** hoàn toàn khác **timestep robot**: một cái là số vòng sinh, cái kia là thời gian vật lý trong action horizon. Nhầm hai thứ này là hiểu sai cả thuật toán.
+**Diffusion** là phương pháp sinh dữ liệu bằng cách bắt đầu từ nhiễu rồi sửa dần thành một mẫu hợp lệ. Hai loại “bước thời gian” cần phân biệt: bước khử nhiễu là một lượt tính toán để tạo chuỗi; bước điều khiển là một thời điểm robot thực sự chuyển động. Một chuỗi có 20 hành động không có nghĩa mạng chỉ cần 20 lượt khử nhiễu.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -42,7 +42,9 @@ Mô hình diffusion học loại noise từ quỹ đạo. **Denoising timestep**
 
 ## Phương pháp thực hiện
 
-Diffusion Policy biểu diễn cả **action chuỗi/chunk** như một conditional diffusion process. Mô hình bắt đầu từ noise rồi denoise thành một quỹ đạo, điều kiện trên thị giác quan sát và state. Nó dùng receding-horizon control: dự đoán một horizon tương đối dài, thực thi một đoạn ngắn, rồi observe và replan. Bài báo thử cả CNN và Transformer theo thời gian backbone.
+Diffusion Policy nhận quan sát từ camera và trạng thái robot, sau đó tạo **một đoạn hành động**. Ban đầu đoạn này chỉ gồm các giá trị nhiễu. Ở mỗi lượt khử nhiễu, mạng sử dụng thông tin quan sát để sửa đoạn dự đoán, đưa nó dần gần các quỹ đạo hợp lệ trong dữ liệu huấn luyện.
+
+Robot không nhất thiết thực thi toàn bộ chuỗi vừa tạo. Nó chạy một phần đầu, lấy quan sát mới rồi sinh đoạn kế tiếp. Cách **dự đoán trước nhưng chỉ thực thi từng phần** giúp phản ứng khi vị trí vật thay đổi. Bài báo thử cả mạng tích chập và Transformer để xử lý dữ liệu theo thời gian. Điểm chính không phải chỉ chọn một kiến trúc, mà là kết hợp mô hình sinh nhiều phương án với vòng điều khiển có quan sát lại.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -50,7 +52,6 @@ Diffusion Policy biểu diễn cả **action chuỗi/chunk** như một conditio
 ![Hình 8 từ PDF gốc, trang 9](/paper-figures/diffusion-policy/figure-8.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Điểm bản chất không phải chỉ “dùng diffusion vì đang hot”, mà là diffusion có thể đại diện nhiều mode của phân phối action và vẫn tạo quỹ đạo temporal-coherent. Chính recipe này sau đó xuất hiện với biến thể flow matching trong π-series, RDT, GR00T, Qwen-VLA và một đống mô hình khác.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -75,7 +76,9 @@ Ví dụ có hai demonstration mở ngăn kéo: một người đưa gripper ti�
 
 ## Ví dụ từng bước
 
-Tạo demo Push-T: quan sát gồm tọa độ pusher và vật T. Với cùng start state, demonstrator có thể đi từ bên trái hoặc bên phải. Lúc huấn luyện, lấy ground truth action chuỗi `A_0`, thêm nhiễu Gaussian để có `A_k`, cho mạng dự đoán noise hoặc denoised quỹ đạo. Inference bắt đầu từ noise, lặp nhiều bước đến action chunk hợp lệ. Robot chỉ thực thi `a_0...a_m`, chụp quan sát mới, rồi replan.
+Trong nhiệm vụ đẩy khối chữ T, người điều khiển có thể tiếp cận khối từ bên trái hoặc bên phải. Cả hai chuỗi thao tác đều có thể thành công. Khi huấn luyện, ta lấy chuỗi hành động mẫu, thêm nhiễu vào rồi dạy mạng dự đoán cách loại bỏ nhiễu đó.
+
+Khi robot chạy, mạng bắt đầu bằng chuỗi nhiễu ngẫu nhiên và sửa qua nhiều lượt để tạo ra một đoạn chuyển động phù hợp với vị trí khối hiện tại. Robot chỉ thực hiện những bước đầu; sau đó camera quan sát lại để mô hình dự đoán tiếp. **Độ dài đoạn dự đoán** và **số bước thực sự phát xuống robot** không bắt buộc bằng nhau. Đoạn càng dài có thể càng nhất quán, nhưng cũng dễ chậm phản ứng khi cảnh thay đổi.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -83,7 +86,6 @@ Tạo demo Push-T: quan sát gồm tọa độ pusher và vật T. Với cùng s
 ![Hình 9 từ PDF gốc, trang 9](/paper-figures/diffusion-policy/figure-9.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Điểm quan trọng: `prediction horizon` và `action horizon` **không giống nhau**. Tăng horizon dự đoán giúp theo thời gian coherence nhưng có thể làm lập kế hoạch bị stale.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -97,7 +99,9 @@ Bây giờ người dùng xê dịch khối trong lúc robot đang đi tới vù
 
 ## Kết quả thực nghiệm
 
-Trên **12 nhiệm vụ thuộc 4 benchmark families**, tác giả nêu cải thiện trung bình rất lớn so với các phương pháp đối chứng điều khiển từ thị giác, khoảng **46.9%** theo cách tổng hợp của tác giả. Với nhiệm vụ trên robot thật như mug flipping, sauce pouring/spreading, diffusion policy đạt thành công cao trong khi một số phương pháp đối chứng LSTM-GMM hoặc hồi quy thất bại hoặc kém rõ rệt. Huấn luyện cũng ổn định hơn các energy-based alternatives mà bài báo so sánh.
+Trên 12 nhiệm vụ thuộc bốn nhóm đánh giá, nhóm tác giả báo cáo mức cải thiện trung bình khoảng **46,9%** theo cách tính tổng hợp của họ so với các phương pháp đối chứng. Các nhiệm vụ robot thật còn có lật cốc, rót và dàn nước sốt. Diffusion Policy thường thực hiện tốt hơn một số mô hình hồi quy trực tiếp hoặc mô hình xác suất dùng để so sánh, đặc biệt khi thao tác có nhiều đường đi hợp lệ.
+
+Hình 4 minh họa vì sao lựa chọn một quỹ đạo nhất quán quan trọng hơn tạo ra giá trị trung bình. Hình 6 kiểm tra việc thay độ dài chuỗi và độ trễ. Khi đọc kết quả, cần xét cả tỷ lệ thành công lẫn chi phí sinh hành động, không chỉ đường hàm mất mát.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -107,7 +111,6 @@ Trên **12 nhiệm vụ thuộc 4 benchmark families**, tác giả nêu cải th
 ![Hình 11 từ PDF gốc, trang 10](/paper-figures/diffusion-policy/figure-11.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Kết quả có sức ảnh hưởng nhất là qualitative: quỹ đạo mượt nhưng vẫn giữ được nhiều mode, thay vì biến multimodality thành average chuyển động. Từ sau bài báo này, câu hỏi của field đổi từ “diffusion có dùng được cho robot không?” sang “action diffusion/flow nên được ghép vào VLA thế nào và làm sao giảm độ trễ?”.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -121,9 +124,9 @@ Kết quả có sức ảnh hưởng nhất là qualitative: quỹ đạo mượ
 
 ## Hạn chế và câu hỏi còn mở
 
-**Bài báo thừa nhận:** đây vẫn là behavior cloning, nên bad demos hoặc thiếu coverage vẫn đặt trần. Iterative denoising làm inference đắt hơn one-shot regression, gây khó cho high-frequency control. Tác giả cũng chỉ ra hướng kết hợp dữ liệu gây tác động tiêu cực/RL và acceleration như việc cần làm tiếp.
+**Giới hạn của phương pháp:** Diffusion Policy vẫn học bắt chước từ demonstration. Nếu dữ liệu thiếu loại thao tác cần làm hoặc chứa nhiều ví dụ sai, mạng không thể tự biết mọi cách xử lý đúng. Quá trình khử nhiễu nhiều lần cũng tốn thời gian hơn một mạng chỉ dự đoán hành động trong một lượt.
 
-**Phê bình thêm:** không phải mọi gain đều có thể quy cho diffusion; action horizon, receding-horizon control, kiến trúc xử lý chuỗi thời gian và tuning cùng thay đổi. Trong thế giới thực đánh giá vẫn nhỏ so với độ rộng claim. Tính đa phương thức cũng không phải nút thắt chính của mọi nhiệm vụ, nên diffusion có thể là quá phức tạp so với nhu cầu cho một số policy đơn giản. Quan trọng nhất cho VLA hiện đại: iterative denoising tạo ra độ trễ và vấn đề nối các action chunk, thứ mà các bài báo RTC người đọc vừa tìm hiểu phải đi chữa về sau.
+**Điều cần thận trọng khi so sánh:** kết quả tăng không nhất thiết chỉ do diffusion. Cách xử lý chuỗi, độ dài đoạn hành động, vòng quan sát lại và việc tinh chỉnh tham số đều ảnh hưởng. Khi triển khai robot thật, cần đo độ trễ từ ảnh camera tới lệnh điều khiển và kiểm tra cách nối các đoạn liên tiếp. Đây chính là nhóm vấn đề sau này RTC giải quyết.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -156,9 +159,11 @@ RTC giải bài toán triển khai nảy sinh sau đó: nếu phải mất thờ
 
 ## Đọc code và tự kiểm chứng
 
-Dùng Push-T state phương pháp đối chứng trong repo chính thức. Plot 10 sampled các quỹ đạo cho cùng quan sát; thay số denoising steps 100/20/5, horizon và action horizon, đo thành công và độ trễ. Đừng kết luận chỉ bằng offline MSE.
+Hãy thử nhiệm vụ Push-T ở chế độ dùng trạng thái vật. Giữ nguyên tập dữ liệu, thay số lượt khử nhiễu và độ dài đoạn hành động. Với cùng một quan sát, vẽ mười quỹ đạo được sinh ra và xem chúng có theo những đường đi hợp lệ khác nhau hay vô tình đâm vào vật cản.
 
-**Cách kiểm tra đọc hiểu:** Hãy tự giải thích *đầu vào*, *đầu ra*, *loss khi huấn luyện*, *quy trình đánh giá* và *kiểu lỗi* của bài báo. Nếu không nói được một trong năm thứ này, cần đọc lại phần tương ứng trước khi chạy benchmark.
+Sau đó đo tỷ lệ hoàn thành và thời gian sinh lệnh khi robot chạy thử. Nếu mô hình cho quỹ đạo đẹp nhưng phát lệnh quá chậm, hệ thống vẫn có thể thất bại. **Đừng chỉ đánh giá bằng sai số dự đoán trên dữ liệu ghi sẵn.**
+
+**Tự kiểm tra:** phân biệt bước khử nhiễu với bước điều khiển, giải thích vì sao lấy trung bình hai quỹ đạo có thể sai, và nêu giới hạn do độ trễ.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

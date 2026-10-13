@@ -21,7 +21,9 @@ Giả sử trên bàn có ba khối giống nhau nhưng khác màu. Người dù
 
 ## Kiến thức nền cần nắm
 
-Trong VIMA, **prompt** là bản mô tả toàn bộ việc robot phải làm, chứ không chỉ một câu lệnh. Prompt có thể chứa chữ, ảnh vật thể tham chiếu hoặc ảnh trạng thái đích. Robot cần kết hợp chúng với quan sát camera hiện tại để biết đúng vật nào cần thao tác. Thay vì coi toàn ảnh là một khối dữ liệu không có cấu trúc, VIMA biểu diễn các vật thể thành những token riêng, giúp mạng tham chiếu tới từng vật dễ hơn. Tuy vậy, cách làm này cũng phụ thuộc vào việc nhận diện vật thể đủ chính xác.
+Trong VIMA, **prompt** là toàn bộ thông tin dùng để giao việc: câu chữ, ảnh của đồ vật được nhắc đến và đôi khi cả ví dụ về kết quả mong muốn. Prompt không phải ảnh camera đang quan sát; ảnh camera cho biết tình trạng hiện tại của bàn làm việc. Chẳng hạn ảnh mẫu chỉ một chiếc cốc xanh, còn camera nhìn thấy cả cốc xanh, cốc đỏ và chiếc khay đích. Robot phải xác định được chiếc cốc nào trong cảnh tương ứng với ảnh mẫu.
+
+VIMA chia thông tin về từng vật thể thành những **token** riêng, thay vì chỉ xử lý toàn bộ ảnh như một khối. Cách này giúp mạng xác định đối tượng được nhắc đến, nhưng cũng phụ thuộc vào chất lượng nhận diện vật thể.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -35,7 +37,9 @@ Trong VIMA, **prompt** là bản mô tả toàn bộ việc robot phải làm, c
 
 ## Phương pháp thực hiện
 
-Bài báo giới thiệu **VIMA-Bench**, gồm 17 nhóm nhiệm vụ mô phỏng và hơn 600.000 quỹ đạo thao tác mẫu. Bộ đánh giá được chia thành các mức khó tăng dần để kiểm tra khả năng làm việc với tổ hợp vật thể và yêu cầu chưa thấy trong huấn luyện. Mô hình kết hợp thông tin chữ và ảnh từ prompt với lịch sử quan sát rồi dùng Transformer sinh lệnh robot theo từng bước. Nhờ vậy người nghiên cứu có thể tách việc hiểu yêu cầu khỏi việc thực hiện chuyển động.
+VIMA gồm hai phần liên quan. **VIMA-BENCH** là môi trường kiểm tra với 17 nhóm nhiệm vụ mô phỏng và hơn 600.000 quỹ đạo ví dụ. Những cấp độ kiểm tra khó hơn yêu cầu robot xử lý các cách kết hợp đồ vật, mục tiêu hoặc bố cục chưa xuất hiện trực tiếp trong dữ liệu học. Nhờ đó, nhóm tác giả có thể kiểm tra khả năng khái quát thay vì chỉ xem robot có lặp lại tình huống quen thuộc hay không.
+
+Về mô hình, chữ và ảnh trong prompt được chuyển thành token. Mạng Transformer kết hợp chúng với những gì camera nhìn thấy và lịch sử thao tác để quyết định lệnh tiếp theo. Bài báo cũng so các kích thước mạng, tới khoảng 200 triệu tham số, nhằm xem quy mô ảnh hưởng tới kết quả thế nào.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -44,7 +48,6 @@ Bài báo giới thiệu **VIMA-Bench**, gồm 17 nhóm nhiệm vụ mô phỏng
 ![Hình 7 từ PDF gốc, trang 8](/paper-figures/vima/figure-7.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Điểm quan trọng của VIMA-Bench là tách những dạng tình huống mới: đổi vị trí đồ vật, kết hợp vật mới, ghép những nhiệm vụ quen thành nhiệm vụ khác và cuối cùng là thay mẫu nhiệm vụ. Các phép thử đi từ dễ tới khó, giúp nhìn rõ model chỉ học thuộc tình huống cũ hay biết sử dụng lại kiến thức. Nhóm tác giả cũng thay quy mô model từ nhỏ đến khoảng 200 triệu tham số để kiểm tra hiệu quả khi tăng số tham số.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -71,9 +74,9 @@ Phải phân biệt hai năng lực: hiểu đúng vật cần chọn và thực
 
 ## Ví dụ từng bước
 
-Prompt kiểu `Put [ảnh cốc xanh] next to [ảnh hộp đỏ]` tách thành đoạn text và vật thể tokens. Transformer nhìn bối cảnh hiện tại, cross-attend vào prompt và sinh thao tác pick/place. Lúc đánh giá, thay cốc xanh bằng vật mới hoặc đổi quan hệ không gian để đo prompt khả năng khái quát.
+Giả sử prompt ghi: **“Đặt [ảnh cốc xanh] bên cạnh [ảnh hộp đỏ]”**. Đầu tiên, mô hình đọc câu chữ để hiểu quan hệ “bên cạnh”. Tiếp theo, nó đối chiếu hai ảnh tham chiếu với những vật trong cảnh hiện tại. Sau đó, robot tiếp cận đúng cốc, kẹp, nhấc và đặt ở vị trí tương đối so với chiếc hộp.
 
-Level khó nhất của VIMA-Bench không đồng nghĩa open-world: nhiệm vụ vẫn thuộc grammar mô phỏng, dù hoán đổi vật thể/combination.
+Để kiểm tra mô hình có thực sự dùng prompt hay không, giữ nguyên bàn và thay ảnh cốc xanh thành ảnh một vật khác. Nếu robot vẫn chọn cốc cũ thì có thể nó đang dựa vào thói quen, không hiểu thông tin trong prompt. Các mức khó của VIMA-BENCH vẫn nằm trong quy tắc của môi trường mô phỏng, chưa phải thế giới mở ngoài đời.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -87,7 +90,9 @@ Bây giờ đổi hình tham chiếu thành khối vàng nhưng giữ nguyên c�
 
 ## Kết quả thực nghiệm
 
-VIMA outperform các alternative kiến trúc cùng dữ liệu khá mạnh trên hard zero-shot splits. Bài báo báo có thiết lập **tới 2.9x tỷ lệ thành công của nhiệm vụ** so với kiến trúc thay thế ở cùng dữ liệu budget, và **2.7x hiệu năng với ít hơn 10x dữ liệu** trong một số comparison. Kích thước mô hình và dữ liệu size đều giúp systematic khả năng khái quát, không chỉ memorization huấn luyện nhiệm vụ.
+Kết quả cho thấy VIMA vượt một số kiến trúc đối chứng trong những tình huống yêu cầu kết hợp thông tin ảnh và chữ. Nhóm tác giả báo cáo một số thiết lập có tỷ lệ thành công cao tới **2,9 lần** phương pháp so sánh; ở phép thử khác, mô hình đạt hiệu quả cao hơn dù sử dụng lượng dữ liệu ít hơn **10 lần**. Đây là kết quả trong những điều kiện nghiên cứu cụ thể, không phải hệ số cải thiện bảo đảm cho mọi nhiệm vụ robot.
+
+Quan trọng hơn, khi cấp độ khái quát tăng, kết quả vẫn giảm đáng kể. Điều đó cho thấy prompt đa phương thức hữu ích, nhưng chưa đủ để robot xử lý mọi vật thể và thao tác chưa từng gặp.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -95,7 +100,6 @@ VIMA outperform các alternative kiến trúc cùng dữ liệu khá mạnh trê
 ![Hình 6 từ PDF gốc, trang 7](/paper-figures/vima/figure-6.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Quan trọng hơn, level khả năng khái quát càng xa huấn luyện grammar thì hiệu năng vẫn tụt rõ. Điều đó vừa là kết quả tốt vừa là warning: multimodal prompting giúp rất nhiều, nhưng không biến robot thành GPT cho vật lý chỉ sau một đêm.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -109,9 +113,9 @@ Hình 6 kiểm tra bộ mã hóa ảnh: giữ bài toán gần như giống nhau
 
 ## Hạn chế và câu hỏi còn mở
 
-**Bài báo thừa nhận:** perception dựa vào vật thể detector riêng nên có thể fail khi occlusion/OOD. VIMA-Bench là mô phỏng với action primitives khá sạch, chưa phản ánh toàn bộ contact động lực học của robot thật. Nhóm nhiệm vụ tuy đa dạng nhưng vẫn procedurally được tạo ra từ một grammar tương đối rõ.
+**Hạn chế được thảo luận trong bài:** VIMA phụ thuộc vào hệ thống phát hiện vật thể. Nếu vật bị che hoặc không giống những mẫu đã học, thông tin đầu vào có thể sai trước cả khi Transformer dự đoán hành động. Môi trường mô phỏng còn đơn giản hơn robot thật ở chuyện tiếp xúc, lực kẹp và sai số camera.
 
-**Phê bình thêm:** object-centric biểu diễn đã cho mô hình một inductive bias cực mạnh, tức một phần bài toán perception khó ngoài đời đã được giải hộ. Action không gian có các primitive tương đối high-level nên độ chính xác control, force, độ trễ và phục hồi bị che đi. “Novel nhiệm vụ” vẫn nằm trong thế giới Ravens/VIMA chứ chưa phải open-world nhiệm vụ. Do đó VIMA rất mạnh để học **khả năng khái quát structure**, nhưng không nên dùng nó làm evidence rằng một policy đã sẵn sàng cho household robotics.
+**Điều cần lưu ý thêm khi diễn giải:** việc biểu diễn sẵn từng vật giúp mô hình giải quyết một phần khó khăn về nhận biết. Các thao tác trong môi trường được xây theo một bộ quy tắc xác định, nên không thể suy từ điểm VIMA-BENCH rằng mô hình đã đủ an toàn và chính xác để làm việc nhà ngoài đời. Khả năng làm nhiệm vụ mới ở đây phải hiểu trong phạm vi bộ đánh giá.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -142,9 +146,11 @@ VIMA chủ yếu trả lời câu hỏi “người dùng có thể mô tả m�
 
 ## Đọc code và tự kiểm chứng
 
-Chạy VIMA-Bench trên một prompt type. Giữ chuyển động primitive không đổi rồi thay modality của prompt: chỉ text, text + vật thể hình ảnh. Log thành công theo mức OOD. Để debugging, visualize attention từ quan sát vật thể token đến prompt vật thể token.
+Có thể bắt đầu bằng một nhóm nhiệm vụ VIMA-BENCH nhỏ. Giữ nguyên bố cục bàn và cách điều khiển, sau đó thay duy nhất nội dung prompt: chỉ chữ, rồi chữ kết hợp ảnh vật mẫu. Ghi tỷ lệ robot chọn đúng đối tượng và tỷ lệ hoàn thành thao tác theo từng cấp độ kiểm tra. Hai tỷ lệ khác nhau sẽ giúp phân biệt **lỗi hiểu yêu cầu** với **lỗi thực thi chuyển động**.
 
-**Cách kiểm tra đọc hiểu:** Hãy tự giải thích *đầu vào*, *đầu ra*, *loss khi huấn luyện*, *quy trình đánh giá* và *kiểu lỗi* của bài báo. Nếu không nói được một trong năm thứ này, cần đọc lại phần tương ứng trước khi chạy benchmark.
+Nếu có công cụ xem trọng số chú ý, thử quan sát mạng đang tham khảo token nào của prompt khi chọn vật. Đây là cách kiểm tra giả thuyết rõ hơn việc chỉ nhìn một video thành công.
+
+**Tự kiểm tra:** hãy giải thích đầu vào, đầu ra, cách huấn luyện, điều kiện đánh giá và ít nhất một tình huống thất bại.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
