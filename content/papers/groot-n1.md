@@ -26,29 +26,11 @@ NVIDIA chọn kiến trúc hai hệ thống: một phần hiểu thông tin và 
 
 Hình 1 là tháp dữ liệu, không phải sơ đồ network. Ở đáy có những nguồn nhiều nhưng không mang đầy đủ action label robot; phía trên là các loại dữ liệu gần nhiệm vụ và embodiment hơn, thường đắt hơn. Ý tưởng cốt lõi: không thể đòi mọi video người ngoài đời cung cấp joint torque của một humanoid. Mỗi tầng dữ liệu nên cung cấp tín hiệu supervision phù hợp với thứ thực sự quan sát được. Đó là lý do cần đọc data recipe song song với kiến trúc dual-system.
 
-### Đào sâu: Điểm cốt lõi
+### Vì sao robot hình người không thể chỉ học từ một tập demonstration nhỏ?
 
-**Luận điểm.** VLM lo hiểu ngữ nghĩa, action expert lo chuyển động: pretraining video người bổ sung kinh nghiệm cho robot. Không thể copy khớp của con người angles sang robot joints một cách trực tiếp. Do đó bài toán của GR00T N1 là: làm sao tận dụng đa nguồn dữ liệu để xây dựng một policy có khả năng hiểu ngữ nghĩa lẫn khả năng sinh liên tục motor actions, sau đó thích nghi nhanh cho robot thật?
+Robot hai tay, robot di động và robot hình người có số khớp, kiểu kẹp và cảm biến rất khác nhau. Thu hàng triệu lượt thực hành đúng với mỗi phần cứng sẽ cực kỳ tốn kém. GR00T N1 tìm cách khai thác nhiều tầng dữ liệu: video người dễ thu, video tạo tổng hợp, demonstration robot nhiều loại và dữ liệu chi tiết của robot mục tiêu.
 
-**Vấn đề khoa học nằm ở đâu?** Một mô hình vừa phải hiểu nhiệm vụ vừa phải phát lệnh motor liên tục, nhưng hai phần có demands khác nhau. Một hệ thống robot có thể có hình ảnh đẹp, output trông hợp lý nhưng vẫn sai ở cơ cấu thực thi. Vì thế phải tách câu hỏi về dữ liệu, câu hỏi về representation, câu hỏi về policy và câu hỏi về đánh giá. Dual-system architecture chia việc theo bản chất là đóng góp cần đọc cùng các giả định ấy, không phải câu slogan thay thế cho thí nghiệm.
-
-**Đọc đóng góp như một giả thuyết.** Cơ chế được đề xuất là System 2 mã hóa image/language thành condition; System 1 là flow-based action expert sinh quỹ đạo. Nếu nó thật sự hữu ích, điểm khác biệt phải xuất hiện tại chính nơi baseline gặp bottleneck. Không đủ chỉ liệt kê thành phần mới; cần giải thích tại sao dữ liệu hoặc observation hiện có không giải được bài toán với cách làm cũ.
-
-### Đào sâu: Robot demonstrations đắt, đa embodiment khó cùng huấn luyện
-
-**Luận điểm.** Một mô hình vừa phải hiểu nhiệm vụ vừa phải phát lệnh motor liên tục, nhưng hai phần có demands khác nhau. Truyền thống, mỗi robot/nhiệm vụ được huấn luyện bằng behavior cloning trên một tập demonstrations tương ứng.
-
-**Tại sao lỗi này có hệ quả lớn?** VLM giỏi nghĩa nhưng không sẵn sàng điều khiển khớp. Mỗi action làm thay đổi trạng thái môi trường và tạo ra observation tiếp theo. Một dự đoán hơi lệch có thể đẩy robot ra ngoài những trạng thái từng thấy trong demonstration, khiến bước sau khó phục hồi hơn. Bản thân robot demonstrations đắt, đa embodiment khó cùng huấn luyện vì thế ảnh hưởng đến toàn bộ rollout, chứ không chỉ một hàng trong bảng accuracy.
-
-**Thử nghĩ một phản ví dụ.** Nếu chỉ test các episode có điểm bắt đầu giống dữ liệu huấn luyện, policy có thể học shortcut về bối cảnh. Đổi nhẹ góc camera, vật thể hoặc thứ tự thao tác sẽ phơi bày liệu nó có dùng tín hiệu nhân quả phù hợp không. Vì vậy phải kiểm tra điều kiện test trước khi đọc tỷ lệ thành công.
-
-### Đào sâu: VLM giỏi nghĩa nhưng không sẵn sàng điều khiển khớp
-
-**Luận điểm.** Robot-only BC thiếu dữ liệu quy mô và khó mở rộng ra nhiều thiết bị. Robot humanoid có thể sở hữu camera, hai cánh tay, thân, cổ tay và gripper, nhưng việc biến lời nói “gấp chiếc áo này” thành hàng trăm lệnh điều khiển vẫn rất khó.
-
-**Hai quy trình khác nhau ra sao?** Phương pháp cũ gặp trở ngại: Robot-only BC thiếu dữ liệu quy mô và khó mở rộng ra nhiều thiết bị.. Thay đổi trọng tâm là: Dual-system architecture chia việc theo bản chất. Câu hỏi có ích nhất không phải mạng mới có bao nhiêu lớp, mà là thông tin nào trước kia bị đánh mất và giờ được chuyển qua đúng mô-đun. System 2 mã hóa image/language thành condition; System 1 là flow-based action expert sinh quỹ đạo.
-
-**Đặt điều kiện đối chứng.** Nếu train hai cách với data budget khác nhau, hoặc một bên dùng pretrained encoder còn bên kia không, chênh lệch không đủ để gán cho cơ chế mới. Một ablation đúng phải giữ càng nhiều yếu tố càng tốt và thay đổi đúng thành phần tác giả muốn chứng minh.
+Bài toán không đơn giản là “mô hình nhìn video rồi bắt chước tay người”. Video người có thể giúp hiểu thứ tự và mục tiêu chuyển động, nhưng lệnh motor vẫn phải thích ứng với cấu trúc robot. Vì vậy GR00T có phần xử lý ảnh/câu lệnh và phần chuyên sinh hành động vận động.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -66,13 +48,11 @@ Hình 1 là tháp dữ liệu, không phải sơ đồ network. Ở đáy có nh
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Ba khái niệm để nắm
+### Tách hiểu cảnh khỏi tạo chuyển động
 
-**Luận điểm.** Hiểu ba khái niệm này trước khi đọc thuật toán. Post-training thích nghi vào robot và nhiệm vụ đích bằng demonstrations chuyên biệt. Hai bước này cần phân biệt vì thành công ở robot cuối không chỉ do foundation pretraining, mà còn do dữ liệu và setup ở downstream.
+Trong GR00T N1, **VLM** đọc ảnh và lệnh để hình thành biểu diễn ngữ nghĩa: vật cần nhặt là gì, mục tiêu ở đâu. **Action expert** dùng thông tin ấy, cùng trạng thái khớp và loại robot, để dự đoán chuyển động. Action expert được xây bằng Diffusion Transformer; nó sinh hành động chứ không viết câu trả lời cho người dùng.
 
-**Khái niệm thành cấu trúc tính toán.** System 2: Visual-language context, không phải chatbot nghĩ thành tiếng. Hãy luôn hỏi: input tensor là gì, output tensor là gì, biểu diễn đó mang thông tin thời gian hay không, và vì sao không thể đơn giản thay bằng một vector khác. Post-training thích nghi vào robot và nhiệm vụ đích bằng demonstrations chuyên biệt. Hai bước này cần phân biệt vì thành công ở robot cuối không chỉ do foundation pretraining, mà còn do dữ liệu và setup ở downstream. Một thuật ngữ chỉ hữu ích khi nối được với dữ liệu và hành vi có thể quan sát.
-
-**Tránh ba sự nhầm lẫn.** Dataset đa dạng chưa phải model khái quát; có latent hoặc token chưa chắc học được semantics; loss offline tốt chưa chắc action thực thi ổn định. Phần kiến thức nền dùng để loại trừ các kết luận quá mạnh đó. Muốn khẳng định model dùng đúng khái niệm, hãy kiểm tra ablation và intermediate representation.
+**Biểu diễn nhận biết robot** giúp phần sinh lệnh hiểu đang điều khiển cánh tay đơn hay hệ hai tay nhiều khớp. Hai robot có thể chia sẻ ý tưởng “dịch tay sang trái”, nhưng góc khớp cụ thể không giống nhau. Đó là lý do mạng có bộ mã hóa riêng cho trạng thái và hành động theo từng cấu trúc.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -139,53 +119,11 @@ Hình 2 mới là sơ đồ GR00T N1: thành phần thị giác–ngôn ngữ t�
 
 Giả sử lệnh là cầm chiếc cốc, đặt lên khay. Bộ phận VLM phải phân biệt đâu là cốc, đâu là khay, đâu là constraint ngôn ngữ; action expert phải tạo đường đi khớp/EEF phù hợp với robot hiện tại. Video người có thể hỗ trợ prior về ngữ cảnh và chuyển động, nhưng không trực tiếp chỉ ra torque của khớp robot. Vì vậy khi huấn luyện và fine-tune cần chọn đúng nguồn supervision, coordinate transform và embodiment adapter. Một chính sách có vẻ hiểu lệnh mà gripper không đóng đúng lúc vẫn không giải được nhiệm vụ.
 
-### Đào sâu: Dual-system architecture chia việc theo bản chất
+### Những gì diễn ra từ câu lệnh đến lệnh motor
 
-**Luận điểm.** System 2 mã hóa image/language thành condition; System 1 là flow-based action expert sinh quỹ đạo. Hệ thống 2 dùng VLM encode ảnh và ngôn ngữ thành context, rồi cung cấp context cho Hệ thống 1; Hệ thống 1 là một Transformer chuyên sinh action quỹ đạo bằng quá trình flow-based sinh.
+Giả sử câu lệnh là “chuyển quả táo từ tay trái sang tay phải rồi đặt vào giỏ”. Camera ghi cảnh và trạng thái khớp ghi vị trí hiện tại. Mô hình VLM Eagle-2 biến ảnh/câu lệnh thành đặc trưng, sau đó chuyển thông tin liên quan sang các khối DiT bằng chú ý chéo.
 
-**Giải thích không dùng tên model.** System 2 mã hóa image/language thành condition; System 1 là flow-based action expert sinh quỹ đạo. Thử mô tả bằng một câu chuyện đầu vào và đầu ra, tránh dựa vào từ như Transformer, flow, token hay MoE để thay thế giải thích. Điều quan trọng là hiểu cơ chế ấy biến thông tin quan sát thành điều gì có ích để robot ra quyết định.
-
-**Từ intuition tới phép thử.** VLM lo hiểu ngữ nghĩa, action expert lo chuyển động: pretraining video người bổ sung kinh nghiệm cho robot. Nếu ta loại bỏ cơ chế đó nhưng giữ nguyên dữ liệu và evaluator, lỗi nào kỳ vọng tăng lên? Nếu không dự đoán được loại lỗi, có thể ta chỉ đang học thuộc mô tả phương pháp mà chưa hiểu tại sao tác giả lựa chọn nó.
-
-### Đào sâu: Kiến trúc trong một sơ đồ
-
-**Luận điểm.** VLM lo hiểu ngữ nghĩa, action expert lo chuyển động: pretraining video người bổ sung kinh nghiệm cho robot. Đây là điểm liên hệ mạnh nhất với hoạt động thu headcam video: đầu vào người đa dạng có giá trị, nhưng value phụ thuộc vào filtering, chuyển động/hand state reconstruction và mapping sang biểu diễn mà action expert học được.
-
-**Lần theo đầu vào đến đầu ra.** Sơ đồ nên được đọc theo thứ tự Camera + lệnh + state → VLM / System 2 → Flow action expert / System 1 → Quỹ đạo H × D. Mỗi mũi tên tương ứng với một thao tác thực: đọc cảm biến, xử lý tensor, trích đặc trưng, suy luận, giải mã hoặc gửi command. Nếu bỏ qua quá trình chuẩn hoá hay xử lý timestamp, sơ đồ vẫn đẹp nhưng implementation có thể fail.
-
-**Chỗ dễ sai khi triển khai.** Đây là điểm liên hệ mạnh nhất với hoạt động thu headcam video: đầu vào người đa dạng có giá trị, nhưng value phụ thuộc vào filtering, chuyển động/hand state reconstruction và mapping sang biểu diễn mà action expert học được. Với mỗi module, hãy ghi checkpoint nào dùng, shape dữ liệu, đơn vị và hệ quy chiếu, thành phần nào có gradient và thành phần nào chỉ hiện diện lúc training. Sau đó log action trước và sau inverse normalization để phát hiện lỗi thuộc pipeline chứ không phải lỗi model.
-
-### Đào sâu: Mô hình biểu diễn cái gì?
-
-**Luận điểm.** Thông tin robot state, embodiment và images được đưa vào condition. Vì action quỹ đạo bao gồm nhiều bước, mô hình có thể phối hợp chuyển động tay trái/tay phải và giữ tính liên tục về thời gian trong chunk.
-
-**Action là một hợp đồng kỹ thuật.** ĐẦU RA / DẠNG BIỂU DIỄN: Output là continuous action chunk, không phải token text. Một vector điều khiển có thể là joint angle, delta end-effector, gripper hoặc các token đã lượng tử hoá. Cần biết số chiều, đơn vị, hệ tọa độ, scaling và trục thời gian. Vì action quỹ đạo bao gồm nhiều bước, mô hình có thể phối hợp chuyển động tay trái/tay phải và giữ tính liên tục về thời gian trong chunk. Không xác định các yếu tố này thì chưa thể nối output model với phần cứng.
-
-**Kiểm tra trước khi train.** Lấy một trajectory đúng, encode rồi decode qua representation dự kiến. Đo reconstruction error trên từng chiều và vị trí thời gian quan trọng, nhất là khi tiếp xúc vật thể. Thử đổi horizon hoặc normalization mà giữ nguyên dữ liệu. Một adapter sai có thể phá mọi rollout dù bản thân network vẫn tối ưu được loss.
-
-### Đào sâu: Model học như thế nào?
-
-**Luận điểm.** Mixture robot demonstrations, video con người và vision-language data. Một mạng đã pretrain chưa hiểu chắc robot target. Post-training dùng demonstrations đặc thù để calibrate action scaling, gripper convention, camera viewpoint và kinematics.
-
-**Loss phải có nguồn supervision.** MỤC TIÊU HỌC: Flow matching học biến noisy action thành motor trajectory. Hãy chỉ ra batch gồm observation, state, instruction, target action hay target đặc trưng nào; rồi xác định mô hình đang học reconstruction, dự đoán chuỗi hay một phân phối có điều kiện. Cùng tên 'training' nhưng cách tạo target ở BC, diffusion, flow matching và mô hình dự đoán đặc trưng khác nhau căn bản.
-
-**Phân tách lỗi dữ liệu và lỗi thuật toán.** Một mạng đã pretrain chưa hiểu chắc robot target. Post-training dùng demonstrations đặc thù để calibrate action scaling, gripper convention, camera viewpoint và kinematics. Kiểm tra episode split trước khi chia thành window, kiểm tra timestamp camera/action, normalization, random seed và khả năng overfit một subset nhỏ. Nếu vài trajectory còn không học được, việc tăng model size hoặc đổi scheduler thường chỉ che lỗi implementation.
-
-**Đọc ablation đúng cách.** So pretraining + adaptation với train từ đầu ở từng demo budget. Khi đổi một module phải giữ data budget, training steps và quy trình đánh giá tương đương. Nếu nhiều thứ đổi cùng lúc, tác dụng thực sự là của toàn hệ thống, không thể kết luận một trick đơn lẻ tạo toàn bộ mức cải thiện.
-
-### Đào sâu: Mathematical Intuition
-
-**Luận điểm.** Tưởng tượng chuyển từ nhiễu ε sang một trajectory A*: flow model học hướng di chuyển trong không gian action. Ở inference, bắt đầu noise, tích phân qua nhiều flow time steps để lấy một plausible chunk.
-
-$$
-A_\tau=(1-\tau)\epsilon+\tau A^\star
-$$
-
-**Công thức đang mô tả thứ gì?** Tưởng tượng chuyển từ nhiễu ε sang một trajectory A*: flow model học hướng di chuyển trong không gian action. Trước khi tính đạo hàm hoặc chuyển vế, hãy xác định đâu là observation, đâu là biến action, đâu là horizon/conditioning và đâu là tham số được học. Ở inference, bắt đầu noise, tích phân qua nhiều flow time steps để lấy một plausible chunk. Ký hiệu ngắn gọn không nói hết cách chọn discretization, action mask hoặc runtime sampler.
-
-**Một phép thử bằng hai trajectory.** Hai lần thao tác có cùng mục tiêu nhưng trạng thái ban đầu khác nhau có thể cần action khác. Công thức này có cho phép output phụ thuộc vào thông tin phân biệt ấy không? Nếu nhiều demonstration hợp lệ khác nhau, model học một mode, average hay một phân phối đa mode? Đây mới là câu hỏi hiểu toán trong robot learning.
-
-**Giới hạn của suy luận từ công thức.** Cách viết intuition của linear flow interpolation. Một biểu thức xác suất hoặc phép nội suy không tự chứng minh model đã học vật lý hay robot sẽ thành công. Loss và nguồn target quyết định model có tín hiệu nào, còn evaluation mới cho biết hành vi thực hiện ngoài đời.
+Action expert nhận thêm biểu diễn trạng thái của robot và chuỗi hành động nhiễu, liên tục chỉnh chuỗi cho tới khi tạo ra đoạn lệnh vận động. Lệnh cần được chuyển về đúng dạng phần cứng thực thi. Robot nhận quan sát mới khi di chuyển. Mạng ngữ nghĩa giúp chọn việc cần làm; bộ sinh hành động mới quyết định quỹ đạo thực tế.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -203,15 +141,11 @@ Với video con người, ta có thể thấy người nắm mép áo và fold t
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Một lần inference xảy ra ra sao?
+### Ví dụ hai tay chuyền quả táo
 
-**Luận điểm.** System 2 xử lý ngữ nghĩa và context ảnh. VLM trích xuất context gồm áo, bàn, tay robot và từ khóa nhiệm vụ. Action expert lấy robot trạng thái khớp hiện tại, sampled action noise và context rồi sinh chunk chứa các bước đưa hai tay xuống, kẹp mép, kéo và đặt.
+Robot đang giữ táo bằng tay trái, tay phải phải đưa tới đúng vị trí, kẹp chắc rồi tay trái mới thả. Một mạng chỉ biết “đưa táo vào giỏ” chưa đủ nếu không dự đoán đúng thứ tự phối hợp hai tay. Hình 11 cho thấy một ví dụ robot chưa tinh chỉnh vẫn hoàn thành chuyển tay trong bố cục mới, nhưng chuyển động còn giật.
 
-**Một tick điều khiển xảy ra thế nào?** XỬ LÝ ĐẦU VÀO: System 1 chạy vài bước flow sampling để sinh chunk. Ta nhận observation, tính conditioning, sinh action, giải mã và gửi lệnh xuống controller. VLM trích xuất context gồm áo, bàn, tay robot và từ khóa nhiệm vụ. Action expert lấy robot trạng thái khớp hiện tại, sampled action noise và context rồi sinh chunk chứa các bước đưa hai tay xuống, kẹp mép, kéo và đặt. Hãy ghi lại thời điểm ở mỗi bước vì latency từ ảnh đến actuator khác với thời gian chạy forward của riêng backbone.
-
-**Khi môi trường đổi giữa hai lần query.** Nếu vật thể dịch chuyển, mô hình có nhận observation mới đủ nhanh không; action nào đã cam kết và action nào có thể sửa? TẠO HÀNH ĐỘNG: Robot servo thực thi chunk; độ trễ còn phụ thuộc phần cứng và runtime. Trả lời được mới hiểu policy có thực sự closed-loop hoặc chỉ phát một quỹ đạo cố định rồi hy vọng robot làm đúng.
-
-**Điều nên đo thêm.** Ngoài task success, hãy log tail latency, action jerk, lỗi ở điểm nối các action chunk và khả năng phục hồi sau disturbance. Một video chuyển động mượt không chứng minh robot làm đúng mục tiêu, còn throughput cao chưa chắc đảm bảo control loop ổn định.
+Điều này cho thấy kiến thức từ giai đoạn huấn luyện rộng có thể hữu ích trước khi học riêng nhiệm vụ. Tuy nhiên một lượt thành công mang tính minh họa chưa thay thế đánh giá trên nhiều vị trí, vật và số lượt thử.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -231,23 +165,11 @@ Bài báo cũng nêu phiên bản GR00T N1-2B gồm khoảng 2B parameters và �
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Kết quả nói lên điều gì?
+### Dữ liệu video tổng hợp thực sự giúp gì?
 
-**Luận điểm.** Pretrain rồi adapt cho thấy lợi ích khi số demos đích ít hơn. Bài báo đánh giá nhiều môi trường mô phỏng và trên humanoid thật. Phần công bố báo GR00T N1 đã pretrain thường tốt hơn các phương pháp imitation learning đối chứng được huấn luyện từ đầu ở những chế độ ít demonstrations, và cho thấy adaptation trên Fourier GR-1.
+Hình 5 và Hình 13 trình bày các video được mô hình sinh từ ảnh ban đầu cùng prompt thay đổi. Mục tiêu là tạo thêm quỹ đạo/hình ảnh cho những việc khó hoặc đắt nếu phải quay bằng robot thật. Có thể tạo các góc nhìn khác nhau, thay vật thể hoặc nối nhiều đoạn thành nhiệm vụ dài.
 
-**Cách đọc bảng số liệu.** PHÁT HIỆN QUAN TRỌNG: Báo cáo GR00T N1-2B khoảng 2B parameters. Trước khi so score, xác định metric đo thành công cuối hay progress từng bước, baseline dùng dữ liệu gì, số lần lặp, tập test và cách gộp các nhiệm vụ. Bài báo đánh giá nhiều môi trường mô phỏng và trên humanoid thật. Phần công bố báo GR00T N1 đã pretrain thường tốt hơn các phương pháp imitation learning đối chứng được huấn luyện từ đầu ở những chế độ ít demonstrations, và cho thấy adaptation trên Fourier GR-1. Chênh lệch average đôi khi giấu những task thất bại nghiêm trọng.
-
-**Từ số sang kết luận có phạm vi.** CÁCH DIỄN GIẢI: Chunk sampling khoảng 63,9 ms trên một GPU L40 trong setup cụ thể của bài báo. Một mô hình khái quát tốt trên lệnh mới chưa chắc điều khiển contact-rich tốt; data diversity hiệu quả chưa bảo đảm chuyển được sang morphology lạ; model chạy nhanh chưa có nghĩa tail latency phù hợp servo. Phải kết luận theo đúng chiều mà thí nghiệm đo.
-
-**Độ tin cậy của bằng chứng.** Camera placement, calibration, noise, split, seed và budget huấn luyện đều ảnh hưởng outcome. Một kết quả đáng tin cần báo cáo đủ điều kiện để người đọc kiểm tra, và có đối chứng tránh nhiễu. Nếu thiếu, hãy nói rõ mức bất định thay vì tưởng tượng số liệu.
-
-### Đào sâu: Ablation và bằng chứng
-
-**Luận điểm.** So pretraining + adaptation với train từ đầu ở từng demo budget. Một cách đọc kết quả có trách nhiệm: xem biểu đồ pretraining vs scratch theo từng dữ liệu regime.
-
-**Ablation hỏi nguyên nhân, không chỉ điểm số.** YẾU TỐ ĐƯỢC THỬ: Cần tách gain do architecture khỏi gain do tuyển lọc data mixture. Loại bỏ một thành phần khiến performance giảm là dấu hiệu hữu ích trong thiết lập đã thử, nhưng chưa chứng minh nó là giải pháp duy nhất. Một cách đọc kết quả có trách nhiệm: xem biểu đồ pretraining vs scratch theo từng dữ liệu regime. Hãy tìm xem các đường baseline có chung dữ liệu, model capacity và ngân sách tối ưu không.
-
-**Đọc theo từng failure mode.** Một cách đọc kết quả có trách nhiệm: xem biểu đồ pretraining vs scratch theo từng dữ liệu regime. Nếu average tốt lên nhưng contact task tụt, hoặc latent loss giảm mà success rate không đổi, cần ghi nhận trade-off. Ta muốn biết mô-đun cải thiện lỗi nào, trong điều kiện nào, chứ không chỉ một điểm trung bình được làm nổi bật.
+Hình 9 kiểm tra riêng việc bổ sung quỹ đạo sinh ở các chế độ dữ liệu ít/nhiều. Điều quan trọng là video tổng hợp không tự có nhãn hành động robot chính xác; cần suy ra lệnh bằng phương pháp phù hợp, chẳng hạn mô hình động học ngược, và xác minh chất lượng. Nếu nhãn sai, thêm dữ liệu còn có thể làm policy kém.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -264,13 +186,11 @@ Bài báo cũng nêu phiên bản GR00T N1-2B gồm khoảng 2B parameters và �
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Hạn chế cần nói thẳng
+### Những điều chưa nên suy rộng
 
-**Luận điểm.** Tách rõ tác giả thừa nhận và nhận định phê bình độc lập. Phạm vi tác giả thể hiện: Kết quả tập trung trên các embodiment/nhiệm vụ đã chọn; foundation policy vẫn cần post-training cho phần cứng/kỹ năng cụ thể.
+Robot hình người phải thỏa các ràng buộc cân bằng, tiếp xúc, giới hạn lực và an toàn mà dữ liệu video đơn thuần không mô tả đầy đủ. Khả năng vận động tay tốt trong một vài nhiệm vụ chưa có nghĩa robot tự giữ thăng bằng và làm được mọi việc nhà.
 
-**Phân biệt điều tác giả chỉ ra và điều ta suy đoán.** Tác giả / phạm vi: Tác giả: vẫn cần post-training; human video không tự tạo ra action labels tương đương robot. Câu 'chưa đánh giá' không đồng nghĩa với 'đã thử và thất bại'. Câu 'có thể chịu rủi ro' không được viết thành số liệu âm tính. Phạm vi tác giả thể hiện: Kết quả tập trung trên các embodiment/nhiệm vụ đã chọn; foundation policy vẫn cần post-training cho phần cứng/kỹ năng cụ thể. Ranh giới đó giúp đọc nghiên cứu nghiêm túc mà không tô hồng hoặc bác bỏ quá mức.
-
-**Ngoài benchmark còn có hệ thống thật.** Phê bình độc lập: Phê bình: success rate không bao gồm mọi jerk/collision, và bài toán mapping cross-embodiment còn mở. Khi chuyển sang robot khác, camera, workspace, DOF, actuator limits và controller đều có thể phá các giả định gốc. Cần kiểm tra safety, valid action range và các tình huống bắt đầu lệch chuẩn trước khi coi một policy là sẵn sàng triển khai.
+Các loại dữ liệu khác nhau cũng có độ tin cậy khác nhau. Video tạo sinh có thể chứa chuyển động không tuân theo vật lý; demonstration thật thì hiếm. Kết quả cần xem cả nguồn dữ liệu, loại robot thử và điều kiện khởi tạo, không chỉ tổng số giờ huấn luyện.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -284,13 +204,11 @@ Bài báo cũng nêu phiên bản GR00T N1-2B gồm khoảng 2B parameters và �
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Bài này đứng ở đâu trong lĩnh vực?
+### So với PaLM-E, RDT và π0.5
 
-**Luận điểm.** Không đọc paper như một hòn đảo riêng. Đọc thêm RT-2, Diffusion Policy, Open X-Embodiment, Qwen-VLA, LingBot-VLA 2.0. Nên so sánh cách tiếp cận, dữ liệu huấn luyện và phạm vi khái quát của từng công trình.
+PaLM-E tập trung đưa cảm giác từ thế giới thật vào suy luận đa phương thức. RDT chú trọng sinh đoạn hành động phối hợp hai tay bằng DiT. GR00T N1 dùng thiết kế hai phần: VLM hiểu cảnh và action expert sinh chuyển động, đồng thời trộn nhiều loại dữ liệu để học robot khác nhau.
 
-**So sánh theo trục kỹ thuật.** NỀN TẢNG / TIỀN ĐỀ: π0.5 cũng kết hợp vision-language condition và flow action expert. Hãy xếp các nghiên cứu cạnh nhau theo nguồn dữ liệu, representation, khả năng hiểu lệnh, action generation, embodiment và latency thay vì chỉ theo năm công bố. Một mô hình mạnh về ngữ nghĩa không nhất thiết giỏi điều khiển tốc độ cao.
-
-**Không trộn quan hệ chủ đề với trích dẫn.** HƯỚNG PHÁT TRIỂN: LingBot-VLA 2.0 thêm action canonicalization, sparse MoE và predictive features. Một công trình có thể là tiền đề kỹ thuật, một biến thể cùng nhiệm vụ hoặc hướng xử lý bottleneck còn bỏ ngỏ; các quan hệ ấy cần trình bày chính xác. Đọc thêm RT-2, Diffusion Policy, Open X-Embodiment, Qwen-VLA, LingBot-VLA 2.0. Nên so sánh cách tiếp cận, dữ liệu huấn luyện và phạm vi khái quát của từng công trình.
+π0.5 cũng quan tâm nguồn dữ liệu đa dạng và phân tầng nhiệm vụ dài, nhưng quy trình học và đối tượng đánh giá khác. Khi so, phải hỏi từng mạng đang dùng dữ liệu nào và có phải huấn luyện bổ sung cho robot đích không.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -300,15 +218,11 @@ Bắt đầu từ [NVIDIA Isaac GR00T](https://github.com/NVIDIA/Isaac-GR00T). T
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
-### Đào sâu: Nếu chỉ nhớ ba điều
+### Cách tự phân tích sơ đồ GR00T N1
 
-**Luận điểm.** Tách ngữ nghĩa khỏi motor generation là cấu trúc hữu ích. Bắt đầu từ NVIDIA Isaac GR00T. Trước khi huấn luyện, đọc observation schema, normalization và policy đầu vào/đầu ra shapes; lập một bảng robot state / image / language / action.
+Vẽ hai ô: phần hiểu ảnh/câu lệnh và phần sinh lệnh vận động. Từ đó đặt trạng thái robot, ảnh camera, câu lệnh và hành động nhiễu vào đúng vị trí đầu vào. Tiếp theo chỉ ra tại sao cần mã hóa khác nhau cho robot một tay và hai tay.
 
-**Chọn điều cần mang sang dự án thật.** Dùng GR00T để nghiên cứu robot+human video pretraining. Đừng cố sao chép toàn bộ hệ thống lớn ngay. Tìm một vấn đề cụ thể của robot mình rồi áp dụng đúng thành phần liên quan, với baseline đơn giản và một phép đo rõ ràng. Tách ngữ nghĩa khỏi motor generation là cấu trúc hữu ích.
-
-**Tái hiện tối thiểu.** Bắt đầu từ NVIDIA Isaac GR00T. Trước khi huấn luyện, đọc observation schema, normalization và policy đầu vào/đầu ra shapes; lập một bảng robot state / image / language / action. Bắt đầu bằng 1–2 episode kiểm được bằng mắt, ghi shape, unit và timestamp; tiếp theo mới mở rộng dataset, thêm nhiều seed và đánh giá held-out. Viết sẵn điều kiện pass/fail để không biến công việc thành quá trình tune vô tận.
-
-**Tự kiểm tra đã hiểu.** Sau khi đọc, phải giải thích được observation → representation → action; mô tả loss và supervision; rồi đọc đúng metric, baseline, limitation. Nếu thiếu một trong ba, quay lại chính phần đó thay vì học thuộc tên kiến trúc.
+Để kiểm chứng giá trị của video tổng hợp, thử so policy được huấn luyện với cùng số demonstration thật, có và không bổ sung video sinh. Đo tỷ lệ hoàn thành trên tình huống chưa gặp. Nếu không giữ số lượt và thiết lập thử tương đương, khó biết lợi ích đến từ đâu.
 
 <!-- END EXTENDED WALKTHROUGH -->
 
@@ -465,5 +379,7 @@ Nếu train và test dùng cùng camera, vật thể và background, một mô h
 #### Mô hình biểu diễn cái gì?: Dữ liệu và độ lệch phân phối
 
 Nếu train và test dùng cùng camera, vật thể và background, một mô hình có thể học shortcut mà không thật sự khái quát. Hãy tạo held-out scene, held-out object hoặc held-out episode theo đúng mục đích đánh giá của paper. Vì action quỹ đạo bao gồm nhiều bước, mô hình có thể phối hợp chuyển động tay trái/tay phải và giữ tính liên tục về thời gian trong chunk. Cách chia tập phải làm trước bước cắt sliding windows để tránh cùng một trajectory xuất hiện ở cả train và test.
+
+
 
 <!-- END EXTENDED WALKTHROUGH -->
