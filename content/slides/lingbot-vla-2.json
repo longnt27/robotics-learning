@@ -139,7 +139,7 @@
     "items": [
       {
         "label": "XỬ LÝ ĐẦU VÀO",
-        "value": "Router chọn expert theo hidden tokens; flow head sinh hành động."
+        "value": "Bộ chọn đưa thông tin tới các nhánh chuyên gia; bộ sinh tạo đoạn hành động."
       },
       {
         "label": "TẠO HÀNH ĐỘNG",
@@ -193,7 +193,7 @@
     "items": [
       {
         "label": "YẾU TỐ ĐƯỢC THỬ",
-        "value": "Progress khác success; MoE loss gain không tự chứng minh hiệu quả từng module trên real robot."
+        "value": "Tiến độ khác tỷ lệ hoàn thành; giảm sai số học không tự chứng minh mọi thành phần giúp robot thật."
       }
     ],
     "intuition": "Hình 7 so mô hình Dense với MoE khi số tham số hoạt động tương đương. Đó là điều kiện quan trọng để lợi thế, nếu có, không đơn giản do dùng nhiều phép tính hơn. Hình 11–12 so phân phối hành động theo từng nhiệm vụ; các cột có cùng tên chiều vẫn có thể khác biên độ và cách điều khiển.",
