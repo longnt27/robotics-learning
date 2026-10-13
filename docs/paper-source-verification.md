@@ -4,7 +4,7 @@ Ngày kiểm tra: **13/10/2026**. Phạm vi: 22 bài thuộc `content/papers/` v
 
 ## Phương pháp kiểm chứng
 
-1. Dùng **PDF gốc** từ hội nghị hoặc arXiv khi truy cập được. Với một số PDF lớn, dùng **bản HTML toàn văn do arXiv/ar5iv chuyển đổi** để tìm đúng đoạn, hình, bảng và điều kiện thí nghiệm. Riêng Qwen-VLA, chỉ xác nhận được đầy đủ phần **abstract chính thức** và một số đoạn bài báo được lập chỉ mục, chưa duyệt trực tiếp toàn văn PDF 34 trang.
+1. Dùng **PDF gốc** từ hội nghị hoặc arXiv khi truy cập được. Với một số PDF lớn, dùng **bản HTML toàn văn do chính arXiv cung cấp**, có cùng nội dung nghiên cứu, để kiểm tra đoạn, hình, bảng và điều kiện thí nghiệm. **Qwen-VLA đã được đối chiếu trực tiếp với [bản toàn văn arXiv 2605.30280v2](https://arxiv.org/html/2605.30280) gồm cả phần thí nghiệm và phụ lục phương pháp**, không còn dừng ở abstract.
 2. Đối chiếu những gì dễ gây hiểu nhầm nhất: **đóng góp thật sự của mô hình/bộ dữ liệu/bộ đánh giá**, đường đi dữ liệu lúc học và lúc chạy, các chỉ số chính, phương pháp đối chứng, định nghĩa tỷ lệ phần trăm và giới hạn suy rộng.
 3. Tách **ví dụ do bài diễn giải tự đặt ra** khỏi **kết quả do tác giả đo**. Ví dụ ba chiếc cốc, quỹ đạo đi vòng vật cản, phép tính 80% qua năm bước… là để giải thích, không phải thống kê từ tác giả.
 4. Đây là đối chiếu **các khẳng định khoa học chính và các hình/bảng liên quan**, không phải bản kiểm định từng câu chữ, từng pixel trong tất cả 167 hình. Khi chưa đủ nguồn trực tiếp, ghi rõ giới hạn; không chấm “đã kiểm chứng toàn văn” cho thứ mới chỉ đọc abstract.
@@ -33,8 +33,17 @@ Ngày kiểm tra: **13/10/2026**. Phạm vi: 22 bài thuộc `content/papers/` v
 | **π0.5** | [PDF 2504.16054](https://arxiv.org/pdf/2504.16054); [HTML toàn văn](https://arxiv.org/html/2504.16054v1), thí nghiệm nhiều nhà | Phân biệt bước con cấp nhiệm vụ và đoạn lệnh vận động; FAST giúp mã hóa hành động ở bước học chung, **flow matching** dùng ở phần sinh chuyển động liên tục. Đánh giá trong nhà mới không được đánh đồng với bối cảnh đã huấn luyện. |
 | **RTC (suy luận)** | [PDF 2506.07339](https://arxiv.org/pdf/2506.07339), Sec. thực nghiệm, Appendix **Table 1 và 3** | Trên π0.5 chạy RTX 4090 với **5 bước khử nhiễu**, tốc độ suy luận mô hình **76 ms thường vs 97 ms RTC**; **chỉ GPU**, chưa có mạng. RTC xử lý nối đoạn hành động khi thực thi không dừng chờ, không có nghĩa GPU suy luận nhanh hơn. |
 | **RTC (huấn luyện)** | [PDF 2512.05964](https://arxiv.org/pdf/2512.05964), Sec. thử nghiệm robot thật, **Fig. 5** | Với π0.6 và H100 từ xa: **108 ms độ trễ đầu cuối** khi đã học ràng buộc lúc huấn luyện, **135 ms** khi ràng buộc lúc suy luận. Đây là **thiết lập khác** phép so RTC trước. Bản huấn luyện dùng **tiền tố cố định**, ít linh hoạt hơn bản suy luận với ràng buộc mềm. |
-| **Qwen-VLA** | [PDF 2605.30280](https://arxiv.org/pdf/2605.30280), [abstract chính thức arXiv](https://arxiv.org/abs/2605.30280) | **ĐÃ XÁC NHẬN TRỰC TIẾP TỪ ABSTRACT:** DiT tạo hành động liên tục, điều kiện theo phần cứng qua mô tả chữ; **76,9%** OOD ở ALOHA và **26,6%** zero-shot DOMINO. **CẦN KIỂM TRA THÊM TRÊN PDF TOÀN VĂN:** số 83,6%/48,5%, tỷ lệ 20% dữ liệu tổng hợp, cách đánh số Hình 6–7 do PDF 34 trang không truy cập trực tiếp được trong phiên đối chiếu. |
+| **Qwen-VLA** | [Bản toàn văn chính thức arXiv v2](https://arxiv.org/html/2605.30280), [PDF](https://arxiv.org/pdf/2605.30280); **Mục 2.3–2.5, 3.1, 4.2, 5.1–5.2; Hình 6–7; Bảng 4–6, 10–12** | **ĐÃ XÁC MINH:** Bảng 5: ALOHA tinh chỉnh từ bản đã tiền huấn luyện **83,6%** vs cùng kiến trúc học từ đầu **48,5%** (chênh **35,1 điểm phần trăm**); Bảng 6: ALOHA ngoài điều kiện quen **76,9%** vs **36,2%**. Hình 6: T2A trộn **20% quỹ đạo tổng hợp + 80% thật** đạt **71,1%** trên Simpler-WidowX sau SFT, so **60,9%** không T2A. Hình 7: học chung dữ liệu ảnh–ngôn ngữ giúp RoboCasa-GR1 **51,1→56,0%**, RoboTwin-2.0 **81,8→86,4%**. Bảng 11: **DOMINO 26,6% zero-shot**; RL thu lượt chạy **chỉ trong mô phỏng SimplerEnv**, không huấn luyện trên ALOHA thật. Bảng 12: **trạng thái góc khớp riêng là tùy chọn**, mặc định không dùng; prompt mô tả loại robot không phải trạng thái cảm biến tức thời. |
 | **LingBot-VLA 2.0** | [PDF 2607.06403](https://arxiv.org/pdf/2607.06403), Sec. 3, **Fig. 4**, **Table 5** | Khoảng **90.000 giờ dữ liệu thô → 50.000 giờ sau tuyển lọc**, biểu diễn chung **55 chiều** (có 4 chiều dự phòng). Trên Agilex Cobot Magic, tiến độ/thành công trung bình **66,2/34,4** vs π0.5 **59,1/32,2**. Tiến độ một phần không phải hoàn thành nhiệm vụ. |
+
+## Sửa lỗi nội dung Qwen-VLA sau khi đọc toàn văn
+
+- **Bảng 5 và 6:** phân biệt phiên bản **ALOHA đã tinh chỉnh từ checkpoint tiền huấn luyện** với bản **cùng kiến trúc huấn luyện từ đầu**, không nhập chung với kết quả Qwen-VLA-Instruct đa nhiệm trong Bảng 4/11.
+- **Hình 6:** xác nhận thí nghiệm T2A trên **Simpler-WidowX sau SFT**: 20% dữ liệu tổng hợp, 71,1% so 60,9%; ở 40.000 bước T2A chỉ còn 60,4%.
+- **Hình 7:** bổ sung rõ số điểm phần trăm tăng và việc bộ sinh DiT đã học trước hội tụ nhanh hơn.
+- **Mục 4.2 / Bảng 11:** RL dùng các lượt chạy trong **SimplerEnv mô phỏng**, không mặc định RL trên ALOHA thật; **RoboTwin-Easy giảm nhẹ 86,3→86,1%** sau RL nên không thể nói mọi chỉ số đều tăng.
+- **Bảng 12:** trạng thái góc khớp tức thời không phải đầu vào bắt buộc của cấu hình mặc định. Phân biệt rõ trạng thái này với **mô tả loại robot bằng văn bản**.
+- **Hình 3:** làm rõ đây là ví dụ dữ liệu tạo bằng **ROBOINF**, không phải bảng chứng minh robot thật hoàn thành những lượt đó.
 
 ## Các sửa chữa nội dung đã commit
 
@@ -47,5 +56,5 @@ Ngày kiểm tra: **13/10/2026**. Phạm vi: 22 bài thuộc `content/papers/` v
 
 - Không coi ví dụ minh họa do biên tập viên đặt ra là kết quả tác giả đo; khi cần chứng cứ phải viện dẫn tới **hình, bảng, mục cụ thể**.
 - Những phép so khác benchmark, robot, thời gian huấn luyện, độ dài đoạn hoặc phần cứng **không có cùng đơn vị thống kê**. Không lấy phần trăm tương đối làm điểm phần trăm.
-- Chưa thể tuyên bố mọi câu của Qwen-VLA đã kiểm chứng vì không truy cập đủ **34 trang PDF gốc**. Các thông số chi tiết chưa đối chiếu được phải xem là **cần xác nhận**, không phải đã xác minh.
+- **Qwen-VLA đã được xác minh bằng toàn văn HTML chính thức trên arXiv v2**, kể cả các bảng và thí nghiệm từng bị treo. Những phát biểu phụ về độ ổn định robot hoặc an toàn vẫn chỉ là giới hạn/đề xuất, không phải kết quả đo được chứng minh bằng paper.
 - Kiểm tra đúng 167 hình trong UI và chính tả/chất lượng sư phạm với người học là quy trình bổ sung, không được suy ra chỉ từ kiểm thử mã nguồn.
