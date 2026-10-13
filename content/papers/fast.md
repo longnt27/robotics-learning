@@ -27,7 +27,9 @@ Giả sử robot di chuyển tay theo một đường cong mượt, được ghi
 
 ## Kiến thức nền cần nắm
 
-Autoregressive VLA thường token hóa mỗi action dimension mỗi timestep. Nếu horizon 50 và robot có nhiều DoF, số tokens tăng cực nhanh, độ trễ/memory tệ. Nhưng robot các quỹ đạo khá mượt, nên có **theo thời gian redundancy** có thể khai thác.
+Nếu robot có bảy chiều hành động và ghi 50 thời điểm, cách mã hóa một token cho mỗi giá trị có thể tạo ra **350 token cho một đoạn chuyển động**. Với dữ liệu tần số cao, chuỗi càng dài khiến mô hình tự hồi quy dự đoán chậm và tốn bộ nhớ.
+
+Nhưng một chuyển động mượt có nhiều giá trị gần nhau, nên dữ liệu chứa sự lặp lại theo thời gian. **FAST tận dụng điều đó để nén cả đoạn**, không cố biến từng số đo thành một token riêng. Đây là phương pháp biểu diễn lệnh, không phải một bộ điều khiển robot hoàn toàn mới.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -35,6 +37,7 @@ Autoregressive VLA thường token hóa mỗi action dimension mỗi timestep. N
 ![Hình 9 từ PDF gốc, trang 9](/paper-figures/fast/figure-9.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
+
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
 ### Tần số và phép biến đổi DCT có ý nghĩa gì?
@@ -47,7 +50,9 @@ Một chuyển động mượt có nhiều mẫu thời gian nhưng phần lớn
 
 ## Phương pháp thực hiện
 
-FAST lợi dụng fact rằng robot các quỹ đạo thường smooth theo thời gian. Nó dùng **Discrete Cosine Transform (DCT)** để chuyển action chunk sang frequency domain, nơi phần lớn năng lượng nằm ở ít low-frequency coefficients, rồi tokenize/entropy-code các coefficients đó. **FAST+** là universal action tokenizer được huấn luyện trên khoảng **1 triệu robot các quỹ đạo** thuộc nhiều action spaces và frequencies thay vì huấn luyện tokenizer riêng cho mỗi tập dữ liệu.
+FAST trước tiên chuẩn hóa một đoạn lệnh, dùng **biến đổi cosin rời rạc (DCT)** đưa chuỗi từ miền thời gian sang miền tần số. Với chuyển động mượt, nhiều thông tin tập trung ở một số hệ số tần số thấp. Các hệ số được lượng tử hóa và nén tiếp thành token để mô hình dự đoán dễ hơn.
+
+Bản **FAST+** được huấn luyện trên khoảng **một triệu quỹ đạo** từ nhiều nguồn, hướng tới dùng chung bộ mã hóa thay vì tạo riêng cho mỗi robot. Khi robot chạy, token phải được giải mã và biến đổi ngược về chuỗi lệnh vật lý trước khi gửi tới bộ điều khiển.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -55,7 +60,6 @@ FAST lợi dụng fact rằng robot các quỹ đạo thường smooth theo th�
 ![Hình 6 từ PDF gốc, trang 8](/paper-figures/fast/figure-6.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Sau đó FAST được ghép với π-style autoregressive VLA. Vì mỗi chunk dùng ít tokens hơn rất nhiều, dự đoán action không còn kéo chuỗi length lên phi lý.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -80,14 +84,15 @@ Khi chạy, những token dự đoán được giải mã ngược: BPE → hệ
 
 ## Ví dụ từng bước
 
-Tạo action tensor `(T=50, D=7)`. Normalize, biến mỗi dimension theo DCT từ time domain sang frequency coefficients, giữ coefficients mang nhiều năng lượng và lượng tử hóa thành token chuỗi. Decode đảo quy trình để reconstruct actions. Với quỹ đạo mượt, high-frequency coefficients nhỏ; với quỹ đạo giật, compression khó hơn.
+Giả sử cánh tay robot di chuyển thành một đường cong gồm 50 điểm theo thời gian. Thay vì mô tả từng tọa độ, DCT biểu diễn hình dạng đường bằng những hệ số cho biến đổi nhanh/chậm. Giữ đủ hệ số quan trọng có thể tái tạo đường khá chính xác với ít thông tin hơn.
+
+Đầu tiên chuẩn hóa lệnh, chuyển DCT, mã hóa các hệ số và nén thành token. Khi nhận token từ mô hình, giải mã rồi dùng DCT ngược để khôi phục 50 bước. Nếu đường có cú giật mạnh do đóng kẹp hoặc chạm vật, những thành phần tần số cao có thể quan trọng hơn và khó nén hơn.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
 ![Hình 10 từ PDF gốc, trang 10](/paper-figures/fast/figure-10.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Đây không phải thần kỳ: DCT chỉ là thay basis. Việc tokenizer giữ đủ thông tin về những chuyển động contact-critical mới quyết định policy thành công.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -101,7 +106,9 @@ Hình 3 thử tăng tần số lấy mẫu của đường cong. Cách chia giá
 
 ## Kết quả thực nghiệm
 
-Bài báo cho thấy FAST/FAST+ cho phép autoregressive VLA scale tới cỡ **10 nghìn giờ dữ liệu robot** và đạt hiệu năng gần hoặc ngang flow/diffusion VLA trong các benchmark của họ, trong khi **huấn luyện có thể nhanh hơn tới khoảng 5x** so với naive action tokenization. Gains rõ nhất ở high-frequency và dexterous thiết lập, nơi per-timestep binning tạo chuỗi quá dài.
+Các phép thử cho thấy FAST và FAST+ tạo chuỗi token ngắn hơn cách chia từng giá trị liên tục thành các mức rời rạc, đặc biệt với hành động ghi ở tần số cao. Nhóm tác giả báo cáo một số thiết lập **huấn luyện nhanh hơn khoảng năm lần** mà vẫn giữ chất lượng điều khiển cạnh tranh với các phương pháp sinh hành động liên tục được thử.
+
+FAST+ dùng được cho nhiều tập dữ liệu mà không phải tạo bộ mã hóa riêng cho từng nguồn. Tuy vậy, tốc độ **huấn luyện** và độ trễ **suy luận lúc robot chạy** là hai chỉ số khác nhau; mô hình tự hồi quy vẫn cần sinh token tuần tự.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -109,7 +116,6 @@ Bài báo cho thấy FAST/FAST+ cho phép autoregressive VLA scale tới cỡ **
 ![Hình 11 từ PDF gốc, trang 10](/paper-figures/fast/figure-11.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-FAST+ gần dataset-specific tokenizers dù phải cover nhiều robot/action spaces. Đây là kết quả quan trọng vì nó biến tokenizer thành một reusable foundation component chứ không phải thứ phải hand-tune cho từng arm.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -123,9 +129,9 @@ FAST+ hướng tới một bộ mã hóa dùng chung cho nhiều kiểu robot. K
 
 ## Hạn chế và câu hỏi còn mở
 
-**Bài báo thừa nhận:** evaluations chủ yếu vẫn là static manipulation; mobile, humanoid và dexterous scaling rộng hơn được để lại cho tương lai. π0-FAST autoregressive inference vẫn chậm hơn flow-based π0 trong runtime, nên dynamic nhiệm vụ cần decoder nhanh hơn. Tác giả cũng thừa nhận discrete/autoregressive so với liên tục diffusion chưa có winner cuối cùng.
+DCT khai thác đặc tính chuyển động mượt. Khi robot cắm linh kiện vào khe nhỏ, va chạm hoặc đột ngột đóng kẹp, tín hiệu quan trọng có thể nằm ở những thay đổi nhanh theo thời gian. Nén không phù hợp sẽ làm mất chi tiết và khiến hành động mượt nhưng sai.
 
-**Phê bình thêm:** DCT dựa vào theo thời gian smoothness; abrupt contact corrections hoặc high-frequency phenomena chính là phần có thể bị nén tệ nhất. Huấn luyện nhanh không đồng nghĩa control độ trễ nhanh. Universal tokenizer còn phải đối mặt với phân phối action rất khác nhau giữa joint, EEF, hand và base. FAST giải chuỗi compression rất đẹp, nhưng vẫn giữ **autoregressive exposure/độ trễ problem** ở tầng decoder.
+FAST cũng chưa tự loại bỏ mọi độ trễ của mô hình sinh token tuần tự. Bộ mã hóa dùng chung còn phải xử lý nhiều đơn vị và dạng lệnh giữa khớp, đầu kẹp, bàn tay hoặc bệ di động. Cần đánh giá cả sai số sau giải mã và tỷ lệ hoàn thành trên robot.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -156,9 +162,9 @@ OpenVLA dùng token hành động, nhưng cách mã hóa từng giá trị có t
 
 ## Đọc code và tự kiểm chứng
 
-Chạy FAST tokenizer trên Mac M4 với synthetic smooth và noisy các quỹ đạo; plot thô vs reconstructed; sweep chunk length/độ chính xác và đo reconstruction MAE, token count.
+Tạo hai đoạn lệnh giả lập: một đường cong chuyển động mượt và một chuỗi có thay đổi đột ngột khi đóng kẹp. Cho cả hai qua bộ mã hóa FAST rồi giải mã ngược, vẽ đường gốc và đường khôi phục.
 
-**Cách kiểm tra đọc hiểu:** Hãy tự giải thích *đầu vào*, *đầu ra*, *loss khi huấn luyện*, *quy trình đánh giá* và *kiểu lỗi* của bài báo. Nếu không nói được một trong năm thứ này, cần đọc lại phần tương ứng trước khi chạy benchmark.
+Thay độ dài đoạn và mức nén, đo **số token**, sai số tái tạo và thời gian mã hóa/giải mã. Nếu tín hiệu quan trọng ở lúc tiếp xúc bị mất dù sai số trung bình nhỏ, bạn sẽ thấy vì sao chỉ tối ưu tỷ lệ nén chưa đủ cho robotics.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

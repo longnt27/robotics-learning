@@ -21,13 +21,16 @@ RDT-1B dùng Diffusion Transformer để học và sinh các đoạn hành độ
 
 ## Kiến thức nền cần nắm
 
-Autoregressive discrete action có thể mất độ chính xác khi thao tác hai tay phức tạp. Diffusion Transformer đưa một prior action liên tục mạnh hơn, nhưng cần giải nghĩa heterogeneous trạng thái robot/action. Canonical vật lý biểu diễn chính là nỗ lực quản lý sự đa dạng đó.
+Thao tác hai tay cần phối hợp về **vị trí và thời điểm**. Một tay phải giữ vật cho tới khi tay kia kẹp chắc. Nếu mạng tạo các lệnh rời rạc không ăn khớp, vật có thể rơi dù mỗi tay di chuyển đúng hướng.
+
+**Diffusion Transformer** (DiT) là mạng dùng Transformer trong quá trình khử nhiễu để sinh một chuỗi hành động liên tục. RDT-1B còn phải xử lý nhiều loại robot có trạng thái và lệnh khác nhau. Muốn học chung dữ liệu, cần biết chiều nào biểu diễn vị trí khớp, chiều nào biểu diễn đầu kẹp và cách đổi chúng về quy ước phù hợp.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
 ![Hình 3 từ PDF gốc, trang 4](/paper-figures/rdt-1b/figure-3.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
+
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
 ### Những phần của bài toán cần phân biệt
@@ -40,14 +43,15 @@ Autoregressive discrete action có thể mất độ chính xác khi thao tác h
 
 ## Phương pháp thực hiện
 
-RDT-1B là khoảng **1.2B-parameter diffusion Transformer**. Bài báo đưa ra **Physically Interpretable Unified Action Space** để chuẩn hóa state/action từ nhiều robot sources, rồi pretrain trên dữ liệu không đồng nhất robot và post-train bằng hơn **6 nghìn bimanual episodes** cho target platform. Vision, ngôn ngữ và state được điều kiện vào diffusion action generator thay vì bắt action đi qua ngôn ngữ token vocabulary.
+RDT-1B có khoảng **1,2 tỷ tham số** và sử dụng không gian hành động chung được thiết kế theo ý nghĩa vật lý. Dữ liệu từ những robot khác nhau trước hết được chuyển sang biểu diễn phù hợp, sau đó mạng học trước trên dữ liệu đa robot. Giai đoạn học bổ sung có hơn **6.000 lượt thao tác hai tay** trên phần cứng mục tiêu.
+
+Mạng nhận ảnh, lệnh ngôn ngữ, trạng thái robot và một chuỗi hành động còn nhiễu. DiT liên tục chỉnh chuỗi đó để tạo ra đoạn lệnh hai tay. Cách làm này sinh hành động liên tục, không buộc mọi giá trị chuyển động phải trở thành token văn bản.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
 ![Hình 4 từ PDF gốc, trang 6](/paper-figures/rdt-1b/figure-4.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Kiến trúc được thiết kế để scale width/depth và exploit multimodal conditioning. Với few-shot adaptation, mô hình tận dụng đã pretrain prior về chuyển động rồi chỉ cần một lượng demonstration rất nhỏ cho nhiệm vụ mới.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -72,9 +76,9 @@ DiT kết hợp những điều kiện ấy và liên tục dự đoán cách ch
 
 ## Ví dụ từng bước
 
-Với một bimanual folding kỹ năng, mạng điều kiện hình ảnh + ngôn ngữ + trạng thái robot rồi mẫu cả action chunk cho hai tay. Đồng thời, tập dữ liệu robot khác có DoF/coordinate các khung hình khác; preprocessing phải quyết định joint/EEF conventions và mask cho dimension vắng.
+Robot cần chuyển một khối từ tay phải sang tay trái. Tay trái đưa tới vùng nhận, tay phải giữ khối ổn định; khi tay trái kẹp chắc, tay phải mới mở kẹp. Nếu hai tay chọn chuỗi riêng mà không phối hợp, khối sẽ rơi.
 
-Phải đọc riêng **vật lý of action schema** và **DiT kiến trúc**. Nếu canonical schema sai, scale mô hình chỉ học sai nhanh hơn.
+Khi dùng dữ liệu từ robot khác, cần kiểm tra số khớp, hệ tọa độ, thứ tự các chiều lệnh và **mặt nạ cho chiều không tồn tại**. Nếu một giá trị biểu diễn góc khớp ở robot A nhưng lại là vận tốc ở robot B, trộn dữ liệu thô sẽ dạy mô hình sai ngay từ đầu.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -88,14 +92,15 @@ Dự đoán từng tay độc lập khó giữ ràng buộc theo thời gian. RD
 
 ## Kết quả thực nghiệm
 
-Bài báo báo RDT-1B cải thiện tỷ lệ thành công của nhiệm vụ trung bình khoảng **56%** so với các các phương pháp đối chứng được dùng trong đánh giá. Nó thể hiện zero-shot robustness tốt hơn trước vật thể chưa xuất hiện khi huấn luyện/bối cảnh và đặc biệt mạnh trong bimanual kỹ năng. Ở một số few-shot thí nghiệm chỉ **1-5 demonstrations**, RDT-1B đã làm được các hành vi như handover/folding mà scratch hoặc smaller các phương pháp đối chứng gần như không làm được.
+Trong các phép thử được báo cáo, RDT-1B đạt tỷ lệ hoàn thành cao hơn các phương pháp đối chứng, với mức cải thiện trung bình khoảng **56%** theo cách tổng hợp của tác giả. Mô hình thể hiện hiệu quả trong một số nhiệm vụ phối hợp hai tay, kể cả khi thay đồ vật hoặc bố cục.
+
+Những phép thử ít demonstration cũng cho thấy lợi ích của phần học trước: chỉ với một vài ví dụ của nhiệm vụ đích, mạng có thể tận dụng chuyển động đã học. Tuy nhiên cần xem đúng số nhiệm vụ, số lượt thử và loại robot; không thể coi kết quả đó là bảo đảm mọi kỹ năng mới đều học được sau 1–5 ví dụ.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
 ![Hình 5 từ PDF gốc, trang 8](/paper-figures/rdt-1b/figure-5.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Kết quả khiến diffusion foundation policy trở thành một hướng nghiêm túc song song với autoregressive VLA. Nó cũng cho thấy **motor scaling** có thể cần kiến trúc khác ngữ nghĩa VLM scaling.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -109,9 +114,9 @@ Hình 5 nêu trạng thái ban đầu, mức thay đổi và mục tiêu từng 
 
 ## Hạn chế và câu hỏi còn mở
 
-**Bài báo thừa nhận:** bài báo không có một limitations section mạnh, nhưng phạm vi thí nghiệm chủ yếu vẫn quanh bimanual manipulation và target phần cứng family; general long-horizon/mobile hành vi chưa phải trọng tâm.
+Việc gom lệnh vào một không gian chung chỉ đúng khi có cách chuyển đổi giữ nguyên **ý nghĩa vật lý** của từng chiều. Robot có cơ cấu khác xa có thể không dùng được cùng dạng lệnh. Mô hình lớn cùng quá trình khử nhiễu nhiều lượt cũng có chi phí tính toán và độ trễ đáng kể.
 
-**Phê bình thêm:** “unified action không gian” vẫn dựa trên giả định rằng các nguồn dữ liệu có vật lý semantics đủ tương thích để map vào canonical biểu diễn. Một mô hình 1.2B + pretraining corpus lớn cũng có compute/dữ liệu barrier đáng kể. Diffusion lấy mẫu đem độ trễ riêng. Claims few-shot rất hấp dẫn nhưng số nhiệm vụ/embodiment chưa đủ để suy ra universal chuyển giao. RDT giải rất tốt **liên tục bimanual prior**, nhưng semantics, world kiến thức, phục hồi và long-horizon lập kế hoạch vẫn cần tầng khác.
+RDT tập trung vào điều khiển hai tay, chưa bao phủ đầy đủ robot di động, lập kế hoạch dài và tự phục hồi sau mọi tình huống bất ngờ. Nên phân biệt một bộ sinh chuyển động tốt với một hệ robot có đầy đủ khả năng hiểu môi trường và lập kế hoạch.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -142,9 +147,9 @@ Việc tăng số tham số không phải đóng góp duy nhất: khả năng bi
 
 ## Đọc code và tự kiểm chứng
 
-Trace một batch qua action normalization/vật lý mask; thay các giá trị NaN/padded joints để chắc loss không ăn nhầm. Test inverse transform để bảo toàn vị trí/độ mở gripper.
+Lấy một đoạn hành động mẫu từ robot hai tay. Kiểm tra từng chiều là góc khớp, vị trí đầu kẹp hay lệnh đóng kẹp; thử chuẩn hóa rồi **giải chuẩn hóa** để chắc đã khôi phục đúng giá trị và đơn vị. Với các chiều không tồn tại ở một robot, xem mặt nạ có ngăn chúng ảnh hưởng hàm mất mát không.
 
-**Cách kiểm tra đọc hiểu:** Hãy tự giải thích *đầu vào*, *đầu ra*, *loss khi huấn luyện*, *quy trình đánh giá* và *kiểu lỗi* của bài báo. Nếu không nói được một trong năm thứ này, cần đọc lại phần tương ứng trước khi chạy benchmark.
+Sau đó so chuỗi lệnh sinh ra với giới hạn khớp và thứ tự kẹp–buông trong bài chuyển khối giữa hai tay. Đây là những kiểm tra vật lý quan trọng hơn chỉ nhìn điểm loss.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
