@@ -6,7 +6,7 @@ Một ảnh chiếc cốc có thể được dùng để dạy nhiều loại m�
 
 Điểm chính của công trình là dữ liệu đa tổ chức và kiểm tra khả năng chuyển giữa robot, không chỉ là thêm một tập dữ liệu thật lớn.
 
-![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/open-x-embodiment/figure-1.webp)
+![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/open-x-cấu hình cơ thể robot/figure-1.webp)
 
 ## Kiến thức nền cần nắm
 
@@ -24,9 +24,9 @@ Tập dữ liệu trộn từ nhiều robot phải thống nhất thông tin t�
 
 Khi huấn luyện, mô hình nhìn ảnh cùng câu lệnh từ nhiều nguồn. Lúc kiểm tra, nó có thể được đặt trên một robot khác hoặc gặp kỹ năng chủ yếu xuất hiện trong dữ liệu của robot khác. Điều cần chứng minh là kết quả trên robot đích có tăng thật so với việc chỉ dùng dữ liệu của chính robot ấy.
 
-![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/open-x-embodiment/figure-2.webp)
+![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/open-x-cấu hình cơ thể robot/figure-2.webp)
 
-![Hình 3 từ PDF gốc, trang 4](/paper-figures/open-x-embodiment/figure-3.webp)
+![Hình 3 từ PDF gốc, trang 4](/paper-figures/open-x-cấu hình cơ thể robot/figure-3.webp)
 
 ## Ví dụ từng bước
 
@@ -42,15 +42,15 @@ Nếu đưa nguyên góc khớp của A sang B, thao tác có thể vô nghĩa h
 
 Hình 4 so RT-1-X với RT-1 và mô hình gốc. Hai bản RT-1 dùng cùng kiến trúc, trong khi nguồn dữ liệu huấn luyện khác nhau; kết quả tốt hơn là bằng chứng cho lợi ích của việc học chung dữ liệu robot trong thiết lập ấy. Hình 5 kiểm tra một số kỹ năng đã có trong dữ liệu robot nguồn nhưng chưa có trong dữ liệu robot đánh giá.
 
-Khi đọc câu “cao hơn 50%”, cần biết đó là mức tăng tương đối hay số điểm phần trăm và benchmark gồm những nhiệm vụ nào. Không được coi một thí nghiệm như bằng chứng rằng robot bất kỳ sẽ tự làm mọi công việc.
+Khi đọc câu “cao hơn 50%”, cần biết đó là mức tăng tương đối hay số điểm phần trăm và bộ đánh giá gồm những nhiệm vụ nào. Không được coi một thí nghiệm như bằng chứng rằng robot bất kỳ sẽ tự làm mọi công việc.
 
 ### Số liệu và phạm vi kết luận
 
 **Đối chiếu số liệu:** Trong phép so gộp của bài báo, RT-1-X đạt tỷ lệ thành công trung bình cao hơn khoảng 50% tương đối so với phương án chỉ dùng dữ liệu robot đích; con số này không có nghĩa tăng 50 điểm phần trăm. RT-2-X cũng được thử ở những kỹ năng chưa xuất hiện trong dữ liệu của loại robot đánh giá. Hãy nhìn từng robot, tập nhiệm vụ và số lượt thử để phân biệt chuyển giao kỹ năng thật với việc mô hình chỉ được học thêm ví dụ cùng kiểu bài.
 
-![Hình 4 từ PDF gốc, trang 5](/paper-figures/open-x-embodiment/figure-4.webp)
+![Hình 4 từ PDF gốc, trang 5](/paper-figures/open-x-cấu hình cơ thể robot/figure-4.webp)
 
-![Hình 5 từ PDF gốc, trang 6](/paper-figures/open-x-embodiment/figure-5.webp)
+![Hình 5 từ PDF gốc, trang 6](/paper-figures/open-x-cấu hình cơ thể robot/figure-5.webp)
 
 ## Hạn chế và câu hỏi còn mở
 
@@ -74,7 +74,7 @@ Tập dữ liệu không phải mô hình; mô hình không phải thuật toán
 - [OpenVLA](/paper/openvla)
 - [LingBot-VLA 2.0](/paper/lingbot-vla-2)
 
-## Đọc code và tự kiểm chứng
+## Đọc mã nguồn và tự kiểm chứng
 
 ### Tự dựng thử nghiệm chuyển robot
 

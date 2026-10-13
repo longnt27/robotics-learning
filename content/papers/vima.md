@@ -64,7 +64,7 @@ Hình 6 kiểm tra bộ mã hóa ảnh: giữ bài toán gần như giống nhau
 
 ### Giới hạn cần hiểu đúng
 
-Những hình minh họa sinh động có thể khiến ta quên rằng điều kiện mô phỏng thường sạch và có quy luật hơn thế giới thật. Robot thật phải xử lý vật bị che, phản chiếu ánh sáng, thay đổi góc camera, sai số vị trí và lực kẹp. Chưa có đủ bằng chứng chỉ từ benchmark mô phỏng để kết luận VIMA giải được mọi vấn đề ấy.
+Những hình minh họa sinh động có thể khiến ta quên rằng điều kiện mô phỏng thường sạch và có quy luật hơn thế giới thật. Robot thật phải xử lý vật bị che, phản chiếu ánh sáng, thay đổi góc camera, sai số vị trí và lực kẹp. Chưa có đủ bằng chứng chỉ từ bộ đánh giá mô phỏng để kết luận VIMA giải được mọi vấn đề ấy.
 
 Cũng cần tách việc mô hình hiểu một prompt mới khỏi việc nó học được một kỹ năng vận động mới. Nếu chỉ dẫn yêu cầu một động tác vật lý chưa từng có trong dữ liệu, khả năng kết hợp chữ và ảnh không tự sinh ra kỹ năng đó. Kết quả đúng nên được diễn giải là **khái quát trong phạm vi nhiệm vụ và môi trường được đánh giá**.
 
@@ -81,7 +81,7 @@ VIMA chủ yếu trả lời câu hỏi “người dùng có thể mô tả m�
 - [RT-2](/paper/rt-2)
 - [LIBERO](/paper/libero)
 
-## Đọc code và tự kiểm chứng
+## Đọc mã nguồn và tự kiểm chứng
 
 ### Tự kiểm tra xem đã hiểu bài chưa
 

@@ -73,7 +73,7 @@ PaLM-E cũng có thể tham gia suy luận mục tiêu cấp cao, nhưng không 
 - [GR00T N1](/paper/groot-n1)
 - [Qwen-VLA](/paper/qwen-vla)
 
-## Đọc code và tự kiểm chứng
+## Đọc mã nguồn và tự kiểm chứng
 
 ### Bài tập lập kế hoạch
 

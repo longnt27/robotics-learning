@@ -50,7 +50,7 @@ Hình 5 đánh giá thêm khả năng ngôn ngữ vốn có: học thao tác rob
 
 ### Số liệu và phạm vi kết luận
 
-**Đối chiếu số liệu:** Điểm nổi bật của PaLM-E không phải một tỷ lệ thành công dùng cho mọi robot. Bài báo đối chiếu nhiều loại nhiệm vụ và quy mô mô hình, trong đó có bản lớn 562 tỷ tham số. Nhìn Hình 2–3 để xem dữ liệu ảnh–ngôn ngữ và kiến thức từ mô hình học trước giúp gì khi demonstration robot rất ít; xem Hình 5 để biết việc học thêm dữ liệu robot ảnh hưởng năng lực ngôn ngữ cũ ra sao. Những phép thử này không thay thế phép đo kỹ năng kẹp và đặt trên robot thật.
+**Đối chiếu số liệu:** Điểm nổi bật của PaLM-E không phải một tỷ lệ thành công dùng cho mọi robot. Bài báo đối chiếu nhiều loại nhiệm vụ và quy mô mô hình, trong đó có bản lớn 562 tỷ tham số. Nhìn Hình 2–3 để xem dữ liệu ảnh–ngôn ngữ và kiến thức từ mô hình học trước giúp gì khi lượt thao tác mẫu robot rất ít; xem Hình 5 để biết việc học thêm dữ liệu robot ảnh hưởng năng lực ngôn ngữ cũ ra sao. Những phép thử này không thay thế phép đo kỹ năng kẹp và đặt trên robot thật.
 
 ![Hình 5 từ PDF gốc, trang 9](/paper-figures/palm-e/figure-5.webp)
 
@@ -75,7 +75,7 @@ Ba phương án không thể so trực tiếp bằng số tham số hoặc một
 - [RT-2](/paper/rt-2)
 - [Qwen-VLA](/paper/qwen-vla)
 
-## Đọc code và tự kiểm chứng
+## Đọc mã nguồn và tự kiểm chứng
 
 ### Tự trả lời ba câu trước khi sang bài mới
 

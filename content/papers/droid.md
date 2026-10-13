@@ -80,10 +80,10 @@ Khi chọn dữ liệu cho một project, hãy hỏi lỗi cần giải là gặ
 
 ### Những bài nên đọc tiếp
 
-- [Open X-Embodiment](/paper/open-x-embodiment)
+- [Open X-Embodiment](/paper/open-x-cấu hình cơ thể robot)
 - [RoboCasa](/paper/robocasa)
 
-## Đọc code và tự kiểm chứng
+## Đọc mã nguồn và tự kiểm chứng
 
 ### Bài tập để kiểm tra độ phụ thuộc vào bối cảnh
 

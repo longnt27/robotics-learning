@@ -80,7 +80,7 @@ RT-1 chứng minh khả năng học nhiều thao tác từ dữ liệu robot. Pa
 - [OpenVLA](/paper/openvla)
 - [Qwen-VLA](/paper/qwen-vla)
 
-## Đọc code và tự kiểm chứng
+## Đọc mã nguồn và tự kiểm chứng
 
 ### Tự kiểm tra bằng ba câu lệnh
 

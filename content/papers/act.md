@@ -52,7 +52,7 @@ Bài báo còn khảo sát tốc độ điều khiển từ xa: giảm tần s�
 
 ### Số liệu và phạm vi kết luận
 
-**Đối chiếu số liệu:** Trên một số nhiệm vụ mô phỏng, khoảng cách so với phương pháp đối chứng tốt tiếp theo được báo cáo lên tới 59, 49 hoặc 29 điểm phần trăm trong các thiết lập tương ứng. Không nên dùng những con số ấy như kết quả mặc định của ACT. Hình 9 cho biết điều gì xảy ra khi thay độ dài đoạn dự đoán, bật/tắt tổng hợp hành động chồng nhau hoặc bỏ CVAE. Một số nhiệm vụ được thu bằng khoảng 10–20 phút demonstration, nhưng lượng dữ liệu cần thiết vẫn thay đổi mạnh theo độ khó.
+**Đối chiếu số liệu:** Trên một số nhiệm vụ mô phỏng, khoảng cách so với phương pháp đối chứng tốt tiếp theo được báo cáo lên tới 59, 49 hoặc 29 điểm phần trăm trong các thiết lập tương ứng. Không nên dùng những con số ấy như kết quả mặc định của ACT. Hình 9 cho biết điều gì xảy ra khi thay độ dài đoạn dự đoán, bật/tắt tổng hợp hành động chồng nhau hoặc bỏ CVAE. Một số nhiệm vụ được thu bằng khoảng 10–20 phút lượt thao tác mẫu, nhưng lượng dữ liệu cần thiết vẫn thay đổi mạnh theo độ khó.
 
 ![Hình 6 từ PDF gốc, trang 5](/paper-figures/act/figure-6.webp)
 
@@ -70,18 +70,18 @@ Mô hình cũng bị giới hạn bởi dữ liệu do người vận hành thu:
 
 ## Liên hệ với nghiên cứu khác
 
-### ACT khác Diffusion chính sách điều khiển và RTC ở chỗ nào?
+### ACT khác Diffusion Policy và RTC ở chỗ nào?
 
-ACT và Diffusion chính sách điều khiển đều sinh đoạn hành động. ACT sử dụng Transformer và CVAE; Diffusion chính sách điều khiển bắt đầu từ chuỗi nhiễu rồi chỉnh thành chuyển động hợp lệ. Cả hai đều cố tránh hiện tượng dự đoán từng bước làm chuyển động giật hoặc mất nhất quán.
+ACT và Diffusion Policy đều sinh đoạn hành động. ACT sử dụng Transformer và CVAE; Diffusion Policy bắt đầu từ chuỗi nhiễu rồi chỉnh thành chuyển động hợp lệ. Cả hai đều cố tránh hiện tượng dự đoán từng bước làm chuyển động giật hoặc mất nhất quán.
 
 RTC giải tầng thực thi: mô hình mất thời gian sinh đoạn tiếp theo thì robot có phải đứng chờ không, và đoạn mới nối vào đoạn cũ như thế nào? Nhìn ba bài như ba câu hỏi về **học chuyển động, sinh chuyển động và thực thi liên tục** giúp hiểu mối liên hệ giữa chúng.
 
 ### Những bài nên đọc tiếp
 
-- [RTC (inference)](/paper/rtc-inference)
+- [RTC (suy luận)](/paper/rtc-suy luận)
 - [RTC (training)](/paper/rtc-training)
 
-## Đọc code và tự kiểm chứng
+## Đọc mã nguồn và tự kiểm chứng
 
 ### Tự kiểm tra bằng một bảng ba cột
 

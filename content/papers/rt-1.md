@@ -44,7 +44,7 @@ Một lần chạy thành công trong bếp mới chỉ là một quan sát. Đ�
 
 ### Vì sao đa dạng dữ liệu quan trọng hơn đếm số lượt?
 
-Hãy tưởng tượng hai tập đều có 10.000 lần robot thao tác. Tập A lặp lại một kiểu bếp và ít đồ vật; tập B có nhiều kỹ năng, đồ vật và cách đặt khác nhau. Tập A có thể cho loss rất đẹp trên bối cảnh cũ nhưng dễ gặp sai ở bếp mới. Tập B buộc mô hình chú ý tới đặc điểm liên quan tới nhiệm vụ thay vì ghi nhớ nền.
+Hãy tưởng tượng hai tập đều có 10.000 lần robot thao tác. Tập A lặp lại một kiểu bếp và ít đồ vật; tập B có nhiều kỹ năng, đồ vật và cách đặt khác nhau. Tập A có thể cho hàm mất mát rất đẹp trên bối cảnh cũ nhưng dễ gặp sai ở bếp mới. Tập B buộc mô hình chú ý tới đặc điểm liên quan tới nhiệm vụ thay vì ghi nhớ nền.
 
 Hình 6 là các thí nghiệm thay đổi cấu trúc dữ liệu, đo riêng tỷ lệ thành công trên nhiệm vụ đã gặp, chưa gặp và lúc có vật gây nhiễu. Kết luận có căn cứ là sự đa dạng góp phần lớn vào hiệu quả và khả năng khái quát *trong những nhóm thử này*. Không nên diễn đạt thành “tăng dữ liệu bao nhiêu cũng vô ích”; thêm dữ liệu vẫn có thể giúp nếu mẫu mới mang thông tin hữu ích.
 
@@ -79,7 +79,7 @@ RT-1 và Open X-Embodiment cũng liên hệ trực tiếp: khi dữ liệu đế
 - [RT-2](/paper/rt-2)
 - [OpenVLA](/paper/openvla)
 
-## Đọc code và tự kiểm chứng
+## Đọc mã nguồn và tự kiểm chứng
 
 ### Thử nghiệm nhỏ để tự kiểm tra
 

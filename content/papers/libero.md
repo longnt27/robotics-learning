@@ -73,7 +73,7 @@ Một mô hình được tiền huấn luyện tốt vẫn có thể quên khi t
 - [OpenVLA](/paper/openvla)
 - [RoboCasa](/paper/robocasa)
 
-## Đọc code và tự kiểm chứng
+## Đọc mã nguồn và tự kiểm chứng
 
 ### Tự dựng bảng để nhìn thấy hiện tượng quên
 
