@@ -156,20 +156,20 @@ test("Qwen-VLA walkthrough distinguishes training tracks and source-matched benc
   for(const number of ["83,6%", "48,5%", "76,9%", "36,2%", "26,6%", "71,1%", "60,9%"]){
     assert.ok(chapter.includes(number),"Qwen-VLA missing checked figure/table number: "+number);
   }
-  assert.match(chapter,/RL[^\\n]{0,450}(?:SimplerEnv|mô phỏng)/);
-  assert.match(chapter,/trạng thái góc khớp có phải đầu vào bắt buộc không\\?/i);
+  assert.match(chapter,/RL[^\n]{0,450}(?:SimplerEnv|mô phỏng)/);
+  assert.match(chapter,/trạng thái góc khớp có phải đầu vào bắt buộc không\?/i);
   assert.match(chapter,/Bảng 12/);
   assert.match(chapter,/ROBOINF/);
-  assert.match(chapter,/20% dữ liệu tổng hợp \\+ 80% dữ liệu thật/);
-  assert.match(chapter,/không phải.*ALOHA thật/);
+  assert.match(chapter,/20% dữ liệu tổng hợp \+ 80% dữ liệu thật/);
+  assert.match(chapter,/không đến từ ALOHA thật/);
   assert.match(chapter,/86,3% xuống 86,1%/);
   assert.match(slides[4].detail.text,/SimplerEnv/);
   assert.match(slides[10].detail.text,/48,5%/);
   assert.match(slides[11].detail.text,/RoboCasa-GR1/);
   assert.match(slides[12].detail.text,/ALOHA thật/);
-  assert.match(figures[slug].find(x=>x.number===6).caption_vi,/10\\.000 bước giảm còn 67,2%/);
+  assert.match(figures[slug].find(x=>x.number===6).caption_vi,/10\.000 bước giảm còn 67,2%/);
   assert.ok(audit.includes("ĐÃ XÁC MINH"),"Qwen-VLA audit still marked unverified");
-  assert.doesNotMatch(audit,/CẦN KIỂM TRA THÊM TRÊN PDF TOÀN VĂN|không truy cập đủ \\*\\*34 trang PDF gốc/);
+  assert.doesNotMatch(audit,/CẦN KIỂM TRA THÊM TRÊN PDF TOÀN VĂN|không truy cập đủ \*\*34 trang PDF gốc/);
 });
 
 test("all figure translations are editorial, distinct from their original English",()=>{
