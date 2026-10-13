@@ -31,7 +31,7 @@
     "lead": "Bài toán không đơn giản là “mô hình nhìn video rồi bắt chước tay người”. Video người có thể giúp hiểu thứ tự và mục tiêu chuyển động, nhưng lệnh điều khiển động cơ vẫn phải thích ứng với cấu trúc robot.",
     "items": [
       "Dual-system architecture chia việc theo bản chất",
-      "System 2 mã hóa ảnh/language thành condition; System 1 là flow-based hành động expert sinh quỹ đạo."
+      "Nhánh hiểu cảnh dùng ảnh và câu lệnh để xác định mục tiêu; nhánh sinh hành động tính chuyển động phù hợp."
     ],
     "intuition": "robot hai tay, robot di động và robot hình người khác nhau về số khớp, kiểu kẹp và cảm biến. Vì vậy không thể gửi cùng một dãy góc khớp cho mọi robot. Thu hàng triệu lượt thực hành đúng với mỗi phần cứng sẽ cực kỳ tốn kém.",
     "detail": {
@@ -139,11 +139,11 @@
     "items": [
       {
         "label": "XỬ LÝ ĐẦU VÀO",
-        "value": "System 1 chạy vài bước flow sampling để sinh chunk."
+        "value": "Bộ sinh hành động qua nhiều bước tính để tạo một đoạn chuyển động."
       },
       {
         "label": "TẠO HÀNH ĐỘNG",
-        "value": "robot servo thực thi chunk; độ trễ còn phụ thuộc phần cứng và runtime."
+        "value": "Bộ điều khiển robot thực hiện đoạn hành động; độ trễ còn tùy phần cứng và môi trường chạy."
       }
     ],
     "intuition": "robot đang giữ táo bằng tay trái, tay phải phải đưa tới đúng vị trí, kẹp chắc rồi tay trái mới thả. Một mạng chỉ biết “đưa táo vào giỏ” chưa đủ nếu không dự đoán đúng thứ tự phối hợp hai tay.",
@@ -229,7 +229,7 @@
     "items": [
       {
         "label": "NỀN TẢNG / TIỀN ĐỀ",
-        "value": "π0.5 cũng kết hợp vision-language condition và flow hành động expert."
+        "value": "π0.5 cũng kết hợp thông tin ảnh–ngôn ngữ với bộ sinh hành động liên tục."
       },
       {
         "label": "HƯỚNG PHÁT TRIỂN",
