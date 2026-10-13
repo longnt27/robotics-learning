@@ -4,7 +4,7 @@
     "title": "PaLM-E: giúp robot suy luận về thế giới",
     "lead": "Điều quan trọng nhất là phân biệt suy luận mục tiêu với điều khiển động cơ. Người dùng bảo “Hãy lấy đồ ăn nhẹ cho tôi”; robot cần quan sát đồ vật, nhận biết chỗ để đồ, quyết định bước nào làm trước.",
     "items": [
-      "Gắn sensory tokens vào cùng không gian với language tokens"
+      "Đưa đặc trưng cảm biến vào cùng chuỗi xử lý với thông tin ngôn ngữ"
     ],
     "intuition": "Bài báo đặt câu hỏi liệu tri thức của mô hình ngôn ngữ lớn, kết hợp mạng nhìn ảnh, có ích khi đưa vào môi trường robot hay không. Đây là bước nối giữa việc “hiểu yêu cầu bằng ngôn ngữ” và “biết thế giới đang ở trạng thái nào”.",
     "detail": {
@@ -30,7 +30,7 @@
     "title": "Hiểu nhiệm vụ không giống phát lệnh từng khớp",
     "lead": "Bài báo đặt câu hỏi liệu tri thức của mô hình ngôn ngữ lớn, kết hợp mạng nhìn ảnh, có ích khi đưa vào môi trường robot hay không. Đây là bước nối giữa việc “hiểu yêu cầu bằng ngôn ngữ” và “biết thế giới đang ở trạng thái nào”.",
     "items": [
-      "Gắn sensory tokens vào cùng không gian với language tokens",
+      "Đưa đặc trưng cảm biến vào cùng chuỗi xử lý với thông tin ngôn ngữ",
       "Cho mô hình giải quyết bài toán ngữ nghĩa và không gian trong một chuỗi multimodal chung."
     ],
     "intuition": "Điều quan trọng nhất là phân biệt suy luận mục tiêu với điều khiển động cơ. Người dùng bảo “Hãy lấy đồ ăn nhẹ cho tôi”; robot cần quan sát đồ vật, nhận biết chỗ để đồ, quyết định bước nào làm trước.",
@@ -177,7 +177,7 @@
       },
       {
         "label": "CÁCH DIỄN GIẢI",
-        "value": "Robot nhiệm vụ lần làm mẫu vẫn quan trọng; tri thức web không thay thế control."
+        "value": "Dữ liệu thao tác robot vẫn cần thiết; kiến thức từ ảnh và chữ không tự biến thành lệnh điều khiển."
       }
     ],
     "intuition": "Đối chiếu số liệu: Điểm nổi bật của PaLM-E không phải một tỷ lệ thành công dùng cho mọi robot. Bài báo đối chiếu nhiều loại nhiệm vụ và quy mô mô hình, trong đó có bản lớn 562 tỷ tham số.",
