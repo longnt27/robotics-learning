@@ -1,61 +1,61 @@
 [
   {
     "type": "cover",
-    "title": "Điểm cốt lõi",
-    "lead": "Muốn generalization, dataset phải rộng về nhiệm vụ và môi trường, không chỉ nhiều episode.",
+    "title": "BridgeData V2: dữ liệu robot đa dạng để làm gì?",
+    "lead": "Một chính sách điều khiển chỉ học nhặt cốc trên một chiếc bàn trắng có thể làm rất tốt ở đó nhưng thất bại khi sang bồn rửa hoặc gặp vật mới.",
     "items": [
       "Đo và chủ động mở rộng coverage của phân phối robot"
     ],
-    "intuition": "Dữ liệu nhiều môi trường và kỹ năng khiến policy phải học affordance thay vì nhớ nền.",
+    "intuition": "Đây là một tập dữ liệu chứ không phải kiến trúc chính sách điều khiển mới. Khi xem kết quả học máy, phải hỏi thuật toán nào được huấn luyện trên dữ liệu ấy và điều kiện đánh giá ra sao. Đừng nhầm việc có nhiều ví dụ với việc robot đã tự hiểu mọi công việc.",
     "detail": {
-      "label": "BỐI CẢNH NGHIÊN CỨU",
-      "text": "BridgeData V2 muốn xây một tập dữ liệu mà policy được huấn luyện ở Berkeley vẫn có cơ hội làm được việc ở setup khác, đồng thời đủ đa nhiệm vụ để mô hình phải thật sự đọc mục tiêu/ngôn ngữ thay vì đoán nhiệm vụ từ bối cảnh."
+      "label": "GIẢI THÍCH",
+      "text": "Đây là một tập dữ liệu chứ không phải kiến trúc chính sách điều khiển mới. Khi xem kết quả học máy, phải hỏi thuật toán nào được huấn luyện trên dữ liệu ấy và điều kiện đánh giá ra sao. Đừng nhầm việc có nhiều ví dụ với việc robot đã tự hiểu mọi công việc."
     }
   },
   {
     "type": "problem",
-    "title": "Nhiều dataset robot chỉ phản ánh một phòng thí nghiệm",
-    "lead": "Thu thập nhiều lần cùng thao tác/cùng góc camera tạo ảo giác về scale.",
+    "title": "Vì sao đổi bàn lại làm robot thất bại?",
+    "lead": "Một chính sách điều khiển chỉ học nhặt cốc trên một chiếc bàn trắng có thể làm rất tốt ở đó nhưng thất bại khi sang bồn rửa hoặc gặp vật mới.",
     "items": [
       "Đếm trajectory không đủ để nói về chất lượng dữ liệu"
     ],
-    "intuition": "Mẫu tăng nhưng vật thể, thao tác và camera vẫn không đổi thì OOD transfer vẫn yếu.",
+    "intuition": "Đây là một tập dữ liệu chứ không phải kiến trúc chính sách điều khiển mới. Khi xem kết quả học máy, phải hỏi thuật toán nào được huấn luyện trên dữ liệu ấy và điều kiện đánh giá ra sao. Đừng nhầm việc có nhiều ví dụ với việc robot đã tự hiểu mọi công việc.",
     "detail": {
-      "label": "NGUYÊN NHÂN CỐT LÕI",
-      "text": "Một trong những lý do robotics chậm hơn vision/NLP là tập dữ liệu thường nhỏ, đóng và gắn chết với một phòng thí nghiệm."
+      "label": "GIẢI THÍCH",
+      "text": "Một chính sách điều khiển chỉ học nhặt cốc trên một chiếc bàn trắng có thể làm rất tốt ở đó nhưng thất bại khi sang bồn rửa hoặc gặp vật mới. Nguyên nhân không nhất thiết là mô hình yếu; có thể toàn bộ lần làm mẫu đều quá giống nhau. BridgeData V2 được xây để tạo nguồn dữ liệu phong phú về thao tác, đồ vật và môi trường."
     }
   },
   {
     "type": "contrast",
-    "title": "Đếm trajectory không đủ để nói về chất lượng dữ liệu",
-    "lead": "Mẫu tăng nhưng vật thể, thao tác và camera vẫn không đổi thì OOD transfer vẫn yếu.",
+    "title": "Thêm dữ liệu khác với thêm dữ liệu hữu ích",
+    "lead": "Đây là một tập dữ liệu chứ không phải kiến trúc chính sách điều khiển mới. Khi xem kết quả học máy, phải hỏi thuật toán nào được huấn luyện trên dữ liệu ấy và điều kiện đánh giá ra sao.",
     "items": [
       "Đo và chủ động mở rộng coverage của phân phối robot",
-      "Dữ liệu nhiều môi trường và kỹ năng khiến policy phải học affordance thay vì nhớ nền."
+      "Dữ liệu nhiều môi trường và kỹ năng khiến bộ điều khiển phải học affordance thay vì nhớ nền."
     ],
-    "intuition": "Dữ liệu nhiều môi trường và kỹ năng khiến policy phải học affordance thay vì nhớ nền.",
+    "intuition": "Một chính sách điều khiển chỉ học nhặt cốc trên một chiếc bàn trắng có thể làm rất tốt ở đó nhưng thất bại khi sang bồn rửa hoặc gặp vật mới. Nguyên nhân không nhất thiết là mô hình yếu; có thể toàn bộ lần làm mẫu đều quá giống nhau.",
     "detail": {
-      "label": "VÌ SAO CẦN THAY ĐỔI",
-      "text": "Nếu một nhóm khác không có đúng robot, đúng table, đúng camera và đúng vật thể thì gần như không tái sử dụng được."
+      "label": "GIẢI THÍCH",
+      "text": "Thử so hai chính sách điều khiển có số lần làm mẫu gần nhau: một bên được học ba kỹ năng, bên kia mười ba. Nếu bên đa dạng hơn làm nhiệm vụ mới tốt hơn, ta có bằng chứng rằng loại kỹ năng được học quan trọng, không chỉ tổng số mẫu."
     }
   },
   {
     "type": "intuition",
-    "title": "Đo và chủ động mở rộng coverage của phân phối robot",
-    "lead": "Dữ liệu nhiều môi trường và kỹ năng khiến policy phải học affordance thay vì nhớ nền.",
+    "title": "Hình dung việc học thao tác trong bếp mới",
+    "lead": "robot học rất nhiều lần nhặt rồi đặt vật vào khay. Sau đó ta yêu cầu xếp hai khối lên nhau. Việc xếp chồng khó hơn, nhưng các bước tiếp cận, kẹp và di chuyển đồ vẫn có thể tái sử dụng.",
     "items": [
-      "Muốn generalization, dataset phải rộng về nhiệm vụ và môi trường, không chỉ nhiều episode."
+      "Muốn khả năng áp dụng vào tình huống mới, tập dữ liệu phải rộng về nhiệm vụ và môi trường, không chỉ nhiều episode."
     ],
-    "intuition": "Dữ liệu nhiều môi trường và kỹ năng khiến policy phải học affordance thay vì nhớ nền.",
+    "intuition": "Thử so hai chính sách điều khiển có số lần làm mẫu gần nhau: một bên được học ba kỹ năng, bên kia mười ba. Nếu bên đa dạng hơn làm nhiệm vụ mới tốt hơn, ta có bằng chứng rằng loại kỹ năng được học quan trọng, không chỉ tổng số mẫu.",
     "detail": {
-      "label": "GIẢI THÍCH CƠ CHẾ",
-      "text": "Tập dữ liệu có 60,096 các quỹ đạo trên 24 environments, hơn 100 vật thể và nhiều kỹ năng như pick-place, push, sweep, stack, fold."
+      "label": "GIẢI THÍCH",
+      "text": "robot học rất nhiều lần nhặt rồi đặt vật vào khay. Sau đó ta yêu cầu xếp hai khối lên nhau. Việc xếp chồng khó hơn, nhưng các bước tiếp cận, kẹp và di chuyển đồ vẫn có thể tái sử dụng. Đây là ý tưởng chuyển giao giữa những kỹ năng có phần chung."
     }
   },
   {
     "type": "concepts",
-    "title": "Ba khái niệm để nắm",
-    "lead": "Hiểu ba khái niệm này trước khi đọc thuật toán.",
+    "title": "Một lượt làm mẫu ghi những gì?",
+    "lead": "Mỗi lần người vận hành làm một nhiệm vụ, hệ thống ghi ảnh camera, trạng thái robot, chuỗi lệnh điều khiển và câu mô tả mục tiêu.",
     "items": [
       {
         "label": "Environment diversity",
@@ -70,142 +70,142 @@
         "value": "Hành động điều kiện theo ảnh mục tiêu hoặc ngôn ngữ."
       }
     ],
-    "intuition": "RGB, state, actions và goal image hoặc language.",
+    "intuition": "BridgeData V2 dùng nhiều góc camera; một phần có cả ảnh độ sâu. Số quỹ đạo, số nhiệm vụ và số môi trường là những đại lượng khác nhau. Hơn 60.000 quỹ đạo không có nghĩa có 60.000 kỹ năng riêng biệt.",
     "detail": {
-      "label": "NỀN TẢNG KỸ THUẬT",
-      "text": "Tập dữ liệu robotics thường bị giới hạn trong phòng phòng thí nghiệm, vật thể set, camera angle và nhiệm vụ collection protocol; số lượng episode lớn chưa chắc làm phân phối đủ rộng."
+      "label": "GIẢI THÍCH",
+      "text": "BridgeData V2 dùng nhiều góc camera; một phần có cả ảnh độ sâu. Số quỹ đạo, số nhiệm vụ và số môi trường là những đại lượng khác nhau. Hơn 60.000 quỹ đạo không có nghĩa có 60.000 kỹ năng riêng biệt."
     }
   },
   {
     "type": "pipeline",
-    "title": "Kiến trúc trong một sơ đồ",
-    "lead": "Muốn generalization, dataset phải rộng về nhiệm vụ và môi trường, không chỉ nhiều episode.",
+    "title": "Dữ liệu được thu và tổ chức ra sao?",
+    "lead": "Đầu tiên người vận hành chọn nhiệm vụ, ví dụ chuyển khối từ bàn vào bồn, rồi điều khiển tay máy bằng bộ điều khiển thực tế ảo. Camera và lệnh vận động được ghi liên tục theo thời gian.",
     "items": [
       "24 environments",
       "60.096 trajectories",
       "Hỗn hợp 6 methods",
       "Seen / unseen rollouts"
     ],
-    "intuition": "Policy quan sát cảnh và mục tiêu trước khi sinh thao tác đã học từ demonstrations.",
+    "intuition": "Khi huấn luyện, chính sách điều khiển nhận quan sát và mục tiêu rồi học dự đoán động tác người đã làm. Khi đánh giá, robot phải tự thực hiện trên nhiệm vụ hoặc môi trường được giữ ngoài tập huấn luyện.",
     "detail": {
-      "label": "ĐIỂM NHẤN TRIỂN KHAI",
-      "text": "Bài báo không ép một thuật toán duy nhất mà huấn luyện 6 imitation/offline-RL methods để xem tập dữ liệu có hữu ích xuyên kiến trúc không."
+      "label": "GIẢI THÍCH",
+      "text": "Khi huấn luyện, chính sách điều khiển nhận quan sát và mục tiêu rồi học dự đoán động tác người đã làm. Khi đánh giá, robot phải tự thực hiện trên nhiệm vụ hoặc môi trường được giữ ngoài tập huấn luyện. Các đoạn cắt từ cùng một lần thao tác không nên bị chia ngẫu nhiên vào cả train lẫn kiểm tra, vì điều đó làm kết quả trông cao giả."
     }
   },
   {
     "type": "representation",
-    "title": "Mô hình biểu diễn cái gì?",
-    "lead": "RGB, state, actions và goal image hoặc language.",
+    "title": "Dữ liệu biểu diễn cảnh và hành động thế nào?",
+    "lead": "BridgeData V2 dùng nhiều góc camera; một phần có cả ảnh độ sâu. Số quỹ đạo, số nhiệm vụ và số môi trường là những đại lượng khác nhau. Hơn 60.000 quỹ đạo không có nghĩa có 60.000 kỹ năng riêng biệt.",
     "items": [
       {
         "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
-        "value": "13 loại kỹ năng trong demonstrations chính; thêm randomized pick/place."
+        "value": "13 loại kỹ năng trong lần làm mẫu chính; thêm randomized pick/place."
       },
       {
         "label": "ĐÁNH ĐỔI KỸ THUẬT",
-        "value": "Dataset một họ phần cứng không đồng nghĩa cross-embodiment."
+        "value": "tập dữ liệu một họ phần cứng không đồng nghĩa cross-embodiment."
       }
     ],
-    "intuition": "Dataset một họ phần cứng không đồng nghĩa cross-embodiment.",
+    "intuition": "Đầu tiên người vận hành chọn nhiệm vụ, ví dụ chuyển khối từ bàn vào bồn, rồi điều khiển tay máy bằng bộ điều khiển thực tế ảo. Camera và lệnh vận động được ghi liên tục theo thời gian. Quá trình lặp lại ở nhiều bố cục và với nhiều vật thể để tránh chỉ học một cách đặt đồ.",
     "detail": {
-      "label": "CHI TIẾT BIỂU DIỄN",
-      "text": "Trong đó 50,365 các quỹ đạo là demonstrations của 13 kỹ năng và thêm 9,731 các quỹ đạo từ một randomized pick-and-place policy để tăng robustness."
+      "label": "GIẢI THÍCH",
+      "text": "Đầu tiên người vận hành chọn nhiệm vụ, ví dụ chuyển khối từ bàn vào bồn, rồi điều khiển tay máy bằng bộ điều khiển thực tế ảo. Camera và lệnh vận động được ghi liên tục theo thời gian. Quá trình lặp lại ở nhiều bố cục và với nhiều vật thể để tránh chỉ học một cách đặt đồ."
     }
   },
   {
     "type": "training",
-    "title": "Model học như thế nào?",
-    "lead": "50.365 expert demonstrations + 9.731 randomized trajectories.",
+    "title": "Huấn luyện từ các lượt thao tác mẫu",
+    "lead": "Đầu tiên người vận hành chọn nhiệm vụ, ví dụ chuyển khối từ bàn vào bồn, rồi điều khiển tay máy bằng bộ điều khiển thực tế ảo. Camera và lệnh vận động được ghi liên tục theo thời gian.",
     "items": [
       {
         "label": "MỤC TIÊU HỌC",
-        "value": "Nhiều baseline gồm BC, goal-conditioned và diffusion-style policies."
+        "value": "Nhiều phương pháp đối chứng gồm BC, goal-conditioned và diffusion-cách thực hiện policies."
       },
       {
         "label": "DỮ LIỆU / QUY TRÌNH",
-        "value": "Ablation data size, model size và skill diversity."
+        "value": "Ablation dữ liệu size, mô hình size và skill diversity."
       }
     ],
-    "intuition": "Giữ số mẫu gần tương đương, thay skill diversity.",
+    "intuition": "Khi huấn luyện, chính sách điều khiển nhận quan sát và mục tiêu rồi học dự đoán động tác người đã làm. Khi đánh giá, robot phải tự thực hiện trên nhiệm vụ hoặc môi trường được giữ ngoài tập huấn luyện.",
     "detail": {
-      "label": "CÁCH HUẤN LUYỆN",
-      "text": "Họ còn làm scaling ablations về kích thước mô hình, tập dữ liệu size và kỹ năng sự đa dạng."
+      "label": "GIẢI THÍCH",
+      "text": "Đối chiếu số liệu: Điểm mạnh của BridgeData V2 thể hiện qua xu hướng khi huấn luyện các chính sách điều khiển khác nhau: dữ liệu phong phú hơn và mô hình phù hợp hơn thường giúp tăng khả năng làm nhiệm vụ chưa gặp. Để tách tác dụng của sự đa dạng khỏi số lượng, Hình 5 còn so những tập có số quỹ đạo gần bằng nhau nhưng gồm số loại kỹ năng khác nhau."
     }
   },
   {
     "type": "inference",
-    "title": "Một lần inference xảy ra ra sao?",
-    "lead": "Policy quan sát cảnh và mục tiêu trước khi sinh thao tác đã học từ demonstrations.",
+    "title": "Dữ liệu được dùng để điều khiển robot thế nào?",
+    "lead": "Khi huấn luyện, chính sách điều khiển nhận quan sát và mục tiêu rồi học dự đoán động tác người đã làm. Khi đánh giá, robot phải tự thực hiện trên nhiệm vụ hoặc môi trường được giữ ngoài tập huấn luyện.",
     "items": [
       {
         "label": "XỬ LÝ ĐẦU VÀO",
-        "value": "Sinh thao tác learned từ demonstrations."
+        "value": "Sinh thao tác learned từ lần làm mẫu."
       },
       {
         "label": "TẠO HÀNH ĐỘNG",
-        "value": "Đánh giá transfer qua scenes/institutions không hoàn toàn trùng training."
+        "value": "Đánh giá transfer qua scenes/institutions không hoàn toàn trùng huấn luyện."
       }
     ],
-    "intuition": "Đánh giá transfer qua scenes/institutions không hoàn toàn trùng training.",
+    "intuition": "robot học rất nhiều lần nhặt rồi đặt vật vào khay. Sau đó ta yêu cầu xếp hai khối lên nhau. Việc xếp chồng khó hơn, nhưng các bước tiếp cận, kẹp và di chuyển đồ vẫn có thể tái sử dụng. Đây là ý tưởng chuyển giao giữa những kỹ năng có phần chung.",
     "detail": {
-      "label": "DIỄN BIẾN THỰC THI",
-      "text": "BridgeData V2 cho nhiều bối cảnh/nhiệm vụ, để policy cần nhận ra affordance dù phông nền thay đổi."
+      "label": "GIẢI THÍCH",
+      "text": "Khi so hiệu quả, hãy nói rõ muốn kiểm tra đổi vật, đổi cảnh hay đổi phần cứng. Ba kiểu khái quát ấy không giống nhau, dù đôi khi đều được gọi chung là chuyển giao."
     }
   },
   {
     "type": "equation",
-    "title": "Mathematical Intuition",
-    "lead": "Nhiều episode không tự tạo dữ liệu đa dạng: hai dataset cùng số mẫu có thể có coverage rất khác.",
+    "title": "Đọc các đại lượng trong tập dữ liệu",
+    "lead": "BridgeData V2 dùng nhiều góc camera; một phần có cả ảnh độ sâu. Số quỹ đạo, số nhiệm vụ và số môi trường là những đại lượng khác nhau. Hơn 60.000 quỹ đạo không có nghĩa có 60.000 kỹ năng riêng biệt.",
     "equation": "\\operatorname{Coverage}(\\mathcal D)\\ne |\\mathcal D|",
     "items": [
       "Đây là shorthand mang tính trực quan, không phải metric do bài báo định nghĩa."
     ],
-    "intuition": "Nhiều episode không tự tạo dữ liệu đa dạng: hai dataset cùng số mẫu có thể có coverage rất khác.",
+    "intuition": "Đầu tiên người vận hành chọn nhiệm vụ, ví dụ chuyển khối từ bàn vào bồn, rồi điều khiển tay máy bằng bộ điều khiển thực tế ảo. Camera và lệnh vận động được ghi liên tục theo thời gian. Quá trình lặp lại ở nhiều bố cục và với nhiều vật thể để tránh chỉ học một cách đặt đồ.",
     "detail": {
-      "label": "Ý NGHĨA CÔNG THỨC",
-      "text": "Robot là một platform low-cost công khai, giúp các phòng thí nghiệm khác có thể dựng phần cứng gần tương thích."
+      "label": "GIẢI THÍCH CÔNG THỨC",
+      "text": "Trước khi huấn luyện, xem thử một quỹ đạo để xác nhận ảnh và lệnh khớp thời gian; ghi số tập, số nhiệm vụ, số bối cảnh riêng thay vì chỉ ghi “60 nghìn mẫu”."
     }
   },
   {
     "type": "results",
-    "title": "Kết quả nói lên điều gì?",
-    "lead": "60.096 trajectories tại 24 môi trường, hơn 100 vật thể.",
+    "title": "Thí nghiệm cho thấy đa dạng dữ liệu có ích không?",
+    "lead": "Nửa bên trái Hình 5 cho thấy khi tăng lượng dữ liệu và kích thước mô hình, chính sách điều khiển có điều kiện mục tiêu học từ BridgeData V2 đạt hiệu quả tốt hơn.",
     "items": [
       {
         "label": "PHÁT HIỆN QUAN TRỌNG",
-        "value": "Policy từ nhiều họ thuật toán đều hưởng lợi từ dữ liệu."
+        "value": "bộ điều khiển từ nhiều họ thuật toán đều hưởng lợi từ dữ liệu."
       },
       {
         "label": "CÁCH DIỄN GIẢI",
         "value": "Khi số mẫu gần nhau, tập có nhiều loại kỹ năng thường generalize tốt hơn."
       }
     ],
-    "intuition": "một dataset nhiều positive demos vẫn thiếu failure recovery và dynamic contact.",
+    "intuition": "Đối chiếu số liệu: Điểm mạnh của BridgeData V2 thể hiện qua xu hướng khi huấn luyện các chính sách điều khiển khác nhau: dữ liệu phong phú hơn và mô hình phù hợp hơn thường giúp tăng khả năng làm nhiệm vụ chưa gặp.",
     "detail": {
-      "label": "ĐỌC SỐ LIỆU ĐÚNG CÁCH",
-      "text": "Điểm chính không phải một con số SOTA đơn lẻ mà là xu hướng nhất quán: nhiều dữ liệu hơn, mô hình lớn hơn và kỹ năng sự đa dạng cao hơn đều cải thiện khả năng khái quát."
+      "label": "GIẢI THÍCH",
+      "text": "Nửa bên trái Hình 5 cho thấy khi tăng lượng dữ liệu và kích thước mô hình, chính sách điều khiển có điều kiện mục tiêu học từ BridgeData V2 đạt hiệu quả tốt hơn. Nửa bên phải giữ số mẫu giữa hai tập gần bằng nhau, chỉ thay độ đa dạng kỹ năng. Đây là phép so có ý nghĩa hơn nếu muốn hỏi liệu học nhiều loại việc có giúp việc mới không."
     }
   },
   {
     "type": "ablation",
-    "title": "Ablation và bằng chứng",
-    "lead": "Giữ số mẫu gần tương đương, thay skill diversity.",
+    "title": "Thử thay nguồn dữ liệu để hiểu đóng góp",
+    "lead": "Mỗi phương pháp được thử 20 lần trong phép so đó; chênh lệch nhỏ có thể cần kiểm tra thêm độ bất định. Không nên biến kết quả “đa dạng giúp trong điều kiện thử” thành “cứ thêm bất kỳ dữ liệu nào cũng tốt”.",
     "items": [
       {
         "label": "YẾU TỐ ĐƯỢC THỬ",
-        "value": "Tăng model/dataset size cũng có lợi nhưng không thay thế coverage."
+        "value": "Tăng mô hình/tập dữ liệu size cũng có lợi nhưng không thay thế coverage."
       }
     ],
-    "intuition": "Policy từ nhiều họ thuật toán đều hưởng lợi từ dữ liệu.",
+    "intuition": "Nửa bên trái Hình 5 cho thấy khi tăng lượng dữ liệu và kích thước mô hình, chính sách điều khiển có điều kiện mục tiêu học từ BridgeData V2 đạt hiệu quả tốt hơn. Nửa bên phải giữ số mẫu giữa hai tập gần bằng nhau, chỉ thay độ đa dạng kỹ năng.",
     "detail": {
-      "label": "BẰNG CHỨNG BỔ SUNG",
-      "text": "Điều này echo RT-1: thêm hàng chục nghìn replay của cùng hành vi không thay thế được coverage của nhiều hành vi khác nhau."
+      "label": "ĐỐI CHIẾU THÍ NGHIỆM",
+      "text": "Mỗi phương pháp được thử 20 lần trong phép so đó; chênh lệch nhỏ có thể cần kiểm tra thêm độ bất định. Không nên biến kết quả “đa dạng giúp trong điều kiện thử” thành “cứ thêm bất kỳ dữ liệu nào cũng tốt”."
     }
   },
   {
     "type": "limits",
-    "title": "Hạn chế cần nói thẳng",
-    "lead": "Tách rõ tác giả thừa nhận và nhận định phê bình độc lập.",
+    "title": "BridgeData V2 chưa giải quyết điều gì?",
+    "lead": "Các quỹ đạo đến từ một hệ robot và bố trí camera nhất định. Khi đưa sang robot có chiều dài cánh tay, kẹp hoặc hệ tọa độ khác, lệnh cần được ánh xạ lại.",
     "items": [
       {
         "label": "Tác giả / phạm vi",
@@ -213,19 +213,19 @@
       },
       {
         "label": "Phê bình độc lập",
-        "value": "Phê bình: một dataset nhiều positive demos vẫn thiếu failure recovery và dynamic contact."
+        "value": "Phê bình: một tập dữ liệu nhiều positive các lần làm mẫu vẫn thiếu failure recovery và dynamic contact."
       }
     ],
-    "intuition": "13 loại kỹ năng trong demonstrations chính; thêm randomized pick/place.",
+    "intuition": "Dữ liệu lớn cũng có thể bị lệch: nhiệm vụ thường gặp nhiều hơn nhiệm vụ hiếm. Người dùng cần kiểm tra dữ liệu bẩn, mất khung hình, nhãn không đồng bộ và những lượt thất bại. Nếu đầu vào sai, mô hình lớn chỉ học lỗi kỹ hơn.",
     "detail": {
-      "label": "PHẠM VI KẾT LUẬN",
-      "text": "Bài báo thừa nhận: tập dữ liệu vẫn là một robot family, thao tác chủ yếu tabletop, low-force và tương đối ít động lực học phức tạp."
+      "label": "GIẢI THÍCH",
+      "text": "Dữ liệu lớn cũng có thể bị lệch: nhiệm vụ thường gặp nhiều hơn nhiệm vụ hiếm. Người dùng cần kiểm tra dữ liệu bẩn, mất khung hình, nhãn không đồng bộ và những lượt thất bại. Nếu đầu vào sai, mô hình lớn chỉ học lỗi kỹ hơn."
     }
   },
   {
     "type": "relations",
-    "title": "Bài này đứng ở đâu trong lĩnh vực?",
-    "lead": "Không đọc paper như một hòn đảo riêng.",
+    "title": "BridgeData khác DROID và Open X ra sao?",
+    "lead": "BridgeData V2 mở rộng số thao tác và môi trường trong một hệ thu dữ liệu tương đối nhất quán. DROID thu dữ liệu ở rất nhiều tòa nhà và bối cảnh ngoài phòng thí nghiệm.",
     "items": [
       {
         "label": "NỀN TẢNG / TIỀN ĐỀ",
@@ -236,24 +236,24 @@
         "value": "Open X-Embodiment mở rộng thêm chiều khác nhau giữa các robot."
       }
     ],
-    "intuition": "Thiết kế kế hoạch thu data theo coverage, không theo episode quota.",
+    "intuition": "Khi so hiệu quả, hãy nói rõ muốn kiểm tra đổi vật, đổi cảnh hay đổi phần cứng. Ba kiểu khái quát ấy không giống nhau, dù đôi khi đều được gọi chung là chuyển giao.",
     "detail": {
-      "label": "CÔNG TRÌNH LIÊN QUAN",
-      "text": "Đọc thêm Octo, Open X-Embodiment. Các liên hệ này theo kỹ thuật hoặc bài toán, không mặc định tác giả trực tiếp trích dẫn nhau."
+      "label": "GIẢI THÍCH",
+      "text": "BridgeData V2 mở rộng số thao tác và môi trường trong một hệ thu dữ liệu tương đối nhất quán. DROID thu dữ liệu ở rất nhiều tòa nhà và bối cảnh ngoài phòng thí nghiệm. Open X-Embodiment trộn dữ liệu từ nhiều kiểu robot khác nhau, vì thế đối diện thêm bài toán không gian hành động không đồng nhất."
     }
   },
   {
     "type": "closing",
-    "title": "Nếu chỉ nhớ ba điều",
-    "lead": "Thiết kế kế hoạch thu data theo coverage, không theo episode quota.",
+    "title": "Điều cần nhớ trước khi dùng BridgeData V2",
+    "lead": "Cho robot học nhiệm vụ chuyển vật vào khay. Lập hai tập bằng nhau về số quỹ đạo: tập A chỉ thay vị trí vật, tập B thay vị trí, loại vật và màu nền. Đánh giá trên một vật chưa thấy ở một bàn mới.",
     "items": [
-      "Cần held-out scene và skill split khi đánh giá.",
+      "Cần held-out cảnh và skill split khi đánh giá.",
       "Không gọi chuyển giao cùng phần cứng là cross-embodiment."
     ],
-    "intuition": "Muốn generalization, dataset phải rộng về nhiệm vụ và môi trường, không chỉ nhiều episode.",
+    "intuition": "Trước khi huấn luyện, xem thử một quỹ đạo để xác nhận ảnh và lệnh khớp thời gian; ghi số tập, số nhiệm vụ, số bối cảnh riêng thay vì chỉ ghi “60 nghìn mẫu”.",
     "detail": {
-      "label": "THỬ NGHIỆM TIẾP THEO",
-      "text": "Tải một subset nhỏ, xem RGB/state/action các quỹ đạo, tạo split random và held-out scene rồi so sánh khả năng khái quát gap."
+      "label": "GIẢI THÍCH",
+      "text": "Cho robot học nhiệm vụ chuyển vật vào khay. Lập hai tập bằng nhau về số quỹ đạo: tập A chỉ thay vị trí vật, tập B thay vị trí, loại vật và màu nền. Đánh giá trên một vật chưa thấy ở một bàn mới. Nếu B tốt hơn, cách diễn giải phù hợp là độ đa dạng cụ thể ấy có ích cho điều kiện kiểm tra này."
     }
   }
 ]
