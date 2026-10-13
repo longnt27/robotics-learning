@@ -21,7 +21,9 @@ LIBERO là bộ nhiệm vụ và quy trình đánh giá, không phải policy m�
 
 ## Kiến thức nền cần nắm
 
-Học liên tục (lifelong/continual learning) khác học đa nhiệm (multi-task learning): nhiệm vụ **đến tuần tự**, mô hình được cập nhật sau mỗi nhiệm vụ và có thể quên nhiệm vụ đã học. Benchmark phải tách hai câu hỏi: chuyển kiến thức sang nhiệm vụ mới có nhanh hơn không, và sau khi học nhiệm vụ mới mô hình có còn làm được nhiệm vụ cũ không.
+**Học đa nhiệm** thường cho mạng học nhiều công việc cùng lúc; **học liên tục** cho robot học nhiệm vụ A, rồi B, rồi C. Khi cập nhật tham số để làm B, mạng có thể quên A. Vì vậy một bộ đánh giá học liên tục phải đo cả hai chuyện: kiến thức cũ có giúp học việc mới nhanh hơn không, và sau khi học việc mới mô hình còn làm tốt việc cũ không.
+
+LIBERO tạo những nhóm nhiệm vụ thay đổi vị trí, đồ vật và mục tiêu để phân tích hai vấn đề ấy. Nó là bộ đánh giá, không phải một thuật toán điều khiển mới.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -35,14 +37,15 @@ LIBERO chia các nhiệm vụ thành nhóm thay vị trí không gian, thay vậ
 
 ## Phương pháp thực hiện
 
-LIBERO có **130 nhiệm vụ** và tạo nhiệm vụ theo quy tắc. Các suite chính gồm **LIBERO-Spatial**, **LIBERO-Object**, **LIBERO-Goal** và **LIBERO-100**; phần long-horizon dùng một split riêng từ LIBERO-100. Mỗi nhiệm vụ có khoảng **50 demonstration chất lượng cao do con người điều khiển từ xa**. Điều kiện hoàn thành nhiệm vụ được được mô tả chính thức bằng predicates kiểu `Open`, `TurnOff`, `On`, `In`.
+LIBERO có **130 nhiệm vụ** mô phỏng, được chia thành các nhóm như LIBERO-Spatial, LIBERO-Object, LIBERO-Goal và LIBERO-100. Mỗi nhiệm vụ có khoảng **50 lượt thao tác mẫu** do người điều khiển. Môi trường ghi rõ điều kiện thành công, ví dụ đồ vật nằm trong khay hoặc ngăn kéo đã mở.
+
+Nhóm tác giả cho mô hình học lần lượt từng nhiệm vụ rồi kiểm tra lại các việc đã học. Các phương pháp đối chứng gồm huấn luyện tiếp thông thường, phát lại kinh nghiệm cũ, EWC và PackNet. Ngoài tỷ lệ thành công, thí nghiệm còn đo khả năng chuyển giao tới nhiệm vụ tiếp theo và mức suy giảm khi quay lại nhiệm vụ cũ.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
 ![Hình 5 từ PDF gốc, trang 9](/paper-figures/libero/figure-5.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Bài báo gốc đánh giá các thuật toán học liên tục như sequential fine-tuning, replay, EWC và PackNet. Các chỉ số không chỉ đo tỷ lệ hoàn thành nhiệm vụ mà còn **Forward Transfer (FWT)**, **Negative Backward Transfer (NBT)** và AUC để đo diễn biến học tập qua chuỗi nhiệm vụ.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -67,9 +70,9 @@ Policy học việc thứ nhất rồi được kiểm tra. Sau khi học việc
 
 ## Ví dụ từng bước
 
-Huấn luyện một policy lần lượt trên mở ngăn kéo, nhặt mug, đặt mug vào bát. Sau mỗi nhiệm vụ, chạy đánh giá trên tất cả nhiệm vụ trước. Nếu nhiệm vụ mới được 90% nhưng nhiệm vụ cũ tụt về 10%, mô hình đang **catastrophically forgetting**. LIBERO cung cấp nhóm nhiệm vụ và thước đo chuyển giao/retention, nhưng thành tích benchmark không tự chứng minh robot generalist ngoài đời.
+Robot học lần lượt mở ngăn kéo, nhặt cốc và đặt cốc vào bát. Sau khi học mở ngăn kéo, ta ghi tỷ lệ thành công. Tiếp đó cho học nhặt cốc rồi thử lại mở ngăn kéo. Nếu nhiệm vụ mới đạt 90% nhưng nhiệm vụ đầu giảm xuống 10%, đó là dấu hiệu **quên kiến thức đã học**.
 
-Khi chạy env, thành công phải đến từ **closed-loop rollout và điều kiện hoàn thành trong simulator**, không phải loss khi huấn luyện.
+Để kiểm tra đúng, robot phải tự chạy trong môi trường tới khi hoàn thành điều kiện nhiệm vụ, không chỉ có sai số dự đoán nhỏ trên dữ liệu ghi sẵn. Nên thử nhiều thứ tự nhiệm vụ để xem kết luận có phụ thuộc thứ tự học hay không.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -83,14 +86,15 @@ Ngược lại, nếu đã học A giúp việc B được học nhanh hơn, đ�
 
 ## Kết quả thực nghiệm
 
-Một kết quả khá trái trực giác là **naive sequential fine-tuning có FWT tốt**, tức biểu diễn học từ nhiệm vụ trước đôi khi giúp nhiệm vụ sau, dù nó quên nhiệm vụ cũ. PackNet bảo vệ retention khá tốt nhưng đổi lại dung lượng biểu diễn của mô hình bị chia nhỏ. Experience Replay là lựa chọn tương đối ổn định, còn EWC không nổi bật trong thiết lập này. Bài báo cũng thử BERT/CLIP/GPT-style embedding của nhiệm vụ và thấy **không có khác biệt lớn so với TaskID** trong nhiều thiết lập.
+Huấn luyện tiếp tuần tự đôi khi có lợi khi học nhiệm vụ mới nhờ kiến thức tích lũy, nhưng lại quên nhiều việc cũ. PackNet giúp giữ kỹ năng cũ bằng cách dành vùng tham số riêng, đổi lại dung lượng cho việc mới bị hạn chế. Phát lại kinh nghiệm cũ cho kết quả tương đối ổn định trong các phép thử được báo cáo.
+
+Đáng chú ý, huấn luyện trước trên LIBERO-90 **không bảo đảm cải thiện** học liên tục trên các nhiệm vụ dài; trong một số điều kiện còn gây chuyển giao tiêu cực. Vì vậy không thể suy từ “đã học nhiều nhiệm vụ” rằng mô hình sẽ tiếp tục học tốt mọi nhiệm vụ khác.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
 ![Hình 4 từ PDF gốc, trang 9](/paper-figures/libero/figure-4.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Một kết quả đáng nhớ khác: pretraining có giám sát trên LIBERO-90 **không tự động giúp** downstream lifelong learning trên 10 nhiệm vụ long-horizon, thậm chí có thể gây negative chuyển giao. Điều đó cảnh báo rất sớm rằng “pretrain nhiều hơn” không đủ; phân phối/mục tiêu huấn luyện phải đúng.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -104,9 +108,9 @@ Khi thấy một điểm tổng hợp, hãy hỏi nó đã bao gồm điểm c�
 
 ## Hạn chế và câu hỏi còn mở
 
-**Bài báo thừa nhận:** đây là mô phỏng benchmark với phạm vi vật thể/nhiệm vụ và mô phỏng vật lý có giới hạn; tác giả coi benchmark là nền để cộng đồng tiếp tục mở rộng kiến trúc, thuật toán và pretraining.
+LIBERO là bộ mô phỏng với vật thể, chuyển động và điều kiện thành công được định nghĩa rõ. Những lỗi như camera thật bị che, lực kẹp thay đổi hay vật mềm biến dạng khó được phản ánh đầy đủ. Khi nhiều mô hình đạt điểm rất cao, tỷ lệ thành công trung bình cũng khó cho thấy khác biệt nhỏ giữa chúng.
 
-**Phê bình thêm:** đến 2026, LIBERO đã gần **bão hòa** với các VLA hàng đầu, nhiều mô hình nằm vùng 95-99% tỷ lệ thành công trung bình. Vì thế nó vẫn rất hữu ích như regression/unit test nhưng khó phân biệt hiệu năng của các VLA hàng đầu. Cộng đồng còn thường chỉ báo cáo một tỷ lệ thành công trung bình duy nhất và bỏ qua mục tiêu lifelong ban đầu của benchmark, tức biến LIBERO thành thứ nó không được thiết kế để làm. Bối cảnh tĩnh, tabletop và mục tiêu predicates sạch cũng không test môi trường luôn thay đổi, mobile manipulation, bất định khi tiếp xúc vật thể, phục hồi hay nhận thức trong điều kiện thực tế. Một mô hình 98% LIBERO vẫn có thể kém hiệu quả ngoài nhà bếp thật, chuyện này con người đáng lẽ không cần benchmark để nhắc nhưng lịch sử vẫn cho thấy là cần.
+**Điều dễ bị hiểu sai:** báo cáo một điểm thành công trên LIBERO mà không đo việc học nối tiếp sẽ bỏ qua câu hỏi chính của benchmark. Robot làm tốt vài nhiệm vụ tại một thời điểm chưa chắc học thêm việc mới mà không quên; kết quả mô phỏng cũng chưa chứng minh năng lực ngoài đời.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -137,9 +141,9 @@ Một model được tiền huấn luyện tốt vẫn có thể quên khi tinh 
 
 ## Đọc code và tự kiểm chứng
 
-Chạy một nhiệm vụ BC-RNN trong repo LIBERO chính thức trên T4, rồi thử 10 vs 50 demos. Sau đó chạy hai nhiệm vụ theo thứ tự để kiểm tra hiện tượng quên; báo cáo tỷ lệ thành công với nhiều random seed.
+Chạy một nhiệm vụ LIBERO trong mô phỏng với 10 lượt thao tác mẫu, rồi thử lại với 50 lượt. Tiếp theo cho một chính sách học hai nhiệm vụ A và B theo thứ tự. Ghi điểm A sau khi học A, và đo lại A sau khi học B để nhìn thấy mức quên.
 
-**Cách kiểm tra đọc hiểu:** Hãy tự giải thích *đầu vào*, *đầu ra*, *loss khi huấn luyện*, *quy trình đánh giá* và *kiểu lỗi* của bài báo. Nếu không nói được một trong năm thứ này, cần đọc lại phần tương ứng trước khi chạy benchmark.
+Đổi thứ tự học B → A, dùng nhiều lượt chạy và trạng thái ban đầu khác nhau. Đừng chỉ so hàm mất mát khi huấn luyện: tiêu chí ở đây là robot **thực hiện được bao nhiêu nhiệm vụ** sau mỗi giai đoạn học.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

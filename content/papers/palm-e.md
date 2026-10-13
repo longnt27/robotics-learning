@@ -21,7 +21,7 @@ Bài báo đặt câu hỏi liệu tri thức của mô hình ngôn ngữ lớn,
 
 ## Kiến thức nền cần nắm
 
-Phân biệt **embodied reasoning** với **low-level motor policy**. Một LLM hiểu câu "cốc nằm trong ngăn kéo" có thể suy ra trình tự tìm cốc, nhưng chưa có nghĩa nó đã học torque hay gripper velocity. Sensor tokens là vector liên tục được project vào không gian embedding của mô hình ngôn ngữ; chúng không trở thành từ thật, chỉ dùng chung attention stream.
+**Suy luận về thế giới vật lý** khác **điều khiển động cơ**. Một mô hình ngôn ngữ biết rằng muốn lấy cốc trong ngăn kéo phải mở ngăn kéo trước, nhưng chưa chắc biết góc xoay của từng khớp. PaLM-E đưa ảnh và thông tin cảm biến vào cùng quá trình suy luận với câu chữ: ảnh được chuyển thành những vector có dạng phù hợp với biểu diễn trong mạng. Chúng vẫn mang thông tin hình ảnh, không biến thành từ ngữ thông thường.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -35,7 +35,9 @@ Trong sơ đồ, những màu khác nhau không phải chỉ để trang trí: c
 
 ## Phương pháp thực hiện
 
-PaLM-E lấy đã pretrain PaLM rồi biến hình ảnh embeddings, 3D/cảm biến embeddings và trạng thái robot thành những “multimodal tokens” có thể được interleave cùng text. Thay vì xây một planner riêng, mô hình được huấn luyện end-to-end trên mixture gồm robotics, VQA, captioning và ngôn ngữ nhiệm vụ. Phiên bản lớn nhất lên tới **562B parameters**. Điều đáng chú ý là bài báo không chỉ huấn luyện embodied dữ liệu, mà cố giữ web-scale prior bằng multi-task co-training, một pattern sau này quay lại rất nhiều trong RT-2, OpenVLA và Qwen-VLA.
+PaLM-E phát triển từ mô hình ngôn ngữ PaLM đã huấn luyện trước. Ảnh, biểu diễn không gian ba chiều và trạng thái robot được chuyển thành token, sau đó xen giữa token văn bản. Mạng được huấn luyện chung từ dữ liệu robot, hỏi đáp về ảnh, mô tả ảnh và các nhiệm vụ ngôn ngữ. Phiên bản lớn nhất có **562 tỷ tham số**.
+
+PaLM-E thường đảm nhiệm việc hiểu cảnh và lập các bước làm ở mức cao. Những bộ điều khiển cấp thấp đã có mới biến kế hoạch ấy thành lệnh cho robot. Việc trộn các nguồn dữ liệu cũng giúp mô hình giữ kiến thức ảnh–ngôn ngữ đã học khi tiếp tục học công việc robot.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -43,7 +45,6 @@ PaLM-E lấy đã pretrain PaLM rồi biến hình ảnh embeddings, 3D/cảm bi
 ![Hình 4 từ PDF gốc, trang 8](/paper-figures/palm-e/figure-4.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Trong robotics, PaLM-E thường đóng vai trò high-level embodied reasoner: đọc bối cảnh + chỉ dẫn, phân tích mục tiêu, rồi gọi/điều kiện các low-level kỹ năng đã có. Vì vậy nó không giống π0 hay Qwen-VLA hiện tại, nơi sinh action được nhét thẳng vào mô hình nền tảng stack.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -68,9 +69,9 @@ Giả sử robot được hỏi 'vật nào dùng để lau bàn?' giữa một 
 
 ## Ví dụ từng bước
 
-Robot được hỏi "mang đồ uống ở phía sau cái hộp tới đây". Camera embeddings cung cấp vị trí tương đối, text định nghĩa đối tượng và mục tiêu, mô hình tạo plan hoặc chỉ dẫn cho kỹ năng bộ điều khiển. Nếu vật mới xuất hiện sau một lần quan sát, mô hình cần grounding lại; phần action thường phụ thuộc kỹ năng primitive đã có.
+Người dùng yêu cầu: **“Mang đồ uống nằm sau chiếc hộp lại đây.”** Camera ghi cảnh và cung cấp vị trí tương đối của các vật. Từ lời yêu cầu, mạng tìm đối tượng cần lấy, phân biệt nó với chiếc hộp ở phía trước rồi đề xuất trình tự tiếp cận và mang tới vị trí đích.
 
-Để hiểu PaLM-E, hãy vẽ sơ đồ token chuỗi `text → image embedding → robot state embedding → text output` và đánh dấu nơi loss ngôn ngữ khác loss điều khiển.
+Bộ điều khiển riêng thực thi những bước như đưa tay tới, kẹp và nhấc. Nếu đồ uống đã bị chuyển chỗ, hệ thống cần quan sát lại. Khi đọc sơ đồ, hãy chỉ ra phần nào tạo kế hoạch và phần nào thực sự ra lệnh motor; chúng là hai nhiệm vụ khác nhau.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -84,14 +85,15 @@ Robot được hỏi "mang đồ uống ở phía sau cái hộp tới đây". C
 
 ## Kết quả thực nghiệm
 
-Bài báo cho thấy một mô hình duy nhất xử lý được nhiều robot platform lẫn các nhiệm vụ VQA/captioning/ngôn ngữ. Khi tăng scale, catastrophic forgetting của ngôn ngữ capability giảm rõ, và bản 562B vẫn giữ được năng lực general ngôn ngữ tốt dù đã học thêm embodied inputs. Huấn luyện chung giữa vision-language và robotics tạo **positive chuyển giao**, thay vì robotics làm hỏng kiến thức nền tảng như người ta có thể lo.
+Bài báo cho thấy một mô hình có thể tham gia những bài toán robot, hỏi đáp về ảnh, mô tả ảnh và ngôn ngữ. Các phép thử so những trường hợp có hoặc không có dữ liệu và tham số học trước để kiểm tra khả năng chuyển kiến thức khi demonstration robot khan hiếm.
+
+Khi tăng quy mô mô hình, mức **quên năng lực ngôn ngữ cũ** được báo cáo giảm trong các thiết lập thử. Đây là bằng chứng tích cực cho việc huấn luyện chung nhiều nguồn dữ liệu. Nhưng việc giữ điểm số ngôn ngữ tốt không tự chứng minh robot đã hiểu lực tiếp xúc hoặc biết điều khiển động tác chính xác.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
 ![Hình 5 từ PDF gốc, trang 9](/paper-figures/palm-e/figure-5.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Một kết quả có ý nghĩa lịch sử hơn cả metric là: đã pretrain ngôn ngữ/kiến thức thị giác thực sự giúp embodied reasoning. Đây là tiền đề trực tiếp cho thesis của RT-2 rằng kiến thức trên Internet có thể đi xa hơn, từ reasoning sang cả sinh action.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -105,9 +107,9 @@ Hình 5 đánh giá thêm khả năng ngôn ngữ vốn có: học thao tác rob
 
 ## Hạn chế và câu hỏi còn mở
 
-**Bài báo thừa nhận:** PaLM-E vẫn phụ thuộc mạnh vào low-level policy library. Nếu robot chưa có kỹ năng vật lý tương ứng, ví dụ một chuyển động mới hoàn toàn, mô hình ngôn ngữ không thể chỉ “nghĩ ra” bộ điều khiển đáng tin cậy. Những mục tiêu chỉ mô tả bằng text cũng khó khi cần grounding vào một instance cụ thể trong bối cảnh. Mô hình còn kế thừa hallucination và bias của LLM/VLM backbone.
+**Giới hạn:** PaLM-E vẫn dựa nhiều vào các kỹ năng điều khiển sẵn có. Nếu robot chưa biết thực hiện động tác cần thiết, một kế hoạch hợp lý từ mô hình ngôn ngữ không tự tạo thành lệnh khớp đáng tin cậy. Ảnh bị che, câu lệnh mơ hồ hoặc dữ liệu cảm biến sai vẫn có thể khiến mô hình chọn nhầm vật.
 
-**Phê bình thêm:** PaLM-E chứng minh embodied reasoning nhiều hơn là chứng minh VLA motor control. Nhiều thành công phụ thuộc vào bộ điều khiển/kỹ năng bên dưới, nên rất dễ đánh đồng “mô hình biết phải làm gì” với “robot biết làm nó”. 562B cũng là compute regime mà đa số robotics phòng thí nghiệm không thể reproduce. Cuối cùng, việc giữ ngôn ngữ benchmark tốt không tự động nghĩa biểu diễn đã hiểu vật lý; nó có thể reasoning rất hay rồi vẫn thất bại ở 2 mm cuối cùng khi cắm một cái plug.
+**Cần phân biệt khi diễn giải:** nghiên cứu thể hiện năng lực suy luận đa phương thức nhiều hơn điều khiển motor trực tiếp. Phiên bản hàng trăm tỷ tham số còn tốn tài nguyên lớn. “Mô hình biết phải làm gì” không đồng nghĩa “robot thực hiện chính xác tới milimét cuối cùng”.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -138,9 +140,9 @@ Ba phương án không thể so trực tiếp bằng số tham số hoặc một
 
 ## Đọc code và tự kiểm chứng
 
-Tự dựng một multimodal prompt encoder toy: project vectors ảnh 512D và state 12D vào cùng hidden dimension rồi xen kẽ token vào Transformer. Kiểm chứng shape, positional encoding và attention mask trước khi nghĩ đến robot thật.
+Có thể dựng một bộ mã hóa minh họa: ánh xạ vector ảnh 512 chiều và trạng thái robot 12 chiều về cùng kích thước với token của Transformer, sau đó ghép vào một chuỗi. Kiểm tra cách đánh dấu vị trí và cách mạng nhận biết từng nguồn thông tin.
 
-**Cách kiểm tra đọc hiểu:** Hãy tự giải thích *đầu vào*, *đầu ra*, *loss khi huấn luyện*, *quy trình đánh giá* và *kiểu lỗi* của bài báo. Nếu không nói được một trong năm thứ này, cần đọc lại phần tương ứng trước khi chạy benchmark.
+Thử bỏ tín hiệu ảnh nhưng giữ câu hỏi “chiếc cốc nằm ở đâu”. Nếu mô hình không còn câu trả lời dựa trên cảnh thực tế, ta thấy vai trò của quan sát. Đây mới là phép thử cách ghép tín hiệu, chưa phải một hệ thống điều khiển robot hoàn chỉnh.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

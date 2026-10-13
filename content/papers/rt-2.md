@@ -21,7 +21,9 @@ RT-2 mã hóa lệnh chuyển động dưới dạng token để huấn luyện 
 
 ## Kiến thức nền cần nắm
 
-RT-1 học image-to-action theo demonstration. VLM đã nhìn lượng ảnh và text rộng hơn robot nhiều bậc độ lớn. RT-2 đưa ra giả thuyết: **web ngữ nghĩa priors** có thể giúp robot hiểu vật thể/mục tiêu chưa được annotate trong robot tập dữ liệu nếu action được biểu diễn chung như đầu ra tokens.
+RT-1 học dựa trên ảnh và demonstration robot; trong khi đó mô hình thị giác–ngôn ngữ lớn (VLM) đã học từ lượng ảnh và chữ trên Internet rộng hơn nhiều. RT-2 đặt giả thuyết rằng **kiến thức về đồ vật, công dụng và quan hệ** từ VLM có thể giúp robot hiểu yêu cầu chưa được gắn nhãn trong dữ liệu thao tác.
+
+Chẳng hạn mô hình biết chiếc cốc có thể dùng để uống, nhưng đó mới là kiến thức về ý nghĩa. Nó còn cần học cách di chuyển tới cốc và kẹp đúng vật. Vì vậy phải phân biệt hiểu câu lệnh với khả năng vận động.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -35,9 +37,9 @@ Biết rằng táo là trái cây hoặc cốc dùng để uống không đồng
 
 ## Phương pháp thực hiện
 
-RT-2 bắt đầu từ các VLM lớn như PaLI-X/PaLM-E family rồi **co-finetune trên hai loại dữ liệu cùng lúc**: web vision-language dữ liệu và robot các quỹ đạo. Trick đơn giản nhưng quan trọng là robot actions được discretize và biểu diễn như token trong cùng autoregressive vocabulary. Như vậy dự đoán “move x, rotate y, close gripper” về mặt optimization trở thành một dạng ngôn ngữ modeling đặc biệt.
+RT-2 tiếp tục huấn luyện các VLM lớn trên **cả dữ liệu ảnh–ngôn ngữ từ web và dữ liệu hành động robot**. Điểm đặc biệt là các giá trị lệnh robot được mã hóa thành token rời rạc, để mạng dự đoán chúng bằng cùng cơ chế dự đoán token văn bản. Khi robot chạy, token được giải mã thành lệnh có đơn vị và hệ tọa độ vật lý.
 
-Co-finetuning là chi tiết sống còn. Nếu chỉ fine-tune VLM trên robot action dữ liệu, mô hình dễ quên kiến thức từ web. Nếu chỉ bolt-on một action head, biểu diễn alignment không mạnh bằng việc cùng huấn luyện trong một token interface.
+Giữ dữ liệu web trong huấn luyện giúp tránh việc mô hình chỉ nhớ các câu lệnh robot rồi quên hiểu biết ngữ nghĩa đã học trước. Bộ sinh action không phải một chatbot đứng ngoài điều khiển; kiến thức và lệnh được học chung trong mô hình.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -62,7 +64,9 @@ Robot thực hiện một phần lệnh, quan sát lại và tiếp tục. Nếu
 
 ## Ví dụ từng bước
 
-Yêu cầu robot "bỏ rác vào thùng" trong khi robot demos có pick/place nhưng không có vật thể tên "rác" cụ thể. VLM biết một lon rỗng và giấy vụn liên quan đến khái niệm rác; robotics action tín hiệu giám sát dạy cách pick/place. Khi text/web examples và robot các quỹ đạo co-train, mô hình có thể dùng prior để chọn mục tiêu. Tuy nhiên, chuyển giao ngữ nghĩa không đảm bảo kẹp được vật lạ.
+Người dùng bảo robot: **“Bỏ rác vào thùng.”** Các demonstration có thể chỉ dạy robot nhặt và đặt vật, chưa gọi đích danh mọi loại rác. Nhờ kiến thức ảnh–ngôn ngữ, mạng có thể nhận ra lon rỗng hoặc giấy vụn phù hợp với yêu cầu. Sau đó phần học từ robot mới giúp nó sinh lệnh gắp và đưa vật vào thùng.
+
+Nếu lon có hình dạng mới khiến gripper kẹp trượt, robot vẫn thất bại dù đã nhận biết đúng. Đây là ranh giới giữa **chuyển giao tri thức ngữ nghĩa** và **khả năng điều khiển vật lý**.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -71,7 +75,6 @@ Yêu cầu robot "bỏ rác vào thùng" trong khi robot demos có pick/place nh
 ![Hình 7 từ PDF gốc, trang 11](/paper-figures/rt-2/figure-7.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Điểm cần theo dõi trong source code/diagram là các action dimensions được **serialize** thành tokens; loss huấn luyện có thể chia sẻ decoder với đầu ra ngôn ngữ, nhưng vật lý meaning đến từ robot examples.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -85,7 +88,9 @@ Nếu nó kẹp một chiếc bát sai mục tiêu, vấn đề có thể nằm 
 
 ## Kết quả thực nghiệm
 
-Trên seen nhiệm vụ thao tác, RT-2 vẫn giữ hiệu năng cạnh tranh với RT-1. Điểm thắng nằm ở **vật thể mới, unseen chỉ dẫn và khái quát về ngữ nghĩa**. Bài báo báo hiệu năng khái quát gần **gấp đôi** một số phương pháp đối chứng mạnh và, trong nhóm “emergent suy luận ngữ nghĩa” được thiết kế để test kiến thức từ web chuyển giao, RT-2-PaLI-X đạt tỷ lệ thành công trung bình cao hơn RT-1 nhiều lần, có nhóm hơn **3x**.
+RT-2 tiếp tục làm được các nhiệm vụ thao tác đã học, đồng thời có lợi thế trong một số thử nghiệm về **đồ vật mới, cách nói mới và suy luận ngữ nghĩa**. Nhóm tác giả báo cáo các nhóm bài kiểm tra có kết quả tốt hơn đáng kể, thậm chí hơn nhiều lần so với một số phương pháp đối chứng trong đúng thiết lập nghiên cứu.
+
+Những ví dụ chọn vật theo công dụng thay vì tên gọi cụ thể cho thấy dữ liệu web có thể hỗ trợ robot. Tuy vậy phạm vi phép thử vẫn hữu hạn. Không nên xem kết quả ấy là bằng chứng robot đã hiểu mọi câu nói hoặc làm được mọi kỹ năng vật lý mới.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -93,7 +98,6 @@ Trên seen nhiệm vụ thao tác, RT-2 vẫn giữ hiệu năng cạnh tranh v�
 ![Hình 6 từ PDF gốc, trang 10](/paper-figures/rt-2/figure-6.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Các qualitative examples gây ảnh hưởng lớn vì robot có thể hiểu những concept không xuất hiện rõ trong dữ liệu robot, như chọn vật thể theo ngữ nghĩa category hoặc kết hợp kiến thức từ web với action. Đây là proof-of-concept khiến cả field tin rằng VLM không chỉ làm planner phía trên mà có thể trở thành chính policy backbone.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -107,9 +111,9 @@ Một con số thành công cao trong một nhóm bài kiểm tra chưa có ngh�
 
 ## Hạn chế và câu hỏi còn mở
 
-**Bài báo thừa nhận:** kiến thức từ web không tự tạo ra kỹ năng vận động mới. Nếu robot chưa từng học động tác vật lý tương ứng, biết nghĩa của chỉ dẫn không đủ. Inference với VLM lớn cũng gây nút thắt về độ trễ và compute, đặc biệt với control tần số cao.
+Hiểu được mục đích trong lời nói không tự tạo ra kỹ năng vận động chưa có trong demonstration. Mô hình ảnh–ngôn ngữ lớn cũng gây chi phí tính toán và độ trễ khi robot cần phát lệnh nhanh. Việc chia action liên tục thành token rời rạc có thể gây sai số; dự đoán tuần tự nhiều token còn làm chậm hơn.
 
-**Phê bình thêm:** tokenized autoregressive actions là một interface rất tiện nhưng không phải biểu diễn lý tưởng cho điều khiển liên tục, vì quantization và sequential decoding cùng giới hạn độ chính xác/speed. Những “emergent” evaluations tương đối nhỏ và được con người thiết kế để lộ đúng loại kiến thức ngữ nghĩa mà VLM mạnh. Mô hình/dữ liệu không thật sự mở nên khó reproduce. Quan trọng hơn, RT-2 chứng minh **chuyển giao ngữ nghĩa** mạnh hơn nhiều so với việc chứng minh vật lý chuyển giao; phần contact-rich motor intelligence vẫn chủ yếu đến từ robot demonstrations.
+Các phép thử về suy luận mới thường do nhóm tác giả thiết kế cho một số tình huống cụ thể. Vì thế RT-2 có bằng chứng mạnh về **chuyển giao ngữ nghĩa**, nhưng chưa chứng minh mọi loại kẹp, lực tiếp xúc và phần cứng mới đều hoạt động tốt.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -141,9 +145,9 @@ RT-1 chứng minh khả năng học nhiều thao tác từ dữ liệu robot. Pa
 
 ## Đọc code và tự kiểm chứng
 
-Trên một VLM nhỏ tự thêm vocabulary cho 7 action dimensions; so sánh quantization error theo bins. Từ đó đọc OpenVLA như một implementation có thể chạy lại thay vì chỉ đọc diagram RT-2.
+Hãy lấy một vector hành động robot bảy chiều, chia mỗi chiều thành các mức rời rạc rồi mã hóa thành token. Giải mã ngược, đo sai số so với giá trị ban đầu khi số mức tăng/giảm. Nhờ vậy có thể hiểu đánh đổi giữa biểu diễn thuận tiện và độ chính xác điều khiển.
 
-**Cách kiểm tra đọc hiểu:** Hãy tự giải thích *đầu vào*, *đầu ra*, *loss khi huấn luyện*, *quy trình đánh giá* và *kiểu lỗi* của bài báo. Nếu không nói được một trong năm thứ này, cần đọc lại phần tương ứng trước khi chạy benchmark.
+Tiếp theo thử một bài chọn vật theo công dụng với các câu lệnh khác nhau, giữ nguyên cảnh và bộ điều khiển. Ghi riêng vật được chọn đúng hay sai và robot có gắp được hay không. Hai chỉ số này giúp phân biệt vấn đề ngôn ngữ với vấn đề vận động.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
