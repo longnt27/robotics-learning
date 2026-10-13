@@ -31,7 +31,7 @@
     "lead": "RTC giải vấn đề nối hai đoạn hành động trong khi robot đang chạy. Nó không làm VLM hiểu ảnh tốt hơn hay thay đổi mục tiêu nhiệm vụ.",
     "items": [
       "Giữ committed prefix, chỉ sinh lại tương lai",
-      "Trong khi suy luận diễn ra, robot vẫn chạy buffer cũ; chunk mới bị constraint khớp phần chắc chắn đã/đang thực thi."
+      "Trong khi mô hình tính, robot tiếp tục dùng lệnh trong bộ đệm cũ; đoạn mới phải khớp phần đã cam kết."
     ],
     "intuition": "Robot cần lệnh mới ở tần số 50 Hz, tức mỗi 20 mili giây. Nhưng mô hình VLA có thể mất 100–300 mili giây để sinh một đoạn hành động. Nếu bắt robot đứng yên chờ, việc quẹt diêm, rót chất lỏng hoặc giữ vật có thể bị hỏng giữa chừng.",
     "detail": {
@@ -82,7 +82,7 @@
     "lead": "Bước 1: robot đang thực thi đoạn A trong bộ đệm; mô hình nhận quan sát mới và bắt đầu tính đoạn B. Hai việc diễn ra đồng thời, không bắt robot dừng. Bước 2: ước tính d để xác định những bước của A sẽ được thực hiện trước khi B xong.",
     "items": [
       "Đọc camera mới",
-      "Robot tiếp tục chunk cũ",
+      "Robot tiếp tục đoạn hành động cũ",
       "Guided flow inpainting",
       "Nối chunk mới liên tục"
     ],
