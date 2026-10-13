@@ -107,10 +107,10 @@ Không nên chỉ hỏi mô hình nào có nhiều tham số nhất. Cần biế
 
 ### Những bài nên đọc tiếp
 
-- [Open X-Embodiment](/paper/open-x-cấu hình cơ thể robot)
+- [Open X-Embodiment](/paper/open-x-embodiment)
 - [GR00T N1](/paper/groot-n1)
 - [Qwen-VLA](/paper/qwen-vla)
-- [Diffusion Policy](/paper/diffusion-chính sách điều khiển)
+- [Diffusion Policy](/paper/diffusion-policy)
 - [DROID](/paper/droid)
 
 ## Đọc mã nguồn và tự kiểm chứng

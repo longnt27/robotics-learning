@@ -90,8 +90,8 @@ RT-2 chứng minh hướng chuyển kiến thức ảnh–ngôn ngữ sang token
 
 - [PaLM-E](/paper/palm-e)
 - [RT-2](/paper/rt-2)
-- [Diffusion Policy](/paper/diffusion-chính sách điều khiển)
-- [Open X-Embodiment](/paper/open-x-cấu hình cơ thể robot)
+- [Diffusion Policy](/paper/diffusion-policy)
+- [Open X-Embodiment](/paper/open-x-embodiment)
 - [LingBot-VLA 2.0](/paper/lingbot-vla-2)
 
 ## Đọc mã nguồn và tự kiểm chứng

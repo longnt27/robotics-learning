@@ -6,9 +6,9 @@ Robot cần lệnh mới ở tần số 50 Hz, tức mỗi 20 mili giây. Nhưng
 
 **RTC giải vấn đề nối hai đoạn hành động trong khi robot đang chạy.** Nó không làm VLM hiểu ảnh tốt hơn hay thay đổi mục tiêu nhiệm vụ. Trọng tâm là giữ những lệnh robot đã bắt đầu thực hiện, rồi sinh phần tương lai còn có thể thay đổi sao cho chuyển động không đứt đoạn.
 
-![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/rtc-suy luận/figure-1.webp)
+![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/rtc-inference/figure-1.webp)
 
-![Hình 5 từ PDF gốc, trang 7](/paper-figures/rtc-suy luận/figure-5.webp)
+![Hình 5 từ PDF gốc, trang 7](/paper-figures/rtc-inference/figure-5.webp)
 
 ## Kiến thức nền
 
@@ -47,11 +47,11 @@ Nhận đoạn mới và tiếp tục      ←     Trả đoạn hành động m
 
 Một điểm dễ bỏ sót: nếu đoạn mới chọn đường đi hoàn toàn khác, việc kết hợp trung bình hai chuỗi không tự bảo đảm an toàn. RTC giữ cứng các bước không sửa được, rồi dùng mức ràng buộc giảm dần trên phần còn chồng nhau. Có thể hình dung đoạn mới gồm ba vùng: **đã cam kết, được điều chỉnh có giới hạn, được sinh tự do**. Cơ chế này giúp nối mượt nhưng vẫn cho phép phản ứng với ảnh camera mới. Việc ước lượng trễ sai hoặc GPU bị nghẽn bất chợt vẫn có thể làm bộ đệm cạn, nên robot thật cần cơ chế dừng dự phòng.
 
-![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/rtc-suy luận/figure-2.webp)
+![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/rtc-inference/figure-2.webp)
 
-![Hình 3 từ PDF gốc, trang 4](/paper-figures/rtc-suy luận/figure-3.webp)
+![Hình 3 từ PDF gốc, trang 4](/paper-figures/rtc-inference/figure-3.webp)
 
-![Hình 6 từ PDF gốc, trang 8](/paper-figures/rtc-suy luận/figure-6.webp)
+![Hình 6 từ PDF gốc, trang 8](/paper-figures/rtc-inference/figure-6.webp)
 
 ## Ví dụ từng bước
 
@@ -75,7 +75,7 @@ Trong một thiết lập robot thật dùng π0.5 ở 50 Hz, bài báo báo th�
 
 Đừng so 76 với 97 rồi kết luận RTC kém: phải đo tổng thời gian hoàn thành, tỷ lệ thành công và mức giật ở điểm nối. Ngược lại, chỉ thấy robot chuyển động liên tục cũng chưa chứng minh nó đang đi đúng hướng.
 
-![Hình 4 từ PDF gốc, trang 5](/paper-figures/rtc-suy luận/figure-4.webp)
+![Hình 4 từ PDF gốc, trang 5](/paper-figures/rtc-inference/figure-4.webp)
 
 ## Hạn chế và câu hỏi còn mở
 
@@ -96,7 +96,7 @@ Hai cách có cùng mục tiêu nối hành động liên tục nhưng chi phí 
 ### Những bài nên đọc tiếp
 
 - [ACT / ALOHA](/paper/act)
-- [Diffusion Policy](/paper/diffusion-chính sách điều khiển)
+- [Diffusion Policy](/paper/diffusion-policy)
 - [π0.5](/paper/pi-0-5)
 - [Training-time RTC](/paper/rtc-training)
 

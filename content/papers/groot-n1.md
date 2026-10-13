@@ -97,8 +97,8 @@ PaLM-E tập trung đưa cảm giác từ thế giới thật vào suy luận đ
 ### Những bài nên đọc tiếp
 
 - [RT-2](/paper/rt-2)
-- [Diffusion Policy](/paper/diffusion-chính sách điều khiển)
-- [Open X-Embodiment](/paper/open-x-cấu hình cơ thể robot)
+- [Diffusion Policy](/paper/diffusion-policy)
+- [Open X-Embodiment](/paper/open-x-embodiment)
 - [Qwen-VLA](/paper/qwen-vla)
 - [LingBot-VLA 2.0](/paper/lingbot-vla-2)
 

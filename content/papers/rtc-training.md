@@ -82,9 +82,9 @@ Cả hai khác ACT và Diffusion Policy ở trọng tâm nghiên cứu: ACT và 
 
 ### Những bài nên đọc tiếp
 
-- [RTC ở thời điểm suy luận](/paper/rtc-suy luận)
+- [RTC ở thời điểm suy luận](/paper/rtc-inference)
 - [ACT](/paper/act)
-- [Diffusion Policy](/paper/diffusion-chính sách điều khiển)
+- [Diffusion Policy](/paper/diffusion-policy)
 - [π0.5](/paper/pi-0-5)
 
 ## Đọc mã nguồn và tự kiểm chứng

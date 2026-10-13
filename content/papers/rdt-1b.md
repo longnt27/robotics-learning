@@ -70,7 +70,7 @@ Việc tăng số tham số không phải đóng góp duy nhất: khả năng bi
 
 ### Những bài nên đọc tiếp
 
-- [Diffusion Policy](/paper/diffusion-chính sách điều khiển)
+- [Diffusion Policy](/paper/diffusion-policy)
 - [GR00T N1](/paper/groot-n1)
 
 ## Đọc mã nguồn và tự kiểm chứng

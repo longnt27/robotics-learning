@@ -72,7 +72,7 @@ Khi chọn nền tảng để nghiên cứu, hãy xét bộ dữ liệu hỗ tr�
 
 ### Những bài nên đọc tiếp
 
-- [Open X-Embodiment](/paper/open-x-cấu hình cơ thể robot)
+- [Open X-Embodiment](/paper/open-x-embodiment)
 - [OpenVLA](/paper/openvla)
 
 ## Đọc mã nguồn và tự kiểm chứng
