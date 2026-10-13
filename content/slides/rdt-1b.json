@@ -177,10 +177,10 @@
       },
       {
         "label": "CÁCH DIỄN GIẢI",
-        "value": "Lợi thế cần so ở cùng dữ liệu/compute budget để không nhầm hiệu quả kiến trúc với scale."
+        "value": "Đọc điểm của RDT và từng phương pháp đối chứng trên cùng nhóm nhiệm vụ; tránh nhầm điểm phần trăm với mức tăng tương đối."
       }
     ],
-    "intuition": "Đối chiếu số liệu: Bài báo báo cáo RDT-1B cải thiện tỷ lệ thành công trung bình khoảng 56% tương đối so với các phương pháp đối chứng được chọn.",
+    "intuition": "Hình 1 ghi 68,2% của RDT và 12,2% của ACT trong phép so được minh họa, tức chênh 56 điểm phần trăm, không phải tăng 56% tương đối.",
     "detail": {
       "label": "GIẢI THÍCH",
       "text": "Hình 4 kiểm tra độ ổn định khi bỏ QKNorm/RMSNorm và vai trò của một số thành phần đầu ra. Nếu đường hàm mất mát dao động mạnh, tối ưu hóa có thể gặp khó ngay trước khi robot thực thi. Các phép thử điều khiển còn tách kỹ năng đi thẳng và rót chính xác lượng nước."
