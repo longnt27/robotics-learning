@@ -22,7 +22,7 @@ Một mô hình ảnh–ngôn ngữ có thể nhận ra chiếc cốc, nhưng ch
 
 **SFT (Supervised Fine-Tuning):** dùng dữ liệu làm mẫu được tuyển chọn để luyện cho các nhiệm vụ đích. Paper có **hai nhánh xuất phát từ CPT**: một nhánh học chung nhiều nhiệm vụ và một nhánh tinh chỉnh trên dữ liệu người điều khiển robot thật.
 
-**RL (Reinforcement Learning):** tiếp tục cải thiện nhánh đa nhiệm bằng phần thưởng hoàn thành khi chính sách thử hành động **trong mô phỏng SimplerEnv**. Đây **không phải** bằng chứng nhóm tác giả làm RL trực tiếp trên cánh tay ALOHA ngoài đời (Mục 4.2 và 5.2.3).
+**RL (Reinforcement Learning):** tiếp tục cải thiện nhánh đa nhiệm bằng phần thưởng hoàn thành khi chính sách thử hành động **trong mô phỏng SimplerEnv**. Phần thưởng RL không đến từ ALOHA thật: nhóm tác giả thu dữ liệu RL trong mô phỏng SimplerEnv, không trực tiếp huấn luyện RL trên cánh tay ALOHA (Mục 4.2 và 5.2.3).
 
 ### Ví dụ vì sao cần học chuyển động trước khi gắn với ảnh
 
