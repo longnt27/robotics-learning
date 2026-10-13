@@ -197,7 +197,7 @@
       "image": "/paper-figures/rt-1/figure-3.webp",
       "caption": "Fig. 3: (a) Robot classroom where we collect data at scale; (b) a real ofﬁce kitchen, one of the two realistic environments used for evaluation (named Kitchen1 in the rest of the paper); (c) a different ofﬁce kitchen used for evaluation (named Kitchen2 in the rest of the paper); (d) mobile manipulator used throughout the paper; (e) a set of objects used for most of the skills to expand skill diversity; (f) a more diverse set of objects used mostly to expand object diversity of the picking skill.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p025.pdf",
-      "caption_vi": "Hình 3. Môi trường và thiết bị thu dữ liệu. (a) Khu vực thu demonstration robot với quy mô lớn. (b) Một bếp văn phòng thật dùng để đánh giá, gọi là Kitchen1. (c) Một bếp văn phòng khác, gọi là Kitchen2. (d) Robot di động có cánh tay được dùng trong nghiên cứu. (e) Bộ đồ vật phục vụ nhiều kỹ năng, làm phong phú loại thao tác. (f) Bộ đồ vật đa dạng hơn, chủ yếu thử khả năng gắp các vật khác nhau.",
+      "caption_vi": "Hình 3. Môi trường và thiết bị thu dữ liệu. (a) Khu vực thu lượt thao tác mẫu robot với quy mô lớn. (b) Một bếp văn phòng thật dùng để đánh giá, gọi là Kitchen1. (c) Một bếp văn phòng khác, gọi là Kitchen2. (d) Robot di động có cánh tay được dùng trong nghiên cứu. (e) Bộ đồ vật phục vụ nhiều kỹ năng, làm phong phú loại thao tác. (f) Bộ đồ vật đa dạng hơn, chủ yếu thử khả năng gắp các vật khác nhau.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "873ffdb2af04059f9ff5a58e28dee612a2ab06e6afb0d4358f34a99d299c1ea0",
       "translation_reviewed": true
@@ -279,7 +279,7 @@
       "image": "/paper-figures/diffusion-policy/figure-1.webp",
       "caption": "Fig. 1: Policy Representations. a) Explicit policy with different types of action representations. b) Implicit policy learns an energy function conditioned on both action and observation and optimizes for actions that minimize the energy landscape c) Diffusion policy refines noise into actions via a learned gradient field. This formulation provides stable training, allows the learned policy to accurately model multimodal action distributions, and accommodates high-dimensional action sequences.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p026.pdf",
-      "caption_vi": "Hình 1. Ba cách biểu diễn chính sách điều khiển robot. (a) Policy tường minh dự đoán hành động bằng những dạng đầu ra khác nhau. (b) Policy ngầm học một hàm đánh giá mức phù hợp giữa hành động và quan sát, sau đó tìm hành động có mức đánh giá tốt nhất. (c) Diffusion Policy bắt đầu từ nhiễu và liên tục chỉnh thành hành động theo hướng do mạng học được. Nhờ mô hình hóa cả phân phối, cách thứ ba có thể biểu diễn nhiều chuỗi hành động hợp lệ và học ổn định trên dữ liệu nhiều chiều.",
+      "caption_vi": "Hình 1. Ba cách biểu diễn chính sách điều khiển robot. (a) Cách dự đoán tường minh dự đoán hành động bằng những dạng đầu ra khác nhau. (b) Cách dự đoán ngầm học một hàm đánh giá mức phù hợp giữa hành động và quan sát, sau đó tìm hành động có mức đánh giá tốt nhất. (c) Diffusion Policy bắt đầu từ nhiễu và liên tục chỉnh thành hành động theo hướng do mạng học được. Nhờ mô hình hóa cả phân phối, cách thứ ba có thể biểu diễn nhiều chuỗi hành động hợp lệ và học ổn định trên dữ liệu nhiều chiều.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "d4f1cd06bb0834da1d2b447b0193adb272950aa4ba85f23a2413bb879f95adfe",
       "translation_reviewed": true
@@ -319,7 +319,7 @@
       "image": "/paper-figures/diffusion-policy/figure-3.webp",
       "caption": "Fig. 3: Diffusion Policy Overview a) General formulation. At time step t, the policy takes the latest To steps of observation data Ot as input and outputs Ta steps of actions At. b) In the CNN-based Diffusion Policy, FiLM (Feature-wise Linear Modulation) [35] conditioning of the observation feature Ot is applied to every convolution layer, channel-wise. Starting from AKt drawn from Gaussian noise, the output of noise-prediction network εθ is subtracted, repeating K times to get A0t , the denoised action sequence. c) In the Transformer-based [52] Diffusion Policy, the embedding of observation Ot is passed into a multi-head cross-attention layer of each transformer decoder block. Each action embedding is constrained to only attend to itself and previous action embeddings (causal attention) using the attention mask illustrated.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p026.pdf",
-      "caption_vi": "Hình 3. Cơ chế Diffusion Policy. (a) Ở thời điểm t, policy nhận một số bước quan sát gần nhất rồi dự đoán nhiều bước hành động tương lai. (b) Bản dùng CNN đưa đặc trưng quan sát vào từng lớp tích chập qua FiLM; chuỗi hành động khởi đầu là nhiễu Gauss và được mạng dự đoán nhiễu chỉnh dần trong K lượt để thành chuỗi điều khiển. (c) Bản dùng Transformer đưa đặc trưng quan sát vào cơ chế chú ý chéo; mặt nạ chú ý giới hạn mỗi token hành động chỉ nhìn chính nó và các hành động trước đó.",
+      "caption_vi": "Hình 3. Cơ chế Diffusion Policy. (a) Ở thời điểm t, mô hình điều khiển nhận một số bước quan sát gần nhất rồi dự đoán nhiều bước hành động tương lai. (b) Bản dùng CNN đưa đặc trưng quan sát vào từng lớp tích chập qua FiLM; chuỗi hành động khởi đầu là nhiễu Gauss và được mạng dự đoán nhiễu chỉnh dần trong K lượt để thành chuỗi điều khiển. (c) Bản dùng Transformer đưa đặc trưng quan sát vào cơ chế chú ý chéo; mặt nạ chú ý giới hạn mỗi token hành động chỉ nhìn chính nó và các hành động trước đó.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "8951d929213926662722f940a2c9f2141180431039a4deafa32d05b627a2cd7d",
       "translation_reviewed": true
@@ -339,7 +339,7 @@
       "image": "/paper-figures/diffusion-policy/figure-4.webp",
       "caption": "Fig. 4: Multimodal behavior. At the given state, the end-effector (blue) can either go left or right to push the block. Diffusion Policy learns both modes and commits to only one mode within each rollout. In contrast, both LSTM-GMM [29] and IBC [12] are biased toward one mode, while BET [42] fails to commit to a single mode due to its lack of temporal action consistency. Actions generated by rolling out 40 steps for the best-performing checkpoint.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p026.pdf",
-      "caption_vi": "Hình 4. Khi có nhiều cách làm đều đúng, policy cần chọn một cách nhất quán. Với cùng trạng thái, đầu công tác của robot (màu xanh) có thể vòng trái hoặc vòng phải để đẩy khối. Diffusion Policy học cả hai kiểu và thường theo một kiểu trong suốt lần chạy. LSTM-GMM và IBC thiên về một hướng; BET có lúc đổi hướng giữa chừng vì thiếu nhất quán theo thời gian. Đường đi minh họa được tạo bằng cách cho checkpoint tốt nhất chạy 40 bước.",
+      "caption_vi": "Hình 4. Khi có nhiều cách làm đều đúng, mô hình điều khiển cần chọn một cách nhất quán. Với cùng trạng thái, đầu công tác của robot (màu xanh) có thể vòng trái hoặc vòng phải để đẩy khối. Diffusion Policy học cả hai kiểu và thường theo một kiểu trong suốt lần chạy. LSTM-GMM và IBC thiên về một hướng; BET có lúc đổi hướng giữa chừng vì thiếu nhất quán theo thời gian. Đường đi minh họa được tạo bằng cách cho bản mô hình đã lưu tốt nhất chạy 40 bước.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "3014a865b072a83d110283b0849669a939f4651786b03fbb5d2fa91a652d2cea",
       "translation_reviewed": true
@@ -399,7 +399,7 @@
       "image": "/paper-figures/diffusion-policy/figure-7.webp",
       "caption": "Fig. 7: Training Stability. Left: IBC fails to infer training actions with increasing accuracy despite smoothly decreasing training loss for energy function. Right: IBC’s evaluation success rate oscillates, making checkpoint selection difficult (evaluated using policy rollouts in simulation). V. EVALUATION We systematically evaluate Diffusion Policy on 12 tasks from 4 benchmarks [12, 15, 29, 42]. This evaluation suite includes both simulated and real environments, single and multiple task benchmarks, fully actuated and under-actuated systems, and rigid and fluid objects. We found Diffusion Policy to consistently outperform the prior state-of-the-art on all of the tested benchmarks, with an average success-rate improvement of 46.9%. In the following sections, we provide an overview of each task, our evaluation methodology on that task, and our key takeaways.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p026.pdf",
-      "caption_vi": "Hình 7. Độ ổn định khi huấn luyện. Bên trái: với IBC, dù giá trị hàm mất mát của mô hình năng lượng giảm đều, khả năng tái tạo các hành động huấn luyện không tăng tương ứng. Bên phải: tỷ lệ thành công của IBC khi chạy trong mô phỏng dao động mạnh, làm khó việc chọn checkpoint. Đây là lời nhắc rằng đường loss đẹp chưa chắc robot sẽ chạy tốt.",
+      "caption_vi": "Hình 7. Độ ổn định khi huấn luyện. Bên trái: với IBC, dù giá trị hàm mất mát của mô hình năng lượng giảm đều, khả năng tái tạo các hành động huấn luyện không tăng tương ứng. Bên phải: tỷ lệ thành công của IBC khi chạy trong mô phỏng dao động mạnh, làm khó việc chọn bản mô hình đã lưu. Đây là lời nhắc rằng đường loss đẹp chưa chắc robot sẽ chạy tốt.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "04ef55c93bc2fbde39733c11538db528aad08f67aef15f249767264d26e5bc8b",
       "translation_reviewed": true
@@ -439,7 +439,7 @@
       "image": "/paper-figures/diffusion-policy/figure-9.webp",
       "caption": "Fig. 9: Robustness Test for Diffusion Policy. Left: A waving hand in front of the camera for 3 seconds causes slight jitter, but the predicted actions still function as expected. Middle: Diffusion Policy immediately corrects shifted block position to the goal state during the pushing stage. Right: Policy immediately aborts heading to the end zone, returning the block to goal state upon detecting block shift. This novel behavior was never demonstrated. Please check the videos in the supplementary material.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p026.pdf",
-      "caption_vi": "Hình 9. Thử độ bền trước nhiễu và thay đổi bất ngờ. Trái: một bàn tay vẫy trước camera trong ba giây làm lệnh hơi rung nhưng robot vẫn hoạt động. Giữa: khi khối bị xê dịch, policy lập tức điều chỉnh nó về trạng thái mục tiêu. Phải: phát hiện khối lệch ngay lúc đang đi tới vùng kết thúc, policy quay lại chỉnh khối trước. Hành vi quay lại sửa lỗi này không được minh họa trực tiếp trong demonstration huấn luyện; video có trong tài liệu bổ sung.",
+      "caption_vi": "Hình 9. Thử độ bền trước nhiễu và thay đổi bất ngờ. Trái: một bàn tay vẫy trước camera trong ba giây làm lệnh hơi rung nhưng robot vẫn hoạt động. Giữa: khi khối bị xê dịch, mô hình điều khiển lập tức điều chỉnh nó về trạng thái mục tiêu. Phải: phát hiện khối lệch ngay lúc đang đi tới vùng kết thúc, mô hình điều khiển quay lại chỉnh khối trước. Hành vi quay lại sửa lỗi này không được minh họa trực tiếp trong lượt thao tác mẫu huấn luyện; video có trong tài liệu bổ sung.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "39cee6fa0cb947611ab10a8362757f92e90d03d2efc034a60c3df9706509d537",
       "translation_reviewed": true
@@ -561,7 +561,7 @@
       "image": "/paper-figures/palm-e/figure-4.webp",
       "caption": "Figure 4: A single PaLM-E model directs the low-level policies of two real robots. Shown is a long-horizon mobile manipulation task in a kitchen, and one-shot / zero-shot generalization with a tabletop manipulation robot.",
       "pdf": "https://proceedings.mlr.press/v202/driess23a/driess23a.pdf",
-      "caption_vi": "Hình 4. Cùng một PaLM-E đưa ra chỉ dẫn cấp cao cho hai robot thật, trong khi các policy điều khiển cấp thấp đảm nhiệm chuyển động. Ví dụ gồm nhiệm vụ nhiều bước bằng robot di động trong bếp và robot thao tác trên bàn khi phải khái quát từ một ví dụ hoặc không cần ví dụ huấn luyện thêm.",
+      "caption_vi": "Hình 4. Cùng một PaLM-E đưa ra chỉ dẫn cấp cao cho hai robot thật, trong khi các mô hình điều khiển điều khiển cấp thấp đảm nhiệm chuyển động. Ví dụ gồm nhiệm vụ nhiều bước bằng robot di động trong bếp và robot thao tác trên bàn khi phải khái quát từ một ví dụ hoặc không cần ví dụ huấn luyện thêm.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "201ad2c36d41985d3e9e2360332326f8803f8c7a2788973ad33cb7ca3891163a",
       "translation_reviewed": true
@@ -663,7 +663,7 @@
       "image": "/paper-figures/act/figure-5.webp",
       "caption": "Fig. 5: Architecture of Action Chunking with Transformers (ACT). We train ACT as a Conditional VAE (CVAE), which has an encoder and a decoder. Left: The encoder of the CVAE compresses action sequence and joint observation into z, the style variable. The encoder is discarded at test time. Right: The decoder or policy of ACT synthesizes images from multiple viewpoints, joint positions, and z with a transformer encoder, and predicts a sequence of actions with a transformer decoder. z is simply set to the mean of the prior (i.e. zero) at test time.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p016.pdf",
-      "caption_vi": "Hình 5. Kiến trúc ACT (Action Chunking with Transformers). ACT được huấn luyện như một CVAE gồm bộ mã hóa và giải mã. Bên trái, bộ mã hóa nén chuỗi hành động mẫu cùng trạng thái các khớp thành biến ẩn z biểu diễn sự khác biệt về cách thao tác; bộ mã hóa này không cần khi chạy robot thật. Bên phải, policy dùng Transformer kết hợp ảnh từ nhiều camera, vị trí khớp và z, rồi dự đoán cả chuỗi hành động. Khi chạy, z được đặt bằng giá trị trung bình của phân phối ban đầu (bằng 0).",
+      "caption_vi": "Hình 5. Kiến trúc ACT (Action Chunking with Transformers). ACT được huấn luyện như một CVAE gồm bộ mã hóa và giải mã. Bên trái, bộ mã hóa nén chuỗi hành động mẫu cùng trạng thái các khớp thành biến ẩn z biểu diễn sự khác biệt về cách thao tác; bộ mã hóa này không cần khi chạy robot thật. Bên phải, mô hình điều khiển dùng Transformer kết hợp ảnh từ nhiều camera, vị trí khớp và z, rồi dự đoán cả chuỗi hành động. Khi chạy, z được đặt bằng giá trị trung bình của phân phối ban đầu (bằng 0).",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "01424455a4cd775632d82bac3f99132b5bb04215f11133a7df16b523a6475c09",
       "translation_reviewed": true
@@ -743,7 +743,7 @@
       "image": "/paper-figures/act/figure-9.webp",
       "caption": "Fig. 9: (a) We augment two baselines with action chunking, with different values of chunk size k on the x-axis, and success rate on the y-axis. Both methods significantly benefit from action chunking, suggesting that it is a generally useful technique. (b) Temporal Ensemble (TE) improves our method and BC-ConvMLP, while hurting VINN. (c) We compare with and without the CVAE training, showing that it is crucial when learning from human data. (d) We plot the distribution of task completion time in our user study, where we task participants to perform two tasks, at 5Hz or 50Hz teleoperation frequency. Lowering the frequency results in a 62% slowdown in completion time.",
       "pdf": "https://www.roboticsproceedings.org/rss19/p016.pdf",
-      "caption_vi": "Hình 9. Thí nghiệm kiểm tra từng thành phần của ACT. (a) Thêm action chunking vào hai phương pháp đối chứng và thay độ dài đoạn k: cả hai đều tăng tỷ lệ thành công, cho thấy chunking có ích cả ngoài ACT. (b) Temporal ensembling cải thiện ACT và BC-ConvMLP nhưng làm VINN kém đi. (c) Bỏ phần huấn luyện CVAE làm kết quả học từ demonstration của người suy giảm rõ. (d) Thử cho người thao tác ở 5 Hz hoặc 50 Hz: tần số điều khiển thấp làm thời gian hoàn thành dài hơn 62%.",
+      "caption_vi": "Hình 9. Thí nghiệm kiểm tra từng thành phần của ACT. (a) Thêm action chunking vào hai phương pháp đối chứng và thay độ dài đoạn k: cả hai đều tăng tỷ lệ thành công, cho thấy chunking có ích cả ngoài ACT. (b) Temporal ensembling cải thiện ACT và BC-ConvMLP nhưng làm VINN kém đi. (c) Bỏ phần huấn luyện CVAE làm kết quả học từ lượt thao tác mẫu của người suy giảm rõ. (d) Thử cho người thao tác ở 5 Hz hoặc 50 Hz: tần số điều khiển thấp làm thời gian hoàn thành dài hơn 62%.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "7b93313d217de5a27ba1b81ceb9115dc75226a4e217a058fd7cb3c6ab3b34804",
       "translation_reviewed": true
@@ -927,7 +927,7 @@
       "image": "/paper-figures/rt-2/figure-5.webp",
       "caption": "Figure 5 | Real-world out-of-distribution behaviors in the Language Table environment. Identical RT-2-PaLI-3B model checkpoint is used as in Tab. 1.",
       "pdf": "https://arxiv.org/pdf/2307.15818",
-      "caption_vi": "Hình 5. Ví dụ thao tác ngoài phân phối huấn luyện của RT-2 trong môi trường Language Table. Các trường hợp này đều dùng cùng checkpoint RT-2-PaLI-3B được báo cáo ở Bảng 1.",
+      "caption_vi": "Hình 5. Ví dụ thao tác ngoài phân phối huấn luyện của RT-2 trong môi trường Language Table. Các trường hợp này đều dùng cùng bản mô hình đã lưu RT-2-PaLI-3B được báo cáo ở Bảng 1.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "46b665d36da6f197bf3026791bed65109ac717bc4c5c6e018e5792811fdc0e66",
       "translation_reviewed": true
@@ -1049,7 +1049,7 @@
       "image": "/paper-figures/bridgedata-v2/figure-5.webp",
       "caption": "Figure 5 (Scaling analysis) (L) Performance of goal-conditioned behavior cloning trained on BridgeData V2 improves with higher capacity models and larger training sets, suggesting that our dataset provides an effective foundation for studying scalable policy learning. (R) We compared the performance of GCBC trained on a dataset with only 3 skills and a dataset with all 13 skills, keeping the size of the datasets approximately the same. On an unseen task, the policy trained with greater skill diversity performed significantly better, indicating positive transfer between skills. We used 20 trials per policy in this experiment.",
       "pdf": "https://arxiv.org/pdf/2308.12952",
-      "caption_vi": "Hình 5. Phân tích tác dụng của quy mô và độ đa dạng dữ liệu. Bên trái: policy học bắt chước có điều kiện mục tiêu (GCBC) làm tốt hơn khi mô hình có dung lượng lớn hơn và được huấn luyện bằng nhiều dữ liệu hơn. Bên phải: giữ kích thước tập huấn luyện gần bằng nhau, nhưng so mô hình học từ 3 kỹ năng với mô hình học từ cả 13 kỹ năng. Với nhiệm vụ chưa gặp, tập đa dạng kỹ năng cho kết quả cao hơn đáng kể, cho thấy kỹ năng cũ hỗ trợ nhau khi chuyển sang nhiệm vụ mới. Mỗi policy được chạy thử 20 lần.",
+      "caption_vi": "Hình 5. Phân tích tác dụng của quy mô và độ đa dạng dữ liệu. Bên trái: mô hình điều khiển học bắt chước có điều kiện mục tiêu (GCBC) làm tốt hơn khi mô hình có dung lượng lớn hơn và được huấn luyện bằng nhiều dữ liệu hơn. Bên phải: giữ kích thước tập huấn luyện gần bằng nhau, nhưng so mô hình học từ 3 kỹ năng với mô hình học từ cả 13 kỹ năng. Với nhiệm vụ chưa gặp, tập đa dạng kỹ năng cho kết quả cao hơn đáng kể, cho thấy kỹ năng cũ hỗ trợ nhau khi chuyển sang nhiệm vụ mới. Mỗi mô hình điều khiển được chạy thử 20 lần.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "9f54c873f77a43d8d7a7912bdb1e0fabacce313fe9c061fb70dfa21998c0b6f3",
       "translation_reviewed": true
@@ -1071,7 +1071,7 @@
       "image": "/paper-figures/mimicplay/figure-1.webp",
       "caption": "Figure 1: Human is able to complete a long-horizon task much faster than a teleoperated robot. This observation inspires us to develop MIMICPLAY, a hierarchical imitation learning algorithm that learns a high-level planner from cheap human play data and a low-level control policy from a small amount of multi-task teleoperated robot demonstrations. We show that MIMICPLAY significantly improves sample efficiency and robustness of imitation learning algorithms in long-horizon tasks.",
       "pdf": "https://arxiv.org/pdf/2302.12422",
-      "caption_vi": "Hình 1. Người có thể thực hiện nhiệm vụ gồm nhiều bước nhanh hơn đáng kể so với việc điều khiển robot từ xa làm cùng việc. Từ quan sát đó, MIMICPLAY đề xuất học bắt chước hai tầng: tầng lập kế hoạch được học từ video người thao tác dễ thu thập, còn tầng điều khiển robot được học từ lượng nhỏ demonstration robot do người điều khiển. Cách chia tầng giúp tận dụng dữ liệu tốt hơn và tăng khả năng chịu nhiễu trong nhiệm vụ dài.",
+      "caption_vi": "Hình 1. Người có thể thực hiện nhiệm vụ gồm nhiều bước nhanh hơn đáng kể so với việc điều khiển robot từ xa làm cùng việc. Từ quan sát đó, MIMICPLAY đề xuất học bắt chước hai tầng: tầng lập kế hoạch được học từ video người thao tác dễ thu thập, còn tầng điều khiển robot được học từ lượng nhỏ lượt thao tác mẫu robot do người điều khiển. Cách chia tầng giúp tận dụng dữ liệu tốt hơn và tăng khả năng chịu nhiễu trong nhiệm vụ dài.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "6ff2ed7209ee1f7930271d687abd2f6fc9c8b84e6521743df98a912fb8ef2d1e",
       "translation_reviewed": true
@@ -1091,7 +1091,7 @@
       "image": "/paper-figures/mimicplay/figure-2.webp",
       "caption": "Figure 2: Overview of MIMICPLAY. (a) Training Stage 1: using cheap human play data to train a goal-conditioned trajectory generation model to build a latent plan space that contains high-level guidance for diverse task goals. (b) Training Stage 2: using a small amount of teleoperation data to train a low-level robot controller conditioned on the latent plans generated by the pre-trained (frozen) planner. (c) Testing: Given a single long-horizon task video prompt (either human motion video or robot teleoperation video), MIMICPLAY generates latent plans and guides the low-level controller to accomplish the task.",
       "pdf": "https://arxiv.org/pdf/2302.12422",
-      "caption_vi": "Hình 2. Quy trình MIMICPLAY. (a) Giai đoạn huấn luyện 1: dùng dữ liệu video người thao tác để huấn luyện mô hình dự đoán quỹ đạo theo mục tiêu, tạo không gian kế hoạch ẩn cho nhiều mục tiêu. (b) Giai đoạn 2: giữ cố định mô hình lập kế hoạch đã học, dùng ít demonstration robot để học bộ điều khiển cấp thấp dựa trên kế hoạch ẩn đó. (c) Khi kiểm tra: từ một video prompt cho nhiệm vụ dài, của người hoặc robot, hệ thống sinh kế hoạch ẩn rồi chỉ dẫn bộ điều khiển hoàn thành từng bước.",
+      "caption_vi": "Hình 2. Quy trình MIMICPLAY. (a) Giai đoạn huấn luyện 1: dùng dữ liệu video người thao tác để huấn luyện mô hình dự đoán quỹ đạo theo mục tiêu, tạo không gian kế hoạch ẩn cho nhiều mục tiêu. (b) Giai đoạn 2: giữ cố định mô hình lập kế hoạch đã học, dùng ít lượt thao tác mẫu robot để học bộ điều khiển cấp thấp dựa trên kế hoạch ẩn đó. (c) Khi kiểm tra: từ một video prompt cho nhiệm vụ dài, của người hoặc robot, hệ thống sinh kế hoạch ẩn rồi chỉ dẫn bộ điều khiển hoàn thành từng bước.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "c31fbb1598b89a45595d3749b61aa451831a15f925a09ff1a2a3aee3d5946209",
       "translation_reviewed": true
@@ -1131,7 +1131,7 @@
       "image": "/paper-figures/mimicplay/figure-4.webp",
       "caption": "Figure 4: Evaluation of multi-task policy prompted with robot/human videos in the Study Desk environment.",
       "pdf": "https://arxiv.org/pdf/2302.12422",
-      "caption_vi": "Hình 4. Đánh giá policy đa nhiệm MIMICPLAY trong môi trường Bàn học khi prompt hướng dẫn là video người hoặc video thao tác của robot. Hình giúp so sánh tác động của nguồn video lên khả năng hoàn thành nhiệm vụ.",
+      "caption_vi": "Hình 4. Đánh giá mô hình điều khiển đa nhiệm MIMICPLAY trong môi trường Bàn học khi prompt hướng dẫn là video người hoặc video thao tác của robot. Hình giúp so sánh tác động của nguồn video lên khả năng hoàn thành nhiệm vụ.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "8309b459f389abc0547590c8bb7bdd2532e4ff625d12a53ceb982d90480b6c11",
       "translation_reviewed": true
@@ -1173,7 +1173,7 @@
       "image": "/paper-figures/open-x-embodiment/figure-1.webp",
       "caption": "Fig. 1: We propose an open, large-scale dataset for robot learning curated from 21 institutions across the globe. The dataset represents diverse behaviors, robot embodiments and environments, and enables learning generalized robotic policies.",
       "pdf": "https://arxiv.org/pdf/2310.08864",
-      "caption_vi": "Hình 1. Bộ dữ liệu mở quy mô lớn do 21 tổ chức trên thế giới cùng đóng góp. Dữ liệu bao phủ nhiều hành vi, hình dạng/cấu trúc robot và môi trường, nhằm giúp học các policy có khả năng chuyển sang nhiều loại robot.",
+      "caption_vi": "Hình 1. Bộ dữ liệu mở quy mô lớn do 21 tổ chức trên thế giới cùng đóng góp. Dữ liệu bao phủ nhiều hành vi, hình dạng/cấu trúc robot và môi trường, nhằm giúp học các mô hình điều khiển có khả năng chuyển sang nhiều loại robot.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "58470b32d4476e86b678f18c0b4998dcb656e4f9646f08f2e4bfff1c02513d0c",
       "translation_reviewed": true
@@ -1275,7 +1275,7 @@
       "image": "/paper-figures/droid/figure-1.webp",
       "caption": "Fig. 1: We introduce DROID (Distributed Robot Interaction Dataset), an “in-the-wild” robot manipulation dataset with 76k trajectories or 350 hours of interaction data, collected across 564 scenes, 86 tasks, and 52 buildings over the course of 12 months. Each DROID episode contains three synchronized RGB camera streams, camera calibration, depth information, and natural language instructions. We demonstrate that training with DROID leads to policies with higher performance, greater robustness, and improved generalization ability. We open source the full dataset, pre-trained model checkpoints, and a detailed guide for reproducing our robot setup.",
       "pdf": "https://arxiv.org/pdf/2403.12945",
-      "caption_vi": "Hình 1. DROID (Distributed Robot Interaction Dataset) gồm khoảng 76.000 quỹ đạo, tương đương 350 giờ robot tương tác thực tế, được ghi trong 12 tháng ở 564 bối cảnh, 86 nhiệm vụ và 52 tòa nhà. Mỗi lượt ghi có ba luồng camera màu được đồng bộ, thông số hiệu chuẩn camera, thông tin độ sâu và câu lệnh tự nhiên. Huấn luyện thêm với DROID giúp policy tăng hiệu quả, độ bền và khả năng khái quát trong các thử nghiệm. Nhóm tác giả công bố dữ liệu, checkpoint và hướng dẫn tái tạo hệ thống.",
+      "caption_vi": "Hình 1. DROID (Distributed Robot Interaction Dataset) gồm khoảng 76.000 quỹ đạo, tương đương 350 giờ robot tương tác thực tế, được ghi trong 12 tháng ở 564 bối cảnh, 86 nhiệm vụ và 52 tòa nhà. Mỗi lượt ghi có ba luồng camera màu được đồng bộ, thông số hiệu chuẩn camera, thông tin độ sâu và câu lệnh tự nhiên. Huấn luyện thêm với DROID giúp mô hình điều khiển tăng hiệu quả, độ bền và khả năng khái quát trong các thử nghiệm. Nhóm tác giả công bố dữ liệu, bản mô hình đã lưu và hướng dẫn tái tạo hệ thống.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "4c249368d7d147f61ae826da16f1aa760ff4786f6ceabc55a02acbf4c81130ac",
       "translation_reviewed": true
@@ -1395,7 +1395,7 @@
       "image": "/paper-figures/droid/figure-7.webp",
       "caption": "Fig. 7: Robot setups for policy evaluation. We cover a wide range of tasks and scenes, from lab evaluations to offices and real households, to reflect the diversity of use cases in real robot research. Depending on the task we collect between 50 and 150 demonstrations. We describe each task with out-of-distribution evaluation modifications in parenthesis, left to right: Close Waffle Maker: The robot needs to close a waffle maker (distractor objects). Place Chips on Plate: The robot needs to pick up the chips bag and place it on the provided plate (unseen chips bag and distractor objects). Put Apple in Pot: The robot needs to pick up the apple, place it in the pot, and close the lid (unseen distractor object). Toasting: The robot needs to pick up the object, place it in the toaster oven, and close the oven (toast a novel object). Clean up Desk: The robot needs to open the drawer, place the eraser that is on top of the desk inside the drawer, and close it (distractor objects on desk and in drawer). Cook Lentils: The robot needs to remove the pan lid, pick up and pour lentils into the pan, and turn on the stove(add distractor objects).",
       "pdf": "https://arxiv.org/pdf/2403.12945",
-      "caption_vi": "Hình 7. Sáu tình huống dùng đánh giá policy trong phòng lab, văn phòng và nhà ở; mỗi nhiệm vụ thu khoảng 50–150 demonstration. Từ trái qua phải: đóng máy nướng bánh waffle (thêm vật gây nhiễu); đặt túi khoai tây chiên lên đĩa (túi chưa thấy và vật gây nhiễu); bỏ táo vào nồi rồi đậy nắp (thêm vật lạ); đặt vật vào lò nướng bánh mì rồi đóng cửa (thử vật mới); dọn bàn bằng cách mở ngăn kéo, bỏ tẩy vào rồi đóng lại (thêm vật gây nhiễu); và nấu đậu lăng bằng cách mở nắp chảo, đổ đậu, bật bếp (thêm vật gây nhiễu).",
+      "caption_vi": "Hình 7. Sáu tình huống dùng đánh giá mô hình điều khiển trong phòng phòng thí nghiệm, văn phòng và nhà ở; mỗi nhiệm vụ thu khoảng 50–150 lượt thao tác mẫu. Từ trái qua phải: đóng máy nướng bánh waffle (thêm vật gây nhiễu); đặt túi khoai tây chiên lên đĩa (túi chưa thấy và vật gây nhiễu); bỏ táo vào nồi rồi đậy nắp (thêm vật lạ); đặt vật vào lò nướng bánh mì rồi đóng cửa (thử vật mới); dọn bàn bằng cách mở ngăn kéo, bỏ tẩy vào rồi đóng lại (thêm vật gây nhiễu); và nấu đậu lăng bằng cách mở nắp chảo, đổ đậu, bật bếp (thêm vật gây nhiễu).",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "f2cab5b0a5ae494c29ce0c226c1590cd7bf387a5f14ffb188c449d96f3d80ced",
       "translation_reviewed": true
@@ -1415,7 +1415,7 @@
       "image": "/paper-figures/droid/figure-8.webp",
       "caption": "Fig. 8: Does DROID Improve Policy Performance and Robustness? We find that across all our evaluation tasks, co-training with DROID significantly improves both in distribution and OOD performance over both no co-training and co-training with the Open-X dataset. We compare success rate averaged across all tasks with standard error, and find DROID outperforms the next best method by 22% absolute success rate in-distribution and by 17% out of distribution.",
       "pdf": "https://arxiv.org/pdf/2403.12945",
-      "caption_vi": "Hình 8. Huấn luyện thêm với DROID có làm policy tốt và bền hơn không? Trên tất cả nhiệm vụ được thử, học chung với DROID cải thiện tỷ lệ thành công ở cả tình huống tương tự dữ liệu huấn luyện và tình huống ngoài phân phối, so với không học chung hoặc học chung với Open X. So với phương án tốt thứ hai, mức tăng tuyệt đối trung bình là 22 điểm phần trăm trong phân phối và 17 điểm phần trăm ngoài phân phối; thanh sai số là sai số chuẩn.",
+      "caption_vi": "Hình 8. Huấn luyện thêm với DROID có làm mô hình điều khiển tốt và bền hơn không? Trên tất cả nhiệm vụ được thử, học chung với DROID cải thiện tỷ lệ thành công ở cả tình huống tương tự dữ liệu huấn luyện và tình huống ngoài phân phối, so với không học chung hoặc học chung với Open X. So với phương án tốt thứ hai, mức tăng tuyệt đối trung bình là 22 điểm phần trăm trong phân phối và 17 điểm phần trăm ngoài phân phối; thanh sai số là sai số chuẩn.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "1b0867b13d4c88792b40ed70d1de68679b8352617adf1d565137bed58ebe5130",
       "translation_reviewed": true
@@ -1435,7 +1435,7 @@
       "image": "/paper-figures/droid/figure-9.webp",
       "caption": "Fig. 9: Representative policy rollout examples on the most challenging “Cook Lentils” task in the kitchen of one of the authors. Qualitatively, we find that policies co-trained with DROID perform smoother, more precise motions, allowing them to solve long-horizon tasks like lentil cooking even in the presence of unseen distractor objects. In contrast, policies trained only with in-domain demonstrations or co-trained with Open-X data [39] struggle with long-horizon tasks and out-of-distribution evaluation settings. See https://droid-dataset.github.io for rollout videos.",
       "pdf": "https://arxiv.org/pdf/2403.12945",
-      "caption_vi": "Hình 9. Ví dụ robot thực thi nhiệm vụ khó 'Nấu đậu lăng' trong bếp của một tác giả. Policy có học cùng DROID chuyển động mượt, chính xác hơn và có thể hoàn thành chuỗi nhiều bước khi xuất hiện vật gây nhiễu chưa từng gặp. Policy chỉ học demonstration của nhiệm vụ hoặc học chung với Open X thường gặp khó ở nhiệm vụ dài và điều kiện mới. Video có trên website DROID.",
+      "caption_vi": "Hình 9. Ví dụ robot thực thi nhiệm vụ khó 'Nấu đậu lăng' trong bếp của một tác giả. Policy có học cùng DROID chuyển động mượt, chính xác hơn và có thể hoàn thành chuỗi nhiều bước khi xuất hiện vật gây nhiễu chưa từng gặp. Policy chỉ học lượt thao tác mẫu của nhiệm vụ hoặc học chung với Open X thường gặp khó ở nhiệm vụ dài và điều kiện mới. Video có trên website DROID.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "dbcf97f95901b53cc318fb00c10e27b5cbf5819a67bdfa92f262d9b76794bedd",
       "translation_reviewed": true
@@ -1455,7 +1455,7 @@
       "image": "/paper-figures/droid/figure-10.webp",
       "caption": "Fig. 10: How important is the scene diversity in DROID? We find that co-training on a subset of DROID with diverse scenes has higher OOD performance than co-training on a subset of DROID with only 20 scenes, suggesting the scene diversity of DROID is one of the driving factors behind strong policy performance when co-training.",
       "pdf": "https://arxiv.org/pdf/2403.12945",
-      "caption_vi": "Hình 10. Độ đa dạng cảnh quan trọng đến mức nào? Khi lấy cùng một phần dữ liệu DROID để học chung, phần có nhiều bối cảnh khác nhau cho hiệu quả tốt hơn ở bài kiểm tra ngoài phân phối so với phần chỉ có 20 bối cảnh. Điều này gợi ý số bối cảnh đa dạng là một nguyên nhân quan trọng giúp policy học chung với DROID hoạt động tốt.",
+      "caption_vi": "Hình 10. Độ đa dạng cảnh quan trọng đến mức nào? Khi lấy cùng một phần dữ liệu DROID để học chung, phần có nhiều bối cảnh khác nhau cho hiệu quả tốt hơn ở bài kiểm tra ngoài phân phối so với phần chỉ có 20 bối cảnh. Điều này gợi ý số bối cảnh đa dạng là một nguyên nhân quan trọng giúp mô hình điều khiển học chung với DROID hoạt động tốt.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "298682106c95624b75dca13fef34f1eae7ee5e0bb5e5f55957ed4f7408adff37",
       "translation_reviewed": true
@@ -1477,7 +1477,7 @@
       "image": "/paper-figures/octo/figure-1.webp",
       "caption": "Fig. 1: We introduce Octo, an open-source, generalist policy for robotic manipulation. Octo is a transformer-based policy pretrained on 800k diverse robot episodes from the Open X-Embodiment dataset [67]. It supports flexible task and observation definitions and can be quickly finetuned to new observation and action spaces.",
       "pdf": "https://arxiv.org/pdf/2405.12213",
-      "caption_vi": "Hình 1. Octo là policy thao tác robot đa nhiệm, mã nguồn mở. Mô hình dùng Transformer, được huấn luyện trước trên khoảng 800.000 lượt thực thi robot đa dạng lấy từ Open X-Embodiment. Octo cho phép thay đổi loại nhiệm vụ và quan sát, đồng thời có thể tinh chỉnh nhanh cho dạng quan sát và không gian hành động mới.",
+      "caption_vi": "Hình 1. Octo là mô hình điều khiển thao tác robot đa nhiệm, mã nguồn mở. Mô hình dùng Transformer, được huấn luyện trước trên khoảng 800.000 lượt thực thi robot đa dạng lấy từ Open X-Embodiment. Octo cho phép thay đổi loại nhiệm vụ và quan sát, đồng thời có thể tinh chỉnh nhanh cho dạng quan sát và không gian hành động mới.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "1c006407c92cab20f9eec29bd584e1c84a84bce114cb24f8694c0033dda15612",
       "translation_reviewed": true
@@ -1699,7 +1699,7 @@
       "image": "/paper-figures/robocasa/figure-7.webp",
       "caption": "Fig. 7: Comparison between human demonstrations and machine-generated datasets. We present learning results across 24 atomic tasks spanning diverse robot skills. We compare training on four different multi-task datasets, including a human dataset with 50 demonstrations per task, a machine generated dataset with 3000 demonstrations per task, and smaller variants with 300 or 100 demonstrations per task. We group task results according to their corresponding sensorimotor skills (see Figure 13 for a full breakdown of results by task). We see a clear scaling trend: increasing the size of the generated dataset can yield consistently higher overall success rates, eventually significantly outperforming performance on human datasets.",
       "pdf": "https://arxiv.org/pdf/2406.02523",
-      "caption_vi": "Hình 7. So sánh học từ demonstration của người và dữ liệu sinh tự động trên 24 nhiệm vụ nhỏ với nhiều kỹ năng cảm biến–vận động. Bốn tập huấn luyện gồm: mỗi nhiệm vụ 50 demonstration do người làm; 3.000 demonstration sinh bằng máy; và hai phiên bản sinh bằng máy nhỏ hơn gồm 300 hoặc 100 lượt. Kết quả được gom theo loại kỹ năng, còn từng nhiệm vụ nằm ở Hình 13. Xu hướng khá rõ: dữ liệu sinh bằng máy càng nhiều, tỷ lệ thành công càng tăng và cuối cùng vượt đáng kể tập dữ liệu người trong các thí nghiệm này.",
+      "caption_vi": "Hình 7. So sánh học từ lượt thao tác mẫu của người và dữ liệu sinh tự động trên 24 nhiệm vụ nhỏ với nhiều kỹ năng cảm biến–vận động. Bốn tập huấn luyện gồm: mỗi nhiệm vụ 50 lượt thao tác mẫu do người làm; 3.000 lượt thao tác mẫu sinh bằng máy; và hai phiên bản sinh bằng máy nhỏ hơn gồm 300 hoặc 100 lượt. Kết quả được gom theo loại kỹ năng, còn từng nhiệm vụ nằm ở Hình 13. Xu hướng khá rõ: dữ liệu sinh bằng máy càng nhiều, tỷ lệ thành công càng tăng và cuối cùng vượt đáng kể tập dữ liệu người trong các thí nghiệm này.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "880bc4d5abfe122b4611c6e4398b2539fcf3f2a4b07eea3f74fb5dc0fe0c49d7",
       "translation_reviewed": true
@@ -1719,7 +1719,7 @@
       "image": "/paper-figures/robocasa/figure-8.webp",
       "caption": "Fig. 8: Learning Results on Composite Tasks. We learn single-task policies for five representative composite tasks. We compare learning these tasks from scratch with 50 human demonstrations versus fine-tuning a policy trained on machine-generated atomic task data. The fine-tuning method performs better but still struggles to learn robust behaviors.",
       "pdf": "https://arxiv.org/pdf/2406.02523",
-      "caption_vi": "Hình 8. Kết quả trên năm nhiệm vụ tổng hợp gồm nhiều thao tác con. So sánh huấn luyện policy từ đầu bằng 50 demonstration người với tinh chỉnh một policy từng học trên dữ liệu máy sinh cho các nhiệm vụ nhỏ. Cách tinh chỉnh tốt hơn nhưng vẫn chưa thật bền trước các tình huống khó.",
+      "caption_vi": "Hình 8. Kết quả trên năm nhiệm vụ tổng hợp gồm nhiều thao tác con. So sánh huấn luyện mô hình điều khiển từ đầu bằng 50 lượt thao tác mẫu người với tinh chỉnh một mô hình điều khiển từng học trên dữ liệu máy sinh cho các nhiệm vụ nhỏ. Cách tinh chỉnh tốt hơn nhưng vẫn chưa thật bền trước các tình huống khó.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "33efe5bce0e965f2fcb59304807e7458bf1c11a72ee2a4bc8039f611258e06f4",
       "translation_reviewed": true
@@ -1759,7 +1759,7 @@
       "image": "/paper-figures/robocasa/figure-10.webp",
       "caption": "Fig. 10: Real Robot Evaluations. In a real-world kitchen domain with only a handful of demonstrations, we explore co-training policies with our simulation data. Compared to training policies exclusively on in-domain real- world demonstrations, co-training substantially improves policy performance.",
       "pdf": "https://arxiv.org/pdf/2406.02523",
-      "caption_vi": "Hình 10. Thử nghiệm robot thật với rất ít demonstration của môi trường bếp đích. Khi huấn luyện kết hợp dữ liệu mô phỏng RoboCasa cùng dữ liệu thật, policy làm tốt hơn đáng kể so với chỉ học từ demonstration thu tại bếp thật.",
+      "caption_vi": "Hình 10. Thử nghiệm robot thật với rất ít lượt thao tác mẫu của môi trường bếp đích. Khi huấn luyện kết hợp dữ liệu mô phỏng RoboCasa cùng dữ liệu thật, mô hình điều khiển làm tốt hơn đáng kể so với chỉ học từ lượt thao tác mẫu thu tại bếp thật.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "06c4f3911915fde6239033aa88b6297aba406a7008b2187ef8d3296948925869",
       "translation_reviewed": true
@@ -1781,7 +1781,7 @@
       "image": "/paper-figures/openvla/figure-1.webp",
       "caption": "Figure 1: We present OpenVLA, a 7B-parameter open-source vision-language-action model (VLA), trained on 970k robot episodes from the Open X-Embodiment dataset [1]. OpenVLA sets a new state of the art for generalist robot manipulation policies. It supports controlling multiple robots out of the box and can be quickly adapted to new robot domains via parameter-efficient fine-tuning. The OpenVLA checkpoints and PyTorch training pipeline are fully open-source and models can be downloaded and fine-tuned from HuggingFace.",
       "pdf": "https://arxiv.org/pdf/2406.09246",
-      "caption_vi": "Hình 1. OpenVLA là mô hình thị giác–ngôn ngữ–hành động (VLA) mã nguồn mở gồm khoảng 7 tỷ tham số, được huấn luyện trên 970.000 lượt robot từ Open X-Embodiment. Mô hình có thể điều khiển nhiều dạng robot và thích nghi nhanh với môi trường mới bằng cách tinh chỉnh ít tham số. Checkpoint và mã huấn luyện PyTorch được công khai để tải và tiếp tục huấn luyện trên Hugging Face.",
+      "caption_vi": "Hình 1. OpenVLA là mô hình thị giác–ngôn ngữ–hành động (VLA) mã nguồn mở gồm khoảng 7 tỷ tham số, được huấn luyện trên 970.000 lượt robot từ Open X-Embodiment. Mô hình có thể điều khiển nhiều dạng robot và thích nghi nhanh với môi trường mới bằng cách tinh chỉnh ít tham số. bản mô hình đã lưu và mã huấn luyện PyTorch được công khai để tải và tiếp tục huấn luyện trên Hugging Face.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "048a08b0fe33d1c63c9f2d6c55c05091cee06e11fbc3161807ad8dd74b01e9a9",
       "translation_reviewed": true
@@ -1861,7 +1861,7 @@
       "image": "/paper-figures/openvla/figure-5.webp",
       "caption": "Figure 5: Adapting to new robot setups. We evaluate the state-of-the-art Diffusion Policy trained from scratch on seven Franka Emika Panda tasks (10–150 demonstrations each), as well as generalist robot policies Octo and OpenVLA fine-tuned on the same data. Diffusion Policy exhibits strong performance on narrow single-instruction tasks, while Octo and OpenVLA perform better on diverse fine-tuning tasks involving multiple instructions and distractor objects. Overall, OpenVLA achieves highest aggregate performance across both setups, suggesting that it is an effective default for learning a policy on a downstream task. Average success rates ± StdErr are computed across 129 rollouts per approach (99 for Franka-Tabletop tasks and 30 for Franka-DROID tasks). See Table 7 for detailed results.",
       "pdf": "https://arxiv.org/pdf/2406.09246",
-      "caption_vi": "Hình 5. Thích nghi với cấu hình robot mới. So sánh Diffusion Policy huấn luyện từ đầu với Octo và OpenVLA được tinh chỉnh bằng cùng dữ liệu trên bảy nhiệm vụ Franka Panda, mỗi nhiệm vụ có 10–150 demonstration. Diffusion Policy mạnh ở nhiệm vụ đơn với một câu lệnh cố định; Octo và OpenVLA tốt hơn khi có nhiều chỉ dẫn và vật gây nhiễu. OpenVLA dẫn đầu tổng hợp hai thiết lập, cho thấy đây là lựa chọn khởi đầu tốt khi cần học policy cho một nhiệm vụ cụ thể. Số liệu từ 129 lượt chạy mỗi phương pháp (99 Franka-Tabletop và 30 Franka-DROID); xem Bảng 7.",
+      "caption_vi": "Hình 5. Thích nghi với cấu hình robot mới. So sánh Diffusion Policy huấn luyện từ đầu với Octo và OpenVLA được tinh chỉnh bằng cùng dữ liệu trên bảy nhiệm vụ Franka Panda, mỗi nhiệm vụ có 10–150 lượt thao tác mẫu. Diffusion Policy mạnh ở nhiệm vụ đơn với một câu lệnh cố định; Octo và OpenVLA tốt hơn khi có nhiều chỉ dẫn và vật gây nhiễu. OpenVLA dẫn đầu tổng hợp hai thiết lập, cho thấy đây là lựa chọn khởi đầu tốt khi cần học mô hình điều khiển cho một nhiệm vụ cụ thể. Số liệu từ 129 lượt chạy mỗi phương pháp (99 Franka-Tabletop và 30 Franka-DROID); xem Bảng 7.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "da64ec25f9ce4879c2fe6afe7dac3899932ab7b2c04d8605b1d4427f5593e23c",
       "translation_reviewed": true
@@ -1903,7 +1903,7 @@
       "image": "/paper-figures/rdt-1b/figure-1.webp",
       "caption": "Figure 1: Overview of Robotics Diffusion Transformer with 1B-Parameters (RDT-1B), a language-conditioned visuomotor policy for bimanual manipulation,with state-of-the-art generaliz- ability to unseen scenarios (See App. H for metric calculation details).",
       "pdf": "https://arxiv.org/pdf/2410.07864",
-      "caption_vi": "Hình 1. Tổng quan RDT-1B (Robotics Diffusion Transformer với khoảng một tỷ tham số): policy nhận ảnh và chỉ dẫn ngôn ngữ để sinh chuyển động phối hợp hai tay robot. Bài báo nhấn mạnh khả năng thực hiện tình huống chưa thấy khi huấn luyện; cách tính các chỉ số được giải thích tại Phụ lục H.",
+      "caption_vi": "Hình 1. Tổng quan RDT-1B (Robotics Diffusion Transformer với khoảng một tỷ tham số): mô hình điều khiển nhận ảnh và chỉ dẫn ngôn ngữ để sinh chuyển động phối hợp hai tay robot. Bài báo nhấn mạnh khả năng thực hiện tình huống chưa thấy khi huấn luyện; cách tính các chỉ số được giải thích tại Phụ lục H.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "63972d43f99c9b43b23728fdeea0140aa6fa077b61be53af43ec17912bf6dcef",
       "translation_reviewed": true
@@ -2105,7 +2105,7 @@
       "image": "/paper-figures/fast/figure-6.webp",
       "caption": "Fig. 6: Comparison of policy performance using different tokenization approaches. We find that tokenization approaches that compress action targets (FAST, FSQ) lead to substantially more efficient training than the na¨ıve binning tokenization used in prior VLAs. Overall, we find that FAST leads to more effective policy training than FSQ, particularly on dexterous real-robot tasks. Our universal tokenizer, FAST+, matches the performance of dataset-specific tokenizers. We report mean and 95% CI.",
       "pdf": "https://arxiv.org/pdf/2501.09747",
-      "caption_vi": "Hình 6. So sánh chất lượng policy khi thay cách mã hóa hành động. Những cách nén chuỗi đích như FAST và FSQ giúp huấn luyện hiệu quả hơn nhiều so với chia từng giá trị thành các khoảng rời rạc. FAST hiệu quả hơn FSQ, đặc biệt ở thao tác robot thật cần độ khéo léo. FAST+ là bộ mã hóa dùng chung cho nhiều tập dữ liệu nhưng đạt hiệu quả ngang bộ mã hóa chuyên biệt từng tập. Biểu đồ dùng giá trị trung bình và khoảng tin cậy 95%.",
+      "caption_vi": "Hình 6. So sánh chất lượng mô hình điều khiển khi thay cách mã hóa hành động. Những cách nén chuỗi đích như FAST và FSQ giúp huấn luyện hiệu quả hơn nhiều so với chia từng giá trị thành các khoảng rời rạc. FAST hiệu quả hơn FSQ, đặc biệt ở thao tác robot thật cần độ khéo léo. FAST+ là bộ mã hóa dùng chung cho nhiều tập dữ liệu nhưng đạt hiệu quả ngang bộ mã hóa chuyên biệt từng tập. Biểu đồ dùng giá trị trung bình và khoảng tin cậy 95%.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "7b373c510d1d426359594b58cc992e55a29bd2a4d5d51ef53ab048dc0a7132ca",
       "translation_reviewed": true
@@ -2125,7 +2125,7 @@
       "image": "/paper-figures/fast/figure-7.webp",
       "caption": "Fig. 7: Evaluation environments of FAST policy trained on DROID [38]. We find that the same policy checkpoint generalizes robustly, and performs various simple table-top tasks zero-shot across three university campuses.",
       "pdf": "https://arxiv.org/pdf/2501.09747",
-      "caption_vi": "Hình 7. Các môi trường dùng thử policy FAST huấn luyện trên DROID. Cùng một checkpoint có thể thực hiện nhiều nhiệm vụ đơn giản trên bàn tại ba khuôn viên đại học khác nhau mà không cần huấn luyện thêm cho từng nơi.",
+      "caption_vi": "Hình 7. Các môi trường dùng thử mô hình điều khiển FAST huấn luyện trên DROID. Cùng một bản mô hình đã lưu có thể thực hiện nhiều nhiệm vụ đơn giản trên bàn tại ba khuôn viên đại học khác nhau mà không cần huấn luyện thêm cho từng nơi.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "474a71211339dda756fb395aaa938c51c617e56abbd52f0b075f71907f638642",
       "translation_reviewed": true
@@ -2205,7 +2205,7 @@
       "image": "/paper-figures/fast/figure-11.webp",
       "caption": "Fig. 11: Comparison of π0-FAST and diffusion π0 [7] generalist policies. π0-FAST matches the performance of diffusion π0 while requiring significantly less compute for training. Reported: mean and 95% CI.",
       "pdf": "https://arxiv.org/pdf/2501.09747",
-      "caption_vi": "Hình 11. So sánh hai policy đa nhiệm π0-FAST và π0 dùng diffusion. π0-FAST đạt tỷ lệ thành công tương đương, trong khi cần ít năng lực tính toán hơn đáng kể để huấn luyện. Các cột/điểm được báo cáo theo giá trị trung bình và khoảng tin cậy 95%.",
+      "caption_vi": "Hình 11. So sánh hai mô hình điều khiển đa nhiệm π0-FAST và π0 dùng diffusion. π0-FAST đạt tỷ lệ thành công tương đương, trong khi cần ít năng lực tính toán hơn đáng kể để huấn luyện. Các cột/điểm được báo cáo theo giá trị trung bình và khoảng tin cậy 95%.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "e689a4a15252c2b853a52a1b5293d477ee1888ce165a1715c6929d7249dff44f",
       "translation_reviewed": true
@@ -2227,7 +2227,7 @@
       "image": "/paper-figures/groot-n1/figure-1.webp",
       "caption": "Figure 1: Data Pyramid for Robot Foundation Model Training. GR00T N1’s heterogeneous training corpora can be represented as a pyramid: data quantity de- creases, and embodiment-specificity increases, moving from the bottom to the top.",
       "pdf": "https://arxiv.org/pdf/2503.14734",
-      "caption_vi": "Hình 1. Tháp dữ liệu dùng để huấn luyện mô hình nền tảng GR00T N1. Đi từ tầng dưới lên trên, lượng dữ liệu giảm dần nhưng thông tin ngày càng gắn với cơ thể và thao tác cụ thể của robot. Vì thế video tổng quát có thể nhiều hơn, còn demonstration đúng cấu hình robot thường hiếm và đắt hơn.",
+      "caption_vi": "Hình 1. Tháp dữ liệu dùng để huấn luyện mô hình nền tảng GR00T N1. Đi từ tầng dưới lên trên, lượng dữ liệu giảm dần nhưng thông tin ngày càng gắn với cơ thể và thao tác cụ thể của robot. Vì thế video tổng quát có thể nhiều hơn, còn lượt thao tác mẫu đúng cấu hình robot thường hiếm và đắt hơn.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "3a04bc4326be49c1c4fd09bccad7ce9f0b9b6a9137e1ce8e32b89def4498f2c6",
       "translation_reviewed": true
@@ -2327,7 +2327,7 @@
       "image": "/paper-figures/groot-n1/figure-6.webp",
       "caption": "Figure 6: Data Collection via Teleoperation. Our teleoperation infrastructure supports multiple devices to capture human hand motion, including 6-DoF wrist poses and hand skeletons. Robot actions are produced through retargeting and executed on robots in real and simulation environments.",
       "pdf": "https://arxiv.org/pdf/2503.14734",
-      "caption_vi": "Hình 6. Quy trình thu demonstration bằng điều khiển từ xa. Nhiều thiết bị ghi chuyển động tay người, gồm tư thế cổ tay sáu bậc tự do và các khớp bàn tay. Các chuyển động ấy được ánh xạ sang khớp/lệnh robot rồi thực hiện trên robot thật hoặc trong mô phỏng.",
+      "caption_vi": "Hình 6. Quy trình thu lượt thao tác mẫu bằng điều khiển từ xa. Nhiều thiết bị ghi chuyển động tay người, gồm tư thế cổ tay sáu bậc tự do và các khớp bàn tay. Các chuyển động ấy được ánh xạ sang khớp/lệnh robot rồi thực hiện trên robot thật hoặc trong mô phỏng.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "913113c7208b0f4742992906136bd8e20289034a0899a566da5ef0dd251bbedf",
       "translation_reviewed": true
@@ -2387,7 +2387,7 @@
       "image": "/paper-figures/groot-n1/figure-9.webp",
       "caption": "Figure 9: Neural Trajectories Ablations. In the RoboCasa simulation, we show using neural trajectories for post-training across 3 data regimes (30, 100, and 300 per task). In the real world, we show results only on the low-data regime (10% of the demonstrations). We co-train with 3k neural trajectories per task for RoboCasa and 100 neural trajectories per task for real-world tasks. We explore using both latent and IDM-labeled actions in simulation and only IDM-labeled actions for the real robot.",
       "pdf": "https://arxiv.org/pdf/2503.14734",
-      "caption_vi": "Hình 9. Thí nghiệm tách riêng ảnh hưởng của quỹ đạo sinh bằng mô hình video. Trong RoboCasa, huấn luyện bổ sung được thử với 30, 100 và 300 demonstration thật cho mỗi nhiệm vụ, kết hợp 3.000 quỹ đạo tổng hợp. Với robot thật, nhóm tác giả thử chế độ ít dữ liệu (10% demonstration), bổ sung 100 quỹ đạo tổng hợp mỗi nhiệm vụ. Trong mô phỏng, so cả nhãn action ẩn và action suy ra bằng mô hình động học ngược (IDM); trên robot thật chỉ dùng nhãn IDM.",
+      "caption_vi": "Hình 9. Thí nghiệm tách riêng ảnh hưởng của quỹ đạo sinh bằng mô hình video. Trong RoboCasa, huấn luyện bổ sung được thử với 30, 100 và 300 lượt thao tác mẫu thật cho mỗi nhiệm vụ, kết hợp 3.000 quỹ đạo tổng hợp. Với robot thật, nhóm tác giả thử chế độ ít dữ liệu (10% lượt thao tác mẫu), bổ sung 100 quỹ đạo tổng hợp mỗi nhiệm vụ. Trong mô phỏng, so cả nhãn action ẩn và action suy ra bằng mô hình động học ngược (IDM); trên robot thật chỉ dùng nhãn IDM.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "632f54601f44c92f14f26f45281dfa31ef17ec15e3797b9c2eaefcb406d643d6",
       "translation_reviewed": true
@@ -2407,7 +2407,7 @@
       "image": "/paper-figures/groot-n1/figure-10.webp",
       "caption": "Figure 10: Average policy success rate on simulated manipulation tasks with varying numbers of demonstrations.",
       "pdf": "https://arxiv.org/pdf/2503.14734",
-      "caption_vi": "Hình 10. Tỷ lệ thành công trung bình của policy trên các nhiệm vụ mô phỏng khi thay số lượng demonstration. Hình dùng để xem việc tăng dữ liệu có tiếp tục cải thiện khả năng thao tác hay không.",
+      "caption_vi": "Hình 10. Tỷ lệ thành công trung bình của mô hình điều khiển trên các nhiệm vụ mô phỏng khi thay số lượng lượt thao tác mẫu. Hình dùng để xem việc tăng dữ liệu có tiếp tục cải thiện khả năng thao tác hay không.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "cc6d3d0a6eb419410d0d2267c566431e0e8bbd043d541125e67939ea16b7dc54",
       "translation_reviewed": true
@@ -2447,7 +2447,7 @@
       "image": "/paper-figures/groot-n1/figure-12.webp",
       "caption": "Figure 12: Post-training Qualitative Example. (Top) Post-trained GR00T-N1-2B successfully places the cucumber into the basket, whereas the Diffusion Policy fails due to an inaccurate grasp. (Bottom) The post- trained model successfully picks the lemon from the cutting board and puts it into the pan while the Diffusion Policy remains stuck.",
       "pdf": "https://arxiv.org/pdf/2503.14734",
-      "caption_vi": "Hình 12. Ví dụ sau tinh chỉnh. Hàng trên: GR00T-N1-2B đã tinh chỉnh bỏ dưa chuột vào giỏ, trong khi Diffusion Policy trượt do kẹp sai vị trí. Hàng dưới: model đã tinh chỉnh nhặt quả chanh từ thớt và bỏ vào chảo, còn Diffusion Policy bị kẹt.",
+      "caption_vi": "Hình 12. Ví dụ sau tinh chỉnh. Hàng trên: GR00T-N1-2B đã tinh chỉnh bỏ dưa chuột vào giỏ, trong khi Diffusion Policy trượt do kẹp sai vị trí. Hàng dưới: mô hình đã tinh chỉnh nhặt quả chanh từ thớt và bỏ vào chảo, còn Diffusion Policy bị kẹt.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "e889e1eb324b2f554936f41b60b3d75410083f8ecc6f4e57157701d59de47fb6",
       "translation_reviewed": true
@@ -2569,7 +2569,7 @@
       "image": "/paper-figures/pi-0-5/figure-4.webp",
       "caption": "Fig. 4: Examples from pre-training and post-training tasks. π0.5 is pre-trained on data from mobile manipulators (MM), non-mobile robots in diverse environments (ME), and cross-embodiment data collected under laboratory conditions (CE), as well as high-level subtask prediction (HL), and multi-modal web data (WD). In a post-training phase, we additionally use verbal instructions (VI), and omit the laboratory cross-embodiment data (CE) to focus the model on mobile manipulation and diverse environments. The figure displays an exemplary subset of the tasks in each category.",
       "pdf": "https://arxiv.org/pdf/2504.16054",
-      "caption_vi": "Hình 4. Ví dụ dữ liệu trước và sau tinh chỉnh π0.5. Trước tinh chỉnh có robot di động (MM), robot cố định ở nhiều môi trường (ME), robot nhiều kiểu thu trong phòng lab (CE), dự đoán bước con cấp cao (HL) và dữ liệu web đa phương thức (WD). Sau đó bổ sung chỉ dẫn bằng lời của người (VI), đồng thời bỏ nhóm CE để tập trung vào thao tác di động trong nhiều môi trường. Hình trưng bày một số nhiệm vụ thuộc từng nhóm.",
+      "caption_vi": "Hình 4. Ví dụ dữ liệu trước và sau tinh chỉnh π0.5. Trước tinh chỉnh có robot di động (MM), robot cố định ở nhiều môi trường (ME), robot nhiều kiểu thu trong phòng phòng thí nghiệm (CE), dự đoán bước con cấp cao (HL) và dữ liệu web đa phương thức (WD). Sau đó bổ sung chỉ dẫn bằng lời của người (VI), đồng thời bỏ nhóm CE để tập trung vào thao tác di động trong nhiều môi trường. Hình trưng bày một số nhiệm vụ thuộc từng nhóm.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "c4a52d1431605230c0aae1d8c7e5bc724450895f7584643a2d364d8033fcdfe2",
       "translation_reviewed": true
@@ -2689,7 +2689,7 @@
       "image": "/paper-figures/pi-0-5/figure-10.webp",
       "caption": "Fig. 10: Training recipe ablations, mock homes. We evaluate variants of our model that exclude different parts of the training mixture on all four test tasks (10 trials per policy and task). Including cross-embodiment data, both in diverse environments (ME) and for diverse tasks in laboratory settings (CE) is important for good performance, with large degradation when either or both of these data sources are removed. Web data (WD) does not make a significant difference in these experiments, but we will see in Figures 11 and 13 that it impacts object generalization and high-level performance.",
       "pdf": "https://arxiv.org/pdf/2504.16054",
-      "caption_vi": "Hình 10. Thí nghiệm loại bỏ từng nguồn dữ liệu trong quy trình huấn luyện π0.5, trên bốn bài kiểm tra ở nhà giả lập (mỗi policy và nhiệm vụ 10 lượt). Dữ liệu từ nhiều robot (CE) và dữ liệu robot ở môi trường đa dạng (ME) đều rất quan trọng: bỏ một hoặc cả hai làm kết quả giảm mạnh. Dữ liệu web (WD) chưa tạo khác biệt rõ trong phép thử này, nhưng có vai trò ở khả năng hiểu vật mới và dự đoán bước cấp cao trong Hình 11, 13.",
+      "caption_vi": "Hình 10. Thí nghiệm loại bỏ từng nguồn dữ liệu trong quy trình huấn luyện π0.5, trên bốn bài kiểm tra ở nhà giả lập (mỗi mô hình điều khiển và nhiệm vụ 10 lượt). Dữ liệu từ nhiều robot (CE) và dữ liệu robot ở môi trường đa dạng (ME) đều rất quan trọng: bỏ một hoặc cả hai làm kết quả giảm mạnh. Dữ liệu web (WD) chưa tạo khác biệt rõ trong phép thử này, nhưng có vai trò ở khả năng hiểu vật mới và dự đoán bước cấp cao trong Hình 11, 13.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "8155661b6c34b1a241b72008972a99b610e0b40de6fb33cf993722273dcae590",
       "translation_reviewed": true
@@ -3277,7 +3277,7 @@
       "image": "/paper-figures/lingbot-vla-2/figure-8.webp",
       "caption": "Figure 8. Per-subtask performance on the long-horizon mobile manipulation benchmark. Bars report the mean subtask completion score (%) across 15 trials under both in-domain (ID) and out-of-distribution (OOD) settings.",
       "pdf": "https://arxiv.org/pdf/2607.06403",
-      "caption_vi": "Hình 8. Hiệu quả theo từng thao tác con trong benchmark robot di động có nhiệm vụ dài. Mỗi cột là điểm hoàn thành trung bình của một thao tác con, tính theo phần trăm trên 15 lượt thử, tách điều kiện giống dữ liệu huấn luyện (ID) và ngoài phân phối (OOD).",
+      "caption_vi": "Hình 8. Hiệu quả theo từng thao tác con trong bộ đánh giá robot di động có nhiệm vụ dài. Mỗi cột là điểm hoàn thành trung bình của một thao tác con, tính theo phần trăm trên 15 lượt thử, tách điều kiện giống dữ liệu huấn luyện (ID) và ngoài phân phối (OOD).",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "59f48c4d8f0ab064d294a6e37fa580f5fb67f9cd28e1e01c43317881d7b69aa7",
       "translation_reviewed": true
@@ -3337,7 +3337,7 @@
       "image": "/paper-figures/lingbot-vla-2/figure-11.webp",
       "caption": "Figure 11. Per-dimension MeanStd-normalized action distributions for joint and EEF action spaces. The first column shows the pooled distribution over all four tasks, while the remaining columns show task-specific distributions. The gap measures task-to-pooled distribution alignment based on per-dimension median and IQR differences.",
       "pdf": "https://arxiv.org/pdf/2607.06403",
-      "caption_vi": "Hình 11. Phân phối hành động sau chuẩn hóa MeanStd theo từng chiều đối với lệnh khớp và lệnh ở đầu công tác (EEF). Cột đầu là phân phối gộp của cả bốn nhiệm vụ; những cột sau là từng nhiệm vụ riêng. Chỉ số gap đo độ lệch giữa phân phối từng nhiệm vụ và phân phối chung bằng chênh lệch trung vị cùng khoảng tứ phân vị (IQR) của từng chiều.",
+      "caption_vi": "Hình 11. Phân phối hành động sau chuẩn hóa chuẩn hóa bằng trung bình và độ lệch chuẩn (MeanStd) theo từng chiều đối với lệnh khớp và lệnh ở đầu công tác (EEF). Cột đầu là phân phối gộp của cả bốn nhiệm vụ; những cột sau là từng nhiệm vụ riêng. Chỉ số gap đo độ lệch giữa phân phối từng nhiệm vụ và phân phối chung bằng chênh lệch trung vị cùng khoảng tứ phân vị (IQR) của từng chiều.",
       "translation_method": "manual-editorial-from-original-english",
       "caption_sha256": "125715e2a473130a8f6ab55ec7eb9bffd56fb537cddbab24a6d321b4b90a192f",
       "translation_reviewed": true
