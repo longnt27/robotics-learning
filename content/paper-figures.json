@@ -1477,9 +1477,10 @@
       "image": "/paper-figures/octo/figure-1.webp",
       "caption": "Fig. 1: We introduce Octo, an open-source, generalist policy for robotic manipulation. Octo is a transformer-based policy pretrained on 800k diverse robot episodes from the Open X-Embodiment dataset [67]. It supports flexible task and observation definitions and can be quickly finetuned to new observation and action spaces.",
       "pdf": "https://arxiv.org/pdf/2405.12213",
-      "caption_vi": "Hình 1: Chúng tôi giới thiệu Octo, một chính sách tổng quát, mã nguồn mở cho thao tác robot. Octo là một chính sách dựa trên biến đổi được đào tạo trước trên 800k giai đoạn robot đa dạng từ bộ dữ liệu Open X-Embodiment [67]. Nó hỗ trợ các định nghĩa nhiệm vụ và quan sát linh hoạt và có thể được điều chỉnh nhanh chóng cho các không gian quan sát và hành động mới.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "1c006407c92cab20f9eec29bd584e1c84a84bce114cb24f8694c0033dda15612"
+      "caption_vi": "Hình 1. Octo là policy thao tác robot đa nhiệm, mã nguồn mở. Mô hình dùng Transformer, được huấn luyện trước trên khoảng 800.000 lượt thực thi robot đa dạng lấy từ Open X-Embodiment. Octo cho phép thay đổi loại nhiệm vụ và quan sát, đồng thời có thể tinh chỉnh nhanh cho dạng quan sát và không gian hành động mới.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "1c006407c92cab20f9eec29bd584e1c84a84bce114cb24f8694c0033dda15612",
+      "translation_reviewed": true
     },
     {
       "page": 3,
@@ -1496,9 +1497,10 @@
       "image": "/paper-figures/octo/figure-2.webp",
       "caption": "Fig. 2: Model architecture. Left: Octo tokenizes task descriptions (green) and input observations (blue) using a pretrained language model and a lightweight CNN, respectively. Top: The transformer backbone processes the sequence of task and observation tokens and produces readout tokens (purple) that get passed to output heads to produce actions. Bottom: The block-wise attention structure of the transformer allows us to add or remove inputs and outputs during finetuning: for example, we can add new observations (blue, dashed) or action spaces (purple, dashed) without modifying any pretrained parameters.",
       "pdf": "https://arxiv.org/pdf/2405.12213",
-      "caption_vi": "Hình 2: Kiến trúc mô hình. Trái: Octo tokenizes mô tả nhiệm vụ (màu xanh lá cây) và quan sát đầu vào (màu xanh) bằng cách sử dụng một mô hình ngôn ngữ được đào tạo trước và một CNN nhẹ, tương ứng. Top: Trục biến xử lý chuỗi các thẻ nhiệm vụ và quan sát và tạo ra các thẻ đọc (màu tím) được truyền đến đầu ra để tạo ra các hành động. Dưới cùng: Cấu trúc chú ý khối của máy biến áp cho phép chúng ta thêm hoặc loại bỏ đầu vào và đầu ra trong quá trình finetuning: ví dụ, chúng ta có thể thêm các quan sát mới (màu xanh, gạch ngang) hoặc hành động không gian (tím, đứt) mà không sửa đổi tham số đã được huấn luyện sẵn.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "0c97fb1ec491fe883023fb59aa747b8e64ec942d9d1e438aba7b7e842c601514"
+      "caption_vi": "Hình 2. Kiến trúc Octo. Bên trái: câu mô tả nhiệm vụ (xanh lá) và quan sát camera (xanh dương) được chuyển thành token nhờ mô hình ngôn ngữ đã học trước và CNN gọn nhẹ. Phía trên: Transformer xử lý các token này, tạo token đầu ra trung gian (tím) cho các nhánh dự đoán hành động. Phía dưới: cơ chế chú ý theo khối cho phép thêm hoặc bỏ tín hiệu đầu vào/đầu ra khi tinh chỉnh, ví dụ thêm camera mới (xanh đứt nét) hoặc dạng lệnh mới (tím đứt nét), mà không cần sửa tham số phần mạng đã huấn luyện trước.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "0c97fb1ec491fe883023fb59aa747b8e64ec942d9d1e438aba7b7e842c601514",
+      "translation_reviewed": true
     },
     {
       "page": 4,
@@ -1515,9 +1517,10 @@
       "image": "/paper-figures/octo/figure-3.webp",
       "caption": "Fig. 3: Training dataset composition. We curate a subset of 25 datasets from the Open X-Embodiment dataset that have image observations, end-effector actions, and show diverse behaviors. The pie chart visualizes the fractions that each dataset contributes to every training batch on average. The dataset weights are determined by the number of samples in each dataset with small modifications to balance dataset size and diversity (see Section III-B for details).",
       "pdf": "https://arxiv.org/pdf/2405.12213",
-      "caption_vi": "Hình 3: Huấn luyện thành phần bộ dữ liệu. Chúng tôi quản lý một tập hợp con gồm 25 bộ dữ liệu từ bộ dữ liệu Open X-Embodiment, có quan sát hình ảnh, hành động ảnh hưởng cuối cùng và thể hiện nhiều hành vi khác nhau. Biểu đồ hình tròn trực quan hoá các phân số mà mỗi bộ dữ liệu đóng góp cho mỗi đợt huấn luyện trung bình. Trọng số của các bộ dữ liệu được xác định bởi số lượng mẫu trong mỗi bộ dữ liệu với các sửa đổi nhỏ để cân bằng kích thước bộ dữ liệu và sự đa dạng (xem Mục III-B để biết chi tiết).",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "49c636e982a8c21ad61b6b9ed4c61877bf02c167238a05ef8b99b46b03515a93"
+      "caption_vi": "Hình 3. Thành phần dữ liệu huấn luyện Octo. Nhóm tác giả chọn 25 bộ dữ liệu từ Open X-Embodiment có quan sát bằng ảnh, hành động ở đầu công tác robot và đủ đa dạng thao tác. Biểu đồ tròn cho biết tỷ trọng trung bình của mỗi nguồn trong một batch huấn luyện. Trọng số dựa trên số mẫu từng nguồn, có điều chỉnh để cân bằng quy mô và mức đa dạng; xem Mục III-B.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "49c636e982a8c21ad61b6b9ed4c61877bf02c167238a05ef8b99b46b03515a93",
+      "translation_reviewed": true
     },
     {
       "page": 6,
@@ -1534,9 +1537,10 @@
       "image": "/paper-figures/octo/figure-4.webp",
       "caption": "Fig. 4: Evaluation Tasks. We evaluate Octo on 9 real robot setups across 4 institutions. Our evaluations capture diverse object interactions (e.g., “WidowX BridgeV2”), long task horizons (e.g., “Stanford Coffee”) and precise manipulation (e.g., “Berkeley Peg Insertion”). We evaluate Octo’s capabilities to control robots in environments from the pretraining data out-of-the-box and to efficiently finetune to new tasks and environments with small target domain datasets. We also test finetuning with new observations (force-torque inputs for “Berkeley Peg Insertion”), action spaces (joint position control in “Berkeley Pick-Up” and “Berkeley Bimanual”) and new robot embodiments (e.g., “Berkeley Bimanual” and “Berkeley Coke”).",
       "pdf": "https://arxiv.org/pdf/2405.12213",
-      "caption_vi": "Hình 4: Nhiệm vụ đánh giá. Chúng tôi đánh giá Octo trên 9 thiết lập robot thực tế trên 4 tổ chức. Đánh giá của chúng tôi nắm bắt các tương tác đối tượng đa dạng (ví dụ: \"WidowX BridgeV 2\"), chân trời nhiệm vụ dài (ví dụ: \"Stanford Coffee\") và thao tác chính xác (ví dụ: \"Berkeley Peg Insertion\"). Chúng tôi đánh giá khả năng của Octo trong việc điều khiển robot trong môi trường từ việc đào tạo dữ liệu trước và điều chỉnh hiệu quả cho các nhiệm vụ và môi trường mới với các bộ dữ liệu miền mục tiêu nhỏ. Chúng tôi cũng kiểm tra finetuning với các quan sát mới (đầu vào torque lực cho \"Berkeley Peg Insertion\"), không gian hành động (điều khiển vị trí chung trong \"Berkeley Pick-Up\" và \"Berkeley Bimanual\") và mới Biểu hiện robot (ví dụ: \"Berkeley Bimanual\" và \"Berkeley Coke\").",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "e4a91abb1969a09580c44cb86e1425ea26699b03ee03bf414eac47f06044ce37"
+      "caption_vi": "Hình 4. Chín thiết lập thử nghiệm robot thật tại bốn tổ chức. Các nhiệm vụ bao gồm tương tác với nhiều đồ vật (WidowX BridgeV2), thao tác dài (Stanford Coffee) và lắp ráp đòi độ chính xác (Berkeley Peg Insertion). Hệ thống được đánh giá cả khi chạy trực tiếp trên môi trường đã thấy lúc huấn luyện trước lẫn khi tinh chỉnh bằng ít dữ liệu của nhiệm vụ mới. Các thử nghiệm còn thêm cảm biến lực/mô-men, thay kiểu lệnh khớp, hoặc đổi sang cấu trúc robot khác.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "e4a91abb1969a09580c44cb86e1425ea26699b03ee03bf414eac47f06044ce37",
+      "translation_reviewed": true
     },
     {
       "page": 6,
@@ -1553,9 +1557,10 @@
       "image": "/paper-figures/octo/figure-5.webp",
       "caption": "Fig. 5: Zero-Shot Evaluation. Out-of-the-box, Octo can control multiple robots in environments from the pretraining data. When using natural language to specify tasks, Octo outperforms RT-1-X [67], the current best openly available generalist robot policy across three different robot embodiments and setups. Octo also performs similarly to RT-2-X [103] on the tested WidowX and RT-1 Robot tasks.1",
       "pdf": "https://arxiv.org/pdf/2405.12213",
-      "caption_vi": "Hình 5: Đánh giá bằng 0-Shot. Out-of-the-box, Octo có thể kiểm soát nhiều robot trong môi trường từ dữ liệu huấn luyện trước. Khi sử dụng ngôn ngữ tự nhiên để xác định nhiệm vụ, Octo vượt trội hơn RT-1-X [67], chính sách robot tổng quát có sẵn công khai tốt nhất hiện nay trên ba biểu hiện và thiết lập robot khác nhau. Octo cũng thực hiện tương tự như RT-2-X [103] trên các nhiệm vụ Robot WidowX và RT-1 đã được thử nghiệm. 1",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "e5649b74a533ad5efa3c648fe66992e770f2beecffb858ac1edeb1c971c3604b"
+      "caption_vi": "Hình 5. Đánh giá không cần tinh chỉnh (zero-shot). Ngay sau huấn luyện trước, Octo đã điều khiển được nhiều robot trong các môi trường thuộc tập dữ liệu nguồn. Với câu lệnh tự nhiên, Octo vượt RT-1-X trên ba loại robot và thiết lập được thử; trên WidowX và các nhiệm vụ RT-1, kết quả gần RT-2-X.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "e5649b74a533ad5efa3c648fe66992e770f2beecffb858ac1edeb1c971c3604b",
+      "translation_reviewed": true
     },
     {
       "page": 8,
@@ -1572,9 +1577,10 @@
       "image": "/paper-figures/octo/figure-6.webp",
       "caption": "Fig. 6: Model Scaling. The performance of Octo improves with larger model sizes on both UR5 and WidowX tasks. Success rates are averaged over 10 trials on one language-conditioned task per robot.",
       "pdf": "https://arxiv.org/pdf/2405.12213",
-      "caption_vi": "Hình 6: Mở rộng mô hình. Hiệu suất của Octo được cải thiện với kích thước mô hình lớn hơn trên cả hai nhiệm vụ UR5 và WidowX. Tỷ lệ thành công trung bình trên 10 thử nghiệm trên một nhiệm vụ điều kiện ngôn ngữ trên mỗi robot.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "b4fe18892237e8ed75e399db9c2410463ed21ac3b0bbd830261071a6c88715f9"
+      "caption_vi": "Hình 6. Khi tăng kích thước mô hình Octo, tỷ lệ hoàn thành nhiệm vụ tăng trên cả UR5 và WidowX. Điểm số là trung bình mười lần chạy cho mỗi robot, với một nhiệm vụ được giao bằng ngôn ngữ.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "b4fe18892237e8ed75e399db9c2410463ed21ac3b0bbd830261071a6c88715f9",
+      "translation_reviewed": true
     }
   ],
   "robocasa": [
@@ -1593,9 +1599,10 @@
       "image": "/paper-figures/robocasa/figure-1.webp",
       "caption": "Fig. 1: Overview of RoboCasa. RoboCasa is a simulation framework for training generalist robot agents. Four pillars underlie RoboCasa: (1) Diverse assets, including 120 kitchen scenes and 2,500+ 3D objects, created with the aid of generative AI tools; (2) Cross-embodiment support for mobile manipulators and humanoid robots; (3) Diverse tasks created with the guidance of large language models; (4) Massive training datasets with over 100K trajectories.",
       "pdf": "https://arxiv.org/pdf/2406.02523",
-      "caption_vi": "Hình 1: Tổng quan về RoboCasa. RoboCasa là một khung mô phỏng để đào tạo các đại lý robot tổng quát. Bốn trụ cột làm nền tảng cho RoboCasa: (1) Tài sản đa dạng, bao gồm 120 cảnh nhà bếp và hơn 2.500 đối tượng 3D, được tạo ra với sự trợ giúp của các công cụ AI sinh sản; (2) Hỗ trợ hồn vía chéo cho các thao tác di động và robot dạng người; (3) Các nhiệm vụ đa dạng được tạo ra với sự hướng dẫn của các mô hình ngôn ngữ lớn; (4) Các bộ dữ liệu huấn luyện khổng lồ với quỹ đạo trên 100K.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "ac443ab3083bc81686b9ce7b341000ad3783e10fa33cefd6394eb8ad5faedbba"
+      "caption_vi": "Hình 1. Bốn thành phần chính của RoboCasa, hệ mô phỏng để huấn luyện robot đa nhiệm: (1) tài nguyên đa dạng gồm 120 căn bếp và hơn 2.500 đồ vật ba chiều, một phần tạo bằng công cụ AI sinh nội dung; (2) hỗ trợ nhiều dạng robot, từ tay máy di động đến robot hình người; (3) các nhiệm vụ đa dạng được gợi ý bằng mô hình ngôn ngữ lớn; (4) dữ liệu huấn luyện hơn 100.000 quỹ đạo.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "ac443ab3083bc81686b9ce7b341000ad3783e10fa33cefd6394eb8ad5faedbba",
+      "translation_reviewed": true
     },
     {
       "page": 4,
@@ -1612,9 +1619,10 @@
       "image": "/paper-figures/robocasa/figure-3.webp",
       "caption": "Fig. 3: Kitchen Floor Plans. We consult home planning and architecture magazines and compile a list of common kitchen floor plans. Our floor plans take on a variety of shapes and sizes, from basic designs (e.g., one wall) to high-end ones (e.g., U-shaped w/ island).",
       "pdf": "https://arxiv.org/pdf/2406.02523",
-      "caption_vi": "Hình 3: Bản đồ sàn nhà bếp. Chúng tôi tham khảo các tạp chí về quy hoạch và kiến trúc nhà ở và lập danh sách các bản đồ sàn nhà bếp phổ biến. Bản thiết kế của chúng tôi có nhiều hình dạng và kích cỡ, từ thiết kế cơ bản (ví dụ như một bức tường) đến cao cấp (ví dụ như hình chữ U với hòn đảo).",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "5a926dcc733b634c01c3a39bb969d7feb7341b86e6a8ac493a58f149576e6946"
+      "caption_vi": "Hình 3. Các sơ đồ mặt bằng bếp trong RoboCasa. Nhóm tác giả tham khảo tạp chí thiết kế nhà ở và kiến trúc để chọn các cách bố trí thường gặp, từ bếp một dãy sát tường đến bếp chữ U có đảo bếp. Mục đích là tạo nhiều kiểu không gian, kích thước và chỗ đặt đồ vật.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "5a926dcc733b634c01c3a39bb969d7feb7341b86e6a8ac493a58f149576e6946",
+      "translation_reviewed": true
     },
     {
       "page": 4,
@@ -1631,9 +1639,10 @@
       "image": "/paper-figures/robocasa/figure-4.webp",
       "caption": "Fig. 4: Examples of Interactable Appliances. Our simulation framework comes with dozens of appliances. Several types of appliances are articulated. For example, we can open and close doors on microwaves and twist knobs on stoves. Some appliances can undergo state changes, e.g., when we turn the knob on the stove, the corresponding burner turns on.",
       "pdf": "https://arxiv.org/pdf/2406.02523",
-      "caption_vi": "Hình 4: Ví dụ về các thiết bị tương tác. Khung mô phỏng của chúng tôi bao gồm hàng chục thiết bị. Một số loại thiết bị được khớp nối với nhau. Ví dụ, chúng ta có thể mở và đóng cửa trên lò vi sóng và vặn núm trên bếp.Một số thiết bị có thể trải qua những thay đổi trạng thái, ví dụ, khi chúng ta vặn núm trên bếp, bếp tương ứng sẽ bật.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "6aaec9750441d91b5b29d228b5f7c8ea89fda20626001d67b7b71f7f9379704e"
+      "caption_vi": "Hình 4. Một số thiết bị nhà bếp có thể tương tác trong mô phỏng. RoboCasa có hàng chục loại thiết bị; một số có khớp chuyển động như cửa lò vi sóng và núm vặn bếp. Thiết bị còn có trạng thái hoạt động: vặn núm có thể bật đầu đốt tương ứng.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "6aaec9750441d91b5b29d228b5f7c8ea89fda20626001d67b7b71f7f9379704e",
+      "translation_reviewed": true
     },
     {
       "page": 5,
@@ -1650,9 +1659,10 @@
       "image": "/paper-figures/robocasa/figure-5.webp",
       "caption": "Fig. 5: Diverse High-Quality 3D Objects. RoboCasa offers 2,509 high- quality 3D objects across 153 diverse categories spanning vegetables, poultry, drinks, and more. Here we illustrate a small subset of these objects.",
       "pdf": "https://arxiv.org/pdf/2406.02523",
-      "caption_vi": "Hình 5: Các đối tượng 3D chất lượng cao đa dạng. RoboCasa cung cấp 2.509 đối tượng 3D chất lượng cao trên 153 danh mục đa dạng bao gồm rau, gia cầm, đồ uống và nhiều hơn nữa. Ở đây chúng ta minh họa một tập hợp nhỏ các đối tượng này.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "22fad9a319bbc0e9b191c66c2a5704ffd77606c36876bb349a9956d65bd91e7c"
+      "caption_vi": "Hình 5. Tập đồ vật ba chiều của RoboCasa gồm 2.509 mẫu có chất lượng cao thuộc 153 nhóm, chẳng hạn rau củ, thực phẩm, đồ uống. Hình chỉ trưng bày một phần nhỏ trong tập đồ vật này.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "22fad9a319bbc0e9b191c66c2a5704ffd77606c36876bb349a9956d65bd91e7c",
+      "translation_reviewed": true
     },
     {
       "page": 6,
@@ -1669,9 +1679,10 @@
       "image": "/paper-figures/robocasa/figure-6.webp",
       "caption": "Fig. 6: Creating Diverse Tasks with Large Language Models. We employ LLMs to generate diverse tasks. First, we prompt GPT-4 to give diverse high-level kitchen activities. Subsequently, for each activity, we prompt GPT-4 (or Gemini 1.5) to suggest a diverse set of representative tasks. We illustrate one such task “Preparing the Microwave For Steaming” for the activity label “Steaming Vegetables”.",
       "pdf": "https://arxiv.org/pdf/2406.02523",
-      "caption_vi": "Hình 6: Tạo ra các nhiệm vụ đa dạng với các mô hình ngôn ngữ lớn. Chúng tôi sử dụng các mô hình LLM để tạo ra các nhiệm vụ đa dạng. Đầu tiên, chúng tôi thúc đẩy GPT-4 cung cấp các hoạt động nhà bếp cấp cao đa dạng. Sau đó, đối với mỗi hoạt động, chúng tôi yêu cầu GPT-4 (hoặc Gemini 1.5) đề xuất một tập hợp đa dạng các nhiệm vụ đại diện. Chúng tôi minh hoạ một nhiệm vụ như vậy \"Chuẩn bị lò vi sóng để hấp\" cho nhãn hoạt động \"Chảo rau\".",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "3308fa0712fff430ba39c71ee22b459c89395d3e3ec0e821b5b6861f80aa56e9"
+      "caption_vi": "Hình 6. Dùng mô hình ngôn ngữ lớn để sinh các nhiệm vụ bếp đa dạng. Đầu tiên GPT-4 đề xuất nhiều hoạt động nhà bếp cấp cao; tiếp đó GPT-4 hoặc Gemini 1.5 liệt kê các nhiệm vụ tiêu biểu cho từng hoạt động. Hình minh họa nhiệm vụ 'Chuẩn bị lò vi sóng để hấp' thuộc nhóm 'Hấp rau'.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "3308fa0712fff430ba39c71ee22b459c89395d3e3ec0e821b5b6861f80aa56e9",
+      "translation_reviewed": true
     },
     {
       "page": 7,
@@ -1688,9 +1699,10 @@
       "image": "/paper-figures/robocasa/figure-7.webp",
       "caption": "Fig. 7: Comparison between human demonstrations and machine-generated datasets. We present learning results across 24 atomic tasks spanning diverse robot skills. We compare training on four different multi-task datasets, including a human dataset with 50 demonstrations per task, a machine generated dataset with 3000 demonstrations per task, and smaller variants with 300 or 100 demonstrations per task. We group task results according to their corresponding sensorimotor skills (see Figure 13 for a full breakdown of results by task). We see a clear scaling trend: increasing the size of the generated dataset can yield consistently higher overall success rates, eventually significantly outperforming performance on human datasets.",
       "pdf": "https://arxiv.org/pdf/2406.02523",
-      "caption_vi": "Hình 7: So sánh giữa biểu diễn của con người và bộ dữ liệu do máy tạo ra. Chúng tôi trình bày kết quả học tập qua 24 nhiệm vụ nguyên tử trải dài trên các kỹ năng robot đa dạng. Chúng tôi so sánh đào tạo trên bốn bộ dữ liệu đa nhiệm vụ khác nhau, bao gồm một bộ dữ liệu của con người với 50 minh hoạ cho mỗi nhiệm vụ, một bộ dữ liệu do máy tạo ra với 3000 minh hoạ cho mỗi nhiệm vụ, và nhỏ hơn Chúng tôi chia các kết quả nhiệm vụ theo các kỹ năng cảm biến tương ứng của chúng (xem Hình 13 để biết toàn bộ kết quả theo nhiệm vụ). Chúng ta thấy một xu hướng mở rộng quy mô rõ ràng: tăng kích thước của bộ dữ liệu được tạo ra có thể mang lại tỷ lệ thành công tổng thể cao hơn một cách nhất quán, cuối cùng vượt trội đáng kể so với hiệu suất trên các bộ dữ liệu của con người.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "880bc4d5abfe122b4611c6e4398b2539fcf3f2a4b07eea3f74fb5dc0fe0c49d7"
+      "caption_vi": "Hình 7. So sánh học từ demonstration của người và dữ liệu sinh tự động trên 24 nhiệm vụ nhỏ với nhiều kỹ năng cảm biến–vận động. Bốn tập huấn luyện gồm: mỗi nhiệm vụ 50 demonstration do người làm; 3.000 demonstration sinh bằng máy; và hai phiên bản sinh bằng máy nhỏ hơn gồm 300 hoặc 100 lượt. Kết quả được gom theo loại kỹ năng, còn từng nhiệm vụ nằm ở Hình 13. Xu hướng khá rõ: dữ liệu sinh bằng máy càng nhiều, tỷ lệ thành công càng tăng và cuối cùng vượt đáng kể tập dữ liệu người trong các thí nghiệm này.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "880bc4d5abfe122b4611c6e4398b2539fcf3f2a4b07eea3f74fb5dc0fe0c49d7",
+      "translation_reviewed": true
     },
     {
       "page": 7,
@@ -1707,9 +1719,10 @@
       "image": "/paper-figures/robocasa/figure-8.webp",
       "caption": "Fig. 8: Learning Results on Composite Tasks. We learn single-task policies for five representative composite tasks. We compare learning these tasks from scratch with 50 human demonstrations versus fine-tuning a policy trained on machine-generated atomic task data. The fine-tuning method performs better but still struggles to learn robust behaviors.",
       "pdf": "https://arxiv.org/pdf/2406.02523",
-      "caption_vi": "Hình 8: Kết quả học tập về các nhiệm vụ tổng hợp. Chúng ta học các chính sách tác vụ đơn cho năm nhiệm vụ tổng hợp đại diện. Chúng tôi so sánh việc học những nhiệm vụ này từ đầu với 50 minh hoạ của con người so với việc tinh chỉnh một chính sách được đào tạo trên dữ liệu nhiệm vụ nguyên tử do máy tạo ra. Phương pháp tinh chỉnh có hiệu quả hơn nhưng vẫn khó học được hành vi mạnh mẽ.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "33efe5bce0e965f2fcb59304807e7458bf1c11a72ee2a4bc8039f611258e06f4"
+      "caption_vi": "Hình 8. Kết quả trên năm nhiệm vụ tổng hợp gồm nhiều thao tác con. So sánh huấn luyện policy từ đầu bằng 50 demonstration người với tinh chỉnh một policy từng học trên dữ liệu máy sinh cho các nhiệm vụ nhỏ. Cách tinh chỉnh tốt hơn nhưng vẫn chưa thật bền trước các tình huống khó.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "33efe5bce0e965f2fcb59304807e7458bf1c11a72ee2a4bc8039f611258e06f4",
+      "translation_reviewed": true
     },
     {
       "page": 8,
@@ -1726,9 +1739,10 @@
       "image": "/paper-figures/robocasa/figure-9.webp",
       "caption": "Fig. 9: Real-World Experiment Setup. We conduct experiments in a real- world kitchen environment with a Franka Emika Panda arm on a wheeled mobile platform. The two pictures illustrate two of the three evaluation tasks: (left) pick and place an object from the counter to the cabinet, and (right) pick and place an object from the counter to the sink.",
       "pdf": "https://arxiv.org/pdf/2406.02523",
-      "caption_vi": "Hình 9: Thiết lập Thử nghiệm Thế giới thực. Chúng tôi tiến hành các thử nghiệm trong môi trường bếp thực với cánh tay Franka Emika Panda trên nền tảng di động có bánh xe. Hai hình ảnh minh hoạ hai trong số ba nhiệm vụ đánh giá: (trái) chọn và đặt một đối tượng từ kệ bếp vào tủ, và (phải) chọn và đặt một đối tượng từ kệ bếp vào bồn rửa.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "ed915a17a427f7857086f44b3a59223e090b4f39042929a335fb4af7a1d8a536"
+      "caption_vi": "Hình 9. Thiết lập đánh giá ngoài đời thật trong bếp: tay máy Franka Panda đặt trên bệ di động có bánh xe. Hai hình minh họa hai trong ba nhiệm vụ: chuyển đồ từ mặt bàn vào tủ (trái) và chuyển đồ từ mặt bàn xuống bồn rửa (phải).",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "ed915a17a427f7857086f44b3a59223e090b4f39042929a335fb4af7a1d8a536",
+      "translation_reviewed": true
     },
     {
       "page": 8,
@@ -1745,9 +1759,10 @@
       "image": "/paper-figures/robocasa/figure-10.webp",
       "caption": "Fig. 10: Real Robot Evaluations. In a real-world kitchen domain with only a handful of demonstrations, we explore co-training policies with our simulation data. Compared to training policies exclusively on in-domain real- world demonstrations, co-training substantially improves policy performance.",
       "pdf": "https://arxiv.org/pdf/2406.02523",
-      "caption_vi": "Hình 10: Những đánh giá robot thực tế. Trong lĩnh vực bếp núc thực tế chỉ với một vài buổi biểu diễn, chúng tôi tìm hiểu các chính sách đồng đào tạo với dữ liệu mô phỏng. So với các chính sách đào tạo độc quyền về các cuộc biểu tình trong thế giới thực, đồng đào tạo cải thiện đáng kể hiệu suất chính sách.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "06c4f3911915fde6239033aa88b6297aba406a7008b2187ef8d3296948925869"
+      "caption_vi": "Hình 10. Thử nghiệm robot thật với rất ít demonstration của môi trường bếp đích. Khi huấn luyện kết hợp dữ liệu mô phỏng RoboCasa cùng dữ liệu thật, policy làm tốt hơn đáng kể so với chỉ học từ demonstration thu tại bếp thật.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "06c4f3911915fde6239033aa88b6297aba406a7008b2187ef8d3296948925869",
+      "translation_reviewed": true
     }
   ],
   "openvla": [
@@ -1766,9 +1781,10 @@
       "image": "/paper-figures/openvla/figure-1.webp",
       "caption": "Figure 1: We present OpenVLA, a 7B-parameter open-source vision-language-action model (VLA), trained on 970k robot episodes from the Open X-Embodiment dataset [1]. OpenVLA sets a new state of the art for generalist robot manipulation policies. It supports controlling multiple robots out of the box and can be quickly adapted to new robot domains via parameter-efficient fine-tuning. The OpenVLA checkpoints and PyTorch training pipeline are fully open-source and models can be downloaded and fine-tuned from HuggingFace.",
       "pdf": "https://arxiv.org/pdf/2406.09246",
-      "caption_vi": "Hình 1: Chúng tôi trình bày OpenVLA, một mô hình hành động ngôn ngữ-thị giác mã nguồn mở (VLA) có tham số 7B, được huấn luyện trên các giai đoạn robot 970k từ bộ dữ liệu Open X-Embodiment. OpenVLA đặt một trạng thái mới của nghệ thuật cho các chính sách thao tác robot tổng quát. Nó hỗ trợ điều khiển nhiều robot ra khỏi hộp và có thể nhanh chóng thích nghi với các miền robot mới thông qua tinh chỉnh hiệu quả tham số. Các trạm kiểm soát OpenVLA và đường ống huấn luyện PyTorch hoàn toàn là mã nguồn mở và các mô hình có thể được tải xuống và tinh chỉnh từ HuggingFace.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "048a08b0fe33d1c63c9f2d6c55c05091cee06e11fbc3161807ad8dd74b01e9a9"
+      "caption_vi": "Hình 1. OpenVLA là mô hình thị giác–ngôn ngữ–hành động (VLA) mã nguồn mở gồm khoảng 7 tỷ tham số, được huấn luyện trên 970.000 lượt robot từ Open X-Embodiment. Mô hình có thể điều khiển nhiều dạng robot và thích nghi nhanh với môi trường mới bằng cách tinh chỉnh ít tham số. Checkpoint và mã huấn luyện PyTorch được công khai để tải và tiếp tục huấn luyện trên Hugging Face.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "048a08b0fe33d1c63c9f2d6c55c05091cee06e11fbc3161807ad8dd74b01e9a9",
+      "translation_reviewed": true
     },
     {
       "page": 4,
@@ -1785,9 +1801,10 @@
       "image": "/paper-figures/openvla/figure-2.webp",
       "caption": "Figure 2: OpenVLA model architecture. Given an image observation and a language instruction, the model predicts 7-dimensional robot control actions. The architecture consists of three key components: (1) a vision encoder that concatenates Dino V2 [25] and SigLIP [79] features, (2) a projector that maps visual features to the language embedding space, and (3) the LLM backbone, a Llama 2 7B-parameter large language model [10].",
       "pdf": "https://arxiv.org/pdf/2406.09246",
-      "caption_vi": "Hình 2: Kiến trúc mô hình OpenVLA. Cho một quan sát hình ảnh và một hướng dẫn ngôn ngữ, mô hình dự đoán các hành động điều khiển robot 7 chiều. Kiến trúc bao gồm ba thành phần chính: (1) bộ mã hoá thị giác nối các tính năng Dino V2 [25] và SigLIP [79], (2) máy chiếu ánh xạ các tính năng thị giác theo ngôn ngữ không gian nhúng, và (3) xương sống LLM, một mô hình ngôn ngữ lớn có tham số Llama 2 7B [10].",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "41acdc56da5da299d4645a347382208ff91962c19b84a80556e585e85c422135"
+      "caption_vi": "Hình 2. Kiến trúc OpenVLA. Nhận ảnh camera và câu lệnh, mô hình dự đoán hành động robot gồm 7 chiều. Ba phần chính là: (1) bộ mã hóa ảnh ghép đặc trưng từ DINOv2 và SigLIP; (2) mạng ánh xạ đặc trưng ảnh sang không gian biểu diễn ngôn ngữ; (3) mô hình ngôn ngữ Llama 2, quy mô 7 tỷ tham số, làm lõi dự đoán token hành động.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "41acdc56da5da299d4645a347382208ff91962c19b84a80556e585e85c422135",
+      "translation_reviewed": true
     },
     {
       "page": 7,
@@ -1804,9 +1821,10 @@
       "image": "/paper-figures/openvla/figure-3.webp",
       "caption": "Figure 3: BridgeData V2 WidowX robot evaluation tasks and results. We evaluate OpenVLA and prior state-of-the-art generalist robot policies on a comprehensive suite of tasks covering several axes of generalization, as well as tasks that specifically assess language conditioning ability. OpenVLA achieves highest overall perfor- mance and even outperforms closed-source model RT-2-X in all categories except for semantic generalization. Average success rates ± StdErr are computed across 170 total rollouts per approach. See Table 4 for detailed results.",
       "pdf": "https://arxiv.org/pdf/2406.09246",
-      "caption_vi": "Hình 3: Các nhiệm vụ và kết quả đánh giá robot BridgeData V2 WidowX. Chúng tôi đánh giá OpenVLA và các chính sách robot tổng quát tiên tiến về một bộ nhiệm vụ toàn diện bao gồm một số trục tổng quát hóa, cũng như các nhiệm vụ đánh giá cụ thể khả năng điều kiện ngôn ngữ. OpenVLA đạt được hiệu suất tổng thể cao nhất và thậm chí vượt trội hơn mô hình mã nguồn đóng RT-2-X trong tất cả các hạng mục ngoại trừ khái quát ngữ nghĩa. Tỷ lệ thành công trung bình?? Tiêu chuẩnErr được tính toán trên tổng số 170 lần triển khai cho mỗi phương pháp. Xem Bảng 4 để biết kết quả chi tiết.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "3307a28a0546b3c8d364e3a1250274e7a215dcefd9ef996c02731a433a066633"
+      "caption_vi": "Hình 3. Đánh giá trên robot WidowX thuộc BridgeData V2. Các nhiệm vụ được chọn để thử nhiều dạng khái quát và mức độ hiểu câu lệnh. OpenVLA có kết quả tổng hợp cao nhất, vượt cả RT-2-X mã đóng ở hầu hết nhóm, ngoại trừ khả năng khái quát ngữ nghĩa. Tỷ lệ thành công trung bình và sai số chuẩn được tính trên tổng 170 lần chạy mỗi phương pháp; xem Bảng 4.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "3307a28a0546b3c8d364e3a1250274e7a215dcefd9ef996c02731a433a066633",
+      "translation_reviewed": true
     },
     {
       "page": 8,
@@ -1823,9 +1841,10 @@
       "image": "/paper-figures/openvla/figure-4.webp",
       "caption": "Figure 4: Google robot evaluation results. We evaluate generalist robot policies on in-distribution and out-of- distribution (OOD) tasks on the mobile manipulator used in RT-1 and RT-2 evaluations [2, 7]. We find that Open- VLA and RT-2-X attain comparable performance and significantly outperform RT-1-X and Octo overall. Aver- age success rates ± StdErr are computed across 60 total rollouts per approach. See Table 6 for detailed results.",
       "pdf": "https://arxiv.org/pdf/2406.09246",
-      "caption_vi": "Hình 4: Kết quả đánh giá robot của Google. Chúng tôi đánh giá các chính sách robot tổng quát về các nhiệm vụ phân phối trong và ngoài phân phối (OOD) trên bộ thao tác di động được sử dụng trong đánh giá RT-1 và RT-2 [2, 7]. Chúng tôi nhận thấy Open-VLA và RT-2-X đạt hiệu suất tương đương và vượt trội đáng kể so với RT-1-X và Octo nói chung. Tỷ lệ thành công trung bình?? StdErr được tính trên tổng số 60 lần triển khai cho mỗi phương pháp. Xem Bảng 6 để biết kết quả chi tiết.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "2da67750894fd8931f281f796b0894e10da1acea5800186f8601699957953625"
+      "caption_vi": "Hình 4. Đánh giá trên robot Google di động dùng trong RT-1/RT-2, gồm nhiệm vụ giống dữ liệu huấn luyện và nhiệm vụ ngoài phân phối. OpenVLA và RT-2-X đạt kết quả tương đương, nhìn chung vượt RT-1-X và Octo. Tỷ lệ thành công và sai số chuẩn được tính từ 60 lần chạy cho mỗi phương pháp; xem Bảng 6.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "2da67750894fd8931f281f796b0894e10da1acea5800186f8601699957953625",
+      "translation_reviewed": true
     },
     {
       "page": 9,
@@ -1842,9 +1861,10 @@
       "image": "/paper-figures/openvla/figure-5.webp",
       "caption": "Figure 5: Adapting to new robot setups. We evaluate the state-of-the-art Diffusion Policy trained from scratch on seven Franka Emika Panda tasks (10–150 demonstrations each), as well as generalist robot policies Octo and OpenVLA fine-tuned on the same data. Diffusion Policy exhibits strong performance on narrow single-instruction tasks, while Octo and OpenVLA perform better on diverse fine-tuning tasks involving multiple instructions and distractor objects. Overall, OpenVLA achieves highest aggregate performance across both setups, suggesting that it is an effective default for learning a policy on a downstream task. Average success rates ± StdErr are computed across 129 rollouts per approach (99 for Franka-Tabletop tasks and 30 for Franka-DROID tasks). See Table 7 for detailed results.",
       "pdf": "https://arxiv.org/pdf/2406.09246",
-      "caption_vi": "Hình 5: Thích ứng với các thiết lập robot mới. Chúng tôi đánh giá chính sách khuếch tán tiên tiến được đào tạo từ đầu trên bảy nhiệm vụ Franka Emika Panda (10-150 cuộc biểu tình mỗi), cũng như các chính sách robot tổng quát Octo và OpenVLA tinh chỉnh trên cùng một dữ liệu. Chính sách khuếch tán thể hiện hiệu suất mạnh mẽ trên các tác vụ hướng dẫn đơn hẹp, trong khi Octo và OpenVLA thực hiện tốt hơn trên các tác vụ tinh chỉnh đa dạng liên quan đến nhiều hướng dẫn và các đối tượng gây sao lãng. Nhìn chung, OpenVLA đạt được hiệu suất tổng hợp cao nhất trên cả hai thiết lập, cho thấy rằng nó là một mặc định hiệu quả để học một chính sách về một tác vụ hạ nguồn. Tỷ lệ thành công trung bình?? StdErr được tính toán trên 129 lượt triển khai cho mỗi phương pháp (99 cho các tác vụ Franka-Tabletop và 30 cho các tác vụ Franka-DROID ). Xem Bảng 7 để biết kết quả chi tiết.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "da64ec25f9ce4879c2fe6afe7dac3899932ab7b2c04d8605b1d4427f5593e23c"
+      "caption_vi": "Hình 5. Thích nghi với cấu hình robot mới. So sánh Diffusion Policy huấn luyện từ đầu với Octo và OpenVLA được tinh chỉnh bằng cùng dữ liệu trên bảy nhiệm vụ Franka Panda, mỗi nhiệm vụ có 10–150 demonstration. Diffusion Policy mạnh ở nhiệm vụ đơn với một câu lệnh cố định; Octo và OpenVLA tốt hơn khi có nhiều chỉ dẫn và vật gây nhiễu. OpenVLA dẫn đầu tổng hợp hai thiết lập, cho thấy đây là lựa chọn khởi đầu tốt khi cần học policy cho một nhiệm vụ cụ thể. Số liệu từ 129 lượt chạy mỗi phương pháp (99 Franka-Tabletop và 30 Franka-DROID); xem Bảng 7.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "da64ec25f9ce4879c2fe6afe7dac3899932ab7b2c04d8605b1d4427f5593e23c",
+      "translation_reviewed": true
     },
     {
       "page": 10,
@@ -1861,9 +1881,10 @@
       "image": "/paper-figures/openvla/figure-6.webp",
       "caption": "Figure 6: OpenVLA inference speed for various GPUs. Both bfloat16 and int4 quantization achieve high throughput, especially on GPUs with Ada Lovelace architecture (RTX 4090, H100). Fur- ther speed-ups are possible with modern LLM inference frame- works like TensorRT-LLM [89]. ♠: Model sharded across two GPUs to fit.",
       "pdf": "https://arxiv.org/pdf/2406.09246",
-      "caption_vi": "Hình 6: Suy luận tốc độ OpenVLA cho các GPU khác nhau. Cả hai \" bfloat16 \" và \" quantization \" int4 đều đạt được thông lượng cao, đặc biệt là trên GPU với kiến trúc Ada Lovelace (RTX 4090, H100). Tăng tốc độ hơn nữa là có thể với khung suy luận LLM hiện đại như TensorRT-LLM [89].?? : Mô hình được che phủ trên hai GPU để phù hợp.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "913b8b61ad6735b9f7ef62efc26e0615222fe32f4dd5010ed60d18eb086956d1"
+      "caption_vi": "Hình 6. Tốc độ chạy OpenVLA trên nhiều loại GPU. Cả dạng số bfloat16 lẫn bản lượng tử hóa int4 đều cho tốc độ xử lý tốt, nhất là trên GPU thế hệ Ada Lovelace và các máy RTX 4090/H100 được thử. Có thể tăng tốc thêm bằng bộ suy luận mô hình ngôn ngữ như TensorRT-LLM. Ký hiệu ♠ cho biết mô hình được chia lên hai GPU để đủ bộ nhớ.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "913b8b61ad6735b9f7ef62efc26e0615222fe32f4dd5010ed60d18eb086956d1",
+      "translation_reviewed": true
     }
   ],
   "rdt-1b": [
@@ -1882,9 +1903,10 @@
       "image": "/paper-figures/rdt-1b/figure-1.webp",
       "caption": "Figure 1: Overview of Robotics Diffusion Transformer with 1B-Parameters (RDT-1B), a language-conditioned visuomotor policy for bimanual manipulation,with state-of-the-art generaliz- ability to unseen scenarios (See App. H for metric calculation details).",
       "pdf": "https://arxiv.org/pdf/2410.07864",
-      "caption_vi": "Hình 1: Tổng quan về biến đổi khuếch tán Robotics với 1B-Parameters (RDT-1B), một chính sách vận động bề mặt điều kiện ngôn ngữ cho thao tác hai tay, với khả năng khái quát hóa hiện đại nhất cho các kịch bản chưa nhìn thấy (Xem App. H cho các chi tiết tính toán số liệu).",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "63972d43f99c9b43b23728fdeea0140aa6fa077b61be53af43ec17912bf6dcef"
+      "caption_vi": "Hình 1. Tổng quan RDT-1B (Robotics Diffusion Transformer với khoảng một tỷ tham số): policy nhận ảnh và chỉ dẫn ngôn ngữ để sinh chuyển động phối hợp hai tay robot. Bài báo nhấn mạnh khả năng thực hiện tình huống chưa thấy khi huấn luyện; cách tính các chỉ số được giải thích tại Phụ lục H.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "63972d43f99c9b43b23728fdeea0140aa6fa077b61be53af43ec17912bf6dcef",
+      "translation_reviewed": true
     },
     {
       "page": 3,
@@ -1901,9 +1923,10 @@
       "image": "/paper-figures/rdt-1b/figure-2.webp",
       "caption": "Figure 2: (a) Schematic diagram of the ALOHA dual-arm robot. (b) A toy example of grasping a cube. Compared with unimanual manipulation, bimanual manipulation has more possible action modes, leading to stronger multi-modality. Colors from light to dark indicate that time goes forward.",
       "pdf": "https://arxiv.org/pdf/2410.07864",
-      "caption_vi": "Hình 2: (a) Sơ đồ sơ đồ của robot hai cánh tay ALOHA. (b) Một ví dụ đồ chơi về việc nắm lấy một khối lập phương. So với thao tác đơn thuần, thao tác song phương có nhiều chế độ hành động có thể hơn, dẫn đến đa phương thức mạnh hơn. Màu sắc từ sáng đến tối chỉ ra rằng thời gian sẽ trôi qua.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "c428312504b0de7ece98789a78b31cd2c75b1a948a4d9d13980be21792bcdc77"
+      "caption_vi": "Hình 2. (a) Sơ đồ hai cánh tay robot ALOHA. (b) Ví dụ đơn giản về thao tác gắp khối lập phương. Khi hai tay cùng tham gia, robot có nhiều cách phối hợp hành động hợp lệ hơn một tay, nên dữ liệu có nhiều dạng chuyển động khác nhau. Màu từ nhạt đến đậm biểu thị thời gian tiến về phía trước.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "c428312504b0de7ece98789a78b31cd2c75b1a948a4d9d13980be21792bcdc77",
+      "translation_reviewed": true
     },
     {
       "page": 4,
@@ -1920,9 +1943,10 @@
       "image": "/paper-figures/rdt-1b/figure-3.webp",
       "caption": "Figure 3: RDT framework. Heterogeneous action spaces of various robots are embedded into a unified action space for multi-robot training. Inputs: proprioception zt, noisy action chunk ˜at:t+Ta, control frequency c, and diffusion time step k, acting as denoising inputs; image inputs (Timg = 2 and X· = {X1 · , X2 · , X3 · } denotes a set of images from exterior, right-wrist, and left wrist cameras) and language inputs, acting as conditions. Outputs: denoised action chunk at:t+Ta.",
       "pdf": "https://arxiv.org/pdf/2410.07864",
-      "caption_vi": "Hình 3: Khuôn khổ RDT. Các không gian hành động đa dạng của các robot khác nhau được nhúng vào một không gian hành động thống nhất để huấn luyện đa robot. Đầu vào: proprioception zt, đoạn hành động nhiễu at: t+Ta, điều khiển tần số c, và bước thời gian khuếch tán k, đóng vai trò là đầu vào denoising; hình ảnh đầu vào (Timg = 2 và X = {X1, X2, X3  } biểu thị a tập ảnh chụp từ máy ảnh bên ngoài, cổ tay phải, và cổ tay trái) và đầu vào ngôn ngữ, hoạt động như điều kiện. Kết quả: đoạn hành động bị khử tại: t+Ta.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "e78a636608147a343b826a794f157d30f863b21eb07e1e637d5eac09180fab1e"
+      "caption_vi": "Hình 3. Quy trình RDT. Lệnh của nhiều loại robot được ánh xạ vào một không gian hành động chung để huấn luyện bằng dữ liệu đa robot. Đầu vào khử nhiễu gồm trạng thái cảm nhận của robot z_t, chuỗi hành động còn nhiễu, tần số điều khiển c và bước thời gian khuếch tán k. Điều kiện gồm ảnh từ camera ngoài, camera cổ tay phải/trái (hai mốc ảnh theo thời gian) và câu lệnh ngôn ngữ. Đầu ra là đoạn chuỗi hành động đã được khử nhiễu.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "e78a636608147a343b826a794f157d30f863b21eb07e1e637d5eac09180fab1e",
+      "translation_reviewed": true
     },
     {
       "page": 6,
@@ -1939,9 +1963,10 @@
       "image": "/paper-figures/rdt-1b/figure-4.webp",
       "caption": "Figure 4: (a) Unstable loss curve during training without QKNorm & RMSNorm. (b) Success rates of RDT (w/o MLP Decoder or w/o ACI) in tasks of Robot Dog (walk straight sub-task) and Pour Water-L-1/3 (correct amount sub- task). See Fig. 5 for task defini- tions. All the models are with- out pre-training in this experiment due to resource constraints.",
       "pdf": "https://arxiv.org/pdf/2410.07864",
-      "caption_vi": "Hình 4: (a) Đường cong mất mát không ổn định trong quá trình huấn luyện khi chưa có QKNorm & RMSNorm. (b) Tỷ lệ thành công của RDT (w/o MLP Decoder hoặc w/o ACI) trong các nhiệm vụ của Robot Dog (đi bộ thẳng sub-task) và Pour Water-L-1/3 (subtask số lượng chính xác). Tất cả các mô hình không được đào tạo trước trong thí nghiệm này do hạn chế về tài nguyên.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "257ad4600c3c2cf7d526ecca4dbc3f0da398262d417ed3475759771358627840"
+      "caption_vi": "Hình 4. Các thí nghiệm thay đổi thành phần mô hình. (a) Khi bỏ QKNorm và RMSNorm, đường loss lúc huấn luyện không ổn định. (b) Tỷ lệ thành công khi bỏ bộ giải mã MLP hoặc bỏ ACI, trên nhiệm vụ robot chó đi thẳng và rót đúng lượng nước. Do hạn chế tài nguyên, các cấu hình này đều huấn luyện không qua bước tiền huấn luyện; định nghĩa nhiệm vụ nằm ở Hình 5.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "257ad4600c3c2cf7d526ecca4dbc3f0da398262d417ed3475759771358627840",
+      "translation_reviewed": true
     },
     {
       "page": 8,
@@ -1958,9 +1983,10 @@
       "image": "/paper-figures/rdt-1b/figure-5.webp",
       "caption": "Figure 5: Task definitions and visualizations. For 7 challenging tasks, we describe their language instruction, randomization, and definitions of each sub-task. For Pour Water-L-1/3 and Pour Water-R- 2/3, we show the resulting water levels in two images.",
       "pdf": "https://arxiv.org/pdf/2410.07864",
-      "caption_vi": "Hình 5: Định nghĩa nhiệm vụ và hình dung. Đối với 7 nhiệm vụ đầy thách thức, chúng ta sẽ mô tả cách hướng dẫn ngôn ngữ, sự ngẫu nhiên hóa và định nghĩa của từng nhiệm vụ phụ. Với Pour Water-L-1/3 và Pour Water-R-2/3, chúng tôi hiển thị các mức nước trong hai hình ảnh.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "a50a22ed15dd3437560b65c1ae541e75f2b614f2c837066a2498b1d0ef9151f1"
+      "caption_vi": "Hình 5. Bảy nhiệm vụ khó dùng trong đánh giá RDT: hình mô tả câu lệnh, cách thay đổi tình huống ban đầu và từng bước cần hoàn thành. Với bài toán rót 1/3 hoặc 2/3 lượng nước từ hai phía, ảnh cho thấy mực nước cuối cùng để kiểm tra độ chính xác.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "a50a22ed15dd3437560b65c1ae541e75f2b614f2c837066a2498b1d0ef9151f1",
+      "translation_reviewed": true
     }
   ],
   "fast": [
@@ -1979,9 +2005,10 @@
       "image": "/paper-figures/fast/figure-1.webp",
       "caption": "Fig. 1: We propose FAST, a simple yet effective approach for tokenization of robot action trajectories via time-series compression. FAST enables training of autoregressive VLAs that solve complex dexterous manipulation tasks and gener- alize broadly to new scenes. We use it to train π0-FAST, a generalist robot policy that matches the performance of the state-of-the-art π0 diffusion VLA on dexterous and long- horizon manipulation tasks, while training 5x faster (top).",
       "pdf": "https://arxiv.org/pdf/2501.09747",
-      "caption_vi": "Hình 1: Chúng tôi đề xuất FAST, một phương pháp đơn giản nhưng hiệu quả để token hóa quỹ đạo hành động của robot thông qua nén chuỗi thời gian. FAST cho phép đào tạo các VLA tự tiến bộ giải quyết các nhiệm vụ thao tác khéo léo phức tạp và khái quát rộng rãi cho các cảnh mới. Chúng tôi sử dụng nó để huấn luyệnπ0-FAST, một chính sách robot tổng quát phù hợp với hiệu suất của VLA khuếch tánπ0 tiên tiến trên các nhiệm vụ thao tác chân trời dài và khéo léo, trong khi huấn luyện 5x nhanh hơn (trên cùng).",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "366861c7ea3ba734ee4fa22e27feba3b0c7f31eafbe92b47c81c775ff1355097"
+      "caption_vi": "Hình 1. FAST là cách chuyển chuỗi hành động robot thành token bằng nén tín hiệu theo thời gian. Nhờ đó có thể huấn luyện VLA sinh token tuần tự cho thao tác tinh vi và khái quát sang cảnh mới. Với cùng hướng tiếp cận, π0-FAST đạt kết quả ngang mô hình π0 dùng diffusion ở các nhiệm vụ nhiều bước và cần khéo léo, nhưng thời gian huấn luyện được báo cáo nhanh hơn khoảng năm lần.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "366861c7ea3ba734ee4fa22e27feba3b0c7f31eafbe92b47c81c775ff1355097",
+      "translation_reviewed": true
     },
     {
       "page": 2,
@@ -1998,9 +2025,10 @@
       "image": "/paper-figures/fast/figure-2.webp",
       "caption": "Fig. 2: Left: FAST tokenization enables training of autoregres- sive Transformers for dexterous robot control via simple next token prediction. Right: FAST outperforms popular binning tokenization schemes, e.g., used in OpenVLA [39], particu- larly for high-frequency robot data.",
       "pdf": "https://arxiv.org/pdf/2501.09747",
-      "caption_vi": "Hình 2: Bên trái: tokenization FAST cho phép đào tạo các biến đổi tự tiến bộ để điều khiển robot khéo léo thông qua dự đoán token tiếp theo đơn giản. Phải: FAST hoạt động tốt hơn các chương trình token hoá binning phổ biến, ví dụ, được sử dụng trong OpenVLA [39], đặc biệt là cho dữ liệu robot tần số cao.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "1da8edaa07207634fc6d4ebf2c77b02d2ede4c63fdf53b0cec1e925d9e98acb1"
+      "caption_vi": "Hình 2. Bên trái: nhờ FAST, Transformer tự hồi quy có thể học điều khiển robot bằng bài toán dự đoán token tiếp theo. Bên phải: FAST cho kết quả tốt hơn các phương pháp chia hành động liên tục thành các khoảng giá trị rời rạc, như cách dùng trong OpenVLA, đặc biệt khi dữ liệu robot có tần số ghi cao.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "1da8edaa07207634fc6d4ebf2c77b02d2ede4c63fdf53b0cec1e925d9e98acb1",
+      "translation_reviewed": true
     },
     {
       "page": 3,
@@ -2017,9 +2045,10 @@
       "image": "/paper-figures/fast/figure-3.webp",
       "caption": "Fig. 3: Effect of sampling rate on prediction performance. We train a small autoregressive transformer model on a didactic interpolation task, in which the network must predict the black dashed curve given the four circles. We find that models trained with the binning tokenization approach used in prior VLAs [10, 39] produce increasingly poor predictions as we increase the sampling frequency of the underlying signal, due to strong correlation between consecutive tokens at high frequencies. Our FAST tokenization approach, based on the discrete cosine transform (DCT), addresses the problem and leads to high-quality predictions across all sampling rates.",
       "pdf": "https://arxiv.org/pdf/2501.09747",
-      "caption_vi": "Hình 3: Ảnh hưởng của tỷ lệ lấy mẫu đến hiệu suất dự đoán. Chúng tôi huấn luyện một mô hình biến áp tự phát nhỏ trên một bài tập nội suy mô phạm, trong đó mạng lưới phải dự đoán đường cong đen đứt đoạn cho bốn vòng tròn. Chúng tôi thấy rằng các mô hình được huấn luyện với phương pháp token hoá binning được sử dụng trong các VLA trước đó [10, 39] tạo ra dự đoán ngày càng kém khi chúng tôi tăng tần suất lấy mẫu của cơ bản tín hiệu, do tương quan mạnh giữa các thẻ liên tiếp ở tần số cao. Phương pháp token hóa FAST của chúng tôi, dựa trên biến đổi cosin rời rạc (DCT), giải quyết vấn đề và dẫn đến dự đoán chất lượng cao trên tất cả các tốc độ lấy mẫu.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "eaa5f6a49a720aa2040a653ecdd786d7c6e2464b79bac0fd2073e5326e12ba45"
+      "caption_vi": "Hình 3. Ảnh hưởng của tần số lấy mẫu đến chất lượng dự đoán. Trong bài toán minh họa, mạng phải vẽ đường cong nét đứt màu đen đi qua bốn điểm tròn. Khi tăng số mẫu trên cùng chuyển động, cách chia mỗi giá trị vào các khoảng token rời rạc tạo nhiều token gần giống nhau và dự đoán ngày càng kém. FAST dùng biến đổi cosin rời rạc (DCT) để biểu diễn cả dạng đường cong, nên vẫn dự đoán tốt ở các tần số lấy mẫu được thử.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "eaa5f6a49a720aa2040a653ecdd786d7c6e2464b79bac0fd2073e5326e12ba45",
+      "translation_reviewed": true
     },
     {
       "page": 5,
@@ -2036,9 +2065,10 @@
       "image": "/paper-figures/fast/figure-4.webp",
       "caption": "Fig. 4: Overview of the FAST action tokenization pipeline. Given a normalized chunk of actions, we apply discrete cosine transform (DCT) to convert the signal to the frequency domain. We then quantize the DCT coefficients and use byte-pair encoding (BPE) to compress the flattened sequence of per-dimension DCT coefficients into the final action token sequence. See Section V-B for a detailed description.",
       "pdf": "https://arxiv.org/pdf/2501.09747",
-      "caption_vi": "Hình 4: Tổng quan về đường ống tokenization hành động FAST. Cho một đoạn hành động chuẩn hóa, chúng ta áp dụng biến đổi cosin rời rạc (DCT) để chuyển đổi tín hiệu sang miền tần số. Sau đó chúng tôi lượng tử hóa các hệ số DCT và sử dụng mã hóa cặp byte (BPE) để nén chuỗi dẹt của các hệ số DCT theo chiều vào chuỗi hiệu bài hành động cuối cùng. Xem mục V-B để biết mô tả chi tiết.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "4f32fbd82cc90e548ec99f95037c209a4b169cb4b70ce567c2b166f2c261dcf8"
+      "caption_vi": "Hình 4. Quy trình mã hóa hành động bằng FAST. Đầu tiên chuẩn hóa một đoạn chuỗi hành động; dùng biến đổi cosin rời rạc (DCT) chuyển tín hiệu từ miền thời gian sang miền tần số; lượng tử hóa các hệ số DCT; cuối cùng dùng mã hóa ghép cặp byte (BPE) để nén chuỗi hệ số của các chiều hành động thành token. Mục V-B giải thích chi tiết.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "4f32fbd82cc90e548ec99f95037c209a4b169cb4b70ce567c2b166f2c261dcf8",
+      "translation_reviewed": true
     },
     {
       "page": 6,
@@ -2055,9 +2085,10 @@
       "image": "/paper-figures/fast/figure-5.webp",
       "caption": "Fig. 5: Evaluation environments. We test FAST across 7 evaluation environments: 6 real-robot tasks and 1 simulation environment. The tasks are designed to test VLA performance on highly dexterous tasks, like folding cloths from a laundry basket (“Laundry Folding”), and generalization, e.g., zero-shot table-top manipulation in unseen environments (“DROID”).",
       "pdf": "https://arxiv.org/pdf/2501.09747",
-      "caption_vi": "Hình 5: Môi trường đánh giá. Chúng tôi kiểm tra FAST qua 7 môi trường đánh giá: 6 nhiệm vụ robot thực tế và 1 môi trường mô phỏng. Các tác vụ được thiết kế để kiểm tra hiệu suất VLA trên các tác vụ khéo léo cao, như gấp vải từ giỏ giặt (\"Laundry Folding\") và khái quát hoá, ví dụ, thao tác trên bàn không chụp trong môi trường vô hình (\"DROID\").",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "e7c92115d2f3fbf5b5323c8b09d93c59cff9f895b2f58c944f8cad57de06c4ad"
+      "caption_vi": "Hình 5. Bảy môi trường đánh giá FAST, gồm sáu nhiệm vụ robot thật và một môi trường mô phỏng. Các bài kiểm tra nhấn mạnh thao tác khó đòi độ khéo léo, như gấp quần áo trong giỏ giặt, và khả năng làm việc ở cảnh mới, như thao tác trên bàn chưa xuất hiện lúc huấn luyện trong DROID.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "e7c92115d2f3fbf5b5323c8b09d93c59cff9f895b2f58c944f8cad57de06c4ad",
+      "translation_reviewed": true
     },
     {
       "page": 8,
@@ -2074,9 +2105,10 @@
       "image": "/paper-figures/fast/figure-6.webp",
       "caption": "Fig. 6: Comparison of policy performance using different tokenization approaches. We find that tokenization approaches that compress action targets (FAST, FSQ) lead to substantially more efficient training than the na¨ıve binning tokenization used in prior VLAs. Overall, we find that FAST leads to more effective policy training than FSQ, particularly on dexterous real-robot tasks. Our universal tokenizer, FAST+, matches the performance of dataset-specific tokenizers. We report mean and 95% CI.",
       "pdf": "https://arxiv.org/pdf/2501.09747",
-      "caption_vi": "Hình 6: So sánh hiệu suất chính sách bằng cách sử dụng các phương pháp token hóa khác nhau. Chúng tôi thấy rằng các phương pháp tokenization nén các mục tiêu hành động (FAST, FSQ) dẫn đến đào tạo hiệu quả hơn đáng kể so với tokenization binning ngây thơ được sử dụng trong các VLA trước đó. Nhìn chung, chúng tôi thấy rằng FAST dẫn đến việc đào tạo chính sách hiệu quả hơn FSQ, đặc biệt là trên các nhiệm vụ robot thực tế khéo léo. Bộ tạo tiền ảo phổ quát của chúng tôi, FAST +, phù hợp với hiệu suất của các bộ tạo tiền ảo cụ thể theo bộ dữ liệu. Chúng tôi báo cáo trung bình và 95% CI.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "7b373c510d1d426359594b58cc992e55a29bd2a4d5d51ef53ab048dc0a7132ca"
+      "caption_vi": "Hình 6. So sánh chất lượng policy khi thay cách mã hóa hành động. Những cách nén chuỗi đích như FAST và FSQ giúp huấn luyện hiệu quả hơn nhiều so với chia từng giá trị thành các khoảng rời rạc. FAST hiệu quả hơn FSQ, đặc biệt ở thao tác robot thật cần độ khéo léo. FAST+ là bộ mã hóa dùng chung cho nhiều tập dữ liệu nhưng đạt hiệu quả ngang bộ mã hóa chuyên biệt từng tập. Biểu đồ dùng giá trị trung bình và khoảng tin cậy 95%.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "7b373c510d1d426359594b58cc992e55a29bd2a4d5d51ef53ab048dc0a7132ca",
+      "translation_reviewed": true
     },
     {
       "page": 8,
@@ -2093,9 +2125,10 @@
       "image": "/paper-figures/fast/figure-7.webp",
       "caption": "Fig. 7: Evaluation environments of FAST policy trained on DROID [38]. We find that the same policy checkpoint generalizes robustly, and performs various simple table-top tasks zero-shot across three university campuses.",
       "pdf": "https://arxiv.org/pdf/2501.09747",
-      "caption_vi": "Hình 7: Đánh giá môi trường của chính sách FAST được đào tạo về DROID [38]. Chúng tôi nhận thấy rằng cùng một checkpoint của policy có thể khái quát hóa mạnh mẽ và thực hiện nhiều nhiệm vụ đơn giản trên bàn ăn zero-shot (không huấn luyện bổ sung) ở ba trường đại học.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "474a71211339dda756fb395aaa938c51c617e56abbd52f0b075f71907f638642"
+      "caption_vi": "Hình 7. Các môi trường dùng thử policy FAST huấn luyện trên DROID. Cùng một checkpoint có thể thực hiện nhiều nhiệm vụ đơn giản trên bàn tại ba khuôn viên đại học khác nhau mà không cần huấn luyện thêm cho từng nơi.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "474a71211339dda756fb395aaa938c51c617e56abbd52f0b075f71907f638642",
+      "translation_reviewed": true
     },
     {
       "page": 8,
@@ -2112,9 +2145,10 @@
       "image": "/paper-figures/fast/figure-8.webp",
       "caption": "Fig. 8: Universal tokenizer. We test the compression rate achieved by our FAST+ tokenizer vs. na¨ıve tokenization across diverse robot datasets, unseen during tokenizer training. We find that FAST is effective across a wide range of robot morphologies, action spaces and control frequencies.",
       "pdf": "https://arxiv.org/pdf/2501.09747",
-      "caption_vi": "Hình 8: Trình tạo tiền ảo phổ quát. Chúng tôi kiểm tra tốc độ nén đạt được bằng trình tạo tiền ảo FAST + so với trình tạo tiền ảo ngây thơ trên các bộ dữ liệu robot khác nhau, không được nhìn thấy trong quá trình đào tạo trình tạo tiền ảo. Chúng tôi thấy rằng FAST có hiệu quả trên một phạm vi rộng các hình thái robot, không gian hành động và tần số điều khiển.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "6a1ea2d7c0fa74724e1eff0dbb98c38a43e3472dba0bd577519fb394d08c001c"
+      "caption_vi": "Hình 8. Bộ mã hóa hành động dùng chung FAST+. So sánh mức độ nén của FAST+ với cách mã hóa từng giá trị rời rạc trên nhiều tập dữ liệu robot chưa từng dùng để huấn luyện tokenizer. Kết quả cho thấy FAST dùng được với nhiều cấu trúc robot, dạng hành động và tần số điều khiển khác nhau.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "6a1ea2d7c0fa74724e1eff0dbb98c38a43e3472dba0bd577519fb394d08c001c",
+      "translation_reviewed": true
     },
     {
       "page": 9,
@@ -2131,9 +2165,10 @@
       "image": "/paper-figures/fast/figure-9.webp",
       "caption": "Fig. 9: Comparison of diffusion π0 [7] to our π0 model with FAST decoding on single-task training. On small datasets (Libero, T-Shirt Folding), both perform comparably. On large datasets (Table Bussing), FAST converges faster. In DROID, we find that FAST follows language instructions better. We report mean and 95% CI.",
       "pdf": "https://arxiv.org/pdf/2501.09747",
-      "caption_vi": "Hình 9: So sánh khuếch tánπ0 [7] với mô hìnhπ0 của chúng tôi với giải mã FAST trên huấn luyện một tác vụ. Trên các bộ dữ liệu nhỏ (Libero, T-Shirt Folding), cả hai đều hoạt động tương đương nhau. Trên các bộ dữ liệu lớn (Table Bussing), FAST hội tụ nhanh hơn. Trong DROID, chúng tôi thấy rằng FAST tuân theo các hướng dẫn ngôn ngữ tốt hơn. Chúng tôi báo cáo trung bình và 95% CI.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "f11da1fe22ec8265aaefdddc05b18b01ab7e061d6b9403e9440f620a88505865"
+      "caption_vi": "Hình 9. So sánh π0 dùng diffusion với phiên bản π0 giải mã bằng FAST trong huấn luyện từng nhiệm vụ. Ở tập nhỏ như LIBERO hoặc gấp áo phông, kết quả gần nhau. Ở tập lớn như dọn bàn, FAST hội tụ nhanh hơn. Trên DROID, FAST bám sát chỉ dẫn ngôn ngữ hơn. Biểu đồ thể hiện trung bình và khoảng tin cậy 95%.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "f11da1fe22ec8265aaefdddc05b18b01ab7e061d6b9403e9440f620a88505865",
+      "translation_reviewed": true
     },
     {
       "page": 10,
@@ -2150,9 +2185,10 @@
       "image": "/paper-figures/fast/figure-10.webp",
       "caption": "Fig. 10: Rollout of π0-FAST on the laundry folding task. FAST tokenization enables autoregressive VLAs to perform complex, long-horizon, and dexterous tasks that were impossible with previous tokenization schemes.",
       "pdf": "https://arxiv.org/pdf/2501.09747",
-      "caption_vi": "Hình 10: Xuất hiệnπ0-FAST trong nhiệm vụ gấp quần áo. Tiền ảo hóa FAST cho phép các VLA tự tiến triển thực hiện các nhiệm vụ phức tạp, tầm nhìn xa và khéo léo mà các sơ đồ tiền ảo hóa trước đó không thể thực hiện được.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "1fe2f27c040324f47d0f6e0617bd5d76c33216b397feb8432a6c2226152526d1"
+      "caption_vi": "Hình 10. Một lần chạy π0-FAST trong nhiệm vụ gấp đồ từ giỏ quần áo. Cách mã hóa FAST cho phép VLA tự hồi quy thực hiện chuỗi thao tác dài, phức tạp và tinh vi, vốn khó làm được với những cách mã hóa hành động trước đó.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "1fe2f27c040324f47d0f6e0617bd5d76c33216b397feb8432a6c2226152526d1",
+      "translation_reviewed": true
     },
     {
       "page": 10,
@@ -2169,9 +2205,10 @@
       "image": "/paper-figures/fast/figure-11.webp",
       "caption": "Fig. 11: Comparison of π0-FAST and diffusion π0 [7] generalist policies. π0-FAST matches the performance of diffusion π0 while requiring significantly less compute for training. Reported: mean and 95% CI.",
       "pdf": "https://arxiv.org/pdf/2501.09747",
-      "caption_vi": "Hình 11: So sánh chính sách tổng quátπ0-FAST và khuếch tánπ0 (7).π0-FAST phù hợp với hiệu suất khuếch tánπ0 trong khi yêu cầu tính toán ít hơn đáng kể cho đào tạo. Báo cáo: trung bình và 95% CI.",
-      "translation_method": "VietAI/envit5-translation (machine translation; requires review for jargon)",
-      "caption_sha256": "e689a4a15252c2b853a52a1b5293d477ee1888ce165a1715c6929d7249dff44f"
+      "caption_vi": "Hình 11. So sánh hai policy đa nhiệm π0-FAST và π0 dùng diffusion. π0-FAST đạt tỷ lệ thành công tương đương, trong khi cần ít năng lực tính toán hơn đáng kể để huấn luyện. Các cột/điểm được báo cáo theo giá trị trung bình và khoảng tin cậy 95%.",
+      "translation_method": "manual-editorial-from-original-english",
+      "caption_sha256": "e689a4a15252c2b853a52a1b5293d477ee1888ce165a1715c6929d7249dff44f",
+      "translation_reviewed": true
     }
   ],
   "groot-n1": [
