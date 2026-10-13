@@ -4,7 +4,7 @@
     "title": "Open X-Embodiment: học từ nhiều robot",
     "lead": "Một ảnh chiếc cốc có thể được dùng để dạy nhiều loại mô hình nhìn ảnh. Nhưng lệnh “dịch khớp số 3 thêm 0,1” không có cùng ý nghĩa trên hai tay máy khác nhau.",
     "items": [
-      "Tập hợp dữ liệu nhiều robot trước khi học cross-embodiment"
+      "Tập hợp dữ liệu từ nhiều loại robot trước khi huấn luyện chung"
     ],
     "intuition": "Điểm chính của công trình là dữ liệu đa tổ chức và kiểm tra khả năng chuyển giữa robot, không chỉ là thêm một tập dữ liệu thật lớn.",
     "detail": {
@@ -17,7 +17,7 @@
     "title": "Vì sao gom dữ liệu robot khó hơn gom ảnh?",
     "lead": "Một ảnh chiếc cốc có thể được dùng để dạy nhiều loại mô hình nhìn ảnh. Nhưng lệnh “dịch khớp số 3 thêm 0,1” không có cùng ý nghĩa trên hai tay máy khác nhau.",
     "items": [
-      "Train theo từng embodiment không tận dụng được kinh nghiệm cộng đồng"
+      "Huấn luyện riêng từng loại robot không tận dụng được dữ liệu từ các nhóm khác"
     ],
     "intuition": "Điểm chính của công trình là dữ liệu đa tổ chức và kiểm tra khả năng chuyển giữa robot, không chỉ là thêm một tập dữ liệu thật lớn.",
     "detail": {
@@ -30,7 +30,7 @@
     "title": "Hai robot không dùng cùng lệnh khớp",
     "lead": "Điểm chính của công trình là dữ liệu đa tổ chức và kiểm tra khả năng chuyển giữa robot, không chỉ là thêm một tập dữ liệu thật lớn.",
     "items": [
-      "Tập hợp dữ liệu nhiều robot trước khi học cross-embodiment",
+      "Tập hợp dữ liệu từ nhiều loại robot trước khi huấn luyện chung",
       "Dùng thống nhất giao diện dữ liệu và co-huấn luyện để test transfer thật."
     ],
     "intuition": "Một ảnh chiếc cốc có thể được dùng để dạy nhiều loại mô hình nhìn ảnh. Nhưng lệnh “dịch khớp số 3 thêm 0,1” không có cùng ý nghĩa trên hai tay máy khác nhau. Robot A dùng kẹp hai ngón, robot B có bàn tay nhiều khớp; số chiều và đơn vị lệnh cũng khác.",
@@ -213,7 +213,7 @@
       },
       {
         "label": "Phê bình độc lập",
-        "value": "Phê bình: tập dữ liệu imbalance có thể làm robot nhiều dữ liệu lấn át robot hiếm; schema là một phần khó nhất của scale."
+        "value": "Phê bình: dữ liệu mất cân bằng có thể khiến robot nhiều mẫu lấn át robot hiếm; thống nhất cấu trúc dữ liệu là trở ngại lớn khi mở rộng."
       }
     ],
     "intuition": "Ngoài ra, sự đa dạng robot không tự bảo đảm robot đích có đủ cơ cấu cho thao tác, ví dụ tay kẹp cứng không thể bắt chước bàn tay nhiều ngón trong mọi tình huống.",
@@ -248,7 +248,7 @@
     "lead": "Giả sử có robot A và B khác số khớp, nhưng cùng có thể nhặt cốc. Ghi những thông tin chung có thể dùng lại: ảnh vật, đích đến, thời điểm kẹp. Tiếp theo ghi những thứ không thể sao chép thẳng: góc khớp, giới hạn hành trình và kích thước kẹp.",
     "items": [
       "Đầu tư quy trình curation/normalization trước khi trộn dữ liệu.",
-      "Đừng đánh giá cross-embodiment bằng cách train/test cùng platform."
+      "Không thể kiểm tra khả năng chuyển sang robot khác nếu chỉ học và đánh giá trên cùng một robot."
     ],
     "intuition": "So chính sách điều khiển B chỉ học dữ liệu B với chính sách điều khiển B được bổ sung dữ liệu A sau khi chuyển đổi hợp lệ. Đánh giá cùng vật và bố cục mới; như vậy mới đo được lợi ích của học chung.",
     "detail": {
