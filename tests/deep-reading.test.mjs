@@ -147,6 +147,31 @@ test("Vietnamese proofreading does not reintroduce machine-like translations",()
   assert.doesNotMatch(octo,/^chính sách điều khiển từng học/gm);
 });
 
+test("Qwen-VLA walkthrough distinguishes training tracks and source-matched benchmarks",()=>{
+  const slug="qwen-vla";
+  const chapter=fs.readFileSync(path.join(root,"content/papers",slug+".md"),"utf8");
+  const slides=JSON.parse(fs.readFileSync(path.join(root,"content/slides",slug+".json"),"utf8"));
+  const audit=fs.readFileSync(path.join(root,"docs/paper-source-verification.md"),"utf8");
+  // Source of truth: https://arxiv.org/html/2605.30280 (v2); Table 5/6/11/12, Figures 6/7.
+  for(const number of ["83,6%", "48,5%", "76,9%", "36,2%", "26,6%", "71,1%", "60,9%"]){
+    assert.ok(chapter.includes(number),"Qwen-VLA missing checked figure/table number: "+number);
+  }
+  assert.match(chapter,/RL[^\\n]{0,450}(?:SimplerEnv|mô phỏng)/);
+  assert.match(chapter,/trạng thái góc khớp có phải đầu vào bắt buộc không\\?/i);
+  assert.match(chapter,/Bảng 12/);
+  assert.match(chapter,/ROBOINF/);
+  assert.match(chapter,/20% dữ liệu tổng hợp \\+ 80% dữ liệu thật/);
+  assert.match(chapter,/không phải.*ALOHA thật/);
+  assert.match(chapter,/86,3% xuống 86,1%/);
+  assert.match(slides[4].detail.text,/SimplerEnv/);
+  assert.match(slides[10].detail.text,/48,5%/);
+  assert.match(slides[11].detail.text,/RoboCasa-GR1/);
+  assert.match(slides[12].detail.text,/ALOHA thật/);
+  assert.match(figures[slug].find(x=>x.number===6).caption_vi,/10\\.000 bước giảm còn 67,2%/);
+  assert.ok(audit.includes("ĐÃ XÁC MINH"),"Qwen-VLA audit still marked unverified");
+  assert.doesNotMatch(audit,/CẦN KIỂM TRA THÊM TRÊN PDF TOÀN VĂN|không truy cập đủ \\*\\*34 trang PDF gốc/);
+});
+
 test("all figure translations are editorial, distinct from their original English",()=>{
   const entries=Object.values(figures).flat();
   assert.equal(entries.length,167);
