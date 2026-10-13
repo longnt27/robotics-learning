@@ -20,10 +20,6 @@ Khó khăn là **action semantics không đồng nhất**. Một vector 7 chiề
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/qwen-vla/figure-1.webp)
 
 
-#### Đọc hình gốc: bối cảnh và đóng góp
-
-Hình 1 là bản đồ của một mô hình embodied chung có cả manipulation, navigation và vision-language understanding. Những khả năng này không có cùng action space hay mức supervision. Quan sát từ camera, mô tả embodiment, instruction và điều kiện nhiệm vụ phải được căn chỉnh để action decoder biết đang phục vụ robot nào. Nếu chỉ nhìn một backbone lớn rồi kết luận policy chạy trên mọi robot, ta đã bỏ qua lớp action interface và việc dữ liệu đến từ các nhóm nhiệm vụ rất khác nhau.
-
 ### Vì sao một mô hình cần hiểu nhiều loại nhiệm vụ robot?
 
 Một robot có thể được giao “Nhặt chiếc cốc đỏ”, “Đi tới cạnh bàn” hoặc “Chiếc cốc nào gần cửa hơn?”. Các yêu cầu có đầu ra khác nhau: thao tác tay, điều hướng hoặc câu trả lời. Nếu mỗi loại dùng mạng hoàn toàn riêng, dữ liệu và kiến thức khó chia sẻ. Qwen-VLA nghiên cứu một mô hình có thể học từ nhiều nhóm dữ liệu, kết hợp hiểu ảnh–ngôn ngữ với sinh hành động robot.
@@ -73,14 +69,6 @@ instruction + embodiment description + visual input
 
 ![Hình 2 gốc từ PDF bài báo, trang 6](/paper-figures/qwen-vla/figure-2.webp)
 
-
-#### Đọc hình gốc: từng thành phần và luồng thông tin
-
-Hình 2 giải thích recipe huấn luyện nhiều giai đoạn, đặc biệt T2A trước khi huấn luyện policy có điều kiện đầy đủ theo ảnh: action decoder học cấu trúc của chuỗi hành động trước, sau đó mới kết hợp sâu với tín hiệu vision-language. Hãy phân biệt pretraining một action prior với bằng chứng robot có thể grounding tốt vào ảnh. Model có thể sinh quỹ đạo khá trơn từ text nhưng chưa chắc đúng với vật thể hiện tại; conditioning từ ảnh và state mới giúp chọn chuyển động phù hợp tình huống.
-
-#### Ví dụ từng bước để hiểu cơ chế
-
-Tạo một ví dụ chung lệnh 'đưa tay tới cốc' ở hai robot: robot A đặt cạnh bàn, robot B có camera khác và gripper khác. Trước hết xác nhận output action thuộc đúng hệ quy chiếu của mỗi robot; tiếp theo đặt cùng một lệnh nhưng đổi ảnh cốc từ trái sang phải, xem hướng action có đổi không. Đánh giá loss T2A riêng, loss action condition on vision riêng và rollout success riêng. Nếu T2A tốt mà robot vẫn đưa tay lệch, cần kiểm tra visual grounding hoặc action conversion trước khi kết luận action prior vô dụng.
 
 ### Một lệnh điều khiển được hình thành ra sao?
 

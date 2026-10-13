@@ -12,10 +12,6 @@ Thu hàng trăm nghìn lượt robot làm việc trong những căn bếp thật
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/robocasa/figure-1.webp)
 
 
-#### Đọc hình gốc: bối cảnh và đóng góp
-
-Hình 1 trình bày các trụ cột của RoboCasa: nhiều căn bếp, nhiều vật thể và nhiệm vụ gia đình trong mô phỏng để huấn luyện/đánh giá robot đa năng. Giá trị của nó không nằm ở một ảnh căn bếp chân thực, mà ở khả năng sinh có quy tắc những tổ hợp environment/task thay vì hard-code một vài scene. Khi dùng nó làm benchmark, phải biết seed và split nào tạo ra những layout quen thuộc, layout mới và object distribution mới.
-
 ### Vì sao robot cần luyện trong nhiều căn bếp?
 
 Dạy robot mở ngăn kéo trong một căn bếp mẫu không có nghĩa nó sẽ mở được mọi ngăn kéo. Tay nắm có thể khác, đồ vật đặt ở vị trí mới, lò vi sóng có cửa mở hướng khác. Thu đủ demonstration ngoài đời cho mọi biến thể rất tốn kém. **RoboCasa tạo nhiều căn bếp, đồ vật và nhiệm vụ trong mô phỏng** để robot được thực hành trước khi chuyển sang môi trường mới.
@@ -57,14 +53,6 @@ Bản công bố có hơn **100.000 quỹ đạo**. Khi huấn luyện, một nh
 
 ![Hình 3 gốc từ PDF bài báo, trang 4](/paper-figures/robocasa/figure-3.webp)
 
-
-#### Đọc hình gốc: từng thành phần và luồng thông tin
-
-Hình 3 là những floor plan căn bếp khác nhau. Nó giải thích một dạng domain shift thường bị bỏ quên trong tabletop manipulation: robot có thể cần di chuyển giữa tủ, chậu rửa và bếp nấu trong một bố cục mới. Nếu policy chỉ học hình học của một nhà bếp, nó có thể ghi nhớ đường đi thay vì học cách chọn mục tiêu theo instruction. Procedural generation giúp tạo split theo layout và thử khả năng khái quát không gian.
-
-#### Ví dụ từng bước để hiểu cơ chế
-
-Giả sử nhiệm vụ 'lấy đĩa trong tủ rồi đặt vào bồn rửa'. Tạo ba layout bếp: tủ trên cùng một bức tường, tủ ở góc chữ L, tủ ở đảo bếp. Giữ nguyên instruction và loại vật thể, chỉ đổi vị trí hình học. So success rate theo từng layout và tách lỗi tìm tủ, mở cửa, grasp/transport, đặt đĩa. Nếu chỉ đánh giá trên những layout train, model có thể đạt điểm cao bằng cách nhớ vị trí cố định; held-out floor plan mới trả lời câu hỏi về spatial generalization.
 
 ### Mô phỏng được biến thành dữ liệu huấn luyện ra sao?
 

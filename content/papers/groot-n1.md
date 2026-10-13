@@ -22,10 +22,6 @@ NVIDIA chọn kiến trúc hai hệ thống: một phần hiểu thông tin và 
 ![Hình 1 gốc từ PDF bài báo, trang 2](/paper-figures/groot-n1/figure-1.webp)
 
 
-#### Đọc hình gốc: bối cảnh và đóng góp
-
-Hình 1 là tháp dữ liệu, không phải sơ đồ network. Ở đáy có những nguồn nhiều nhưng không mang đầy đủ action label robot; phía trên là các loại dữ liệu gần nhiệm vụ và embodiment hơn, thường đắt hơn. Ý tưởng cốt lõi: không thể đòi mọi video người ngoài đời cung cấp joint torque của một humanoid. Mỗi tầng dữ liệu nên cung cấp tín hiệu supervision phù hợp với thứ thực sự quan sát được. Đó là lý do cần đọc data recipe song song với kiến trúc dual-system.
-
 ### Vì sao robot hình người không thể chỉ học từ một tập demonstration nhỏ?
 
 Robot hai tay, robot di động và robot hình người có số khớp, kiểu kẹp và cảm biến rất khác nhau. Thu hàng triệu lượt thực hành đúng với mỗi phần cứng sẽ cực kỳ tốn kém. GR00T N1 tìm cách khai thác nhiều tầng dữ liệu: video người dễ thu, video tạo tổng hợp, demonstration robot nhiều loại và dữ liệu chi tiết của robot mục tiêu.
@@ -96,14 +92,6 @@ camera + instruction + robot state
 
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/groot-n1/figure-2.webp)
 
-
-#### Đọc hình gốc: từng thành phần và luồng thông tin
-
-Hình 2 mới là sơ đồ GR00T N1: thành phần thị giác–ngôn ngữ tạo context, action expert biến context thành trajectory liên tục. System 2 ở đây là mô hình hiểu ảnh/lệnh, không phải lời tự thoại suy luận; System 1 dùng cơ chế sinh action như flow để thực thi. Cần phân biệt action chunk output, điều kiện robot state và quá trình lấy mẫu. Nếu gặp claim về latency, kiểm tra nó tính riêng sampler hay cả encode ảnh và servo loop.
-
-#### Ví dụ từng bước để hiểu cơ chế
-
-Giả sử lệnh là cầm chiếc cốc, đặt lên khay. Bộ phận VLM phải phân biệt đâu là cốc, đâu là khay, đâu là constraint ngôn ngữ; action expert phải tạo đường đi khớp/EEF phù hợp với robot hiện tại. Video người có thể hỗ trợ prior về ngữ cảnh và chuyển động, nhưng không trực tiếp chỉ ra torque của khớp robot. Vì vậy khi huấn luyện và fine-tune cần chọn đúng nguồn supervision, coordinate transform và embodiment adapter. Một chính sách có vẻ hiểu lệnh mà gripper không đóng đúng lúc vẫn không giải được nhiệm vụ.
 
 ### Những gì diễn ra từ câu lệnh đến lệnh motor
 

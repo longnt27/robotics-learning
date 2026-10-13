@@ -7,10 +7,6 @@
 ![Hình 1 gốc từ PDF bài báo, trang 2](/paper-figures/rdt-1b/figure-1.webp)
 
 
-#### Đọc hình gốc: bối cảnh và đóng góp
-
-Hình 1 là sơ đồ diffusion Transformer khoảng một tỷ tham số có điều kiện theo dữ liệu quan sát và ngôn ngữ để sinh action cho hai tay. Đọc sơ đồ từ image/state/language condition tới chuỗi action được denoise thay vì nghĩ rằng tất cả khối mạng đều trực tiếp phát joint command. Sự khác biệt chính so với một mạng hồi quy đơn là mô hình học một phân phối chuỗi chuyển động khả thi; với thao tác hai tay, tính phối hợp theo thời gian có thể quan trọng không kém độ chính xác ở một timestep.
-
 ### Vì sao thao tác hai tay có nhiều cách đúng hơn?
 
 Một robot một tay gắp khối có thể tiếp cận từ vài hướng. Robot hai tay còn phải quyết định tay nào giữ, tay nào di chuyển, có chuyển vật từ tay này sang tay kia không. Cùng một đích có thể có rất nhiều chuỗi cử động hợp lệ. Nếu mạng lấy trung bình những chuỗi khác nhau, hai tay có thể đi vào nhau hoặc làm rơi vật.
@@ -57,14 +53,6 @@ Mạng nhận ảnh, lệnh ngôn ngữ, trạng thái robot và một chuỗi h
 
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/rdt-1b/figure-2.webp)
 
-
-#### Đọc hình gốc: từng thành phần và luồng thông tin
-
-Hình 2 đối chiếu sự phức tạp của bimanual manipulation với một tay: hai nhánh kinematics cùng tiếp xúc một vật và ảnh hưởng lẫn nhau. Một tay nhấc vật trong khi tay kia giữ hoặc căn chỉnh vị trí có thể tạo lực và ràng buộc khác hoàn toàn một tay tự thao tác. Đây là lý do hình học, action representation và đồng bộ timing của hai tay cần được xem kỹ khi đọc RDT-1B. Một action vector dài không tự bảo đảm mô hình hiểu constraints giữa hai gripper.
-
-#### Ví dụ từng bước để hiểu cơ chế
-
-Ví dụ hai tay giữ hai đầu một thanh dài và đặt vào gá. Nếu dự đoán tay trái/pha nâng độc lập với tay phải, thanh có thể nghiêng và va chạm. Ta có thể biểu diễn một action chunk liên tục cho tất cả khớp hai tay, thêm condition từ ảnh và proprioception, rồi sampling bằng diffusion để tìm quỹ đạo nhất quán. Nhưng performance không chỉ nằm ở chất lượng score model: action cần đưa về đúng joint range và controller phải giữ tương tác cơ học ổn định. Đo task success, alignment error, collision và jerk chứ không chỉ denoising MSE.
 
 ### Từ ảnh, câu lệnh và nhiễu đến hai tay robot
 

@@ -7,10 +7,6 @@ Một mô hình VLA mạnh nhưng không có mã nguồn và checkpoint sẽ r�
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/openvla/figure-1.webp)
 
 
-#### Đọc hình gốc: bối cảnh và đóng góp
-
-Hình 1 giới thiệu OpenVLA theo cách nên đọc từ dữ liệu huấn luyện tới khả năng sử dụng: VLA 7B học trên gần một triệu robot episodes thuộc tập Open X-Embodiment, rồi được fine-tune cho task và robot đích. Đây là bằng chứng về một recipe mở có khả năng tái sử dụng chứ không phải tuyên bố chỉ tải checkpoint là sẽ điều khiển ngay mọi phần cứng. Ngay trong hình, hãy phân biệt phần học tri thức thị giác-ngôn ngữ trước đó với supervision từ robot, bởi kiến thức nhìn vật thể và khả năng thực sự kẹp/di chuyển vật thể là hai thứ khác nhau.
-
 ### Vì sao một mô hình VLA nguồn mở đáng chú ý?
 
 Một nhóm nghiên cứu muốn dạy robot nhặt đồ có thể phải tự thu dữ liệu lớn và tự thiết kế mạng từ đầu. OpenVLA cung cấp mô hình đã được huấn luyện trên gần một triệu lượt robot cùng mã nguồn và checkpoint công khai. Người dùng có thể **tinh chỉnh mô hình nền bằng dữ liệu robot của mình** thay vì bắt đầu từ số không.
@@ -51,14 +47,6 @@ Nhóm tác giả còn thử nhiều phương án tinh chỉnh: cập nhật toà
 
 ![Hình 2 gốc từ PDF bài báo, trang 4](/paper-figures/openvla/figure-2.webp)
 
-
-#### Đọc hình gốc: từng thành phần và luồng thông tin
-
-Hình 2 là chỗ phải hiểu đường đi của action: ảnh quan sát và lệnh ngôn ngữ đi qua VLM, decoder sinh các token tương ứng với những chiều trong action robot, và bước giải mã chuyển token trở lại lệnh điều khiển 7 chiều. Đây không phải sinh văn bản 'nhặt cốc' rồi robot tự biết làm. Action tokenization phải có quy tắc discretization, normalization và thứ tự chiều nhất quán với dataloader lẫn executor. Nếu lẫn giá trị gripper với rotation, mô hình vẫn có thể cho ra token hợp lệ nhưng hành động sẽ sai.
-
-#### Ví dụ từng bước để hiểu cơ chế
-
-Ví dụ dùng một trajectory có delta position xyz, delta rotation ba chiều và gripper. Đầu tiên encode action thật thành token ID theo đúng bin và cách chuẩn hóa của OpenVLA; sau đó decode lại mà chưa chạy model để đo quantization error. Tiếp theo cố định ảnh, thay instruction, xem distribution của action tokens có đổi tương ứng hay không. Cuối cùng fine-tune trên một tập demonstration nhỏ và so với random initialization; so accuracy token, sai số action liên tục sau decode và rollout success. Những phép thử này tách lỗi tokenizer khỏi lỗi semantic grounding và lỗi control.
 
 ### Một lần chạy mô hình trên robot diễn ra ra sao?
 

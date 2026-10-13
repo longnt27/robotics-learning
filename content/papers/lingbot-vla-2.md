@@ -18,10 +18,6 @@ Một công ty có thể thu hàng chục nghìn giờ robot thao tác mà mô h
 ![Hình 1 gốc từ PDF bài báo, trang 2](/paper-figures/lingbot-vla-2/figure-1.webp)
 
 
-#### Đọc hình gốc: bối cảnh và đóng góp
-
-Hình 1 tóm bốn mảnh ghép trong LingBot-VLA 2.0: tuyển lọc dữ liệu, chuẩn hoá action space 55 chiều, mở rộng action expert bằng sparse MoE và học biểu diễn trạng thái tương lai. Đọc hình như một hệ thống engineering research, không phải một block thần kỳ. Figure chỉ cho thấy các phần được ghép với nhau; muốn biết phần nào thực sự tạo gain phải xem ablation tách riêng data curation, normalization, MoE và predictive objective.
-
 ### Vì sao nhiều giờ dữ liệu vẫn chưa đủ để robot làm tốt?
 
 Một công ty thu hàng chục nghìn giờ demonstration từ nhiều kiểu robot. Nhưng video có thể bị lệch thời gian, hành động dùng nhiều đơn vị khác nhau và dữ liệu các việc thường gặp áp đảo việc hiếm. Nếu trộn nguyên tất cả vào mạng lớn, model có thể học cả lỗi và sự thiên lệch. LingBot-VLA 2.0 giải vấn đề ở **toàn quy trình**, từ tuyển lọc dữ liệu, biểu diễn hành động đến kiến trúc sinh lệnh và học dự đoán tương lai.
@@ -89,14 +85,6 @@ arm | EEF | gripper | fingers | waist | head | base | reserved
 
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/lingbot-vla-2/figure-2.webp)
 
-
-#### Đọc hình gốc: từng thành phần và luồng thông tin
-
-Hình 2 trực quan hoá tập dữ liệu nhiều robot, với kinematics và degrees of freedom khác nhau. Chính hình này giải thích vì sao 55D chỉ là schema/padded container: cùng slot 'arm joint' không bảo đảm cùng ý nghĩa cơ học ở hai robot. Masking, action units, frame transforms và mapping từ joint/EEF tới actuator thật phải được thiết kế rõ. Data pipeline càng đa dạng, nguy cơ lệch schema và gán nhãn sai càng đáng sợ; chỉ thêm parameters không sửa được những lỗi đó.
-
-#### Ví dụ từng bước để hiểu cơ chế
-
-Ví dụ xây hai robot giả lập: A có 7D EEF/gripper, B có 14D joint targets. Cả hai được đưa vào 55D có mask theo bộ phận, và target được normalize riêng theo convention. Kiểm tra encode→decode phải khôi phục action hợp lệ trước khi train. Sau đó dùng một action expert dense nhỏ làm baseline, đổi sang shared+routed MoE với active compute tương đương, theo dõi validation action error và router load balance. Cuối cùng mới thêm future-feature prediction bằng teacher cố định và kiểm tra nó có thật sự cải thiện các episode cần dự đoán hậu quả tiếp xúc không. Nếu thay tất cả cùng lúc, con số thành công không thể quy cho MoE.
 
 ### Từng phần trong pipeline LingBot hoạt động ra sao?
 

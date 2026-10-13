@@ -13,10 +13,6 @@ Robot có thể tạo hàng chục lệnh điều khiển mỗi giây. Nếu bi�
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/fast/figure-1.webp)
 
 
-#### Đọc hình gốc: bối cảnh và đóng góp
-
-Hình 1 giải thích lý do FAST tồn tại: action liên tục có tần số cao nhưng token autoregressive được sinh tuần tự, khiến chuỗi dài, tốn thời gian và khó scale. FAST tận dụng đặc trưng trơn theo thời gian của trajectory, dùng biến đổi miền tần số rồi lượng tử hóa các hệ số quan trọng. Khi hành động thay đổi tương đối chậm, phần lớn tín hiệu nằm ở tần số thấp; ta không nhất thiết cần một token cho từng giá trị joint ở từng frame.
-
 ### Vì sao dự đoán token hành động có thể quá chậm?
 
 Giả sử robot di chuyển tay theo một đường cong mượt, được ghi lại hàng trăm lần mỗi giây. Nếu mỗi giá trị lệnh được biến thành một token riêng, mô hình phải dự đoán rất nhiều token gần như giống nhau. Chuỗi dài khiến huấn luyện chậm và dễ sai ở tần số cao. **FAST tìm cách nén cả chuỗi hành động theo thời gian trước khi chuyển thành token**, thay vì mã hóa từng mẫu riêng lẻ.
@@ -65,14 +61,6 @@ Bản **FAST+** được huấn luyện trên khoảng **một triệu quỹ đ�
 
 ![Hình 2 gốc từ PDF bài báo, trang 2](/paper-figures/fast/figure-2.webp)
 
-
-#### Đọc hình gốc: từng thành phần và luồng thông tin
-
-Hình 2 mô tả nơi FAST đứng trong VLA autoregressive: trước khi model dự đoán next token, trajectory đã được nén thành một chuỗi biểu diễn gọn hơn. Sau sampling phải giải mã về action liên tục đúng shape, đơn vị và horizon. Điều này khác hẳn việc thay robot controller bằng Transformer; model học phân phối trên mã hành động, còn decoder phải khôi phục lệnh có thể thực thi.
-
-#### Ví dụ từng bước để hiểu cơ chế
-
-Thử một trajectory 50 timestep và 7 chiều có chuyển động trơn. Chạy DCT theo trục thời gian, sắp xếp hệ số theo tần số, chỉ giữ những hệ số cần thiết rồi inverse DCT. Đo sai số tái tạo từng joint, đặc biệt đoạn tiếp xúc hoặc chuyển gripper trạng thái. Sau đó thử quỹ đạo có va đập/ngắt quãng: tín hiệu nhiều high frequency có thể mất nhiều thông tin hơn ở cùng compression ratio. Đây là cách hiểu trade-off của FAST chứ không chỉ nhìn vào token-count reduction.
 
 ### FAST mã hóa và giải mã một đoạn hành động
 

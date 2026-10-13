@@ -25,10 +25,6 @@ Vì vậy vấn đề bài báo thật sự giải không phải chỉ **độ t
 ![Hình 1 gốc từ PDF bài báo, trang 1](/paper-figures/rtc-inference/figure-1.webp)
 
 
-#### Đọc hình gốc: bối cảnh và đóng góp
-
-Hình 1 minh hoạ nhiệm vụ robot cần phối hợp liên tục dù policy sinh action chunk chậm, chẳng hạn đánh lửa bằng diêm. Với hành động nhạy thời gian, đứng yên đợi một inference mới có thể phá timing hoặc contact. RTC cho robot tiếp tục thực thi chunk cũ trong khi model tính chunk mới, nhưng phải đảm bảo lệnh mới nối được với những action đã cam kết. Đó là lý do đây là bài toán điều khiển thời gian thực chứ không chỉ tối ưu throughput của GPU.
-
 ### Vấn đề không chỉ là mô hình chậm
 
 Robot cần lệnh mới ở tần số 50 Hz, tức mỗi 20 mili giây. Nhưng mô hình VLA có thể mất 100–300 mili giây để sinh một đoạn hành động. Nếu bắt robot đứng yên chờ, việc quẹt diêm, rót chất lỏng hoặc giữ vật có thể bị hỏng giữa chừng. Nếu để robot tiếp tục đoạn cũ rồi lập tức chuyển sang đoạn mới, lại có nguy cơ giật mạnh vì hai đoạn được tính từ quan sát khác nhau.
@@ -93,14 +89,6 @@ NEW ACTION HORIZON
 
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/rtc-inference/figure-2.webp)
 
-
-#### Đọc hình gốc: từng thành phần và luồng thông tin
-
-Hình 2 thể hiện một trường hợp hai action chunks phân nhánh khi inference bắt đầu giữa chuỗi và chunk mới không biết chính xác robot đã đi được tới đâu. Những bước trong chunk cũ vốn đã thực thi không thể sửa bằng cách tái tạo ảnh cũ. RTC dùng điều kiện prefix/inpainting để ràng buộc các hành động đã cam kết, đồng thời sinh postfix phù hợp sau điểm nối. Đây là nơi cần phân biệt độ trễ sampling với độ trễ camera/controller: estimator sai ở một trong hai cũng khiến prefix lệch thực tế.
-
-#### Ví dụ từng bước để hiểu cơ chế
-
-Giả sử controller chạy 50 Hz, tức mỗi action cách nhau 20 ms. Policy bắt đầu tính chunk mới nhưng mất 160 ms mới trả kết quả: trong thời gian ấy robot đã thực thi thêm khoảng 8 action cũ. Không thể đơn giản thay toàn bộ chunk từ timestep ban đầu, vì 8 bước đầu đã xảy ra. Hãy đưa prefix gồm các action cam kết vào điều kiện sinh chunk mới, rồi kiểm tra tính liên tục tại mốc nối và task success dưới nhiều mức latency giả lập. Đây là phép kiểm tra đúng bản chất RTC, không chỉ xem video có giật hay không.
 
 ### RTC trong một vòng điều khiển thực tế
 

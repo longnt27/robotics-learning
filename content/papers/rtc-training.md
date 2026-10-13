@@ -11,10 +11,6 @@ Bài học rộng hơn là **đưa giới hạn của hệ thống thực vào b
 ![Hình 1 gốc từ PDF bài báo, trang 2](/paper-figures/rtc-training/figure-1.webp)
 
 
-#### Đọc hình gốc: bối cảnh và đóng góp
-
-Hình 1 cho thấy hai action chunk chồng lên nhau và đoạn d action đầu tiên của chunk mới bị ràng buộc bởi các lệnh từ chunk trước đã phát ra. Trong một hệ thực tế, đây không phải optional smoothing: actuator không thể hoàn tác một chuyển động đã xảy ra trong lúc GPU còn tính toán. Training-time RTC muốn dạy model coi phần prefix ấy là điều kiện thay vì để inference tự tối ưu tốn kém mỗi lần nhận chunk mới.
-
 ### Tại sao RTC phiên bản đầu vẫn tốn công lúc chạy?
 
 RTC ở thời điểm suy luận có thể lấy một mạng sinh hành động đã học trước rồi thêm ràng buộc để nối đoạn. Nhưng khi quá trình sinh phải chỉnh nhiều lần để giữ phần đã cam kết, chi phí tính toán tăng. **Training-time RTC chuyển việc học cách tôn trọng tiền tố sang giai đoạn huấn luyện**, để đến lúc chạy mô hình biết sinh phần tương lai từ các lệnh đã biết.
@@ -75,14 +71,6 @@ loss:    only postfix positions
 
 ![Hình 2 gốc từ PDF bài báo, trang 2](/paper-figures/rtc-training/figure-2.webp)
 
-
-#### Đọc hình gốc: từng thành phần và luồng thông tin
-
-Hình 2 trình bày chỗ conditioning được gắn vào action expert dạng diffusion Transformer: những action đã cam kết được mã hoá/mask và đưa vào mô hình để sinh phần postfix tương thích. Điều này khác hard-overwrite output ở cuối: model phải nhìn prefix trong quá trình học để tạo quỹ đạo còn lại hợp lý. Vì prefix đã thuộc runtime, cần sampling nhiều độ dài chờ và nhiều trạng thái nối trong training, tránh để mô hình chỉ thành thạo một trường hợp latency cố định.
-
-#### Ví dụ từng bước để hiểu cơ chế
-
-Tưởng tượng action chunk dài 32 và inference mới đến muộn 6 tick. Sáu lệnh đầu không thể sửa; cách naive cắt ghép có thể tạo cú nhảy giữa lệnh thứ 6 và thứ 7. Trong training, lấy demonstration chunk, đánh dấu một prefix dài d, đưa prefix vào condition cùng ảnh/state rồi yêu cầu model dự đoán phần còn lại sao cho khớp cả task và trạng thái cam kết. Đánh giá d=0,4,8,12, xem success, jerk ở boundary và inference latency. Nếu model chỉ tốt d=0, nó chưa học được mục tiêu của training-time RTC.
 
 ### Huấn luyện bộ sinh để hiểu những lệnh đã cam kết
 
