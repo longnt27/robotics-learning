@@ -44,7 +44,7 @@
     "title": "Hình dung chuyển động theo đường cong",
     "lead": "Bạn có bốn điểm mốc và muốn mô tả một đường cong đi qua chúng. Nếu viết vị trí tại từng phần nghìn giây, bạn sẽ có một danh sách rất dài dù hình dạng tổng thể đơn giản.",
     "items": [
-      "Nén đoạn hành động trong miền tần số để autoregressive VLA cần ít token hơn nhiều."
+      "Nén cả đoạn chuyển động thành ít token để mô hình sinh tuần tự xử lý nhanh hơn."
     ],
     "intuition": "Hình 3 thử tăng tần số lấy mẫu của đường cong. Cách chia giá trị từng bước thành khoảng rời rạc hoạt động ngày càng kém, trong khi FAST giữ dự đoán tốt hơn. Đây là một ví dụ sáng rõ về vấn đề biểu diễn, không cần nhớ công thức DCT ngay từ đầu.",
     "detail": {
@@ -84,7 +84,7 @@
       "đoạn hành động T × D",
       "Discrete Cosine Transform",
       "Quantize hệ số",
-      "Ít autoregressive tokens"
+      "Ít token cần dự đoán hơn"
     ],
     "intuition": "Khi chạy, những token dự đoán được giải mã ngược: BPE → hệ số lượng tử → khôi phục hệ số → DCT ngược → chuỗi hành động theo thời gian → giải chuẩn hóa. Chỉ khi hoàn thành cả hai chiều chuyển đổi, robot mới nhận được lệnh vật lý đúng đơn vị.",
     "detail": {
@@ -143,7 +143,7 @@
       },
       {
         "label": "TẠO HÀNH ĐỘNG",
-        "value": "Autoregressive generation vẫn phải sinh token theo thứ tự."
+        "value": "Mô hình vẫn tạo token lần lượt; nén giúp rút ngắn chuỗi."
       }
     ],
     "intuition": "Bạn có bốn điểm mốc và muốn mô tả một đường cong đi qua chúng. Nếu viết vị trí tại từng phần nghìn giây, bạn sẽ có một danh sách rất dài dù hình dạng tổng thể đơn giản. DCT cho phép ghi lại những thành phần hình dạng quan trọng hơn là từng điểm riêng lẻ.",
@@ -177,7 +177,7 @@
       },
       {
         "label": "CÁCH DIỄN GIẢI",
-        "value": "Hiệu quả của autoregressive hành động modeling tiến gần generative flow phương pháp đối chứng trong các bộ đánh giá tác giả dùng."
+        "value": "Trong những phép thử của tác giả, cách sinh token đã nén cho hiệu quả gần các phương pháp sinh hành động liên tục."
       }
     ],
     "intuition": "Đối chiếu số liệu: Trong một số thiết lập, dùng FAST cho phép huấn luyện mô hình sinh token hành động nhanh hơn tới khoảng năm lần so với cách chia từng mẫu thời gian thành token.",
@@ -193,7 +193,7 @@
     "items": [
       {
         "label": "YẾU TỐ ĐƯỢC THỬ",
-        "value": "Số token giảm phải đối chiếu với sai số reconstruct và success thực."
+        "value": "Cần so lượng token tiết kiệm được với sai số khôi phục và tỷ lệ hoàn thành thật."
       }
     ],
     "intuition": "Hình 6 so FAST, FSQ và cách chia giá trị thành các khoảng rời rạc. Các cách nén hành động giúp huấn luyện hiệu quả hơn; FAST đặc biệt có lợi ở thao tác robot thật cần sự khéo léo.",
@@ -213,7 +213,7 @@
       },
       {
         "label": "Phê bình độc lập",
-        "value": "Phê bình: nén tần số có thể làm mờ motion hiếm nhưng contact-critical, autoregressive suy luận vẫn có latency."
+        "value": "Phê bình: nén theo tần số có thể làm mất chuyển động ngắn lúc tiếp xúc; sinh tuần tự vẫn có độ trễ."
       }
     ],
     "intuition": "Do đó nên đo sai số sau khi mã hóa–giải mã trên từng chiều và tại các đoạn có tiếp xúc. Cần kiểm tra cả kết quả robot thực hiện, không chỉ tỷ lệ nén.",
@@ -248,7 +248,7 @@
     "lead": "Lấy 100 điểm vị trí của một chuyển động mượt. Áp dụng DCT, giữ số hệ số thấp rồi dựng lại đường. Đo sai số tổng thể và sai số ở chỗ chuyển hướng. Tiếp đó làm với một chuỗi có bước nhảy đột ngột tương ứng hành động đóng kẹp.",
     "items": [
       "Chạy FAST trên Mac M4 để hiểu DCT–compression–reconstruction.",
-      "Đo trade-off rate, fidelity và closed-loop success."
+      "Đo mức nén, sai số tái tạo và tỷ lệ hoàn thành khi robot chạy có quan sát lại."
     ],
     "intuition": "So hai kết quả sẽ thấy dữ liệu mượt dễ nén hơn; động tác tiếp xúc cần cẩn thận. Đây là phép thử giải thích FAST tốt hơn việc học thuộc rằng nó “nhanh hơn năm lần”.",
     "detail": {
