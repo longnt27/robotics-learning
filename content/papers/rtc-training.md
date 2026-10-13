@@ -4,7 +4,7 @@
 
 RTC phiên bản đầu có thể nối các đoạn hành động ngay lúc suy luận, nhưng cần thêm phép tính để buộc đoạn mới khớp những lệnh robot đang thực hiện. Thật trớ trêu nếu một kỹ thuật nhằm che độ trễ lại khiến chính mô hình chậm thêm. **Training-time RTC đề xuất huấn luyện policy từ đầu để nó biết cách nhận phần hành động đã cam kết và chỉ sinh tiếp phần tương lai.** Cách tiếp cận này chuyển một phần công việc từ thời điểm robot đang chạy sang giai đoạn huấn luyện, với mục tiêu duy trì chuyển động liên tục mà giảm chi phí suy luận.
 
-Đây là biến thể của một nguyên lý ML rộng hơn: **biến deployment constraint thành phân phối dữ liệu huấn luyện**, thay vì sửa đầu ra bằng heuristic sau khi huấn luyện xong. Robot không điều khiển trong thế giới đồng bộ lý tưởng; độ trễ thay đổi giữa các lần inference, vì compute, mạng và serving queue.
+Bài học rộng hơn là **đưa giới hạn của hệ thống thực vào bài toán huấn luyện**, thay vì đợi model sinh xong rồi mới sửa lệnh. Robot không sống trong một thế giới mà mọi phép tính đều hoàn thành ngay tức khắc: thời gian suy luận có thể thay đổi vì GPU bận, mạng chậm hoặc nhiều yêu cầu đến cùng lúc. Vì thế mô hình nên học ngay cách tiếp tục từ những hành động đã được bộ điều khiển cam kết.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 

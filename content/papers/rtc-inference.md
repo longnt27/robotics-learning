@@ -11,10 +11,10 @@
 <!-- END ADDITIONAL PDF FIGURES -->
 Một robot có thể cần lệnh mới mỗi 20 mili giây, nhưng mô hình VLA lại mất cả trăm mili giây mới tính xong đoạn hành động tiếp theo. Nếu robot đứng yên chờ, thao tác quẹt diêm hoặc giữ vật có thể bị phá hỏng. Nếu robot chạy tiếp rồi đột ngột chuyển sang đoạn mới, hai đoạn có thể khác hướng và gây giật mạnh. **RTC giải bài toán nối các đoạn hành động khi mô hình suy luận chậm:** cho robot tiếp tục thực thi trong khi mạng tính toán, đồng thời giữ các lệnh đã cam kết và điều chỉnh phần chuyển động còn lại để đường đi liên tục.
 
-**Action chunking** giải được một nửa: thay vì dự đoán `a_t` rồi query mô hình ở timestep tiếp theo, policy trả về `A_t = (a_t,...,a_{t+H-1})`. Robot có thể liên tục thực thi các action đã có trong buffer. Nhưng có hai kiểu scheduling đều có vấn đề:
+**Action chunking** giải quyết được một nửa bài toán. Thay vì chỉ dự đoán lệnh ở một thời điểm, policy sinh cả đoạn hành động tiếp theo, nhờ đó robot có thể tiếp tục chạy các lệnh đang có trong bộ đệm ngay cả khi mạng bận tính toán. Nhưng khi đoạn mới đến, hai cách tổ chức thực thi thông thường vẫn gây vấn đề:
 
-1. **Synchronous:** thực thi hết phần được chọn của chunk A rồi chờ mô hình sinh B. Robot pause, momentum mất, trạng thái vật thể tiếp tục thay đổi.
-2. **Naive asynchronous:** mô hình sinh B trong lúc robot đang chạy A. Không pause, nhưng B có thể chọn một strategy khác A ngay tại chunk boundary, gây discontinuity, acceleration spike hoặc jerk.
+1. **Chạy tuần tự:** robot thực hiện xong đoạn A rồi dừng chờ mạng sinh đoạn B. Thời gian chờ có thể phá hỏng thao tác đang cần lực hoặc chuyển động liên tục.
+2. **Chạy song song đơn giản:** mạng tạo đoạn B trong khi robot chạy A, nhưng B có thể chọn một hướng đi khác ngay tại điểm nối, khiến robot đổi tốc độ hoặc gia tốc đột ngột.
 
 Ví dụ tránh chướng ngại: chunk cũ đi vòng **phía trên**, chunk mới đi vòng **phía dưới**. Cả hai quỹ đạo riêng lẻ có thể đúng. Nối chúng giữa chừng tạo một cú bẻ lái nguy hiểm. Averaging hai quỹ đạo cũng không chắc hữu ích: trung bình giữa “trái” và “phải” có thể là “đi thẳng vào vật cản”.
 

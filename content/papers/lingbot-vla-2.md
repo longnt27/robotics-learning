@@ -2,14 +2,14 @@
 
 ## Vì sao cần nghiên cứu này?
 
-### Foundation VLA đẹp trên benchmark nhưng khó triển khai robot thật
+### Mô hình đạt điểm cao chưa chắc dùng tốt trên robot thật
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
 ![Hình 8 từ PDF gốc, trang 13](/paper-figures/lingbot-vla-2/figure-8.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Khi một công ty robot muốn deploy cùng policy lên cả robot hai tay, humanoid và mobile manipulator, họ gặp ít nhất ba vấn đề: (1) dữ liệu không đồng nhất không sạch và không chung schema, (2) một dense action mạng có thể bị nghẽn dung lượng mô hình khi nhiều robot/nhiệm vụ cạnh tranh, (3) robot phải hiểu **future consequences** thay vì chỉ matching next-action pattern. LingBot-VLA 2.0 chọn giải cả ba, trong một pipeline phù hợp cho production fleet.
+Một mô hình muốn dùng trên robot hai tay, robot hình người và tay máy di động sẽ gặp ba trở ngại chính: dữ liệu thu từ nhiều hệ thống không đồng nhất và không phải lúc nào cũng sạch; một mạng dùng chung có thể thiếu năng lực để học đủ kỹ năng khác nhau; và robot cần hiểu hành động sẽ làm cảnh thay đổi ra sao, không chỉ bắt chước lệnh tiếp theo. LingBot-VLA 2.0 xây một quy trình giải đồng thời ba nhóm vấn đề ấy, từ dữ liệu đầu vào tới bộ sinh chuyển động.
 
 Một công ty có thể thu hàng chục nghìn giờ robot thao tác mà mô hình vẫn hoạt động kém nếu các bản ghi bị lệch thời gian, lệnh điều khiển khác đơn vị hoặc nhiệm vụ hiếm bị lấn át bởi nhiệm vụ phổ biến. **LingBot-VLA 2.0 nghiên cứu cả một quy trình xây dựng mô hình VLA thực dụng:** tuyển chọn dữ liệu, đưa lệnh từ nhiều loại robot về cấu trúc chung, phân bổ năng lực mô hình bằng MoE và bổ sung mục tiêu dự đoán trạng thái tương lai. Muốn hiểu bài này, cần xem từng phần đóng góp như thế nào, chứ không thể chỉ nhìn số giờ dữ liệu hoặc số tham số.
 

@@ -2,14 +2,14 @@
 
 ## Vì sao cần nghiên cứu này?
 
-### Một mô hình cho manipulation, navigation và quỹ đạo dự đoán?
+### Một mô hình có thể vừa thao tác vật vừa điều hướng không?
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
 ![Hình 4 từ PDF gốc, trang 17](/paper-figures/qwen-vla/figure-4.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Các nhánh embodied learning thường sống trong ba hệ sinh thái tương đối riêng: robot manipulation với gripper/arms, mobile navigation với vị trí/hướng đi và quỹ đạo nhiệm vụ với kiểu trạng thái đầu ra khác nhau. Ngay trong manipulation, mỗi robot có số DoF, hệ toạ độ, action frequency và convention riêng. Nếu phải huấn luyện một checkpoint cho mỗi robot/nhiệm vụ, **dữ liệu không chia sẻ prior** một cách hiệu quả; sự hiểu biết về cái cốc ở một robot không dễ sang robot khác.
+Robot có thể được nghiên cứu theo ba nhóm lớn: cánh tay thao tác vật, robot tự di chuyển và mô hình dự đoán quỹ đạo. Mỗi nhóm thường dùng kiểu cảm biến và dạng lệnh riêng. Ngay cả trong thao tác tay máy, hai robot có thể khác số khớp, hệ tọa độ và tần số điều khiển. Nếu phải huấn luyện một checkpoint riêng cho mỗi cấu hình, rất nhiều kiến thức về đồ vật và cách thực hiện công việc không được chia sẻ. Qwen-VLA tìm cách xây phần biểu diễn chung, đồng thời vẫn nhận biết robot nào đang được điều khiển.
 
 Một robot có thể phải nhặt đồ vật, di chuyển trong phòng hoặc trả lời câu hỏi về thứ camera đang nhìn thấy. Các việc ấy đòi những dạng kết quả khác nhau, trong khi nhiều kiến thức về đồ vật và ngôn ngữ có thể dùng chung. **Qwen-VLA tổ chức việc học thành nhiều giai đoạn để kết nối hiểu ảnh–ngôn ngữ với sinh hành động robot.** Bộ sinh hành động trước hết học cấu trúc chuyển động từ mô tả bằng chữ, sau đó học liên hệ với ảnh thật, tiếp tục tinh chỉnh theo nhiệm vụ và cuối cùng có thể tối ưu bằng phần thưởng khi robot tương tác với môi trường.
 

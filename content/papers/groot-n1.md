@@ -11,7 +11,7 @@
 ![Hình 14 từ PDF gốc, trang 25](/paper-figures/groot-n1/figure-14.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Robot humanoid có thể sở hữu camera, hai cánh tay, thân, cổ tay và gripper, nhưng việc biến lời nói “gấp chiếc áo này” thành hàng trăm lệnh điều khiển vẫn rất khó. Truyền thống, mỗi robot/nhiệm vụ được huấn luyện bằng behavior cloning trên một tập demonstrations tương ứng. Cách này đắt: tạo một kỹ năng mới lại cần thu video, ghi joint actions, tune policy, sửa integration. Trong khi đó, trên Internet có vô số video con người thao tác, và VLM đã học được rất nhiều tri thức về vật, bối cảnh và ngôn ngữ.
+Robot hình người có camera, hai tay và nhiều khớp, nhưng việc chuyển câu “gấp chiếc áo này” thành hàng trăm lệnh vận động vẫn khó. Trước đây một kỹ năng thường cần nhiều demonstration đúng với chính robot đó: người vận hành phải làm mẫu, ghi ảnh và trạng thái khớp, huấn luyện rồi kiểm tra trên thiết bị. Trong khi ấy có rất nhiều video người thao tác và các mô hình đã học hiểu đồ vật từ ảnh, văn bản. GR00T N1 tìm cách tận dụng nguồn kiến thức rộng ấy mà vẫn sinh hành động đúng với cơ cấu robot.
 
 Robot hình người có thể học điều gì từ video người? Người có bàn tay năm ngón, còn một robot có thể chỉ dùng kẹp hai ngón; chiều dài tay, giới hạn khớp và cách cảm nhận thế giới cũng khác nhau. Vì thế không thể lấy nguyên góc khớp người rồi gửi xuống robot. **GR00T N1 tìm cách tận dụng nhiều nguồn dữ liệu để học cả cách hiểu nhiệm vụ lẫn cách tạo hành động phù hợp với từng loại robot.** Công trình chia việc thành phần xử lý ảnh và ngôn ngữ cùng phần chuyên sinh chuyển động, rồi kiểm tra khả năng thích nghi với robot thật.
 

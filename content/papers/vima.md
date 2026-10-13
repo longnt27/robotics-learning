@@ -21,7 +21,7 @@ Giả sử trên bàn có ba khối giống nhau nhưng khác màu. Người dù
 
 ## Kiến thức nền cần nắm
 
-Trong VIMA, **prompt** là đặc tả của nhiệm vụ, không chỉ sentence. Nó có thể gồm hình ảnh của mục tiêu và vật thể tham chiếu; những thành phần này cần fusion với quan sát hiện tại. Object-centric tokens đưa một inductive bias mạnh: bài toán từ toàn ảnh chuyển thành tập vật thể được nhận diện/segment sẵn.
+Trong VIMA, **prompt** là bản mô tả toàn bộ việc robot phải làm, chứ không chỉ một câu lệnh. Prompt có thể chứa chữ, ảnh vật thể tham chiếu hoặc ảnh trạng thái đích. Robot cần kết hợp chúng với quan sát camera hiện tại để biết đúng vật nào cần thao tác. Thay vì coi toàn ảnh là một khối dữ liệu không có cấu trúc, VIMA biểu diễn các vật thể thành những token riêng, giúp mạng tham chiếu tới từng vật dễ hơn. Tuy vậy, cách làm này cũng phụ thuộc vào việc nhận diện vật thể đủ chính xác.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
@@ -35,7 +35,7 @@ Trong VIMA, **prompt** là đặc tả của nhiệm vụ, không chỉ sentence
 
 ## Phương pháp thực hiện
 
-Bài báo giới thiệu **VIMA-Bench**, gồm 17 nhóm nhiệm vụ, hơn **600 nghìn expert các quỹ đạo** và nhiều level khả năng khái quát ngày càng khó. Prompt có thể chứa text lẫn token thị giác. Kiến trúc dùng đã pretrain text encoder, object-centric token thị giác và Transformer để cross-attend vào prompt rồi autoregressively sinh action.
+Bài báo giới thiệu **VIMA-Bench**, gồm 17 nhóm nhiệm vụ mô phỏng và hơn 600.000 quỹ đạo thao tác mẫu. Bộ đánh giá được chia thành các mức khó tăng dần để kiểm tra khả năng làm việc với tổ hợp vật thể và yêu cầu chưa thấy trong huấn luyện. Mô hình kết hợp thông tin chữ và ảnh từ prompt với lịch sử quan sát rồi dùng Transformer sinh lệnh robot theo từng bước. Nhờ vậy người nghiên cứu có thể tách việc hiểu yêu cầu khỏi việc thực hiện chuyển động.
 
 <!-- BEGIN ADDITIONAL PDF FIGURES -->
 
@@ -44,7 +44,7 @@ Bài báo giới thiệu **VIMA-Bench**, gồm 17 nhóm nhiệm vụ, hơn **600
 ![Hình 7 từ PDF gốc, trang 8](/paper-figures/vima/figure-7.webp)
 
 <!-- END ADDITIONAL PDF FIGURES -->
-Một điểm quan trọng là benchmark cố tách nhiều kiểu OOD: novel placement, vật thể mới combination, novel nhiệm vụ composition và level khó nhất là nhiệm vụ templates mới. Mô hình được scale từ cỡ nhỏ đến khoảng 200M parameters để xem hiệu năng có obey scaling trend không.
+Điểm quan trọng của VIMA-Bench là tách những dạng tình huống mới: đổi vị trí đồ vật, kết hợp vật mới, ghép những nhiệm vụ quen thành nhiệm vụ khác và cuối cùng là thay mẫu nhiệm vụ. Các phép thử đi từ dễ tới khó, giúp nhìn rõ model chỉ học thuộc tình huống cũ hay biết sử dụng lại kiến thức. Nhóm tác giả cũng thay quy mô model từ nhỏ đến khoảng 200 triệu tham số để kiểm tra hiệu quả khi tăng số tham số.
 
 <!-- BEGIN EXTENDED WALKTHROUGH -->
 
