@@ -79,6 +79,12 @@ test("22 Vietnamese tutorials contain unique explanations instead of boilerplate
       .replace(/\x60[^\x60]*\x60/g,"");
     assert.doesNotMatch(textOnly,/\b(?:model|dataset|baseline|training|input|output|pipeline|learned|generalization|understanding)\b/i,
       slug+": generic English jargon in Vietnamese prose");
+    // Editing the prose must never translate stable paper/figure URL slugs.
+    for(const [,target] of content.matchAll(/\]\(\/paper\/([^)]+)\)/g)){
+      assert.ok(corpusSlugs.includes(target),slug+": broken related-paper link: "+target);
+    }
+    assert.doesNotMatch(content,/Diffusion chính sách điều khiển|huấn luyện-time|\/paper-figures\/rtc-suy luận\//,
+      slug+": literal research name or stable asset path was translated");
     const occurrences=[...content.matchAll(/!\[[^\]]*\]\((\/paper-figures\/[^)]+)\)/g)].map(x=>x[1]);
     assert.equal(new Set(occurrences).size,occurrences.length,slug+": a source figure is duplicated");
     assert.equal(occurrences.length,figures[slug].length,slug+": a source figure was lost");
