@@ -19,7 +19,7 @@ Diffusion Policy không ép các lần làm mẫu về một đường đi “tr
 **Mô hình diffusion** bắt đầu từ một chuỗi lệnh ngẫu nhiên, rồi sửa đi sửa lại theo hướng mô hình đã học cho đến khi trông giống chuyển động hợp lệ trong dữ liệu. **Đoạn hành động (action chunk)** là nhiều bước liên tiếp được dự đoán cùng lúc. Nhờ vậy mô hình không cần tự chọn hướng mới một cách thiếu nhất quán ở từng khung hình.
 
 
-### ### Vì sao hai đường đi đúng có thể tạo ra một đường đi sai?
+### Vì sao hai đường đi đúng có thể tạo ra một đường đi sai?
 
 Giả sử robot phải đưa đầu kẹp từ bên trái sang bên phải một chiếc hộp. Dữ liệu có hai cách hợp lệ: vòng qua phía trước hoặc vòng qua phía sau. Nếu mô hình bị buộc dự đoán tọa độ trung bình của hai cách ở từng thời điểm, quỹ đạo thu được có thể xuyên qua chiếc hộp. Đây là ví dụ của **phân bố hành động có nhiều đỉnh**: cùng một quan sát cho phép nhiều đáp án, nhưng không phải điểm nằm giữa các đáp án đều đúng. Diffusion Policy học phân bố ấy và lấy mẫu một đoạn hành động để các bước trong cùng đoạn đi theo một hướng có tính nhất quán.
 
@@ -32,7 +32,7 @@ Giả sử robot phải đưa đầu kẹp từ bên trái sang bên phải mộ
 **Bước 4:** robot chỉ thực thi một phần đầu của đoạn đã sinh. Sau đó camera cung cấp ảnh mới và mô hình tạo đoạn tiếp theo. Đây là điều khiển có quan sát lại, khác với việc phát một quỹ đạo duy nhất rồi để robot chạy hết. Trong kiến trúc CNN, FiLM đưa thông tin quan sát vào các lớp xử lý; trong bản Transformer, chú ý chéo kết nối token hành động với đặc trưng quan sát.
 
 
-### ### Hai chiếc đồng hồ phải được phân biệt
+### Hai chiếc đồng hồ phải được phân biệt
 
 Quá trình khử nhiễu có thể chạy nhiều vòng **trong máy tính** để biến một chuỗi ngẫu nhiên thành chuỗi lệnh hợp lý. Đây không phải số lần robot thực sự di chuyển. Sau khi tính xong, robot thường chỉ thực hiện một phần đầu của đoạn rồi chụp ảnh mới để lên kế hoạch tiếp. Vì vậy có hai câu hỏi riêng: mạng cần bao lâu để **sinh** một đoạn, và robot dùng bao lâu để **thực hiện** các lệnh trong đoạn ấy? Nếu câu trả lời cho câu hỏi thứ nhất quá lâu, chuyển động có thể gián đoạn dù quỹ đạo dự đoán rất đẹp.
 
@@ -69,7 +69,7 @@ Bây giờ người dùng xê dịch khối trong lúc robot đang đi tới vù
 Nhóm tác giả kiểm tra 12 nhiệm vụ thuộc bốn nhóm bộ đánh giá, với kết quả tổng hợp cải thiện khoảng 46,9% theo quy ước so sánh của bài báo. Đây là con số gộp, không có nghĩa mọi robot và mọi nhiệm vụ đều tăng đúng 46,9 điểm phần trăm. Khi xem Hình 4–9, hãy chú ý riêng ba hiện tượng: quỹ đạo có giữ được một cách vòng vật cản nhất quán không, robot có biết đổi kế hoạch khi vật bị xê dịch không, và độ trễ tăng có khiến chuỗi hành động bị giật hoặc thất bại không.
 
 
-### ### Muốn chứng minh mô hình chọn được nhiều hướng, phải nhìn cả quỹ đạo
+### Muốn chứng minh mô hình chọn được nhiều hướng, phải nhìn cả quỹ đạo
 
 Một lỗi dễ gặp là chỉ đo sai số dự đoán hoặc chỉ xem một video thành công. Với bài đẩy khối chữ T, hãy chạy nhiều lần từ cùng một cảnh rồi xem mô hình có chọn các quỹ đạo hợp lệ khác nhau không. Tiếp theo, thử dịch vật một chút giữa lúc thực thi: robot có đổi đường đi khi quan sát mới tới không? Cuối cùng đo thời gian khử nhiễu. Ba phép kiểm tra này lần lượt chạm tới khả năng biểu diễn nhiều phương án, khả năng phản hồi và chi phí tính toán. Không có phép nào thay thế hoàn toàn hai phép còn lại.
 
