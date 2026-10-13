@@ -67,7 +67,7 @@ Hai kết quả không mâu thuẫn. Lợi thế có thể phụ thuộc nhiệm
 
 ### So sánh công bằng hai cách RTC
 
-Trong thí nghiệm robot thật với các nhiệm vụ dựng hộp giấy và pha espresso, phiên bản học ràng buộc ngay trong huấn luyện đạt kết quả nhiệm vụ gần với RTC áp ràng buộc lúc suy luận, nhưng có độ trễ đo được khoảng 108 mili giây so với 135 mili giây ở thiết lập được công bố. Khoảng chênh 27 mili giây lớn hơn một bước điều khiển 20 mili giây, nhưng không phải mức tiết kiệm cố định trên mọi GPU.
+Trong thí nghiệm robot thật với các nhiệm vụ dựng hộp giấy và pha espresso dùng π0.6, **RTC huấn luyện trước ràng buộc đạt khoảng 108 mili giây, còn RTC thêm ràng buộc lúc suy luận khoảng 135 mili giây**. Đây là độ trễ **đầu cuối**, đo khi mô hình chạy từ xa trên H100 với 5 bước khử nhiễu, khác hẳn phép đo chỉ trên GPU của RTC phiên bản trước. Hai phiên bản có kết quả nhiệm vụ gần nhau trong phép thử này. Khoảng chênh 27 mili giây lớn hơn một bước điều khiển 20 mili giây, nhưng không phải mức tiết kiệm cố định trên mọi GPU.
 
 Ở mô phỏng, lợi ích của việc học trước tiền tố rõ hơn khi độ trễ tăng. Ngược lại, khi độ trễ rất nhỏ, không nhất thiết phương án này luôn thắng. Tỷ lệ thành công, thời gian hoàn thành và chi phí huấn luyện bổ sung đều phải được xét cùng nhau.
 
