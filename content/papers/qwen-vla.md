@@ -16,11 +16,9 @@ Một robot có thể được giao “Nhặt chiếc cốc đỏ”, “Đi t�
 
 **T2A** là huấn luyện dự đoán hành động từ mô tả bằng chữ, chưa dùng ảnh: bộ giải mã DiT học hình dạng của những chuỗi chuyển động hợp lý. **CPT** tiếp tục huấn luyện với ảnh để gắn kiến thức vận động ấy vào vật thể và bối cảnh cụ thể. **SFT** học có giám sát theo nhiệm vụ với dữ liệu robot được chọn lọc. **RL** tiếp tục tối ưu nhờ phần thưởng sau khi robot thực thi.
 
-Các tên viết tắt có thể khiến người mới tưởng là bốn kiến trúc khác nhau. Thực ra chúng là **bốn bước trong cùng quy trình học**, được thiết kế để tránh phải học cả nhận biết ảnh và cấu trúc chuyển động từ đầu trong một lần.
+Các tên viết tắt này là tên những **giai đoạn huấn luyện**, không phải bốn kiến trúc độc lập. Thực ra chúng là **bốn bước trong cùng quy trình học**, được thiết kế để tránh phải học cả nhận biết ảnh và cấu trúc chuyển động từ đầu trong một lần.
 
-### Bốn chữ viết tắt trong quy trình huấn luyện
-
-**T2A:** học cấu trúc hành động từ mô tả bằng chữ trước khi ghép với ảnh. **CPT:** huấn luyện tiếp, kết nối các kỹ năng đã học với cảnh và vật đang nhìn thấy. **SFT:** tinh chỉnh có giám sát bằng những nhiệm vụ và lượt robot thực hiện cụ thể. **RL:** cải thiện thêm từ tín hiệu thưởng khi robot tương tác với môi trường. Đây là các giai đoạn của một quy trình, không phải bốn mạng không liên quan.
+### Ví dụ vì sao cần học chuyển động trước khi gắn với ảnh
 
 Ví dụ ở T2A, câu “nhặt một khối rồi đặt bên phải khối khác” giúp bộ sinh học mẫu chuyển động, nhưng chưa biết tọa độ của hai khối trong ảnh hiện tại. Giai đoạn dùng ảnh mới buộc mạng liên hệ ngữ nghĩa với vật cụ thể. Đến giai đoạn thử thật, tỷ lệ thành công giúp kiểm tra phần nối giữa hai năng lực ấy.
 

@@ -24,7 +24,7 @@ RDT-1B dùng Diffusion Transformer để học và sinh các đoạn hành độ
 
 Mô hình nhận ảnh từ camera ngoài và camera hai cổ tay, câu lệnh nhiệm vụ, trạng thái khớp và một chuỗi lệnh còn nhiễu. Nó còn nhận bước thời gian diffusion để biết đang ở giai đoạn khử nhiễu nào, cùng tần số điều khiển để hiểu nhịp hành động.
 
-DiT kết hợp những điều kiện ấy và liên tục dự đoán cách chỉnh chuỗi hành động. Sau nhiều bước, mô hình thu được đoạn lệnh cho hai tay. Robot thực hiện và có thể lấy quan sát mới cho lần dự đoán sau. Các phần chuẩn hóa như QKNorm/RMSNorm góp phần giữ huấn luyện ổn định; chúng không phải những lệnh motor độc lập.
+DiT kết hợp những điều kiện ấy và liên tục dự đoán cách chỉnh chuỗi hành động. Sau nhiều bước, mô hình thu được đoạn lệnh cho hai tay. Robot thực hiện và có thể lấy quan sát mới cho lần dự đoán sau. Các phần chuẩn hóa như QKNorm/RMSNorm góp phần giữ huấn luyện ổn định; chúng không phải những lệnh điều khiển động cơ độc lập.
 
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/rdt-1b/figure-2.webp)
 
@@ -48,7 +48,7 @@ Hình 5 nêu trạng thái ban đầu, mức thay đổi và mục tiêu từng 
 
 ### Số liệu và phạm vi kết luận
 
-**Đối chiếu số liệu:** Bài báo báo cáo RDT-1B cải thiện tỷ lệ thành công trung bình khoảng 56% tương đối so với các phương pháp đối chứng được chọn. Những phép thử ít dữ liệu, có trường hợp chỉ một đến năm lượt thao tác mẫu, cho thấy giá trị của việc huấn luyện trước đối với kỹ năng phối hợp hai tay. Khi đọc kết quả, cần phân biệt nhiệm vụ mẫu trong mô phỏng, robot thật và phép thử không cần tinh chỉnh; không nên lấy một mức tăng gộp để khẳng định mọi thao tác hai tay đều dễ hơn tương ứng.
+**Đối chiếu số liệu:** Bài báo báo cáo RDT-1B cải thiện tỷ lệ thành công trung bình khoảng 56% tương đối so với các phương pháp đối chứng được chọn. Những phép thử ít dữ liệu, có trường hợp chỉ một đến năm lần làm mẫu, cho thấy giá trị của việc huấn luyện trước đối với kỹ năng phối hợp hai tay. Khi đọc kết quả, cần phân biệt nhiệm vụ mẫu trong mô phỏng, robot thật và phép thử không cần tinh chỉnh; không nên lấy một mức tăng gộp để khẳng định mọi thao tác hai tay đều dễ hơn tương ứng.
 
 ![Hình 5 từ PDF gốc, trang 8](/paper-figures/rdt-1b/figure-5.webp)
 

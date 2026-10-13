@@ -12,7 +12,7 @@ RTC ở thời điểm suy luận có thể lấy một mạng sinh hành độn
 
 ### Phân biệt tiền tố với phần tiếp theo
 
-**Tiền tố** là những hành động đã hoặc sẽ chắc chắn thực thi trước khi mô hình tính xong. **Hậu tố** là phần hành động tiếp theo cần dự đoán để robot tiếp tục. Gọi d là độ trễ theo số bước và H là độ dài đoạn hành động; s là số bước thực thi của một lần cập nhật. Để tiền tố còn nằm trong vùng hai đoạn hành động chồng nhau, cần thỏa d ≤ H − s.
+**Tiền tố đã cam kết** là những hành động robot đã thực hiện hoặc chắc chắn sẽ thực hiện trước khi mạng trả kết quả. Những lệnh ấy không thể bị sửa ngược khi đoạn mới tới. **Hậu tố** là phần hành động tiếp theo cần dự đoán để robot tiếp tục. Gọi d là độ trễ theo số bước và H là độ dài đoạn hành động; s là số bước thực thi của một lần cập nhật. Để tiền tố còn nằm trong vùng hai đoạn hành động chồng nhau, cần thỏa d ≤ H − s.
 
 Trong RTC huấn luyện sẵn, mạng không được tự sửa tiền tố. Nó nhìn những hành động cố định ở đầu chuỗi rồi học cách sinh các bước sau tương thích. Đây là sự khác nhau với mô hình chỉ nhìn ảnh mà không biết bộ điều khiển đang thực thi lệnh nào.
 

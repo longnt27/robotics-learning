@@ -98,7 +98,7 @@ Hai cách có cùng mục tiêu nối hành động liên tục nhưng chi phí 
 - [ACT / ALOHA](/paper/act)
 - [Diffusion Policy](/paper/diffusion-policy)
 - [π0.5](/paper/pi-0-5)
-- [Training-time RTC](/paper/rtc-training)
+- [RTC huấn luyện sẵn](/paper/rtc-training)
 
 ## Đọc mã nguồn và tự kiểm chứng
 

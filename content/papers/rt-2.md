@@ -2,7 +2,7 @@
 
 ### Tri thức ngôn ngữ giúp robot làm gì?
 
-Robot từng được dạy nhặt cốc, nhưng chưa từng nhận câu “Lấy vật mà tôi có thể uống từ đó”. Một mô hình ảnh–ngôn ngữ học từ web có thể biết chiếc cốc dùng để uống; chính sách điều khiển robot biết cách kẹp cốc. **RT-2 tìm cách nối hai loại kiến thức** để robot hiểu những yêu cầu mới mà không phải thu thêm lượt thao tác mẫu cho mọi cách diễn đạt.
+Robot từng được dạy nhặt cốc, nhưng chưa từng nhận câu “Lấy vật mà tôi có thể uống từ đó”. Một mô hình ảnh–ngôn ngữ học từ web có thể biết chiếc cốc dùng để uống; chính sách điều khiển robot biết cách kẹp cốc. **RT-2 tìm cách nối hai loại kiến thức** để robot hiểu những yêu cầu mới mà không phải thu thêm lần làm mẫu cho mọi cách diễn đạt.
 
 RT-2 mã hóa lệnh chuyển động dưới dạng token để huấn luyện chung với dữ liệu ảnh và chữ. Điều này khác việc dùng chatbot chỉ nói robot nên làm gì: đầu ra cuối cùng vẫn được giải mã thành lệnh điều khiển vật lý.
 
@@ -12,7 +12,7 @@ RT-2 mã hóa lệnh chuyển động dưới dạng token để huấn luyện 
 
 ### Ba khái niệm cần phân biệt
 
-**VLM** là mạng học quan hệ giữa hình ảnh và ngôn ngữ. **Token hành động** là mã rời rạc cho lệnh robot, phải giải mã về giá trị liên tục và đúng đơn vị. **Huấn luyện chung** cho mạng học cả dữ liệu web lẫn lượt thao tác mẫu robot, dù hai nguồn có nhãn và mục đích khác nhau.
+**VLM** là mạng học quan hệ giữa hình ảnh và ngôn ngữ. **Token hành động** là mã rời rạc cho lệnh robot, phải giải mã về giá trị liên tục và đúng đơn vị. **Huấn luyện chung** cho mạng học cả dữ liệu web lẫn lần người điều khiển robot làm mẫu, dù hai nguồn có nhãn và mục đích khác nhau.
 
 Biết rằng táo là trái cây hoặc cốc dùng để uống không đồng nghĩa biết lực kẹp bao nhiêu. Vì vậy cần phân biệt kiến thức ngữ nghĩa với kỹ năng vận động.
 
