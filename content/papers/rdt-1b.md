@@ -42,7 +42,7 @@ Dự đoán từng tay độc lập khó giữ ràng buộc theo thời gian. RD
 
 ### Hiểu thí nghiệm và hình biểu diễn
 
-Hình 4 kiểm tra độ ổn định khi bỏ QKNorm/RMSNorm và vai trò của một số thành phần đầu ra. Nếu đường loss dao động mạnh, tối ưu hóa có thể gặp khó ngay trước khi robot thực thi. Các phép thử điều khiển còn tách kỹ năng đi thẳng và rót chính xác lượng nước.
+Hình 4 kiểm tra độ ổn định khi bỏ QKNorm/RMSNorm và vai trò của một số thành phần đầu ra. Nếu đường hàm mất mát dao động mạnh, tối ưu hóa có thể gặp khó ngay trước khi robot thực thi. Các phép thử điều khiển còn tách kỹ năng đi thẳng và rót chính xác lượng nước.
 
 Hình 5 nêu trạng thái ban đầu, mức thay đổi và mục tiêu từng nhiệm vụ. Đừng chỉ nhìn ảnh cuối; cần xem điều kiện thành công có đòi đúng lượng nước hay chỉ làm chuyển động gần đúng.
 
@@ -62,18 +62,18 @@ Huấn luyện đa robot vẫn đòi chuẩn hóa và ánh xạ hành động c�
 
 ## Liên hệ với nghiên cứu khác
 
-### So RDT-1B với ACT và Diffusion chính sách điều khiển
+### So RDT-1B với ACT và Diffusion Policy
 
-ACT cũng học chuỗi hành động nhiều bước cho hai tay, nhưng dùng Transformer và CVAE. Diffusion chính sách điều khiển học phân phối các chuỗi lệnh qua khử nhiễu, không nhất thiết chỉ dành cho hai tay. RDT áp dụng hướng Diffusion Transformer ở quy mô lớn hơn, điều kiện hóa nhiều nguồn tín hiệu và chú trọng phối hợp hai tay.
+ACT cũng học chuỗi hành động nhiều bước cho hai tay, nhưng dùng Transformer và CVAE. Diffusion Policy học phân phối các chuỗi lệnh qua khử nhiễu, không nhất thiết chỉ dành cho hai tay. RDT áp dụng hướng Diffusion Transformer ở quy mô lớn hơn, điều kiện hóa nhiều nguồn tín hiệu và chú trọng phối hợp hai tay.
 
 Việc tăng số tham số không phải đóng góp duy nhất: khả năng biểu diễn nhiều robot và huấn luyện ổn định là những quyết định thiết kế quan trọng.
 
 ### Những bài nên đọc tiếp
 
-- [Diffusion Policy](/paper/diffusion-policy)
+- [Diffusion Policy](/paper/diffusion-chính sách điều khiển)
 - [GR00T N1](/paper/groot-n1)
 
-## Đọc code và tự kiểm chứng
+## Đọc mã nguồn và tự kiểm chứng
 
 ### Bài tập kiểm chứng đơn giản
 

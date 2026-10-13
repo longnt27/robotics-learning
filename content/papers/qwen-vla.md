@@ -30,7 +30,7 @@ Ví dụ ở T2A, câu “nhặt một khối rồi đặt bên phải khối kh
 
 Giả sử người dùng nói “Đặt hai chiếc dập ghim xanh lá cạnh nhau”. Ảnh camera cho biết hai vật đang ở đâu, phần thị giác–ngôn ngữ xử lý câu lệnh và cảnh. Bộ giải mã hành động DiT nhận điều kiện ấy cùng thông tin robot, tạo chuỗi chuyển động: tiếp cận vật thứ nhất, kẹp, đặt, rồi làm với vật thứ hai.
 
-Trong lúc tiền huấn luyện T2A, mạng sinh hành động từ văn bản để học những mẫu chuyển động chung. Đến CPT/SFT, ảnh mới được gắn vào để chọn hành động đúng vị trí thực. Giai đoạn RL đánh giá kết quả khi robot chạy trong môi trường và đưa tín hiệu cải thiện. Không nên đồng nhất loss T2A với tỷ lệ hoàn thành nhiệm vụ thật.
+Trong lúc tiền huấn luyện T2A, mạng sinh hành động từ văn bản để học những mẫu chuyển động chung. Đến CPT/SFT, ảnh mới được gắn vào để chọn hành động đúng vị trí thực. Giai đoạn RL đánh giá kết quả khi robot chạy trong môi trường và đưa tín hiệu cải thiện. Không nên đồng nhất hàm mất mát T2A với tỷ lệ hoàn thành nhiệm vụ thật.
 
 ### Lệnh đa nhiệm cần được ghép với loại robot cụ thể
 
@@ -62,7 +62,7 @@ Hình 7 thử việc học chung dữ liệu ảnh–ngôn ngữ với dữ li�
 
 ### Đọc ba con số mà không đánh tráo điều kiện
 
-Trong một phép thử trên robot ALOHA thuộc phân phối huấn luyện, một cấu hình Qwen-VLA có tiền huấn luyện được báo cáo khoảng 83,6% tỷ lệ thành công, so 48,5% ở phiên bản đối chứng. Ở một nhóm thao tác ngoài phân phối, điểm được báo cáo khoảng 76,9%. Nhưng trên benchmark DOMINO kiểm tra khả năng chuyển thẳng sang nhiệm vụ mới mà không tinh chỉnh, một kết quả được nêu là 26,6%.
+Trong một phép thử trên robot ALOHA thuộc phân phối huấn luyện, một cấu hình Qwen-VLA có tiền huấn luyện được báo cáo khoảng 83,6% tỷ lệ thành công, so 48,5% ở phiên bản đối chứng. Ở một nhóm thao tác ngoài phân phối, điểm được báo cáo khoảng 76,9%. Nhưng trên bộ đánh giá DOMINO kiểm tra khả năng chuyển thẳng sang nhiệm vụ mới mà không tinh chỉnh, một kết quả được nêu là 26,6%.
 
 Ba số này đo các vấn đề khác nhau. Không được kết luận mô hình “thành công 80% với mọi robot” rồi bỏ qua mức 26,6% khi chuyển miền. Muốn so công bằng, phải ghi rõ robot, dữ liệu tiền huấn luyện, có tinh chỉnh hay không và định nghĩa nhiệm vụ thành công.
 
@@ -88,13 +88,13 @@ RT-2 chứng minh hướng chuyển kiến thức ảnh–ngôn ngữ sang token
 
 ### Những bài nên đọc tiếp
 
-- [PaLM-E](/paper/palm-e) mở hướng đưa thị giác/đầu vào cảm biến vào mô hình ngôn ngữ đã pretrain.
-- [RT-2](/paper/rt-2) và [OpenVLA](/paper/openvla) là nhánh VLM-to-action discrete tokens.
-- [Diffusion Policy](/paper/diffusion-policy), [RDT-1B](/paper/rdt-1b) và [GR00T N1](/paper/groot-n1) giúp hiểu liên tục generative action heads.
-- [Open X-Embodiment](/paper/open-x-embodiment) là bài học cốt lõi về hỗn hợp dữ liệu và embodiment alignment.
-- [LingBot-VLA 2.0](/paper/lingbot-vla-2) cũng xử lý multi-embodiment, nhưng chọn canonical whole-body action và sparse MoE.
+- [PaLM-E](/paper/palm-e)
+- [RT-2](/paper/rt-2)
+- [Diffusion Policy](/paper/diffusion-chính sách điều khiển)
+- [Open X-Embodiment](/paper/open-x-cấu hình cơ thể robot)
+- [LingBot-VLA 2.0](/paper/lingbot-vla-2)
 
-## Đọc code và tự kiểm chứng
+## Đọc mã nguồn và tự kiểm chứng
 
 ### Tự thiết kế phép thử tách ảnh hưởng của prompt
 

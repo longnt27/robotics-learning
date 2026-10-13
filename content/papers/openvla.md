@@ -22,7 +22,7 @@ Mỗi token hành động là mã cho giá trị điều khiển, không phải 
 
 **Bước 1:** camera cung cấp ảnh, người dùng đưa câu lệnh, chẳng hạn “Bỏ quả táo vào khay”. **Bước 2:** bộ mã hóa ảnh chuyển cảnh thành đặc trưng. **Bước 3:** mạng ánh xạ biểu diễn ảnh để lõi ngôn ngữ có thể kết hợp với câu lệnh. **Bước 4:** lõi mô hình dự đoán token hành động; hệ thống giải mã token thành lệnh vận động.
 
-Robot thực hiện lệnh, lấy ảnh tiếp theo và tiếp tục. Nếu đem mô hình sang robot mới, ta cần tinh chỉnh trên lượt thao tác mẫu của robot ấy và kiểm tra cách mã hóa/giải mã hành động. Lỗi ở bước chuyển đổi lệnh có thể khiến một mô hình có loss đẹp tạo chuyển động sai.
+Robot thực hiện lệnh, lấy ảnh tiếp theo và tiếp tục. Nếu đem mô hình sang robot mới, ta cần tinh chỉnh trên lượt thao tác mẫu của robot ấy và kiểm tra cách mã hóa/giải mã hành động. Lỗi ở bước chuyển đổi lệnh có thể khiến một mô hình có hàm mất mát đẹp tạo chuyển động sai.
 
 ![Hình 2 gốc từ PDF bài báo, trang 4](/paper-figures/openvla/figure-2.webp)
 
@@ -42,7 +42,7 @@ Khi kiểm tra, không chỉ xem mô hình có nhặt đúng vật quen thuộc 
 
 Trên các phép thử WidowX và Google Robot, OpenVLA đạt kết quả tốt so với các chính sách điều khiển tổng quát được đem đối chiếu. Tuy nhiên kết quả không giống nhau ở mọi nhóm; ví dụ một số kiểm tra khái quát ngữ nghĩa vẫn có đối thủ tốt hơn.
 
-Khi thích nghi robot mới, Diffusion chính sách điều khiển huấn luyện riêng có thể mạnh ở một nhiệm vụ hẹp, còn mô hình tổng quát đã học trước như Octo và OpenVLA có lợi thế trên tập lệnh/phông nền đa dạng. Hãy so các hệ thống cùng dữ liệu tinh chỉnh và cùng số lượt chạy, thay vì coi một điểm tổng hợp là lời khẳng định tuyệt đối.
+Khi thích nghi robot mới, Diffusion Policy huấn luyện riêng có thể mạnh ở một nhiệm vụ hẹp, còn mô hình tổng quát đã học trước như Octo và OpenVLA có lợi thế trên tập lệnh/phông nền đa dạng. Hãy so các hệ thống cùng dữ liệu tinh chỉnh và cùng số lượt chạy, thay vì coi một điểm tổng hợp là lời khẳng định tuyệt đối.
 
 ### Số liệu và phạm vi kết luận
 
@@ -76,7 +76,7 @@ Việc một mạng dùng lõi mô hình ngôn ngữ không tự khiến nó gi�
 - [FAST](/paper/fast)
 - [Qwen-VLA](/paper/qwen-vla)
 
-## Đọc code và tự kiểm chứng
+## Đọc mã nguồn và tự kiểm chứng
 
 ### Danh sách kiểm tra trước khi tự tinh chỉnh
 

@@ -107,13 +107,13 @@ Không nên chỉ hỏi mô hình nào có nhiều tham số nhất. Cần biế
 
 ### Những bài nên đọc tiếp
 
-- [Open X-Embodiment](/paper/open-x-embodiment) là tiền đề để nghĩ về mixture đa morphology và semantics action.
-- [GR00T N1](/paper/groot-n1) cũng dùng VLM+action expert và video con người nhưng kiến trúc dữ liệu/experts khác.
-- [Qwen-VLA](/paper/qwen-vla) giải cùng bài toán generalist, dùng embodiment description thay vì chỉ phụ thuộc 55D schema.
-- [Diffusion Policy](/paper/diffusion-policy) và [RDT-1B](/paper/rdt-1b) cung cấp nền generative action learning.
-- [DROID](/paper/droid) cho góc nhìn thu dữ liệu robot ở nhiều environment đời thật.
+- [Open X-Embodiment](/paper/open-x-cấu hình cơ thể robot)
+- [GR00T N1](/paper/groot-n1)
+- [Qwen-VLA](/paper/qwen-vla)
+- [Diffusion Policy](/paper/diffusion-chính sách điều khiển)
+- [DROID](/paper/droid)
 
-## Đọc code và tự kiểm chứng
+## Đọc mã nguồn và tự kiểm chứng
 
 ### Bài kiểm tra hiểu bài trước khi xem code
 

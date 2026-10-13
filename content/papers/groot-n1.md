@@ -38,7 +38,7 @@ Action expert nhận thêm biểu diễn trạng thái của robot và chuỗi h
 
 Có thể hình dung hệ thống như hai người cùng làm việc. Người thứ nhất nhìn camera và đọc yêu cầu để nhận ra chiếc hộp nào cần mở, chiếc cốc nào cần đặt vào. Người thứ hai nhận mục tiêu ấy cùng vị trí khớp hiện tại rồi tính cách chuyển động. Trong GR00T N1, phần đầu do mô hình ảnh–ngôn ngữ đảm nhiệm, phần sau do mạng DiT chuyên sinh hành động thực hiện. Kết nối bằng chú ý chéo cho phép nhánh vận động sử dụng thông tin thị giác thay vì tự suy ra mục tiêu từ nhiễu.
 
-Dữ liệu huấn luyện cũng có các vai trò khác nhau. Video người giúp học trình tự và hình dạng thao tác; demonstration robot giúp học lệnh khớp khả thi; quỹ đạo tổng hợp mở rộng cảnh nhưng cần kiểm tra nhãn vận động suy ra có đúng không. Khó khăn lớn là cùng một hành vi ở hai robot có thể cần góc khớp hoàn toàn khác. Việc mã hóa loại robot và giải chuẩn hóa hành động là bước kỹ thuật bắt buộc.
+Dữ liệu huấn luyện cũng có các vai trò khác nhau. Video người giúp học trình tự và hình dạng thao tác; lượt thao tác mẫu robot giúp học lệnh khớp khả thi; quỹ đạo tổng hợp mở rộng cảnh nhưng cần kiểm tra nhãn vận động suy ra có đúng không. Khó khăn lớn là cùng một hành vi ở hai robot có thể cần góc khớp hoàn toàn khác. Việc mã hóa loại robot và giải chuẩn hóa hành động là bước kỹ thuật bắt buộc.
 
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/groot-n1/figure-2.webp)
 
@@ -96,13 +96,13 @@ PaLM-E tập trung đưa cảm giác từ thế giới thật vào suy luận đ
 
 ### Những bài nên đọc tiếp
 
-- [RT-2](/paper/rt-2) đi từ VLM sang action tokens; GR00T tách liên tục generative action expert.
-- [Diffusion Policy](/paper/diffusion-policy) cung cấp mô hình tư duy về denoising action chuỗi.
-- [Open X-Embodiment](/paper/open-x-embodiment) giúp hiểu lý do và thách thức của hỗn hợp dữ liệu đa morphology.
-- [Qwen-VLA](/paper/qwen-vla) dùng cùng bài toán multi-embodiment nhưng có embodiment-conditioned prompts và DiT action liên tục head.
-- [LingBot-VLA 2.0](/paper/lingbot-vla-2) mở rộng theo hướng sparse MoE, whole-body action vector và predictive động lực học tín hiệu giám sát.
+- [RT-2](/paper/rt-2)
+- [Diffusion Policy](/paper/diffusion-chính sách điều khiển)
+- [Open X-Embodiment](/paper/open-x-cấu hình cơ thể robot)
+- [Qwen-VLA](/paper/qwen-vla)
+- [LingBot-VLA 2.0](/paper/lingbot-vla-2)
 
-## Đọc code và tự kiểm chứng
+## Đọc mã nguồn và tự kiểm chứng
 
 ### Cách tự phân tích sơ đồ GR00T N1
 

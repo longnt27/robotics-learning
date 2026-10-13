@@ -85,7 +85,7 @@ OpenVLA dùng token hành động, nhưng cách mã hóa từng giá trị có t
 - [OpenVLA](/paper/openvla)
 - [π0.5](/paper/pi-0-5)
 
-## Đọc code và tự kiểm chứng
+## Đọc mã nguồn và tự kiểm chứng
 
 ### Tự làm phép thử nhỏ trước khi huấn luyện chính sách điều khiển
 

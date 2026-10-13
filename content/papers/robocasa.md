@@ -81,7 +81,7 @@ Một quy trình có thể dùng cả hai: mô phỏng để bao phủ nhiều b
 - [LIBERO](/paper/libero)
 - [Qwen-VLA](/paper/qwen-vla)
 
-## Đọc code và tự kiểm chứng
+## Đọc mã nguồn và tự kiểm chứng
 
 ### Bài tập thiết kế nhiệm vụ mô phỏng có ích
 
