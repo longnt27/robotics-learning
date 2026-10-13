@@ -14,9 +14,13 @@ Mỗi loại robot có camera, lệnh và nhiệm vụ khác nhau. Nếu chỉ h
 
 ### Hiểu mạng nền và các phần gắn thêm
 
-**Backbone** là phần mạng xử lý thông tin chung; Octo dùng Transformer. **Token nhiệm vụ** biểu diễn yêu cầu người dùng, còn **token quan sát** biểu diễn ảnh camera. **Nhánh đầu ra** biến biểu diễn đã học thành lệnh phù hợp với robot đích.
+**Lõi mạng (backbone)** là phần xử lý thông tin dùng chung; trong Octo, phần đó được xây bằng Transformer. **Token nhiệm vụ** biểu diễn yêu cầu người dùng, còn **token quan sát** biểu diễn ảnh camera. **Nhánh đầu ra** biến biểu diễn đã học thành lệnh phù hợp với robot đích.
 
 Hai robot có thể cùng hiểu “đặt cốc vào khay” nhưng một bên nhận lệnh vị trí đầu kẹp, bên kia nhận góc khớp. Phần nhánh đầu ra giúp xử lý sự khác biệt ấy, nhưng vẫn phải chọn đúng biểu diễn và chuẩn hóa hành động.
+
+### ### Dùng chung phần hiểu cảnh khác dùng chung góc khớp
+
+Cùng yêu cầu “đặt chiếc cốc vào khay”, một robot có thể cần dịch đầu kẹp theo ba trục, còn robot khác cần điều khiển từng góc khớp riêng. Hai máy vẫn có thể chia sẻ kiến thức về cốc, khay và mục tiêu đặt đồ, nhưng **dãy số điều khiển** không tự nhiên trùng nhau. Octo tách phần xử lý thông tin chung khỏi phần nhận dạng đầu vào và sinh lệnh phù hợp thiết bị. Nhờ vậy nó có cơ hội tận dụng dữ liệu robot khác mà không giả định chỉ cần sao chép nguyên một lệnh đã học.
 
 ![Hình 4 từ PDF gốc, trang 6](/paper-figures/octo/figure-4.webp)
 
@@ -27,6 +31,10 @@ Hai robot có thể cùng hiểu “đặt cốc vào khay” nhưng một bên 
 Đầu tiên mô tả nhiệm vụ được mã hóa bằng mô hình ngôn ngữ đã học trước; camera được một mạng ảnh gọn chuyển thành đặc trưng. Transformer xử lý cả hai nhóm token và lịch sử cần thiết, tạo các token trung gian cho nhánh dự đoán hành động.
 
 Khi chuyển sang robot mới, ta có thể thêm quan sát như cảm biến lực hoặc đổi nhánh lệnh điều khiển mà không phải thay toàn bộ mạng nền. Một số tham số vẫn cần tinh chỉnh bằng lần làm mẫu của robot đích. Chính cách tách phần chung và phần riêng làm Octo phù hợp cho nghiên cứu thích nghi nhiều thiết bị.
+
+### ### Điều gì được giữ lại khi chuyển Octo sang robot mới?
+
+Hãy hình dung lõi Transformer giống phần đã học cách liên hệ ảnh, câu lệnh và động tác trong nhiều ví dụ. Khi sang tay máy mới, các ảnh có thể đến từ góc khác, còn lệnh cuối có số chiều khác. Ta thay hoặc bổ sung phần tiếp nhận tín hiệu và nhánh xuất hành động, rồi tinh chỉnh bằng một số lượt làm mẫu của robot đích. Điều này khác hoàn toàn với việc đặt một bản mô hình đã lưu lên thiết bị mới và mong nó hoạt động ngay. Nếu nhánh hành động giải mã sai đơn vị, mạng vẫn có thể chọn đúng vật nhưng tay máy di chuyển sai hướng.
 
 ![Hình 2 gốc từ PDF bài báo, trang 3](/paper-figures/octo/figure-2.webp)
 
@@ -48,9 +56,13 @@ Hình 4 thể hiện nhiều loại nhiệm vụ trên chín thiết lập robot
 
 Hình 6 cho thấy tăng kích thước mô hình giúp cải thiện trong một số phép thử, nhưng số lượt ở từng nhiệm vụ cần được đọc cùng kết quả. Quan trọng nhất là tách điểm của mô hình chưa tinh chỉnh khỏi điểm sau khi sử dụng dữ liệu đích.
 
-### Số liệu và phạm vi kết luận
+### Phải tách chạy trực tiếp và tinh chỉnh trên robot đích
 
-**Đối chiếu số liệu:** Trong một số phép thử chưa tinh chỉnh, Octo đạt tỷ lệ thành công trung bình cao hơn RT-1-X khoảng 29% tương đối theo cách tính trong bài báo. Lợi thế quan trọng hơn là thích nghi: sau khi tinh chỉnh bằng cỡ 100 lần làm mẫu của robot đích, Octo có thể vượt một số phương pháp huấn luyện từ đầu trong các thiết lập được báo cáo. Khi xem Hình 4–6, phải tách kết quả dùng trực tiếp checkpoint và kết quả sau tinh chỉnh; số dữ liệu dành cho robot mới quyết định ý nghĩa phép so.
+Trong một số phép thử chưa tinh chỉnh, Octo đạt tỷ lệ thành công trung bình cao hơn RT-1-X khoảng 29% tương đối theo cách tính trong bài báo. Lợi thế quan trọng hơn là thích nghi: sau khi tinh chỉnh bằng cỡ 100 lần làm mẫu của robot đích, Octo có thể vượt một số phương pháp huấn luyện từ đầu trong các thiết lập được báo cáo. Khi xem Hình 4–6, phải tách kết quả dùng trực tiếp checkpoint và kết quả sau tinh chỉnh; số dữ liệu dành cho robot mới quyết định ý nghĩa phép so.
+
+### ### Có hai câu hỏi đánh giá phải trả lời riêng
+
+Một là mô hình **chưa tinh chỉnh** có làm được việc trong bối cảnh mới không. Hai là sau một lượng dữ liệu robot đích nhất định, nó **thích nghi nhanh** đến đâu so với huấn luyện từ đầu. Những con số trong bài về dùng trực tiếp và tinh chỉnh bằng khoảng 100 lượt làm mẫu trả lời hai câu hỏi khác nhau. Để so công bằng, hãy ghi rõ số lượt mẫu được phép dùng, kiến trúc đầu ra và robot đánh giá. Mức tăng trung bình so với RT-1-X cũng chỉ có ý nghĩa trong tập nhiệm vụ và quy ước so sánh được tác giả sử dụng.
 
 ![Hình 6 từ PDF gốc, trang 8](/paper-figures/octo/figure-6.webp)
 
