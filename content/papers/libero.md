@@ -16,7 +16,7 @@ LIBERO là bộ nhiệm vụ và quy trình đánh giá, không phải chính s�
 
 LIBERO chia các nhiệm vụ thành nhóm thay vị trí không gian, thay vật, thay mục tiêu và kết hợp nhiều thay đổi. Nhờ đó khi kết quả kém, ta có thêm manh mối xem việc chuyển giao kiến thức gặp khó ở đâu.
 
-### ### Vì sao nhớ việc mới không có nghĩa vẫn nhớ việc cũ?
+### Vì sao nhớ việc mới không có nghĩa vẫn nhớ việc cũ?
 
 Giả sử robot học lần lượt ba việc: đặt cốc lên đĩa, mở ngăn kéo và xếp một chiếc bát. Sau khi học việc thứ ba, điểm số cao trên nhiệm vụ xếp bát chỉ chứng minh kỹ năng mới. Nếu lúc này robot không còn đặt được cốc, hệ thống đã **quên một phần kiến thức cũ**. Vì vậy đánh giá học liên tục phải ghi lại kết quả của tất cả nhiệm vụ sau mỗi giai đoạn, giống một bảng có hàng là nhiệm vụ kiểm tra và cột là thời điểm huấn luyện. Đọc mỗi ô của bảng giúp nhận ra kỹ năng nào mất đi, kỹ năng nào được cải thiện.
 
@@ -29,7 +29,7 @@ Giả sử robot học lần lượt ba việc: đặt cốc lên đĩa, mở ng
 
 Chính sách điều khiển học việc thứ nhất rồi được kiểm tra. Sau khi học việc thứ hai, nó được kiểm tra lại trên cả việc đầu lẫn việc thứ hai. Quá trình tiếp tục cho các việc sau. Cuối cùng so nhiều thuật toán như ER dùng phát lại kinh nghiệm và PackNet phân bổ tham số, có thể đổi thứ tự nhiệm vụ để kiểm tra độ nhạy.
 
-### ### PDDL kiểm tra trạng thái đích, không điều khiển hộ robot
+### PDDL kiểm tra trạng thái đích, không điều khiển hộ robot
 
 Trong một nhiệm vụ LIBERO, mô tả trạng thái đầu có thể ghi chiếc cốc nằm trên bàn và ngăn kéo đang đóng. Điều kiện hoàn thành có thể yêu cầu chiếc cốc ở trong ngăn kéo và cửa đã đóng lại. PDDL giúp mô tả những điều kiện kiểu đó để bộ đánh giá biết khi nào nhiệm vụ thực sự xong. Nhưng nó **không tự dạy robot góc khớp phải xoay**; mô hình điều khiển vẫn phải học từ quan sát và dữ liệu hành động. Phân biệt vai trò của bộ đánh giá với thuật toán đang được đánh giá là điều cần thiết để không nhầm LIBERO với một chính sách điều khiển mới.
 
@@ -59,7 +59,7 @@ Khi thấy một điểm tổng hợp, hãy hỏi nó đã bao gồm điểm c�
 
 Việc học thêm có thể giúp nhiệm vụ mới nhưng đồng thời làm quên nhiệm vụ cũ. Các phép thử trong bài cho thấy cách phát lại dữ liệu cũ thường khá ổn định, còn cách dành riêng tham số có thể bảo vệ kỹ năng cũ nhưng giới hạn dung lượng dành cho kỹ năng mới. Hình 4–5 cho thấy thứ tự học, kiến trúc và việc huấn luyện trước đều ảnh hưởng kết quả. Thậm chí huấn luyện trước trên tập LIBERO-90 không phải lúc nào cũng giúp chuỗi 10 nhiệm vụ dài về sau.
 
-### ### Đọc kết quả như một bảng theo thời gian học
+### Đọc kết quả như một bảng theo thời gian học
 
 Tại cột đầu của bảng, robot vừa học nhiệm vụ A; ở cột sau, nó đã học thêm B. Nếu điểm A giảm rõ sau khi học B, đó là dấu hiệu quên. Nếu điểm A không giảm và B cũng tốt, mô hình vừa học được việc mới vừa giữ được việc cũ. Khi đổi thứ tự B và A, kết quả có thể thay đổi vì tham số mạng được cập nhật khác nhau. Đó là lý do Hình 4 dùng nhiều thứ tự học. Đừng gọi một mô hình “học liên tục tốt” chỉ vì điểm trung bình cuối cùng cao mà không xem từng kỹ năng cũ đã bị ảnh hưởng thế nào.
 
