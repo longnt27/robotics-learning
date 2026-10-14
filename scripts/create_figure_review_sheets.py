@@ -15,7 +15,7 @@ data=json.loads((ROOT/'content/paper-figures.json').read_text())
 slugs=sys.argv[1:] or list(data)
 FONT=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',19)
 SMALL=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',14)
-W,H=1000,670
+W,H=850,565
 def download(url,slug):
     path=Path('/tmp')/(slug+'-manual-source.pdf')
     if path.exists(): return path
@@ -72,5 +72,5 @@ for slug in slugs:
         canvas=Image.new('RGB',(cols*W,rows*H),(232,232,232))
         for i,c in enumerate(cells):
             canvas.paste(c,((i%cols)*W,(i//cols)*H))
-        canvas.save(SHEETS/(slug+'.jpg'),quality=79,optimize=True,subsampling=0)
+        canvas.save(SHEETS/(slug+'.jpg'),quality=52,optimize=True,subsampling=2)
         print(f'SHEET {slug} pages={len(doc)} figures={len(figs)} output={(SHEETS/(slug+".jpg")).stat().st_size}',flush=True)
