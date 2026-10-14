@@ -1,3 +1,4 @@
+import "@xyflow/react/dist/style.css";
 "use client";
 import { useMemo, useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
