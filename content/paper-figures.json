@@ -145,14 +145,14 @@
     {
       "page": 1,
       "bbox": [
-        72,
+        44,
         446,
-        552,
+        591,
         699
       ],
-      "width": 1729,
+      "width": 1970,
       "height": 912,
-      "bytes": 245716,
+      "bytes": 243506,
       "number": 1,
       "image": "/paper-figures/rt-1/figure-1.webp",
       "caption": "Fig. 1: A high-level overview of RT-1’s architecture, dataset, and evaluation.",
