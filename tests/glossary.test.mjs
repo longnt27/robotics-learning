@@ -73,9 +73,12 @@ test("global glossary trigger lives in shared layout; back-to-top only in paper 
   assert.doesNotMatch(launcher,/window\.scrollTo/);
   assert.match(button,/window\.scrollTo\(\{top:0/);
   assert.match(button,/window\.scrollY>480/);
-  assert.match(launcher,/showModal\(\)/);
-  assert.match(launcher,/onCancel=\{close\}/);
-  assert.match(launcher,/searchGlossary\(terms,query,category\)/);
+  const dialog=read("components/glossary-dialog.tsx");
+  assert.match(dialog,/showModal\\(\\)/);
+  assert.match(dialog,/onCancel=\\{close\\}/);
+  assert.match(dialog,/searchGlossary\\(terms,query,category\\)/);
+  assert.equal(JSON.parse(read("content/glossary-summary.json")).count,terms.length);
+  assert.doesNotMatch(launcher,/glossary\\.json/);
   assert.match(css,/\.corpus-glossary-fab\{left:/);
   assert.match(css,/\.paper-back-to-top\{right:/);
 });
