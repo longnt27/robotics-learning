@@ -145,14 +145,14 @@
     {
       "page": 1,
       "bbox": [
-        21,
-        312.2,
-        301,
-        708.7
+        21.0,
+        233.4,
+        591.9,
+        710.7
       ],
-      "width": 1009,
-      "height": 1429,
-      "bytes": 228806,
+      "width": 2056,
+      "height": 1719,
+      "bytes": 513886,
       "number": 1,
       "image": "/paper-figures/rt-1/figure-1.webp",
       "caption": "Fig. 1: A high-level overview of RT-1’s architecture, dataset, and evaluation.",
@@ -165,14 +165,14 @@
     {
       "page": 3,
       "bbox": [
-        311,
-        359,
-        591,
-        474
+        242.2,
+        99.0,
+        601.0,
+        474.0
       ],
-      "width": 1009,
-      "height": 415,
-      "bytes": 21288,
+      "width": 1292,
+      "height": 1351,
+      "bytes": 118842,
       "number": 2,
       "image": "/paper-figures/rt-1/figure-2.webp",
       "caption": "Fig. 2: The architecture diagram of RT-1. The instruction is trans- formed into a USE embedding and used to condition a pre-trained EfﬁcientNet via FiLM layers. The resulting vision-language tokens are reduced by the TokenLearner and fed into a decoder-only Trans- former, which outputs tokenized actions.",
@@ -185,14 +185,14 @@
     {
       "page": 6,
       "bbox": [
-        22,
-        41,
-        590,
+        22.0,
+        41.0,
+        590.0,
         326.2
       ],
       "width": 2045,
       "height": 1028,
-      "bytes": 169046,
+      "bytes": 158698,
       "number": 3,
       "image": "/paper-figures/rt-1/figure-3.webp",
       "caption": "Fig. 3: (a) Robot classroom where we collect data at scale; (b) a real ofﬁce kitchen, one of the two realistic environments used for evaluation (named Kitchen1 in the rest of the paper); (c) a different ofﬁce kitchen used for evaluation (named Kitchen2 in the rest of the paper); (d) mobile manipulator used throughout the paper; (e) a set of objects used for most of the skills to expand skill diversity; (f) a more diverse set of objects used mostly to expand object diversity of the picking skill.",
@@ -205,14 +205,14 @@
     {
       "page": 6,
       "bbox": [
-        311,
-        405.2,
-        591,
-        568.7
+        311.0,
+        401.2,
+        591.0,
+        570.7
       ],
       "width": 1009,
-      "height": 590,
-      "bytes": 79434,
+      "height": 611,
+      "bytes": 75806,
       "number": 4,
       "image": "/paper-figures/rt-1/figure-4.webp",
       "caption": "Fig. 4: Evaluation scenarios for distractors (ﬁrst row), from left to right: easy (0-5 distractors), medium (9 distractors), hard (9 distractors and occluded object); background (second row), from left to right: original environment, patterned table cloth, new kitchen; and realistic scenarios in the real kitchen (third row), generalization levels from left to right: L1, L2 and L3.",
@@ -225,14 +225,14 @@
     {
       "page": 7,
       "bbox": [
-        311,
+        311.0,
         42.4,
-        591,
-        346.6
+        591.0,
+        348.6
       ],
       "width": 1009,
-      "height": 1096,
-      "bytes": 156276,
+      "height": 1104,
+      "bytes": 147674,
       "number": 5,
       "image": "/paper-figures/rt-1/figure-5.webp",
       "caption": "Fig. 5: Example evaluation trajectories for RT-1 across various instructions.",
@@ -245,14 +245,14 @@
     {
       "page": 9,
       "bbox": [
-        311,
-        114.9,
-        591,
-        255.3
+        307.0,
+        56.0,
+        591.0,
+        257.3
       ],
-      "width": 1009,
-      "height": 507,
-      "bytes": 24386,
+      "width": 1023,
+      "height": 726,
+      "bytes": 60870,
       "number": 6,
       "image": "/paper-figures/rt-1/figure-6.webp",
       "caption": "Fig. 6: Various data ablations of RT-1 across seen tasks, generalization to unseen tasks, and robustness to distractors and backgrounds. Data diversity has a higher impact on the performance and generalization than data quantity. Appendix Table XII shows the values for each ablation.",
