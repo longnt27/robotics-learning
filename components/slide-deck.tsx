@@ -1,5 +1,6 @@
-import "../app/briefing.css";
 "use client";
+
+import "../app/briefing.css";
 
 import {useCallback,useEffect,useMemo,useRef,useState} from "react";
 import Link from "next/link";
