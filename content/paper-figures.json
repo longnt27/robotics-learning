@@ -1891,14 +1891,14 @@
     {
       "page": 2,
       "bbox": [
-        22,
-        97,
-        590,
-        263.1
+        74,
+        65,
+        542,
+        262
       ],
-      "width": 2045,
-      "height": 599,
-      "bytes": 139250,
+      "width": 1686,
+      "height": 710,
+      "bytes": 170758,
       "number": 1,
       "image": "/paper-figures/rdt-1b/figure-1.webp",
       "caption": "Figure 1: Overview of Robotics Diffusion Transformer with 1B-Parameters (RDT-1B), a language-conditioned visuomotor policy for bimanual manipulation,with state-of-the-art generaliz- ability to unseen scenarios (See App. H for metric calculation details).",
@@ -1931,14 +1931,14 @@
     {
       "page": 4,
       "bbox": [
-        22,
-        79.5,
-        590,
-        239.3
+        73,
+        52,
+        538,
+        240
       ],
-      "width": 2045,
-      "height": 576,
-      "bytes": 65144,
+      "width": 1675,
+      "height": 677,
+      "bytes": 80322,
       "number": 3,
       "image": "/paper-figures/rdt-1b/figure-3.webp",
       "caption": "Figure 3: RDT framework. Heterogeneous action spaces of various robots are embedded into a unified action space for multi-robot training. Inputs: proprioception zt, noisy action chunk ˜at:t+Ta, control frequency c, and diffusion time step k, acting as denoising inputs; image inputs (Timg = 2 and X· = {X1 · , X2 · , X3 · } denotes a set of images from exterior, right-wrist, and left wrist cameras) and language inputs, acting as conditions. Outputs: denoised action chunk at:t+Ta.",
@@ -1951,14 +1951,14 @@
     {
       "page": 6,
       "bbox": [
-        311,
-        330.5,
-        591,
-        550.5
+        328,
+        384,
+        575,
+        548
       ],
-      "width": 1009,
-      "height": 793,
-      "bytes": 67478,
+      "width": 890,
+      "height": 591,
+      "bytes": 52550,
       "number": 4,
       "image": "/paper-figures/rdt-1b/figure-4.webp",
       "caption": "Figure 4: (a) Unstable loss curve during training without QKNorm & RMSNorm. (b) Success rates of RDT (w/o MLP Decoder or w/o ACI) in tasks of Robot Dog (walk straight sub-task) and Pour Water-L-1/3 (correct amount sub- task). See Fig. 5 for task defini- tions. All the models are with- out pre-training in this experiment due to resource constraints.",
@@ -1971,14 +1971,14 @@
     {
       "page": 8,
       "bbox": [
-        22,
-        146.6,
-        590,
-        525.5
+        74,
+        69,
+        547,
+        527
       ],
-      "width": 2045,
-      "height": 1365,
-      "bytes": 340026,
+      "width": 1704,
+      "height": 1650,
+      "bytes": 456856,
       "number": 5,
       "image": "/paper-figures/rdt-1b/figure-5.webp",
       "caption": "Figure 5: Task definitions and visualizations. For 7 challenging tasks, we describe their language instruction, randomization, and definitions of each sub-task. For Pour Water-L-1/3 and Pour Water-R- 2/3, we show the resulting water levels in two images.",
