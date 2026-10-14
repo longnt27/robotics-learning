@@ -44,9 +44,9 @@ test('presenter is reachable from each reader and supports navigation, notes, fu
  assert.match(reader,/tab==="slides"&&<motion\.div[\s\S]*<SlideDeck /);
  assert.match(reader,/new URLSearchParams\(window.location.search\)/);
  const api=fs.readFileSync(path.join(root,'app/api/papers/[slug]/slides/route.ts'),'utf8');
- assert.doesNotMatch(server,/getResearchSlides\\(slug\\)/,'Slides must not ship in initial server component');
- assert.match(api,/getResearchSlides\\(slug\\)/);
- assert.match(reader,/loadPaperSlides\\(paper\\.slug\\)/);
+ assert.doesNotMatch(server,/getResearchSlides\(slug\)/,'Slides must not ship in initial server component');
+ assert.match(api,/getResearchSlides\(slug\)/);
+ assert.match(reader,/loadPaperSlides\(paper\.slug\)/);
 });
 
 
