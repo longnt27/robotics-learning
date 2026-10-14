@@ -3285,14 +3285,14 @@
     {
       "page": 14,
       "bbox": [
-        318,
-        409,
-        591,
-        543
+        340,
+        384,
+        563,
+        542
       ],
-      "width": 984,
-      "height": 483,
-      "bytes": 39220,
+      "width": 803,
+      "height": 570,
+      "bytes": 41814,
       "number": 9,
       "image": "/paper-figures/lingbot-vla-2/figure-9.webp",
       "caption": "Figure 9. Illustration of the long-horizon mobile manipulation experiments platform.",
@@ -3325,14 +3325,14 @@
     {
       "page": 15,
       "bbox": [
-        72,
-        403,
-        572,
-        545
+        76,
+        353,
+        552,
+        542
       ],
-      "width": 1801,
-      "height": 512,
-      "bytes": 83516,
+      "width": 1715,
+      "height": 682,
+      "bytes": 104224,
       "number": 11,
       "image": "/paper-figures/lingbot-vla-2/figure-11.webp",
       "caption": "Figure 11. Per-dimension MeanStd-normalized action distributions for joint and EEF action spaces. The first column shows the pooled distribution over all four tasks, while the remaining columns show task-specific distributions. The gap measures task-to-pooled distribution alignment based on per-dimension median and IQR differences.",
@@ -3346,13 +3346,13 @@
       "page": 16,
       "bbox": [
         70,
-        191,
-        543,
-        336
+        147,
+        548,
+        335
       ],
-      "width": 1703,
-      "height": 523,
-      "bytes": 40374,
+      "width": 1721,
+      "height": 677,
+      "bytes": 62434,
       "number": 12,
       "image": "/paper-figures/lingbot-vla-2/figure-12.webp",
       "caption": "Figure 12. Action targets and normalization statistics for the four GM-100 tasks. Left: relQpos substantially reduces the action scale compared with absQpos. Right: normalization changes the effective dynamic range of MeanStd-normalized relQpos; Q01–Q99 is shown in the actual unclipped setting.",
