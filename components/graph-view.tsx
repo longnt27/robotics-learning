@@ -1,5 +1,6 @@
-import "@xyflow/react/dist/style.css";
 "use client";
+
+import "@xyflow/react/dist/style.css";
 import { useMemo, useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { ReactFlow, BackgroundVariant, Background, Controls, MiniMap, Handle, Position, MarkerType, type Node, type Edge, type NodeProps, type ReactFlowInstance } from "@xyflow/react";
