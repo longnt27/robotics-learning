@@ -395,7 +395,7 @@ try {
   await presenterPage.locator('.brief-layout-intuition').waitFor({state:'visible',timeout:7000});
   await presenterPopup.keyboard.press('ArrowRight');
   await presenterPage.waitForFunction(()=>new URL(location.href).searchParams.get('slide')==='5');
-  await presenterPopup.getByText('H, s, d: ba đại lượng cần nhớ').waitFor({state:'visible',timeout:7000});
+  await presenterPopup.getByText('Ba đại lượng quyết định liệu RTC có nối được đoạn').waitFor({state:'visible',timeout:7000});
 
   await presenterPopup.close(); // user closing the OS popup must restore the normal reader
   await presenterPage.locator('.brief-deck-presenting').waitFor({state:'detached',timeout:7000});
