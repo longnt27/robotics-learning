@@ -1,3 +1,4 @@
+import "../app/briefing.css";
 "use client";
 
 import {useCallback,useEffect,useMemo,useRef,useState} from "react";
