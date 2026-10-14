@@ -375,7 +375,7 @@ try {
   });
   await unsupportedPresenter.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=3',{waitUntil:'domcontentloaded'});
   await unsupportedPresenter.getByRole('button',{name:'Bắt đầu Presenter View với ghi chú riêng'}).click();
-  assert.match(await unsupportedPresenter.getByRole('alert').innerText(),/Chrome hoặc Edge/,'Explicit support guidance');
+  assert.match(await unsupportedPresenter.locator('.brief-presenter-error').innerText(),/Chrome hoặc Edge/,'Explicit support guidance');
   assert.equal(await unsupportedPresenter.locator('.brief-deck-presenting').count(),0,'No unsafe inline fallback');
   await unsupportedPresenter.close();
   console.log('PASS: private Presenter View popup, bidirectional navigation, closure recovery, unsupported-browser privacy');
