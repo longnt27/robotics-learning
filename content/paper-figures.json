@@ -917,12 +917,12 @@
       "bbox": [
         73,
         81,
-        323,
+        337,
         154
       ],
-      "width": 901,
+      "width": 952,
       "height": 264,
-      "bytes": 42794,
+      "bytes": 43130,
       "number": 5,
       "image": "/paper-figures/rt-2/figure-5.webp",
       "caption": "Figure 5 | Real-world out-of-distribution behaviors in the Language Table environment. Identical RT-2-PaLI-3B model checkpoint is used as in Tab. 1.",
