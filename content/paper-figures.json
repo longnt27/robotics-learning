@@ -1263,14 +1263,14 @@
     {
       "page": 1,
       "bbox": [
-        22,
-        352.5,
-        590,
-        579.5
+        74,
+        355,
+        554,
+        576
       ],
-      "width": 2045,
-      "height": 819,
-      "bytes": 282094,
+      "width": 1729,
+      "height": 796,
+      "bytes": 298638,
       "number": 1,
       "image": "/paper-figures/droid/figure-1.webp",
       "caption": "Fig. 1: We introduce DROID (Distributed Robot Interaction Dataset), an “in-the-wild” robot manipulation dataset with 76k trajectories or 350 hours of interaction data, collected across 564 scenes, 86 tasks, and 52 buildings over the course of 12 months. Each DROID episode contains three synchronized RGB camera streams, camera calibration, depth information, and natural language instructions. We demonstrate that training with DROID leads to policies with higher performance, greater robustness, and improved generalization ability. We open source the full dataset, pre-trained model checkpoints, and a detailed guide for reproducing our robot setup.",
@@ -1283,14 +1283,14 @@
     {
       "page": 4,
       "bbox": [
-        21,
-        66.7,
+        29,
+        55,
         301,
-        245.6
+        246
       ],
-      "width": 1009,
-      "height": 645,
-      "bytes": 56728,
+      "width": 980,
+      "height": 688,
+      "bytes": 64872,
       "number": 2,
       "image": "/paper-figures/droid/figure-2.webp",
       "caption": "Fig. 2: The DROID robot platform. We use the same hardware setup across all 13 institutions to streamline data collection while maximizing portability and flexibility. The setup consists of a Franka Panda 7DoF robot arm, two adjustable Zed 2 stereo cameras, a wrist- mounted Zed Mini stereo camera, and an Oculus Quest 2 headset with controllers for teleoperation. Everything is mounted on a portable, height-adjustable desk for quick scene changes.",
@@ -1443,14 +1443,14 @@
     {
       "page": 10,
       "bbox": [
-        21,
-        370.3,
+        27,
+        401,
         301,
-        526.5
+        526
       ],
-      "width": 1009,
-      "height": 563,
-      "bytes": 21728,
+      "width": 987,
+      "height": 451,
+      "bytes": 21172,
       "number": 10,
       "image": "/paper-figures/droid/figure-10.webp",
       "caption": "Fig. 10: How important is the scene diversity in DROID? We find that co-training on a subset of DROID with diverse scenes has higher OOD performance than co-training on a subset of DROID with only 20 scenes, suggesting the scene diversity of DROID is one of the driving factors behind strong policy performance when co-training.",
