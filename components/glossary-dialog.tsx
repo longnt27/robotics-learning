@@ -54,9 +54,9 @@ export function GlossaryDialog({open,close,triggerRef}: {
     return ()=>{
       if(dialog.open) dialog.close();
       document.body.style.overflow=overflow;
-      buttonRef.current?.focus();
+      triggerRef.current?.focus();
     };
-  },[mounted,open]);
+  },[mounted,open,triggerRef]);
 
 
   const overlay = mounted && open && createPortal(
