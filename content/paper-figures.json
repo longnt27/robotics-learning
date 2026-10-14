@@ -530,13 +530,13 @@
       "page": 7,
       "bbox": [
         33,
-        77,
+        57,
         301,
         195
       ],
       "width": 966,
-      "height": 425,
-      "bytes": 19766,
+      "height": 497,
+      "bytes": 20304,
       "number": 3,
       "image": "/paper-figures/palm-e/figure-3.webp",
       "caption": "Figure 3: Planning success results in the TAMP environment (1% data) for PaLM-E-12B, comparing of the effects of PaLM-E models (i) using the full training mixture, (ii) pre-training (ViT and PaLM), and (iii) freezing or ﬁnetuning the language model. Transfer from full mixture is particularly effective. Note that full mixture contains only 1% of the training data (320 examples each) for the tasks evaluated here. Shown is the mean of tasks p1, p2.",
@@ -550,13 +550,13 @@
       "page": 8,
       "bbox": [
         44,
-        251,
+        211,
         570,
         406
       ],
       "width": 1894,
-      "height": 559,
-      "bytes": 164208,
+      "height": 703,
+      "bytes": 210324,
       "number": 4,
       "image": "/paper-figures/palm-e/figure-4.webp",
       "caption": "Figure 4: A single PaLM-E model directs the low-level policies of two real robots. Shown is a long-horizon mobile manipulation task in a kitchen, and one-shot / zero-shot generalization with a tabletop manipulation robot.",
