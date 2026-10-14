@@ -6,6 +6,8 @@ import { relations } from "@/lib/relations";
 import { getPaperChapter } from "@/lib/content";
 import {getPaperFigures} from "@/lib/paper-figures";
 import {getPaperResources} from "@/lib/paper-resources";
+import {getChapterToc} from "@/lib/chapter-headings";
+import {PaperChapter} from "@/components/paper-chapter";
 import { PaperReader } from "@/components/paper-reader";
 import { ReadingScrollTop } from "@/components/reading-scroll-top";
 
@@ -25,5 +27,7 @@ export default async function PaperPage({params}: {params: Promise<{slug: string
   const chapter = await getPaperChapter(slug);
   const figures = getPaperFigures(slug);
   const resources = getPaperResources(slug);
-  return <><PaperReader paper={paper} chapter={chapter} relations={relations} figures={figures} resources={resources}/><ReadingScrollTop/></>;
+  const toc = getChapterToc(chapter);
+  const chapterView = chapter ? <PaperChapter paperSlug={slug} chapter={chapter} figures={figures}/> : null;
+  return <><PaperReader paper={paper} chapterView={chapterView} toc={toc} relations={relations} resources={resources}/><ReadingScrollTop/></>;
 }
