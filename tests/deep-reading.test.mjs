@@ -198,7 +198,8 @@ test("Paper figures have original source captions, PDF deep links and native ful
   const code=fs.readFileSync(path.join(root,"components/paper-figure.tsx"),"utf8");
   const reader=fs.readFileSync(path.join(root,"components/paper-reader.tsx"),"utf8");
   const css=fs.readFileSync(path.join(root,"app/globals.css"),"utf8");
-  assert.ok(reader.includes("<PaperFigure paperSlug={paper.slug}"));
+  const chapter=fs.readFileSync(path.join(root,"components/paper-chapter.tsx"),"utf8");
+  assert.ok(chapter.includes("<PaperFigure paperSlug={paperSlug}"));
   assert.ok(code.includes('className="paper-source-figure"'));
   assert.ok(code.includes("meta?.caption"));
   assert.ok(code.includes("meta.pdf"));
