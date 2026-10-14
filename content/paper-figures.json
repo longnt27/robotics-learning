@@ -1059,14 +1059,14 @@
     {
       "page": 1,
       "bbox": [
-        22,
-        398.5,
-        590,
-        535.4
+        78,
+        408,
+        554,
+        535
       ],
-      "width": 2045,
-      "height": 494,
-      "bytes": 124174,
+      "width": 1715,
+      "height": 458,
+      "bytes": 130402,
       "number": 1,
       "image": "/paper-figures/mimicplay/figure-1.webp",
       "caption": "Figure 1: Human is able to complete a long-horizon task much faster than a teleoperated robot. This observation inspires us to develop MIMICPLAY, a hierarchical imitation learning algorithm that learns a high-level planner from cheap human play data and a low-level control policy from a small amount of multi-task teleoperated robot demonstrations. We show that MIMICPLAY significantly improves sample efficiency and robustness of imitation learning algorithms in long-horizon tasks.",
@@ -1119,14 +1119,14 @@
     {
       "page": 7,
       "bbox": [
-        311,
-        458.7,
-        591,
-        678.7
+        344,
+        585,
+        572,
+        678
       ],
-      "width": 1009,
-      "height": 793,
-      "bytes": 84586,
+      "width": 822,
+      "height": 335,
+      "bytes": 13202,
       "number": 4,
       "image": "/paper-figures/mimicplay/figure-4.webp",
       "caption": "Figure 4: Evaluation of multi-task policy prompted with robot/human videos in the Study Desk environment.",
@@ -1139,14 +1139,14 @@
     {
       "page": 8,
       "bbox": [
-        311,
-        140.7,
-        591,
-        303
+        320,
+        176,
+        590,
+        306
       ],
-      "width": 1009,
-      "height": 585,
-      "bytes": 66312,
+      "width": 972,
+      "height": 469,
+      "bytes": 52232,
       "number": 5,
       "image": "/paper-figures/mimicplay/figure-5.webp",
       "caption": "Figure 5: Qualitative visualization of the latent plans before the disturbance and re-planning. Column 1: third- person view. Column 2: visualization of the latent plan before disturbance. Column 3: human disturbance; the red arrow indicts the direction of disturbance. Column 4: visualization of real-time re-planning capabilities, which show robustness against disturbance. Column 5: robot recovers with the updated task plan.",
