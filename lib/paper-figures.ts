@@ -8,6 +8,6 @@ const manifest = allFigures as Record<string, Array<SourceFigure & Record<string
 export function getPaperFigures(slug: string): SourceFigure[] {
   // Send only visible captions for the requested paper; never send bbox,
   // hashes, extraction metadata, or captions for the other 21 papers.
-  return (manifest[slug] ?? []).map(({image,number,page,pdf,caption,caption_vi,translation_reviewed}) =>
-    ({image,number,page,pdf,caption,caption_vi,translation_reviewed}));
+  return (manifest[slug] ?? []).map(({image,width,height,number,page,pdf,caption,caption_vi,translation_reviewed}) =>
+    ({image,width,height,number,page,pdf,caption,caption_vi,translation_reviewed}));
 }
