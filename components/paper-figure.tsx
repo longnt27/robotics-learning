@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ExternalLink, Maximize2, X, ZoomIn, ZoomOut } from "lucide-react";
+import Image from "next/image";
 import type {SourceFigure} from "@/lib/figure-types";
 
 export function PaperFigure({paperSlug,src,alt,meta}:{
@@ -87,7 +88,10 @@ export function PaperFigure({paperSlug,src,alt,meta}:{
       <button ref={triggerRef} type="button" className="paper-figure-open"
         onClick={()=>{setActualSize(false);setOpen(true);}}
         aria-label={"Phóng to " + title + " toàn màn hình"}>
-        <img src={src} alt={alt || title} loading="lazy" decoding="async"/>
+        <Image src={src} alt={alt || title}
+          width={meta?.width ?? 1200} height={meta?.height ?? 800}
+          sizes="(max-width: 600px) calc(100vw - 32px), (max-width: 1240px) 70vw, 760px"
+          quality={75} loading="lazy" decoding="async"/>
         <span className="paper-figure-zoom-label"><Maximize2 size={16}/> PHÓNG TO</span>
       </button>
       <span className="paper-source-figcaption">
