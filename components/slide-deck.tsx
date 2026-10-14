@@ -2,6 +2,7 @@
 
 import {useCallback,useEffect,useMemo,useRef,useState} from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {AnimatePresence,motion} from "framer-motion";
 import {ArrowLeft,ArrowRight,ArrowUpRight,BookOpen,Check,ChevronLeft,ChevronRight,ExternalLink,Grid2X2,HelpCircle,Maximize2,Minimize2,NotebookText,Orbit,PlayCircle,X} from "lucide-react";
 import katex from "katex";
@@ -224,7 +225,7 @@ export function SlideDeck({paper,slides,chapter,onRead}:{paper:Paper;slides:Rese
       <AnimatePresence mode="wait" initial={false}>
         <motion.div key={`${paper.slug}-${index}`} className={`brief-slide-content brief-layout-${slide.type}`} initial={{opacity:0,y:14,filter:"blur(4px)"}} animate={{opacity:1,y:0,filter:"blur(0px)"}} exit={{opacity:0,y:-10,filter:"blur(3px)"}} transition={{duration:.23,ease:"easeOut"}}>
           {slide.type!=="cover"&&<div className="brief-slide-heading"><div className="brief-chapter-label"><span className="brief-signal"/> {SECTIONS[slide.type]} <span className="brief-heading-rule"/> {String(index+1).padStart(2,"0")}</div><h2>{slide.title}</h2>{!["intuition","equation","problem","contrast"].includes(slide.type)&&<p className="brief-slide-description">{slide.lead}</p>}</div>}
-          <div className="brief-slide-art"><SlideVisual slide={slide} paper={paper} index={index}/></div>
+          <div className={`brief-slide-art ${slide.figure?"brief-slide-art-with-figure":""}`}><div className="brief-slide-art-primary"><SlideVisual slide={slide} paper={paper} index={index}/></div>{slide.figure&&<figure className="brief-source-figure"><div className="brief-source-image"><Image src={slide.figure.src} alt={slide.figure.alt} fill sizes="(max-width: 700px) 92vw, 42vw" priority={false} /></div><figcaption><span>HÌNH GỐC · NGUỒN BÀI BÁO</span>{slide.figure.caption}</figcaption></figure>}</div>
           {slide.detail&&<aside className={`brief-slide-detail brief-slide-detail-${slide.type}`}><span className="brief-slide-detail-label"><span className="brief-signal"/> {slide.detail.label}</span><p>{slide.detail.text}</p></aside>}
           {slide.type!=="cover"&&slide.type!=="equation"&&slide.type!=="intuition"&&<div className="brief-slide-intuition"><span>CÁCH HIỂU <i>→</i></span><p>{slide.intuition}</p></div>}
         </motion.div>
