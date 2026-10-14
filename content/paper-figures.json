@@ -1993,14 +1993,14 @@
     {
       "page": 1,
       "bbox": [
-        311,
-        210.8,
-        591,
+        313,
+        155,
+        590,
         622
       ],
-      "width": 1009,
-      "height": 1482,
-      "bytes": 117162,
+      "width": 998,
+      "height": 1682,
+      "bytes": 145950,
       "number": 1,
       "image": "/paper-figures/fast/figure-1.webp",
       "caption": "Fig. 1: We propose FAST, a simple yet effective approach for tokenization of robot action trajectories via time-series compression. FAST enables training of autoregressive VLAs that solve complex dexterous manipulation tasks and gener- alize broadly to new scenes. We use it to train π0-FAST, a generalist robot policy that matches the performance of the state-of-the-art π0 diffusion VLA on dexterous and long- horizon manipulation tasks, while training 5x faster (top).",
@@ -2014,13 +2014,13 @@
       "page": 2,
       "bbox": [
         311,
-        177.2,
+        58,
         591,
-        292.2
+        291
       ],
       "width": 1009,
-      "height": 415,
-      "bytes": 18998,
+      "height": 840,
+      "bytes": 48666,
       "number": 2,
       "image": "/paper-figures/fast/figure-2.webp",
       "caption": "Fig. 2: Left: FAST tokenization enables training of autoregres- sive Transformers for dexterous robot control via simple next token prediction. Right: FAST outperforms popular binning tokenization schemes, e.g., used in OpenVLA [39], particu- larly for high-frequency robot data.",
@@ -2113,14 +2113,14 @@
     {
       "page": 8,
       "bbox": [
-        21,
-        264.6,
+        24,
+        339,
         301,
-        493.2
+        495
       ],
-      "width": 1009,
-      "height": 824,
-      "bytes": 116320,
+      "width": 998,
+      "height": 562,
+      "bytes": 88266,
       "number": 7,
       "image": "/paper-figures/fast/figure-7.webp",
       "caption": "Fig. 7: Evaluation environments of FAST policy trained on DROID [38]. We find that the same policy checkpoint generalizes robustly, and performs various simple table-top tasks zero-shot across three university campuses.",
@@ -2194,13 +2194,13 @@
       "page": 10,
       "bbox": [
         21,
-        273,
+        316,
         301,
-        435.5
+        436
       ],
       "width": 1009,
-      "height": 586,
-      "bytes": 23944,
+      "height": 433,
+      "bytes": 21404,
       "number": 11,
       "image": "/paper-figures/fast/figure-11.webp",
       "caption": "Fig. 11: Comparison of π0-FAST and diffusion π0 [7] generalist policies. π0-FAST matches the performance of diffusion π0 while requiring significantly less compute for training. Reported: mean and 95% CI.",
