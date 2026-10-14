@@ -1993,14 +1993,14 @@
     {
       "page": 1,
       "bbox": [
-        313,
-        155,
+        311,
+        207,
         590,
-        622
+        623
       ],
-      "width": 998,
-      "height": 1682,
-      "bytes": 145950,
+      "width": 1005,
+      "height": 1498,
+      "bytes": 137068,
       "number": 1,
       "image": "/paper-figures/fast/figure-1.webp",
       "caption": "Fig. 1: We propose FAST, a simple yet effective approach for tokenization of robot action trajectories via time-series compression. FAST enables training of autoregressive VLAs that solve complex dexterous manipulation tasks and gener- alize broadly to new scenes. We use it to train π0-FAST, a generalist robot policy that matches the performance of the state-of-the-art π0 diffusion VLA on dexterous and long- horizon manipulation tasks, while training 5x faster (top).",
