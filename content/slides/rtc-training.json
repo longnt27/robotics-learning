@@ -15,7 +15,8 @@
       "src": "/paper-figures/rtc-training/figure-1.webp",
       "alt": "Hình 1 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
       "caption": "Hai đoạn chunk chồng nhau; màu đỏ là phần bắt buộc giữ."
-    }
+    },
+    "stageMode": "visual-first"
   },
   {
     "type": "problem",
@@ -34,7 +35,8 @@
       "src": "/paper-figures/rtc-training/figure-1.webp",
       "alt": "Hình 1 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
       "caption": "Hai đoạn chunk chồng nhau; màu đỏ là phần bắt buộc giữ."
-    }
+    },
+    "stageMode": "visual-first"
   },
   {
     "type": "contrast",
@@ -48,7 +50,8 @@
     "detail": {
       "label": "LỜI THUYẾT TRÌNH",
       "text": "Đổi lại ta có đường đi liên tục, nhưng mỗi lượt tính khó hơn, tăng độ trễ d; d tăng lại khiến tiền tố phải giữ dài hơn. Đây chính là vòng phản hồi bất lợi. Bối cảnh bổ sung: Bộ điều khiển tiếp tục thực thi đoạn A trong khi VLA sinh đoạn B; những hành động đầu của B đã được đoạn A quyết định."
-    }
+    },
+    "stageMode": "visual-first"
   },
   {
     "type": "intuition",
@@ -66,7 +69,8 @@
       "src": "/paper-figures/rtc-training/figure-4.webp",
       "alt": "Hình 4 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
       "caption": "Hai nhiệm vụ robot thật: dựng hộp và pha espresso."
-    }
+    },
+    "stageMode": "visual-first"
   },
   {
     "type": "concepts",
@@ -95,7 +99,8 @@
       "src": "/paper-figures/rtc-training/figure-1.webp",
       "alt": "Hình 1 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
       "caption": "Hai đoạn chunk chồng nhau; màu đỏ là phần bắt buộc giữ."
-    }
+    },
+    "stageMode": "visual-first"
   },
   {
     "type": "pipeline",
@@ -116,7 +121,8 @@
       "src": "/paper-figures/rtc-training/figure-2.webp",
       "alt": "Hình 2 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
       "caption": "DiT nhận prefix không nhiễu, suffix được thêm nhiễu."
-    }
+    },
+    "stageMode": "visual-first"
   },
   {
     "type": "representation",
@@ -141,7 +147,8 @@
       "src": "/paper-figures/rtc-training/figure-1.webp",
       "alt": "Hình 1 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
       "caption": "Hai đoạn chunk chồng nhau; màu đỏ là phần bắt buộc giữ."
-    }
+    },
+    "stageMode": "visual-first"
   },
   {
     "type": "training",
@@ -166,7 +173,8 @@
       "src": "/paper-figures/rtc-training/figure-2.webp",
       "alt": "Hình 2 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
       "caption": "DiT nhận prefix không nhiễu, suffix được thêm nhiễu."
-    }
+    },
+    "stageMode": "visual-first"
   },
   {
     "type": "inference",
@@ -186,7 +194,8 @@
     "detail": {
       "label": "LỜI THUYẾT TRÌNH",
       "text": "Đừng nhầm “không overhead của RTC” với “không tốn thời gian suy luận”: transformer và quá trình lấy mẫu vẫn tốn GPU, chỉ bỏ phần tính gradient để inpainting. Bối cảnh bổ sung: Trong khi robot chạy đoạn A, hệ thống lấy quan sát và sinh B với d lệnh đầu từ A là điều kiện cố định. Kết quả đến tại t+d thì robot thực thi hậu tố của B."
-    }
+    },
+    "stageMode": "visual-first"
   },
   {
     "type": "equation",
@@ -200,7 +209,8 @@
     "detail": {
       "label": "DIỄN GIẢI CÔNG THỨC",
       "text": "Đặt τᵢ=1 ở tiền tố, nên Aᵢ^τ chính là hành động thật; phần còn lại lấy τ và ε để học flow matching. Hệ số 1/(H−d) chỉ chuẩn hoá theo số vị trí được học. Bối cảnh bổ sung: Ta dự đoán vận tốc flow chỉ cho những hành động i > d. Đầu chuỗi đã là dữ kiện; mạng không cần học tái tạo lệnh chắc chắn phải giữ."
-    }
+    },
+    "stageMode": "visual-first"
   },
   {
     "type": "results",
@@ -225,7 +235,8 @@
       "src": "/paper-figures/rtc-training/figure-3.webp",
       "alt": "Hình 3 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
       "caption": "Kinetix: solve rate theo độ trễ, 2.048 lượt thử/mốc."
-    }
+    },
+    "stageMode": "visual-first"
   },
   {
     "type": "ablation",
@@ -250,7 +261,8 @@
       "src": "/paper-figures/rtc-training/figure-5.webp",
       "alt": "Hình 5 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
       "caption": "Thành công và thời gian của hai phiên bản RTC."
-    }
+    },
+    "stageMode": "visual-first"
   },
   {
     "type": "limits",
@@ -270,7 +282,8 @@
     "detail": {
       "label": "LỜI THUYẾT TRÌNH",
       "text": "Nếu trễ vượt H−s, chẳng có thuật toán inpainting nào sửa được việc các lệnh cũ đã hết vùng chồng. Vấn đề cần giải ở lịch thực thi và thiết kế horizon. Bối cảnh bổ sung: Training-Time RTC chỉ biết điều kiện cứng trên d hành động đầu; không tận dụng soft masking ở những bước chồng tiếp theo như phiên bản inference-time."
-    }
+    },
+    "stageMode": "visual-first"
   },
   {
     "type": "relations",
@@ -290,7 +303,8 @@
     "detail": {
       "label": "LỜI THUYẾT TRÌNH",
       "text": "Tương lai hợp lý: học điều kiện tiền tố nhưng vẫn có cơ chế mềm nhẹ để tận dụng các hành động chồng bổ sung, đánh giá độ trễ biến thiên và lỗi điều khiển thực. Bối cảnh bổ sung: RTC 2025 giải quyết bài toán thực thi bất đồng bộ nhưng đảm bảo nối đoạn bằng guidance ở suy luận. Bài Training-Time RTC đưa cùng ràng buộc vào học để tránh backward lúc chạy."
-    }
+    },
+    "stageMode": "visual-first"
   },
   {
     "type": "closing",
@@ -304,6 +318,7 @@
     "detail": {
       "label": "LỜI THUYẾT TRÌNH",
       "text": "Kết luận nên vừa đủ: phương pháp là một thay thế thực dụng cho inference-time inpainting, chứ chưa chứng minh giải quyết mọi độ trễ hay mọi dạng gián đoạn. Bối cảnh bổ sung: Thông điệp quan trọng: RTC ban đầu loại bỏ việc robot đứng chờ nhưng đánh đổi bằng inpainting tốn gradient khi suy luận. Training-Time RTC học điều kiện tiền tố từ trước để bỏ phần tốn thêm ấy."
-    }
+    },
+    "stageMode": "visual-first"
   }
 ]
