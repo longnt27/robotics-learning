@@ -203,7 +203,11 @@ export function SlideDeck({paper,slides,chapter,onRead}:{paper:Paper;slides:Rese
     };
     presenterWindow.addEventListener("pagehide",handleClose);
     const started=Date.now();
-    const timer=window.setInterval(()=>setElapsedSeconds(Math.floor((Date.now()-started)/1000)),1000);
+    // OS-level close sometimes skips pagehide; a 1s check also recovers presentation mode.
+    const timer=window.setInterval(()=>{
+      if(presenterWindow.closed){handleClose();return;}
+      setElapsedSeconds(Math.floor((Date.now()-started)/1000));
+    },1000);
     return()=>{
       document.body.style.overflow=previousOverflow;
       presenterWindow.removeEventListener("pagehide",handleClose);
