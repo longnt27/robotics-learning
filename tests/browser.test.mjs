@@ -305,6 +305,10 @@ try {
     return {requests:entries.length,transferredKiB:Math.round(total/1024),jsKiB:Math.round(js/1024),cssKiB:Math.round(css/1024)};
   });
   console.log('MOBILE READER TRANSFER (unthrottled CI browser)',mobileBytes);
+  assert.ok(mobileBytes.transferredKiB <= 550,
+    `Mobile article transfer exceeded 550 KiB budget: ${mobileBytes.transferredKiB} KiB`);
+  assert.ok(mobileBytes.jsKiB <= 230,
+    `Mobile article JavaScript exceeded 230 KiB budget: ${mobileBytes.jsKiB} KiB`);
   assert.equal(slideRequests.length,0,'Markdown-only visits must make zero slide requests');
   assert.equal(pdfRequests.length,0,'Markdown-only visits must make zero PDF requests');
   await metered.getByRole('tab',{name:/SLIDE/i}).click();
