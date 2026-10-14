@@ -6,12 +6,12 @@
       "overrides": {
         "1": {
           "bbox": [
-            64,
+            22,
             60,
-            554,
+            590,
             317
           ],
-          "why": "Preserve the full multimodal prompt headings and panels; exclude running header"
+          "why": "Preserve the full multimodal prompt headings and panels; exclude running header. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
         },
         "2": {
           "bbox": [
@@ -51,12 +51,12 @@
         },
         "6": {
           "bbox": [
-            98,
+            22,
             64,
-            548,
+            590,
             331
           ],
-          "why": "Recover upper visual-tokenizer bar chart missing from original crop"
+          "why": "Recover upper visual-tokenizer bar chart missing from original crop. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
         },
         "7": {
           "bbox": [
@@ -74,12 +74,12 @@
       "overrides": {
         "1": {
           "bbox": [
-            72,
+            44,
             446,
-            552,
+            591,
             699
           ],
-          "why": "Recover full two-column architecture and evaluation overview; exclude abstract"
+          "why": "Recover full two-column architecture and evaluation overview; exclude abstract. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
         },
         "2": {
           "bbox": [
@@ -116,38 +116,38 @@
         "2": {
           "bbox": [
             312,
-            61,
+            42,
             591,
             252
           ],
-          "why": "Start at montage rather than top margin"
+          "why": "Start at montage rather than top margin. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
         },
         "4": {
           "bbox": [
             312,
-            347,
+            358,
             591,
             442
           ],
-          "why": "Remove text paragraph above the four trajectory examples"
+          "why": "Remove text paragraph above the four trajectory examples. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
         },
         "5": {
           "bbox": [
-            28,
-            115,
+            29,
+            64,
             301,
             223
           ],
-          "why": "Keep velocity comparison bar plot, exclude previous paragraph"
+          "why": "Keep velocity comparison bar plot, exclude previous paragraph. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
         },
         "7": {
           "bbox": [
             21,
-            405,
+            344,
             301,
             499
           ],
-          "why": "Remove previous table and retain robustness plots"
+          "why": "Remove previous table and retain robustness plots. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
         }
       },
       "reviewed_all_figures": true
@@ -157,20 +157,20 @@
         "3": {
           "bbox": [
             33,
-            77,
+            57,
             301,
             195
           ],
-          "why": "Exclude running header and preserve ablation bar chart"
+          "why": "Exclude running header and preserve ablation bar chart. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
         },
         "4": {
           "bbox": [
             44,
-            251,
+            211,
             570,
             406
           ],
-          "why": "Remove unrelated table, keep entire kitchen and tabletop demonstration rows"
+          "why": "Remove unrelated table, keep entire kitchen and tabletop demonstration rows. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
         },
         "5": {
           "bbox": [
@@ -198,11 +198,11 @@
         "3": {
           "bbox": [
             52,
-            59,
+            25,
             562,
             189
           ],
-          "why": "Tighten crop to complete ALOHA hardware diagram"
+          "why": "Tighten crop to complete ALOHA hardware diagram. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
         },
         "4": {
           "bbox": [
@@ -227,9 +227,9 @@
             92,
             229,
             301,
-            357
+            361
           ],
-          "why": "Recover upper action-chunking rows, retain temporal-ensemble row; exclude right-column prose"
+          "why": "Recover upper action-chunking rows, retain temporal-ensemble row; exclude right-column prose. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
         },
         "7": {
           "bbox": [
@@ -265,12 +265,12 @@
       "overrides": {
         "5": {
           "bbox": [
-            102,
-            529,
-            531,
-            659
+            100,
+            568,
+            537,
+            657
           ],
-          "why": "Remove preceding paper prose and capture complete pretraining comparison bars"
+          "why": "Remove preceding paper prose and capture complete pretraining comparison bars. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
         }
       },
       "reviewed_all_figures": true
@@ -288,21 +288,21 @@
         },
         "5": {
           "bbox": [
-            50,
-            65,
-            565,
-            160
+            73,
+            81,
+            323,
+            154
           ],
-          "why": "Original crop only showed left half of cross-domain real-world sequence; restore all panels"
+          "why": "Original crop only showed left half of cross-domain real-world sequence; restore all panels. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
         },
         "7": {
           "bbox": [
             49,
-            65,
+            78,
             557,
             341
           ],
-          "why": "Recover text-based chains of reasoning above rollout photo grid"
+          "why": "Recover text-based chains of reasoning above rollout photo grid. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
         }
       },
       "reviewed_all_figures": true
@@ -503,12 +503,12 @@
         },
         "6": {
           "bbox": [
-            104,
-            453,
-            338,
+            103,
+            431,
+            346,
             560
           ],
-          "why": "Exclude unrelated preceding prose and right-side Table 2; retain complete GPU inference bars"
+          "why": "Exclude unrelated preceding prose and right-side Table 2; retain complete GPU inference bars. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
         }
       },
       "reviewed_all_figures": true
@@ -558,12 +558,12 @@
       "overrides": {
         "1": {
           "bbox": [
-            313,
-            155,
+            311,
+            207,
             590,
-            622
+            623
           ],
-          "why": "Recover upper plot from long right-column teaser"
+          "why": "Recover upper plot from long right-column teaser. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
         },
         "2": {
           "bbox": [
@@ -650,20 +650,20 @@
         "3": {
           "bbox": [
             50,
-            68,
+            57,
             567,
             269
           ],
-          "why": "Recover model pre-training and post-training task and action labels"
+          "why": "Recover model pre-training and post-training task and action labels. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
         },
         "7": {
           "bbox": [
             45,
             236,
             574,
-            410
+            416
           ],
-          "why": "Recover first evaluation task row plus all home success bar charts"
+          "why": "Recover first evaluation task row plus all home success bar charts. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
         }
       },
       "reviewed_all_figures": true
@@ -681,12 +681,12 @@
         },
         "2": {
           "bbox": [
-            316,
-            244,
-            589,
+            300,
+            240,
+            591,
             354
           ],
-          "why": "Exclude preceding flow-matching prose; preserve bifurcation diagram"
+          "why": "Exclude preceding flow-matching prose; preserve bifurcation diagram. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
         },
         "4": {
           "bbox": [
@@ -699,12 +699,12 @@
         },
         "6": {
           "bbox": [
-            50,
-            418,
-            573,
-            588
+            113,
+            380,
+            529,
+            589
           ],
-          "why": "Remove preceding prose and keep all controller latency plots"
+          "why": "Remove preceding prose and keep all controller latency plots. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
         }
       },
       "reviewed_all_figures": true
@@ -831,30 +831,30 @@
         },
         "9": {
           "bbox": [
-            318,
-            409,
-            591,
-            543
+            340,
+            384,
+            563,
+            542
           ],
-          "why": "Crop only the two robot embodiment examples"
+          "why": "Crop only the two robot embodiment examples. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
         },
         "11": {
           "bbox": [
-            72,
-            403,
-            572,
-            545
+            76,
+            353,
+            552,
+            542
           ],
-          "why": "Exclude previous figure while retaining all token-distribution plots"
+          "why": "Exclude previous figure while retaining all token-distribution plots. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
         },
         "12": {
           "bbox": [
             70,
-            191,
-            543,
-            336
+            147,
+            548,
+            335
           ],
-          "why": "Exclude unrelated prose, retain latency and performance comparisons"
+          "why": "Exclude unrelated prose, retain latency and performance comparisons. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
         }
       },
       "reviewed_all_figures": true
