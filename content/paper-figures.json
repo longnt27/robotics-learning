@@ -1769,14 +1769,14 @@
     {
       "page": 1,
       "bbox": [
-        22,
-        192,
-        590,
-        418.4
+        11.0,
+        113.1,
+        601.0,
+        420.4
       ],
-      "width": 2045,
-      "height": 816,
-      "bytes": 136952,
+      "width": 2125,
+      "height": 1107,
+      "bytes": 186238,
       "number": 1,
       "image": "/paper-figures/openvla/figure-1.webp",
       "caption": "Figure 1: We present OpenVLA, a 7B-parameter open-source vision-language-action model (VLA), trained on 970k robot episodes from the Open X-Embodiment dataset [1]. OpenVLA sets a new state of the art for generalist robot manipulation policies. It supports controlling multiple robots out of the box and can be quickly adapted to new robot domains via parameter-efficient fine-tuning. The OpenVLA checkpoints and PyTorch training pipeline are fully open-source and models can be downloaded and fine-tuned from HuggingFace.",
@@ -1789,14 +1789,14 @@
     {
       "page": 4,
       "bbox": [
-        22,
-        83.3,
-        590,
-        221
+        11.0,
+        28.5,
+        590.0,
+        223.1
       ],
-      "width": 2045,
-      "height": 497,
-      "bytes": 50016,
+      "width": 2085,
+      "height": 702,
+      "bytes": 51622,
       "number": 2,
       "image": "/paper-figures/openvla/figure-2.webp",
       "caption": "Figure 2: OpenVLA model architecture. Given an image observation and a language instruction, the model predicts 7-dimensional robot control actions. The architecture consists of three key components: (1) a vision encoder that concatenates Dino V2 [25] and SigLIP [79] features, (2) a projector that maps visual features to the language embedding space, and (3) the LLM backbone, a Llama 2 7B-parameter large language model [10].",
@@ -1809,14 +1809,14 @@
     {
       "page": 7,
       "bbox": [
-        22,
+        22.0,
         60.5,
-        590,
-        237.1
+        590.0,
+        239.1
       ],
       "width": 2045,
-      "height": 637,
-      "bytes": 84362,
+      "height": 644,
+      "bytes": 81008,
       "number": 3,
       "image": "/paper-figures/openvla/figure-3.webp",
       "caption": "Figure 3: BridgeData V2 WidowX robot evaluation tasks and results. We evaluate OpenVLA and prior state-of-the-art generalist robot policies on a comprehensive suite of tasks covering several axes of generalization, as well as tasks that specifically assess language conditioning ability. OpenVLA achieves highest overall perfor- mance and even outperforms closed-source model RT-2-X in all categories except for semantic generalization. Average success rates ± StdErr are computed across 170 total rollouts per approach. See Table 4 for detailed results.",
@@ -1829,14 +1829,14 @@
     {
       "page": 8,
       "bbox": [
-        311,
-        258,
-        591,
-        414
+        296.0,
+        258.0,
+        591.0,
+        416.0
       ],
-      "width": 1009,
-      "height": 563,
-      "bytes": 33688,
+      "width": 1063,
+      "height": 570,
+      "bytes": 33362,
       "number": 4,
       "image": "/paper-figures/openvla/figure-4.webp",
       "caption": "Figure 4: Google robot evaluation results. We evaluate generalist robot policies on in-distribution and out-of- distribution (OOD) tasks on the mobile manipulator used in RT-1 and RT-2 evaluations [2, 7]. We find that Open- VLA and RT-2-X attain comparable performance and significantly outperform RT-1-X and Octo overall. Aver- age success rates ± StdErr are computed across 60 total rollouts per approach. See Table 6 for detailed results.",
@@ -1849,14 +1849,14 @@
     {
       "page": 9,
       "bbox": [
-        22,
+        22.0,
         58.7,
-        590,
-        173.7
+        590.0,
+        175.8
       ],
       "width": 2045,
-      "height": 415,
-      "bytes": 60596,
+      "height": 422,
+      "bytes": 59268,
       "number": 5,
       "image": "/paper-figures/openvla/figure-5.webp",
       "caption": "Figure 5: Adapting to new robot setups. We evaluate the state-of-the-art Diffusion Policy trained from scratch on seven Franka Emika Panda tasks (10–150 demonstrations each), as well as generalist robot policies Octo and OpenVLA fine-tuned on the same data. Diffusion Policy exhibits strong performance on narrow single-instruction tasks, while Octo and OpenVLA perform better on diverse fine-tuning tasks involving multiple instructions and distractor objects. Overall, OpenVLA achieves highest aggregate performance across both setups, suggesting that it is an effective default for learning a policy on a downstream task. Average success rates ± StdErr are computed across 129 rollouts per approach (99 for Franka-Tabletop tasks and 30 for Franka-DROID tasks). See Table 7 for detailed results.",
@@ -1869,14 +1869,14 @@
     {
       "page": 10,
       "bbox": [
-        21,
-        417.3,
-        301,
-        561.2
+        11.0,
+        352.3,
+        485.6,
+        563.3
       ],
-      "width": 1009,
-      "height": 519,
-      "bytes": 29902,
+      "width": 1709,
+      "height": 760,
+      "bytes": 125672,
       "number": 6,
       "image": "/paper-figures/openvla/figure-6.webp",
       "caption": "Figure 6: OpenVLA inference speed for various GPUs. Both bfloat16 and int4 quantization achieve high throughput, especially on GPUs with Ada Lovelace architecture (RTX 4090, H100). Fur- ther speed-ups are possible with modern LLM inference frame- works like TensorRT-LLM [89]. ♠: Model sharded across two GPUs to fit.",
