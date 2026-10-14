@@ -14,4 +14,6 @@ export interface ResearchSlide {
   /** Specific, paper-grounded explanation displayed on the slide itself. */
   detail?: { label: string; text: string };
   equation?: string;
+  /** Original source-paper illustration; loaded only when this slide is visible. */
+  figure?: {src: string; alt: string; caption: string};
 }
