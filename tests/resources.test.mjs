@@ -34,7 +34,11 @@ test('every catalogued paper has verified project GitHub or Hugging Face resourc
 });
 
 test('repository links are visible in the paper reader including PDF tab',()=>{
-  assert.match(ui,/paperResources\[paper\.slug\]/);
+  const server=fs.readFileSync(path.join(root,'lib/paper-resources.ts'),'utf8');
+  const paperPage=fs.readFileSync(path.join(root,'app/paper/[slug]/page.tsx'),'utf8');
+  assert.match(server,/resources\[slug\]/);
+  assert.match(paperPage,/getPaperResources\(slug\)/);
+  assert.doesNotMatch(ui,/paper-resources\.json/,'The browser should receive per-paper resources, not the full catalog');
   assert.match(ui,/\.map\(\(resource/);
   assert.match(ui,/target="_blank"/);
   assert.match(ui,/rel="noopener noreferrer"/);
