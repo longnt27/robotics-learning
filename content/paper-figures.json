@@ -2497,14 +2497,14 @@
     {
       "page": 1,
       "bbox": [
-        22,
-        230.7,
-        590,
-        499.4
+        22.0,
+        202.2,
+        590.0,
+        501.6
       ],
       "width": 2045,
-      "height": 968,
-      "bytes": 275776,
+      "height": 1078,
+      "bytes": 279386,
       "number": 1,
       "image": "/paper-figures/pi-0-5/figure-1.webp",
       "caption": "Fig. 1: The π0.5 model transfers knowledge from a heterogeneous range of data sources, including other robots, high-level subtask prediction, verbal instructions, and data from the web, in order to enable broad generalization across environments and objects. π0.5 can control a mobile manipulator to clean kitchens and bedrooms in new homes that were not present in the training data, performing complex multi-stage behaviors with durations of 10 to 15 minutes.",
@@ -2517,14 +2517,14 @@
     {
       "page": 2,
       "bbox": [
-        22,
+        11.0,
         32.4,
-        590,
-        147.4
+        590.0,
+        149.6
       ],
-      "width": 2045,
-      "height": 415,
-      "bytes": 97472,
+      "width": 2085,
+      "height": 423,
+      "bytes": 91328,
       "number": 2,
       "image": "/paper-figures/pi-0-5/figure-2.webp",
       "caption": "Fig. 2: π0.5 cleaning a new kitchen. The robot is tasked with cleaning a kitchen in a home that was not in the training data. The model is given general tasks (close the cabinets, put the items in the drawer, wipe the spill, and put the dishes in the sink), which it performs by both predicting subtasks to accomplish (e.g., pick up the plate) and emitting low-level actions.",
@@ -2537,14 +2537,14 @@
     {
       "page": 4,
       "bbox": [
-        22,
-        153.8,
-        590,
-        268.8
+        22.0,
+        47.0,
+        590.0,
+        270.9
       ],
       "width": 2045,
-      "height": 415,
-      "bytes": 73578,
+      "height": 807,
+      "bytes": 106454,
       "number": 3,
       "image": "/paper-figures/pi-0-5/figure-3.webp",
       "caption": "Fig. 3: Model overview. π0.5 is trained in two stages. First, a pre-training stage combines all of the different data sources to produce an initial VLA with discrete tokens. This stage uses data from diverse robotic platforms, high-level semantic action prediction, and data from the web. Robotic data uses the FAST action tokenizer to represent actions as discrete tokens [64]. Second, a post-training stage specializes the model for low-level and high-level inferences for mobile manipulation, leveraging the most task-relevant data, including verbal instructions from human supervisors. This stage uses flow matching to represent the action distribution, enabling efficient real-time inference and the ability to represent fine-grained continuous action sequences. At inference time, the model first infers a high-level subtask, and then predicts the actions based on this subtask.",
@@ -2557,14 +2557,14 @@
     {
       "page": 6,
       "bbox": [
-        22,
-        53,
-        590,
-        361.9
+        22.0,
+        53.0,
+        601.0,
+        364.3
       ],
-      "width": 2045,
-      "height": 1113,
-      "bytes": 348148,
+      "width": 2085,
+      "height": 1122,
+      "bytes": 331778,
       "number": 4,
       "image": "/paper-figures/pi-0-5/figure-4.webp",
       "caption": "Fig. 4: Examples from pre-training and post-training tasks. π0.5 is pre-trained on data from mobile manipulators (MM), non-mobile robots in diverse environments (ME), and cross-embodiment data collected under laboratory conditions (CE), as well as high-level subtask prediction (HL), and multi-modal web data (WD). In a post-training phase, we additionally use verbal instructions (VI), and omit the laboratory cross-embodiment data (CE) to focus the model on mobile manipulation and diverse environments. The figure displays an exemplary subset of the tasks in each category.",
@@ -2577,14 +2577,14 @@
     {
       "page": 7,
       "bbox": [
-        311,
-        41,
-        591,
-        205.9
+        307.0,
+        41.0,
+        591.0,
+        207.9
       ],
-      "width": 1009,
-      "height": 595,
-      "bytes": 59072,
+      "width": 1023,
+      "height": 602,
+      "bytes": 56588,
       "number": 5,
       "image": "/paper-figures/pi-0-5/figure-5.webp",
       "caption": "Fig. 5: Robot system overview. We use two mobile manipulator platforms – each has four cameras (forward, backward, and both wrists), two 6 DoF arms with parallel jaw grippers, a mobile base, and a torso lift mechanism. The π0.5 model controls the joints and grippers of each arm, base velocity, and the lift position, resulting in 18-19 DoF state and action spaces.",
@@ -2597,14 +2597,14 @@
     {
       "page": 8,
       "bbox": [
-        22,
-        41,
-        590,
-        202.7
+        22.0,
+        41.0,
+        590.0,
+        204.9
       ],
       "width": 2045,
-      "height": 583,
-      "bytes": 184880,
+      "height": 591,
+      "bytes": 175372,
       "number": 6,
       "image": "/paper-figures/pi-0-5/figure-6.webp",
       "caption": "Fig. 6: Evaluation environments. We evaluate π0.5 in entirely new kitchens and bedrooms that were not seen during training, with novel objects, backgrounds, and layouts. We use a set of mock rooms for controlled, reproducible quantitative comparisons (left) and real homes for a realistic final evaluation (right).",
@@ -2617,14 +2617,14 @@
     {
       "page": 8,
       "bbox": [
-        22,
-        270.9,
-        590,
-        410.5
+        22.0,
+        255.9,
+        590.0,
+        412.7
       ],
       "width": 2045,
-      "height": 503,
-      "bytes": 159866,
+      "height": 565,
+      "bytes": 172844,
       "number": 7,
       "image": "/paper-figures/pi-0-5/figure-7.webp",
       "caption": "Fig. 7: Evaluation in real homes. We evaluated π0.5 in three kitchens and three bedrooms in real homes that were not seen during training. We evaluate the tasks ‘items in drawer’, ‘laundry basket’, and ‘dishes in sink,’ and find π0.5 to be successful at these tasks in these completely new, real homes.",
@@ -2637,14 +2637,14 @@
     {
       "page": 9,
       "bbox": [
-        21,
-        41,
-        301,
-        209
+        21.0,
+        41.0,
+        305.0,
+        211.1
       ],
-      "width": 1009,
-      "height": 606,
-      "bytes": 30034,
+      "width": 1024,
+      "height": 613,
+      "bytes": 29194,
       "number": 8,
       "image": "/paper-figures/pi-0-5/figure-8.webp",
       "caption": "Fig. 8: Evaluating performance with different numbers of locations. Performance over the four test tasks — “dishes in sink”, “items in drawer”, “laundry basket”, “make bed” — improves with more training environments. The dashed green line and green bar show a baseline model that includes the test homes in the training set. Compared to this model, our best model achieves similar performance, despite not seeing any data from the test homes.",
@@ -2657,14 +2657,14 @@
     {
       "page": 9,
       "bbox": [
-        311,
-        41,
-        591,
-        166.6
+        307.0,
+        41.0,
+        591.0,
+        168.7
       ],
-      "width": 1009,
-      "height": 453,
-      "bytes": 29214,
+      "width": 1023,
+      "height": 461,
+      "bytes": 28690,
       "number": 9,
       "image": "/paper-figures/pi-0-5/figure-9.webp",
       "caption": "Fig. 9: Evaluating language following with different numbers of training locations. We evaluate language following rate and success rate for picking up user-indicated items and placing them into drawers or sinks, averaged over seen object categories (“in-distribution”) or unseen categories (“out-of- distribution”). Performance increases steadily as we increase the number of training locations.",
@@ -2677,14 +2677,14 @@
     {
       "page": 10,
       "bbox": [
-        21,
-        41,
-        301,
-        186.9
+        21.0,
+        41.0,
+        301.0,
+        189.0
       ],
       "width": 1009,
-      "height": 526,
-      "bytes": 15136,
+      "height": 534,
+      "bytes": 14702,
       "number": 10,
       "image": "/paper-figures/pi-0-5/figure-10.webp",
       "caption": "Fig. 10: Training recipe ablations, mock homes. We evaluate variants of our model that exclude different parts of the training mixture on all four test tasks (10 trials per policy and task). Including cross-embodiment data, both in diverse environments (ME) and for diverse tasks in laboratory settings (CE) is important for good performance, with large degradation when either or both of these data sources are removed. Web data (WD) does not make a significant difference in these experiments, but we will see in Figures 11 and 13 that it impacts object generalization and high-level performance.",
@@ -2697,14 +2697,14 @@
     {
       "page": 10,
       "bbox": [
-        21,
+        21.0,
         269.7,
-        301,
-        421.2
+        305.0,
+        423.3
       ],
-      "width": 1009,
-      "height": 546,
-      "bytes": 22458,
+      "width": 1024,
+      "height": 554,
+      "bytes": 22186,
       "number": 11,
       "image": "/paper-figures/pi-0-5/figure-11.webp",
       "caption": "Fig. 11: Training recipe ablations, language following. Evaluating language following with in-distribution and out-of-distribution objects after training on different numbers of locations. Including web data (WD) is important for out- of-distribution (OOD) performance in particular. Cross-embodiment (CE) and diverse environment (ME) data both have a large impact on in-distribution and out-of-distribution performance.",
@@ -2717,14 +2717,14 @@
     {
       "page": 10,
       "bbox": [
-        311,
-        41,
-        591,
-        176.1
+        307.0,
+        41.0,
+        591.0,
+        178.3
       ],
-      "width": 1009,
-      "height": 488,
-      "bytes": 22468,
+      "width": 1023,
+      "height": 495,
+      "bytes": 21890,
       "number": 12,
       "image": "/paper-figures/pi-0-5/figure-12.webp",
       "caption": "Fig. 12: Comparing π0.5 with other models. Our full model significantly outperforms both π0 and π0-FAST+Flow in the mock home test environments.",
@@ -2737,14 +2737,14 @@
     {
       "page": 11,
       "bbox": [
-        21,
-        41,
-        301,
-        246.1
+        21.0,
+        41.0,
+        305.0,
+        248.2
       ],
-      "width": 1009,
-      "height": 739,
-      "bytes": 19498,
+      "width": 1024,
+      "height": 747,
+      "bytes": 18862,
       "number": 13,
       "image": "/paper-figures/pi-0-5/figure-13.webp",
       "caption": "Fig. 13: Evaluation of the high-level inference process. While the full π0.5 model with high-level and low-level inference attains the best results, using only low-level inference (“implicit HL”) with the full π0.5 model also benefits from the inclusion of high-level subtask examples in training. In contrast, excluding verbal instructions (no VI) or web data (no WD) leads to a significant degradation in performance, and zero-shot prompting a large API-based model (GPT-4) performs worse.",
