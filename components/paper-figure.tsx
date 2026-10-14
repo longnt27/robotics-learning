@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ExternalLink, Maximize2, X, ZoomIn, ZoomOut } from "lucide-react";
 
-
 export type SourceFigure = {
   image: string;
   number: number;
@@ -16,13 +15,11 @@ export type SourceFigure = {
   translation_reviewed?: boolean;
 };
 
-
-
-export function PaperFigure({paperSlug,src,alt,figures}:{
+export function PaperFigure({paperSlug,src,alt,figure}:{
   paperSlug: string;
   src?: string;
   alt?: string;
-  figures: SourceFigure[];
+  figure?: SourceFigure;
 }) {
   const [open,setOpen] = useState(false);
   const [actualSize,setActualSize] = useState(false);
@@ -30,7 +27,7 @@ export function PaperFigure({paperSlug,src,alt,figures}:{
   const triggerRef = useRef<HTMLButtonElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
-  const meta = figures.find(figure => figure.image === src);
+  const meta = figure?.image === src ? figure : undefined;
   const title = meta ? "Hình " + meta.number : alt || "Hình minh họa";
   const caption = meta?.caption || alt || "Chưa có caption gốc cho hình này.";
   const captionVi = meta?.caption_vi?.trim() || "Chưa có bản dịch tiếng Việt.";
