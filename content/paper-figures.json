@@ -753,14 +753,14 @@
     {
       "page": 2,
       "bbox": [
-        22,
+        22.0,
         63.4,
-        590,
-        290
+        590.0,
+        292.1
       ],
       "width": 2045,
-      "height": 817,
-      "bytes": 104262,
+      "height": 824,
+      "bytes": 100868,
       "number": 1,
       "image": "/paper-figures/libero/figure-1.webp",
       "caption": "Figure 1: Top: LIBERO has four procedurally-generated task suites: LIBERO-SPATIAL, LIBERO- OBJECT, and LIBERO-GOAL have 10 tasks each and require transferring knowledge about spatial relationships, objects, and task goals; LIBERO-100 has 100 tasks and requires the transfer of entangled knowledge. Bottom: we investigate five key research topics in LLDM on LIBERO.",
@@ -773,14 +773,14 @@
     {
       "page": 4,
       "bbox": [
-        22,
-        59,
-        590,
-        226.3
+        22.0,
+        59.0,
+        590.0,
+        228.3
       ],
       "width": 2045,
-      "height": 603,
-      "bytes": 84234,
+      "height": 611,
+      "bytes": 81328,
       "number": 2,
       "image": "/paper-figures/libero/figure-2.webp",
       "caption": "Figure 2: LIBERO’s procedural generation pipeline: Extracting behavioral templates from a large- scale human activity dataset (1), Ego4D, for generating task instructions (2); Based on the task description, selecting the scene and generating the PDDL description file (3) that specifies the objects and layouts (A), the initial object configurations (B), and the task goal (C).",
@@ -793,14 +793,14 @@
     {
       "page": 9,
       "bbox": [
-        22,
+        22.0,
         281.9,
-        590,
-        415.4
+        590.0,
+        417.4
       ],
       "width": 2045,
-      "height": 482,
-      "bytes": 25962,
+      "height": 489,
+      "bytes": 25386,
       "number": 4,
       "image": "/paper-figures/libero/figure-4.webp",
       "caption": "Figure 4: Performance of ER and PACKNET using RESNET-T on five different task orderings. An error bar shows the performance standard deviation for a fixed ordering.",
@@ -813,14 +813,14 @@
     {
       "page": 9,
       "bbox": [
-        22,
+        22.0,
         448.3,
-        590,
-        660.3
+        590.0,
+        662.3
       ],
       "width": 2045,
-      "height": 764,
-      "bytes": 148806,
+      "height": 772,
+      "bytes": 144746,
       "number": 5,
       "image": "/paper-figures/libero/figure-5.webp",
       "caption": "Figure 5: Performance of different combinations of algorithms and architectures without pretraining or with pretraining. The multi-task learning performance is also included for reference.",
