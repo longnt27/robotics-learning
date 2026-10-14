@@ -43,7 +43,10 @@ test('presenter is reachable from each reader and supports navigation, notes, fu
  for(const phrase of ['requestFullscreen','ArrowRight','ArrowLeft','Home','End','keydown','aria-label="Xem tất cả slide"','GHI CHÚ KHI TRÌNH BÀY','updateDeepLink'])assert.ok(ui.includes(phrase),`Missing presentation feature ${phrase}`);
  assert.match(reader,/tab==="slides"&&<motion\.div[\s\S]*<SlideDeck /);
  assert.match(reader,/new URLSearchParams\(window.location.search\)/);
- assert.match(server,/getResearchSlides\(slug\)/);
+ const api=fs.readFileSync(path.join(root,'app/api/papers/[slug]/slides/route.ts'),'utf8');
+ assert.doesNotMatch(server,/getResearchSlides\(slug\)/,'Slides must not ship in initial server component');
+ assert.match(api,/getResearchSlides\(slug\)/);
+ assert.match(reader,/loadPaperSlides\(paper\.slug\)/);
 });
 
 

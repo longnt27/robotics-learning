@@ -1,5 +1,7 @@
 "use client";
 
+import "../app/briefing.css";
+
 import {useCallback,useEffect,useMemo,useRef,useState} from "react";
 import Link from "next/link";
 import {AnimatePresence,motion} from "framer-motion";

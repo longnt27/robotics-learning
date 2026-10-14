@@ -286,6 +286,66 @@ try {
     await page.close();
   }
 
+
+  // Network acceptance: paper reading must not fetch unseen slides or the full PDF.
+  // Keep this test on mobile to catch regressions that waste metered connections.
+  const metered=await browser.newPage({viewport:{width:390,height:844}});
+  const slideRequests=[];
+  const pdfRequests=[];
+  metered.on('request',req=>{
+    if(req.url().includes('/api/papers/vima/slides'))slideRequests.push(req.url());
+    if(req.url().includes('/api/papers/vima/pdf'))pdfRequests.push(req.url());
+  });
+  await metered.goto(baseUrl+'/paper/vima',{waitUntil:'networkidle'});
+  const mobileBytes=await metered.evaluate(()=>{
+    const entries=[...performance.getEntriesByType('navigation'),...performance.getEntriesByType('resource')];
+    const total=entries.reduce((sum,item)=>sum+(item.transferSize||0),0);
+    const js=entries.filter(item=>item.name.includes('.js')).reduce((sum,item)=>sum+(item.transferSize||0),0);
+    const css=entries.filter(item=>item.name.includes('.css')).reduce((sum,item)=>sum+(item.transferSize||0),0);
+    return {requests:entries.length,transferredKiB:Math.round(total/1024),jsKiB:Math.round(js/1024),cssKiB:Math.round(css/1024)};
+  });
+  console.log('MOBILE READER TRANSFER (unthrottled CI browser)',mobileBytes);
+  assert.ok(mobileBytes.transferredKiB <= 550,
+    `Mobile article transfer exceeded 550 KiB budget: ${mobileBytes.transferredKiB} KiB`);
+  assert.ok(mobileBytes.jsKiB <= 230,
+    `Mobile article JavaScript exceeded 230 KiB budget: ${mobileBytes.jsKiB} KiB`);
+  assert.equal(slideRequests.length,0,'Markdown-only visits must make zero slide requests');
+  assert.equal(pdfRequests.length,0,'Markdown-only visits must make zero PDF requests');
+  await metered.getByRole('tab',{name:/SLIDE/i}).click();
+  await metered.locator('.brief-slide-stage').waitFor({state:'visible'});
+  assert.equal(slideRequests.length,1,'Opening slide tab should fetch one deck');
+  await metered.getByRole('tab',{name:/DIỄN GIẢI CHI TIẾT/i}).click();
+  await metered.getByRole('tab',{name:/SLIDE/i}).click();
+  await metered.locator('.brief-slide-stage').waitFor({state:'visible'});
+  assert.equal(slideRequests.length,1,'Reopening slides should reuse the fetched deck');
+  await metered.locator('a.reader-brand').click();
+  await metered.locator('a.timeline-card[href="/paper/vima"]').click();
+  await metered.getByRole('tab',{name:/SLIDE/i}).click();
+  await metered.locator('.brief-slide-stage').waitFor({state:'visible'});
+  assert.equal(slideRequests.length,1,'Next client-side navigation should reuse in-memory slide cache');
+  assert.equal(pdfRequests.length,0,'Never fetch a PDF until the PDF tab is selected');
+  const unknown=await metered.evaluate(async()=>fetch('/api/papers/not-in-corpus/slides').then(r=>r.status));
+  assert.equal(unknown,404,'Unknown paper slide endpoint cannot serve arbitrary content');
+  await metered.close();
+  console.log('PASS: zero unused PDF/slide requests and one cached slide fetch across navigation');
+
+  // A failed slide request should show a retry action rather than a blank slide.
+  const retryPage=await browser.newPage({viewport:{width:390,height:844}});
+  let failedOnce=false;
+  await retryPage.route('**/api/papers/act/slides',async route=>{
+    if(!failedOnce){failedOnce=true;await route.fulfill({status:503,contentType:'application/json',body:'{"error":"offline"}'});}
+    else await route.continue();
+  });
+  await retryPage.goto(baseUrl+'/paper/act',{waitUntil:'domcontentloaded'});
+  await retryPage.getByRole('tab',{name:/SLIDE/i}).click();
+  const retry=retryPage.getByRole('button',{name:'THỬ LẠI'});
+  await retry.waitFor({state:'visible'});
+  await retry.click();
+  await retryPage.locator('.brief-slide-stage').waitFor({state:'visible'});
+  assert.ok(failedOnce,'First request deliberately failed');
+  await retryPage.close();
+  console.log('PASS: slide failure offers working retry');
+
 } finally {
   await browser.close();
 }

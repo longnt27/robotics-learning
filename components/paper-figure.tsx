@@ -3,25 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ExternalLink, Maximize2, X, ZoomIn, ZoomOut } from "lucide-react";
-import figureManifest from "@/content/paper-figures.json";
+import Image from "next/image";
+import type {SourceFigure} from "@/lib/figure-types";
 
-type SourceFigure = {
-  image: string;
-  number: number;
-  page: number;
-  pdf: string;
-  caption: string;
-  caption_vi?: string;
-  translation_method?: string;
-  translation_reviewed?: boolean;
-};
-
-const figures = figureManifest as Record<string, SourceFigure[]>;
-
-export function PaperFigure({paperSlug,src,alt}:{
+export function PaperFigure({paperSlug,src,alt,meta}:{
   paperSlug: string;
   src?: string;
   alt?: string;
+  meta?: SourceFigure;
 }) {
   const [open,setOpen] = useState(false);
   const [actualSize,setActualSize] = useState(false);
@@ -29,7 +18,6 @@ export function PaperFigure({paperSlug,src,alt}:{
   const triggerRef = useRef<HTMLButtonElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
-  const meta = figures[paperSlug]?.find(figure => figure.image === src);
   const title = meta ? "Hình " + meta.number : alt || "Hình minh họa";
   const caption = meta?.caption || alt || "Chưa có caption gốc cho hình này.";
   const captionVi = meta?.caption_vi?.trim() || "Chưa có bản dịch tiếng Việt.";
@@ -100,7 +88,10 @@ export function PaperFigure({paperSlug,src,alt}:{
       <button ref={triggerRef} type="button" className="paper-figure-open"
         onClick={()=>{setActualSize(false);setOpen(true);}}
         aria-label={"Phóng to " + title + " toàn màn hình"}>
-        <img src={src} alt={alt || title} loading="lazy" decoding="async"/>
+        <Image src={src} alt={alt || title}
+          width={meta?.width ?? 1200} height={meta?.height ?? 800}
+          sizes="(max-width: 600px) calc(100vw - 32px), (max-width: 1240px) 70vw, 760px"
+          quality={75} loading="lazy" decoding="async"/>
         <span className="paper-figure-zoom-label"><Maximize2 size={16}/> PHÓNG TO</span>
       </button>
       <span className="paper-source-figcaption">
