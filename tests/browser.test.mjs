@@ -357,10 +357,10 @@ try {
 
   await presenterPopup.getByRole('button',{name:'Slide tiếp theo trong Presenter View'}).click();
   await presenterPage.waitForFunction(()=>new URL(location.href).searchParams.get('slide')==='4');
-  assert.ok(await presenterPage.locator('.brief-layout-intuition').isVisible(),'Presenter controls change the projected slide');
+  await presenterPage.locator('.brief-layout-intuition').waitFor({state:'visible',timeout:7000});
   await presenterPopup.keyboard.press('ArrowRight');
   await presenterPage.waitForFunction(()=>new URL(location.href).searchParams.get('slide')==='5');
-  assert.ok(await presenterPopup.getByText('H, s, d: ba đại lượng cần nhớ').isVisible(),'Private panel follows keyboard navigation');
+  await presenterPopup.getByText('H, s, d: ba đại lượng cần nhớ').waitFor({state:'visible',timeout:7000});
 
   await presenterPopup.close(); // user closing the OS popup must restore the normal reader
   await presenterPage.locator('.brief-deck-presenting').waitFor({state:'detached',timeout:7000});
