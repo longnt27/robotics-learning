@@ -1993,14 +1993,14 @@
     {
       "page": 1,
       "bbox": [
-        311,
+        307.0,
         210.8,
-        591,
-        622
+        591.0,
+        624.0
       ],
-      "width": 1009,
-      "height": 1482,
-      "bytes": 117162,
+      "width": 1023,
+      "height": 1489,
+      "bytes": 111942,
       "number": 1,
       "image": "/paper-figures/fast/figure-1.webp",
       "caption": "Fig. 1: We propose FAST, a simple yet effective approach for tokenization of robot action trajectories via time-series compression. FAST enables training of autoregressive VLAs that solve complex dexterous manipulation tasks and gener- alize broadly to new scenes. We use it to train π0-FAST, a generalist robot policy that matches the performance of the state-of-the-art π0 diffusion VLA on dexterous and long- horizon manipulation tasks, while training 5x faster (top).",
@@ -2013,14 +2013,14 @@
     {
       "page": 2,
       "bbox": [
-        311,
-        177.2,
-        591,
-        292.2
+        307.0,
+        47.0,
+        591.0,
+        294.3
       ],
-      "width": 1009,
-      "height": 415,
-      "bytes": 18998,
+      "width": 1023,
+      "height": 891,
+      "bytes": 42040,
       "number": 2,
       "image": "/paper-figures/fast/figure-2.webp",
       "caption": "Fig. 2: Left: FAST tokenization enables training of autoregres- sive Transformers for dexterous robot control via simple next token prediction. Right: FAST outperforms popular binning tokenization schemes, e.g., used in OpenVLA [39], particu- larly for high-frequency robot data.",
@@ -2033,14 +2033,14 @@
     {
       "page": 3,
       "bbox": [
-        311,
-        41,
-        591,
-        365.3
+        307.0,
+        41.0,
+        591.0,
+        367.4
       ],
-      "width": 1009,
-      "height": 1169,
-      "bytes": 51722,
+      "width": 1023,
+      "height": 1176,
+      "bytes": 51334,
       "number": 3,
       "image": "/paper-figures/fast/figure-3.webp",
       "caption": "Fig. 3: Effect of sampling rate on prediction performance. We train a small autoregressive transformer model on a didactic interpolation task, in which the network must predict the black dashed curve given the four circles. We find that models trained with the binning tokenization approach used in prior VLAs [10, 39] produce increasingly poor predictions as we increase the sampling frequency of the underlying signal, due to strong correlation between consecutive tokens at high frequencies. Our FAST tokenization approach, based on the discrete cosine transform (DCT), addresses the problem and leads to high-quality predictions across all sampling rates.",
@@ -2053,14 +2053,14 @@
     {
       "page": 5,
       "bbox": [
-        22,
-        25,
-        590,
-        242.6
+        22.0,
+        25.0,
+        590.0,
+        244.7
       ],
       "width": 2045,
-      "height": 784,
-      "bytes": 46426,
+      "height": 792,
+      "bytes": 44964,
       "number": 4,
       "image": "/paper-figures/fast/figure-4.webp",
       "caption": "Fig. 4: Overview of the FAST action tokenization pipeline. Given a normalized chunk of actions, we apply discrete cosine transform (DCT) to convert the signal to the frequency domain. We then quantize the DCT coefficients and use byte-pair encoding (BPE) to compress the flattened sequence of per-dimension DCT coefficients into the final action token sequence. See Section V-B for a detailed description.",
@@ -2073,14 +2073,14 @@
     {
       "page": 6,
       "bbox": [
-        311,
-        41,
-        591,
-        470.1
+        311.0,
+        41.0,
+        591.0,
+        472.2
       ],
       "width": 1009,
-      "height": 1546,
-      "bytes": 227296,
+      "height": 1553,
+      "bytes": 214692,
       "number": 5,
       "image": "/paper-figures/fast/figure-5.webp",
       "caption": "Fig. 5: Evaluation environments. We test FAST across 7 evaluation environments: 6 real-robot tasks and 1 simulation environment. The tasks are designed to test VLA performance on highly dexterous tasks, like folding cloths from a laundry basket (“Laundry Folding”), and generalization, e.g., zero-shot table-top manipulation in unseen environments (“DROID”).",
@@ -2093,14 +2093,14 @@
     {
       "page": 8,
       "bbox": [
-        22,
-        25,
-        590,
-        199.4
+        22.0,
+        25.0,
+        590.0,
+        201.5
       ],
       "width": 2045,
-      "height": 628,
-      "bytes": 27830,
+      "height": 636,
+      "bytes": 27180,
       "number": 6,
       "image": "/paper-figures/fast/figure-6.webp",
       "caption": "Fig. 6: Comparison of policy performance using different tokenization approaches. We find that tokenization approaches that compress action targets (FAST, FSQ) lead to substantially more efficient training than the na¨ıve binning tokenization used in prior VLAs. Overall, we find that FAST leads to more effective policy training than FSQ, particularly on dexterous real-robot tasks. Our universal tokenizer, FAST+, matches the performance of dataset-specific tokenizers. We report mean and 95% CI.",
@@ -2113,14 +2113,14 @@
     {
       "page": 8,
       "bbox": [
-        21,
+        21.0,
         264.6,
-        301,
-        493.2
+        305.0,
+        495.3
       ],
-      "width": 1009,
-      "height": 824,
-      "bytes": 116320,
+      "width": 1024,
+      "height": 832,
+      "bytes": 109130,
       "number": 7,
       "image": "/paper-figures/fast/figure-7.webp",
       "caption": "Fig. 7: Evaluation environments of FAST policy trained on DROID [38]. We find that the same policy checkpoint generalizes robustly, and performs various simple table-top tasks zero-shot across three university campuses.",
@@ -2133,14 +2133,14 @@
     {
       "page": 8,
       "bbox": [
-        311,
-        278.5,
-        591,
-        391.4
+        307.0,
+        274.5,
+        591.0,
+        393.5
       ],
-      "width": 1009,
-      "height": 408,
-      "bytes": 26326,
+      "width": 1023,
+      "height": 429,
+      "bytes": 24824,
       "number": 8,
       "image": "/paper-figures/fast/figure-8.webp",
       "caption": "Fig. 8: Universal tokenizer. We test the compression rate achieved by our FAST+ tokenizer vs. na¨ıve tokenization across diverse robot datasets, unseen during tokenizer training. We find that FAST is effective across a wide range of robot morphologies, action spaces and control frequencies.",
@@ -2153,14 +2153,14 @@
     {
       "page": 9,
       "bbox": [
-        311,
-        25,
-        591,
-        222.4
+        307.0,
+        25.0,
+        591.0,
+        224.6
       ],
-      "width": 1009,
-      "height": 711,
-      "bytes": 22388,
+      "width": 1023,
+      "height": 719,
+      "bytes": 21362,
       "number": 9,
       "image": "/paper-figures/fast/figure-9.webp",
       "caption": "Fig. 9: Comparison of diffusion π0 [7] to our π0 model with FAST decoding on single-task training. On small datasets (Libero, T-Shirt Folding), both perform comparably. On large datasets (Table Bussing), FAST converges faster. In DROID, we find that FAST follows language instructions better. We report mean and 95% CI.",
@@ -2173,14 +2173,14 @@
     {
       "page": 10,
       "bbox": [
-        22,
+        22.0,
         45.6,
-        590,
-        215.8
+        590.0,
+        218.0
       ],
       "width": 2045,
-      "height": 613,
-      "bytes": 160314,
+      "height": 621,
+      "bytes": 149336,
       "number": 10,
       "image": "/paper-figures/fast/figure-10.webp",
       "caption": "Fig. 10: Rollout of π0-FAST on the laundry folding task. FAST tokenization enables autoregressive VLAs to perform complex, long-horizon, and dexterous tasks that were impossible with previous tokenization schemes.",
@@ -2193,14 +2193,14 @@
     {
       "page": 10,
       "bbox": [
-        21,
-        273,
-        301,
-        435.5
+        21.0,
+        269.0,
+        305.0,
+        437.7
       ],
-      "width": 1009,
-      "height": 586,
-      "bytes": 23944,
+      "width": 1024,
+      "height": 608,
+      "bytes": 25576,
       "number": 11,
       "image": "/paper-figures/fast/figure-11.webp",
       "caption": "Fig. 11: Comparison of π0-FAST and diffusion π0 [7] generalist policies. π0-FAST matches the performance of diffusion π0 while requiring significantly less compute for training. Reported: mean and 95% CI.",
