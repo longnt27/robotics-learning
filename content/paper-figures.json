@@ -1769,14 +1769,14 @@
     {
       "page": 1,
       "bbox": [
-        22,
-        192,
-        590,
-        418.4
+        72,
+        194,
+        552,
+        420
       ],
-      "width": 2045,
-      "height": 816,
-      "bytes": 136952,
+      "width": 1729,
+      "height": 814,
+      "bytes": 149924,
       "number": 1,
       "image": "/paper-figures/openvla/figure-1.webp",
       "caption": "Figure 1: We present OpenVLA, a 7B-parameter open-source vision-language-action model (VLA), trained on 970k robot episodes from the Open X-Embodiment dataset [1]. OpenVLA sets a new state of the art for generalist robot manipulation policies. It supports controlling multiple robots out of the box and can be quickly adapted to new robot domains via parameter-efficient fine-tuning. The OpenVLA checkpoints and PyTorch training pipeline are fully open-source and models can be downloaded and fine-tuned from HuggingFace.",
@@ -1789,14 +1789,14 @@
     {
       "page": 4,
       "bbox": [
-        22,
-        83.3,
-        590,
-        221
+        61,
+        74,
+        557,
+        224
       ],
-      "width": 2045,
-      "height": 497,
-      "bytes": 50016,
+      "width": 1787,
+      "height": 541,
+      "bytes": 59564,
       "number": 2,
       "image": "/paper-figures/openvla/figure-2.webp",
       "caption": "Figure 2: OpenVLA model architecture. Given an image observation and a language instruction, the model predicts 7-dimensional robot control actions. The architecture consists of three key components: (1) a vision encoder that concatenates Dino V2 [25] and SigLIP [79] features, (2) a projector that maps visual features to the language embedding space, and (3) the LLM backbone, a Llama 2 7B-parameter large language model [10].",
@@ -1869,14 +1869,14 @@
     {
       "page": 10,
       "bbox": [
-        21,
-        417.3,
-        301,
-        561.2
+        104,
+        453,
+        338,
+        560
       ],
-      "width": 1009,
-      "height": 519,
-      "bytes": 29902,
+      "width": 843,
+      "height": 386,
+      "bytes": 11916,
       "number": 6,
       "image": "/paper-figures/openvla/figure-6.webp",
       "caption": "Figure 6: OpenVLA inference speed for various GPUs. Both bfloat16 and int4 quantization achieve high throughput, especially on GPUs with Ada Lovelace architecture (RTX 4090, H100). Fur- ther speed-ups are possible with modern LLM inference frame- works like TensorRT-LLM [89]. ♠: Model sharded across two GPUs to fit.",
