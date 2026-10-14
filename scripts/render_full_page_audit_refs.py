@@ -8,7 +8,7 @@ from PIL import Image,ImageDraw,ImageFont
 ROOT=Path(__file__).resolve().parents[1]
 data=json.loads((ROOT/'content/paper-figures.json').read_text())
 targets={"rt-1":[1,3],"act":[1,5,7],"vima":[4,7],"bridgedata-v2":[4,8],
-"fast":[1,2],"lingbot-vla-2":[4,8,9,14,15,16],"groot-n1":[7,22,25],
+"fast":[1,2],"octo":[4,6],"open-x-embodiment":[6],"diffusion-policy":[5,6],"lingbot-vla-2":[4,8,9,14,15,16],"groot-n1":[7,22,25],
 "pi-0-5":[4,8],"rtc-inference":[3,5,8],"rtc-training":[2,3],
 "mimicplay":[7],"libero":[9],"rt-2":[9],"openvla":[10],"qwen-vla":[24]}
 out=ROOT/'.figure-review-previews'/'pages'
