@@ -42,9 +42,10 @@ test("do not prefetch every reader route while browsing on mobile",()=>{
   const timeline=read("components/timeline-view.tsx");
   const reader=read("components/paper-reader.tsx");
   const dialog=read("components/glossary-dialog.tsx");
-  assert.match(timeline,/<Link prefetch=\{false\} href=\{`\/paper\/\$\{paper\.slug\}\}/);
-  assert.match(reader,/<Link prefetch=\{false\} key=\{i\} href=\{`\/paper\//);
-  assert.match(dialog,/<Link prefetch=\{false\} key=\{slug\} href=\{"\/paper\/"/);
+  assert.ok(timeline.includes('<Link prefetch={false} href={`/paper/${paper.slug}`}' ));
+  assert.ok(reader.includes('<Link prefetch={false} key={i} href={`/paper/' ));
+  assert.ok(dialog.includes('<Link prefetch={false} key={slug} href={"/paper/" + slug}' ));
+
 });
 
 test("static asset sizes are large enough that eager bundling is a regression",()=>{
