@@ -4,6 +4,7 @@ on:
     branches: [scratch/visual-figure-reference]
     paths:
       - .github/workflows/figure-reference-sheets.yml
+      - scripts/create_figure_review_sheets.py
   workflow_dispatch:
 permissions:
   contents: write
