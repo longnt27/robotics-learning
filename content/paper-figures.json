@@ -813,14 +813,14 @@
     {
       "page": 9,
       "bbox": [
-        22,
-        448.3,
-        590,
-        660.3
+        102,
+        529,
+        531,
+        659
       ],
-      "width": 2045,
-      "height": 764,
-      "bytes": 148806,
+      "width": 1545,
+      "height": 469,
+      "bytes": 82924,
       "number": 5,
       "image": "/paper-figures/libero/figure-5.webp",
       "caption": "Figure 5: Performance of different combinations of algorithms and architectures without pretraining or with pretraining. The multi-task learning performance is also included for reference.",
