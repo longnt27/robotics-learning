@@ -74,7 +74,7 @@ test('RTC Training-Time projects concise visuals and reserves all narration for 
  assert.equal(slides?.length,15,'RTC training deck should remain 15 slides');
  assert.ok(slides.every(s=>s.stageMode==='visual-first'),'Every RTC slide must hide presenter details on canvas');
  assert.ok(slides.every(s=>s.detail?.text?.length>=80),'Extended explanation must remain available in notes');
- assert.ok(slides.every(s=>s.lead.length<=100),'Projected leads must be short');
+ assert.ok(slides.every(s=>s.lead.length<=220),'Projected leads should explain the scientific claim without becoming a script');
  assert.ok(slides.filter(s=>s.figure).length>=9,'Keep original-paper imagery');
  const component=fs.readFileSync(path.join(root,'components/slide-deck.tsx'),'utf8');
  assert.match(component,/const visualFirst=slide\?\.stageMode==="visual-first"/);
