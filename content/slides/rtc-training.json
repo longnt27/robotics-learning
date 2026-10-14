@@ -1,259 +1,309 @@
 [
   {
     "type": "cover",
-    "title": "RTC lúc huấn luyện: học cách nối đoạn từ đầu",
-    "lead": "RTC ở thời điểm suy luận có thể lấy một mạng sinh hành động đã học trước rồi thêm ràng buộc để nối đoạn. Nhưng khi quá trình sinh phải chỉnh nhiều lần để giữ phần đã cam kết, chi phí tính toán tăng.",
+    "title": "TRAINING-TIME RTC",
+    "lead": "Làm robot chuyển động liên tục mà không phải sửa quỹ đạo bằng đạo hàm khi chạy.",
     "items": [
-      "Dạy bộ điều khiển tiếp nối phần hành động đã cam kết ngay từ lúc huấn luyện"
+      "Từ inpainting lúc suy luận → điều kiện hoá tiền tố ngay trong huấn luyện"
     ],
-    "intuition": "Đây là bài tiếp nối RTC đầu tiên, không phải thuật toán hoàn toàn không liên quan. Câu hỏi mới là: thay vì “sửa” chuỗi sinh ra để khớp đoạn cũ mỗi lần, liệu có thể huấn luyện chính sách điều khiển ngay từ đầu cho bài toán ấy không?",
+    "intuition": "Vấn đề không phải mô hình thiếu hành động; nó thiếu khả năng sinh phần tương lai trong khi phần đầu đã được robot cam kết.",
     "detail": {
-      "label": "GIẢI THÍCH",
-      "text": "Đây là bài tiếp nối RTC đầu tiên, không phải thuật toán hoàn toàn không liên quan. Câu hỏi mới là: thay vì “sửa” chuỗi sinh ra để khớp đoạn cũ mỗi lần, liệu có thể huấn luyện chính sách điều khiển ngay từ đầu cho bài toán ấy không?"
+      "label": "LỜI THUYẾT TRÌNH",
+      "text": "Câu hỏi nghiên cứu: liệu có thể dạy chính sách sinh đúng phần tiếp nối ngay khi huấn luyện, thay vì ép nó khớp bằng gradient ở mỗi lần suy luận?"
+    },
+    "figure": {
+      "src": "/paper-figures/rtc-training/figure-1.webp",
+      "alt": "Hình 1 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
+      "caption": "Hai đoạn chunk chồng nhau; màu đỏ là phần bắt buộc giữ."
     }
   },
   {
     "type": "problem",
-    "title": "Vì sao RTC sửa lúc chạy có thể tốn tính toán?",
-    "lead": "RTC ở thời điểm suy luận có thể lấy một mạng sinh hành động đã học trước rồi thêm ràng buộc để nối đoạn. Nhưng khi quá trình sinh phải chỉnh nhiều lần để giữ phần đã cam kết, chi phí tính toán tăng.",
+    "title": "Robot chạy 50 Hz, nhưng VLA suy luận lâu hơn một nhịp",
+    "lead": "Ở tần số 50 Hz, bộ điều khiển phát lệnh mỗi 20 ms. Một lượt suy luận khoảng 100 ms đồng nghĩa robot phải xử lý khoảng 5 nhịp trong lúc chờ.",
     "items": [
-      "Bộ sinh thông thường không biết đoạn hành động cũ nào phải được giữ nguyên"
+      "20 ms / bước điều khiển",
+      "100 ms / lượt suy luận ≈ 5 bước phải đi tiếp"
     ],
-    "intuition": "Đây là bài tiếp nối RTC đầu tiên, không phải thuật toán hoàn toàn không liên quan. Câu hỏi mới là: thay vì “sửa” chuỗi sinh ra để khớp đoạn cũ mỗi lần, liệu có thể huấn luyện chính sách điều khiển ngay từ đầu cho bài toán ấy không?",
+    "intuition": "Suy luận đồng bộ gây dừng-đi; suy luận bất đồng bộ tránh dừng nhưng có nguy cơ giật tại chỗ nối hai đoạn.",
     "detail": {
-      "label": "GIẢI THÍCH",
-      "text": "RTC ở thời điểm suy luận có thể lấy một mạng sinh hành động đã học trước rồi thêm ràng buộc để nối đoạn. Nhưng khi quá trình sinh phải chỉnh nhiều lần để giữ phần đã cam kết, chi phí tính toán tăng. RTC huấn luyện sẵn chuyển việc học cách tôn trọng tiền tố sang giai đoạn huấn luyện, để đến lúc chạy mô hình biết sinh phần tương lai từ các lệnh đã biết."
+      "label": "LỜI THUYẾT TRÌNH",
+      "text": "Vấn đề RTC cần giải quyết là vừa để robot tiếp tục chạy, vừa bảo đảm đoạn mới không mâu thuẫn những lệnh đã phát."
+    },
+    "figure": {
+      "src": "/paper-figures/rtc-training/figure-1.webp",
+      "alt": "Hình 1 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
+      "caption": "Hai đoạn chunk chồng nhau; màu đỏ là phần bắt buộc giữ."
     }
   },
   {
     "type": "contrast",
-    "title": "Sửa đầu ra khác với dạy mô hình hiểu tiền tố",
-    "lead": "Đây là bài tiếp nối RTC đầu tiên, không phải thuật toán hoàn toàn không liên quan. Câu hỏi mới là: thay vì “sửa” chuỗi sinh ra để khớp đoạn cũ mỗi lần, liệu có thể huấn luyện chính sách điều khiển ngay từ đầu cho bài toán ấy không?",
+    "title": "RTC đầu tiên: chạy bất đồng bộ nhưng phải sửa lúc lấy mẫu",
+    "lead": "Bộ điều khiển tiếp tục thực thi đoạn A trong khi VLA sinh đoạn B; những hành động đầu của B đã được đoạn A quyết định.",
     "items": [
-      "Dạy bộ điều khiển tiếp nối phần hành động đã cam kết ngay từ lúc huấn luyện",
-      "Thay đổi độ dài phần đầu k, giữ nguyên các lệnh đã cam kết và chỉ học sinh phần còn lại."
+      "CŨ: sinh rồi liên tục hiệu chỉnh bằng gradient",
+      "MỚI: học điều kiện tiền tố, sinh trực tiếp hậu tố"
     ],
-    "intuition": "RTC ở thời điểm suy luận có thể lấy một mạng sinh hành động đã học trước rồi thêm ràng buộc để nối đoạn. Nhưng khi quá trình sinh phải chỉnh nhiều lần để giữ phần đã cam kết, chi phí tính toán tăng.",
+    "intuition": "Inference-time RTC dùng pseudoinverse guidance để ép B khớp A, đồng thời soft masking phần chồng thêm. Việc này đòi vector–Jacobian product bằng backprop ở từng bước khử nhiễu.",
     "detail": {
-      "label": "GIẢI THÍCH",
-      "text": "RTC huấn luyện sẵn được học từ các ví dụ “phần đầu đã xảy ra như thế này, hãy sinh phần sau”. Trong nhiệm vụ pha espresso còn có xay, nén, chiết và rót; nối chuyển động liên tục là quan trọng vì một thao tác sai có thể phá cả chuỗi."
+      "label": "LỜI THUYẾT TRÌNH",
+      "text": "Đổi lại ta có đường đi liên tục, nhưng mỗi lượt tính khó hơn, tăng độ trễ d; d tăng lại khiến tiền tố phải giữ dài hơn. Đây chính là vòng phản hồi bất lợi."
     }
   },
   {
     "type": "intuition",
-    "title": "Hình dung robot pha cà phê liên tục",
-    "lead": "Robot đang đưa dụng cụ nén cà phê xuống. Mô hình nhận ảnh mới, nhưng trong 100 ms tiếp theo tay robot vẫn tiếp tục chuyển động theo lệnh đã phát.",
+    "title": "Một cú nén espresso giải thích được toàn bộ bài toán",
+    "lead": "Camera báo trạng thái mới khi robot đang hạ tay nén cà phê. Trong lúc mạng tính, động cơ vẫn tiếp tục làm nốt chuỗi lệnh đã phát.",
     "items": [
-      "Cho mô hình luyện cách tiếp nối phần đầu cố định để giảm công sửa lệnh khi chạy."
+      "Giữ nguyên đoạn chuyển động đã cam kết; chỉ học tiếp phần robot chưa làm."
     ],
-    "intuition": "RTC huấn luyện sẵn được học từ các ví dụ “phần đầu đã xảy ra như thế này, hãy sinh phần sau”. Trong nhiệm vụ pha espresso còn có xay, nén, chiết và rót; nối chuyển động liên tục là quan trọng vì một thao tác sai có thể phá cả chuỗi.",
+    "intuition": "Nếu đoạn mới giả định tay robot đã nâng lên, robot sẽ đổi hướng đột ngột tại ranh giới hai đoạn.",
     "detail": {
-      "label": "GIẢI THÍCH",
-      "text": "Robot đang đưa dụng cụ nén cà phê xuống. Mô hình nhận ảnh mới, nhưng trong 100 ms tiếp theo tay robot vẫn tiếp tục chuyển động theo lệnh đã phát. Nếu mạng tạo ngay quỹ đạo nâng dụng cụ lên từ một vị trí chưa tới, chỗ nối sẽ giật hoặc sai lực nén."
+      "label": "LỜI THUYẾT TRÌNH",
+      "text": "Tiền tố không phải một gợi ý mềm: những lệnh đã cam kết không thể quay ngược thời gian để sửa. Ta chỉ được lựa chọn phần tiếp theo."
+    },
+    "figure": {
+      "src": "/paper-figures/rtc-training/figure-4.webp",
+      "alt": "Hình 4 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
+      "caption": "Hai nhiệm vụ robot thật: dựng hộp và pha espresso."
     }
   },
   {
     "type": "concepts",
-    "title": "Tiền tố đã cam kết và phần còn được thay đổi",
-    "lead": "Tiền tố đã cam kết là những hành động robot đã thực hiện hoặc chắc chắn sẽ thực hiện trước khi mạng trả kết quả. Những lệnh ấy không thể bị sửa ngược khi đoạn mới tới. Hậu tố là phần hành động tiếp theo cần dự đoán để robot tiếp tục.",
+    "title": "Ba đại lượng quyết định liệu RTC có nối được đoạn",
+    "lead": "H là số bước một chunk dự đoán; s là số bước giữa hai lần cập nhật; d là độ trễ suy luận đổi thành số nhịp điều khiển.",
     "items": [
       {
-        "label": "Độ dài phần đầu k",
-        "value": "Số hành động cũ mà robot sẽ thực thi trước khi đầu ra tới."
+        "label": "H · prediction horizon",
+        "value": "Số hành động trong một đoạn dự đoán."
       },
       {
-        "label": "Mức nhiễu theo từng vị trí",
-        "value": "Phần đầu giữ nguyên; các lệnh tương lai được thêm nhiễu ở các mức khác nhau."
+        "label": "s · execution horizon",
+        "value": "Khoảng cách giữa hai lần gọi sinh đoạn."
       },
       {
-        "label": "Sinh phần hành động tiếp theo",
-        "value": "Sinh phần tương lai phù hợp hành động đã cam kết."
+        "label": "d · inference delay",
+        "value": "Số bước robot vẫn chạy khi mô hình chưa trả kết quả."
       }
     ],
-    "intuition": "Trong RTC huấn luyện sẵn, mạng không được tự sửa tiền tố. Nó nhìn những hành động cố định ở đầu chuỗi rồi học cách sinh các bước sau tương thích. Đây là sự khác nhau với mô hình chỉ nhìn ảnh mà không biết bộ điều khiển đang thực thi lệnh nào.",
+    "intuition": "Vùng chồng giữa chunk cũ và mới dài H−s; để chứa đủ phần đã cam kết d bước, cần d ≤ H−s.",
     "detail": {
-      "label": "GIẢI THÍCH",
-      "text": "Trong RTC huấn luyện sẵn, mạng không được tự sửa tiền tố. Nó nhìn những hành động cố định ở đầu chuỗi rồi học cách sinh các bước sau tương thích. Đây là sự khác nhau với mô hình chỉ nhìn ảnh mà không biết bộ điều khiển đang thực thi lệnh nào."
+      "label": "LỜI THUYẾT TRÌNH",
+      "text": "Đừng lẫn H với thời gian thực thi. Chunk dự đoán dài H bước, nhưng lần cập nhật tiếp theo bắt đầu sau s bước, còn mô hình mất d bước để tính xong."
+    },
+    "figure": {
+      "src": "/paper-figures/rtc-training/figure-1.webp",
+      "alt": "Hình 1 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
+      "caption": "Hai đoạn chunk chồng nhau; màu đỏ là phần bắt buộc giữ."
     }
   },
   {
     "type": "pipeline",
-    "title": "Đưa điều kiện nối đoạn vào khi huấn luyện",
-    "lead": "Trong giai đoạn train, người nghiên cứu lấy một chuỗi hành động đúng, chọn một phần đầu làm tiền tố giả định đã được bộ điều khiển thực hiện. Các giá trị tiền tố này được đưa vào mạng ở dạng thật, không thêm nhiễu.",
+    "title": "Từ dữ liệu mẫu đến bài học nối đoạn: chỉ ba thay đổi",
+    "lead": "Lấy một chuỗi hành động đúng. Giả lập độ trễ d, coi d hành động đầu là tiền tố đã biết, và bắt mô hình học cách tạo phần còn lại.",
     "items": [
-      "Đoạn hành động mẫu và độ dài phần đầu k",
-      "Giữ nguyên phần đầu đã biết",
-      "Thêm nhiễu và học sinh phần hành động tương lai",
-      "Sinh trực tiếp phần hành động tiếp theo"
+      "Lấy chunk mẫu và bốc thăm d",
+      "Giữ nguyên d hành động đầu, τ = 1",
+      "Thêm nhiễu phần sau và dự đoán vận tốc dòng",
+      "Chỉ tối ưu loss trên phần sau"
     ],
-    "intuition": "Mô hình còn được thông báo độ trễ tương ứng để hiểu tiền tố dài hay ngắn. Trong một DiT dùng flow matching, có thể dùng bước thời gian khác nhau cho token tiền tố và token cần sinh. Nhờ vậy khi chạy, chính sách điều khiển không phải sửa một đoạn mới hoàn toàn tự do cho vừa với lệnh cũ.",
+    "intuition": "(1) Mỗi token có mức thời gian flow matching riêng. (2) Tiền tố dùng giá trị thật không nhiễu, thời gian τ=1. (3) Tính loss chỉ trên hậu tố.",
     "detail": {
-      "label": "GIẢI THÍCH",
-      "text": "Mô hình còn được thông báo độ trễ tương ứng để hiểu tiền tố dài hay ngắn. Trong một DiT dùng flow matching, có thể dùng bước thời gian khác nhau cho token tiền tố và token cần sinh. Nhờ vậy khi chạy, chính sách điều khiển không phải sửa một đoạn mới hoàn toàn tự do cho vừa với lệnh cũ."
+      "label": "LỜI THUYẾT TRÌNH",
+      "text": "Cách này biến điều kiện cứng ở lúc chạy thành thứ mạng thường gặp lúc huấn luyện; không cần thêm một đầu mạng chuyên sửa quỹ đạo."
+    },
+    "figure": {
+      "src": "/paper-figures/rtc-training/figure-2.webp",
+      "alt": "Hình 2 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
+      "caption": "DiT nhận prefix không nhiễu, suffix được thêm nhiễu."
     }
   },
   {
     "type": "representation",
-    "title": "Độ trễ quyết định vùng chồng hành động",
-    "lead": "Trong RTC huấn luyện sẵn, mạng không được tự sửa tiền tố. Nó nhìn những hành động cố định ở đầu chuỗi rồi học cách sinh các bước sau tương thích.",
+    "title": "Tại sao không dùng cả H−s bước chồng nhau?",
+    "lead": "Inference-time RTC hướng dẫn bằng cả vùng chồng H−s (bao gồm phần cố định và soft masking), còn Training-Time RTC chỉ điều kiện trên d bước chắc chắn phải thực hiện.",
     "items": [
       {
-        "label": "ĐẦU RA / DẠNG BIỂU DIỄN",
-        "value": "Khi huấn luyện, phần đầu lấy từ chuỗi hành động mẫu đã biết."
+        "label": "BẮT BUỘC GIỮ",
+        "value": "d bước đã cam kết, dùng làm dữ kiện."
       },
       {
-        "label": "ĐÁNH ĐỔI KỸ THUẬT",
-        "value": "Khi chạy thật, phần đầu đến từ bộ điều khiển cũ nên có thể khác dữ liệu mẫu."
+        "label": "ĐƯỢC SINH MỚI",
+        "value": "H−d bước còn lại: mô hình phải dự đoán."
       }
     ],
-    "intuition": "Trong giai đoạn train, người nghiên cứu lấy một chuỗi hành động đúng, chọn một phần đầu làm tiền tố giả định đã được bộ điều khiển thực hiện. Các giá trị tiền tố này được đưa vào mạng ở dạng thật, không thêm nhiễu.",
+    "intuition": "Phân biệt vùng tiền tố cứng và phần chồng mềm là chìa khóa: phiên bản mới đơn giản hơn, ít linh hoạt hơn, nhưng không cần giải bài toán hiệu chỉnh trong lúc chạy.",
     "detail": {
-      "label": "GIẢI THÍCH",
-      "text": "Trong giai đoạn train, người nghiên cứu lấy một chuỗi hành động đúng, chọn một phần đầu làm tiền tố giả định đã được bộ điều khiển thực hiện. Các giá trị tiền tố này được đưa vào mạng ở dạng thật, không thêm nhiễu. Phần hậu tố mới được thêm nhiễu để mạng học khử nhiễu và sinh ra những bước tiếp theo."
+      "label": "LỜI THUYẾT TRÌNH",
+      "text": "Ví dụ H=16, s=7: H−s=9. Nếu d=5, chỉ 5 lệnh đầu bắt buộc bất biến; 4 lệnh chồng còn lại có thể được tính lại."
+    },
+    "figure": {
+      "src": "/paper-figures/rtc-training/figure-1.webp",
+      "alt": "Hình 1 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
+      "caption": "Hai đoạn chunk chồng nhau; màu đỏ là phần bắt buộc giữ."
     }
   },
   {
     "type": "training",
-    "title": "Mô hình học từ những tiền tố ra sao?",
-    "lead": "Trong giai đoạn train, người nghiên cứu lấy một chuỗi hành động đúng, chọn một phần đầu làm tiền tố giả định đã được bộ điều khiển thực hiện. Các giá trị tiền tố này được đưa vào mạng ở dạng thật, không thêm nhiễu.",
+    "title": "Mô hình phân biệt 'đã biết' và 'phải tạo' bằng cách nào?",
+    "lead": "Trong DiT của action expert, token tiền tố được đưa vào nguyên vẹn với τᵢ=1; các token hậu tố đi theo lịch nhiễu của flow matching.",
     "items": [
       {
-        "label": "MỤC TIÊU HỌC",
-        "value": "Trong thử nghiệm robot thật, phần đầu k dài từ 0 đến 10 nhịp (0–200 mili giây ở 50 Hz)."
+        "label": "ĐẦU VÀO",
+        "value": "Quan sát mới + prefix không nhiễu + τᵢ cho từng token."
       },
       {
-        "label": "DỮ LIỆU / QUY TRÌNH",
-        "value": "Hàm mất mát tập trung vào phần cần sinh, không bắt mạng dự đoán lại những lệnh đã cố định."
+        "label": "TÍN HIỆU HỌC",
+        "value": "Dự đoán dòng cho hậu tố; mask loss ở tiền tố."
       }
     ],
-    "intuition": "Mô hình còn được thông báo độ trễ tương ứng để hiểu tiền tố dài hay ngắn. Trong một DiT dùng flow matching, có thể dùng bước thời gian khác nhau cho token tiền tố và token cần sinh. Nhờ vậy khi chạy, chính sách điều khiển không phải sửa một đoạn mới hoàn toàn tự do cho vừa với lệnh cũ.",
+    "intuition": "AdaLN-Zero cho phép scale/shift/gate phụ thuộc τᵢ theo từng token, không tăng số tham số học. Loss bỏ qua d vị trí đầu.",
     "detail": {
-      "label": "GIẢI THÍCH",
-      "text": "Khi huấn luyện, người nghiên cứu lấy một đoạn hành động đúng, đánh dấu những bước đầu như thể bộ điều khiển đã cam kết thực hiện. Các giá trị tiền tố được đưa vào mạng không thêm nhiễu; chỉ phần hậu tố mới cần dự đoán và khử nhiễu. Trong DiT kết hợp flow matching, từng token có thể nhận thông tin thời gian lấy mẫu khác nhau. Nhờ đó mạng biết “đây là lệnh cố định” và “đây là lệnh phải tạo ra”."
+      "label": "LỜI THUYẾT TRÌNH",
+      "text": "Điểm quan trọng: đây không phải ép đầu ra sau khi sinh. Mô hình nhìn tiền tố ở đầu vào trong mỗi bước sinh và học cách tiếp nối có điều kiện."
+    },
+    "figure": {
+      "src": "/paper-figures/rtc-training/figure-2.webp",
+      "alt": "Hình 2 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
+      "caption": "DiT nhận prefix không nhiễu, suffix được thêm nhiễu."
     }
   },
   {
     "type": "inference",
-    "title": "Một lần tạo đoạn mới không cần sửa lặp",
-    "lead": "Mô hình còn được thông báo độ trễ tương ứng để hiểu tiền tố dài hay ngắn. Trong một DiT dùng flow matching, có thể dùng bước thời gian khác nhau cho token tiền tố và token cần sinh.",
+    "title": "Khi triển khai: nối đoạn mà không gọi backward",
+    "lead": "Trong khi robot chạy đoạn A, hệ thống lấy quan sát và sinh B với d lệnh đầu từ A là điều kiện cố định. Kết quả đến tại t+d thì robot thực thi hậu tố của B.",
     "items": [
       {
-        "label": "XỬ LÝ ĐẦU VÀO",
-        "value": "Mô hình nhận phần đầu đã cam kết cùng quan sát mới rồi sinh các lệnh tiếp theo cho phù hợp."
+        "label": "THỜI ĐIỂM t",
+        "value": "Đoán độ trễ d, lấy d lệnh đang cam kết của A."
       },
       {
-        "label": "TẠO HÀNH ĐỘNG",
-        "value": "Không phải dùng thêm bước chỉnh bằng gradient khi chạy như cách RTC ban đầu."
+        "label": "THỜI ĐIỂM t+d",
+        "value": "Sinh xong B rồi chạy từ hành động thứ d+1 của B."
       }
     ],
-    "intuition": "Robot đang đưa dụng cụ nén cà phê xuống. Mô hình nhận ảnh mới, nhưng trong 100 ms tiếp theo tay robot vẫn tiếp tục chuyển động theo lệnh đã phát. Nếu mạng tạo ngay quỹ đạo nâng dụng cụ lên từ một vị trí chưa tới, chỗ nối sẽ giật hoặc sai lực nén.",
+    "intuition": "Vẫn có nhiều bước tích phân flow matching như policy gốc, nhưng không còn vector–Jacobian product phụ trội để chỉnh mẫu ở mỗi bước.",
     "detail": {
-      "label": "GIẢI THÍCH",
-      "text": "Trong thí nghiệm robot thật với các nhiệm vụ dựng hộp giấy và pha espresso, phiên bản học ràng buộc ngay trong huấn luyện đạt kết quả nhiệm vụ gần với RTC áp ràng buộc lúc suy luận, nhưng có độ trễ đo được khoảng 108 mili giây so với 135 mili giây ở thiết lập được công bố. Khoảng chênh 27 mili giây lớn hơn một bước điều khiển 20 mili giây, nhưng không phải mức tiết kiệm cố định trên mọi GPU."
+      "label": "LỜI THUYẾT TRÌNH",
+      "text": "Đừng nhầm “không overhead của RTC” với “không tốn thời gian suy luận”: transformer và quá trình lấy mẫu vẫn tốn GPU, chỉ bỏ phần tính gradient để inpainting."
     }
   },
   {
     "type": "equation",
-    "title": "Công thức chia vùng đã biết và tương lai",
-    "lead": "Trong RTC huấn luyện sẵn, mạng không được tự sửa tiền tố. Nó nhìn những hành động cố định ở đầu chuỗi rồi học cách sinh các bước sau tương thích.",
-    "equation": "\\mathcal L\\propto\\sum_{i>k}\\|v_\\theta(x_i,\\,a_{1:k})-v_i^\\star\\|^2",
+    "title": "Công thức trung tâm: giữ tiền tố, học hậu tố",
+    "lead": "Ta dự đoán vận tốc flow chỉ cho những hành động i > d. Đầu chuỗi đã là dữ kiện; mạng không cần học tái tạo lệnh chắc chắn phải giữ.",
+    "equation": "\\mathcal{L}_{\\mathrm{RTC}}(\\theta)=\\mathbb E_{d,\\tau,\\epsilon}\\left[\\frac{1}{H-d}\\sum_{i=d+1}^{H}\\left\\|v_\\theta(A^\\tau,o,\\boldsymbol{\\tau})_i-(\\epsilon_i-A_i)\\right\\|_2^2\\right]",
     "items": [
-      "Công thức biểu diễn việc học phần hành động còn lại khi phần đầu đã được cố định; xem bài gốc để biết cách tính đầy đủ."
+      "Quy tắc toán học: loss của tiền tố = 0; loss hậu tố = sai số dự đoán vận tốc."
     ],
-    "intuition": "Trong giai đoạn train, người nghiên cứu lấy một chuỗi hành động đúng, chọn một phần đầu làm tiền tố giả định đã được bộ điều khiển thực hiện. Các giá trị tiền tố này được đưa vào mạng ở dạng thật, không thêm nhiễu.",
+    "intuition": "Biểu thức dưới là dạng rút gọn đúng về cơ chế, không thay thế hoàn toàn hàm mất mát chuẩn trong bài.",
     "detail": {
-      "label": "GIẢI THÍCH CÔNG THỨC",
-      "text": "Cả hai khác ACT và Diffusion chính sách điều khiển ở trọng tâm nghiên cứu: ACT và Diffusion chính sách điều khiển học cách tạo hành động có cấu trúc; RTC học cách thực thi các đoạn đó liên tục khi suy luận chậm. Nếu chưa biết phân biệt các tầng ấy, rất dễ so sai bản chất đóng góp."
+      "label": "DIỄN GIẢI CÔNG THỨC",
+      "text": "Đặt τᵢ=1 ở tiền tố, nên Aᵢ^τ chính là hành động thật; phần còn lại lấy τ và ε để học flow matching. Hệ số 1/(H−d) chỉ chuẩn hoá theo số vị trí được học."
     }
   },
   {
     "type": "results",
-    "title": "Kết quả so với RTC lúc suy luận",
-    "lead": "Hình 3 đo độ trễ so với tỷ lệ giải xong trong mô phỏng; từ một số mức trễ, mạng được huấn luyện tiền tố làm tốt hơn bản phải áp ràng buộc ở suy luận.",
+    "title": "Mô phỏng: khi d lớn, học trước có ích hơn",
+    "lead": "Kinetix: H=8, d∈{0,1,2,3,4}, s=max(d,1); mỗi điểm đánh giá có 2.048 lượt thử và khoảng tin cậy Wilson 95%.",
     "items": [
       {
-        "label": "PHÁT HIỆN QUAN TRỌNG",
-        "value": "Thử nghiệm dựng hộp và pha cà phê bằng π0.6: độ trễ khoảng 108 mili giây so với 135 mili giây của RTC ban đầu."
+        "label": "ĐIỂM RẼ",
+        "value": "Độ trễ từ 2 bước trở lên: lợi thế rõ hơn."
       },
       {
-        "label": "CÁCH DIỄN GIẢI",
-        "value": "Chênh lệch 27 mili giây lớn hơn một nhịp điều khiển 20 mili giây ở 50 Hz."
+        "label": "THIẾT KẾ CÔNG BẰNG",
+        "value": "32 epochs tổng; nhánh training-time fine-tune 8 epochs sau epoch 24."
       }
     ],
-    "intuition": "Trong thí nghiệm robot thật với các nhiệm vụ dựng hộp giấy và pha espresso, phiên bản học ràng buộc ngay trong huấn luyện đạt kết quả nhiệm vụ gần với RTC áp ràng buộc lúc suy luận, nhưng có độ trễ đo được khoảng 108 mili giây so với 135 mili giây ở thiết lập được công bố.",
+    "intuition": "Từ d≥2, Training-Time RTC vượt Inference-Time RTC; ở d=0–1 nó có thể kém nhẹ. Kết quả là theo d, không phải tuyên bố thắng tuyệt đối.",
     "detail": {
-      "label": "GIẢI THÍCH",
-      "text": "Hình 3 đo độ trễ so với tỷ lệ giải xong trong mô phỏng; từ một số mức trễ, mạng được huấn luyện tiền tố làm tốt hơn bản phải áp ràng buộc ở suy luận. Nhưng Hình 5 ở robot thật cho thấy hai phiên bản RTC gần nhau về tỷ lệ thành công và thời gian; cả hai đều nhanh hơn cách chờ tuần tự."
+      "label": "LỜI THUYẾT TRÌNH",
+      "text": "Lý giải của tác giả: tiền tố dài khiến pseudoinverse guidance khó ép hậu tố nhất quán do dựa vào xấp xỉ tuyến tính từ Jacobian."
+    },
+    "figure": {
+      "src": "/paper-figures/rtc-training/figure-3.webp",
+      "alt": "Hình 3 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
+      "caption": "Kinetix: solve rate theo độ trễ, 2.048 lượt thử/mốc."
     }
   },
   {
     "type": "ablation",
-    "title": "Thử nghiệm công bằng hai cách nối đoạn",
-    "lead": "Hai kết quả không mâu thuẫn. Lợi thế có thể phụ thuộc nhiệm vụ, độ trễ, phần cứng và cách sinh đoạn hành động. Khi đọc biểu đồ phải xem số lượt thử và khoảng sai số, không nên lấy ưu thế ở mô phỏng để tuyên bố mọi robot thật đều nhanh hơn.",
+    "title": "Robot thật: hiệu quả tương đương, chi phí suy luận thấp hơn",
+    "lead": "Dùng π₀.₆ trên hai nhiệm vụ dựng hộp và pha espresso; cả hai policy fine-tune 8.000 bước, batch 512, và đo ở cùng thiết lập robot.",
     "items": [
       {
-        "label": "YẾU TỐ ĐƯỢC THỬ",
-        "value": "So tỷ lệ hoàn thành và chi phí tính toán khi chạy, không chỉ sai số trên dữ liệu kiểm tra."
+        "label": "108 ms",
+        "value": "Training-Time RTC · đo end-to-end"
+      },
+      {
+        "label": "135 ms",
+        "value": "Inference-Time RTC · đo end-to-end"
       }
     ],
-    "intuition": "Hình 3 đo độ trễ so với tỷ lệ giải xong trong mô phỏng; từ một số mức trễ, mạng được huấn luyện tiền tố làm tốt hơn bản phải áp ràng buộc ở suy luận. Nhưng Hình 5 ở robot thật cho thấy hai phiên bản RTC gần nhau về tỷ lệ thành công và thời gian; cả hai đều nhanh hơn cách chờ tuần tự.",
+    "intuition": "Độ trễ cuối-đến-cuối công bố: 108 ms (training-time) so với 135 ms (inference-time). Thành công và thời gian hoàn thành của hai RTC gần nhau; đều cải thiện so với chạy đồng bộ.",
     "detail": {
-      "label": "GIẢI THÍCH",
-      "text": "Hai kết quả không mâu thuẫn. Lợi thế có thể phụ thuộc nhiệm vụ, độ trễ, phần cứng và cách sinh đoạn hành động. Khi đọc biểu đồ phải xem số lượt thử và khoảng sai số, không nên lấy ưu thế ở mô phỏng để tuyên bố mọi robot thật đều nhanh hơn."
+      "label": "LỜI THUYẾT TRÌNH",
+      "text": "Không được gọi 27 ms là tiết kiệm cố định trên mọi phần cứng. Đây là phép đo trong thí nghiệm H100, 5 denoising steps, robot 50 Hz."
+    },
+    "figure": {
+      "src": "/paper-figures/rtc-training/figure-5.webp",
+      "alt": "Hình 5 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
+      "caption": "Thành công và thời gian của hai phiên bản RTC."
     }
   },
   {
     "type": "limits",
-    "title": "Các giả định về thời gian và độ trễ",
-    "lead": "Huấn luyện mạng hiểu tiền tố đòi dữ liệu và cách lấy mẫu phù hợp với độ trễ khi triển khai. Nếu thời gian suy luận thật thay đổi rất khác các trường hợp đã học, chính sách điều khiển có thể dự đoán không chính xác.",
+    "title": "Điểm đánh đổi: bớt gradient, bớt độ linh hoạt",
+    "lead": "Training-Time RTC chỉ biết điều kiện cứng trên d hành động đầu; không tận dụng soft masking ở những bước chồng tiếp theo như phiên bản inference-time.",
     "items": [
       {
-        "label": "Tác giả / phạm vi",
-        "value": "Phạm vi đánh giá: độ trễ và phần đầu hành động khi chạy thật có thể khác lúc huấn luyện."
+        "label": "GIỚI HẠN TỪ BÀI BÁO",
+        "value": "Chỉ hard prefix; không có soft mask hậu tố và phụ thuộc phân phối d đã học."
       },
       {
-        "label": "Phê bình độc lập",
-        "value": "Phê bình: lệnh được cam kết chưa chắc đã được động cơ thực hiện chính xác, đặc biệt khi tiếp xúc với vật."
+        "label": "CÂU HỎI KHI TRIỂN KHAI",
+        "value": "Độ trễ thay đổi, sai số bám quỹ đạo, an toàn tiếp xúc robot có được kiểm chứng?"
       }
     ],
-    "intuition": "Việc giữ tiền tố cũng không giải quyết phát hiện vật mới, camera mất khung hình hoặc nguy cơ va chạm. Đây là một thành phần của hệ điều khiển, vẫn cần bộ đệm lệnh và kiểm tra an toàn bên ngoài.",
+    "intuition": "Độ trễ thực tế thay đổi, nên cần chọn phân phối d trong huấn luyện. Robot thật lấy d đều từ 0 đến 10 nhịp, tương ứng tối đa 200 ms ở 50 Hz.",
     "detail": {
-      "label": "GIẢI THÍCH",
-      "text": "Việc giữ tiền tố cũng không giải quyết phát hiện vật mới, camera mất khung hình hoặc nguy cơ va chạm. Đây là một thành phần của hệ điều khiển, vẫn cần bộ đệm lệnh và kiểm tra an toàn bên ngoài."
+      "label": "LỜI THUYẾT TRÌNH",
+      "text": "Nếu trễ vượt H−s, chẳng có thuật toán inpainting nào sửa được việc các lệnh cũ đã hết vùng chồng. Vấn đề cần giải ở lịch thực thi và thiết kế horizon."
     }
   },
   {
     "type": "relations",
-    "title": "Liên hệ giữa hai nghiên cứu RTC",
-    "lead": "RTC suy luận: mạng sinh bình thường, quá trình lấy mẫu được ràng buộc để khớp hành động cũ. RTC huấn luyện: mạng đã được dạy cách nhận những hành động cũ và sinh tiếp, nên thường ít cần chỉnh lại trong lúc chạy.",
+    "title": "Đặt hai bài RTC đúng vị trí trong lịch sử nghiên cứu",
+    "lead": "RTC 2025 giải quyết bài toán thực thi bất đồng bộ nhưng đảm bảo nối đoạn bằng guidance ở suy luận. Bài Training-Time RTC đưa cùng ràng buộc vào học để tránh backward lúc chạy.",
     "items": [
       {
-        "label": "NỀN TẢNG / TIỀN ĐỀ",
-        "value": "RTC ban đầu chỉnh quá trình sinh để giữ phần đầu đã cam kết."
+        "label": "INFERENCE-TIME RTC",
+        "value": "Kết nối bất đồng bộ + pseudoinverse guidance + soft masking."
       },
       {
-        "label": "HƯỚNG PHÁT TRIỂN",
-        "value": "Diffusion Policy và π0.5 cung cấp các cách sinh đoạn hành động mà RTC cần nối liên tục."
+        "label": "TRAINING-TIME RTC",
+        "value": "Bốc thăm d khi train + prefix không nhiễu + mask loss; không backward phụ khi sinh."
       }
     ],
-    "intuition": "Cả hai khác ACT và Diffusion chính sách điều khiển ở trọng tâm nghiên cứu: ACT và Diffusion chính sách điều khiển học cách tạo hành động có cấu trúc; RTC học cách thực thi các đoạn đó liên tục khi suy luận chậm. Nếu chưa biết phân biệt các tầng ấy, rất dễ so sai bản chất đóng góp.",
+    "intuition": "Cái mới không phải một VLA lớn hơn hay thuật toán plan cao cấp hơn: đây là thay đổi giao diện sinh chunk và tín hiệu huấn luyện cho chính sách flow-based.",
     "detail": {
-      "label": "GIẢI THÍCH",
-      "text": "RTC suy luận: mạng sinh bình thường, quá trình lấy mẫu được ràng buộc để khớp hành động cũ. RTC huấn luyện: mạng đã được dạy cách nhận những hành động cũ và sinh tiếp, nên thường ít cần chỉnh lại trong lúc chạy."
+      "label": "LỜI THUYẾT TRÌNH",
+      "text": "Tương lai hợp lý: học điều kiện tiền tố nhưng vẫn có cơ chế mềm nhẹ để tận dụng các hành động chồng bổ sung, đánh giá độ trễ biến thiên và lỗi điều khiển thực."
     }
   },
   {
     "type": "closing",
-    "title": "Điều cần nhớ về RTC huấn luyện",
-    "lead": "Giả sử đoạn hành động dài H = 16, mô hình chậm d = 5 bước, bộ điều khiển định thực thi s = 7 bước mỗi lần. Kiểm tra điều kiện d ≤ H − s: 5 ≤ 9 nên vẫn có vùng chồng hợp lệ.",
+    "title": "Kết luận trước giáo viên hướng dẫn",
+    "lead": "Thông điệp quan trọng: RTC ban đầu loại bỏ việc robot đứng chờ nhưng đánh đổi bằng inpainting tốn gradient khi suy luận. Training-Time RTC học điều kiện tiền tố từ trước để bỏ phần tốn thêm ấy.",
     "items": [
-      "Huấn luyện với nhiều mức độ trễ sát điều kiện vận hành thật.",
-      "Kiểm tra khi độ trễ tăng bất thường và phần đầu hành động khác dữ liệu đã học."
+      "Vấn đề: chunk mới không khớp hành động đã cam kết",
+      "Giải pháp: conditioning tại train; loss chỉ trên suffix"
     ],
-    "intuition": "Sau đó tưởng tượng mạng không được biết năm bước màu đỏ khi huấn luyện. Nó có thể chọn một quỹ đạo mới mâu thuẫn thế nào? Bài tập trục thời gian này là chìa khóa để hiểu Hình 1–2.",
+    "intuition": "Bằng chứng: mô phỏng tốt hơn ở độ trễ cao; robot thật tương đương về hiệu quả nhiệm vụ, với độ trễ suy luận ngắn hơn trong thí nghiệm đã đo.",
     "detail": {
-      "label": "GIẢI THÍCH",
-      "text": "Sau đó tưởng tượng mạng không được biết năm bước màu đỏ khi huấn luyện. Nó có thể chọn một quỹ đạo mới mâu thuẫn thế nào? Bài tập trục thời gian này là chìa khóa để hiểu Hình 1–2."
+      "label": "LỜI THUYẾT TRÌNH",
+      "text": "Kết luận nên vừa đủ: phương pháp là một thay thế thực dụng cho inference-time inpainting, chứ chưa chứng minh giải quyết mọi độ trễ hay mọi dạng gián đoạn."
     }
   }
 ]
