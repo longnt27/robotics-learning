@@ -145,14 +145,14 @@
     {
       "page": 1,
       "bbox": [
-        21,
-        312.2,
-        301,
-        708.7
+        72,
+        446,
+        552,
+        699
       ],
-      "width": 1009,
-      "height": 1429,
-      "bytes": 228806,
+      "width": 1729,
+      "height": 912,
+      "bytes": 245716,
       "number": 1,
       "image": "/paper-figures/rt-1/figure-1.webp",
       "caption": "Fig. 1: A high-level overview of RT-1’s architecture, dataset, and evaluation.",
@@ -166,13 +166,13 @@
       "page": 3,
       "bbox": [
         311,
-        359,
-        591,
-        474
+        54,
+        590,
+        473
       ],
-      "width": 1009,
-      "height": 415,
-      "bytes": 21288,
+      "width": 1005,
+      "height": 1509,
+      "bytes": 100544,
       "number": 2,
       "image": "/paper-figures/rt-1/figure-2.webp",
       "caption": "Fig. 2: The architecture diagram of RT-1. The instruction is trans- formed into a USE embedding and used to condition a pre-trained EfﬁcientNet via FiLM layers. The resulting vision-language tokens are reduced by the TokenLearner and fed into a decoder-only Trans- former, which outputs tokenized actions.",
@@ -206,13 +206,13 @@
       "page": 6,
       "bbox": [
         311,
-        405.2,
+        369,
         591,
-        568.7
+        567
       ],
       "width": 1009,
-      "height": 590,
-      "bytes": 79434,
+      "height": 714,
+      "bytes": 99644,
       "number": 4,
       "image": "/paper-figures/rt-1/figure-4.webp",
       "caption": "Fig. 4: Evaluation scenarios for distractors (ﬁrst row), from left to right: easy (0-5 distractors), medium (9 distractors), hard (9 distractors and occluded object); background (second row), from left to right: original environment, patterned table cloth, new kitchen; and realistic scenarios in the real kitchen (third row), generalization levels from left to right: L1, L2 and L3.",
@@ -245,14 +245,14 @@
     {
       "page": 9,
       "bbox": [
-        311,
-        114.9,
-        591,
-        255.3
+        313,
+        143,
+        590,
+        256
       ],
-      "width": 1009,
-      "height": 507,
-      "bytes": 24386,
+      "width": 998,
+      "height": 408,
+      "bytes": 25318,
       "number": 6,
       "image": "/paper-figures/rt-1/figure-6.webp",
       "caption": "Fig. 6: Various data ablations of RT-1 across seen tasks, generalization to unseen tasks, and robustness to distractors and backgrounds. Data diversity has a higher impact on the performance and generalization than data quantity. Appendix Table XII shows the values for each ablation.",
