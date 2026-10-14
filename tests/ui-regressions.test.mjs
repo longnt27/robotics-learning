@@ -54,7 +54,8 @@ test('paper reader does not serialize slide decks until slides are requested', (
   const reader=fs.readFileSync(path.join(root,'components/paper-reader.tsx'),'utf8');
   const endpoint=fs.readFileSync(path.join(root,'app/api/papers/[slug]/slides/route.ts'),'utf8');
   assert.doesNotMatch(page,/getResearchSlides\(slug\)/,'Initial RSC payload must not read and send slides');
-  assert.doesNotMatch(reader,/slides:\s*ResearchSlide\[\]/,'Reader props must not embed full slide deck');
+  assert.match(reader,/export function PaperReader\(\{paper,chapter,relations,figures\}/,'Reader receives only per-paper figures');
+  assert.doesNotMatch(page,/<PaperReader[^>]*\sslides=/,'The server must not serialize a deck into props');
   assert.match(reader,/loadPaperSlides\(paper\.slug\)/,'Slides should be fetched only after opening tab');
   assert.match(endpoint,/getPaper\(slug\)/,'Only known papers should be served');
   assert.match(endpoint,/getResearchSlides\(slug\)/,'The route serves the original deck');
