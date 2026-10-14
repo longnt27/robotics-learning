@@ -529,14 +529,14 @@
     {
       "page": 7,
       "bbox": [
-        21,
-        25,
+        33,
+        77,
         301,
-        194.4
+        195
       ],
-      "width": 1009,
-      "height": 610,
-      "bytes": 22856,
+      "width": 966,
+      "height": 425,
+      "bytes": 19766,
       "number": 3,
       "image": "/paper-figures/palm-e/figure-3.webp",
       "caption": "Figure 3: Planning success results in the TAMP environment (1% data) for PaLM-E-12B, comparing of the effects of PaLM-E models (i) using the full training mixture, (ii) pre-training (ViT and PaLM), and (iii) freezing or ﬁnetuning the language model. Transfer from full mixture is particularly effective. Note that full mixture contains only 1% of the training data (320 examples each) for the tasks evaluated here. Shown is the mean of tasks p1, p2.",
@@ -549,14 +549,14 @@
     {
       "page": 8,
       "bbox": [
-        22,
-        222.2,
-        590,
+        44,
+        251,
+        570,
         406
       ],
-      "width": 2045,
-      "height": 663,
-      "bytes": 176312,
+      "width": 1894,
+      "height": 559,
+      "bytes": 164208,
       "number": 4,
       "image": "/paper-figures/palm-e/figure-4.webp",
       "caption": "Figure 4: A single PaLM-E model directs the low-level policies of two real robots. Shown is a long-horizon mobile manipulation task in a kitchen, and one-shot / zero-shot generalization with a tabletop manipulation robot.",
@@ -569,14 +569,14 @@
     {
       "page": 9,
       "bbox": [
-        21,
-        25,
-        301,
-        218.6
+        32,
+        67,
+        300,
+        218
       ],
-      "width": 1009,
-      "height": 697,
-      "bytes": 22366,
+      "width": 965,
+      "height": 544,
+      "bytes": 20140,
       "number": 5,
       "image": "/paper-figures/palm-e/figure-5.webp",
       "caption": "Figure 5: Results on general language tasks (NLG = natural language generation): increasing scale leads to less catastrophic forgetting between a corresponding PaLM-E model and its inher- ited PaLM model. See full suite of tasks and results in Tab. 10.",
