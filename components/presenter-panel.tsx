@@ -1,7 +1,7 @@
 "use client";
 
 import {createPortal} from "react-dom";
-import {ArrowLeft,ArrowRight,Clock3,ExternalLink,Monitor,NotebookPen,X} from "lucide-react";
+import {ArrowLeft,ArrowRight,Clock3,Monitor,NotebookPen,X} from "lucide-react";
 import type {ResearchSlide} from "@/lib/slide-types";
 
 type PresenterPanelProps={
