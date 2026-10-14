@@ -259,3 +259,26 @@
 .brief-source-image{min-height:165px;max-height:260px}
 .brief-slide-art-with-figure .brief-cover-copy h2{font-size:36px}
 }
+
+/* Visual-first research slides: explanation belongs in the presenter notes, not the projection. */
+.brief-slide-stage-visual-first .brief-slide-content{gap:clamp(9px,1.35vw,16px)}
+.brief-slide-stage-visual-first .brief-slide-heading h2{max-width:1090px;text-wrap:balance}
+.brief-slide-stage-visual-first .brief-slide-description{max-width:940px;font-size:clamp(14px,1.21vw,18px);line-height:1.42}
+.brief-slide-stage-visual-first .brief-slide-art{padding:clamp(12px,1.8vw,26px) 0}
+.brief-slide-stage-visual-first .brief-slide-art-with-figure{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(16px,2.2vw,34px)}
+.brief-slide-stage-visual-first .brief-source-image{max-height:420px}
+.brief-slide-stage-visual-first .brief-source-figure{padding:clamp(13px,1.4vw,20px)}
+.brief-slide-stage-visual-first .brief-source-figure figcaption{font-size:clamp(11px,.88vw,13px)}
+.brief-slide-stage-visual-first .brief-card p{font-size:clamp(13px,1.15vw,17px);line-height:1.43}
+.brief-slide-stage-visual-first .brief-cover-key{max-width:100%}
+@media(max-width:850px){
+ .brief-slide-stage-visual-first .brief-slide-art-with-figure{grid-template-columns:1fr}
+ .brief-slide-stage-visual-first .brief-source-image{max-height:310px;min-height:190px}
+ .brief-slide-stage-visual-first .brief-slide-art{padding:10px 0}
+}
+@media(max-width:530px){
+ .brief-slide-stage-visual-first .brief-slide-content{gap:11px}
+ .brief-slide-stage-visual-first .brief-slide-description{font-size:14px;line-height:1.42}
+ .brief-slide-stage-visual-first .brief-source-image{max-height:270px;min-height:170px}
+ .brief-slide-stage-visual-first .brief-card p{font-size:13px;line-height:1.42}
+}
