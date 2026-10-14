@@ -875,14 +875,14 @@
     {
       "page": 7,
       "bbox": [
-        22,
-        510.7,
-        573.3,
-        625.7
+        44,
+        541,
+        557,
+        627
       ],
-      "width": 1985,
-      "height": 415,
-      "bytes": 114486,
+      "width": 1848,
+      "height": 311,
+      "bytes": 107852,
       "number": 3,
       "image": "/paper-figures/rt-2/figure-3.webp",
       "caption": "Figure 3 | Example generalization scenarios used for evaluation in Figures 4 and 6b and Tables 4 and 6.",
@@ -915,14 +915,14 @@
     {
       "page": 9,
       "bbox": [
-        21,
-        41.9,
-        292.6,
-        156.9
+        50,
+        65,
+        565,
+        160
       ],
-      "width": 979,
-      "height": 415,
-      "bytes": 38322,
+      "width": 1854,
+      "height": 342,
+      "bytes": 68866,
       "number": 5,
       "image": "/paper-figures/rt-2/figure-5.webp",
       "caption": "Figure 5 | Real-world out-of-distribution behaviors in the Language Table environment. Identical RT-2-PaLI-3B model checkpoint is used as in Tab. 1.",
@@ -955,14 +955,14 @@
     {
       "page": 11,
       "bbox": [
-        22,
-        147,
-        573.3,
-        340.8
+        49,
+        65,
+        557,
+        341
       ],
-      "width": 1985,
-      "height": 698,
-      "bytes": 138766,
+      "width": 1830,
+      "height": 994,
+      "bytes": 220552,
       "number": 7,
       "image": "/paper-figures/rt-2/figure-7.webp",
       "caption": "Figure 7 | Rollouts of RT-2 with chain-of-thought reasoning, where RT-2 generates both a plan and an action.",
