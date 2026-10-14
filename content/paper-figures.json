@@ -1465,14 +1465,14 @@
     {
       "page": 1,
       "bbox": [
-        22,
+        11.0,
         167.4,
-        590,
-        505.1
+        601.0,
+        507.1
       ],
-      "width": 2045,
-      "height": 1217,
-      "bytes": 187502,
+      "width": 2125,
+      "height": 1224,
+      "bytes": 180942,
       "number": 1,
       "image": "/paper-figures/octo/figure-1.webp",
       "caption": "Fig. 1: We introduce Octo, an open-source, generalist policy for robotic manipulation. Octo is a transformer-based policy pretrained on 800k diverse robot episodes from the Open X-Embodiment dataset [67]. It supports flexible task and observation definitions and can be quickly finetuned to new observation and action spaces.",
@@ -1485,14 +1485,14 @@
     {
       "page": 3,
       "bbox": [
-        22,
-        148.1,
-        590,
-        304.5
+        11.0,
+        18.0,
+        601.0,
+        306.6
       ],
-      "width": 2045,
-      "height": 564,
-      "bytes": 68034,
+      "width": 2125,
+      "height": 1040,
+      "bytes": 114994,
       "number": 2,
       "image": "/paper-figures/octo/figure-2.webp",
       "caption": "Fig. 2: Model architecture. Left: Octo tokenizes task descriptions (green) and input observations (blue) using a pretrained language model and a lightweight CNN, respectively. Top: The transformer backbone processes the sequence of task and observation tokens and produces readout tokens (purple) that get passed to output heads to produce actions. Bottom: The block-wise attention structure of the transformer allows us to add or remove inputs and outputs during finetuning: for example, we can add new observations (blue, dashed) or action spaces (purple, dashed) without modifying any pretrained parameters.",
@@ -1505,14 +1505,14 @@
     {
       "page": 4,
       "bbox": [
-        311,
-        58,
-        591,
-        276.8
+        231.5,
+        32.1,
+        601.0,
+        278.9
       ],
-      "width": 1009,
-      "height": 789,
-      "bytes": 49982,
+      "width": 1331,
+      "height": 889,
+      "bytes": 89194,
       "number": 3,
       "image": "/paper-figures/octo/figure-3.webp",
       "caption": "Fig. 3: Training dataset composition. We curate a subset of 25 datasets from the Open X-Embodiment dataset that have image observations, end-effector actions, and show diverse behaviors. The pie chart visualizes the fractions that each dataset contributes to every training batch on average. The dataset weights are determined by the number of samples in each dataset with small modifications to balance dataset size and diversity (see Section III-B for details).",
@@ -1525,14 +1525,14 @@
     {
       "page": 6,
       "bbox": [
-        22,
-        35.9,
-        590,
-        194.5
+        11.0,
+        18.0,
+        601.0,
+        196.6
       ],
-      "width": 2045,
-      "height": 572,
-      "bytes": 160674,
+      "width": 2125,
+      "height": 644,
+      "bytes": 146878,
       "number": 4,
       "image": "/paper-figures/octo/figure-4.webp",
       "caption": "Fig. 4: Evaluation Tasks. We evaluate Octo on 9 real robot setups across 4 institutions. Our evaluations capture diverse object interactions (e.g., “WidowX BridgeV2”), long task horizons (e.g., “Stanford Coffee”) and precise manipulation (e.g., “Berkeley Peg Insertion”). We evaluate Octo’s capabilities to control robots in environments from the pretraining data out-of-the-box and to efficiently finetune to new tasks and environments with small target domain datasets. We also test finetuning with new observations (force-torque inputs for “Berkeley Peg Insertion”), action spaces (joint position control in “Berkeley Pick-Up” and “Berkeley Bimanual”) and new robot embodiments (e.g., “Berkeley Bimanual” and “Berkeley Coke”).",
@@ -1545,14 +1545,14 @@
     {
       "page": 6,
       "bbox": [
-        311,
-        320.7,
-        591,
-        540.7
+        11.0,
+        291.6,
+        601.0,
+        542.8
       ],
-      "width": 1009,
-      "height": 793,
-      "bytes": 55042,
+      "width": 2125,
+      "height": 905,
+      "bytes": 240214,
       "number": 5,
       "image": "/paper-figures/octo/figure-5.webp",
       "caption": "Fig. 5: Zero-Shot Evaluation. Out-of-the-box, Octo can control multiple robots in environments from the pretraining data. When using natural language to specify tasks, Octo outperforms RT-1-X [67], the current best openly available generalist robot policy across three different robot embodiments and setups. Octo also performs similarly to RT-2-X [103] on the tested WidowX and RT-1 Robot tasks.1",
@@ -1565,14 +1565,14 @@
     {
       "page": 8,
       "bbox": [
-        21,
-        32.9,
-        301,
-        252.9
+        11.0,
+        18.0,
+        601.0,
+        255.0
       ],
-      "width": 1009,
-      "height": 793,
-      "bytes": 34882,
+      "width": 2125,
+      "height": 854,
+      "bytes": 168760,
       "number": 6,
       "image": "/paper-figures/octo/figure-6.webp",
       "caption": "Fig. 6: Model Scaling. The performance of Octo improves with larger model sizes on both UR5 and WidowX tasks. Success rates are averaged over 10 trials on one language-conditioned task per robot.",
