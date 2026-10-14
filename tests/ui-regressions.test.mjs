@@ -138,3 +138,17 @@ test('paper prose is rendered by a server component rather than client markdown 
   assert.match(slides,/getPaperChapter\(slug\)/,'Presenter receives notes only on demand');
   assert.doesNotMatch(reader,/chapter:string\|null/,'Full Markdown should never be duplicated in initial browser props');
 });
+
+test('responsive paper figures use viewport-sized optimized images with stable dimensions',()=>{
+  const figure=fs.readFileSync(path.join(root,'components/paper-figure.tsx'),'utf8');
+  const helper=fs.readFileSync(path.join(root,'lib/paper-figures.ts'),'utf8');
+  const types=fs.readFileSync(path.join(root,'lib/figure-types.ts'),'utf8');
+  assert.match(figure,/import Image from "next\/image"/);
+  assert.match(figure,/<Image\s+src=\{src\}/);
+  assert.match(figure,/sizes="\(max-width:/);
+  assert.match(figure,/quality=\{75\}/);
+  assert.match(helper,/width,height/);
+  assert.match(types,/width:\s*number/);
+  assert.match(types,/height:\s*number/);
+  assert.match(figure,/className="paper-figure-lightbox-canvas"/);
+});
