@@ -41,8 +41,8 @@ function loadDeck(slug: string): Promise<DeckPayload> {
   const pending = pendingDecks.get(slug);
   if (pending) return pending;
 
-  // Bump only the redesigned RTC deck URL so pre-release CDN/browser caches cannot serve old narration.
-  const revision = slug === "rtc-training" ? "?rev=visual-first-20261014" : "";
+  // The detailed RTC deck restored in PR #24 must not reuse the cached shortened deck URL.
+  const revision = slug === "rtc-training" ? "?rev=rtc-rich-20261014" : "";
   const request = fetch(`/api/papers/${encodeURIComponent(slug)}/slides${revision}`)
     .then(async (response) => {
       if (!response.ok) throw new Error(`Slide request failed: ${response.status}`);
