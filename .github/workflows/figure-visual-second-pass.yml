@@ -1,0 +1,47 @@
+name: Visual second-pass figure corrections
+on:
+  push:
+    branches: [fix/manually-inspected-paper-figures]
+    paths:
+      - .github/workflows/figure-visual-second-pass.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: visually-approved-figure-second-pass
+  cancel-in-progress: false
+jobs:
+  apply-reviewed-rectangles:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/manually-inspected-paper-figures
+          persist-credentials: true
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --disable-pip-version-check pymupdf==1.26.4 pillow==11.3.0
+      - name: Apply only visually hand-corrected boxes (one commit per paper)
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          papers=(vima rt-1 act rt-2 libero openvla fast pi-0-5 rtc-inference lingbot-vla-2 diffusion-policy palm-e)
+          for slug in "${papers[@]}"; do
+            echo "::group::Second-pass visual crop $slug"
+            python -u scripts/render_manually_reviewed_figures.py --paper "$slug"
+            python -c "import json,sys,pathlib;from PIL import Image;slug=sys.argv[1];d=json.load(open('content/paper-figures.json'));md=(pathlib.Path('content/papers')/(slug+'.md')).read_text();f=d[slug];assert f;[(lambda x: (x.verify()))(Image.open(pathlib.Path('public')/p['image'].lstrip('/'))) for p in f];assert all(md.count(p['image'])==1 and p.get('caption') and p.get('caption_vi') for p in f);print('PASS',slug,len(f))" "$slug"
+            git add "public/paper-figures/$slug" content/paper-figures.json "docs/figure-crop-manual-review/$slug.md"
+            if ! git diff --cached --quiet; then
+              git commit -m "fix(figures): second visual review of $slug figure edges"
+              git push origin HEAD:fix/manually-inspected-paper-figures
+            fi
+            echo "::endgroup::"
+          done
+      - name: Verify source figure count
+        run: |
+          python -c "import json;d=json.load(open('content/paper-figures.json'));assert len(d)==22 and sum(map(len,d.values()))==167"
