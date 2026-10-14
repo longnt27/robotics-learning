@@ -1,0 +1,95 @@
+name: Audit and re-cut all 22 paper figure galleries
+
+on:
+  push:
+    branches:
+      - fix/audit-complete-paper-figures-20261014
+    paths:
+      - scripts/audit_recut_paper_figures.py
+      - .github/workflows/audit-figure-crops.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: figure-crop-audit
+  cancel-in-progress: false
+
+jobs:
+  figures:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/audit-complete-paper-figures-20261014
+          persist-credentials: true
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Dependencies
+        run: pip install --disable-pip-version-check pymupdf==1.26.4 pillow==11.3.0 numpy==2.2.6
+      - name: Verify paper manifest before edits
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          m=json.loads(Path('content/paper-figures.json').read_text())
+          assert len(m)==22
+          assert sum(map(len,m.values()))==167
+          print('Verified 22 papers, 167 figures')
+          PY
+      - name: Re-cut, verify, and commit one paper at a time
+        shell: bash
+        env:
+          PYTHONUNBUFFERED: '1'
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          while IFS= read -r slug; do
+            echo "::group::Audit paper $slug"
+            python scripts/audit_recut_paper_figures.py --paper "$slug"
+            SLUG="$slug" python - <<'PY'
+          import json, os
+          from pathlib import Path
+          from PIL import Image
+          slug=os.environ['SLUG']
+          data=json.loads(Path('content/paper-figures.json').read_text())
+          md=Path('content/papers',slug+'.md').read_text()
+          assert data[slug]
+          for f in data[slug]:
+              img=Path('public')/f['image'].lstrip('/')
+              assert img.is_file(), img
+              with Image.open(img) as raster:
+                  assert raster.format=='WEBP', img
+                  assert raster.size==(f['width'],f['height']),img
+              assert md.count(f['image'])==1,(slug,f['image'])
+              assert f['caption'] and f.get('caption_vi')
+          print('PASS',slug,len(data[slug]),'figures')
+          PY
+            git add "public/paper-figures/$slug" content/paper-figures.json "docs/figure-crop-audit/$slug.md"
+            if ! git diff --cached --quiet; then
+              git commit -m "fix(figures): audit and re-cut $slug source figures"
+              git push origin HEAD:fix/audit-complete-paper-figures-20261014
+            fi
+            echo "::endgroup::"
+          done < <(python - <<'PY'
+          import json
+          from pathlib import Path
+          for slug in json.loads(Path('content/paper-figures.json').read_text()):
+              print(slug)
+          PY
+          )
+      - name: Verify all reports exist
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path('content/paper-figures.json').read_text())
+          assert all((Path('docs/figure-crop-audit')/(k+'.md')).is_file() for k in data)
+          assert sum(map(len,data.values()))==167
+          PY
