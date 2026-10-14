@@ -14,19 +14,11 @@ import type { Paper } from "@/lib/papers";
 import type { ResearchSlide } from "@/lib/slide-types";
 import type {SourceFigure} from "@/lib/figure-types";
 import {loadPaperSlides} from "@/lib/slide-client";
-import resourcesJson from "@/lib/paper-resources.json";
+import type {PaperResource} from "@/lib/paper-resource-types";
 import { categoryLabels } from "@/lib/papers";
 import type { PaperRelation } from "@/lib/relations";
 import {relationTypeLabel} from "@/lib/relations";
 
-type PaperResource = {
-  platform: "github" | "huggingface";
-  origin: "official" | "community";
-  kind: "code" | "model" | "dataset" | "project";
-  url: string;
-  note: string;
-};
-const paperResources = resourcesJson as Record<string, PaperResource[]>;
 const resourceKindLabels: Record<PaperResource["kind"], string> = {
   code: "Mã nguồn",
   model: "Checkpoint / model",
@@ -47,7 +39,7 @@ const chapterLabels: Record<string,string> = {
 };
 const titleDisplay = (title: string) => chapterLabels[title] ?? title;
 
-export function PaperReader({paper,chapter,relations,figures}: {paper:Paper;chapter:string|null;relations:PaperRelation[];figures:SourceFigure[]}) {
+export function PaperReader({paper,chapter,relations,figures,resources}: {paper:Paper;chapter:string|null;relations:PaperRelation[];figures:SourceFigure[];resources:PaperResource[]}) {
   const [tab,setTab]=useState<ReaderTab>("explain");
   const [slideResult,setSlideResult] = useState<{slug:string;slides:ResearchSlide[]|null;error:boolean}|null>(null);
   const [slideRetry,setSlideRetry] = useState(0);
@@ -60,7 +52,6 @@ export function PaperReader({paper,chapter,relations,figures}: {paper:Paper;chap
   const readerRef=useRef<HTMLDivElement>(null);
   const toc=useMemo(()=>[...(chapter||"").matchAll(/^## (.+)$/gm)].map(x=>({title:x[1],id:titleSlug(x[1])})),[chapter]);
   const links=useMemo(()=>relations.filter(r=>r.from===paper.slug||r.to===paper.slug),[relations,paper.slug]);
-  const resources = paperResources[paper.slug] ?? [];
   const [progress,setProgress]=useState(0);
   useEffect(()=>{const update=()=>{const h=document.documentElement.scrollHeight-window.innerHeight;setProgress(h>0?Math.min(100,Math.round(window.scrollY/h*100)):0);};window.addEventListener("scroll",update,{passive:true});update();return()=>window.removeEventListener("scroll",update)},[]);
   useEffect(()=>{
