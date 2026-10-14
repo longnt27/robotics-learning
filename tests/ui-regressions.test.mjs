@@ -105,3 +105,10 @@ test('specialized styles stay out of root CSS and load with the feature',()=>{
   assert.match(slides,/briefing\.css/);
   assert.match(graph,/@xyflow\/react\/dist\/style\.css/);
 });
+
+test('metered devices do not initialize WebGL just to read the library',()=>{
+  const ambient=fs.readFileSync(path.join(root,'components/ambient-scene.tsx'),'utf8');
+  assert.match(ambient,/saveData/,'Respect the Save-Data network preference');
+  assert.match(ambient,/document\.hidden/,'Pause expensive rendering when page is hidden');
+  assert.match(ambient,/limit\.matches/,'Small mobile screens must keep 3D disabled');
+});
