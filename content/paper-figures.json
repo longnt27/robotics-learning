@@ -2881,14 +2881,14 @@
     {
       "page": 2,
       "bbox": [
-        21,
-        25,
-        301,
-        116.8
+        21.0,
+        25.0,
+        301.0,
+        118.9
       ],
       "width": 1009,
-      "height": 331,
-      "bytes": 7706,
+      "height": 339,
+      "bytes": 7606,
       "number": 1,
       "image": "/paper-figures/rtc-training/figure-1.webp",
       "caption": "Fig. 1: A diagram illustrating two overlapping action chunks. The d actions between t and t + d, taken from the previous chunk, are the action prefix (red). From the diagram, we can easily see that we must satisfy the constraint t + d ≤t −s + H →d ≤H −s to have a valid action prefix. Note that inference-time RTC uses all H −s overlapping actions (red and yellow) to guide the generation of the current chunk, whereas training-time RTC only uses the first d actions (red).",
@@ -2901,14 +2901,14 @@
     {
       "page": 2,
       "bbox": [
-        311,
-        195.9,
-        591,
-        283.4
+        311.0,
+        57.5,
+        591.0,
+        285.4
       ],
       "width": 1009,
-      "height": 316,
-      "bytes": 24310,
+      "height": 821,
+      "bytes": 38580,
       "number": 2,
       "image": "/paper-figures/rtc-training/figure-2.webp",
       "caption": "Fig. 2: An illustration of our conditioning architecture, as applied to a standard diffusion transformer such as the π0.6 action expert. We always feed in ground-truth, non-noisy prefix actions, while learning to denoise the postfix actions. The flow matching timestep differs between tokens, which indicates the inference delay to the model.",
@@ -2921,14 +2921,14 @@
     {
       "page": 3,
       "bbox": [
-        21,
-        227.7,
-        301,
+        21.0,
+        140.5,
+        301.0,
         309.8
       ],
       "width": 1009,
-      "height": 297,
-      "bytes": 14564,
+      "height": 611,
+      "bytes": 31322,
       "number": 3,
       "image": "/paper-figures/rtc-training/figure-3.webp",
       "caption": "Fig. 3: Simulated results: inference delay vs. solve rate with a fixed execution horizon of s = max(d, 1). Training-time RTC performs better than inference- time RTC at inference delays of 2 or higher. Each data point represents 2048 trials, and 95% Wilson score intervals are shaded in.",
@@ -2941,14 +2941,14 @@
     {
       "page": 3,
       "bbox": [
-        311,
-        66.7,
-        591,
+        307.0,
+        56.0,
+        591.0,
         181.7
       ],
-      "width": 1009,
-      "height": 415,
-      "bytes": 56118,
+      "width": 1023,
+      "height": 454,
+      "bytes": 62638,
       "number": 4,
       "image": "/paper-figures/rtc-training/figure-4.webp",
       "caption": "Fig. 4: Real-world evaluation tasks: building a cardboard box and making espresso (including grinding, tamping, extracting, and pouring).",
@@ -2961,14 +2961,14 @@
     {
       "page": 3,
       "bbox": [
-        311,
-        395.2,
-        591,
+        311.0,
+        330.2,
+        591.0,
         615.2
       ],
       "width": 1009,
-      "height": 793,
-      "bytes": 25516,
+      "height": 1027,
+      "bytes": 72032,
       "number": 5,
       "image": "/paper-figures/rtc-training/figure-5.webp",
       "caption": "Fig. 5: Real-world results: success rate and duration for espresso making and box building. Training-time and inference-time RTC perform similarly, while both improving speed over synchronous inference. Error bars represent 68% Wilson score intervals for success rate and ±1 SEM for duration.",
