@@ -1,7 +1,7 @@
 name: Build & verify
 on:
   push:
-    branches: [main, fix/manually-inspected-paper-figures]
+    branches: [main]
   pull_request:
 permissions:
   contents: read
