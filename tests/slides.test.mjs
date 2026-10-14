@@ -99,7 +99,7 @@ test('Presenter View isolates all private speaker text in a separate document',(
  assert.match(panel,/createPortal\(/,'Notes render in a separate DOM document');
  assert.match(panel,/popup\.document\.body/,'Notes go only to the private popup');
  assert.match(panel,/data-private-presenter/);
- assert.match(panel,/GHI CHÚ CHỈ MÀY NHÌN THẤY/);
+ assert.match(panel,/GHI CHÚ RIÊNG TƯ/);
  assert.match(panel,/Không chia sẻ toàn màn hình/);
  assert.match(css,/\.brief-deck-presenting\{position:fixed/);
  assert.match(css,/\.brief-deck-presenting \.brief-deck-toolbar/);
