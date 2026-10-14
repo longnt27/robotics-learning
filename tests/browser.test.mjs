@@ -297,6 +297,14 @@ try {
     if(req.url().includes('/api/papers/vima/pdf'))pdfRequests.push(req.url());
   });
   await metered.goto(baseUrl+'/paper/vima',{waitUntil:'networkidle'});
+  const mobileBytes=await metered.evaluate(()=>{
+    const entries=[...performance.getEntriesByType('navigation'),...performance.getEntriesByType('resource')];
+    const total=entries.reduce((sum,item)=>sum+(item.transferSize||0),0);
+    const js=entries.filter(item=>item.name.includes('.js')).reduce((sum,item)=>sum+(item.transferSize||0),0);
+    const css=entries.filter(item=>item.name.includes('.css')).reduce((sum,item)=>sum+(item.transferSize||0),0);
+    return {requests:entries.length,transferredKiB:Math.round(total/1024),jsKiB:Math.round(js/1024),cssKiB:Math.round(css/1024)};
+  });
+  console.log('MOBILE READER TRANSFER (unthrottled CI browser)',mobileBytes);
   assert.equal(slideRequests.length,0,'Markdown-only visits must make zero slide requests');
   assert.equal(pdfRequests.length,0,'Markdown-only visits must make zero PDF requests');
   await metered.getByRole('tab',{name:/SLIDE/i}).click();
