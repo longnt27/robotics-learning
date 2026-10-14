@@ -915,14 +915,14 @@
     {
       "page": 9,
       "bbox": [
-        50,
-        65,
-        565,
-        160
+        73,
+        81,
+        323,
+        154
       ],
-      "width": 1854,
-      "height": 342,
-      "bytes": 68866,
+      "width": 901,
+      "height": 264,
+      "bytes": 42794,
       "number": 5,
       "image": "/paper-figures/rt-2/figure-5.webp",
       "caption": "Figure 5 | Real-world out-of-distribution behaviors in the Language Table environment. Identical RT-2-PaLI-3B model checkpoint is used as in Tab. 1.",
@@ -956,13 +956,13 @@
       "page": 11,
       "bbox": [
         49,
-        65,
+        78,
         557,
         341
       ],
       "width": 1830,
-      "height": 994,
-      "bytes": 220552,
+      "height": 948,
+      "bytes": 221782,
       "number": 7,
       "image": "/paper-figures/rt-2/figure-7.webp",
       "caption": "Figure 7 | Rollouts of RT-2 with chain-of-thought reasoning, where RT-2 generates both a plan and an action.",
