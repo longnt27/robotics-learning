@@ -835,14 +835,14 @@
     {
       "page": 2,
       "bbox": [
-        22,
-        77.3,
-        573.3,
+        17.8,
+        18.0,
+        584.3,
         256.5
       ],
-      "width": 1985,
-      "height": 646,
-      "bytes": 126426,
+      "width": 2041,
+      "height": 860,
+      "bytes": 128164,
       "number": 1,
       "image": "/paper-figures/rt-2/figure-1.webp",
       "caption": "Figure 1 | RT-2 overview: we represent robot actions as another language, which can be cast into text tokens and trained together with Internet-scale vision-language datasets. During inference, the text tokens are de-tokenized into robot actions, enabling closed loop control. This allows us to leverage the backbone and pretraining of vision-language models in learning robotic policies, transferring some of their generalization, semantic understanding, and reasoning to robotic control. We demonstrate examples of RT-2 execution on the project website: robotics-transformer2.github.io.",
@@ -855,14 +855,14 @@
     {
       "page": 5,
       "bbox": [
-        22,
+        22.0,
         151.5,
         573.3,
         529.5
       ],
       "width": 1985,
       "height": 1362,
-      "bytes": 222770,
+      "bytes": 210546,
       "number": 2,
       "image": "/paper-figures/rt-2/figure-2.webp",
       "caption": "Figure 2 | RT-2 is able to generalize to a variety of real-world situations that require reasoning, symbol understanding, and human recognition. We study these challenging scenarios in detail in Section 4.",
@@ -875,14 +875,14 @@
     {
       "page": 7,
       "bbox": [
-        22,
+        22.0,
         510.7,
         573.3,
         625.7
       ],
       "width": 1985,
       "height": 415,
-      "bytes": 114486,
+      "bytes": 109840,
       "number": 3,
       "image": "/paper-figures/rt-2/figure-3.webp",
       "caption": "Figure 3 | Example generalization scenarios used for evaluation in Figures 4 and 6b and Tables 4 and 6.",
@@ -895,14 +895,14 @@
     {
       "page": 8,
       "bbox": [
-        22,
-        200,
+        22.0,
+        200.0,
         573.3,
         321.7
       ],
       "width": 1985,
       "height": 439,
-      "bytes": 28990,
+      "bytes": 27562,
       "number": 4,
       "image": "/paper-figures/rt-2/figure-4.webp",
       "caption": "Figure 4 | Overall performance of two instantiations of RT-2 and baselines across seen training tasks as well as unseen evaluations measuring generalization to novel objects, novel backgrounds, and novel environments. Appendix Table 4 details the full results.",
@@ -915,14 +915,14 @@
     {
       "page": 9,
       "bbox": [
-        21,
+        21.0,
         41.9,
-        292.6,
+        332.4,
         156.9
       ],
-      "width": 979,
+      "width": 1122,
       "height": 415,
-      "bytes": 38322,
+      "bytes": 42274,
       "number": 5,
       "image": "/paper-figures/rt-2/figure-5.webp",
       "caption": "Figure 5 | Real-world out-of-distribution behaviors in the Language Table environment. Identical RT-2-PaLI-3B model checkpoint is used as in Tab. 1.",
@@ -935,14 +935,14 @@
     {
       "page": 10,
       "bbox": [
-        22,
-        72,
+        22.0,
+        72.0,
         573.3,
         250.9
       ],
       "width": 1985,
       "height": 645,
-      "bytes": 70682,
+      "bytes": 68678,
       "number": 6,
       "image": "/paper-figures/rt-2/figure-6.webp",
       "caption": "Figure 6 | Quantitative performance of RT-2 across (6a) emergent skills and (6b) size and training ablations. Appendix Tables 5 and 6 detail the full numerical results.",
@@ -955,14 +955,14 @@
     {
       "page": 11,
       "bbox": [
-        22,
-        147,
+        22.0,
+        78.0,
         573.3,
         340.8
       ],
       "width": 1985,
-      "height": 698,
-      "bytes": 138766,
+      "height": 947,
+      "bytes": 190504,
       "number": 7,
       "image": "/paper-figures/rt-2/figure-7.webp",
       "caption": "Figure 7 | Rollouts of RT-2 with chain-of-thought reasoning, where RT-2 generates both a plan and an action.",
