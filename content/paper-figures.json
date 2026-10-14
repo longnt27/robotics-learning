@@ -3165,14 +3165,14 @@
     {
       "page": 4,
       "bbox": [
-        311,
-        107.5,
-        591,
-        327.5
+        141,
+        68,
+        468,
+        327
       ],
-      "width": 1009,
-      "height": 793,
-      "bytes": 69760,
+      "width": 1178,
+      "height": 934,
+      "bytes": 115422,
       "number": 3,
       "image": "/paper-figures/lingbot-vla-2/figure-3.webp",
       "caption": "Figure 3. Data processing pipeline.",
@@ -3205,14 +3205,14 @@
     {
       "page": 8,
       "bbox": [
-        22,
-        86.8,
-        590,
-        351.8
+        82,
+        67,
+        548,
+        351
       ],
-      "width": 2045,
-      "height": 955,
-      "bytes": 49514,
+      "width": 1678,
+      "height": 1023,
+      "bytes": 59188,
       "number": 5,
       "image": "/paper-figures/lingbot-vla-2/figure-5.webp",
       "caption": "Figure 5. Per-action statistics of the subtask annotations: duration composition, frequency (fraction of all subtasks), total time (fraction of the total annotated time), and mean duration. Actions are grouped as in Tab. 2; idle is filtered out of the training data and omitted here.",
@@ -3225,14 +3225,14 @@
     {
       "page": 8,
       "bbox": [
-        22,
-        391.9,
-        590,
-        500.8
+        113,
+        394,
+        520,
+        501
       ],
-      "width": 2045,
-      "height": 393,
-      "bytes": 157188,
+      "width": 1466,
+      "height": 386,
+      "bytes": 169334,
       "number": 6,
       "image": "/paper-figures/lingbot-vla-2/figure-6.webp",
       "caption": "Figure 6. Word cloud of the manipulated objects in the subtask annotations, sized by frequency.",
@@ -3245,14 +3245,14 @@
     {
       "page": 9,
       "bbox": [
-        22,
-        369.2,
-        590,
-        634.2
+        78,
+        492,
+        534,
+        626
       ],
-      "width": 2045,
-      "height": 955,
-      "bytes": 186840,
+      "width": 1643,
+      "height": 483,
+      "bytes": 60188,
       "number": 7,
       "image": "/paper-figures/lingbot-vla-2/figure-7.webp",
       "caption": "Figure 7. Comparable active-parameter scaling comparison between Dense model and MoE model using training loss on pre-training data and validation action error on GM-100 tasks.",
@@ -3265,14 +3265,14 @@
     {
       "page": 13,
       "bbox": [
-        22,
-        143.3,
-        590,
-        408.3
+        65,
+        65,
+        549,
+        407
       ],
-      "width": 2045,
-      "height": 955,
-      "bytes": 54986,
+      "width": 1743,
+      "height": 1232,
+      "bytes": 81190,
       "number": 8,
       "image": "/paper-figures/lingbot-vla-2/figure-8.webp",
       "caption": "Figure 8. Per-subtask performance on the long-horizon mobile manipulation benchmark. Bars report the mean subtask completion score (%) across 15 trials under both in-domain (ID) and out-of-distribution (OOD) settings.",
@@ -3285,14 +3285,14 @@
     {
       "page": 14,
       "bbox": [
-        311,
-        379.8,
+        318,
+        409,
         591,
-        542.6
+        543
       ],
-      "width": 1009,
-      "height": 587,
-      "bytes": 39538,
+      "width": 984,
+      "height": 483,
+      "bytes": 39220,
       "number": 9,
       "image": "/paper-figures/lingbot-vla-2/figure-9.webp",
       "caption": "Figure 9. Illustration of the long-horizon mobile manipulation experiments platform.",
@@ -3325,14 +3325,14 @@
     {
       "page": 15,
       "bbox": [
-        22,
-        350.7,
-        590,
-        543.9
+        72,
+        403,
+        572,
+        545
       ],
-      "width": 2045,
-      "height": 697,
-      "bytes": 95648,
+      "width": 1801,
+      "height": 512,
+      "bytes": 83516,
       "number": 11,
       "image": "/paper-figures/lingbot-vla-2/figure-11.webp",
       "caption": "Figure 11. Per-dimension MeanStd-normalized action distributions for joint and EEF action spaces. The first column shows the pooled distribution over all four tasks, while the remaining columns show task-specific distributions. The gap measures task-to-pooled distribution alignment based on per-dimension median and IQR differences.",
@@ -3345,14 +3345,14 @@
     {
       "page": 16,
       "bbox": [
-        22,
-        68,
-        590,
-        333
+        70,
+        191,
+        543,
+        336
       ],
-      "width": 2045,
-      "height": 955,
-      "bytes": 145856,
+      "width": 1703,
+      "height": 523,
+      "bytes": 40374,
       "number": 12,
       "image": "/paper-figures/lingbot-vla-2/figure-12.webp",
       "caption": "Figure 12. Action targets and normalization statistics for the four GM-100 tasks. Left: relQpos substantially reduces the action scale compared with absQpos. Right: normalization changes the effective dynamic range of MeanStd-normalized relQpos; Q01–Q99 is shown in the actual unclipped setting.",
