@@ -2983,14 +2983,14 @@
     {
       "page": 1,
       "bbox": [
-        22,
-        491.9,
-        573.3,
-        735.5
+        75,
+        490,
+        538,
+        736
       ],
-      "width": 1985,
-      "height": 878,
-      "bytes": 190854,
+      "width": 1667,
+      "height": 886,
+      "bytes": 211774,
       "number": 1,
       "image": "/paper-figures/qwen-vla/figure-1.webp",
       "caption": "Figure 1: Overview of Qwen-VLA, a unified embodied model trained on mixed manipulation, navigation, and vision-language understanding data to generate both robot actions and textual responses.",
@@ -3083,14 +3083,14 @@
     {
       "page": 22,
       "bbox": [
-        22,
-        25,
-        573.3,
-        225.2
+        69,
+        79,
+        536,
+        225
       ],
-      "width": 1985,
-      "height": 721,
-      "bytes": 84384,
+      "width": 1682,
+      "height": 526,
+      "bytes": 89158,
       "number": 6,
       "image": "/paper-figures/qwen-vla/figure-6.webp",
       "caption": "Figure 6: T2A pretraining ablations. (a) Data composition and prediction mode. SFT success rate (%) vs. synthetic data ratio in the T2A corpus. The dashed line marks the baseline without T2A (60.9%). Full- sequence prediction with ∼20% synthetic + 80% real data achieves the best result (71.1%, +10.2 pp over no T2A). Chunk prediction consistently underperforms full-sequence (e.g. +4.9 pp at 10% synthetic), and including image tokens during T2A further hurts chunk-mode performance (−2.9 pp), confirming that images should be fully suppressed at T2A. (b) Flow-matching timestep distribution. The combination of Sigmoid-Normal p(τ) at T2A and Beta p(τ) at SFT achieves the highest success rate (71.1%); reversing the choice at either stage degrades performance. (c) T2A training duration. Performance peaks at 2,000 steps (71.1%) and plateaus through 10,000 steps; 40,000 steps causes a slight drop due to overfitting to the T2A corpus.",
@@ -3103,14 +3103,14 @@
     {
       "page": 24,
       "bbox": [
-        22,
-        25,
-        573.3,
-        266.1
+        71,
+        109,
+        535,
+        266
       ],
-      "width": 1985,
-      "height": 868,
-      "bytes": 95806,
+      "width": 1671,
+      "height": 566,
+      "bytes": 52568,
       "number": 7,
       "image": "/paper-figures/qwen-vla/figure-7.webp",
       "caption": "Figure 7: Vision-language co-training ablations. (a) Impact of VL data on action learning. Task-average success rate (%) across four benchmarks for VLA-Only (action data only) vs. VL+VLA (action + vision- language data co-training). On simpler benchmarks (Libero, Simpler-WidowX) the two configurations perform comparably, confirming that VL co-training introduces no interference. On benchmarks that demand fine-grained object recognition and compositional instruction parsing, VL+VLA yields clear gains: +4.9 pp on RoboCasa-GR1 (51.1% →56.0%) and +4.6 pp on RoboTwin-2.0 (81.8% →86.4%). (b) Transferability of pretrained DiT. SFT success rate (%) on RoboCasa-GR1 vs. training steps (k) when pairing the original Qwen3.5 VLM backbone with a DiT decoder initialised from scratch vs. a pretrained DiT. The pretrained DiT converges faster and reaches a higher peak.",
