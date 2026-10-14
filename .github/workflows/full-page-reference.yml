@@ -4,7 +4,7 @@ on:
     branches: [scratch/visual-figure-reference]
     paths:
       - .github/workflows/full-page-reference.yml
-  workflow_dispatch:
+  workflow_dispatch: # manual PDF page review source regeneration
 permissions:
   contents: write
 jobs:
