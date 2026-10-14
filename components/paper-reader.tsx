@@ -1,22 +1,18 @@
 "use client";
 
 import {useEffect,useMemo,useRef,useState} from "react";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { ArrowLeft, ArrowRight, ArrowUpRight, BookMarked, BookOpen, Bookmark, Check, ChevronDown, Clock3, Code2, ExternalLink, FileText, Github, GitFork, GraduationCap, Menu, Orbit, PanelLeftClose, PanelLeftOpen, Rocket, Share2, Sparkles, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import ReactMarkdown from "react-markdown";
-import { PaperFigure } from "./paper-figure";
-import type { SourceFigure } from "./paper-figure";
-import remarkGfm from "remark-gfm";
-import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
 import type { Paper } from "@/lib/papers";
 import type { ResearchSlide } from "@/lib/slide-types";
 import resourcesJson from "@/lib/paper-resources.json";
 import { categoryLabels } from "@/lib/papers";
 import type { PaperRelation } from "@/lib/relations";
 import {relationTypeLabel} from "@/lib/relations";
+import { titleDisplay } from "@/lib/reading-headings";
 
 type PaperResource = {
   platform: "github" | "huggingface";
@@ -35,10 +31,11 @@ const resourceKindLabels: Record<PaperResource["kind"], string> = {
 const SlideDeck = dynamic(()=>import("./slide-deck").then(m=>m.SlideDeck),{ssr:false,loading:()=> <div className="brief-deck-loading">ĐANG MỞ BẢN TRÌNH BÀY…</div>});
 
 // Cache a maximum of one short deck per paper across client-side navigation.
-const deckCache = new Map<string, ResearchSlide[]>();
-const pendingDecks = new Map<string, Promise<ResearchSlide[]>>();
+type DeckPayload={slides: ResearchSlide[];chapter:string|null};
+const deckCache = new Map<string, DeckPayload>();
+const pendingDecks = new Map<string, Promise<DeckPayload>>();
 
-function loadDeck(slug: string): Promise<ResearchSlide[]> {
+function loadDeck(slug: string): Promise<DeckPayload> {
   const cached = deckCache.get(slug);
   if (cached) return Promise.resolve(cached);
   const pending = pendingDecks.get(slug);
@@ -48,11 +45,16 @@ function loadDeck(slug: string): Promise<ResearchSlide[]> {
     .then(async (response) => {
       if (!response.ok) throw new Error(`Slide request failed: ${response.status}`);
       const data: unknown = await response.json();
-      if (!Array.isArray(data) || data.length !== 15 ||
-          data.some(s => !s || typeof s !== "object" || typeof s.title !== "string")) {
+      if (!data || typeof data !== "object" || !("slides" in data) || !("chapter" in data)) {
+        throw new Error("Invalid slide deck payload");
+      }
+      const payload = data as DeckPayload;
+      if (!Array.isArray(payload.slides) || payload.slides.length !== 15 ||
+          payload.slides.some(s => !s || typeof s.title !== "string") ||
+          !(typeof payload.chapter === "string" || payload.chapter === null)) {
         throw new Error("Invalid slide deck response");
       }
-      const deck = data as ResearchSlide[];
+      const deck = payload;
       deckCache.set(slug, deck);
       return deck;
     }).finally(() => pendingDecks.delete(slug));
@@ -62,28 +64,23 @@ function loadDeck(slug: string): Promise<ResearchSlide[]> {
 
 const TABS = ["explain","pdf","slides"] as const;
 type ReaderTab=typeof TABS[number];
-const titleSlug = (s:string) => s.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/[^a-z0-9\s-]/g,"").trim().replace(/\s+/g,"-");
-const chapterLabels: Record<string,string> = {
-  "Vì sao cần nghiên cứu này?": "01 / Vì sao cần nghiên cứu?",
-  "Phương pháp thực hiện": "03 / Phương pháp",
-  "Kết quả thực nghiệm": "05 / Kết quả",
-  "Hạn chế và câu hỏi còn mở": "06 / Hạn chế",
-  "Liên hệ với nghiên cứu khác": "07 / Liên hệ",
-};
-const titleDisplay = (title: string) => chapterLabels[title] ?? title;
 
-export function PaperReader({paper,chapter,relations,figures}: {paper:Paper;chapter:string|null;relations:PaperRelation[];figures:SourceFigure[]}) {
+type ReadingTocItem={title:string;id:string};
+export function PaperReader({paper,relations,toc,article}: {
+  paper:Paper;relations:PaperRelation[];toc:ReadingTocItem[];article:ReactNode;
+}) {
   const [tab,setTab]=useState<ReaderTab>("explain");
-  const [deckState,setDeckState]=useState<{slug:string;slides:ResearchSlide[]}|null>(null);
+  const [deckState,setDeckState]=useState<{slug:string;payload:DeckPayload}|null>(null);
   const [deckError,setDeckError]=useState(false);
   const [retryDeck,setRetryDeck]=useState(0);
-  const slides = deckState?.slug===paper.slug ? deckState.slides : null;
+  const deck = deckState?.slug===paper.slug ? deckState.payload : null;
+  const slides = deck?.slides ?? null;
 
   useEffect(()=>{
     if (tab !== "slides" || slides) return;
     let current = true;
     loadDeck(paper.slug).then(data=>{
-      if (current) {setDeckState({slug:paper.slug,slides:data});setDeckError(false);}
+      if (current) {setDeckState({slug:paper.slug,payload:data});setDeckError(false);}
     }).catch(()=>{
       if (current) setDeckError(true);
     });
@@ -93,7 +90,6 @@ export function PaperReader({paper,chapter,relations,figures}: {paper:Paper;chap
   const [copySuccess,setCopySuccess]=useState(false);
   const [activeSection,setActiveSection]=useState("");
   const readerRef=useRef<HTMLDivElement>(null);
-  const toc=useMemo(()=>[...(chapter||"").matchAll(/^## (.+)$/gm)].map(x=>({title:x[1],id:titleSlug(x[1])})),[chapter]);
   const links=useMemo(()=>relations.filter(r=>r.from===paper.slug||r.to===paper.slug),[relations,paper.slug]);
   const resources = paperResources[paper.slug] ?? [];
   const [progress,setProgress]=useState(0);
@@ -144,14 +140,14 @@ export function PaperReader({paper,chapter,relations,figures}: {paper:Paper;chap
       {tab==="explain"&&<motion.div key="explain" initial={{opacity:0,y:9}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-9}} className={`reader-grid ${tocVisible?"":"reader-grid-notoc"}`}>
         <aside className="reader-toc" aria-label="Nội dung bài"><div className="toc-title"><span>TRONG BÀI NÀY</span><button onClick={()=>setTocVisible(false)} aria-label="Ẩn mục lục"><PanelLeftClose size={16}/></button></div><div className="toc-content">{toc.map((item,idx)=><button key={item.id} className={activeSection===item.id?"toc-active":""} onClick={()=>jump(item.id)}><span>{(idx+1).toString().padStart(2,"0")}</span>{titleDisplay(item.title)}</button>)}</div><div className="toc-footer">MỤC LỤC BÀI ĐỌC<span className="toc-footer-dots">● ● ● ●</span></div></aside>
         <article className="paper-article">{!tocVisible &&<button className="restore-toc" onClick={()=>setTocVisible(true)}><PanelLeftOpen size={16}/> HIỆN MỤC LỤC</button>}<div className="article-intro"><span className="article-eyebrow">PHÂN TÍCH CHUYÊN SÂU / {paper.shortTitle.toUpperCase()}</span><h2>Hiểu sâu <em>bài nghiên cứu.</em></h2><p>Đi từ vấn đề, kiến thức nền, phương pháp, kết quả đến giới hạn và các nghiên cứu liên quan. Các nhận định độc lập được tách khỏi kết luận của tác giả.</p></div>
-          {chapter?<div className="markdown-body"><ReactMarkdown remarkPlugins={[remarkGfm,remarkMath]} rehypePlugins={[rehypeKatex]} components={{h2:({children,...props})=><h2 id={titleSlug(String(children))} {...props}>{titleDisplay(String(children))}</h2>,a:({href,children,...props})=><a {...props} href={href} target={href?.startsWith("http")?"_blank":undefined} rel={href?.startsWith("http")?"noopener noreferrer":undefined}>{children}</a>,img:({src,alt})=><PaperFigure paperSlug={paper.slug} src={typeof src==="string"?src:undefined} alt={alt} figures={figures}/>}}>{chapter}</ReactMarkdown></div>:<div className="missing-chapter"><h2>Chưa tải được nội dung.</h2><p>Nguồn Markdown của bài này đang thiếu. Hãy xem bản PDF gốc.</p></div>}
+          {article}
           <div className="reader-next"><span className="mono-label">ĐỌC TIẾP MẠCH KIẾN THỨC</span><h3>Ý tưởng tiếp theo</h3><div className="next-links">{links.slice(0,5).map((r,i)=><Link prefetch={false} key={i} href={`/paper/${r.from===paper.slug?r.to:r.from}`}><span>{relationTypeLabel[r.type]}</span><strong>{r.from===paper.slug?r.to:r.from}</strong><ArrowUpRight size={17}/></Link>)}</div></div>
         </article>
         <aside className="reader-context"><div className="context-card"><span className="mono-label">THÔNG TIN BÀI BÁO</span><div><small>NƠI CÔNG BỐ</small><strong>{paper.venue}</strong></div><div><small>CÔNG BỐ ĐẦU TIÊN*</small><strong>{paper.date.slice(0,7)}</strong></div><div><small>CHỦ ĐỀ</small><strong>{categoryLabels[paper.category]}</strong></div><div><small>KHÁI NIỆM CHÍNH</small><div className="context-tags">{paper.concepts.map(t=><span key={t}>{t}</span>)}</div></div><small className="date-note">*Ngày đầu / tháng gần đúng nếu bản gốc không cung cấp ngày chính xác.</small></div><div className="context-cta"><BookMarked size={21}/><h4>Đối chiếu với bài gốc.</h4><p>Đối chiếu phương trình và bảng gốc để kiểm chứng nhận định.</p><a href={paper.pdf} target="_blank" rel="noopener noreferrer">MỞ PDF GỐC <ArrowUpRight size={15}/></a></div></aside>
       </motion.div>}
       {tab==="pdf"&&<motion.div key="pdf" initial={{opacity:0,y:9}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-9}} className="pdf-view"><div className="pdf-view-header"><div><span className="mono-label">TÀI LIỆU GỐC / {paper.venue}</span><h2>Bài báo <em>gốc</em></h2><p>Xem tài liệu gốc ngay tại đây. PDF được tải từ nguồn phát hành qua website để tránh giới hạn nhúng từ trang bên ngoài.</p></div><a className="button button-primary" href={paper.pdf} target="_blank" rel="noopener noreferrer">MỞ TOÀN BỘ PDF <ExternalLink size={16}/></a></div><div className="pdf-frame"><div className="pdf-frame-title"><FileText size={16}/>{paper.shortTitle}.pdf<span>TÀI LIỆU TRỰC TUYẾN</span></div><iframe title={`${paper.shortTitle} – PDF bài báo gốc`} src={`/api/papers/${paper.slug}/pdf#toolbar=1&navpanes=0`} loading="lazy" referrerPolicy="no-referrer"/><div className="pdf-frame-fallback"><span>KHÔNG HIỂN THỊ ĐƯỢC PDF?</span><a href={paper.pdf} target="_blank" rel="noopener noreferrer">MỞ TRONG TAB MỚI <ArrowUpRight size={14}/></a></div></div></motion.div>}
       {tab==="slides"&&<motion.div key="slides" initial={{opacity:0,y:9}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-9}} className="brief-reader-mount">{slides
-        ? <SlideDeck paper={paper} slides={slides} chapter={chapter} onRead={()=>selectTab("explain")}/>
+        ? <SlideDeck paper={paper} slides={slides} chapter={deck?.chapter ?? null} onRead={()=>selectTab("explain")}/>
         : deckError
           ? <div role="alert" className="brief-deck-loading">Không tải được slide. <button type="button" onClick={()=>{setDeckError(false);setRetryDeck(n=>n+1);}}>THỬ LẠI</button></div>
           : <div role="status" className="brief-deck-loading">ĐANG TẢI 15 SLIDE…</div>}</motion.div>}
