@@ -1161,14 +1161,14 @@
     {
       "page": 1,
       "bbox": [
-        22,
-        475.1,
-        590,
-        643.3
+        70,
+        477,
+        550,
+        643
       ],
-      "width": 2045,
-      "height": 606,
-      "bytes": 218884,
+      "width": 1728,
+      "height": 598,
+      "bytes": 237258,
       "number": 1,
       "image": "/paper-figures/open-x-embodiment/figure-1.webp",
       "caption": "Fig. 1: We propose an open, large-scale dataset for robot learning curated from 21 institutions across the globe. The dataset represents diverse behaviors, robot embodiments and environments, and enables learning generalized robotic policies.",
@@ -1241,14 +1241,14 @@
     {
       "page": 6,
       "bbox": [
-        311,
-        121.9,
-        591,
-        341.9
+        325,
+        162,
+        582,
+        342
       ],
-      "width": 1009,
-      "height": 793,
-      "bytes": 107928,
+      "width": 926,
+      "height": 649,
+      "bytes": 98442,
       "number": 5,
       "image": "/paper-figures/open-x-embodiment/figure-5.webp",
       "caption": "Fig. 5: To assess transfer between embodiments, we evaluate the RT-2-X model on out-of-distribution skills. These skills are in the Bridge dataset, but not in the Google Robot dataset (the embodiment they are evaluated on). across robotic datasets. Contrary to previous RT-2 findings, co-fine-tuning and fine-tuning have similar performance in both the Emergent Skills and Generalization Evaluation (row (4) vs row (7)), which we attribute to the fact that the robotics data used in RT-2-X is much more diverse than the previously used robotics datasets.",
