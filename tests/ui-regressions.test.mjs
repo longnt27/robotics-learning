@@ -68,7 +68,7 @@ test('glossary content is a separate on-demand chunk, not part of shared layout'
   assert.match(layout,/<GlossaryLauncher\s*\/>/);
   assert.doesNotMatch(launcher,/glossary\.json|glossary-search|from\s*["']@\/lib\/papers/);
   assert.match(launcher,/dynamic\(\(\)=>import\(["']\.\/glossary-dialog["']\)/);
-  assert.match(launcher,/open\s*&&\s*<GlossaryDialog/);
+  assert.match(launcher,/wasOpened\s*&&\s*<GlossaryDialog/);
   assert.match(dialog,/glossary\.json/);
   assert.match(dialog,/searchGlossary\(terms,query,category\)/);
 });
@@ -92,4 +92,15 @@ test('paper navigation avoids unsolicited Next.js prefetch on metered mobile con
   assert.match(timeline,/prefetch=\{false\}/);
   assert.match(reader,/prefetch=\{false\}/);
   assert.match(glossary,/prefetch=\{false\}/);
+});
+
+test('specialized styles stay out of root CSS and load with the feature',()=>{
+  const layout=fs.readFileSync(path.join(root,'app/layout.tsx'),'utf8');
+  const paper=fs.readFileSync(path.join(root,'app/paper/[slug]/page.tsx'),'utf8');
+  const slides=fs.readFileSync(path.join(root,'components/slide-deck.tsx'),'utf8');
+  const graph=fs.readFileSync(path.join(root,'components/graph-view.tsx'),'utf8');
+  assert.doesNotMatch(layout,/briefing\.css|katex\.min\.css|@xyflow\/react\/dist\/style\.css/);
+  assert.match(paper,/katex\/dist\/katex\.min\.css/);
+  assert.match(slides,/briefing\.css/);
+  assert.match(graph,/@xyflow\/react\/dist\/style\.css/);
 });
