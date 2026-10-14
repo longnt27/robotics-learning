@@ -977,14 +977,14 @@
     {
       "page": 1,
       "bbox": [
-        22,
-        419.5,
-        590,
-        632.1
+        80,
+        426,
+        555,
+        631
       ],
-      "width": 2045,
-      "height": 766,
-      "bytes": 214150,
+      "width": 1710,
+      "height": 739,
+      "bytes": 236238,
       "number": 1,
       "image": "/paper-figures/bridgedata-v2/figure-1.webp",
       "caption": "Figure 1 (BridgeData V2) We propose a large-scale robotic manipulation dataset containing 60,096 trajectories across 24 environments. The dataset includes skills such as pick-and-place, pushing, sweeping, stacking, folding, and more. Portions of the data include multiple camera views and depth data, and all of the data includes natural language labels.",
@@ -997,14 +997,14 @@
     {
       "page": 4,
       "bbox": [
-        311,
-        25,
-        591,
-        170.4
+        102,
+        168,
+        271,
+        280
       ],
-      "width": 1009,
-      "height": 524,
-      "bytes": 24872,
+      "width": 609,
+      "height": 404,
+      "bytes": 39066,
       "number": 2,
       "image": "/paper-figures/bridgedata-v2/figure-2.webp",
       "caption": "Figure 2 (System setup) A picture of our robot setup showing the WidowX 250 robot arm and various cameras. For sensing, we use an RGBD camera that is fixed in an over-the-shoulder view, two RGB cameras with poses that are randomized during data collection, and an RGB camera attached to the robot’s wrist. The images are saved at a 640x480 resolution and the control frequency is 5 Hz. We collect demonstrations by teleoperating the robot with a VR controller. See Appendix C for additional details.",
@@ -1017,14 +1017,14 @@
     {
       "page": 5,
       "bbox": [
-        22,
-        25,
-        590,
-        196.8
+        82,
+        62,
+        545,
+        198
       ],
-      "width": 2045,
-      "height": 619,
-      "bytes": 56224,
+      "width": 1667,
+      "height": 490,
+      "bytes": 60986,
       "number": 3,
       "image": "/paper-figures/bridgedata-v2/figure-3.webp",
       "caption": "Figure 3 (Dataset composition) (L) The various types of tasks in BridgeData V2. The majority of the data comes from foundational object manipulation tasks, such as pick-and-place, pushing, and sweeping. Additional data comes from environment manipulation, which includes opening and closing doors and drawers. The remaining data comes from more complex tasks, such as stacking blocks, folding cloths, and sweeping granular media. Some segments of the data contain mixtures of these categories. (R) The 24 environments in BridgeData V2, grouped into 4 categories. The majority of the data comes from 7 distinct toy kitchens, which include some combination of sinks, stoves, and microwaves. The remaining environments come from diverse sources, including various tabletops, standalone toy sinks, a toy laundry machine, and more.",
@@ -1037,14 +1037,14 @@
     {
       "page": 8,
       "bbox": [
-        22,
-        387.8,
-        590,
-        652.8
+        104,
+        558,
+        523,
+        654
       ],
-      "width": 2045,
-      "height": 955,
-      "bytes": 194234,
+      "width": 1509,
+      "height": 347,
+      "bytes": 29268,
       "number": 5,
       "image": "/paper-figures/bridgedata-v2/figure-5.webp",
       "caption": "Figure 5 (Scaling analysis) (L) Performance of goal-conditioned behavior cloning trained on BridgeData V2 improves with higher capacity models and larger training sets, suggesting that our dataset provides an effective foundation for studying scalable policy learning. (R) We compared the performance of GCBC trained on a dataset with only 3 skills and a dataset with all 13 skills, keeping the size of the datasets approximately the same. On an unseen task, the policy trained with greater skill diversity performed significantly better, indicating positive transfer between skills. We used 20 trials per policy in this experiment.",
