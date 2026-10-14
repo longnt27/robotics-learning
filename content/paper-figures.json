@@ -2497,14 +2497,14 @@
     {
       "page": 1,
       "bbox": [
-        22,
-        230.7,
-        590,
-        499.4
+        64,
+        225,
+        560,
+        499
       ],
-      "width": 2045,
-      "height": 968,
-      "bytes": 275776,
+      "width": 1786,
+      "height": 987,
+      "bytes": 301512,
       "number": 1,
       "image": "/paper-figures/pi-0-5/figure-1.webp",
       "caption": "Fig. 1: The π0.5 model transfers knowledge from a heterogeneous range of data sources, including other robots, high-level subtask prediction, verbal instructions, and data from the web, in order to enable broad generalization across environments and objects. π0.5 can control a mobile manipulator to clean kitchens and bedrooms in new homes that were not present in the training data, performing complex multi-stage behaviors with durations of 10 to 15 minutes.",
@@ -2537,14 +2537,14 @@
     {
       "page": 4,
       "bbox": [
-        22,
-        153.8,
-        590,
-        268.8
+        50,
+        68,
+        567,
+        269
       ],
-      "width": 2045,
-      "height": 415,
-      "bytes": 73578,
+      "width": 1862,
+      "height": 725,
+      "bytes": 118172,
       "number": 3,
       "image": "/paper-figures/pi-0-5/figure-3.webp",
       "caption": "Fig. 3: Model overview. π0.5 is trained in two stages. First, a pre-training stage combines all of the different data sources to produce an initial VLA with discrete tokens. This stage uses data from diverse robotic platforms, high-level semantic action prediction, and data from the web. Robotic data uses the FAST action tokenizer to represent actions as discrete tokens [64]. Second, a post-training stage specializes the model for low-level and high-level inferences for mobile manipulation, leveraging the most task-relevant data, including verbal instructions from human supervisors. This stage uses flow matching to represent the action distribution, enabling efficient real-time inference and the ability to represent fine-grained continuous action sequences. At inference time, the model first infers a high-level subtask, and then predicts the actions based on this subtask.",
@@ -2617,14 +2617,14 @@
     {
       "page": 8,
       "bbox": [
-        22,
-        270.9,
-        590,
-        410.5
+        45,
+        236,
+        574,
+        410
       ],
-      "width": 2045,
-      "height": 503,
-      "bytes": 159866,
+      "width": 1905,
+      "height": 627,
+      "bytes": 219154,
       "number": 7,
       "image": "/paper-figures/pi-0-5/figure-7.webp",
       "caption": "Fig. 7: Evaluation in real homes. We evaluated π0.5 in three kitchens and three bedrooms in real homes that were not seen during training. We evaluate the tasks ‘items in drawer’, ‘laundry basket’, and ‘dishes in sink,’ and find π0.5 to be successful at these tasks in these completely new, real homes.",
