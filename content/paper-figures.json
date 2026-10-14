@@ -3,14 +3,14 @@
     {
       "page": 2,
       "bbox": [
-        64,
+        22,
         60,
-        554,
+        590,
         317
       ],
-      "width": 1765,
+      "width": 2045,
       "height": 926,
-      "bytes": 171634,
+      "bytes": 175982,
       "number": 1,
       "image": "/paper-figures/vima/figure-1.webp",
       "caption": "Figure 1: Multimodal prompts for task specification. We observe that many robot manipulation tasks can be expressed as multimodal prompts that interleave language and image/video frames. We introduce VIMA, an embodied agent capable of processing mulitimodal prompts (left) and controlling a robot arm to solve the task (right).",
@@ -103,14 +103,14 @@
     {
       "page": 7,
       "bbox": [
-        98,
+        22,
         64,
-        548,
+        590,
         331
       ],
-      "width": 1621,
+      "width": 2045,
       "height": 962,
-      "bytes": 76244,
+      "bytes": 78286,
       "number": 6,
       "image": "/paper-figures/vima/figure-6.webp",
       "caption": "Figure 6: Ablation on visual tokenizers. We compare the performance of VIMA-200M model across different visual tokenizers. Our proposed object tokens outperform all methods that learn directly from raw pixels, and Object Perceiver that downsamples the object sequence to a fixed number of tokens.",
