@@ -122,3 +122,17 @@ test('unrelated repository and model links never enter a paper client bundle',()
   assert.doesNotMatch(reader,/paper-resources\.json/);
   assert.match(reader,/resources:PaperResource\[\]/);
 });
+
+test('paper prose is rendered by a server component rather than client markdown libraries',()=>{
+  const page=fs.readFileSync(path.join(root,'app/paper/[slug]/page.tsx'),'utf8');
+  const reader=fs.readFileSync(path.join(root,'components/paper-reader.tsx'),'utf8');
+  const chapter=fs.readFileSync(path.join(root,'components/paper-chapter.tsx'),'utf8');
+  const slides=fs.readFileSync(path.join(root,'app/api/papers/[slug]/slides/route.ts'),'utf8');
+  assert.match(page,/<PaperChapter/);
+  assert.match(reader,/chapterView/);
+  assert.match(chapter,/ReactMarkdown/);
+  assert.doesNotMatch(chapter,/^"use client";/m);
+  assert.doesNotMatch(reader,/react-markdown|remark-gfm|remark-math|rehype-katex/);
+  assert.match(slides,/getPaperChapter\(slug\)/,'Presenter receives notes only on demand');
+  assert.doesNotMatch(reader,/chapter:string\|null/,'Full Markdown should never be duplicated in initial browser props');
+});
