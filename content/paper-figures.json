@@ -1506,13 +1506,13 @@
       "page": 4,
       "bbox": [
         311,
-        58,
+        41,
         591,
-        276.8
+        277
       ],
       "width": 1009,
-      "height": 789,
-      "bytes": 49982,
+      "height": 851,
+      "bytes": 59920,
       "number": 3,
       "image": "/paper-figures/octo/figure-3.webp",
       "caption": "Fig. 3: Training dataset composition. We curate a subset of 25 datasets from the Open X-Embodiment dataset that have image observations, end-effector actions, and show diverse behaviors. The pie chart visualizes the fractions that each dataset contributes to every training batch on average. The dataset weights are determined by the number of samples in each dataset with small modifications to balance dataset size and diversity (see Section III-B for details).",
@@ -1545,14 +1545,14 @@
     {
       "page": 6,
       "bbox": [
-        316,
-        420,
+        312,
+        389,
         591,
         541
       ],
-      "width": 991,
-      "height": 436,
-      "bytes": 20264,
+      "width": 1005,
+      "height": 548,
+      "bytes": 24222,
       "number": 5,
       "image": "/paper-figures/octo/figure-5.webp",
       "caption": "Fig. 5: Zero-Shot Evaluation. Out-of-the-box, Octo can control multiple robots in environments from the pretraining data. When using natural language to specify tasks, Octo outperforms RT-1-X [67], the current best openly available generalist robot policy across three different robot embodiments and setups. Octo also performs similarly to RT-2-X [103] on the tested WidowX and RT-1 Robot tasks.1",
