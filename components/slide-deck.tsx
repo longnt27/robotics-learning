@@ -112,11 +112,18 @@ function SlideVisual({paper,slide,index,presenting=false}:{paper:Paper;slide:Res
     {items[0]&&<div className="brief-thesis-key"><span>Ý NGHĨA CỦA CƠ CHẾ</span><p>{getItemText(items[0])}</p></div>}
     <div className="brief-thesis-bottom"><span>Ý TƯỞNG CỐT LÕI</span><span className="brief-thesis-line"/><span>KHÁC BIỆT NẰM Ở CƠ CHẾ</span></div>
   </div>;
-  if(slide.type==="contrast")return <div className="brief-contrast">
-      <div className="brief-contrast-old"><span className="brief-card-tag">CÁCH TIẾP CẬN TRƯỚC</span><div className="brief-viz-circle">×</div><h3>{slide.stageMode==="visual-first"?"Inference-time RTC":slide.title}</h3><p>{slide.lead}</p></div>
+  if(slide.type==="contrast"){
+    // The reviewed RTC comparison stores OLD and NEW claims in separate items.
+    // Render each claim in its matching column instead of labeling the old method as an innovation.
+    const rtcComparison=paper.slug==="rtc-training" &&
+      typeof items[0]==="string" && /^CŨ:/.test(items[0]) &&
+      typeof items[1]==="string" && /^MỚI:/.test(items[1]);
+    return <div className="brief-contrast">
+      <div className="brief-contrast-old"><span className="brief-card-tag">CÁCH TIẾP CẬN TRƯỚC</span><div className="brief-viz-circle">×</div><h3>{rtcComparison?"Inference-time RTC":slide.stageMode==="visual-first"?"Inference-time RTC":slide.title}</h3><p>{rtcComparison?(items[0] as string).replace(/^CŨ:\s*/,""):slide.lead}</p></div>
       <div className="brief-contrast-divider">→</div>
-      <div className="brief-contrast-new"><span className="brief-card-tag">ĐIỂM MỚI</span><div className="brief-viz-circle">↗</div><h3>{getItemText(items[0])}</h3><p>{getItemText(items[1])}</p></div>
+      <div className="brief-contrast-new"><span className="brief-card-tag">ĐIỂM MỚI</span><div className="brief-viz-circle">↗</div><h3>{rtcComparison?"Training-Time RTC":getItemText(items[0])}</h3><p>{rtcComparison?(items[1] as string).replace(/^MỚI:\s*/,""):getItemText(items[1])}</p></div>
     </div>;
+  }
   if(slide.type==="limits")return <div className="brief-limit-grid">{items.map((item,i)=><DisplayCard key={i} item={item} index={i} variant={i===0?"author":"critique"}/>)}</div>;
   if(slide.type==="concepts")return <div className="brief-concept-grid">{items.map((item,i)=><DisplayCard key={i} item={item} index={i} variant="concept"/>)}</div>;
   if(slide.type==="problem")return <div className="brief-problem-visual"><span className="brief-problem-icon">!</span><p>{slide.lead}</p><div className="brief-problem-fact"><span>BẾ TẮC HIỆN TẠI</span>{items.map(getItemText).join(" ")}</div></div>;
