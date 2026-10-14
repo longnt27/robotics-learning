@@ -13,6 +13,8 @@ export interface ResearchSlide {
   intuition: string;
   /** Specific, paper-grounded explanation displayed on the slide itself. */
   detail?: { label: string; text: string };
+  /** Slide canvas is visual-first; explanation and Intuition live in presenter notes only. */
+  stageMode?: "visual-first";
   equation?: string;
   /** Original source-paper illustration; loaded only when this slide is visible. */
   figure?: {src: string; alt: string; caption: string};

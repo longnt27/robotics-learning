@@ -89,7 +89,7 @@ function SlideVisual({paper,slide,index}:{paper:Paper;slide:ResearchSlide;index:
       <span className="brief-cover-ordinal">{String(index+1).padStart(2,"0")} / 15</span>
       <h2>{paper.shortTitle}<span className="brief-title-dot">.</span></h2>
       <p className="brief-cover-message">{slide.lead}</p>
-      <div className="brief-cover-key"><span>LUẬN ĐIỂM CHÍNH</span><strong>{getItemText(items[0])}</strong><p>{slide.intuition}</p></div>
+      <div className="brief-cover-key"><span>LUẬN ĐIỂM CHÍNH</span><strong>{getItemText(items[0])}</strong>{slide.stageMode!=="visual-first"&&<p>{slide.intuition}</p>}</div>
       <div className="brief-cover-pill"><span/> {paper.venue} · {paper.userPick?"BÀI BẠN CHỌN":"BÀI NGHIÊN CỨU NỀN TẢNG"}</div>
     </div><OrbitalArt paper={paper} displayIndex={index+1}/>
   </div>;
@@ -109,7 +109,7 @@ function SlideVisual({paper,slide,index}:{paper:Paper;slide:ResearchSlide;index:
     <div className="brief-thesis-bottom"><span>Ý TƯỞNG CỐT LÕI</span><span className="brief-thesis-line"/><span>KHÁC BIỆT NẰM Ở CƠ CHẾ</span></div>
   </div>;
   if(slide.type==="contrast")return <div className="brief-contrast">
-      <div className="brief-contrast-old"><span className="brief-card-tag">CÁCH TIẾP CẬN TRƯỚC</span><div className="brief-viz-circle">×</div><h3>{slide.title}</h3><p>{slide.lead}</p></div>
+      <div className="brief-contrast-old"><span className="brief-card-tag">CÁCH TIẾP CẬN TRƯỚC</span><div className="brief-viz-circle">×</div><h3>{slide.stageMode==="visual-first"?"Inference-time RTC":slide.title}</h3><p>{slide.lead}</p></div>
       <div className="brief-contrast-divider">→</div>
       <div className="brief-contrast-new"><span className="brief-card-tag">ĐIỂM MỚI</span><div className="brief-viz-circle">↗</div><h3>{getItemText(items[0])}</h3><p>{getItemText(items[1])}</p></div>
     </div>;
@@ -207,6 +207,8 @@ export function SlideDeck({paper,slides,chapter,onRead}:{paper:Paper;slides:Rese
   useEffect(()=>{if(overview)gridRef.current?.querySelector<HTMLButtonElement>(`button[data-slide-index="${index}"]`)?.focus();},[overview,index]);
 
   const slide=slides[index];
+  // Visual-first slides keep explanations in the presenter panel, never on the projected canvas.
+  const visualFirst=slide?.stageMode==="visual-first";
   const speakerText=useMemo(()=>chapterContext(chapter,slide.type),[chapter,slide.type]);
   const copy=async()=>{
     try{await navigator.clipboard.writeText(window.location.href);setCopied(true);setTimeout(()=>setCopied(false),1400);}catch{}
@@ -217,7 +219,7 @@ export function SlideDeck({paper,slides,chapter,onRead}:{paper:Paper;slides:Rese
       <div className="brief-deck-id"><span className="brief-deck-id-light"/> BẢN TRÌNH BÀY NGHIÊN CỨU <span className="brief-deck-id-sep">/</span> {paper.shortTitle.toUpperCase()}</div>
       <div className="brief-deck-actions"><button onClick={()=>setOverview(v=>!v)} aria-label="Xem tất cả slide" aria-pressed={overview}><Grid2X2 size={16}/> <span>XEM LƯỚI</span></button><button onClick={()=>setNotes(v=>!v)} aria-label="Bật tắt ghi chú thuyết trình" aria-pressed={notes}><NotebookText size={16}/> <span>GHI CHÚ</span></button><button onClick={toggleFullscreen} aria-label={full?"Thoát toàn màn hình":"Trình chiếu toàn màn hình"}>{full?<Minimize2 size={16}/>:<Maximize2 size={16}/>} <span>{full?"THU NHỎ":"TOÀN MÀN HÌNH"}</span></button><button onClick={()=>setHelp(v=>!v)} aria-label="Phím tắt trình chiếu" aria-pressed={help}><HelpCircle size={17}/></button></div>
     </div>
-    <div className="brief-slide-stage" ref={stageRef} tabIndex={-1}>
+    <div className={`brief-slide-stage ${visualFirst?"brief-slide-stage-visual-first":""}`} ref={stageRef} tabIndex={-1}>
       <div className="brief-slide-halo" aria-hidden="true"/>
       <div className="brief-slide-grid" aria-hidden="true"/>
       <div className="brief-slide-rail" aria-hidden="true"/>
@@ -226,8 +228,8 @@ export function SlideDeck({paper,slides,chapter,onRead}:{paper:Paper;slides:Rese
         <motion.div key={`${paper.slug}-${index}`} className={`brief-slide-content brief-layout-${slide.type}`} initial={{opacity:0,y:14,filter:"blur(4px)"}} animate={{opacity:1,y:0,filter:"blur(0px)"}} exit={{opacity:0,y:-10,filter:"blur(3px)"}} transition={{duration:.23,ease:"easeOut"}}>
           {slide.type!=="cover"&&<div className="brief-slide-heading"><div className="brief-chapter-label"><span className="brief-signal"/> {SECTIONS[slide.type]} <span className="brief-heading-rule"/> {String(index+1).padStart(2,"0")}</div><h2>{slide.title}</h2>{!["intuition","equation","problem","contrast"].includes(slide.type)&&<p className="brief-slide-description">{slide.lead}</p>}</div>}
           <div className={`brief-slide-art ${slide.figure?"brief-slide-art-with-figure":""}`}><div className="brief-slide-art-primary"><SlideVisual slide={slide} paper={paper} index={index}/></div>{slide.figure&&<figure className="brief-source-figure"><div className="brief-source-image"><Image src={slide.figure.src} alt={slide.figure.alt} fill sizes="(max-width: 700px) 92vw, 42vw" priority={false} /></div><figcaption><span>HÌNH GỐC · NGUỒN BÀI BÁO</span>{slide.figure.caption}</figcaption></figure>}</div>
-          {slide.detail&&<aside className={`brief-slide-detail brief-slide-detail-${slide.type}`}><span className="brief-slide-detail-label"><span className="brief-signal"/> {slide.detail.label}</span><p>{slide.detail.text}</p></aside>}
-          {slide.type!=="cover"&&slide.type!=="equation"&&slide.type!=="intuition"&&<div className="brief-slide-intuition"><span>CÁCH HIỂU <i>→</i></span><p>{slide.intuition}</p></div>}
+          {slide.detail&&!visualFirst&&<aside className={`brief-slide-detail brief-slide-detail-${slide.type}`}><span className="brief-slide-detail-label"><span className="brief-signal"/> {slide.detail.label}</span><p>{slide.detail.text}</p></aside>}
+          {!visualFirst&&slide.type!=="cover"&&slide.type!=="equation"&&slide.type!=="intuition"&&<div className="brief-slide-intuition"><span>CÁCH HIỂU <i>→</i></span><p>{slide.intuition}</p></div>}
         </motion.div>
       </AnimatePresence>
       <div className="brief-stage-index"><span>SCENE {String(index+1).padStart(2,"0")}</span><span>{String(index+1).padStart(2,"0")} / {String(slides.length).padStart(2,"0")}</span></div>
