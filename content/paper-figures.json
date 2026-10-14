@@ -2538,13 +2538,13 @@
       "page": 4,
       "bbox": [
         50,
-        68,
+        57,
         567,
         269
       ],
       "width": 1862,
-      "height": 725,
-      "bytes": 118172,
+      "height": 764,
+      "bytes": 120262,
       "number": 3,
       "image": "/paper-figures/pi-0-5/figure-3.webp",
       "caption": "Fig. 3: Model overview. π0.5 is trained in two stages. First, a pre-training stage combines all of the different data sources to produce an initial VLA with discrete tokens. This stage uses data from diverse robotic platforms, high-level semantic action prediction, and data from the web. Robotic data uses the FAST action tokenizer to represent actions as discrete tokens [64]. Second, a post-training stage specializes the model for low-level and high-level inferences for mobile manipulation, leveraging the most task-relevant data, including verbal instructions from human supervisors. This stage uses flow matching to represent the action distribution, enabling efficient real-time inference and the ability to represent fine-grained continuous action sequences. At inference time, the model first infers a high-level subtask, and then predicts the actions based on this subtask.",
@@ -2620,11 +2620,11 @@
         45,
         236,
         574,
-        410
+        416
       ],
       "width": 1905,
-      "height": 627,
-      "bytes": 219154,
+      "height": 649,
+      "bytes": 219266,
       "number": 7,
       "image": "/paper-figures/pi-0-5/figure-7.webp",
       "caption": "Fig. 7: Evaluation in real homes. We evaluated π0.5 in three kitchens and three bedrooms in real homes that were not seen during training. We evaluate the tasks ‘items in drawer’, ‘laundry basket’, and ‘dishes in sink,’ and find π0.5 to be successful at these tasks in these completely new, real homes.",
