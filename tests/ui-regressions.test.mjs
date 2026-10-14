@@ -48,3 +48,48 @@ test('equations use direct KaTeX rendering with safe defaults', () => {
   assert.match(slideUI, /throwOnError:false/);
   assert.doesNotMatch(slideUI, /<(?:radial|linear)Gradient\b/);
 });
+
+test('paper reader does not serialize slide decks until slides are requested', () => {
+  const page=fs.readFileSync(path.join(root,'app/paper/[slug]/page.tsx'),'utf8');
+  const reader=fs.readFileSync(path.join(root,'components/paper-reader.tsx'),'utf8');
+  const endpoint=fs.readFileSync(path.join(root,'app/api/papers/[slug]/slides/route.ts'),'utf8');
+  assert.doesNotMatch(page,/getResearchSlides\(slug\)/,'Initial RSC payload must not read and send slides');
+  assert.doesNotMatch(reader,/slides:\s*ResearchSlide\[\]/,'Reader props must not embed full slide deck');
+  assert.match(reader,/loadPaperSlides\(paper\.slug\)/,'Slides should be fetched only after opening tab');
+  assert.match(endpoint,/getPaper\(slug\)/,'Only known papers should be served');
+  assert.match(endpoint,/getResearchSlides\(slug\)/,'The route serves the original deck');
+  assert.match(endpoint,/Cache-Control/i,'Slides need browser-level caching');
+});
+
+test('glossary content is a separate on-demand chunk, not part of shared layout', () => {
+  const launcher=fs.readFileSync(path.join(root,'components/glossary-launcher.tsx'),'utf8');
+  const dialog=fs.readFileSync(path.join(root,'components/glossary-dialog.tsx'),'utf8');
+  const layout=fs.readFileSync(path.join(root,'app/layout.tsx'),'utf8');
+  assert.match(layout,/<GlossaryLauncher\s*\/>/);
+  assert.doesNotMatch(launcher,/glossary\.json|glossary-search|from\s*["']@\/lib\/papers/);
+  assert.match(launcher,/dynamic\(\(\)=>import\(["']\.\/glossary-dialog["']\)/);
+  assert.match(launcher,/open\s*&&\s*<GlossaryDialog/);
+  assert.match(dialog,/glossary\.json/);
+  assert.match(dialog,/searchGlossary\(terms,query,category\)/);
+});
+
+test('paper figure metadata is selected on server, not imported for all 22 papers in browser', () => {
+  const page=fs.readFileSync(path.join(root,'app/paper/[slug]/page.tsx'),'utf8');
+  const reader=fs.readFileSync(path.join(root,'components/paper-reader.tsx'),'utf8');
+  const figure=fs.readFileSync(path.join(root,'components/paper-figure.tsx'),'utf8');
+  const helper=fs.readFileSync(path.join(root,'lib/paper-figures.ts'),'utf8');
+  assert.match(helper,/server-only/);
+  assert.match(page,/getPaperFigures\(slug\)/);
+  assert.doesNotMatch(figure,/paper-figures\.json/,'Figure UI must not bundle the full manifest');
+  assert.match(figure,/loading="lazy"/);
+  assert.match(reader,/figures=\{figures\}/);
+});
+
+test('paper navigation avoids unsolicited Next.js prefetch on metered mobile connections', () => {
+  const timeline=fs.readFileSync(path.join(root,'components/timeline-view.tsx'),'utf8');
+  const reader=fs.readFileSync(path.join(root,'components/paper-reader.tsx'),'utf8');
+  const glossary=fs.readFileSync(path.join(root,'components/glossary-dialog.tsx'),'utf8');
+  assert.match(timeline,/prefetch=\{false\}/);
+  assert.match(reader,/prefetch=\{false\}/);
+  assert.match(glossary,/prefetch=\{false\}/);
+});
