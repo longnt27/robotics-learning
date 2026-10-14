@@ -14,7 +14,7 @@ export function TimelineView({papers}: {papers: Paper[]}) {
       <div className="timeline-track">
       {papers.filter(p=>p.date.startsWith(year)).map((paper,idx) => <motion.div className="timeline-entry" key={paper.slug} initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.1}} transition={{duration:.5,delay:Math.min(idx*.035,.15)}}>
         <span className={`timeline-node ${paper.userPick ? "timeline-node-pick": ""}`} aria-hidden="true"/>
-        <Link href={`/paper/${paper.slug}`} className={`timeline-card ${paper.userPick ? "timeline-card-pick" : ""}`}>
+        <Link prefetch={false} href={`/paper/${paper.slug}`} className={`timeline-card ${paper.userPick ? "timeline-card-pick" : ""}`}>
           <div className="timeline-card-top">
             <div className="timeline-card-index">{paper.date.slice(5,7)} / {paper.date.slice(0,4)}</div>
             <div className="timeline-labels">
