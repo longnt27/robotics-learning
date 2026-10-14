@@ -27,7 +27,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          for slug in octo open-x-embodiment diffusion-policy rt-2 openvla; do
+          for slug in open-x-embodiment diffusion-policy openvla; do
             echo "::group::$slug"
             python -u scripts/render_manually_reviewed_figures.py --paper "$slug"
             SLUG="$slug" python - <<'PY'
