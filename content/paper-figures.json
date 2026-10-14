@@ -591,14 +591,14 @@
     {
       "page": 1,
       "bbox": [
-        22,
-        63.8,
-        590,
+        45,
+        163,
+        568,
         328.8
       ],
-      "width": 2045,
-      "height": 955,
-      "bytes": 165950,
+      "width": 1883,
+      "height": 598,
+      "bytes": 141426,
       "number": 1,
       "image": "/paper-figures/act/figure-1.webp",
       "caption": "Fig. 1: ALOHA : A Low-cost Open-source Hardware System for Bimanual Teleoperation. The whole system costs <$20k with off-the-shelf robots and 3D printed components. Left: The user teleoperates by backdriving the leader robots, with the follower robots mirroring the motion. Right: ALOHA is capable of precise, contact-rich, and dynamic tasks. We show examples of both teleoperated and learned skills.",
@@ -611,14 +611,14 @@
     {
       "page": 3,
       "bbox": [
-        22,
-        25,
-        590,
-        188
+        52,
+        59,
+        562,
+        189
       ],
-      "width": 2045,
-      "height": 587,
-      "bytes": 90180,
+      "width": 1837,
+      "height": 469,
+      "bytes": 103908,
       "number": 3,
       "image": "/paper-figures/act/figure-3.webp",
       "caption": "Fig. 3: Left: Camera viewpoints of the front, top, and two wrist cameras, together with an illustration of the bimanual workspace of ALOHA. Middle: Detailed view of the “handle and scissor” mechanism and custom grippers. Right: Technical spec of the ViperX 6dof robot [1].",
@@ -631,14 +631,14 @@
     {
       "page": 4,
       "bbox": [
-        22,
-        129.2,
-        590,
-        263.5
+        32,
+        143,
+        578,
+        264
       ],
-      "width": 2045,
-      "height": 484,
-      "bytes": 104294,
+      "width": 1966,
+      "height": 437,
+      "bytes": 100438,
       "number": 4,
       "image": "/paper-figures/act/figure-4.webp",
       "caption": "Fig. 4: Teleoperation accuracy. We plot the position tracking error of the ALOHA teleoperation system for three representative tasks. (a) A relatively smooth task of sliding open a ziploc bag. The tracking error is consistently below 2cm with an average of 0.68cm, comparable to the accuracy of the robot arm. (b) The tracking error can spike when the follower arms are exerting high-amount of force, e.g. inserting a RAM stick into a tight-fitting slot. This is due to the non-bilateral nature of the system. (c) High tracking error can also occur during sudden acceleration, as in the case of swinging open a plastic bag. This is due to a combination of teleoperation delay and motor torque limitations.",
@@ -651,14 +651,14 @@
     {
       "page": 5,
       "bbox": [
-        22,
-        34.4,
-        590,
-        176.6
+        70,
+        54,
+        549,
+        178
       ],
-      "width": 2045,
-      "height": 513,
-      "bytes": 52560,
+      "width": 1725,
+      "height": 447,
+      "bytes": 58796,
       "number": 5,
       "image": "/paper-figures/act/figure-5.webp",
       "caption": "Fig. 5: Architecture of Action Chunking with Transformers (ACT). We train ACT as a Conditional VAE (CVAE), which has an encoder and a decoder. Left: The encoder of the CVAE compresses action sequence and joint observation into z, the style variable. The encoder is discarded at test time. Right: The decoder or policy of ACT synthesizes images from multiple viewpoints, joint positions, and z with a transformer encoder, and predicts a sequence of actions with a transformer decoder. z is simply set to the mean of the prior (i.e. zero) at test time.",
@@ -671,14 +671,14 @@
     {
       "page": 5,
       "bbox": [
-        21,
-        266.6,
+        92,
+        229,
         301,
-        356.8
+        357
       ],
-      "width": 1009,
-      "height": 326,
-      "bytes": 14654,
+      "width": 753,
+      "height": 462,
+      "bytes": 21070,
       "number": 6,
       "image": "/paper-figures/act/figure-6.webp",
       "caption": "Fig. 6: We employ both Action Chunking and Temporal Ensembling when applying actions, instead of interleaving observing and executing.",
@@ -691,14 +691,14 @@
     {
       "page": 7,
       "bbox": [
-        22,
-        386.8,
-        590,
-        727.7
+        62,
+        56,
+        551,
+        730
       ],
-      "width": 2045,
-      "height": 1228,
-      "bytes": 347188,
+      "width": 1761,
+      "height": 2427,
+      "bytes": 696930,
       "number": 7,
       "image": "/paper-figures/act/figure-7.webp",
       "caption": "Fig. 7: Real-World Task Definitions. For each of the 6 real-world tasks, we illustrate the initializations and the subtasks.",
@@ -711,14 +711,14 @@
     {
       "page": 8,
       "bbox": [
-        22,
-        25,
-        590,
-        135.4
+        47,
+        39,
+        565,
+        137
       ],
-      "width": 2045,
-      "height": 398,
-      "bytes": 62530,
+      "width": 1865,
+      "height": 354,
+      "bytes": 67040,
       "number": 8,
       "image": "/paper-figures/act/figure-8.webp",
       "caption": "Fig. 8: Simulated Task Definitions. For each of the 2 simulated tasks, we illustrate the initializations and the subtasks.",
@@ -731,14 +731,14 @@
     {
       "page": 11,
       "bbox": [
-        22,
-        47.9,
-        590,
-        178.3
+        50,
+        59,
+        557,
+        179
       ],
-      "width": 2045,
-      "height": 470,
-      "bytes": 42588,
+      "width": 1826,
+      "height": 433,
+      "bytes": 46312,
       "number": 9,
       "image": "/paper-figures/act/figure-9.webp",
       "caption": "Fig. 9: (a) We augment two baselines with action chunking, with different values of chunk size k on the x-axis, and success rate on the y-axis. Both methods significantly benefit from action chunking, suggesting that it is a generally useful technique. (b) Temporal Ensemble (TE) improves our method and BC-ConvMLP, while hurting VINN. (c) We compare with and without the CVAE training, showing that it is crucial when learning from human data. (d) We plot the distribution of task completion time in our user study, where we task participants to perform two tasks, at 5Hz or 50Hz teleoperation frequency. Lowering the frequency results in a 62% slowdown in completion time.",
