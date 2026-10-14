@@ -326,6 +326,60 @@ try {
   }
   console.log('PASS: RTC Training-Time projects visuals; explanation remains in presenter notes');
 
+
+  // Presenter View uses a separate native document. Simulate Chromium's Document
+  // Picture-in-Picture by opening an isolated same-origin popup. This verifies
+  // React portals and audience/private DOM boundaries, not Teams OS capture.
+  const presenterPage=await browser.newPage({viewport:{width:1280,height:800}});
+  const presenterErrors=[];
+  presenterPage.on('pageerror',error=>presenterErrors.push(error.message));
+  await presenterPage.addInitScript(()=>{
+    Object.defineProperty(window,'documentPictureInPicture',{
+      configurable:true,
+      value:{requestWindow:async()=>window.open('about:blank','_blank','width=540,height=760')}
+    });
+  });
+  await presenterPage.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=3',{waitUntil:'domcontentloaded'});
+  await presenterPage.locator('.brief-layout-contrast').waitFor({state:'visible'});
+  const popupPromise=presenterPage.waitForEvent('popup');
+  await presenterPage.getByRole('button',{name:'Bắt đầu Presenter View với ghi chú riêng'}).click();
+  const presenterPopup=await popupPromise;
+  presenterPopup.on('pageerror',error=>presenterErrors.push(error.message));
+  await presenterPopup.locator('[data-private-presenter="true"]').waitFor({state:'visible',timeout:15000});
+  assert.ok(await presenterPopup.getByText('GHI CHÚ CHỈ MÀY NHÌN THẤY').isVisible(),'Presenter has readable private notes');
+  assert.match(await presenterPopup.locator('.presenter-note-body').innerText(),/LỜI THUYẾT TRÌNH/,'Existing RTC speaker narration is preserved');
+  assert.equal(await presenterPage.locator('.brief-deck-presenting').count(),1,'Audience slide fills shared browser');
+  assert.equal(await presenterPage.locator('[data-private-presenter]').count(),0,'Private DOM must not be attached to shared browser');
+  assert.equal(await presenterPage.locator('.brief-speaker-notes,.brief-slide-detail,.brief-slide-intuition').count(),0,'No private narration in audience view');
+  assert.ok(!(await presenterPage.locator('.brief-deck-presenting').innerText()).includes('LỜI THUYẾT TRÌNH'),'Presenter scripts cannot leak into shared slide DOM');
+  const audienceRect=await presenterPage.locator('.brief-slide-stage').boundingBox();
+  assert.ok(audienceRect&&audienceRect.width>=1270&&audienceRect.height>=790,'Audience slide must fill the 1280x800 viewport');
+
+  await presenterPopup.getByRole('button',{name:'Slide tiếp theo trong Presenter View'}).click();
+  await presenterPage.waitForFunction(()=>new URL(location.href).searchParams.get('slide')==='4');
+  assert.ok(await presenterPage.locator('.brief-layout-intuition').isVisible(),'Presenter controls change the projected slide');
+  await presenterPopup.keyboard.press('ArrowRight');
+  await presenterPage.waitForFunction(()=>new URL(location.href).searchParams.get('slide')==='5');
+  assert.ok(await presenterPopup.getByText('H, s, d: ba đại lượng cần nhớ').isVisible(),'Private panel follows keyboard navigation');
+
+  await presenterPopup.close(); // user closing the OS popup must restore the normal reader
+  await presenterPage.locator('.brief-deck-presenting').waitFor({state:'detached',timeout:7000});
+  assert.ok(await presenterPage.getByRole('button',{name:'Bắt đầu Presenter View với ghi chú riêng'}).isVisible(),'Browser recovers after private window closes');
+  assert.deepEqual(presenterErrors,[],'Presenter View has no JS runtime exceptions');
+  await presenterPage.close();
+
+  // An unsupported browser must fail closed, NEVER put notes into the shared tab.
+  const unsupportedPresenter=await browser.newPage({viewport:{width:1280,height:800}});
+  await unsupportedPresenter.addInitScript(()=>{
+    Object.defineProperty(window,'documentPictureInPicture',{configurable:true,value:undefined});
+  });
+  await unsupportedPresenter.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=3',{waitUntil:'domcontentloaded'});
+  await unsupportedPresenter.getByRole('button',{name:'Bắt đầu Presenter View với ghi chú riêng'}).click();
+  assert.match(await unsupportedPresenter.getByRole('alert').innerText(),/Chrome hoặc Edge/,'Explicit support guidance');
+  assert.equal(await unsupportedPresenter.locator('.brief-deck-presenting').count(),0,'No unsafe inline fallback');
+  await unsupportedPresenter.close();
+  console.log('PASS: private Presenter View popup, bidirectional navigation, closure recovery, unsupported-browser privacy');
+
   // A normal article must never fetch its 15-slide deck until the user asks for it.
   const mobileReader=await browser.newPage({viewport:{width:390,height:844}});
   let deckRequests=0;
