@@ -68,3 +68,18 @@ test('each slide preserves its own claim and matches its research type',()=>{
   assert.ok(slides.some(s=>s.type==='limits'&&s.items.length>=2),`${slug}: limitations are one-sided`);
  }
 });
+
+test('RTC Training-Time projects concise visuals and reserves all narration for presenter notes',()=>{
+ const slides=allSlides.find(p=>p.slug==='rtc-training')?.slides;
+ assert.equal(slides?.length,15,'RTC training deck should remain 15 slides');
+ assert.ok(slides.every(s=>s.stageMode==='visual-first'),'Every RTC slide must hide presenter details on canvas');
+ assert.ok(slides.every(s=>s.detail?.text?.length>=80),'Extended explanation must remain available in notes');
+ assert.ok(slides.every(s=>s.lead.length<=100),'Projected leads must be short');
+ assert.ok(slides.filter(s=>s.figure).length>=9,'Keep original-paper imagery');
+ const component=fs.readFileSync(path.join(root,'components/slide-deck.tsx'),'utf8');
+ assert.match(component,/const visualFirst=slide\?\.stageMode==="visual-first"/);
+ assert.match(component,/slide\.detail&&!visualFirst&&<aside/);
+ assert.match(component,/!visualFirst&&slide\.type!=="cover"/);
+ assert.match(component,/notes&&<div className="brief-speaker-notes"/);
+ assert.match(component,/slide\.detail&&<p><strong>\{slide\.detail\.label\}/);
+});
