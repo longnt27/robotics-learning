@@ -197,8 +197,10 @@ test("Markdown hides generator markers without discarding real explanatory secti
 test("Paper figures have original source captions, PDF deep links and native fullscreen dialog",()=>{
   const code=fs.readFileSync(path.join(root,"components/paper-figure.tsx"),"utf8");
   const reader=fs.readFileSync(path.join(root,"components/paper-reader.tsx"),"utf8");
+  const article=fs.readFileSync(path.join(root,"components/paper-article.tsx"),"utf8");
   const css=fs.readFileSync(path.join(root,"app/globals.css"),"utf8");
-  assert.ok(reader.includes("<PaperFigure paperSlug={paper.slug}"));
+  assert.ok(article.includes("<PaperFigure paperSlug={paperSlug}"));
+  assert.doesNotMatch(reader,/ReactMarkdown|remarkGfm|rehypeKatex/,"Keep Markdown and math transforms server-side");
   assert.ok(code.includes('className="paper-source-figure"'));
   assert.ok(code.includes("meta?.caption"));
   assert.ok(code.includes("meta.pdf"));
