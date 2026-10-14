@@ -1587,14 +1587,14 @@
     {
       "page": 1,
       "bbox": [
-        22,
+        22.0,
         210.4,
-        590,
-        441.4
+        590.0,
+        443.5
       ],
       "width": 2045,
-      "height": 833,
-      "bytes": 280238,
+      "height": 840,
+      "bytes": 264118,
       "number": 1,
       "image": "/paper-figures/robocasa/figure-1.webp",
       "caption": "Fig. 1: Overview of RoboCasa. RoboCasa is a simulation framework for training generalist robot agents. Four pillars underlie RoboCasa: (1) Diverse assets, including 120 kitchen scenes and 2,500+ 3D objects, created with the aid of generative AI tools; (2) Cross-embodiment support for mobile manipulators and humanoid robots; (3) Diverse tasks created with the guidance of large language models; (4) Massive training datasets with over 100K trajectories.",
@@ -1607,14 +1607,14 @@
     {
       "page": 4,
       "bbox": [
-        22,
-        54,
-        590,
-        218.2
+        22.0,
+        54.0,
+        595.5,
+        220.3
       ],
-      "width": 2045,
-      "height": 592,
-      "bytes": 108142,
+      "width": 2065,
+      "height": 600,
+      "bytes": 101182,
       "number": 3,
       "image": "/paper-figures/robocasa/figure-3.webp",
       "caption": "Fig. 3: Kitchen Floor Plans. We consult home planning and architecture magazines and compile a list of common kitchen floor plans. Our floor plans take on a variety of shapes and sizes, from basic designs (e.g., one wall) to high-end ones (e.g., U-shaped w/ island).",
@@ -1627,14 +1627,14 @@
     {
       "page": 4,
       "bbox": [
-        311,
-        275.3,
-        591,
-        373.5
+        307.0,
+        271.3,
+        591.0,
+        375.6
       ],
-      "width": 1009,
-      "height": 354,
-      "bytes": 45460,
+      "width": 1023,
+      "height": 377,
+      "bytes": 43696,
       "number": 4,
       "image": "/paper-figures/robocasa/figure-4.webp",
       "caption": "Fig. 4: Examples of Interactable Appliances. Our simulation framework comes with dozens of appliances. Several types of appliances are articulated. For example, we can open and close doors on microwaves and twist knobs on stoves. Some appliances can undergo state changes, e.g., when we turn the knob on the stove, the corresponding burner turns on.",
@@ -1647,14 +1647,14 @@
     {
       "page": 5,
       "bbox": [
-        21,
-        46,
-        301,
-        201.3
+        21.0,
+        46.0,
+        305.0,
+        203.4
       ],
-      "width": 1009,
-      "height": 560,
-      "bytes": 95464,
+      "width": 1023,
+      "height": 568,
+      "bytes": 92716,
       "number": 5,
       "image": "/paper-figures/robocasa/figure-5.webp",
       "caption": "Fig. 5: Diverse High-Quality 3D Objects. RoboCasa offers 2,509 high- quality 3D objects across 153 diverse categories spanning vegetables, poultry, drinks, and more. Here we illustrate a small subset of these objects.",
@@ -1667,14 +1667,14 @@
     {
       "page": 6,
       "bbox": [
-        22,
-        73.9,
-        590,
-        231.3
+        22.0,
+        46.2,
+        590.0,
+        233.3
       ],
       "width": 2045,
-      "height": 568,
-      "bytes": 118020,
+      "height": 675,
+      "bytes": 122270,
       "number": 6,
       "image": "/paper-figures/robocasa/figure-6.webp",
       "caption": "Fig. 6: Creating Diverse Tasks with Large Language Models. We employ LLMs to generate diverse tasks. First, we prompt GPT-4 to give diverse high-level kitchen activities. Subsequently, for each activity, we prompt GPT-4 (or Gemini 1.5) to suggest a diverse set of representative tasks. We illustrate one such task “Preparing the Microwave For Steaming” for the activity label “Steaming Vegetables”.",
@@ -1687,14 +1687,14 @@
     {
       "page": 7,
       "bbox": [
-        22,
-        25,
-        590,
-        185
+        22.0,
+        25.0,
+        590.0,
+        187.1
       ],
       "width": 2045,
-      "height": 577,
-      "bytes": 29142,
+      "height": 584,
+      "bytes": 28348,
       "number": 7,
       "image": "/paper-figures/robocasa/figure-7.webp",
       "caption": "Fig. 7: Comparison between human demonstrations and machine-generated datasets. We present learning results across 24 atomic tasks spanning diverse robot skills. We compare training on four different multi-task datasets, including a human dataset with 50 demonstrations per task, a machine generated dataset with 3000 demonstrations per task, and smaller variants with 300 or 100 demonstrations per task. We group task results according to their corresponding sensorimotor skills (see Figure 13 for a full breakdown of results by task). We see a clear scaling trend: increasing the size of the generated dataset can yield consistently higher overall success rates, eventually significantly outperforming performance on human datasets.",
@@ -1707,14 +1707,14 @@
     {
       "page": 7,
       "bbox": [
-        311,
-        241,
-        591,
-        327.5
+        311.0,
+        241.0,
+        591.0,
+        329.5
       ],
       "width": 1009,
-      "height": 312,
-      "bytes": 21406,
+      "height": 320,
+      "bytes": 20986,
       "number": 8,
       "image": "/paper-figures/robocasa/figure-8.webp",
       "caption": "Fig. 8: Learning Results on Composite Tasks. We learn single-task policies for five representative composite tasks. We compare learning these tasks from scratch with 50 human demonstrations versus fine-tuning a policy trained on machine-generated atomic task data. The fine-tuning method performs better but still struggles to learn robust behaviors.",
@@ -1727,14 +1727,14 @@
     {
       "page": 8,
       "bbox": [
-        21,
-        25,
-        301,
-        137.7
+        21.0,
+        25.0,
+        305.0,
+        139.8
       ],
-      "width": 1009,
-      "height": 406,
-      "bytes": 48438,
+      "width": 1024,
+      "height": 414,
+      "bytes": 45130,
       "number": 9,
       "image": "/paper-figures/robocasa/figure-9.webp",
       "caption": "Fig. 9: Real-World Experiment Setup. We conduct experiments in a real- world kitchen environment with a Franka Emika Panda arm on a wheeled mobile platform. The two pictures illustrate two of the three evaluation tasks: (left) pick and place an object from the counter to the cabinet, and (right) pick and place an object from the counter to the sink.",
@@ -1747,14 +1747,14 @@
     {
       "page": 8,
       "bbox": [
-        311,
-        25,
-        591,
-        171.5
+        311.0,
+        25.0,
+        591.0,
+        173.6
       ],
       "width": 1009,
-      "height": 528,
-      "bytes": 41446,
+      "height": 535,
+      "bytes": 40740,
       "number": 10,
       "image": "/paper-figures/robocasa/figure-10.webp",
       "caption": "Fig. 10: Real Robot Evaluations. In a real-world kitchen domain with only a handful of demonstrations, we explore co-training policies with our simulation data. Compared to training policies exclusively on in-domain real- world demonstrations, co-training substantially improves policy performance.",
