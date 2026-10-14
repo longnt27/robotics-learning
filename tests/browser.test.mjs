@@ -286,6 +286,29 @@ try {
     await page.close();
   }
 
+
+  // A normal article must never fetch its 15-slide deck until the user asks for it.
+  const mobileReader=await browser.newPage({viewport:{width:390,height:844}});
+  let deckRequests=0;
+  mobileReader.on('request',request=>{
+    if (new URL(request.url()).pathname==='/api/papers/vima/slides') deckRequests++;
+  });
+  const perfErrors=[];
+  mobileReader.on('pageerror',error=>perfErrors.push(error.message));
+  await mobileReader.goto(baseUrl+'/paper/vima',{waitUntil:'domcontentloaded'});
+  await mobileReader.getByRole('tab',{name:/DIỄN GIẢI CHI TIẾT/}).waitFor({state:'visible'});
+  assert.equal(deckRequests,0,'Opening article on mobile must not fetch a slide deck');
+  await mobileReader.getByRole('tab',{name:/SLIDE/}).click();
+  await mobileReader.locator('.brief-slide-stage').waitFor({state:'visible'});
+  assert.equal(deckRequests,1,'First Slides tab open fetches one deck');
+  await mobileReader.getByRole('tab',{name:/DIỄN GIẢI CHI TIẾT/}).click();
+  await mobileReader.getByRole('tab',{name:/SLIDE/}).click();
+  await mobileReader.locator('.brief-slide-stage').waitFor({state:'visible'});
+  assert.equal(deckRequests,1,'Reopening Slides tab reuses memory cache');
+  assert.deepEqual(perfErrors,[],'Lazy slide-loading introduces no runtime exception');
+  await mobileReader.close();
+  console.log('PASS: mobile article excludes slide requests until clicked and reuses cached deck');
+
 } finally {
   await browser.close();
 }
