@@ -1,0 +1,872 @@
+{
+  "version": 1,
+  "origin": "Manual review of original PDF contact sheets and selected full-size source pages; all rectangles explicitly hand-chosen.",
+  "papers": {
+    "vima": {
+      "overrides": {
+        "1": {
+          "bbox": [
+            22,
+            60,
+            590,
+            317
+          ],
+          "why": "Preserve the full multimodal prompt headings and panels; exclude running header. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
+        },
+        "2": {
+          "bbox": [
+            71,
+            63,
+            550,
+            184
+          ],
+          "why": "Keep generalization arrow and all five examples"
+        },
+        "3": {
+          "bbox": [
+            98,
+            60,
+            544,
+            345
+          ],
+          "why": "Recover transformer and cross-attention stages above existing crop"
+        },
+        "4": {
+          "bbox": [
+            76,
+            65,
+            542,
+            309
+          ],
+          "why": "Exclude PDF running title but retain axes and legend"
+        },
+        "5": {
+          "bbox": [
+            317,
+            62,
+            576,
+            209
+          ],
+          "why": "Remove unrelated running title, retain chart axes"
+        },
+        "6": {
+          "bbox": [
+            22,
+            64,
+            590,
+            331
+          ],
+          "why": "Recover upper visual-tokenizer bar chart missing from original crop. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
+        },
+        "7": {
+          "bbox": [
+            67,
+            61,
+            558,
+            178
+          ],
+          "why": "Remove page title; keep both lines, all four panels and legend"
+        }
+      },
+      "reviewed_all_figures": true
+    },
+    "rt-1": {
+      "overrides": {
+        "1": {
+          "bbox": [
+            44,
+            446,
+            591,
+            699
+          ],
+          "why": "Recover full two-column architecture and evaluation overview; exclude abstract. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
+        },
+        "2": {
+          "bbox": [
+            311,
+            54,
+            590,
+            473
+          ],
+          "why": "Recover entire top of architecture: language encoder, FiLM, token learner and action decoder"
+        },
+        "4": {
+          "bbox": [
+            311,
+            369,
+            591,
+            567
+          ],
+          "why": "Recover first row of task distractor scenarios"
+        },
+        "6": {
+          "bbox": [
+            313,
+            143,
+            590,
+            256
+          ],
+          "why": "Remove unrelated preceding text"
+        }
+      },
+      "reviewed_all_figures": true
+    },
+    "diffusion-policy": {
+      "overrides": {
+        "2": {
+          "bbox": [
+            312,
+            42,
+            591,
+            252
+          ],
+          "why": "Start at montage rather than top margin. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
+        },
+        "4": {
+          "bbox": [
+            312,
+            358,
+            591,
+            442
+          ],
+          "why": "Remove text paragraph above the four trajectory examples. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
+        },
+        "5": {
+          "bbox": [
+            29,
+            90,
+            301,
+            223
+          ],
+          "why": "Keep velocity comparison bar plot, exclude previous paragraph. Second visual inspection: adjusted further to retain full figure and exclude adjacent material.. Final exact source page inspection: refine figure-only boundary."
+        },
+        "7": {
+          "bbox": [
+            21,
+            373,
+            301,
+            499
+          ],
+          "why": "Remove previous table and retain robustness plots. Second visual inspection: adjusted further to retain full figure and exclude adjacent material.. Final exact source page inspection: refine figure-only boundary. Final rendered-image visual check: remove stray paragraph glyphs or retain last image row."
+        }
+      },
+      "reviewed_all_figures": true
+    },
+    "palm-e": {
+      "overrides": {
+        "3": {
+          "bbox": [
+            33,
+            57,
+            301,
+            195
+          ],
+          "why": "Exclude running header and preserve ablation bar chart. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
+        },
+        "4": {
+          "bbox": [
+            44,
+            211,
+            570,
+            406
+          ],
+          "why": "Remove unrelated table, keep entire kitchen and tabletop demonstration rows. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
+        },
+        "5": {
+          "bbox": [
+            32,
+            67,
+            300,
+            218
+          ],
+          "why": "Exclude running header while retaining chart and all legends"
+        }
+      },
+      "reviewed_all_figures": true
+    },
+    "act": {
+      "overrides": {
+        "1": {
+          "bbox": [
+            45,
+            163,
+            568,
+            328.8
+          ],
+          "why": "Exclude title/authors, preserve all ALOHA teleoperation examples"
+        },
+        "3": {
+          "bbox": [
+            52,
+            25,
+            562,
+            189
+          ],
+          "why": "Tighten crop to complete ALOHA hardware diagram. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
+        },
+        "4": {
+          "bbox": [
+            32,
+            143,
+            578,
+            264
+          ],
+          "why": "Exclude Table I caption; preserve all three tracking-error plots and time-axis labels"
+        },
+        "5": {
+          "bbox": [
+            70,
+            54,
+            549,
+            178
+          ],
+          "why": "Preserve full ACT encoder/decoder diagram, exclude excess whitespace"
+        },
+        "6": {
+          "bbox": [
+            92,
+            229,
+            301,
+            361
+          ],
+          "why": "Recover upper action-chunking rows, retain temporal-ensemble row; exclude right-column prose. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
+        },
+        "7": {
+          "bbox": [
+            62,
+            56,
+            551,
+            730
+          ],
+          "why": "Recover all six real-world task sequences, their prompts and subtasks; original crop omitted first three rows"
+        },
+        "8": {
+          "bbox": [
+            47,
+            39,
+            565,
+            137
+          ],
+          "why": "Preserve both simulator panels and their figure-internal descriptions"
+        },
+        "9": {
+          "bbox": [
+            50,
+            59,
+            557,
+            179
+          ],
+          "why": "Remove running whitespace while retaining all ablation plots and legends"
+        }
+      },
+      "reviewed_all_figures": true
+    },
+    "libero": {
+      "overrides": {
+        "5": {
+          "bbox": [
+            100,
+            568,
+            537,
+            657
+          ],
+          "why": "Remove preceding paper prose and capture complete pretraining comparison bars. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
+        }
+      },
+      "reviewed_all_figures": true
+    },
+    "rt-2": {
+      "overrides": {
+        "3": {
+          "bbox": [
+            44,
+            541,
+            557,
+            627
+          ],
+          "why": "Keep all three scenario categories; exclude preceding method paragraph"
+        },
+        "5": {
+          "bbox": [
+            73,
+            81,
+            337,
+            154
+          ],
+          "why": "Original crop only showed left half of cross-domain real-world sequence; restore all panels. Second visual inspection: adjusted further to retain full figure and exclude adjacent material.. Final exact source page inspection: refine figure-only boundary."
+        },
+        "7": {
+          "bbox": [
+            49,
+            78,
+            557,
+            341
+          ],
+          "why": "Recover text-based chains of reasoning above rollout photo grid. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
+        }
+      },
+      "reviewed_all_figures": true
+    },
+    "bridgedata-v2": {
+      "overrides": {
+        "1": {
+          "bbox": [
+            80,
+            426,
+            555,
+            631
+          ],
+          "why": "Trim arXiv side label; retain skill and environment montage"
+        },
+        "2": {
+          "bbox": [
+            102,
+            168,
+            271,
+            280
+          ],
+          "why": "Fix completely wrong source column: actual annotated WidowX robot setup is on left; original crop blank on right"
+        },
+        "3": {
+          "bbox": [
+            82,
+            62,
+            545,
+            198
+          ],
+          "why": "Keep both full task and scene pie charts"
+        },
+        "5": {
+          "bbox": [
+            104,
+            558,
+            523,
+            654
+          ],
+          "why": "Exclude two unrelated paragraphs and discussion heading; retain three scaling figures"
+        }
+      },
+      "reviewed_all_figures": true
+    },
+    "mimicplay": {
+      "overrides": {
+        "1": {
+          "bbox": [
+            78,
+            408,
+            554,
+            535
+          ],
+          "why": "Exclude arXiv watermark; retain human-video and robot-demo comparison"
+        },
+        "4": {
+          "bbox": [
+            344,
+            585,
+            572,
+            678
+          ],
+          "why": "Remove surrounding unrelated prose; retain evaluation chart and legend"
+        },
+        "5": {
+          "bbox": [
+            320,
+            176,
+            590,
+            306
+          ],
+          "why": "Retain complete sequence of latent-plan examples without neighboring caption"
+        }
+      },
+      "reviewed_all_figures": true
+    },
+    "open-x-embodiment": {
+      "overrides": {
+        "1": {
+          "bbox": [
+            70,
+            477,
+            550,
+            643
+          ],
+          "why": "Remove vertical arXiv label from overview"
+        },
+        "5": {
+          "bbox": [
+            313,
+            148,
+            590,
+            344
+          ],
+          "why": "Remove preceding table and retain transfer-task example grid. Final exact source page inspection: refine figure-only boundary. Final rendered-image visual check: remove stray paragraph glyphs or retain last image row."
+        }
+      },
+      "reviewed_all_figures": true
+    },
+    "droid": {
+      "overrides": {
+        "1": {
+          "bbox": [
+            74,
+            355,
+            554,
+            576
+          ],
+          "why": "Exclude vertical arXiv margin from DROID dataset photo overview"
+        },
+        "2": {
+          "bbox": [
+            29,
+            55,
+            301,
+            246
+          ],
+          "why": "Include robot camera labels at top"
+        },
+        "10": {
+          "bbox": [
+            27,
+            401,
+            301,
+            526
+          ],
+          "why": "Remove preceding body paragraph before performance bar chart"
+        }
+      },
+      "reviewed_all_figures": true
+    },
+    "octo": {
+      "overrides": {
+        "1": {
+          "bbox": [
+            72,
+            164,
+            555,
+            506
+          ],
+          "why": "Exclude left arXiv margin; retain Octo overview and task icons"
+        },
+        "2": {
+          "bbox": [
+            26,
+            54,
+            586,
+            307
+          ],
+          "why": "Restore upper diagram with task and observation tokenization stages"
+        },
+        "3": {
+          "bbox": [
+            311,
+            41,
+            591,
+            277
+          ],
+          "why": "Direct full-page PDF inspection: preserve the figure title/legend and exclude adjacent non-figure text."
+        },
+        "5": {
+          "bbox": [
+            312,
+            389,
+            591,
+            541
+          ],
+          "why": "Remove preceding section text, keep zero-shot outcome bars. Final exact source page inspection: refine figure-only boundary."
+        }
+      },
+      "reviewed_all_figures": true
+    },
+    "robocasa": {
+      "overrides": {
+        "1": {
+          "bbox": [
+            71,
+            213,
+            550,
+            442
+          ],
+          "why": "Remove arXiv side watermark, preserve diverse simulated kitchen montage"
+        }
+      },
+      "reviewed_all_figures": true
+    },
+    "openvla": {
+      "overrides": {
+        "1": {
+          "bbox": [
+            72,
+            194,
+            552,
+            420
+          ],
+          "why": "Exclude arXiv vertical identifier"
+        },
+        "2": {
+          "bbox": [
+            61,
+            74,
+            557,
+            224
+          ],
+          "why": "Recover upper OpenVLA architecture title and tokenized action flow"
+        },
+        "6": {
+          "bbox": [
+            103,
+            456,
+            346,
+            560
+          ],
+          "why": "Exclude unrelated preceding prose and right-side Table 2; retain complete GPU inference bars. Second visual inspection: adjusted further to retain full figure and exclude adjacent material.. Final exact source page inspection: refine figure-only boundary. Final rendered-image visual check: remove stray paragraph glyphs or retain last image row."
+        }
+      },
+      "reviewed_all_figures": true
+    },
+    "rdt-1b": {
+      "overrides": {
+        "1": {
+          "bbox": [
+            74,
+            65,
+            542,
+            262
+          ],
+          "why": "Recover RDT-1B diagram header above original crop"
+        },
+        "3": {
+          "bbox": [
+            73,
+            52,
+            538,
+            240
+          ],
+          "why": "Restore full unified action-space diagram upper panels"
+        },
+        "4": {
+          "bbox": [
+            328,
+            384,
+            575,
+            548
+          ],
+          "why": "Remove unrelated preceding two-column paper text"
+        },
+        "5": {
+          "bbox": [
+            74,
+            69,
+            547,
+            527
+          ],
+          "why": "Recover upper several visual rows of language-directed bimanual tasks"
+        }
+      },
+      "reviewed_all_figures": true
+    },
+    "fast": {
+      "overrides": {
+        "1": {
+          "bbox": [
+            311,
+            207,
+            590,
+            623
+          ],
+          "why": "Recover upper plot from long right-column teaser. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
+        },
+        "2": {
+          "bbox": [
+            311,
+            58,
+            591,
+            291
+          ],
+          "why": "Restore robots and FAST tokenization top panels; original showed only lower half"
+        },
+        "7": {
+          "bbox": [
+            24,
+            339,
+            301,
+            495
+          ],
+          "why": "Exclude prose above robot environment montage"
+        },
+        "11": {
+          "bbox": [
+            21,
+            316,
+            301,
+            436
+          ],
+          "why": "Exclude caption of previous figure; keep policy performance bars"
+        }
+      },
+      "reviewed_all_figures": true
+    },
+    "groot-n1": {
+      "overrides": {
+        "5": {
+          "bbox": [
+            78,
+            89,
+            538,
+            544
+          ],
+          "why": "Recover all seven synthetic video strips, not only the bottom five"
+        },
+        "10": {
+          "bbox": [
+            74,
+            437,
+            531,
+            628
+          ],
+          "why": "Exclude body text before graph, retain quantitative comparison"
+        },
+        "13": {
+          "bbox": [
+            84,
+            80,
+            530,
+            641
+          ],
+          "why": "Recover first three rows of multi-view trajectories above previous crop"
+        },
+        "14": {
+          "bbox": [
+            70,
+            147,
+            533,
+            658
+          ],
+          "why": "Recover top two egocentric data sample datasets above old crop"
+        }
+      },
+      "reviewed_all_figures": true
+    },
+    "pi-0-5": {
+      "overrides": {
+        "1": {
+          "bbox": [
+            64,
+            225,
+            560,
+            499
+          ],
+          "why": "Exclude arXiv margin and retain all task overview panels"
+        },
+        "3": {
+          "bbox": [
+            50,
+            57,
+            567,
+            269
+          ],
+          "why": "Recover model pre-training and post-training task and action labels. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
+        },
+        "7": {
+          "bbox": [
+            45,
+            236,
+            574,
+            416
+          ],
+          "why": "Recover first evaluation task row plus all home success bar charts. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
+        }
+      },
+      "reviewed_all_figures": true
+    },
+    "rtc-inference": {
+      "overrides": {
+        "1": {
+          "bbox": [
+            64,
+            438,
+            552,
+            634
+          ],
+          "why": "Exclude arXiv watermark and keep full trajectory charts"
+        },
+        "2": {
+          "bbox": [
+            300,
+            240,
+            591,
+            354
+          ],
+          "why": "Exclude preceding flow-matching prose; preserve bifurcation diagram. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
+        },
+        "4": {
+          "bbox": [
+            377,
+            143,
+            509,
+            238
+          ],
+          "why": "Remove unrelated left- and right-column text around cross-chunk comparison plot"
+        },
+        "6": {
+          "bbox": [
+            113,
+            380,
+            529,
+            589
+          ],
+          "why": "Remove preceding prose and keep all controller latency plots. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
+        }
+      },
+      "reviewed_all_figures": true
+    },
+    "rtc-training": {
+      "overrides": {
+        "2": {
+          "bbox": [
+            321,
+            50,
+            563,
+            279
+          ],
+          "why": "Restore top of conditioning architecture diagram, missing no-loss/flow-loss row"
+        },
+        "3": {
+          "bbox": [
+            96,
+            141,
+            296,
+            310
+          ],
+          "why": "Restore top two-thirds of inference-delay vs success-rate graph"
+        },
+        "4": {
+          "bbox": [
+            311,
+            86,
+            570,
+            181
+          ],
+          "why": "Remove text above real-world robot tasks"
+        },
+        "5": {
+          "bbox": [
+            326,
+            417,
+            572,
+            615
+          ],
+          "why": "Remove text above plots, retain two task's success and duration bar charts"
+        }
+      },
+      "reviewed_all_figures": true
+    },
+    "qwen-vla": {
+      "overrides": {
+        "1": {
+          "bbox": [
+            75,
+            490,
+            538,
+            736
+          ],
+          "why": "Exclude arXiv label, keep full task-and-data overview"
+        },
+        "6": {
+          "bbox": [
+            69,
+            79,
+            536,
+            225
+          ],
+          "why": "Remove running paper header above T2A synthetic data plots"
+        },
+        "7": {
+          "bbox": [
+            71,
+            109,
+            535,
+            266
+          ],
+          "why": "Remove unrelated prior paragraph, retain vision-language co-training charts"
+        }
+      },
+      "reviewed_all_figures": true
+    },
+    "lingbot-vla-2": {
+      "overrides": {
+        "3": {
+          "bbox": [
+            141,
+            68,
+            468,
+            327
+          ],
+          "why": "Recover entire robotic/egocentric dataset filtering diagram; original cropped left and top"
+        },
+        "5": {
+          "bbox": [
+            82,
+            67,
+            548,
+            351
+          ],
+          "why": "Include complete chart legend and upper label for per-action statistics"
+        },
+        "6": {
+          "bbox": [
+            113,
+            394,
+            520,
+            501
+          ],
+          "why": "Tight crop to word cloud, no model text"
+        },
+        "7": {
+          "bbox": [
+            78,
+            492,
+            534,
+            626
+          ],
+          "why": "Remove unrelated MoE derivation paragraphs; retain training and validation curves"
+        },
+        "8": {
+          "bbox": [
+            65,
+            65,
+            549,
+            407
+          ],
+          "why": "Recover top row of spatiotemporal feature analysis bars"
+        },
+        "9": {
+          "bbox": [
+            340,
+            384,
+            563,
+            542
+          ],
+          "why": "Crop only the two robot embodiment examples. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
+        },
+        "11": {
+          "bbox": [
+            76,
+            353,
+            552,
+            542
+          ],
+          "why": "Exclude previous figure while retaining all token-distribution plots. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
+        },
+        "12": {
+          "bbox": [
+            70,
+            147,
+            548,
+            335
+          ],
+          "why": "Exclude unrelated prose, retain latency and performance comparisons. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
+        }
+      },
+      "reviewed_all_figures": true
+    }
+  }
+}
