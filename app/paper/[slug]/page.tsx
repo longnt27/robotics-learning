@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { papers, getPaper } from "@/lib/papers";
 import { relations } from "@/lib/relations";
 import { getPaperChapter } from "@/lib/content";
-import { getResearchSlides } from "@/lib/slides";
+import {getPaperFigures} from "@/lib/paper-figures";
 import { PaperReader } from "@/components/paper-reader";
 import { ReadingScrollTop } from "@/components/reading-scroll-top";
 
@@ -20,6 +20,7 @@ export default async function PaperPage({params}: {params: Promise<{slug: string
   const {slug} = await params;
   const paper = getPaper(slug);
   if (!paper) notFound();
-  const [chapter, slides] = await Promise.all([getPaperChapter(slug), getResearchSlides(slug)]);
-  return <><PaperReader paper={paper} chapter={chapter} relations={relations} slides={slides}/><ReadingScrollTop/></>;
+  const chapter = await getPaperChapter(slug);
+  const figures = getPaperFigures(slug);
+  return <><PaperReader paper={paper} chapter={chapter} relations={relations} figures={figures}/><ReadingScrollTop/></>;
 }
