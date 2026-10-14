@@ -2759,14 +2759,14 @@
     {
       "page": 1,
       "bbox": [
-        22,
-        441.1,
-        590,
-        631.8
+        64,
+        438,
+        552,
+        634
       ],
-      "width": 2045,
-      "height": 688,
-      "bytes": 139622,
+      "width": 1758,
+      "height": 707,
+      "bytes": 160256,
       "number": 1,
       "image": "/paper-figures/rtc-inference/figure-1.webp",
       "caption": "Figure 1: Top: Real-time chunking (RTC) enables the robot to perform highly dexterous and dynamic tasks, such as lighting a match—even in the presence of inference delays in excess of 300 milliseconds, corresponding to more than 30% of the model’s prediction horizon. Bottom: RTC performs the same robot motion 20% faster than synchronous inference [5, 30, 8, 24, 31, 59], and smoother than all competing methods, including temporal ensembling [68]. The shown positions, velocities, and accelerations correspond to the shoulder joint of one arm, and are taken from the first 10 seconds of a real autonomous match-lighting rollout.",
@@ -2779,14 +2779,14 @@
     {
       "page": 3,
       "bbox": [
-        311,
-        133.8,
-        591,
-        353.8
+        316,
+        244,
+        589,
+        354
       ],
-      "width": 1009,
-      "height": 793,
-      "bytes": 52692,
+      "width": 984,
+      "height": 397,
+      "bytes": 25370,
       "number": 2,
       "image": "/paper-figures/rtc-inference/figure-2.webp",
       "caption": "Figure 2: An illustration of a typical bifurcation be- tween consecutive chunks. Inference is started between timesteps 3 and 4. The original chunk that was execut- ing, {at} (black), had planned to go above the obstacle while the newly generated chunk {a′ t} (red) goes be- low the obstacle. However, {a′ t} is not available until d = 7 steps later. A naive asynchronous algorithm might jump from a10 to a′ 11, inducing a very high, out- of-distribution acceleration. Temporal ensembling [68], i.e., interpolating between chunks, reduces the acceler- ation but produces poor actions.",
@@ -2819,14 +2819,14 @@
     {
       "page": 5,
       "bbox": [
-        311,
-        25,
-        591,
-        244.6
+        377,
+        143,
+        509,
+        238
       ],
-      "width": 1009,
-      "height": 791,
-      "bytes": 53594,
+      "width": 476,
+      "height": 343,
+      "bytes": 21674,
       "number": 4,
       "image": "/paper-figures/rtc-inference/figure-4.webp",
       "caption": "Figure 4: A comparison of naive in- painting (hard masking) and our pro- posed soft masking method: note that hard masking does not match the frozen region very well and produces faster changes in direction.",
@@ -2859,14 +2859,14 @@
     {
       "page": 8,
       "bbox": [
-        22,
-        325.1,
-        590,
-        590.1
+        50,
+        418,
+        573,
+        588
       ],
-      "width": 2045,
-      "height": 955,
-      "bytes": 122104,
+      "width": 1883,
+      "height": 613,
+      "bytes": 71544,
       "number": 6,
       "image": "/paper-figures/rtc-inference/figure-6.webp",
       "caption": "Figure 6: Top: Controller steps (equivalent to elapsed time with inference pauses removed multiplied by 50Hz) vs. cumulative progress for each task, aggregated across all delays. Progress is measured in discrete steps corresponding to the subsections of each task. Left: Time (including inference pauses) vs. cumulative progress aggregated across all tasks. The x-axis is log scale to better show progress during both short and long-horizon tasks. Right: Inference delay vs. average throughput, defined as the proportion of task completed divided by duration of episode averaged over episodes. Error bars are ±1 SEM. Average throughput gives a balanced view of both speed and performance for each method. Neither TE variant can run at +100 or +200ms of injected latency, causing such high oscillations that the robot’s protective stop is triggered.",
