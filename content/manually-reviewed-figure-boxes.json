@@ -134,20 +134,20 @@
         "5": {
           "bbox": [
             29,
-            64,
+            90,
             301,
             223
           ],
-          "why": "Keep velocity comparison bar plot, exclude previous paragraph. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
+          "why": "Keep velocity comparison bar plot, exclude previous paragraph. Second visual inspection: adjusted further to retain full figure and exclude adjacent material.. Final exact source page inspection: refine figure-only boundary."
         },
         "7": {
           "bbox": [
             21,
-            344,
+            365,
             301,
             499
           ],
-          "why": "Remove previous table and retain robustness plots. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
+          "why": "Remove previous table and retain robustness plots. Second visual inspection: adjusted further to retain full figure and exclude adjacent material.. Final exact source page inspection: refine figure-only boundary."
         }
       },
       "reviewed_all_figures": true
@@ -290,10 +290,10 @@
           "bbox": [
             73,
             81,
-            323,
+            337,
             154
           ],
-          "why": "Original crop only showed left half of cross-domain real-world sequence; restore all panels. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
+          "why": "Original crop only showed left half of cross-domain real-world sequence; restore all panels. Second visual inspection: adjusted further to retain full figure and exclude adjacent material.. Final exact source page inspection: refine figure-only boundary."
         },
         "7": {
           "bbox": [
@@ -393,12 +393,12 @@
         },
         "5": {
           "bbox": [
-            325,
-            162,
-            582,
-            342
+            313,
+            148,
+            590,
+            340
           ],
-          "why": "Remove preceding table and retain transfer-task example grid"
+          "why": "Remove preceding table and retain transfer-task example grid. Final exact source page inspection: refine figure-only boundary."
         }
       },
       "reviewed_all_figures": true
@@ -455,14 +455,23 @@
           ],
           "why": "Restore upper diagram with task and observation tokenization stages"
         },
+        "3": {
+          "bbox": [
+            311,
+            41,
+            591,
+            277
+          ],
+          "why": "Direct full-page PDF inspection: preserve the figure title/legend and exclude adjacent non-figure text."
+        },
         "5": {
           "bbox": [
-            316,
-            420,
+            312,
+            389,
             591,
             541
           ],
-          "why": "Remove preceding section text, keep zero-shot outcome bars"
+          "why": "Remove preceding section text, keep zero-shot outcome bars. Final exact source page inspection: refine figure-only boundary."
         }
       },
       "reviewed_all_figures": true
@@ -504,11 +513,11 @@
         "6": {
           "bbox": [
             103,
-            431,
+            450,
             346,
             560
           ],
-          "why": "Exclude unrelated preceding prose and right-side Table 2; retain complete GPU inference bars. Second visual inspection: adjusted further to retain full figure and exclude adjacent material."
+          "why": "Exclude unrelated preceding prose and right-side Table 2; retain complete GPU inference bars. Second visual inspection: adjusted further to retain full figure and exclude adjacent material.. Final exact source page inspection: refine figure-only boundary."
         }
       },
       "reviewed_all_figures": true
