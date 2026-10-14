@@ -1241,14 +1241,14 @@
     {
       "page": 6,
       "bbox": [
-        325,
-        162,
-        582,
-        342
+        313,
+        148,
+        590,
+        340
       ],
-      "width": 926,
-      "height": 649,
-      "bytes": 98442,
+      "width": 998,
+      "height": 692,
+      "bytes": 104140,
       "number": 5,
       "image": "/paper-figures/open-x-embodiment/figure-5.webp",
       "caption": "Fig. 5: To assess transfer between embodiments, we evaluate the RT-2-X model on out-of-distribution skills. These skills are in the Bridge dataset, but not in the Google Robot dataset (the embodiment they are evaluated on). across robotic datasets. Contrary to previous RT-2 findings, co-fine-tuning and fine-tuning have similar performance in both the Emergent Skills and Generalization Evaluation (row (4) vs row (7)), which we attribute to the fact that the robotics data used in RT-2-X is much more diverse than the previously used robotics datasets.",
