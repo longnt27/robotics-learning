@@ -21,6 +21,6 @@ export default async function PaperPage({params}: {params: Promise<{slug: string
   const paper = getPaper(slug);
   if (!paper) notFound();
   const chapter = await getPaperChapter(slug);
-  const figures = (figureManifest as Record<string, typeof figureManifest[keyof typeof figureManifest]>)[slug] ?? [];
+  const figures = figureManifest[slug as keyof typeof figureManifest] ?? [];
   return <><PaperReader paper={paper} chapter={chapter} relations={relations} figures={figures}/><ReadingScrollTop/></>;
 }
