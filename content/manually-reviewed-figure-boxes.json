@@ -143,11 +143,11 @@
         "7": {
           "bbox": [
             21,
-            365,
+            373,
             301,
             499
           ],
-          "why": "Remove previous table and retain robustness plots. Second visual inspection: adjusted further to retain full figure and exclude adjacent material.. Final exact source page inspection: refine figure-only boundary."
+          "why": "Remove previous table and retain robustness plots. Second visual inspection: adjusted further to retain full figure and exclude adjacent material.. Final exact source page inspection: refine figure-only boundary. Final rendered-image visual check: remove stray paragraph glyphs or retain last image row."
         }
       },
       "reviewed_all_figures": true
@@ -396,9 +396,9 @@
             313,
             148,
             590,
-            340
+            344
           ],
-          "why": "Remove preceding table and retain transfer-task example grid. Final exact source page inspection: refine figure-only boundary."
+          "why": "Remove preceding table and retain transfer-task example grid. Final exact source page inspection: refine figure-only boundary. Final rendered-image visual check: remove stray paragraph glyphs or retain last image row."
         }
       },
       "reviewed_all_figures": true
@@ -513,11 +513,11 @@
         "6": {
           "bbox": [
             103,
-            450,
+            456,
             346,
             560
           ],
-          "why": "Exclude unrelated preceding prose and right-side Table 2; retain complete GPU inference bars. Second visual inspection: adjusted further to retain full figure and exclude adjacent material.. Final exact source page inspection: refine figure-only boundary."
+          "why": "Exclude unrelated preceding prose and right-side Table 2; retain complete GPU inference bars. Second visual inspection: adjusted further to retain full figure and exclude adjacent material.. Final exact source page inspection: refine figure-only boundary. Final rendered-image visual check: remove stray paragraph glyphs or retain last image row."
         }
       },
       "reviewed_all_figures": true
