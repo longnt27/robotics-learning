@@ -80,7 +80,7 @@ test('RTC Training-Time projects concise visuals and reserves all narration for 
  assert.match(component,/const visualFirst=slide\?\.stageMode==="visual-first"/);
  assert.match(component,/slide\.detail&&!audienceOnly&&<aside/);
  assert.match(component,/!audienceOnly&&slide\.type!=="cover"/);
- assert.match(component,/notes&&<div className="brief-speaker-notes"/);
+ assert.match(component,/notes&&!presenterWindow&&<div className="brief-speaker-notes"/);
  assert.match(component,/slide\.detail&&<p><strong>\{slide\.detail\.label\}/);
 });
 
