@@ -1870,13 +1870,13 @@
       "page": 10,
       "bbox": [
         103,
-        431,
+        450,
         346,
         560
       ],
       "width": 876,
-      "height": 465,
-      "bytes": 27324,
+      "height": 396,
+      "bytes": 14826,
       "number": 6,
       "image": "/paper-figures/openvla/figure-6.webp",
       "caption": "Figure 6: OpenVLA inference speed for various GPUs. Both bfloat16 and int4 quantization achieve high throughput, especially on GPUs with Ada Lovelace architecture (RTX 4090, H100). Fur- ther speed-ups are possible with modern LLM inference frame- works like TensorRT-LLM [89]. ♠: Model sharded across two GPUs to fit.",
