@@ -95,7 +95,7 @@ test('Presenter View isolates all private speaker text in a separate document',(
  assert.match(ui,/notes&&!presenterWindow&&<div className="brief-speaker-notes"/,'Never put notes in the shared window while presenting');
  assert.match(ui,/slide\.detail&&!audienceOnly&&<aside/,'Hide private explanatory panel in audience projection');
  assert.match(ui,/presenterWindow\?\.addEventListener\("keydown",handler\)/,'Keys work from the private popup');
- assert.match(ui,/popup\.addEventListener\("pagehide",handleClose\)/,'Private window closing is handled');
+ assert.match(ui,/presenterWindow\.addEventListener\("pagehide",handleClose\)/,'Private window closing is handled');
  assert.match(panel,/createPortal\(/,'Notes render in a separate DOM document');
  assert.match(panel,/popup\.document\.body/,'Notes go only to the private popup');
  assert.match(panel,/data-private-presenter/);
