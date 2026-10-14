@@ -112,3 +112,13 @@ test('metered devices do not initialize WebGL just to read the library',()=>{
   assert.match(ambient,/document\.hidden/,'Pause expensive rendering when page is hidden');
   assert.match(ambient,/limit\.matches/,'Small mobile screens must keep 3D disabled');
 });
+
+test('unrelated repository and model links never enter a paper client bundle',()=>{
+  const page=fs.readFileSync(path.join(root,'app/paper/[slug]/page.tsx'),'utf8');
+  const reader=fs.readFileSync(path.join(root,'components/paper-reader.tsx'),'utf8');
+  const server=fs.readFileSync(path.join(root,'lib/paper-resources.ts'),'utf8');
+  assert.match(server,/server-only/);
+  assert.match(page,/getPaperResources\(slug\)/);
+  assert.doesNotMatch(reader,/paper-resources\.json/);
+  assert.match(reader,/resources:PaperResource\[\]/);
+});
