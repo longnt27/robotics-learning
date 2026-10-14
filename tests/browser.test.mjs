@@ -327,6 +327,41 @@ try {
   console.log('PASS: RTC Training-Time projects visuals; explanation remains in presenter notes');
 
 
+  // Regression: restore a slide *presentation*, not four microscopic cards beside an image.
+  // Test actual computed CSS, not only the authored slide JSON.
+  const academicLayout=await browser.newPage({viewport:{width:1280,height:800}});
+  await academicLayout.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=6',{waitUntil:'domcontentloaded'});
+  const flow=academicLayout.locator('.brief-slide-art-with-figure .brief-flow');
+  await flow.waitFor({state:'visible',timeout:15000});
+  const trainingColumns=await flow.evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').filter(Boolean).length);
+  assert.equal(trainingColumns,2,'Four training steps next to an original-paper diagram must be a readable 2×2 flow, never four cramped columns');
+  const trainingCardWidth=(await flow.locator('.brief-flow-stage').first().boundingBox())?.width ?? 0;
+  assert.ok(trainingCardWidth>=170,`Training step width too small: ${trainingCardWidth}`);
+
+  await academicLayout.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=5',{waitUntil:'domcontentloaded'});
+  const concepts=academicLayout.locator('.brief-slide-art-with-figure .brief-concept-grid');
+  await concepts.waitFor({state:'visible',timeout:15000});
+  const conceptColumns=await concepts.evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').filter(Boolean).length);
+  assert.equal(conceptColumns,1,'Three H/s/d explanations should stack as readable rows alongside the paper figure');
+
+  await academicLayout.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=3',{waitUntil:'domcontentloaded'});
+  const comparison=academicLayout.locator('.brief-layout-contrast');
+  await comparison.waitFor({state:'visible',timeout:15000});
+  assert.match(await comparison.locator('.brief-contrast-old').innerText(),/sinh rồi liên tục hiệu chỉnh bằng gradient/,
+    'The old RTC inference-time cost must be shown on the OLD side');
+  assert.match(await comparison.locator('.brief-contrast-new').innerText(),/học điều kiện tiền tố, sinh trực tiếp hậu tố/,
+    'The new training-time approach must be shown on the NEW side');
+  assert.doesNotMatch(await comparison.locator('.brief-contrast-new').innerText(),/CŨ:/,
+    'Never label a previous method as the innovation');
+
+  await academicLayout.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=10',{waitUntil:'domcontentloaded'});
+  await academicLayout.locator('.brief-layout-equation .katex').waitFor({state:'visible',timeout:15000});
+  assert.match(await academicLayout.locator('.brief-layout-equation h2').innerText(),/Công thức trung tâm/);
+  assert.equal(await academicLayout.locator('.brief-slide-stage .brief-slide-detail').count(),0,
+    'The complete flow-matching equation is projected, but presenter narration is not');
+  await academicLayout.close();
+  console.log('PASS: restored RTC science uses readable figure/flow grids and visible KaTeX');
+
   // Presenter View uses a separate native document. Simulate Chromium's Document
   // Picture-in-Picture by opening an isolated same-origin popup. This verifies
   // React portals and audience/private DOM boundaries, not Teams OS capture.
@@ -360,7 +395,7 @@ try {
   await presenterPage.locator('.brief-layout-intuition').waitFor({state:'visible',timeout:7000});
   await presenterPopup.keyboard.press('ArrowRight');
   await presenterPage.waitForFunction(()=>new URL(location.href).searchParams.get('slide')==='5');
-  await presenterPopup.getByText('H, s, d: ba đại lượng cần nhớ').waitFor({state:'visible',timeout:7000});
+  await presenterPopup.getByText('Ba đại lượng quyết định liệu RTC có nối được đoạn').waitFor({state:'visible',timeout:7000});
 
   await presenterPopup.close(); // user closing the OS popup must restore the normal reader
   await presenterPage.locator('.brief-deck-presenting').waitFor({state:'detached',timeout:7000});

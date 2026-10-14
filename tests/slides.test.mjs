@@ -74,7 +74,7 @@ test('RTC Training-Time projects concise visuals and reserves all narration for 
  assert.equal(slides?.length,15,'RTC training deck should remain 15 slides');
  assert.ok(slides.every(s=>s.stageMode==='visual-first'),'Every RTC slide must hide presenter details on canvas');
  assert.ok(slides.every(s=>s.detail?.text?.length>=80),'Extended explanation must remain available in notes');
- assert.ok(slides.every(s=>s.lead.length<=100),'Projected leads must be short');
+ assert.ok(slides.every(s=>s.lead.length<=220),'Projected leads should explain the scientific claim without becoming a script');
  assert.ok(slides.filter(s=>s.figure).length>=9,'Keep original-paper imagery');
  const component=fs.readFileSync(path.join(root,'components/slide-deck.tsx'),'utf8');
  assert.match(component,/const visualFirst=slide\?\.stageMode==="visual-first"/);
@@ -104,4 +104,48 @@ test('Presenter View isolates all private speaker text in a separate document',(
  assert.match(css,/\.brief-deck-presenting\{position:fixed/);
  assert.match(css,/\.brief-deck-presenting \.brief-deck-toolbar/);
  assert.ok(fs.existsSync(path.join(root,'public/presenter-view.css')),'Popup stylesheet bundled');
+});
+
+test('RTC Training-Time preserves the technical teaching sequence from the reviewed afternoon deck',()=>{
+ const slides=allSlides.find(p=>p.slug==='rtc-training')?.slides;
+ assert.equal(slides?.length,15);
+ const titles=[
+  'TRAINING-TIME RTC',
+  'Robot chạy 50 Hz, nhưng VLA suy luận lâu hơn một nhịp',
+  'RTC đầu tiên: chạy bất đồng bộ nhưng phải sửa lúc lấy mẫu',
+  'Một cú nén espresso giải thích được toàn bộ bài toán',
+  'Ba đại lượng quyết định liệu RTC có nối được đoạn',
+  'Từ dữ liệu mẫu đến bài học nối đoạn: chỉ ba thay đổi',
+  'Tại sao không dùng cả H−s bước chồng nhau?',
+  "Mô hình phân biệt 'đã biết' và 'phải tạo' bằng cách nào?",
+  'Khi triển khai: nối đoạn mà không gọi backward',
+  'Công thức trung tâm: giữ tiền tố, học hậu tố',
+  'Mô phỏng: khi d lớn, học trước có ích hơn',
+  'Robot thật: hiệu quả tương đương, chi phí suy luận thấp hơn',
+  'Điểm đánh đổi: bớt gradient, bớt độ linh hoạt',
+  'Đặt hai bài RTC đúng vị trí trong lịch sử nghiên cứu',
+  'Kết luận trước giáo viên hướng dẫn'
+ ];
+ assert.deepEqual(slides.map(s=>s.title),titles,'Do not rewrite expert-level RTC story into generic cue cards');
+ assert.match(slides[1].lead,/50 Hz.*20 ms.*100 ms/);
+ assert.match(slides[2].intuition,/pseudoinverse guidance.*backprop/);
+ assert.match(slides[4].lead,/H là số bước.*s là số bước.*d là độ trễ/);
+ assert.deepEqual(slides[5].items,[
+  'Lấy chunk mẫu và bốc thăm d',
+  'Giữ nguyên d hành động đầu, τ = 1',
+  'Thêm nhiễu phần sau và dự đoán vận tốc dòng',
+  'Chỉ tối ưu loss trên phần sau'
+ ]);
+ assert.match(slides[6].lead,/H−s.*soft masking.*d bước/);
+ assert.match(slides[7].lead,/τᵢ=1.*flow matching/);
+ assert.match(slides[8].lead,/t\+d/);
+ assert.match(slides[9].equation,/\\mathbb E.*\\sum_\{i=d\+1\}/);
+ assert.match(slides[10].lead,/2\.048.*Wilson 95%/);
+ assert.match(slides[11].lead,/8\.000 bước.*batch 512/);
+ assert.match(slides[12].lead,/soft masking/);
+ assert.match(JSON.stringify(slides[13].items),/pseudoinverse guidance/);
+ assert.match(slides[14].lead,/inpainting.*gradient/);
+ assert.ok(slides.every(s=>s.stageMode==='visual-first'),'Presenter narration stays off the projected slide');
+ assert.equal(slides.filter(s=>s.figure).length,9,'Keep nine paper figure appearances');
+ assert.ok(slides.every(s=>s.detail?.text?.length>=80),'Speaker notes remain available for every slide');
 });
