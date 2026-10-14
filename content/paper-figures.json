@@ -2901,14 +2901,14 @@
     {
       "page": 2,
       "bbox": [
-        311,
-        195.9,
-        591,
-        283.4
+        321,
+        50,
+        563,
+        279
       ],
-      "width": 1009,
-      "height": 316,
-      "bytes": 24310,
+      "width": 872,
+      "height": 825,
+      "bytes": 43380,
       "number": 2,
       "image": "/paper-figures/rtc-training/figure-2.webp",
       "caption": "Fig. 2: An illustration of our conditioning architecture, as applied to a standard diffusion transformer such as the π0.6 action expert. We always feed in ground-truth, non-noisy prefix actions, while learning to denoise the postfix actions. The flow matching timestep differs between tokens, which indicates the inference delay to the model.",
@@ -2921,14 +2921,14 @@
     {
       "page": 3,
       "bbox": [
-        21,
-        227.7,
-        301,
-        309.8
+        96,
+        141,
+        296,
+        310
       ],
-      "width": 1009,
-      "height": 297,
-      "bytes": 14564,
+      "width": 721,
+      "height": 609,
+      "bytes": 33076,
       "number": 3,
       "image": "/paper-figures/rtc-training/figure-3.webp",
       "caption": "Fig. 3: Simulated results: inference delay vs. solve rate with a fixed execution horizon of s = max(d, 1). Training-time RTC performs better than inference- time RTC at inference delays of 2 or higher. Each data point represents 2048 trials, and 95% Wilson score intervals are shaded in.",
@@ -2942,13 +2942,13 @@
       "page": 3,
       "bbox": [
         311,
-        66.7,
-        591,
-        181.7
+        86,
+        570,
+        181
       ],
-      "width": 1009,
-      "height": 415,
-      "bytes": 56118,
+      "width": 933,
+      "height": 343,
+      "bytes": 60006,
       "number": 4,
       "image": "/paper-figures/rtc-training/figure-4.webp",
       "caption": "Fig. 4: Real-world evaluation tasks: building a cardboard box and making espresso (including grinding, tamping, extracting, and pouring).",
@@ -2961,14 +2961,14 @@
     {
       "page": 3,
       "bbox": [
-        311,
-        395.2,
-        591,
-        615.2
+        326,
+        417,
+        572,
+        615
       ],
-      "width": 1009,
-      "height": 793,
-      "bytes": 25516,
+      "width": 887,
+      "height": 713,
+      "bytes": 23524,
       "number": 5,
       "image": "/paper-figures/rtc-training/figure-5.webp",
       "caption": "Fig. 5: Real-world results: success rate and duration for espresso making and box building. Training-time and inference-time RTC perform similarly, while both improving speed over synchronous inference. Error bars represent 68% Wilson score intervals for success rate and ±1 SEM for duration.",
