@@ -344,6 +344,16 @@ try {
   const conceptColumns=await concepts.evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').filter(Boolean).length);
   assert.equal(conceptColumns,1,'Three H/s/d explanations should stack as readable rows alongside the paper figure');
 
+  await academicLayout.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=3',{waitUntil:'domcontentloaded'});
+  const comparison=academicLayout.locator('.brief-layout-contrast');
+  await comparison.waitFor({state:'visible',timeout:15000});
+  assert.match(await comparison.locator('.brief-contrast-old').innerText(),/sinh rồi liên tục hiệu chỉnh bằng gradient/,
+    'The old RTC inference-time cost must be shown on the OLD side');
+  assert.match(await comparison.locator('.brief-contrast-new').innerText(),/học điều kiện tiền tố, sinh trực tiếp hậu tố/,
+    'The new training-time approach must be shown on the NEW side');
+  assert.doesNotMatch(await comparison.locator('.brief-contrast-new').innerText(),/CŨ:/,
+    'Never label a previous method as the innovation');
+
   await academicLayout.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=10',{waitUntil:'domcontentloaded'});
   await academicLayout.locator('.brief-layout-equation .katex').waitFor({state:'visible',timeout:15000});
   assert.match(await academicLayout.locator('.brief-layout-equation h2').innerText(),/Công thức trung tâm/);
