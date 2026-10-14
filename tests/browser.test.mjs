@@ -287,6 +287,45 @@ try {
   }
 
 
+
+  // A research slide must not project the presenter's speech as an extra paragraph.
+  // Keep that explanation in the N / GHI CHÚ panel, including on small screens.
+  for (const viewport of [{width:1280,height:800},{width:390,height:844}]) {
+    const rtc=await browser.newPage({viewport});
+    const errors=[];
+    rtc.on('pageerror',error=>errors.push(error.message));
+    await rtc.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=3',{waitUntil:'domcontentloaded'});
+    const canvas=rtc.locator('.brief-slide-stage');
+    await canvas.locator('.brief-layout-contrast').waitFor({state:'visible',timeout:15000});
+    assert.equal(await canvas.locator('.brief-slide-detail').count(),0,
+      'Presenter speech must not be rendered inside the RTC projected slide');
+    assert.equal(await canvas.locator('.brief-slide-intuition').count(),0,
+      'Long Intuition prose should stay in presenter notes');
+    assert.ok(!(await canvas.innerText()).includes('LỜI THUYẾT TRÌNH'),
+      'No speech label belongs on the projected canvas');
+    await rtc.getByRole('button',{name:'Bật tắt ghi chú thuyết trình'}).click();
+    const speakerNotes=rtc.locator('.brief-speaker-notes');
+    await speakerNotes.waitFor({state:'visible'});
+    assert.match(await speakerNotes.innerText(),/LỜI THUYẾT TRÌNH/,
+      'Presenter explanation is still available in the Notes panel');
+    assert.equal(await canvas.locator('.brief-slide-detail').count(),0,
+      'Opening Notes does not insert them back into the slide canvas');
+
+    await rtc.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=2',{waitUntil:'domcontentloaded'});
+    await rtc.locator('.brief-source-figure img').waitFor({state:'visible',timeout:15000});
+    await rtc.waitForFunction(()=>{
+      const img=document.querySelector('.brief-source-figure img');
+      return img instanceof HTMLImageElement && img.complete && img.naturalWidth>0;
+    },null,{timeout:15000});
+    assert.equal(await rtc.locator('.brief-slide-detail').count(),0,
+      'Paper figures must have visual prominence without presenter paragraphs');
+    assert.ok((await rtc.locator('.brief-source-figure').boundingBox())?.width>160,
+      'An original-paper figure remains readable');
+    assert.deepEqual(errors,[],`No RTC presentation exceptions at ${viewport.width}px`);
+    await rtc.close();
+  }
+  console.log('PASS: RTC Training-Time projects visuals; explanation remains in presenter notes');
+
   // A normal article must never fetch its 15-slide deck until the user asks for it.
   const mobileReader=await browser.newPage({viewport:{width:390,height:844}});
   let deckRequests=0;
