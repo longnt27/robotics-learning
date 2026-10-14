@@ -612,13 +612,13 @@
       "page": 3,
       "bbox": [
         52,
-        59,
+        25,
         562,
         189
       ],
       "width": 1837,
-      "height": 469,
-      "bytes": 103908,
+      "height": 591,
+      "bytes": 100090,
       "number": 3,
       "image": "/paper-figures/act/figure-3.webp",
       "caption": "Fig. 3: Left: Camera viewpoints of the front, top, and two wrist cameras, together with an illustration of the bimanual workspace of ALOHA. Middle: Detailed view of the “handle and scissor” mechanism and custom grippers. Right: Technical spec of the ViperX 6dof robot [1].",
@@ -674,11 +674,11 @@
         92,
         229,
         301,
-        357
+        361
       ],
       "width": 753,
-      "height": 462,
-      "bytes": 21070,
+      "height": 476,
+      "bytes": 21104,
       "number": 6,
       "image": "/paper-figures/act/figure-6.webp",
       "caption": "Fig. 6: We employ both Action Chunking and Temporal Ensembling when applying actions, instead of interleaving observing and executing.",
