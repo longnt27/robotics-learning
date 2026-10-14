@@ -76,3 +76,34 @@ already stored bilingual captions and exact PDF provenance.
 - If any cropped figure contains the next/previous figure's caption, adjust its
   crop source coordinates, not its textual caption. Do not invent figures or
   silently substitute a screenshot from an unrelated paper.
+
+
+## Manual source-PDF visual inspection (2026-10-14)
+
+The published galleries were re-audited against **the original PDF page images**, not
+approved by an automatic bounding-box detector. Human visual comparisons
+covered **all 167 displayed source figures across 22 papers**. For **84 figures**,
+an exact source-PDF rectangle was selected by hand after inspecting source
+page imagery and the cropped WebP. The other 83 figure rectangles were kept
+after checking their original-page context.
+
+- `content/manually-reviewed-figure-boxes.json` is the durable record of
+  manually selected (x0, y0, x1, y1) PDF-space rectangles and their reasons.
+  It is intentionally **not** computed by `extract_paper_figures.py`.
+- `docs/figure-crop-manual-review/<slug>.md` documents each paper's inspected
+  images, source page numbers, previous/approved coordinates, and reasons.
+- `scripts/render_manually_reviewed_figures.py --paper <slug>` mechanically
+  renders the **specified approved rectangles only**. It does not infer
+  boundaries, look for whitespace, or "fix" detected edges.
+- Each paper was committed separately after reconstruction. The most complex
+  cases required more than one visual correction pass, including ACT,
+  RT-1, BridgeData V2, VIMA, FAST, OpenVLA, RTC, LingBot-VLA and Octo.
+- Original figure paths, bilingual captions, source URLs and page references
+  are preserved. Each displayed asset remains a crop of the cited paper PDF.
+
+**Important:** Rerunning the older heuristic
+`scripts/extract_paper_figures.py` or `scripts/repair_paper_crops.py`
+will overwrite visually reviewed figure images or bounding boxes. Treat
+those scripts as legacy initial extractors, not as validation or final
+production re-cropping workflows. If the source PDF changes, inspect its
+pages again and update the human-selected coordinates before rendering.
