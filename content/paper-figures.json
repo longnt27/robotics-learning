@@ -1587,14 +1587,14 @@
     {
       "page": 1,
       "bbox": [
-        22,
-        210.4,
-        590,
-        441.4
+        71,
+        213,
+        550,
+        442
       ],
-      "width": 2045,
-      "height": 833,
-      "bytes": 280238,
+      "width": 1725,
+      "height": 826,
+      "bytes": 293000,
       "number": 1,
       "image": "/paper-figures/robocasa/figure-1.webp",
       "caption": "Fig. 1: Overview of RoboCasa. RoboCasa is a simulation framework for training generalist robot agents. Four pillars underlie RoboCasa: (1) Diverse assets, including 120 kitchen scenes and 2,500+ 3D objects, created with the aid of generative AI tools; (2) Cross-embodiment support for mobile manipulators and humanoid robots; (3) Diverse tasks created with the guidance of large language models; (4) Massive training datasets with over 100K trajectories.",
