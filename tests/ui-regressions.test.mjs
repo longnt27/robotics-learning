@@ -83,7 +83,9 @@ test('paper figure metadata is selected on server, not imported for all 22 paper
   assert.match(page,/getPaperFigures\(slug\)/);
   assert.doesNotMatch(figure,/paper-figures\.json/,'Figure UI must not bundle the full manifest');
   assert.match(figure,/loading="lazy"/);
-  assert.match(reader,/figures=\{figures\}/);
+  const chapter=fs.readFileSync(path.join(root,'components/paper-chapter.tsx'),'utf8');
+  assert.match(page,/figures=\{figures\}/);
+  assert.match(chapter,/meta=\{typeof src/,'Each interactive figure should receive only its caption');
 });
 
 test('paper navigation avoids unsolicited Next.js prefetch on metered mobile connections', () => {
