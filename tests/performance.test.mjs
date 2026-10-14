@@ -12,6 +12,11 @@ test("initial article response excludes entire slide deck and global figure cata
   const figure=read("components/paper-figure.tsx");
   const route=read("app/api/papers/[slug]/slides/route.ts");
   assert.doesNotMatch(page,/getResearchSlides|slides=\{/,"do not serialize slide deck through React Server Components");
+  assert.match(page,/article=\{<PaperArticle/);
+  assert.doesNotMatch(reader,/react-markdown|remark-gfm|remark-math|rehype-katex/,
+    "Client reader must not ship Markdown/KaTeX parsing libraries");
+  assert.match(read("components/paper-article.tsx"),/ReactMarkdown/);
+  assert.match(read("components/paper-article.tsx"),/figure=\{image\?figuresByImage\.get\(image\):undefined\}/);
   assert.match(page,/figureManifest\[slug as keyof typeof figureManifest\]/,
     "pass the current paper's figure captions only");
   assert.doesNotMatch(figure,/content\/paper-figures\.json/,
