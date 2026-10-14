@@ -348,13 +348,13 @@
       "page": 5,
       "bbox": [
         29,
-        64,
+        90,
         301,
         223
       ],
       "width": 980,
-      "height": 573,
-      "bytes": 30326,
+      "height": 479,
+      "bytes": 21896,
       "number": 5,
       "image": "/paper-figures/diffusion-policy/figure-5.webp",
       "caption": "Fig. 5: Velocity v.s. Position Control. The performance differ- ence when switching from velocity to position control. While both BCRNN and BET performance decrease, Diffusion Policy is able to leverage the advantage of position and improve its performance.",
@@ -388,13 +388,13 @@
       "page": 6,
       "bbox": [
         21,
-        344,
+        365,
         301,
         499
       ],
       "width": 1009,
-      "height": 559,
-      "bytes": 57566,
+      "height": 483,
+      "bytes": 39540,
       "number": 7,
       "image": "/paper-figures/diffusion-policy/figure-7.webp",
       "caption": "Fig. 7: Training Stability. Left: IBC fails to infer training actions with increasing accuracy despite smoothly decreasing training loss for energy function. Right: IBC’s evaluation success rate oscillates, making checkpoint selection difficult (evaluated using policy rollouts in simulation). V. EVALUATION We systematically evaluate Diffusion Policy on 12 tasks from 4 benchmarks [12, 15, 29, 42]. This evaluation suite includes both simulated and real environments, single and multiple task benchmarks, fully actuated and under-actuated systems, and rigid and fluid objects. We found Diffusion Policy to consistently outperform the prior state-of-the-art on all of the tested benchmarks, with an average success-rate improvement of 46.9%. In the following sections, we provide an overview of each task, our evaluation methodology on that task, and our key takeaways.",
