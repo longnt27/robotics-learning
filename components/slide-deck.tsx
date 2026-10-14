@@ -3,8 +3,10 @@
 import {useCallback,useEffect,useMemo,useRef,useState} from "react";
 import Link from "next/link";
 import Image from "next/image";
+import {createPortal} from "react-dom";
+import {PresenterPanel} from "./presenter-panel";
 import {AnimatePresence,motion} from "framer-motion";
-import {ArrowLeft,ArrowRight,ArrowUpRight,BookOpen,Check,ChevronLeft,ChevronRight,ExternalLink,Grid2X2,HelpCircle,Maximize2,Minimize2,NotebookText,Orbit,PlayCircle,X} from "lucide-react";
+import {ArrowLeft,ArrowRight,ArrowUpRight,BookOpen,Check,ChevronLeft,ChevronRight,ExternalLink,Grid2X2,HelpCircle,Maximize2,Minimize2,NotebookText,Orbit,PlayCircle,Presentation,X} from "lucide-react";
 import katex from "katex";
 import type {Paper} from "@/lib/papers";
 import type {ResearchSlide,ResearchSlideItem} from "@/lib/slide-types";
@@ -32,6 +34,8 @@ const PALETTE: Record<Paper["category"],{primary:string;glow:string;word:string}
   CONTROL:{primary:"#ffe29a",glow:"rgba(241,173,89,.16)",word:"ĐIỀU KHIỂN"},
   SYSTEMS:{primary:"#ffb7d4",glow:"rgba(244,101,167,.17)",word:"HỆ THỐNG"},
 };
+
+type DocumentPictureInPictureAPI={requestWindow:(options:{width:number;height:number})=>Promise<Window>};
 
 function getItemText(item:ResearchSlideItem){return typeof item==="string"?item:`${item.label}: ${item.value}`;}
 function stripMarkdown(value:string){
@@ -82,14 +86,14 @@ function OrbitalArt({paper,displayIndex}:{paper:Paper;displayIndex:number}){
   </div>;
 }
 
-function SlideVisual({paper,slide,index}:{paper:Paper;slide:ResearchSlide;index:number}){
+function SlideVisual({paper,slide,index,presenting=false}:{paper:Paper;slide:ResearchSlide;index:number;presenting?:boolean}){
   const items=slide.items;
   if(slide.type==="cover")return <div className="brief-cover-main">
     <div className="brief-cover-copy"><div className="brief-overline"><span className="brief-signal"/> RESEARCH BRIEFING / {paper.date.slice(0,4)}</div>
       <span className="brief-cover-ordinal">{String(index+1).padStart(2,"0")} / 15</span>
       <h2>{paper.shortTitle}<span className="brief-title-dot">.</span></h2>
       <p className="brief-cover-message">{slide.lead}</p>
-      <div className="brief-cover-key"><span>LUẬN ĐIỂM CHÍNH</span><strong>{getItemText(items[0])}</strong>{slide.stageMode!=="visual-first"&&<p>{slide.intuition}</p>}</div>
+      <div className="brief-cover-key"><span>LUẬN ĐIỂM CHÍNH</span><strong>{getItemText(items[0])}</strong>{slide.stageMode!=="visual-first"&&!presenting&&<p>{slide.intuition}</p>}</div>
       <div className="brief-cover-pill"><span/> {paper.venue} · {paper.userPick?"BÀI BẠN CHỌN":"BÀI NGHIÊN CỨU NỀN TẢNG"}</div>
     </div><OrbitalArt paper={paper} displayIndex={index+1}/>
   </div>;
@@ -140,9 +144,78 @@ export function SlideDeck({paper,slides,chapter,onRead}:{paper:Paper;slides:Rese
   const [help,setHelp]=useState(false);
   const [full,setFull]=useState(false);
   const [copied,setCopied]=useState(false);
+  const [presenterWindow,setPresenterWindow]=useState<Window|null>(null);
+  const presenterWindowRef=useRef<Window|null>(null);
+  const [presenterError,setPresenterError]=useState("");
+  const [elapsedSeconds,setElapsedSeconds]=useState(0);
   const stageRef=useRef<HTMLDivElement>(null);
   const gridRef=useRef<HTMLDivElement>(null);
   const palette=PALETTE[paper.category];
+
+  // Document Picture-in-Picture keeps the notes in a different native window.
+  // Only the main browser window is intended to be shared via Teams native.
+  const closePresenter=useCallback(()=>{
+    const popup=presenterWindowRef.current;
+    presenterWindowRef.current=null;
+    setPresenterWindow(null);
+    if(popup&&!popup.closed)popup.close();
+  },[]);
+
+  const openPresenter=useCallback(async()=>{
+    const existing=presenterWindowRef.current;
+    if(existing&&!existing.closed){existing.focus();return;}
+    const api=(window as Window&{documentPictureInPicture?:DocumentPictureInPictureAPI}).documentPictureInPicture;
+    if(!api){
+      setPresenterError("Presenter View cần Chrome hoặc Edge trên máy tính có hỗ trợ Document Picture-in-Picture. Ghi chú chưa được mở; không chia sẻ toàn màn hình.");
+      return;
+    }
+    setPresenterError("");
+    try{
+      // requestWindow must be called directly from the user's click (user activation).
+      const popup=await api.requestWindow({width:540,height:760});
+      popup.document.title="Ghi chú thuyết trình · "+paper.shortTitle;
+      popup.document.documentElement.lang="vi";
+      const style=popup.document.createElement("link");
+      style.rel="stylesheet";
+      style.href=new URL("/presenter-view.css",window.location.origin).href;
+      popup.document.head.appendChild(style);
+      presenterWindowRef.current=popup;
+      setNotes(false);
+      setOverview(false);
+      setHelp(false);
+      setElapsedSeconds(0);
+      setPresenterWindow(popup);
+    }catch{
+      // Never render a private-notes fallback into the shared slide window.
+      setPresenterError("Không mở được cửa sổ ghi chú riêng. Hãy kiểm tra quyền Picture-in-Picture của Chrome/Edge rồi thử lại.");
+    }
+  },[paper.shortTitle]);
+
+  useEffect(()=>{
+    if(!presenterWindow)return;
+    const previousOverflow=document.body.style.overflow;
+    document.body.style.overflow="hidden";
+    const handleClose=()=>{
+      if(presenterWindowRef.current===presenterWindow){
+        presenterWindowRef.current=null;
+        setPresenterWindow(null);
+      }
+    };
+    presenterWindow.addEventListener("pagehide",handleClose);
+    const started=Date.now();
+    // OS-level close sometimes skips pagehide; a 1s check also recovers presentation mode.
+    const timer=window.setInterval(()=>{
+      if(presenterWindow.closed){handleClose();return;}
+      setElapsedSeconds(Math.floor((Date.now()-started)/1000));
+    },1000);
+    return()=>{
+      document.body.style.overflow=previousOverflow;
+      presenterWindow.removeEventListener("pagehide",handleClose);
+      window.clearInterval(timer);
+    };
+  },[presenterWindow]);
+
+  useEffect(()=>()=>{const popup=presenterWindowRef.current;if(popup&&!popup.closed)popup.close();presenterWindowRef.current=null;},[]);
 
   useEffect(()=>{
     const n=Number(new URLSearchParams(window.location.search).get("slide"));
@@ -182,6 +255,7 @@ export function SlideDeck({paper,slides,chapter,onRead}:{paper:Paper;slides:Rese
       // Do not steal Space/Enter from keyboard-focused interactive controls.
       if((event.key===" "||event.key==="Enter")&&["BUTTON","A"].includes(el?.tagName))return;
       if(event.key==="Escape"){
+        if(presenterWindowRef.current){closePresenter();return;}
         setOverview(false);setHelp(false);
         return;
       }
@@ -195,30 +269,33 @@ export function SlideDeck({paper,slides,chapter,onRead}:{paper:Paper;slides:Rese
         event.preventDefault();setIndex(0);updateDeepLink(0);
       } else if(event.key==="End"){
         event.preventDefault();setIndex(slides.length-1);updateDeepLink(slides.length-1);
-      } else if(event.key.toLowerCase()==="g")setOverview(v=>!v);
-      else if(event.key.toLowerCase()==="n")setNotes(v=>!v);
-      else if(event.key.toLowerCase()==="f")void toggleFullscreen();
-      else if(event.key==="?")setHelp(v=>!v);
+      } else if(event.key.toLowerCase()==="g"&&!presenterWindow)setOverview(v=>!v);
+      else if(event.key.toLowerCase()==="n"&&!presenterWindow)setNotes(v=>!v);
+      else if(event.key.toLowerCase()==="f"&&!presenterWindow)void toggleFullscreen();
+      else if(event.key==="?"&&!presenterWindow)setHelp(v=>!v);
     };
     window.addEventListener("keydown",handler);
-    return()=>window.removeEventListener("keydown",handler);
-  },[help,overview,slides.length,toggleFullscreen]);
+    presenterWindow?.addEventListener("keydown",handler);
+    return()=>{window.removeEventListener("keydown",handler);presenterWindow?.removeEventListener("keydown",handler);};
+  },[help,overview,slides.length,toggleFullscreen,presenterWindow,closePresenter]);
 
   useEffect(()=>{if(overview)gridRef.current?.querySelector<HTMLButtonElement>(`button[data-slide-index="${index}"]`)?.focus();},[overview,index]);
 
   const slide=slides[index];
   // Visual-first slides keep explanations in the presenter panel, never on the projected canvas.
   const visualFirst=slide?.stageMode==="visual-first";
+  const audienceOnly=visualFirst||Boolean(presenterWindow);
   const speakerText=useMemo(()=>chapterContext(chapter,slide.type),[chapter,slide.type]);
   const copy=async()=>{
     try{await navigator.clipboard.writeText(window.location.href);setCopied(true);setTimeout(()=>setCopied(false),1400);}catch{}
   };
   if(!slide)return null;
-  return <section className="brief-deck-root" aria-label={`Slide nghiên cứu ${paper.shortTitle}`} style={{"--brief-accent":palette.primary,"--brief-glow":palette.glow} as React.CSSProperties}>
+  const audience=<section className={"brief-deck-root"+(presenterWindow?" brief-deck-presenting":"")} aria-label={`Slide nghiên cứu ${paper.shortTitle}`} style={{"--brief-accent":palette.primary,"--brief-glow":palette.glow} as React.CSSProperties}>
     <div className="brief-deck-toolbar">
       <div className="brief-deck-id"><span className="brief-deck-id-light"/> BẢN TRÌNH BÀY NGHIÊN CỨU <span className="brief-deck-id-sep">/</span> {paper.shortTitle.toUpperCase()}</div>
-      <div className="brief-deck-actions"><button onClick={()=>setOverview(v=>!v)} aria-label="Xem tất cả slide" aria-pressed={overview}><Grid2X2 size={16}/> <span>XEM LƯỚI</span></button><button onClick={()=>setNotes(v=>!v)} aria-label="Bật tắt ghi chú thuyết trình" aria-pressed={notes}><NotebookText size={16}/> <span>GHI CHÚ</span></button><button onClick={toggleFullscreen} aria-label={full?"Thoát toàn màn hình":"Trình chiếu toàn màn hình"}>{full?<Minimize2 size={16}/>:<Maximize2 size={16}/>} <span>{full?"THU NHỎ":"TOÀN MÀN HÌNH"}</span></button><button onClick={()=>setHelp(v=>!v)} aria-label="Phím tắt trình chiếu" aria-pressed={help}><HelpCircle size={17}/></button></div>
+      <div className="brief-deck-actions"><button type="button" onClick={()=>void openPresenter()} aria-label="Bắt đầu Presenter View với ghi chú riêng"><Presentation size={16}/><span>TRÌNH CHIẾU + GHI CHÚ</span></button><button onClick={()=>setOverview(v=>!v)} aria-label="Xem tất cả slide" aria-pressed={overview}><Grid2X2 size={16}/> <span>XEM LƯỚI</span></button><button onClick={()=>setNotes(v=>!v)} aria-label="Bật tắt ghi chú thuyết trình" aria-pressed={notes}><NotebookText size={16}/> <span>GHI CHÚ</span></button><button onClick={toggleFullscreen} aria-label={full?"Thoát toàn màn hình":"Trình chiếu toàn màn hình"}>{full?<Minimize2 size={16}/>:<Maximize2 size={16}/>} <span>{full?"THU NHỎ":"TOÀN MÀN HÌNH"}</span></button><button onClick={()=>setHelp(v=>!v)} aria-label="Phím tắt trình chiếu" aria-pressed={help}><HelpCircle size={17}/></button></div>
     </div>
+    {presenterError&&<p role="alert" className="brief-presenter-error">{presenterError}</p>}
     <div className={`brief-slide-stage ${visualFirst?"brief-slide-stage-visual-first":""}`} ref={stageRef} tabIndex={-1}>
       <div className="brief-slide-halo" aria-hidden="true"/>
       <div className="brief-slide-grid" aria-hidden="true"/>
@@ -227,9 +304,9 @@ export function SlideDeck({paper,slides,chapter,onRead}:{paper:Paper;slides:Rese
       <AnimatePresence mode="wait" initial={false}>
         <motion.div key={`${paper.slug}-${index}`} className={`brief-slide-content brief-layout-${slide.type}`} initial={{opacity:0,y:14,filter:"blur(4px)"}} animate={{opacity:1,y:0,filter:"blur(0px)"}} exit={{opacity:0,y:-10,filter:"blur(3px)"}} transition={{duration:.23,ease:"easeOut"}}>
           {slide.type!=="cover"&&<div className="brief-slide-heading"><div className="brief-chapter-label"><span className="brief-signal"/> {SECTIONS[slide.type]} <span className="brief-heading-rule"/> {String(index+1).padStart(2,"0")}</div><h2>{slide.title}</h2>{!["intuition","equation","problem","contrast"].includes(slide.type)&&<p className="brief-slide-description">{slide.lead}</p>}</div>}
-          <div className={`brief-slide-art ${slide.figure?"brief-slide-art-with-figure":""}`}><div className="brief-slide-art-primary"><SlideVisual slide={slide} paper={paper} index={index}/></div>{slide.figure&&<figure className="brief-source-figure"><div className="brief-source-image"><Image src={slide.figure.src} alt={slide.figure.alt} fill sizes="(max-width: 700px) 92vw, 42vw" priority={false} /></div><figcaption><span>HÌNH GỐC · NGUỒN BÀI BÁO</span>{slide.figure.caption}</figcaption></figure>}</div>
-          {slide.detail&&!visualFirst&&<aside className={`brief-slide-detail brief-slide-detail-${slide.type}`}><span className="brief-slide-detail-label"><span className="brief-signal"/> {slide.detail.label}</span><p>{slide.detail.text}</p></aside>}
-          {!visualFirst&&slide.type!=="cover"&&slide.type!=="equation"&&slide.type!=="intuition"&&<div className="brief-slide-intuition"><span>CÁCH HIỂU <i>→</i></span><p>{slide.intuition}</p></div>}
+          <div className={`brief-slide-art ${slide.figure?"brief-slide-art-with-figure":""}`}><div className="brief-slide-art-primary"><SlideVisual slide={slide} paper={paper} index={index} presenting={Boolean(presenterWindow)}/></div>{slide.figure&&<figure className="brief-source-figure"><div className="brief-source-image"><Image src={slide.figure.src} alt={slide.figure.alt} fill sizes="(max-width: 700px) 92vw, 42vw" priority={false} /></div><figcaption><span>HÌNH GỐC · NGUỒN BÀI BÁO</span>{slide.figure.caption}</figcaption></figure>}</div>
+          {slide.detail&&!audienceOnly&&<aside className={`brief-slide-detail brief-slide-detail-${slide.type}`}><span className="brief-slide-detail-label"><span className="brief-signal"/> {slide.detail.label}</span><p>{slide.detail.text}</p></aside>}
+          {!audienceOnly&&slide.type!=="cover"&&slide.type!=="equation"&&slide.type!=="intuition"&&<div className="brief-slide-intuition"><span>CÁCH HIỂU <i>→</i></span><p>{slide.intuition}</p></div>}
         </motion.div>
       </AnimatePresence>
       <div className="brief-stage-index"><span>SCENE {String(index+1).padStart(2,"0")}</span><span>{String(index+1).padStart(2,"0")} / {String(slides.length).padStart(2,"0")}</span></div>
@@ -247,7 +324,10 @@ export function SlideDeck({paper,slides,chapter,onRead}:{paper:Paper;slides:Rese
       <div className="brief-player-control"><button className="brief-nav-button" onClick={()=>go(index-1)} disabled={index===0} aria-label="Slide trước"><ChevronLeft size={20}/><span>TRƯỚC</span></button><button className="brief-nav-button brief-nav-next" onClick={()=>go(index+1)} disabled={index===slides.length-1} aria-label="Slide tiếp theo"><span>TIẾP</span><ChevronRight size={20}/></button><span className="brief-player-count">{String(index+1).padStart(2,"0")} <span>/</span> {slides.length}</span></div>
       <div className="brief-player-utils"><button onClick={copy}>{copied?<Check size={16}/>:<ArrowUpRight size={16}/>}<span>{copied?"ĐÃ SAO CHÉP":"LINK SLIDE"}</span></button><a href={paper.pdf} target="_blank" rel="noopener noreferrer"><ExternalLink size={15}/><span>PDF GỐC</span></a><button onClick={onRead}><BookOpen size={16}/><span>DIỄN GIẢI</span></button></div>
     </div>
-    {notes&&<div className="brief-speaker-notes"><div className="brief-notes-title"><NotebookText size={17}/><strong>GHI CHÚ KHI TRÌNH BÀY</strong><span>NỘI DUNG ĐỐI CHIẾU TỪ BÀI DIỄN GIẢI</span></div><p className="brief-notes-intuition"><strong>Cách hiểu.</strong> {slide.intuition}</p>{slide.detail&&<p><strong>{slide.detail.label}.</strong> {slide.detail.text}</p>}{speakerText&&<p>{speakerText}</p>}<button onClick={onRead}>ĐỌC CHƯƠNG ĐẦY ĐỦ <ArrowRight size={14}/></button></div>}
+    {notes&&!presenterWindow&&<div className="brief-speaker-notes"><div className="brief-notes-title"><NotebookText size={17}/><strong>GHI CHÚ KHI TRÌNH BÀY</strong><span>NỘI DUNG ĐỐI CHIẾU TỪ BÀI DIỄN GIẢI</span></div><p className="brief-notes-intuition"><strong>Cách hiểu.</strong> {slide.intuition}</p>{slide.detail&&<p><strong>{slide.detail.label}.</strong> {slide.detail.text}</p>}{speakerText&&<p>{speakerText}</p>}<button onClick={onRead}>ĐỌC CHƯƠNG ĐẦY ĐỦ <ArrowRight size={14}/></button></div>}
     <div className="brief-slide-disclaimer"><span>Slide tóm lược để thuyết trình; metric/nhận định cần đối chiếu với PDF gốc.</span><span>Nhấn <kbd>?</kbd> để xem phím tắt.</span></div>
+    {presenterWindow&&<PresenterPanel popup={presenterWindow} paperTitle={paper.shortTitle} slides={slides} index={index} elapsedSeconds={elapsedSeconds} chapterContext={speakerText} onGo={go} onClose={closePresenter}/>}
   </section>;
+  // Portal the shared slide stage to the document body, avoiding transformed reader ancestors.
+  return presenterWindow?createPortal(audience,document.body):audience;
 }

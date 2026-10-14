@@ -282,3 +282,19 @@
  .brief-slide-stage-visual-first .brief-source-image{max-height:270px;min-height:170px}
  .brief-slide-stage-visual-first .brief-card p{font-size:13px;line-height:1.42}
 }
+
+/* Native Teams / browser-window screen sharing: only the slide is rendered in this window.
+   The presenter panel is a distinct Document Picture-in-Picture document. */
+.brief-presenter-error{border:1px solid #db8c82;border-radius:7px;background:#4b292f;padding:13px 16px;font-weight:600;font-size:13px;line-height:1.5;color:#fff0ea;margin:7px 0 12px}
+.brief-deck-presenting{position:fixed!important;inset:0!important;z-index:2147483000!important;margin:0!important;max-width:none!important;width:100vw!important;height:100dvh!important;background:#0e1727!important;padding:0!important;overflow:hidden!important}
+.brief-deck-presenting .brief-deck-toolbar,.brief-deck-presenting .brief-progress-rail,.brief-deck-presenting .brief-player-footer,.brief-deck-presenting .brief-speaker-notes,.brief-deck-presenting .brief-slide-disclaimer,.brief-deck-presenting .brief-presenter-error{display:none!important}
+.brief-deck-presenting .brief-slide-stage{width:100vw!important;height:100dvh!important;max-height:none!important;min-height:0!important;aspect-ratio:auto!important;border:0!important;border-radius:0!important;box-shadow:none!important}
+.brief-deck-presenting .brief-slide-content{height:calc(100% - 66px);max-width:1650px;margin:0 auto;overflow-y:auto}
+.brief-deck-presenting .brief-slide-heading h2{font-size:clamp(27px,3.2vw,54px)}
+.brief-deck-presenting .brief-slide-art{min-height:0}
+.brief-deck-presenting .brief-source-image{max-height:min(53dvh,510px)}
+@media(max-width:800px){
+ .brief-deck-presenting .brief-slide-stage{height:100dvh!important;min-height:0!important}
+ .brief-deck-presenting .brief-slide-content{min-height:0!important;height:calc(100% - 66px)!important;overflow-y:auto!important}
+ .brief-deck-presenting .brief-source-image{max-height:36dvh}
+}
