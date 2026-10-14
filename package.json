@@ -14,7 +14,8 @@
     "test:e2e": "node tests/browser.test.mjs",
     "test:resources": "node --test tests/resources.test.mjs",
     "test:pdf-viewer": "node --test tests/pdf-viewer.test.mjs",
-    "test:slides": "node --test tests/slides.test.mjs"
+    "test:slides": "node --test tests/slides.test.mjs",
+    "test:performance": "node --test tests/performance.test.mjs"
   },
   "dependencies": {
     "next": "15.5.18",
