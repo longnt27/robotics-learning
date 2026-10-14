@@ -346,7 +346,7 @@ try {
   const presenterPopup=await popupPromise;
   presenterPopup.on('pageerror',error=>presenterErrors.push(error.message));
   await presenterPopup.locator('[data-private-presenter="true"]').waitFor({state:'visible',timeout:15000});
-  assert.ok(await presenterPopup.getByText('GHI CHÚ CHỈ MÀY NHÌN THẤY').isVisible(),'Presenter has readable private notes');
+  assert.ok(await presenterPopup.getByText('GHI CHÚ RIÊNG TƯ').isVisible(),'Presenter has readable private notes');
   assert.match(await presenterPopup.locator('.presenter-note-body').innerText(),/LỜI THUYẾT TRÌNH/,'Existing RTC speaker narration is preserved');
   assert.equal(await presenterPage.locator('.brief-deck-presenting').count(),1,'Audience slide fills shared browser');
   assert.equal(await presenterPage.locator('[data-private-presenter]').count(),0,'Private DOM must not be attached to shared browser');
