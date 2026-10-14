@@ -12,7 +12,7 @@ Source: https://arxiv.org/pdf/2310.08864
 | 2 | 3 | Inspected; source crop retained | 22, 25.3, 590, 274.5 | 22, 25.3, 590, 274.5 | Existing rectangle contains the whole figure in source preview. |
 | 3 | 4 | Inspected; source crop retained | 22, 38.7, 590, 159.7 | 22, 38.7, 590, 159.7 | Existing rectangle contains the whole figure in source preview. |
 | 4 | 5 | Inspected; source crop retained | 22, 27.5, 590, 142.5 | 22, 27.5, 590, 142.5 | Existing rectangle contains the whole figure in source preview. |
-| 5 | 6 | Manually recut | 325, 162, 582, 342 | 313, 148, 590, 340 | Remove preceding table and retain transfer-task example grid. Final exact source page inspection: refine figure-only boundary. |
+| 5 | 6 | Manually recut | 313, 148, 590, 340 | 313, 148, 590, 344 | Remove preceding table and retain transfer-task example grid. Final exact source page inspection: refine figure-only boundary. Final rendered-image visual check: remove stray paragraph glyphs or retain last image row. |
 
 Total visually audited: 5. Rectangles manually corrected: 2.
 Original figure paths and original/translated captions were preserved.
