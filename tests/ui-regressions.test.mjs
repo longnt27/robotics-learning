@@ -150,5 +150,6 @@ test('responsive paper figures use viewport-sized optimized images with stable d
   assert.match(helper,/width,height/);
   assert.match(types,/width:\s*number/);
   assert.match(types,/height:\s*number/);
-  assert.match(figure,/className="paper-figure-lightbox-canvas"/);
+  assert.match(figure,/className=\{"paper-figure-lightbox-canvas"/);
+  assert.match(figure,/<img src=\{src\} alt=\{alt \|\| title\} decoding="async"\/>/);
 });
