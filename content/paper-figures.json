@@ -1263,14 +1263,14 @@
     {
       "page": 1,
       "bbox": [
-        22,
-        352.5,
-        590,
-        579.5
+        22.0,
+        131.0,
+        590.0,
+        581.6
       ],
       "width": 2045,
-      "height": 819,
-      "bytes": 282094,
+      "height": 1623,
+      "bytes": 548730,
       "number": 1,
       "image": "/paper-figures/droid/figure-1.webp",
       "caption": "Fig. 1: We introduce DROID (Distributed Robot Interaction Dataset), an “in-the-wild” robot manipulation dataset with 76k trajectories or 350 hours of interaction data, collected across 564 scenes, 86 tasks, and 52 buildings over the course of 12 months. Each DROID episode contains three synchronized RGB camera streams, camera calibration, depth information, and natural language instructions. We demonstrate that training with DROID leads to policies with higher performance, greater robustness, and improved generalization ability. We open source the full dataset, pre-trained model checkpoints, and a detailed guide for reproducing our robot setup.",
@@ -1283,14 +1283,14 @@
     {
       "page": 4,
       "bbox": [
-        21,
-        66.7,
-        301,
-        245.6
+        11.0,
+        18.0,
+        465.7,
+        247.6
       ],
-      "width": 1009,
-      "height": 645,
-      "bytes": 56728,
+      "width": 1638,
+      "height": 828,
+      "bytes": 138572,
       "number": 2,
       "image": "/paper-figures/droid/figure-2.webp",
       "caption": "Fig. 2: The DROID robot platform. We use the same hardware setup across all 13 institutions to streamline data collection while maximizing portability and flexibility. The setup consists of a Franka Panda 7DoF robot arm, two adjustable Zed 2 stereo cameras, a wrist- mounted Zed Mini stereo camera, and an Oculus Quest 2 headset with controllers for teleoperation. Everything is mounted on a portable, height-adjustable desk for quick scene changes.",
@@ -1303,14 +1303,14 @@
     {
       "page": 5,
       "bbox": [
-        22,
+        22.0,
         42.1,
-        590,
-        332.3
+        601.0,
+        334.3
       ],
-      "width": 2045,
-      "height": 1046,
-      "bytes": 141070,
+      "width": 2085,
+      "height": 1053,
+      "bytes": 137480,
       "number": 3,
       "image": "/paper-figures/droid/figure-3.webp",
       "caption": "Fig. 3: Distribution of verbs and objects in DROID. Top: Distribution of verbs after de-duplication with GPT-4. DROID has a long tail of diverse tasks that span a wide range of behaviors. We also visualize the verb distributions for existing large manipulation datasets and find that only Bridge V2 [59] has a comparable long tail of skills (for a detailed view of verb distributions for all datasets, see Appendix, Fig. 18). Bottom: Distribution of objects the robot interacts with in DROID, sorted by category (best viewed zoomed in; for a detailed view, see Fig. 19).",
@@ -1323,14 +1323,14 @@
     {
       "page": 6,
       "bbox": [
-        21,
-        39.2,
-        301,
+        11.0,
+        18.0,
+        532.2,
         230.8
       ],
-      "width": 1009,
-      "height": 690,
-      "bytes": 23206,
+      "width": 1877,
+      "height": 767,
+      "bytes": 77482,
       "number": 4,
       "image": "/paper-figures/droid/figure-4.webp",
       "caption": "Fig. 4: Number of scenes per scene type. DROID has an order of magnitude more scenes than other large robot manipulation datasets, spanning a much wider range of scene types. We manually verified or confirmed with the authors that scene count and type for prior datasets is accurately reported.",
@@ -1343,14 +1343,14 @@
     {
       "page": 6,
       "bbox": [
-        311,
-        25,
-        591,
-        247.5
+        11.0,
+        18.0,
+        601.0,
+        249.5
       ],
-      "width": 1009,
-      "height": 802,
-      "bytes": 64688,
+      "width": 2125,
+      "height": 835,
+      "bytes": 97374,
       "number": 5,
       "image": "/paper-figures/droid/figure-5.webp",
       "caption": "Fig. 5: Third-person camera viewpoints in DROID (subsampled). DROID episodes cover a total of 1417 camera viewpoints along with intrinsic and extrinsic stereo camera calibration. Brighter colors indicate regions of higher viewpoint density.",
@@ -1363,14 +1363,14 @@
     {
       "page": 7,
       "bbox": [
-        21,
+        11.0,
         31.3,
-        301,
-        257.1
+        545.4,
+        259.1
       ],
-      "width": 1009,
-      "height": 814,
-      "bytes": 75712,
+      "width": 1925,
+      "height": 821,
+      "bytes": 187948,
       "number": 6,
       "image": "/paper-figures/droid/figure-6.webp",
       "caption": "Fig. 6: Visualization of 3D interaction points relative to the robot base. We visualize the 3D location at which the gripper first closes in each trajectory, since closing the gripper often indicates meaningful object interactions. DROID’s interactions cover a larger part of the robot’s workspace, since the robot is moved freely between collection sessions instead of being placed in front of repetitive tabletop scenes.",
@@ -1383,14 +1383,14 @@
     {
       "page": 8,
       "bbox": [
-        22,
-        35.9,
-        590,
-        150.9
+        22.0,
+        18.0,
+        590.0,
+        152.9
       ],
       "width": 2045,
-      "height": 415,
-      "bytes": 124112,
+      "height": 487,
+      "bytes": 114650,
       "number": 7,
       "image": "/paper-figures/droid/figure-7.webp",
       "caption": "Fig. 7: Robot setups for policy evaluation. We cover a wide range of tasks and scenes, from lab evaluations to offices and real households, to reflect the diversity of use cases in real robot research. Depending on the task we collect between 50 and 150 demonstrations. We describe each task with out-of-distribution evaluation modifications in parenthesis, left to right: Close Waffle Maker: The robot needs to close a waffle maker (distractor objects). Place Chips on Plate: The robot needs to pick up the chips bag and place it on the provided plate (unseen chips bag and distractor objects). Put Apple in Pot: The robot needs to pick up the apple, place it in the pot, and close the lid (unseen distractor object). Toasting: The robot needs to pick up the object, place it in the toaster oven, and close the oven (toast a novel object). Clean up Desk: The robot needs to open the drawer, place the eraser that is on top of the desk inside the drawer, and close it (distractor objects on desk and in drawer). Cook Lentils: The robot needs to remove the pan lid, pick up and pour lentils into the pan, and turn on the stove(add distractor objects).",
@@ -1403,14 +1403,14 @@
     {
       "page": 9,
       "bbox": [
-        22,
-        41,
-        590,
-        392.2
+        22.0,
+        41.0,
+        590.0,
+        394.3
       ],
       "width": 2045,
-      "height": 1266,
-      "bytes": 78566,
+      "height": 1273,
+      "bytes": 75192,
       "number": 8,
       "image": "/paper-figures/droid/figure-8.webp",
       "caption": "Fig. 8: Does DROID Improve Policy Performance and Robustness? We find that across all our evaluation tasks, co-training with DROID significantly improves both in distribution and OOD performance over both no co-training and co-training with the Open-X dataset. We compare success rate averaged across all tasks with standard error, and find DROID outperforms the next best method by 22% absolute success rate in-distribution and by 17% out of distribution.",
@@ -1423,14 +1423,14 @@
     {
       "page": 10,
       "bbox": [
-        22,
-        59.4,
-        590,
-        280.3
+        11.0,
+        18.0,
+        601.0,
+        282.3
       ],
-      "width": 2045,
-      "height": 797,
-      "bytes": 393138,
+      "width": 2125,
+      "height": 953,
+      "bytes": 373870,
       "number": 9,
       "image": "/paper-figures/droid/figure-9.webp",
       "caption": "Fig. 9: Representative policy rollout examples on the most challenging “Cook Lentils” task in the kitchen of one of the authors. Qualitatively, we find that policies co-trained with DROID perform smoother, more precise motions, allowing them to solve long-horizon tasks like lentil cooking even in the presence of unseen distractor objects. In contrast, policies trained only with in-domain demonstrations or co-trained with Open-X data [39] struggle with long-horizon tasks and out-of-distribution evaluation settings. See https://droid-dataset.github.io for rollout videos.",
@@ -1443,14 +1443,14 @@
     {
       "page": 10,
       "bbox": [
-        21,
-        370.3,
-        301,
-        526.5
+        11.0,
+        366.3,
+        601.0,
+        528.6
       ],
-      "width": 1009,
-      "height": 563,
-      "bytes": 21728,
+      "width": 2125,
+      "height": 585,
+      "bytes": 138410,
       "number": 10,
       "image": "/paper-figures/droid/figure-10.webp",
       "caption": "Fig. 10: How important is the scene diversity in DROID? We find that co-training on a subset of DROID with diverse scenes has higher OOD performance than co-training on a subset of DROID with only 20 scenes, suggesting the scene diversity of DROID is one of the driving factors behind strong policy performance when co-training.",
