@@ -327,6 +327,31 @@ try {
   console.log('PASS: RTC Training-Time projects visuals; explanation remains in presenter notes');
 
 
+  // Regression: restore a slide *presentation*, not four microscopic cards beside an image.
+  // Test actual computed CSS, not only the authored slide JSON.
+  const academicLayout=await browser.newPage({viewport:{width:1280,height:800}});
+  await academicLayout.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=6',{waitUntil:'domcontentloaded'});
+  const flow=academicLayout.locator('.brief-slide-art-with-figure .brief-flow');
+  await flow.waitFor({state:'visible',timeout:15000});
+  const trainingColumns=await flow.evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').filter(Boolean).length);
+  assert.equal(trainingColumns,2,'Four training steps next to an original-paper diagram must be a readable 2×2 flow, never four cramped columns');
+  const trainingCardWidth=(await flow.locator('.brief-flow-stage').first().boundingBox())?.width ?? 0;
+  assert.ok(trainingCardWidth>=170,`Training step width too small: ${trainingCardWidth}`);
+
+  await academicLayout.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=5',{waitUntil:'domcontentloaded'});
+  const concepts=academicLayout.locator('.brief-slide-art-with-figure .brief-concept-grid');
+  await concepts.waitFor({state:'visible',timeout:15000});
+  const conceptColumns=await concepts.evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').filter(Boolean).length);
+  assert.equal(conceptColumns,1,'Three H/s/d explanations should stack as readable rows alongside the paper figure');
+
+  await academicLayout.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=10',{waitUntil:'domcontentloaded'});
+  await academicLayout.locator('.brief-layout-equation .katex').waitFor({state:'visible',timeout:15000});
+  assert.match(await academicLayout.locator('.brief-layout-equation h2').innerText(),/Công thức trung tâm/);
+  assert.equal(await academicLayout.locator('.brief-slide-stage .brief-slide-detail').count(),0,
+    'The complete flow-matching equation is projected, but presenter narration is not');
+  await academicLayout.close();
+  console.log('PASS: restored RTC science uses readable figure/flow grids and visible KaTeX');
+
   // Presenter View uses a separate native document. Simulate Chromium's Document
   // Picture-in-Picture by opening an isolated same-origin popup. This verifies
   // React portals and audience/private DOM boundaries, not Teams OS capture.
