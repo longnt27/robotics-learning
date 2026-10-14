@@ -5,6 +5,8 @@ import { relations } from "@/lib/relations";
 import { getPaperChapter } from "@/lib/content";
 import figureManifest from "@/content/paper-figures.json";
 import { PaperReader } from "@/components/paper-reader";
+import { PaperArticle } from "@/components/paper-article";
+import { titleSlug } from "@/lib/reading-headings";
 import { ReadingScrollTop } from "@/components/reading-scroll-top";
 
 export function generateStaticParams() { return papers.map((paper) => ({slug: paper.slug})); }
@@ -22,5 +24,12 @@ export default async function PaperPage({params}: {params: Promise<{slug: string
   if (!paper) notFound();
   const chapter = await getPaperChapter(slug);
   const figures = figureManifest[slug as keyof typeof figureManifest] ?? [];
-  return <><PaperReader paper={paper} chapter={chapter} relations={relations} figures={figures}/><ReadingScrollTop/></>;
+  const toc = [...(chapter ?? "").matchAll(/^## (.+)$/gm)]
+    .map(match=>({title:match[1],id:titleSlug(match[1])}));
+  const related = relations.filter(relation=>relation.from===slug || relation.to===slug);
+  return <>
+    <PaperReader paper={paper} toc={toc} relations={related}
+      article={<PaperArticle chapter={chapter} paperSlug={slug} figures={figures}/>}/>
+    <ReadingScrollTop/>
+  </>;
 }
