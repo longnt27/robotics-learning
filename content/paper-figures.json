@@ -1161,14 +1161,14 @@
     {
       "page": 1,
       "bbox": [
-        22,
-        475.1,
-        590,
-        643.3
+        22.0,
+        410.1,
+        590.0,
+        645.5
       ],
       "width": 2045,
-      "height": 606,
-      "bytes": 218884,
+      "height": 848,
+      "bytes": 314500,
       "number": 1,
       "image": "/paper-figures/open-x-embodiment/figure-1.webp",
       "caption": "Fig. 1: We propose an open, large-scale dataset for robot learning curated from 21 institutions across the globe. The dataset represents diverse behaviors, robot embodiments and environments, and enables learning generalized robotic policies.",
@@ -1181,14 +1181,14 @@
     {
       "page": 3,
       "bbox": [
-        22,
-        25.3,
-        590,
-        274.5
+        11.0,
+        18.0,
+        601.0,
+        276.7
       ],
-      "width": 2045,
-      "height": 899,
-      "bytes": 110986,
+      "width": 2125,
+      "height": 933,
+      "bytes": 108428,
       "number": 2,
       "image": "/paper-figures/open-x-embodiment/figure-2.webp",
       "caption": "Fig. 2: The Open X-Embodiment Dataset. (a): the dataset consists of 60 individual datasets across 22 embodiments. (b): the Franka robot has the largest diversity in visually distinct scenes due to the large number of Franka datasets, (c): xArm and Google Robot contribute the most number of trajectories due to a few large datasets, (d, e): the dataset contains a great diversity of skills and common objects.",
@@ -1201,14 +1201,14 @@
     {
       "page": 4,
       "bbox": [
-        22,
+        22.0,
         38.7,
-        590,
-        159.7
+        590.0,
+        161.7
       ],
       "width": 2045,
-      "height": 437,
-      "bytes": 68800,
+      "height": 444,
+      "bytes": 67238,
       "number": 3,
       "image": "/paper-figures/open-x-embodiment/figure-3.webp",
       "caption": "Fig. 3: RT-1-X and RT-2-X both take images and a text instruction as input and output discretized end-effector actions. RT-1-X is an architecture designed for robotics, with a FiLM [116] conditioned EfficientNet [117] and a Transformer [118]. RT-2-X builds on a VLM backbone by representing actions as another language, and training action text tokens together with vision-language data.",
@@ -1221,14 +1221,14 @@
     {
       "page": 5,
       "bbox": [
-        22,
+        22.0,
         27.5,
-        590,
-        142.5
+        590.0,
+        144.7
       ],
       "width": 2045,
-      "height": 415,
-      "bytes": 53568,
+      "height": 422,
+      "bytes": 50752,
       "number": 4,
       "image": "/paper-figures/open-x-embodiment/figure-4.webp",
       "caption": "Fig. 4: RT-1-X mean success rate is 50% higher than that of either the Original Method or RT-1. RT-1 and RT-1-X have the same network architecture. Therefore the performance increase can be attributed to co-training on the robotics data mixture. The lab logos indicate the physical location of real robot evaluation, and the robot pictures indicate the embodiment used for the evaluation.",
@@ -1241,14 +1241,14 @@
     {
       "page": 6,
       "bbox": [
-        311,
-        121.9,
-        591,
-        341.9
+        311.0,
+        47.0,
+        591.0,
+        344.0
       ],
       "width": 1009,
-      "height": 793,
-      "bytes": 107928,
+      "height": 1070,
+      "bytes": 134982,
       "number": 5,
       "image": "/paper-figures/open-x-embodiment/figure-5.webp",
       "caption": "Fig. 5: To assess transfer between embodiments, we evaluate the RT-2-X model on out-of-distribution skills. These skills are in the Bridge dataset, but not in the Google Robot dataset (the embodiment they are evaluated on). across robotic datasets. Contrary to previous RT-2 findings, co-fine-tuning and fine-tuning have similar performance in both the Emergent Skills and Generalization Evaluation (row (4) vs row (7)), which we attribute to the fact that the robotics data used in RT-2-X is much more diverse than the previously used robotics datasets.",
