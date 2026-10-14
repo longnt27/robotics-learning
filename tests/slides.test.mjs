@@ -78,8 +78,30 @@ test('RTC Training-Time projects concise visuals and reserves all narration for 
  assert.ok(slides.filter(s=>s.figure).length>=9,'Keep original-paper imagery');
  const component=fs.readFileSync(path.join(root,'components/slide-deck.tsx'),'utf8');
  assert.match(component,/const visualFirst=slide\?\.stageMode==="visual-first"/);
- assert.match(component,/slide\.detail&&!visualFirst&&<aside/);
- assert.match(component,/!visualFirst&&slide\.type!=="cover"/);
+ assert.match(component,/slide\.detail&&!audienceOnly&&<aside/);
+ assert.match(component,/!audienceOnly&&slide\.type!=="cover"/);
  assert.match(component,/notes&&<div className="brief-speaker-notes"/);
  assert.match(component,/slide\.detail&&<p><strong>\{slide\.detail\.label\}/);
+});
+
+test('Presenter View isolates all private speaker text in a separate document',()=>{
+ const ui=fs.readFileSync(path.join(root,'components/slide-deck.tsx'),'utf8');
+ const panel=fs.readFileSync(path.join(root,'components/presenter-panel.tsx'),'utf8');
+ const css=fs.readFileSync(path.join(root,'app/briefing.css'),'utf8');
+ assert.match(ui,/documentPictureInPicture/,'Use Chromium Document Picture-in-Picture for private notes');
+ assert.match(ui,/api\.requestWindow\(/,'A user click requests the popup');
+ assert.match(ui,/presenterWindow\?createPortal\(audience,document\.body\):audience/,'Shared slide is presented at viewport root');
+ assert.match(ui,/const audienceOnly=visualFirst\|\|Boolean\(presenterWindow\)/,'Hide detailed prose for every deck while presenting');
+ assert.match(ui,/notes&&!presenterWindow&&<div className="brief-speaker-notes"/,'Never put notes in the shared window while presenting');
+ assert.match(ui,/slide\.detail&&!audienceOnly&&<aside/,'Hide private explanatory panel in audience projection');
+ assert.match(ui,/presenterWindow\?\.addEventListener\("keydown",handler\)/,'Keys work from the private popup');
+ assert.match(ui,/popup\.addEventListener\("pagehide",handleClose\)/,'Private window closing is handled');
+ assert.match(panel,/createPortal\(/,'Notes render in a separate DOM document');
+ assert.match(panel,/popup\.document\.body/,'Notes go only to the private popup');
+ assert.match(panel,/data-private-presenter/);
+ assert.match(panel,/GHI CHÚ CHỈ MÀY NHÌN THẤY/);
+ assert.match(panel,/Không chia sẻ toàn màn hình/);
+ assert.match(css,/\.brief-deck-presenting\{position:fixed/);
+ assert.match(css,/\.brief-deck-presenting \.brief-deck-toolbar/);
+ assert.ok(fs.existsSync(path.join(root,'public/presenter-view.css')),'Popup stylesheet bundled');
 });
