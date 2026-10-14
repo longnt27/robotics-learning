@@ -3,14 +3,14 @@
     {
       "page": 2,
       "bbox": [
-        22,
-        72.4,
-        590,
-        317.6
+        22.0,
+        62.1,
+        590.0,
+        319.7
       ],
       "width": 2045,
-      "height": 884,
-      "bytes": 154850,
+      "height": 928,
+      "bytes": 141838,
       "number": 1,
       "image": "/paper-figures/vima/figure-1.webp",
       "caption": "Figure 1: Multimodal prompts for task specification. We observe that many robot manipulation tasks can be expressed as multimodal prompts that interleave language and image/video frames. We introduce VIMA, an embodied agent capable of processing mulitimodal prompts (left) and controlling a robot arm to solve the task (right).",
@@ -23,14 +23,14 @@
     {
       "page": 3,
       "bbox": [
-        22,
+        22.0,
         68.3,
-        590,
-        183.3
+        590.0,
+        185.4
       ],
       "width": 2045,
-      "height": 415,
-      "bytes": 83290,
+      "height": 423,
+      "bytes": 78708,
       "number": 2,
       "image": "/paper-figures/vima/figure-2.webp",
       "caption": "Figure 2: Evaluation Protocol in VIMA-BENCH. We design 4 levels of evaluation settings to systematically measure the zero-shot generalization capability of an agent. Each level deviates more from the training distribution, and thus is strictly more challenging than the previous level.",
@@ -43,14 +43,14 @@
     {
       "page": 4,
       "bbox": [
-        22,
-        205.6,
-        590,
-        345.8
+        22.0,
+        117.8,
+        590.0,
+        347.9
       ],
       "width": 2045,
-      "height": 505,
-      "bytes": 63342,
+      "height": 829,
+      "bytes": 71678,
       "number": 3,
       "image": "/paper-figures/vima/figure-3.webp",
       "caption": "Figure 3: VIMA Architecture. We encode the multimodal prompts with a pre-trained T5 model, and condition the robot controller on the prompt through cross-attention layers. The controller is a causal transformer decoder consisting of alternating self and cross attention layers that predicts motor commands conditioned on prompts and interaction history.",
@@ -63,14 +63,14 @@
     {
       "page": 5,
       "bbox": [
-        22,
-        45,
-        590,
-        310
+        22.0,
+        45.0,
+        590.0,
+        312.2
       ],
       "width": 2045,
-      "height": 955,
-      "bytes": 108580,
+      "height": 962,
+      "bytes": 106232,
       "number": 4,
       "image": "/paper-figures/vima/figure-4.webp",
       "caption": "Figure 4: Scaling model and data. Top: We compare performance of different methods with model sizes ranging from 2M to 200M parameters. Across all model sizes and generalization levels, VIMA outperforms baseline variants. Bottom: For a fixed model size of 92M parameters we compare the effect of imitation learning dataset size with 0.1%, 1%, 10%, and full data. VIMA is extremely sample efficient and can achieve performance comparable to other methods with 10× less data.",
@@ -83,14 +83,14 @@
     {
       "page": 6,
       "bbox": [
-        311,
-        25,
-        591,
+        311.0,
+        25.0,
+        591.0,
         209.3
       ],
       "width": 1009,
       "height": 664,
-      "bytes": 32194,
+      "bytes": 31342,
       "number": 5,
       "image": "/paper-figures/vima/figure-5.webp",
       "caption": "Figure 5: VIMA incurs much less performance drop than baselines as we evaluate on progressively harder settings.",
@@ -103,14 +103,14 @@
     {
       "page": 7,
       "bbox": [
-        22,
-        187.7,
-        590,
-        330.5
+        22.0,
+        64.5,
+        590.0,
+        332.6
       ],
       "width": 2045,
-      "height": 515,
-      "bytes": 49670,
+      "height": 966,
+      "bytes": 66522,
       "number": 6,
       "image": "/paper-figures/vima/figure-6.webp",
       "caption": "Figure 6: Ablation on visual tokenizers. We compare the performance of VIMA-200M model across different visual tokenizers. Our proposed object tokens outperform all methods that learn directly from raw pixels, and Object Perceiver that downsamples the object sequence to a fixed number of tokens.",
@@ -123,14 +123,14 @@
     {
       "page": 8,
       "bbox": [
-        22,
-        25,
-        590,
-        177.7
+        22.0,
+        18.0,
+        590.0,
+        179.9
       ],
       "width": 2045,
-      "height": 550,
-      "bytes": 51118,
+      "height": 584,
+      "bytes": 49612,
       "number": 7,
       "image": "/paper-figures/vima/figure-7.webp",
       "caption": "Figure 7: Ablation on prompt conditioning. We compare our method (xattn: cross-attention prompt conditioning) with a vanilla transformer decoder (gpt-decoder) across different model sizes. Cross-attention is especially helpful in low-parameter regime and for harder generalization tasks.",
