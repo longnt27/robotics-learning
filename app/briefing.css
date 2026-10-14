@@ -238,3 +238,24 @@
  .brief-takeaway{padding:13px}
  .brief-slide-stage:fullscreen .brief-slide-content{overflow-y:auto;min-height:0}
 }
+
+/* Source-paper diagrams in RTC Training-Time: visible only for active slide. */
+.brief-slide-art-with-figure{display:grid;grid-template-columns:minmax(0,.87fr) minmax(0,1.13fr);align-items:stretch;gap:clamp(14px,2.2vw,32px);min-height:0}
+.brief-slide-art-primary{min-width:0;display:flex;flex-direction:column;justify-content:center}
+.brief-source-figure{min-width:0;min-height:0;margin:0;display:flex;flex-direction:column;justify-content:center;gap:10px;background:linear-gradient(145deg,rgba(255,226,154,.09),rgba(8,13,26,.74));border:1px solid rgba(255,226,154,.27);border-radius:18px;padding:clamp(10px,1.5vw,19px);box-shadow:0 18px 60px rgba(0,0,0,.27),inset 0 1px rgba(255,255,255,.08)}
+.brief-source-image{position:relative;min-height:115px;flex:1 1 auto;max-height:330px;overflow:hidden;border-radius:10px;background:#fff}
+.brief-source-image img{object-fit:contain!important;object-position:center}
+.brief-source-figure figcaption{font-size:clamp(10px,.82vw,12px);line-height:1.35;color:#c5d0e3}
+.brief-source-figure figcaption span{display:block;color:#ffe29a;font-size:10px;font-weight:800;letter-spacing:.12em;margin-bottom:4px}
+.brief-slide-art-with-figure .brief-cover-main{display:block}
+.brief-slide-art-with-figure .brief-cover-copy{width:auto;max-width:none}
+.brief-slide-art-with-figure .brief-orbital{display:none}
+.brief-slide-art-with-figure .brief-cover-copy h2{font-size:clamp(30px,4vw,58px)}
+.brief-slide-art-with-figure .brief-fact-grid,.brief-slide-art-with-figure .brief-concept-grid,.brief-slide-art-with-figure .brief-flow{max-width:100%;min-width:0}
+.brief-slide-art-with-figure .brief-thesis-word{font-size:clamp(20px,2.2vw,34px)}
+@media(max-width:850px){
+.brief-slide-art-with-figure{grid-template-columns:minmax(0,1fr);gap:12px}
+.brief-source-figure{min-height:190px}
+.brief-source-image{min-height:165px;max-height:260px}
+.brief-slide-art-with-figure .brief-cover-copy h2{font-size:36px}
+}
