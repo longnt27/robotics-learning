@@ -11,7 +11,7 @@ Source: https://arxiv.org/pdf/2306.03310
 | 1 | 2 | Inspected; source crop retained | 22, 63.4, 590, 290 | 22, 63.4, 590, 290 | Existing rectangle contains the whole figure in source preview. |
 | 2 | 4 | Inspected; source crop retained | 22, 59, 590, 226.3 | 22, 59, 590, 226.3 | Existing rectangle contains the whole figure in source preview. |
 | 4 | 9 | Inspected; source crop retained | 22, 281.9, 590, 415.4 | 22, 281.9, 590, 415.4 | Existing rectangle contains the whole figure in source preview. |
-| 5 | 9 | Manually recut | 22, 448.3, 590, 660.3 | 102, 529, 531, 659 | Remove preceding paper prose and capture complete pretraining comparison bars |
+| 5 | 9 | Manually recut | 102, 529, 531, 659 | 100, 568, 537, 657 | Remove preceding paper prose and capture complete pretraining comparison bars. Second visual inspection: adjusted further to retain full figure and exclude adjacent material. |
 
 Total visually audited: 4. Rectangles manually corrected: 1.
 Original figure paths and original/translated captions were preserved.
