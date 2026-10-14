@@ -49,7 +49,7 @@ export function PresenterPanel({popup,paperTitle,slides,index,elapsedSeconds,cha
           <p>{slide.lead}</p>
         </section>
         <section className="presenter-notes" aria-label="Ghi chú riêng cho người thuyết trình">
-          <h2><NotebookPen size={17}/> GHI CHÚ CHỈ MÀY NHÌN THẤY</h2>
+          <h2><NotebookPen size={17}/> GHI CHÚ RIÊNG TƯ</h2>
           <div className="presenter-note-key"><span>Ý CẦN NHẤN MẠNH</span><p>{slide.intuition}</p></div>
           {slide.detail&&<div className="presenter-note-body"><span>{slide.detail.label}</span><p>{slide.detail.text}</p></div>}
           {chapterContext&&<details className="presenter-more"><summary>Ngữ cảnh bổ sung từ bài diễn giải</summary><p>{chapterContext}</p></details>}
