@@ -3,25 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ExternalLink, Maximize2, X, ZoomIn, ZoomOut } from "lucide-react";
-import figureManifest from "@/content/paper-figures.json";
+import type {SourceFigure} from "@/lib/figure-types";
 
-type SourceFigure = {
-  image: string;
-  number: number;
-  page: number;
-  pdf: string;
-  caption: string;
-  caption_vi?: string;
-  translation_method?: string;
-  translation_reviewed?: boolean;
-};
-
-const figures = figureManifest as Record<string, SourceFigure[]>;
-
-export function PaperFigure({paperSlug,src,alt}:{
+export function PaperFigure({paperSlug,src,alt,figures}:{
   paperSlug: string;
   src?: string;
   alt?: string;
+  figures: SourceFigure[];
 }) {
   const [open,setOpen] = useState(false);
   const [actualSize,setActualSize] = useState(false);
@@ -29,7 +17,7 @@ export function PaperFigure({paperSlug,src,alt}:{
   const triggerRef = useRef<HTMLButtonElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
-  const meta = figures[paperSlug]?.find(figure => figure.image === src);
+  const meta = figures.find(figure => figure.image === src);
   const title = meta ? "Hình " + meta.number : alt || "Hình minh họa";
   const caption = meta?.caption || alt || "Chưa có caption gốc cho hình này.";
   const captionVi = meta?.caption_vi?.trim() || "Chưa có bản dịch tiếng Việt.";
