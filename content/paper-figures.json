@@ -2759,14 +2759,14 @@
     {
       "page": 1,
       "bbox": [
-        22,
-        441.1,
-        590,
-        631.8
+        22.0,
+        221.1,
+        590.0,
+        633.9
       ],
       "width": 2045,
-      "height": 688,
-      "bytes": 139622,
+      "height": 1487,
+      "bytes": 333074,
       "number": 1,
       "image": "/paper-figures/rtc-inference/figure-1.webp",
       "caption": "Figure 1: Top: Real-time chunking (RTC) enables the robot to perform highly dexterous and dynamic tasks, such as lighting a match—even in the presence of inference delays in excess of 300 milliseconds, corresponding to more than 30% of the model’s prediction horizon. Bottom: RTC performs the same robot motion 20% faster than synchronous inference [5, 30, 8, 24, 31, 59], and smoother than all competing methods, including temporal ensembling [68]. The shown positions, velocities, and accelerations correspond to the shoulder joint of one arm, and are taken from the first 10 seconds of a real autonomous match-lighting rollout.",
@@ -2779,14 +2779,14 @@
     {
       "page": 3,
       "bbox": [
-        311,
-        133.8,
-        591,
+        305.5,
+        121.0,
+        591.0,
         353.8
       ],
-      "width": 1009,
-      "height": 793,
-      "bytes": 52692,
+      "width": 1029,
+      "height": 839,
+      "bytes": 59178,
       "number": 2,
       "image": "/paper-figures/rtc-inference/figure-2.webp",
       "caption": "Figure 2: An illustration of a typical bifurcation be- tween consecutive chunks. Inference is started between timesteps 3 and 4. The original chunk that was execut- ing, {at} (black), had planned to go above the obstacle while the newly generated chunk {a′ t} (red) goes be- low the obstacle. However, {a′ t} is not available until d = 7 steps later. A naive asynchronous algorithm might jump from a10 to a′ 11, inducing a very high, out- of-distribution acceleration. Temporal ensembling [68], i.e., interpolating between chunks, reduces the acceler- ation but produces poor actions.",
@@ -2799,14 +2799,14 @@
     {
       "page": 4,
       "bbox": [
-        22,
-        25,
-        590,
-        212.1
+        22.0,
+        25.0,
+        590.0,
+        214.1
       ],
       "width": 2045,
-      "height": 674,
-      "bytes": 56060,
+      "height": 681,
+      "bytes": 54670,
       "number": 3,
       "image": "/paper-figures/rtc-inference/figure-3.webp",
       "caption": "Figure 3: A diagram illustrating how action generation attends to the previous action chunk in real-time chunking. If inference starts after the execution of a−1 and the inference delay is d = 4, then the newly generated chunk will not be available until after a3 is consumed. Therefore, a0:3 are “frozen” and are attended to with a full guidance weight of 1. In the intermediate region, a4:10, actions from the previous chunk are available but may be updated, since inference will have finished before a4 is needed. This region is attended to with an exponentially decreasing guidance weight. Finally, the last s = 5 actions are beyond the end of the previous chunk, and need to be freshly generated. The execution horizon, s, is a hyperparameter constrained by d ≤s ≤H −d.",
@@ -2819,14 +2819,14 @@
     {
       "page": 5,
       "bbox": [
-        311,
-        25,
-        591,
-        244.6
+        311.0,
+        25.0,
+        591.0,
+        246.6
       ],
       "width": 1009,
-      "height": 791,
-      "bytes": 53594,
+      "height": 798,
+      "bytes": 52964,
       "number": 4,
       "image": "/paper-figures/rtc-inference/figure-4.webp",
       "caption": "Figure 4: A comparison of naive in- painting (hard masking) and our pro- posed soft masking method: note that hard masking does not match the frozen region very well and produces faster changes in direction.",
@@ -2839,14 +2839,14 @@
     {
       "page": 7,
       "bbox": [
-        22,
+        22.0,
         61.3,
-        590,
-        271.1
+        590.0,
+        273.2
       ],
       "width": 2045,
-      "height": 756,
-      "bytes": 101982,
+      "height": 764,
+      "bytes": 98432,
       "number": 5,
       "image": "/paper-figures/rtc-inference/figure-5.webp",
       "caption": "Figure 5: Top left: Kinetix environments; each involves getting a green object on the left to touch a blue one on the right. Bottom left: Execution horizon vs. solve rate with a fixed inference delay of 1. Only RTC and BID take full advantage of faster updates, showing strictly increasing performance with decreasing execution horizon. Right: Inference delay vs. solve rate with a fixed execution horizon of s = max(d, 1). RTC outperforms all baselines. Furthermore, soft masking (Sec. 3.2) improves performance at lower inference delays and execution horizons. Each data point represents 2048 trials, and 95% Wilson score intervals are shaded in.",
@@ -2859,14 +2859,14 @@
     {
       "page": 8,
       "bbox": [
-        22,
-        325.1,
-        590,
-        590.1
+        22.0,
+        72.1,
+        590.0,
+        592.2
       ],
       "width": 2045,
-      "height": 955,
-      "bytes": 122104,
+      "height": 1873,
+      "bytes": 352004,
       "number": 6,
       "image": "/paper-figures/rtc-inference/figure-6.webp",
       "caption": "Figure 6: Top: Controller steps (equivalent to elapsed time with inference pauses removed multiplied by 50Hz) vs. cumulative progress for each task, aggregated across all delays. Progress is measured in discrete steps corresponding to the subsections of each task. Left: Time (including inference pauses) vs. cumulative progress aggregated across all tasks. The x-axis is log scale to better show progress during both short and long-horizon tasks. Right: Inference delay vs. average throughput, defined as the proportion of task completed divided by duration of episode averaged over episodes. Error bars are ±1 SEM. Average throughput gives a balanced view of both speed and performance for each method. Neither TE variant can run at +100 or +200ms of injected latency, causing such high oscillations that the robot’s protective stop is triggered.",
