@@ -16,7 +16,12 @@
       "alt": "Hình 1 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
       "caption": "Hai đoạn hành động chồng nhau; phần màu đỏ là tiền tố được giữ cố định."
     },
-    "stageMode": "visual-first"
+    "stageMode": "visual-first",
+    "speakerScript": [
+      "Hôm nay tôi sẽ nói về Training-Time RTC, một cách giúp robot thực hiện các đoạn hành động liên tiếp mà không phải dừng lại chờ mô hình tính xong. Trước hết, RTC là viết tắt của Real-Time Chunking. Mỗi lần mô hình dự đoán không phải một lệnh duy nhất, mà là cả một đoạn lệnh điều khiển.",
+      "Vấn đề khó nhất không nằm ở việc dự đoán một đoạn mới. Nó nằm ở chỗ robot vẫn đang chạy đoạn cũ khi đoạn mới được tính, nên đoạn mới phải nối được vào những hành động đã được quyết định trước đó. RTC đời đầu giải quyết việc này bằng hiệu chỉnh trong quá trình suy luận, còn bài hôm nay chuyển phần ràng buộc đó vào huấn luyện.",
+      "Tôi sẽ đi từ vấn đề độ trễ, qua chi phí tính toán của RTC đời đầu, rồi tới cơ chế huấn luyện và kết quả thử nghiệm. Trước tiên, hãy xem vì sao độ trễ vài chục mili giây lại quan trọng đến vậy."
+    ]
   },
   {
     "type": "problem",
@@ -36,7 +41,12 @@
       "alt": "Hình 1 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
       "caption": "Các đoạn hành động dự đoán được cập nhật trong khi robot tiếp tục thực thi."
     },
-    "stageMode": "visual-first"
+    "stageMode": "visual-first",
+    "speakerScript": [
+      "Giả sử bộ điều khiển robot chạy ở 50 héc, nghĩa là cứ 20 mili giây nó cần một lệnh mới. Trong khi đó, nếu mô hình cần 100 mili giây để suy luận, robot đã trải qua khoảng năm chu kỳ điều khiển trước khi có kết quả. Ta ký hiệu độ trễ này bằng d, ở đây d xấp xỉ bằng năm.",
+      "Có hai cách xử lý ngây thơ. Một là bắt robot đứng chờ mỗi khi mô hình suy luận, nhưng chuyển động sẽ bị giật và chậm. Hai là cho robot tiếp tục chạy bằng đoạn lệnh đang có. Cách thứ hai mượt hơn, nhưng kéo theo bài toán: khi đoạn mới đến, nó không được phủ nhận những lệnh robot đã thực hiện hoặc chắc chắn sắp thực hiện.",
+      "Nhìn vào các đoạn lệnh chồng lên nhau trong hình: vùng nối chính là chỗ chúng ta phải bảo đảm tính liên tục. RTC giải quyết được việc chạy song song này, nhưng phiên bản đầu phải trả thêm chi phí tính toán. Sang slide sau, tôi sẽ chỉ đúng phép toán gây ra chi phí đó."
+    ]
   },
   {
     "type": "contrast",
@@ -51,7 +61,13 @@
       "label": "GIẢI THÍCH BỔ SUNG",
       "text": "Trong công thức guidance RTC gốc, A có dấu mũ là chuỗi hành động sạch ước lượng, Y là đích nối đoạn, W là trọng số giữ từng bước, còn đạo hàm Jacobian thể hiện tác động của việc thay đổi chuỗi đang sinh. Phép nhân vector–Jacobian (VJP) cần backpropagation mỗi bước lấy mẫu. Biểu thức thời gian bên dưới chỉ là ước lượng chi phí, không phải một phương trình đo độ trễ trong paper."
     },
-    "stageMode": "visual-first"
+    "stageMode": "visual-first",
+    "speakerScript": [
+      "Ở đây là lý do RTC tại thời điểm suy luận thường chậm hơn việc sinh hành động thông thường. Mỗi bước khử nhiễu, mạng dự đoán một trường vận tốc, ký hiệu là v theta. Từ trường vận tốc đó, ta ước lượng chuỗi hành động sạch, ký hiệu là A mũ một.",
+      "Nhưng RTC đời đầu chưa dừng ở dự đoán này. Nó lấy sai lệch giữa các hành động cần giữ, ký hiệu Y, và chuỗi vừa ước lượng, rồi dùng ma trận trọng số W để xác định vị trí nào phải khớp mạnh hơn. Phần có đạo hàm của A mũ một theo trạng thái đang sinh là Jacobian. Khi nhân sai lệch với Jacobian, hệ thống phải tính thêm một vector–Jacobian product, hay VJP, bằng lan truyền ngược qua mô hình.",
+      "Điều đáng chú ý là VJP không chỉ tính một lần ở cuối. Nó xuất hiện trong từng bước lấy mẫu. Nếu có n bước, chi phí gần đúng là n lần forward cộng n lần VJP và phần phụ trợ. Training-Time RTC vẫn cần n lần forward, nhưng bỏ phép VJP bổ sung vì mạng đã được huấn luyện để biết nối đoạn.",
+      "Ở cấu hình robot thật được báo cáo, độ trễ từ 135 xuống 108 mili giây. Đây là một phép đo cụ thể, không phải lời hứa tăng tốc cho mọi phần cứng. Bây giờ hãy quay về thao tác vật lý để thấy vì sao việc nối đoạn lại quan trọng."
+    ]
   },
   {
     "type": "intuition",
@@ -70,7 +86,12 @@
       "alt": "Hình 4 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
       "caption": "Hai nhiệm vụ trên robot thật: dựng hộp giấy và pha espresso."
     },
-    "stageMode": "visual-first"
+    "stageMode": "visual-first",
+    "speakerScript": [
+      "Hãy tưởng tượng robot đang cầm dụng cụ nén cà phê và đang hạ tay xuống. Trong lúc nó còn hạ tay, camera gửi quan sát mới về cho mô hình. Mô hình bắt đầu tính đoạn hành động tiếp theo, nhưng bộ điều khiển không thể đứng yên chờ kết quả.",
+      "Nếu đoạn mới được dự đoán như thể cánh tay đã ở một vị trí khác, ngay tại điểm chuyển từ đoạn cũ sang đoạn mới robot có thể đổi hướng hoặc thay đổi tốc độ đột ngột. Vấn đề không phải đoạn mới tự nó vô lý, mà là hai đoạn không thống nhất ở chỗ giao nhau.",
+      "Giải pháp là coi những hành động đã cam kết như dữ kiện không được sửa. Mô hình chỉ được quyết định phần tiếp theo sao cho chuyển động vẫn nối được. Để mô tả điều kiện này chính xác, chúng ta cần ba đại lượng H, s và d."
+    ]
   },
   {
     "type": "concepts",
@@ -100,7 +121,12 @@
       "alt": "Hình 1 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
       "caption": "Hai đoạn dự đoán có vùng chồng H−s bước, trong đó d bước đầu phải được giữ."
     },
-    "stageMode": "visual-first"
+    "stageMode": "visual-first",
+    "speakerScript": [
+      "Chúng ta có ba đại lượng. H là độ dài của một đoạn hành động, tức một lần mô hình dự đoán bao nhiêu bước. s là khoảng cách giữa hai lần hệ thống bắt đầu cập nhật đoạn dự đoán. Còn d là số bước điều khiển đã trôi qua trong lúc mô hình tính ra đoạn mới.",
+      "Vì lần cập nhật tiếp theo bắt đầu sau s bước, hai đoạn có vùng chồng dài H trừ s. Để vẫn còn đủ lệnh cũ cho robot thực thi trong khi chờ, vùng chồng phải chứa được d bước đã cam kết. Ta có điều kiện d nhỏ hơn hoặc bằng H trừ s.",
+      "Ví dụ H bằng 16, s bằng 7 thì có chín bước chồng nhau. Nếu d bằng 5 thì còn đủ chỗ để giữ năm bước bắt buộc. Nhưng nếu suy luận kéo dài đến 11 bước thì vùng chồng không còn đủ, và ta phải điều chỉnh lịch cập nhật hoặc độ dài đoạn. Sau đây là cách tác giả đưa điều kiện này vào quá trình huấn luyện."
+    ]
   },
   {
     "type": "pipeline",
@@ -122,7 +148,12 @@
       "alt": "Hình 2 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
       "caption": "Kiến trúc DiT nhận tiền tố không thêm nhiễu và hậu tố được thêm nhiễu."
     },
-    "stageMode": "visual-first"
+    "stageMode": "visual-first",
+    "speakerScript": [
+      "Hãy đọc sơ đồ huấn luyện này từ đầu tới cuối. Đầu tiên, ta lấy một đoạn hành động mẫu và chọn độ dài tiền tố d. Những hành động nằm trong d vị trí đầu được xem như các lệnh đã cam kết, nên giữ nguyên giá trị thay vì thêm nhiễu.",
+      "Tiếp đó, các hành động phía sau, gọi là hậu tố, được thêm nhiễu theo quy trình flow matching. Mô hình nhìn đồng thời quan sát mới, tiền tố đã biết và phần hậu tố đang nhiễu, rồi học dự đoán trường vận tốc để khôi phục hậu tố đúng. Khi tính loss, ta bỏ qua các vị trí tiền tố, vì chúng là dữ kiện cố định chứ không phải mục tiêu cần sinh.",
+      "Điểm mới nằm ở việc mô hình liên tục gặp những bài tập nối đoạn ngay khi học. Đến lúc điều khiển robot, nó đã biết cách tiếp tục từ một tiền tố cố định mà không cần phép VJP riêng. Có một chi tiết quan trọng: không phải toàn bộ vùng hai đoạn chồng lên nhau đều cần giữ cứng."
+    ]
   },
   {
     "type": "representation",
@@ -148,7 +179,12 @@
       "alt": "Hình 1 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
       "caption": "Vùng chồng H−s không đồng nghĩa toàn bộ các bước đều phải giữ cố định."
     },
-    "stageMode": "visual-first"
+    "stageMode": "visual-first",
+    "speakerScript": [
+      "Nhìn vào hình, vùng chồng giữa hai đoạn có độ dài H trừ s. Nhưng trong vùng đó, chỉ d hành động đầu là những lệnh bộ điều khiển đã cam kết sẽ thực thi trước khi kết quả mới sẵn sàng. Phần chồng còn lại thực ra vẫn có thể dự đoán lại.",
+      "Lấy ví dụ H bằng 16 và s bằng 7, ta có chín bước chồng. Nếu d bằng 5 thì năm bước đầu phải giữ nguyên, còn bốn bước chồng tiếp theo chưa phải lời hứa bắt buộc. Việc khóa cả chín bước sẽ giảm không gian cho mô hình thích nghi với quan sát mới.",
+      "Training-Time RTC vì vậy chỉ cố định đúng tiền tố d bước, rồi cho mạng sinh phần còn lại. RTC đời đầu còn có cơ chế soft masking để khuyến khích một số vị trí chồng không bắt buộc khớp mềm hơn. Hai cách này không hoàn toàn giống nhau. Vậy mạng nhận ra đâu là bước bị khóa và đâu là bước cần dự đoán bằng cách nào?"
+    ]
   },
   {
     "type": "training",
@@ -174,7 +210,12 @@
       "alt": "Hình 2 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
       "caption": "Thời gian flow matching được thiết lập theo từng token của đoạn hành động."
     },
-    "stageMode": "visual-first"
+    "stageMode": "visual-first",
+    "speakerScript": [
+      "Câu trả lời nằm ở cách đưa thời gian flow matching vào từng token hành động. Thay vì toàn bộ chuỗi dùng chung một mức nhiễu, từng vị trí có thể mang mức thời gian riêng. Với tiền tố đã biết, ta đặt tau i bằng một, tức token mang giá trị hành động gốc trong quy ước của bài này.",
+      "Với hậu tố, ta lấy mẫu mức nhiễu như bình thường. Bộ sinh hành động dùng kiến trúc DiT nhận cả chuỗi đó và các mức tau tương ứng, nhờ vậy biết những vị trí nào phải được coi là điều kiện cố định. Cơ chế điều biến trong mạng cho phép thông tin thời gian đi vào các token.",
+      "Khi tối ưu, gradient của hàm mất mát chỉ đến từ hậu tố cần sinh. Đây là điều khác hẳn với việc sinh tự do rồi sau đó chạy một thuật toán hiệu chỉnh kết quả. Sau khi được huấn luyện như vậy, quy trình sử dụng mô hình ngoài đời sẽ đơn giản hơn."
+    ]
   },
   {
     "type": "inference",
@@ -195,7 +236,12 @@
       "label": "GIẢI THÍCH BỔ SUNG",
       "text": "Giảm chi phí của RTC không đồng nghĩa loại bỏ chi phí suy luận. Mô hình vẫn phải chạy transformer và các bước lấy mẫu; phần được loại bỏ là phép tính gradient bổ sung cho ràng buộc nối đoạn."
     },
-    "stageMode": "visual-first"
+    "stageMode": "visual-first",
+    "speakerScript": [
+      "Bây giờ xét một lượt suy luận thật. Ở thời điểm t, robot đang thực thi đoạn A. Mô hình nhận quan sát mới và bắt đầu chuẩn bị đoạn B. Trong thời gian chờ, bộ điều khiển tiếp tục phát các lệnh đã có trong A.",
+      "Ta ước lượng độ trễ là d bước, rồi lấy d hành động mà robot đã cam kết để làm tiền tố cố định của B. Mô hình dùng tiền tố đó và quan sát mới để tạo các hành động phía sau. Khi đến thời điểm t cộng d, đoạn mới đã sẵn sàng và bộ điều khiển chuyển sang phần hậu tố của B.",
+      "Như vậy robot không phải dừng để đợi, cũng không phải tính gradient nhằm kéo đoạn B quay về khớp đoạn A. Nhưng nhớ rằng transformer vẫn phải chạy và flow matching vẫn cần các bước tích phân. Chúng ta chỉ bỏ phần hiệu chỉnh tốn thêm thời gian. Công thức huấn luyện ngay sau đây cho thấy tiền tố và hậu tố được xử lý khác nhau thế nào."
+    ]
   },
   {
     "type": "equation",
@@ -210,7 +256,13 @@
       "label": "DIỄN GIẢI CÔNG THỨC",
       "text": "Ở tiền tố, đặt τᵢ = 1 nên hành động được đưa vào với giá trị gốc. Hậu tố được lấy mẫu mức nhiễu và học trường vận tốc theo flow matching. Hệ số 1/(H−d) chuẩn hoá sai số theo số vị trí được tối ưu."
     },
-    "stageMode": "visual-first"
+    "stageMode": "visual-first",
+    "speakerScript": [
+      "Công thức này nhìn dài, nhưng ý chính chỉ có một: mạng được chấm điểm trên những hành động nó thực sự phải tạo, chứ không bị chấm điểm trên các hành động đã cho sẵn. H là độ dài cả đoạn, còn d là số hành động tiền tố cố định.",
+      "Trong tổng từ i bằng d cộng một đến H, mỗi số hạng đo độ lệch bình phương giữa trường vận tốc mạng dự đoán và vận tốc mục tiêu của flow matching. A là hành động mẫu, epsilon là nhiễu, o là quan sát và tau thể hiện mức nhiễu. Hệ số một chia cho H trừ d giúp chuẩn hóa loss theo số vị trí hậu tố.",
+      "Ở d vị trí đầu, tau i được đặt để hành động giữ nguyên giá trị. Những vị trí ấy vẫn được đưa vào mô hình làm điều kiện, nhưng không được cộng vào tổng loss. Công thức đang chiếu là cách viết rút gọn để giải thích cơ chế, không phải toàn bộ chi tiết triển khai.",
+      "Nói ngắn gọn, huấn luyện dạy mô hình hoàn thành phần còn thiếu của một đoạn có đầu đã được quyết định. Phần tiếp theo là câu hỏi thực nghiệm: cách học này có thực sự tốt hơn khi độ trễ tăng hay không?"
+    ]
   },
   {
     "type": "results",
@@ -236,7 +288,12 @@
       "alt": "Hình 3 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
       "caption": "Tỉ lệ hoàn thành nhiệm vụ theo độ trễ, với 2.048 lần thử ở mỗi mức."
     },
-    "stageMode": "visual-first"
+    "stageMode": "visual-first",
+    "speakerScript": [
+      "Đây là kết quả mô phỏng trong Kinetix. Tác giả dùng đoạn hành động dài H bằng tám, rồi thay đổi độ trễ d từ không đến bốn bước. Khoảng cập nhật s được đặt bằng giá trị lớn hơn giữa d và một. Với mỗi mức trễ, có 2.048 lượt thử, và các khoảng tin cậy 95 phần trăm được tính theo Wilson.",
+      "Điều đáng chú ý không phải là một phương pháp luôn thắng. Ở d bằng không hoặc một, Training-Time RTC có thể thấp hơn đôi chút. Nhưng khi d từ hai trở lên, kết quả mô phỏng cho thấy phương pháp điều kiện hóa ngay khi huấn luyện có lợi thế.",
+      "Một cách lý giải của tác giả là khi tiền tố cần giữ dài hơn, phép guidance dựa trên xấp xỉ Jacobian của RTC đời đầu càng khó điều chỉnh chính xác. Đây là cách diễn giải xu hướng trong thí nghiệm, chưa phải kết luận cho mọi robot. Ta cần xem điều gì xảy ra trên robot thật."
+    ]
   },
   {
     "type": "ablation",
@@ -262,7 +319,12 @@
       "alt": "Hình 5 trong nghiên cứu Training-Time Action Conditioning for Efficient Real-Time Chunking",
       "caption": "So sánh kết quả nhiệm vụ và thời gian thực hiện giữa hai phiên bản RTC."
     },
-    "stageMode": "visual-first"
+    "stageMode": "visual-first",
+    "speakerScript": [
+      "Thí nghiệm robot thật dùng mô hình pi không phẩy sáu trên hai thao tác: dựng hộp và pha espresso. Hai phương pháp được fine-tune trong cùng thiết lập, mỗi phương pháp tám nghìn bước, batch 512. Cấu hình điều khiển là 50 héc và dùng năm bước khử nhiễu.",
+      "Ở đây con số đáng nhớ nhất là độ trễ đầu cuối: Training-Time RTC báo cáo 108 mili giây, so với 135 mili giây của Inference-Time RTC. Nghĩa là giảm 27 mili giây, khoảng 20 phần trăm trong thiết lập này. Tỉ lệ hoàn thành nhiệm vụ và thời gian làm nhiệm vụ được báo cáo là tương đối gần nhau, nên lợi ích nổi bật ở đây là giảm thời gian tính toán bổ sung.",
+      "Không nên biến kết quả này thành khẳng định rằng mô hình luôn nhanh hơn 20 phần trăm trên mọi máy, mọi mạng hay mọi tần số điều khiển. Con số phụ thuộc phần cứng và cách đo. Sau kết quả, ta cần nhìn cả những giới hạn của phương pháp."
+    ]
   },
   {
     "type": "limits",
@@ -283,7 +345,12 @@
       "label": "GIẢI THÍCH BỔ SUNG",
       "text": "Nếu d vượt H−s, vùng chồng không còn đủ để chứa các hành động đã cam kết. Trường hợp đó đòi hỏi điều chỉnh lịch thực thi hoặc độ dài dự đoán, thay vì chỉ dựa vào cách điều kiện hoá tiền tố."
     },
-    "stageMode": "visual-first"
+    "stageMode": "visual-first",
+    "speakerScript": [
+      "Phương pháp này giải quyết một phần rất cụ thể của bài toán nối đoạn: giữ tiền tố hành động đã cam kết và sinh phần tiếp theo tương thích. Nó không tự giải quyết mọi vấn đề của một robot chạy thời gian thực.",
+      "Thứ nhất, độ trễ có thể thay đổi giữa các lượt tính. Nếu d lớn hơn H trừ s, vùng chồng không còn đủ dài; khi ấy phải thay đổi cách lên lịch hoặc độ dài đoạn, chứ không phải chỉ thay loss là xong. Thứ hai, việc giữ nguyên lệnh đã gửi không có nghĩa robot vật lý chắc chắn đi đúng lệnh, nhất là khi va chạm hoặc chịu tải.",
+      "Thứ ba, Training-Time RTC không dùng soft masking cho phần chồng chưa cam kết giống phiên bản inference-time. Đó là khác biệt về cơ chế và có thể tạo đánh đổi về độ mượt hoặc khả năng thích ứng trong vài tình huống. Đặt hai cách cạnh nhau, chúng ta sẽ thấy rõ nên chọn cách nào."
+    ]
   },
   {
     "type": "relations",
@@ -304,7 +371,12 @@
       "label": "GIẢI THÍCH BỔ SUNG",
       "text": "Cùng dùng cơ chế robot thực thi đoạn cũ trong lúc mô hình chuẩn bị đoạn mới. Khác biệt nằm ở cách đảm bảo nối đoạn: gradient guidance trong suy luận hoặc điều kiện hóa tiền tố trong huấn luyện. Chênh lệch 135 ms và 108 ms là kết quả theo cấu hình robot thật công bố, không phải mức tăng tốc cố định."
     },
-    "stageMode": "visual-first"
+    "stageMode": "visual-first",
+    "speakerScript": [
+      "Chúng ta có thể tóm tắt hai phiên bản RTC bằng câu hỏi: việc bảo đảm đoạn hành động khớp nhau được thực hiện lúc nào? Ở Inference-Time RTC, ta có thể sử dụng một mô hình flow đã học rồi thêm guidance và soft masking ngay trong quá trình lấy mẫu.",
+      "Cách đó linh hoạt, vì không nhất thiết phải huấn luyện lại toàn bộ cơ chế ràng buộc. Đổi lại, mỗi bước sinh phải tính thêm VJP bằng backpropagation để hiệu chỉnh hành động. Training-Time RTC chuyển ràng buộc này sang lúc học: mô hình nhận tiền tố cố định và tự sinh hậu tố tương thích, nên bỏ phép VJP khi suy luận.",
+      "Đổi lại, ta phải chuẩn bị và fine-tune mô hình cho kiểu điều kiện hóa mới. Cả hai cách đều tiếp tục dùng mạng sinh hành động, không có phương pháp nào làm biến mất chi phí forward. Lựa chọn thực tế còn phụ thuộc bài toán, độ trễ, khả năng huấn luyện và yêu cầu thích ứng. Tôi sẽ kết lại bằng ba điều cần nhớ."
+    ]
   },
   {
     "type": "closing",
@@ -319,6 +391,12 @@
       "label": "GIẢI THÍCH BỔ SUNG",
       "text": "Kết quả hiện có cho thấy điều kiện hoá tiền tố khi huấn luyện là một phương án thay thế hiệu chỉnh mẫu lúc suy luận trong thiết lập được khảo sát. Khả năng khái quát sang phần cứng, độ trễ và nhiệm vụ khác vẫn cần được đánh giá."
     },
-    "stageMode": "visual-first"
+    "stageMode": "visual-first",
+    "speakerScript": [
+      "Điều thứ nhất, RTC ra đời để robot không phải đứng chờ mỗi lần mô hình suy luận. Robot tiếp tục thực hiện đoạn cũ trong lúc đoạn mới được tính, nhưng các hành động ở điểm nối phải thống nhất.",
+      "Điều thứ hai, RTC đời đầu dùng phép hiệu chỉnh dựa trên gradient trong từng bước khử nhiễu. Training-Time RTC dạy mô hình hiểu tiền tố cố định ngay trong huấn luyện và chỉ tối ưu hậu tố, nên khi chạy loại bỏ được phép VJP bổ sung chứ không loại toàn bộ quá trình sinh hành động.",
+      "Điều thứ ba, bằng chứng cho thấy một đánh đổi đáng chú ý: trong mô phỏng phương pháp mới có lợi thế ở độ trễ lớn hơn, còn trên robot thật độ trễ được báo cáo giảm từ 135 xuống 108 mili giây với chất lượng nhiệm vụ tương đối gần nhau. Những kết quả này thuộc phạm vi thí nghiệm công bố; độ trễ biến thiên và tính an toàn ngoài đời vẫn cần đánh giá thêm.",
+      "Thông điệp cuối cùng là: thay vì bắt mô hình sửa hành động sau khi sinh, ta có thể dạy nó tôn trọng những hành động đã cam kết ngay từ đầu. Đó chính là đóng góp trung tâm của Training-Time RTC. Cảm ơn mọi người."
+    ]
   }
 ]

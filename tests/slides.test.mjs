@@ -172,3 +172,24 @@ test('Slide projection has container-aware responsive figure and fullscreen rule
  assert.match(css,/@media\(max-height:690px\)/);
  assert.match(css,/\.brief-rtc-cost-pair/);
 });
+
+test('RTC Training has fifteen distinct, complete talk tracks ready to speak aloud',()=>{
+ const slides=allSlides.find(p=>p.slug==='rtc-training')?.slides;
+ assert.ok(slides && slides.length===15);
+ for(const [index,slide] of slides.entries()){
+   assert.ok(slide.speakerScript?.length>=3,`RTC slide ${index+1} needs a spoken beginning, explanation and transition`);
+   const paragraphs=slide.speakerScript;
+   assert.ok(paragraphs.every(p=>p.length>=100),`RTC slide ${index+1}: fragmentary script paragraph`);
+   assert.ok(paragraphs.join(' ').split(' ').length>=135,`RTC slide ${index+1}: talk track too short to explain the paper`);
+   assert.notEqual(paragraphs[0],slide.lead,`RTC slide ${index+1}: script cannot simply repeat the projected lead`);
+ }
+ assert.equal(new Set(slides.map(s=>s.speakerScript.join(' '))).size,15,'Scripts cannot be identical');
+ const panel=fs.readFileSync(path.join(root,'components/presenter-panel.tsx'),'utf8');
+ const deck=fs.readFileSync(path.join(root,'components/slide-deck.tsx'),'utf8');
+ assert.match(panel,/presenter-script/);
+ assert.match(panel,/scrollRef\.current\.scrollTop=0/,'Reset presenter notes scroll between slides');
+ assert.match(deck,/brief-speaker-script/);
+ assert.match(panel,/slide\.speakerScript\.map/);
+ assert.match(deck,/slide\.speakerScript\.map/);
+ assert.ok(!deck.includes('slide.speakerScript.map') || deck.indexOf('slide.speakerScript.map')>deck.indexOf('brief-speaker-notes'), 'Scripts render in Notes only');
+});

@@ -43,3 +43,14 @@ button:focus-visible,summary:focus-visible{outline:3px solid #ffe29a;outline-off
 .presenter-footer button:disabled{opacity:.35;cursor:not-allowed}
 .presenter-shortcut{font-size:10px;color:#9eb0cc;text-align:center}
 @media(max-width:430px){.presenter-scroll{padding:14px}.presenter-topbar{padding:0 12px}.presenter-footer{padding:10px}.presenter-shortcut{display:none}.presenter-notes{padding:13px}.presenter-heading{align-items:start;flex-direction:column}}
+
+
+/* Spoken talk track first: the presenter should be able to read it word for word. */
+.presenter-script{border-left:3px solid #ffe29a;padding:2px 0 2px 17px;margin:5px 0 12px;max-width:100%}
+.presenter-script-kicker{font-size:10px;letter-spacing:.07em;color:#ffe29a;font-weight:850;margin-bottom:16px}
+.presenter-script p{font-size:clamp(16px,3.2vw,19px);font-weight:470;line-height:1.8;color:#f6f8ff;margin:0 0 1.2em;overflow-wrap:break-word}
+.presenter-script p:last-child{margin-bottom:0}
+@media(max-width:430px){
+ .presenter-script{padding-left:12px}
+ .presenter-script p{font-size:17px;line-height:1.73}
+}

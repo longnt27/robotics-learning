@@ -307,7 +307,13 @@ try {
     const speakerNotes=rtc.locator('.brief-speaker-notes');
     await speakerNotes.waitFor({state:'visible'});
     assert.match(await speakerNotes.innerText(),/GHI CHÚ KHI TRÌNH BÀY/,
-      'Presenter explanation is still available in the Notes panel');
+      'Speaker script is still available in Notes');
+    assert.equal(await speakerNotes.locator('.brief-speaker-script p').count(),4,
+      'Slide 03 has four complete spoken paragraphs');
+    assert.match(await speakerNotes.locator('.brief-speaker-script').innerText(),/VJP/,
+      'Spoken script explains the inference-time gradient overhead');
+    assert.ok(!(await canvas.innerText()).includes('Nhưng RTC đời đầu chưa dừng ở dự đoán này'),
+      'Spoken script must not appear on the projected slide');
     assert.equal(await canvas.locator('.brief-slide-detail').count(),0,
       'Opening Notes does not insert them back into the slide canvas');
 
@@ -384,7 +390,11 @@ try {
   presenterPopup.on('pageerror',error=>presenterErrors.push(error.message));
   await presenterPopup.locator('[data-private-presenter="true"]').waitFor({state:'visible',timeout:15000});
   assert.ok(await presenterPopup.getByText('GHI CHÚ RIÊNG TƯ').isVisible(),'Presenter has readable private notes');
-  assert.match(await presenterPopup.locator('.presenter-note-body').innerText(),/GIẢI THÍCH BỔ SUNG.*vector–Jacobian/s,'RTC gradient explanation is available privately');
+  const liveScript=presenterPopup.locator('.presenter-script');
+  await liveScript.waitFor({state:'visible',timeout:10000});
+  assert.equal(await liveScript.locator('p').count(),4,'Full slide 03 script is visible in private Presenter View');
+  assert.match(await liveScript.innerText(),/VJP/,'RTC VJP explanation is ready to speak');
+  assert.equal(await presenterPopup.locator('.presenter-note-body').count(),0,'Do not duplicate reference prose when a script exists');
   assert.equal(await presenterPage.locator('.brief-deck-presenting').count(),1,'Audience slide fills shared browser');
   assert.equal(await presenterPage.locator('[data-private-presenter]').count(),0,'Private DOM must not be attached to shared browser');
   assert.equal(await presenterPage.locator('.brief-speaker-notes,.brief-slide-detail,.brief-slide-intuition').count(),0,'No private narration in audience view');

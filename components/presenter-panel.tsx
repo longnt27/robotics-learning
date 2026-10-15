@@ -1,6 +1,7 @@
 "use client";
 
 import {createPortal} from "react-dom";
+import {useEffect,useRef} from "react";
 import {ArrowLeft,ArrowRight,Clock3,Monitor,NotebookPen,X} from "lucide-react";
 import type {ResearchSlide} from "@/lib/slide-types";
 
@@ -27,6 +28,8 @@ function elapsedLabel(seconds:number){
 export function PresenterPanel({popup,paperTitle,slides,index,elapsedSeconds,chapterContext,onGo,onClose}:PresenterPanelProps){
   const slide=slides[index];
   const next=slides[index+1];
+  const scrollRef=useRef<HTMLDivElement>(null);
+  useEffect(()=>{if(scrollRef.current)scrollRef.current.scrollTop=0;},[index]);
   if(!slide)return null;
   return createPortal(
     <main className="presenter-shell" data-private-presenter="true">
@@ -34,7 +37,7 @@ export function PresenterPanel({popup,paperTitle,slides,index,elapsedSeconds,cha
         <div className="presenter-brand"><span className="presenter-live-dot"/> ROBOTICS / ATLAS</div>
         <button type="button" className="presenter-close" onClick={onClose} aria-label="Kết thúc chế độ thuyết trình"><X size={17}/> KẾT THÚC</button>
       </header>
-      <div className="presenter-scroll">
+      <div className="presenter-scroll" ref={scrollRef}>
         <div className="presenter-heading">
           <div>
             <span className="presenter-eyebrow">BẢNG ĐIỀU KHIỂN RIÊNG TƯ</span>
@@ -50,9 +53,19 @@ export function PresenterPanel({popup,paperTitle,slides,index,elapsedSeconds,cha
         </section>
         <section className="presenter-notes" aria-label="Ghi chú riêng cho người thuyết trình">
           <h2><NotebookPen size={17}/> GHI CHÚ RIÊNG TƯ</h2>
-          <div className="presenter-note-key"><span>Ý CẦN NHẤN MẠNH</span><p>{slide.intuition}</p></div>
-          {slide.detail&&<div className="presenter-note-body"><span>{slide.detail.label}</span><p>{slide.detail.text}</p></div>}
-          {chapterContext&&<details className="presenter-more"><summary>Ngữ cảnh bổ sung từ bài diễn giải</summary><p>{chapterContext}</p></details>}
+          {slide.speakerScript?.length
+            ? <div className="presenter-script" aria-label="Kịch bản thuyết trình để đọc trực tiếp">
+                <div className="presenter-script-kicker">KỊCH BẢN NÓI · SLIDE {String(index+1).padStart(2,"0")}</div>
+                {slide.speakerScript.map((paragraph,i)=><p key={i}>{paragraph}</p>)}
+              </div>
+            : <>
+                <div className="presenter-note-key"><span>Ý CẦN NHẤN MẠNH</span><p>{slide.intuition}</p></div>
+                {slide.detail&&<div className="presenter-note-body"><span>{slide.detail.label}</span><p>{slide.detail.text}</p></div>}
+              </>}
+          {chapterContext&&<details className="presenter-more"><summary>Thông tin kỹ thuật tham khảo (không phải lời thoại)</summary>
+            {slide.speakerScript?.length&&<p><strong>Ý cần nhấn mạnh:</strong> {slide.intuition}</p>}
+            {slide.speakerScript?.length&&slide.detail&&<p><strong>{slide.detail.label}:</strong> {slide.detail.text}</p>}
+            <p>{chapterContext}</p></details>}
         </section>
         <section className="presenter-next" aria-label="Slide tiếp theo">
           <span>TIẾP THEO · {next?String(index+2).padStart(2,"0"):"KẾT THÚC"}</span>

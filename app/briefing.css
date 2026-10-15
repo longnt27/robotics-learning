@@ -404,3 +404,16 @@
  .brief-rtc-cost-math{font-size:14px}
  .brief-slide-stage-visual-first .brief-source-image{height:200px}
 }
+
+
+/* Speaker scripts are private notes below the canvas, never projected. */
+.brief-speaker-script{max-width:100ch;background:#152339;border:1px solid #465a76;border-left:4px solid var(--brief-accent);border-radius:8px;padding:clamp(15px,2vw,25px)}
+.brief-speaker-script p{font-size:clamp(16px,1.22vw,19px);font-weight:480;line-height:1.87;color:#f0f5ff;margin:0 0 1.05em;overflow-wrap:break-word}
+.brief-speaker-script p:last-child{margin-bottom:0}
+.brief-notes-reference{max-width:100ch;margin:15px 0 0;border-top:1px solid #465a76;padding-top:13px}
+.brief-notes-reference summary{cursor:pointer;font-size:13px;font-weight:750;color:var(--brief-accent);padding:6px 0}
+.brief-notes-reference p{font-size:14px;line-height:1.75;color:#c9d8ec}
+@media(max-width:620px){
+ .brief-speaker-script{padding:14px}
+ .brief-speaker-script p{font-size:16px;line-height:1.75}
+}
