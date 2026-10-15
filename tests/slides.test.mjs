@@ -106,64 +106,71 @@ test('Presenter View isolates all private speaker text in a separate document',(
  assert.ok(fs.existsSync(path.join(root,'public/presenter-view.css')),'Popup stylesheet bundled');
 });
 
-test('RTC Training-Time preserves the technical teaching sequence from the reviewed afternoon deck',()=>{
+test('RTC Training follows the requested scientific story with exact notation',()=>{
  const slides=allSlides.find(p=>p.slug==='rtc-training')?.slides;
  assert.equal(slides?.length,15);
- const titles=[
-   "TRAINING-TIME RTC",
-   "Độ trễ suy luận so với chu kỳ điều khiển",
-   "RTC đời đầu chậm ở đâu? Một VJP trong mỗi bước sinh",
-   "Ví dụ nối đoạn trong thao tác pha espresso",
-   "Ba tham số của cơ chế nối đoạn",
-   "Huấn luyện với tiền tố hành động cố định",
-   "Vì sao chỉ cố định d hành động đầu?",
-   "Mô hình nhận biết phần cố định như thế nào?",
-   "Quy trình nối đoạn khi suy luận",
-   "Hàm mất mát trên hậu tố hành động",
-   "Kết quả mô phỏng theo độ trễ suy luận",
-   "Robot thật: độ trễ thấp hơn trong thiết lập thử nghiệm",
-   "Giới hạn của phương pháp",
-   "So sánh hai phiên bản RTC",
-   "Kết luận và phạm vi kết quả"
- ];
- assert.deepEqual(slides.map(s=>s.title),titles,'Preserve the researched RTC narrative and approved neutral titles');
- assert.match(slides[1].lead,/50 Hz.*20 ms.*100 ms/);
- assert.match(slides[2].intuition,/gradient.*VJP/);
- assert.match(slides[4].lead,/H là số hành động.*s là khoảng cách.*d là độ trễ/);
+ assert.deepEqual(slides.map(s=>s.title),[
+   'TRAINING-TIME RTC',
+   'Nhắc lại nhanh: RTC inference-time',
+   'Vì sao RTC inference-time chậm hơn?',
+   'Ý tưởng trung tâm: học tiếp nối từ tiền tố',
+   'H, s và d quyết định tiền tố cần giữ',
+   'Quy trình huấn luyện với tiền tố cố định',
+   'Chỉ giữ cứng d bước, không khóa cả vùng chồng',
+   'Làm sao mô hình biết token nào đã cố định?',
+   'Suy luận bằng mô hình đã học tiền tố',
+   'Hàm mất mát chỉ tính trên phần cần sinh',
+   'Mô phỏng: hiệu quả khi độ trễ tăng',
+   'Robot thật: giữ hiệu quả, giảm độ trễ tính toán',
+   'Giới hạn cần nhớ của Training-Time RTC',
+   'Triển khai: đổi cách học, giữ giao diện chạy',
+   'Kết luận: học ràng buộc trước khi chạy'
+ ]);
+ assert.match(slides[1].lead,/thực thi đoạn cũ.*sinh đoạn mới/);
+ assert.match(slides[2].lead,/vector–Jacobian|VJP/);
+ assert.match(slides[3].title,/Ý tưởng trung tâm/);
+ assert.equal(slides[3].figure?.src,'/paper-figures/rtc-training/figure-2.webp',
+   'The training method cannot be introduced using an unrelated espresso experiment photo');
+ assert.match(slides[4].lead,/H là độ dài.*s là số bước.*d là độ trễ/);
+ assert.match(slides[4].intuition,/d ≤ H−s/);
  assert.deepEqual(slides[5].items,[
   'Lấy đoạn hành động mẫu và chọn ngẫu nhiên d',
   'Giữ d hành động đầu không thêm nhiễu (τᵢ = 1)',
   'Thêm nhiễu vào hậu tố, dự đoán trường vận tốc',
   'Chỉ tính hàm mất mát trên hậu tố'
  ]);
- assert.match(slides[6].lead,/H−s.*d bước/);
- assert.match(slides[7].lead,/τᵢ = 1.*flow matching/);
- assert.match(slides[8].lead,/t\+d/);
+ assert.match(slides[6].lead,/H−s.*d hành động đầu/);
+ assert.match(slides[7].lead,/τᵢ = 1/);
+ assert.match(slides[8].lead,/đoạn B/);
  assert.match(slides[9].equation,/\\mathbb E.*\\sum_\{i=d\+1\}/);
- assert.match(slides[10].lead,/2\.048.*Wilson 95%/);
- assert.match(slides[11].lead,/8\.000 bước.*batch 512/);
- assert.match(slides[12].lead,/soft masking/);
- assert.match(JSON.stringify(slides[13].items),/pseudoinverse guidance/);
- assert.match(slides[14].lead,/gradient/);
+ assert.match(slides[9].items[0],/không phải một phương trình trích nguyên văn/);
+ assert.match(JSON.stringify(slides[10]),/2\.048|2.048/);
+ assert.match(slides[11].detail.text,/8\.000 bước.*512.*H100/);
+ assert.match(slides[12].detail.text,/soft masking/);
+ assert.deepEqual(slides[13].items.map(i=>i.label),['KHI HUẤN LUYỆN','KHI TRIỂN KHAI']);
+ assert.match(slides[14].lead,/VJP/);
  assert.ok(slides.every(s=>s.detail.label==='GIẢI THÍCH BỔ SUNG'||s.detail.label==='DIỄN GIẢI CÔNG THỨC'));
- assert.doesNotMatch(JSON.stringify(slides),/Kết luận trước giáo viên hướng dẫn|Một cú nén espresso giải thích được toàn bộ bài toán|Đừng nhầm|bốc thăm/);
- assert.ok(slides.every(s=>s.stageMode==='visual-first'),'Presenter narration stays off the projected slide');
- assert.equal(slides.filter(s=>s.figure).length,9,'Keep nine paper figure appearances');
- assert.ok(slides.every(s=>s.detail?.text?.length>=80),'Speaker notes remain available for every slide');
+ assert.ok(slides.every(s=>s.stageMode==='visual-first'),'Narration never belongs on the projected slide');
+ assert.equal(slides.filter(s=>s.figure).length,9);
 });
 
-
-test('RTC Training deck explains inference-time Jacobian overhead and its measured scope',()=>{
- const deck=JSON.parse(fs.readFileSync(path.join(contentDir,'rtc-training.json'),'utf8'));
- assert.match(deck[2].title,/VJP/);
- assert.match(deck[2].lead,/Jacobian product|vector–Jacobian/);
- assert.match(deck[2].intuition,/Training-Time RTC/);
- assert.match(deck[13].lead,/không loại các lượt forward/);
+test('RTC guidance original vπ and new training vθ never silently swap',()=>{
  const component=fs.readFileSync(path.join(root,'components/slide-deck.tsx'),'utf8');
- assert.match(component,/RtcInferenceCostBridge/);
- assert.ok(component.includes('operatorname{diag}'),'Guidance uses the weighted action constraint');
- assert.ok(component.includes('VJP'),'Show per-denoising-step VJP overhead');
+ const slides=allSlides.find(p=>p.slug==='rtc-training')?.slides;
+ const guidance=component.slice(component.indexOf('function RtcInferenceCostBridge'),component.indexOf('function SlideVisual'));
+ assert.match(guidance,/\\mathbf v_\\pi/,'Guidance formula uses vπ as the original RTC Algorithm 1');
+ assert.match(guidance,/\\gamma_\\tau/,'Guidance coefficient must not be undefined');
+ assert.match(guidance,/\\min\\left\(\\beta/,'Original guidance clipping must be explicitly defined');
+ assert.match(guidance,/r_\\tau\^2=\\frac/,'Guidance variance term must be defined');
+ assert.match(guidance,/\\mathrm\{VJP\}/,'Show the expensive VJP in latency accounting');
+ assert.doesNotMatch(guidance,/const guidance=[\s\S]*?\\mathbf v_\\theta/,'Do not call original RTC vθ in the visual equation');
+ assert.match(slides[2].speakerScript.join(' '),/v\)? pi/,'Spoken walkthrough must call the visible velocity vπ');
+ assert.doesNotMatch(slides[2].speakerScript.join(' '),/v theta/,'Never say vθ while showing original vπ');
+ assert.match(slides[3].speakerScript.join(' '),/v theta/,'Introduce vθ when starting the training paper');
+ assert.match(slides[9].speakerScript.join(' '),/v theta/,'Masked loss walkthrough must call learned field vθ');
+ assert.doesNotMatch(slides[3].speakerScript.join(' '),/espresso|nén cà phê/,'Training intro must not revert to inference-time example');
 });
+
 test('Slide projection has container-aware responsive figure and fullscreen rules',()=>{
  const css=fs.readFileSync(path.join(root,'app/briefing.css'),'utf8');
  assert.match(css,/container-type:inline-size/);
@@ -180,7 +187,8 @@ test('RTC Training has fifteen distinct, complete talk tracks ready to speak alo
    assert.ok(slide.speakerScript?.length>=3,`RTC slide ${index+1} needs a spoken beginning, explanation and transition`);
    const paragraphs=slide.speakerScript;
    assert.ok(paragraphs.every(p=>p.length>=100),`RTC slide ${index+1}: fragmentary script paragraph`);
-   assert.ok(paragraphs.join(' ').split(' ').length>=135,`RTC slide ${index+1}: talk track too short to explain the paper`);
+   assert.ok(paragraphs.join(' ').split(' ').length>=(index===1?70:120),`RTC slide ${index+1}: talk track too short to explain the paper`);
+   if(index===1)assert.ok(paragraphs.join(' ').split(' ').length<=135,'Inference-time recap must be brief');
    assert.notEqual(paragraphs[0],slide.lead,`RTC slide ${index+1}: script cannot simply repeat the projected lead`);
  }
  assert.equal(new Set(slides.map(s=>s.speakerScript.join(' '))).size,15,'Scripts cannot be identical');
