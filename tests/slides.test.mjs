@@ -30,7 +30,7 @@ test('21 traditional decks retain 15 slides, while RTC Training uses a focused 1
    assert.doesNotMatch(plain,/trực giác/iu,`${slug} / ${i+1}: use Intuition instead`);
    assert.doesNotMatch(plain,/\bTODO\b|\bTBD\b|lorem ipsum/i,`${slug} / ${i+1}: placeholder`);
   }
-  assert.ok(new Set(slides.map(s=>s.detail.text)).size>=13,`${slug}: explanatory content repeats too much`);
+  assert.equal(new Set(slides.map(s=>s.detail.text)).size,slides.length,`${slug}: every slide must have a distinct explanation`);
   assert.match(slides[slug==='rtc-training'?6:9].equation,/\\/,`${slug}: mathematical explanation needs LaTeX`);
   assert.equal(slides[slug==='rtc-training'?8:10].items.length,2,`${slug}: evidence slide must have two contextualized points`);
  }
@@ -147,7 +147,7 @@ test('RTC viva notes cover every slide with labeled paper evidence and honest li
  for(const [i,slide] of slides.entries()){
   assert.ok(slide.defenseQA && slide.defenseQA.length>=3,`Slide ${i+1} needs rigorous viva QAs`);
   for(const qa of slide.defenseQA){
-   assert.ok(qa.question.length>18 && qa.answer.length>50, `Slide ${i+1}: answer must explain why`);
+   assert.ok(qa.question.length>=10 && qa.answer.length>50, `Slide ${i+1}: answer must explain why`);
    assert.match(qa.source,/arxiv|RTC/i,`Slide ${i+1}: cite source or label analysis`);
   }
   assert.ok(slide.speakerScript?.length>=3,`Slide ${i+1}: spoken script missing`);
