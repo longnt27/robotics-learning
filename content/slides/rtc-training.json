@@ -117,6 +117,11 @@
         "question": "Tại sao slide dùng vπ còn paper mới dùng vθ?",
         "answer": "vπ là ký hiệu trường vận tốc trong Algorithm 1 RTC gốc; paper Training-Time dùng vθ cho mạng dự đoán vận tốc. Hai ký hiệu thuộc hai cách trình bày của hai bài báo.",
         "source": "RTC inference-time (arXiv:2506.07339) Algorithm 1; Training-Time RTC (arXiv:2512.05964) Eq. (2)"
+      },
+      {
+        "question": "Hệ số γτ và β trong phương trình có vai trò gì?",
+        "answer": "Theo Eq. (2–4) RTC gốc, γτ = min(β,(1−τ)/(τrτ²)), với rτ²=(1−τ)²/(τ²+(1−τ)²). β chặn cường độ guidance để tránh mất ổn định khi số bước khử nhiễu ít. Slide chỉ viết γτ cho gọn chứ không loại bỏ hệ số này.",
+        "source": "RTC inference-time arXiv:2506.07339 §3.1, Eq. (2–4), Appendix A.2"
       }
     ]
   },
@@ -258,6 +263,11 @@
         "question": "Chọn d ngẫu nhiên làm gì?",
         "answer": "Vì inference latency thay đổi, policy cần thấy nhiều độ dài prefix trong training. Phân phối d phải tương thích độ trễ phần cứng dự kiến.",
         "source": "Training-Time RTC (arXiv:2512.05964) §IV, §VI"
+      },
+      {
+        "question": "adaLN-Zero thật ra làm gì?",
+        "answer": "Đây là cơ chế điều biến layer normalization trong DiT bằng các hệ số scale, shift và gate phụ thuộc timestep điều kiện. Paper cho phép các hệ số đó khác nhau giữa các action token để biểu thị token sạch và token đang khử nhiễu, mà không phải tăng số tham số học.",
+        "source": "Training-Time RTC arXiv:2512.05964 §IV, điểm 1"
       }
     ],
     "figure": {
@@ -306,6 +316,11 @@
         "question": "d=0 và d=H thì sao?",
         "answer": "d=0 nghĩa là không có prefix và model học sinh toàn chunk. Nếu d≥H thì postfix rỗng, không còn hạng loss; d được thiết kế nhỏ hơn H trong thí nghiệm.",
         "source": "Training-Time RTC (arXiv:2512.05964) §III–V"
+      },
+      {
+        "question": "Flow matching ở đây là gì và τ chạy từ đâu đến đâu?",
+        "answer": "Model nhận chuỗi nhiễu trung gian A^τ=τA+(1−τ)ε, với τ=0 là nhiễu và τ=1 là hành động dữ liệu. Nó được huấn luyện dự đoán trường vận tốc, rồi tích phân trường đó để sinh hành động. Prefix được cố định ở τᵢ=1, postfix đi qua các bước lấy mẫu.",
+        "source": "Training-Time RTC arXiv:2512.05964 §III Eq. (1–2), §IV"
       }
     ]
   },
@@ -407,6 +422,11 @@
         "question": "Vì sao kết quả ở d=0,1 kém nhẹ?",
         "answer": "Theo thảo luận của tác giả, một số action đầu không nhận loss trong các mẫu có prefix, nên Training-Time dành ít supervision cho chúng hơn.",
         "source": "Training-Time RTC (arXiv:2512.05964) §V-A"
+      },
+      {
+        "question": "Kinetix đo cái gì, có phải robot thật không?",
+        "answer": "Không. Kinetix là benchmark điều khiển vật lý mô phỏng gồm các nhiệm vụ động, dùng solve rate nhị phân. Paper chạy flow policy H=8 ở nhiều mức delay để so sánh giải pháp, tách biệt với robot thật dùng π0.6.",
+        "source": "Training-Time RTC arXiv:2512.05964 §V-A"
       }
     ],
     "figure": {
