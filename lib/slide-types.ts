@@ -15,6 +15,8 @@ export interface ResearchSlide {
   detail?: { label: string; text: string };
   /** Slide canvas is visual-first; explanation and Intuition live in presenter notes only. */
   stageMode?: "visual-first";
+  /** Ready-to-speak paragraphs shown only in private Presenter View and Notes, never on projected canvas. */
+  speakerScript?: string[];
   equation?: string;
   /** Original source-paper illustration; loaded only when this slide is visible. */
   figure?: {src: string; alt: string; caption: string};
