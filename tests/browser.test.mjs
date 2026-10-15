@@ -312,6 +312,10 @@ try {
       'Slide 03 has four complete spoken paragraphs');
     assert.match(await speakerNotes.locator('.brief-speaker-script').innerText(),/VJP/,
       'Spoken script explains the inference-time gradient overhead');
+    const review=rtc.locator('.brief-defense-notes');
+    await review.locator('summary').click();
+    assert.ok(await review.locator('.brief-defense-item').count()>=3,'Source-labeled defense answers are in private Notes');
+    assert.equal(await canvas.locator('.brief-defense-item').count(),0,'Viva notes must stay outside the projected canvas');
     assert.ok(!(await canvas.innerText()).includes('Thành phần cuối có đạo hàm'),
       'Spoken script must not appear on the projected slide');
     assert.equal(await canvas.locator('.brief-slide-detail').count(),0,
@@ -345,10 +349,11 @@ try {
   assert.ok(trainingCardWidth>=170,`Training step width too small: ${trainingCardWidth}`);
 
   await academicLayout.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=5',{waitUntil:'domcontentloaded'});
-  const concepts=academicLayout.locator('.brief-slide-art-with-figure .brief-concept-grid');
-  await concepts.waitFor({state:'visible',timeout:15000});
-  const conceptColumns=await concepts.evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').filter(Boolean).length);
-  assert.equal(conceptColumns,1,'Three H/s/d explanations should stack as readable rows alongside the paper figure');
+  const horizon=academicLayout.locator('.brief-rtc10-timeline');
+  await horizon.waitFor({state:'visible',timeout:15000});
+  assert.equal(await horizon.locator('.brief-rtc10-track').count(),2,'Show aligned old and new chunks, not a repeated source figure');
+  assert.match(await horizon.innerText(),/H =.*16.*s =.*7.*d =.*5/s);
+  assert.equal(await academicLayout.locator('.brief-source-figure').count(),0,'Do not repeat Figure 1 in the horizon example');
 
   await academicLayout.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=3',{waitUntil:'domcontentloaded'});
   const comparison=academicLayout.locator('.brief-layout-contrast');
@@ -374,18 +379,35 @@ try {
   assert.match(projectedText,/Wᵢ = 1.*Wᵢ = 0/s,'Project the effect of weights in each overlap zone');
 
   await academicLayout.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=4',{waitUntil:'domcontentloaded'});
-  await academicLayout.locator('.brief-slide-art-with-figure .brief-source-figure img').waitFor({state:'visible',timeout:15000});
-  assert.match(await academicLayout.locator('.brief-layout-intuition h2').innerText(),/Ý tưởng trung tâm/);
-  const figureSrc=await academicLayout.locator('.brief-source-figure img').getAttribute('src');
-  assert.match(figureSrc??'',/figure-2\.webp/,
-    'Training slides begin with the actual training architecture, not espresso demo imagery');
-  await academicLayout.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=10',{waitUntil:'domcontentloaded'});
+  const masks=academicLayout.locator('.brief-rtc10-mask');
+  await masks.waitFor({state:'visible',timeout:15000});
+  assert.equal(await masks.locator('.brief-rtc10-mask-row').count(),2,'Contrast old soft guidance with new hard prefix training');
+  assert.equal(await academicLayout.locator('.brief-source-figure').count(),0,'Soft-mask insight uses a new diagram, not another copy of Figure 1');
+  assert.match(await masks.innerText(),/Vì sao không huấn luyện cả phần trọng số giảm dần/);
+  assert.ok(await masks.locator('.katex').count()>0,'Render the conditional postfix distribution');
+
+  await academicLayout.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=7',{waitUntil:'domcontentloaded'});
   await academicLayout.locator('.brief-layout-equation .katex').waitFor({state:'visible',timeout:15000});
-  assert.match(await academicLayout.locator('.brief-layout-equation h2').innerText(),/Hàm mất mát chỉ tính trên phần cần sinh/);
-  assert.equal(await academicLayout.locator('.brief-slide-stage .brief-slide-detail').count(),0,
-    'The complete flow-matching equation is projected, but presenter narration is not');
+  assert.match(await academicLayout.locator('.brief-layout-equation h2').innerText(),/Loss: chỉ học phần hành động chưa biết/);
+  assert.equal(await academicLayout.locator('.brief-slide-stage .brief-slide-detail').count(),0,'Detailed narration remains private');
+
+  await academicLayout.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=8',{waitUntil:'domcontentloaded'});
+  await academicLayout.locator('.brief-rtc10-runtime-stages').waitFor({state:'visible',timeout:15000});
+  assert.equal(await academicLayout.locator('.brief-rtc10-runtime-step').count(),3);
+
+  await academicLayout.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=10',{waitUntil:'domcontentloaded'});
+  await academicLayout.locator('.brief-source-figure img').waitFor({state:'visible',timeout:15000});
+  assert.match((await academicLayout.locator('.brief-source-figure img').getAttribute('src'))??'',/figure-5\.webp/);
+  assert.match(await academicLayout.locator('.brief-player-count').innerText(),/10/,'The player must show ten RTC slides');
   await academicLayout.close();
   console.log('PASS: restored RTC science uses readable figure/flow grids and visible KaTeX');
+
+  // Verify ten slides, no repeated figures, and no projection of Q&A data.
+  const gridPage=await browser.newPage({viewport:{width:1280,height:800}});
+  await gridPage.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=1',{waitUntil:'domcontentloaded'});
+  await gridPage.getByRole('button',{name:'Xem tất cả slide'}).click();
+  assert.equal(await gridPage.locator('.brief-slide-grid-menu button').count(),10);
+  await gridPage.close();
 
   // Presenter View uses a separate native document. Simulate Chromium's Document
   // Picture-in-Picture by opening an isolated same-origin popup. This verifies
@@ -411,6 +433,14 @@ try {
   await liveScript.waitFor({state:'visible',timeout:10000});
   assert.equal(await liveScript.locator('p').count(),3,'Full slide 03 script is visible in private Presenter View');
   assert.match(await liveScript.innerText(),/VJP/,'RTC VJP explanation is ready to speak');
+  const viva=presenterPopup.locator('.presenter-defense');
+  await viva.waitFor({state:'attached',timeout:10000});
+  await viva.locator('summary').click();
+  assert.ok(await viva.locator('.presenter-defense-answer').count()>=3,'Viva answers must be accessible in the private presenter panel');
+  assert.match(await viva.innerText(),/Nguồn \/ mức độ chứng cứ/);
+  assert.equal(await presenterPage.locator('.presenter-defense,.brief-defense-notes').count(),0,
+    'Defense answers never enter the shared slide DOM');
+
   assert.equal(await presenterPopup.locator('.presenter-note-body').count(),0,'Do not duplicate reference prose when a script exists');
   assert.equal(await presenterPage.locator('.brief-deck-presenting').count(),1,'Audience slide fills shared browser');
   assert.equal(await presenterPage.locator('[data-private-presenter]').count(),0,'Private DOM must not be attached to shared browser');
@@ -421,10 +451,10 @@ try {
 
   await presenterPopup.getByRole('button',{name:'Slide tiếp theo trong Presenter View'}).click();
   await presenterPage.waitForFunction(()=>new URL(location.href).searchParams.get('slide')==='4');
-  await presenterPage.locator('.brief-layout-intuition').waitFor({state:'visible',timeout:7000});
+  await presenterPage.locator('.brief-layout-representation').waitFor({state:'visible',timeout:7000});
   await presenterPopup.keyboard.press('ArrowRight');
   await presenterPage.waitForFunction(()=>new URL(location.href).searchParams.get('slide')==='5');
-  await presenterPopup.getByText('H, s và d quyết định tiền tố cần giữ').waitFor({state:'visible',timeout:7000});
+  await presenterPopup.getByText('H, s, d: giữ bao nhiêu hành động?').waitFor({state:'visible',timeout:7000});
 
   await presenterPopup.close(); // user closing the OS popup must restore the normal reader
   await presenterPage.locator('.brief-deck-presenting').waitFor({state:'detached',timeout:7000});

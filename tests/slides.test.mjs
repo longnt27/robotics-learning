@@ -11,13 +11,13 @@ const allSlides=slugs.map(slug=>({slug,slides:JSON.parse(fs.readFileSync(path.jo
 
 const expectedTypes=['cover','problem','contrast','intuition','concepts','pipeline','representation','training','inference','equation','results','ablation','limits','relations','closing'];
 
-test('22 slide decks each contain 15 carefully structured editorial slides',()=>{
+test('21 traditional decks retain 15 slides, while RTC Training uses a focused 10-slide talk',()=>{
  assert.equal(slugs.length,22);
  assert.equal(allSlides.length,22);
  assert.deepEqual(fs.readdirSync(contentDir).filter(x=>x.endsWith('.json')).sort(),slugs.map(s=>s+'.json').sort());
  for(const {slug,slides} of allSlides){
-  assert.equal(slides.length,15,`${slug}: expected 15 slides`);
-  assert.deepEqual(slides.map(s=>s.type),expectedTypes,`${slug}: storytelling structure changed`);
+  assert.equal(slides.length,slug==='rtc-training'?10:15,`${slug}: wrong slide count`);
+  if(slug!=='rtc-training')assert.deepEqual(slides.map(s=>s.type),expectedTypes,`${slug}: storytelling structure changed`);
   for(const [i,slide] of slides.entries()){
    assert.ok(slide.title && slide.title.length>8,`${slug} / ${i+1}: title missing`);
    assert.ok(slide.lead && slide.lead.length>35,`${slug} / ${i+1}: claim must be substantial`);
@@ -30,9 +30,9 @@ test('22 slide decks each contain 15 carefully structured editorial slides',()=>
    assert.doesNotMatch(plain,/trực giác/iu,`${slug} / ${i+1}: use Intuition instead`);
    assert.doesNotMatch(plain,/\bTODO\b|\bTBD\b|lorem ipsum/i,`${slug} / ${i+1}: placeholder`);
   }
-  assert.ok(new Set(slides.map(s=>s.detail.text)).size>=13,`${slug}: explanatory content repeats too much`);
-  assert.match(slides[9].equation,/\\/,`${slug}: mathematical intuition must have valid LaTeX`);
-  assert.equal(slides[10].items.length,2,`${slug}: evidence slide must have at least two contextualized points`);
+  assert.equal(new Set(slides.map(s=>s.detail.text)).size,slides.length,`${slug}: every slide must have a distinct explanation`);
+  assert.match(slides[slug==='rtc-training'?6:9].equation,/\\/,`${slug}: mathematical explanation needs LaTeX`);
+  assert.equal(slides[slug==='rtc-training'?8:10].items.length,2,`${slug}: evidence slide must have two contextualized points`);
  }
 });
 
@@ -65,17 +65,18 @@ test('each slide preserves its own claim and matches its research type',()=>{
  for(const {slug,slides} of allSlides){
   assert.equal(new Set(slides.map(s=>s.type)).size,slides.length,`${slug}: slide ids not stable`);
   assert.ok(slides.some(s=>s.type==='equation'&&s.lead.length>=45),`${slug}: formula lacks immediate plain-language meaning`);
-  assert.ok(slides.some(s=>s.type==='limits'&&s.items.length>=2),`${slug}: limitations are one-sided`);
+  assert.ok(slug==='rtc-training'||slides.some(s=>s.type==='limits'&&s.items.length>=2),`${slug}: limitations are one-sided`);
  }
 });
 
 test('RTC Training-Time projects concise visuals and reserves all narration for presenter notes',()=>{
  const slides=allSlides.find(p=>p.slug==='rtc-training')?.slides;
- assert.equal(slides?.length,15,'RTC training deck should remain 15 slides');
+ assert.equal(slides?.length,10,'RTC training has exactly ten purposeful slides');
  assert.ok(slides.every(s=>s.stageMode==='visual-first'),'Every RTC slide must hide presenter details on canvas');
  assert.ok(slides.every(s=>s.detail?.text?.length>=80),'Extended explanation must remain available in notes');
  assert.ok(slides.every(s=>s.lead.length<=220),'Projected leads should explain the scientific claim without becoming a script');
- assert.ok(slides.filter(s=>s.figure).length>=9,'Keep original-paper imagery');
+ assert.equal(slides.filter(s=>s.figure).length,4,'Only four unique original-paper figures, no repeats');
+ assert.equal(new Set(slides.flatMap(s=>s.figure?[s.figure.src]:[])).size,4,'Never repeat the same paper figure');
  const component=fs.readFileSync(path.join(root,'components/slide-deck.tsx'),'utf8');
  assert.match(component,/const visualFirst=slide\?\.stageMode==="visual-first"/);
  assert.match(component,/slide\.detail&&!audienceOnly&&<aside/);
@@ -106,54 +107,59 @@ test('Presenter View isolates all private speaker text in a separate document',(
  assert.ok(fs.existsSync(path.join(root,'public/presenter-view.css')),'Popup stylesheet bundled');
 });
 
-test('RTC Training follows the requested scientific story with exact notation',()=>{
+test('RTC has exactly ten nonredundant research questions in the correct narrative order',()=>{
  const slides=allSlides.find(p=>p.slug==='rtc-training')?.slides;
- assert.equal(slides?.length,15);
+ assert.ok(slides);
  assert.deepEqual(slides.map(s=>s.title),[
-   'TRAINING-TIME RTC',
-   'Nhắc lại nhanh: RTC inference-time',
-   'Vì sao RTC inference-time chậm hơn?',
-   'Ý tưởng trung tâm: học tiếp nối từ tiền tố',
-   'H, s và d quyết định tiền tố cần giữ',
-   'Quy trình huấn luyện với tiền tố cố định',
-   'Chỉ giữ cứng d bước, không khóa cả vùng chồng',
-   'Làm sao mô hình biết token nào đã cố định?',
-   'Suy luận bằng mô hình đã học tiền tố',
-   'Hàm mất mát chỉ tính trên phần cần sinh',
-   'Mô phỏng: hiệu quả khi độ trễ tăng',
-   'Robot thật: giữ hiệu quả, giảm độ trễ tính toán',
-   'Giới hạn cần nhớ của Training-Time RTC',
-   'Triển khai: đổi cách học, giữ giao diện chạy',
-   'Kết luận: học ràng buộc trước khi chạy'
+  'TRAINING-TIME RTC',
+  'Nhắc lại RTC gốc trong 30 giây',
+  'Vì sao RTC inference-time chậm hơn?',
+  'Training-Time: hard prefix và cái giá của nó',
+  'H, s, d: giữ bao nhiêu hành động?',
+  'Huấn luyện: 3 thay đổi trong DiT',
+  'Loss: chỉ học phần hành động chưa biết',
+  'Lúc chạy: cùng giao diện, không còn VJP',
+  'Kinetix: cải thiện rõ khi delay lớn',
+  'Robot thật: giảm latency, giữ hiệu quả gần nhau'
  ]);
- assert.match(slides[1].lead,/thực thi đoạn cũ.*sinh đoạn mới/);
- assert.match(slides[2].lead,/vector–Jacobian|VJP/);
- assert.match(slides[3].title,/Ý tưởng trung tâm/);
- assert.equal(slides[3].figure?.src,'/paper-figures/rtc-training/figure-2.webp',
-   'The training method cannot be introduced using an unrelated espresso experiment photo');
- assert.match(slides[4].lead,/H là độ dài.*s là số bước.*d là độ trễ/);
- assert.match(slides[4].intuition,/d ≤ H−s/);
- assert.deepEqual(slides[5].items,[
-  'Lấy đoạn hành động mẫu và chọn ngẫu nhiên d',
-  'Giữ d hành động đầu không thêm nhiễu (τᵢ = 1)',
-  'Thêm nhiễu vào hậu tố, dự đoán trường vận tốc',
-  'Chỉ tính hàm mất mát trên hậu tố'
- ]);
- assert.match(slides[6].lead,/H−s.*d hành động đầu/);
- assert.match(slides[7].lead,/τᵢ = 1/);
- assert.match(slides[8].lead,/đoạn B/);
- assert.match(slides[9].equation,/\\mathbb E.*\\sum_\{i=d\+1\}/);
- assert.match(slides[9].items[0],/không phải một phương trình trích nguyên văn/);
- assert.match(JSON.stringify(slides[10]),/2\.048|2.048/);
- assert.match(slides[11].detail.text,/8\.000 bước.*512.*H100/);
- assert.match(slides[12].detail.text,/soft masking/);
- assert.deepEqual(slides[13].items.map(i=>i.label),['KHI HUẤN LUYỆN','KHI TRIỂN KHAI']);
- assert.match(slides[14].lead,/VJP/);
- assert.ok(slides.every(s=>s.detail.label==='GIẢI THÍCH BỔ SUNG'||s.detail.label==='DIỄN GIẢI CÔNG THỨC'));
- assert.ok(slides.every(s=>s.stageMode==='visual-first'),'Narration never belongs on the projected slide');
- assert.equal(slides.filter(s=>s.figure).length,9);
+ assert.deepEqual(slides.map(s=>s.type),['cover','problem','contrast','representation','concepts','pipeline','equation','inference','results','ablation']);
+ assert.deepEqual(slides.map(s=>s.visual??null),[null,null,null,'mask-tradeoff','horizon-timeline',null,null,'trained-runtime',null,null]);
+ assert.deepEqual(slides.map(s=>s.figure?.src??null).filter(Boolean),[
+ '/paper-figures/rtc-training/figure-1.webp','/paper-figures/rtc-training/figure-2.webp',
+ '/paper-figures/rtc-training/figure-3.webp','/paper-figures/rtc-training/figure-5.webp']);
+ assert.match(slides[1].speakerScript.join(' '),/RTC.*cũ/);
+ assert.match(slides[2].intuition,/VJP/);
+ assert.match(slides[3].speakerScript.join(' '),/tại sao không huấn luyện luôn phần vàng/i);
+ assert.match(slides[3].detail.text,/không chứng minh rằng không thể/);
+ assert.match(slides[4].detail.text,/H=16,s=7,d=5/);
+ assert.match(slides[4].items[0].value,/d ≤ H−s/);
+ assert.match(slides[5].lead,/τᵢ=1/);
+ assert.match(slides[6].equation,/\\mathbb E/);
+ assert.match(slides[6].detail.text,/Eq\. \(2\)/);
+ assert.match(slides[7].intuition,/Drop-in replacement/);
+ assert.match(slides[8].detail.text,/24 epoch.*8 epoch/);
+ assert.match(slides[9].detail.text,/Wilson 68%/);
+ assert.ok(!slides.some(s=>s.title.includes('espresso trong thao tác')),'Do not waste a slide retelling a prior RTC example');
 });
-
+test('RTC viva notes cover every slide with labeled paper evidence and honest limitations',()=>{
+ const slides=allSlides.find(p=>p.slug==='rtc-training')?.slides;
+ assert.ok(slides);
+ for(const [i,slide] of slides.entries()){
+  assert.ok(slide.defenseQA && slide.defenseQA.length>=3,`Slide ${i+1} needs rigorous viva QAs`);
+  for(const qa of slide.defenseQA){
+   assert.ok(qa.question.length>=10 && qa.answer.length>50, `Slide ${i+1}: answer must explain why`);
+   assert.match(qa.source,/arxiv|RTC/i,`Slide ${i+1}: cite source or label analysis`);
+  }
+  assert.ok(slide.speakerScript?.length>=3,`Slide ${i+1}: spoken script missing`);
+ }
+ assert.ok(slides.reduce((n,s)=>n+(s.defenseQA?.length??0),0)>=35,'Coverage requires 35+ real review QAs');
+ const component=fs.readFileSync(path.join(root,'components/slide-deck.tsx'),'utf8');
+ const popup=fs.readFileSync(path.join(root,'components/presenter-panel.tsx'),'utf8');
+ assert.match(component,/brief-defense-notes/);
+ assert.match(popup,/presenter-defense/);
+ assert.match(component,/slide\.defenseQA\.map/);
+ assert.match(popup,/slide\.defenseQA\.map/);
+});
 test('RTC guidance explains diagonal mask through complete equations',()=>{
  const component=fs.readFileSync(path.join(root,'components/slide-deck.tsx'),'utf8');
  const slides=allSlides.find(p=>p.slug==='rtc-training')?.slides;
@@ -174,11 +180,11 @@ test('RTC guidance explains diagonal mask through complete equations',()=>{
  assert.ok(!guidance.includes(String.raw`\mathbf v_\theta`),'Do not silently rename the original velocity field');
  assert.ok(!guidance.includes(String.raw`\begin{aligned}`),'Avoid unmarked line-wrap inside one matrix product');
  assert.match(guidance,/T_\{\\mathrm\{VJP\}\}/,'Keep runtime overhead linked to VJP');
- assert.match(slides[2].speakerScript.join(' '),/diag W.*ma trận đường chéo/);
+ assert.match(slides[2].speakerScript.join(' '),/diag W.*đường chéo/);
  assert.match(slides[2].speakerScript.join(' '),/v pi/);
  assert.doesNotMatch(slides[2].speakerScript.join(' '),/v theta/);
- assert.match(slides[3].speakerScript.join(' '),/v theta/,'Introduce vθ only after switching to the training paper');
- assert.match(slides[9].speakerScript.join(' '),/v theta/);
+ assert.match(slides[6].speakerScript.join(' '),/v theta/,'Explain vθ in training flow-matching loss');
+ assert.match(slides[6].speakerScript.join(' '),/v theta/);
 });
 
 test('Slide projection has container-aware responsive figure and fullscreen rules',()=>{
@@ -190,9 +196,9 @@ test('Slide projection has container-aware responsive figure and fullscreen rule
  assert.match(css,/\.brief-rtc-cost-pair/);
 });
 
-test('RTC Training has fifteen distinct, complete talk tracks ready to speak aloud',()=>{
+test('RTC Training has ten distinct talk tracks and evidence-grounded defense QAs',()=>{
  const slides=allSlides.find(p=>p.slug==='rtc-training')?.slides;
- assert.ok(slides && slides.length===15);
+ assert.ok(slides && slides.length===10);
  for(const [index,slide] of slides.entries()){
    assert.ok(slide.speakerScript?.length>=3,`RTC slide ${index+1} needs a spoken beginning, explanation and transition`);
    const paragraphs=slide.speakerScript;
@@ -201,7 +207,7 @@ test('RTC Training has fifteen distinct, complete talk tracks ready to speak alo
    if(index===1)assert.ok(paragraphs.join(' ').split(' ').length<=135,'Inference-time recap must be brief');
    assert.notEqual(paragraphs[0],slide.lead,`RTC slide ${index+1}: script cannot simply repeat the projected lead`);
  }
- assert.equal(new Set(slides.map(s=>s.speakerScript.join(' '))).size,15,'Scripts cannot be identical');
+ assert.equal(new Set(slides.map(s=>s.speakerScript.join(' '))).size,10,'Scripts cannot be identical');
  const panel=fs.readFileSync(path.join(root,'components/presenter-panel.tsx'),'utf8');
  const deck=fs.readFileSync(path.join(root,'components/slide-deck.tsx'),'utf8');
  assert.match(panel,/presenter-script/);

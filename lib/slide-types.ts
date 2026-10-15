@@ -17,6 +17,10 @@ export interface ResearchSlide {
   stageMode?: "visual-first";
   /** Ready-to-speak paragraphs shown only in private Presenter View and Notes, never on projected canvas. */
   speakerScript?: string[];
+  /** Source-grounded possible viva questions. Private speaker notes only. */
+  defenseQA?: {question:string;answer:string;source:string}[];
+  /** Special one-off research diagrams, avoiding repeated paper figures. */
+  visual?: "mask-tradeoff" | "horizon-timeline" | "trained-runtime";
   equation?: string;
   /** Original source-paper illustration; loaded only when this slide is visible. */
   figure?: {src: string; alt: string; caption: string};
