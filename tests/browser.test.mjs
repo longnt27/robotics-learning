@@ -358,15 +358,20 @@ try {
   await oldCost.waitFor({state:'visible',timeout:15000});
   await newCost.waitFor({state:'visible',timeout:15000});
   assert.match(await oldCost.innerText(),/VJP/,'Inference-time RTC must explain the per-step Jacobian cost');
-  assert.match(await newCost.innerText(),/không có VJP guidance bổ sung/,'Training-time RTC avoids per-step VJP');
-  assert.ok(await comparison.locator('.brief-rtc-guidance .katex').count()>0,
-    'The original RTC pseudoinverse guidance equation is projected as readable math');
-  assert.ok(await comparison.locator('.brief-rtc-parameter-grid .katex').count()>=3,
-    'Estimated actions, clipping weight and variance must all have visible math definitions');
-  const annotatedLatex=await comparison.locator('.brief-rtc-guidance-math annotation').textContent();
-  assert.match(annotatedLatex??'',/\\mathbf v_\\pi/,'The displayed inference formula uses vπ, not vθ');
-  assert.doesNotMatch(annotatedLatex??'',/\\mathbf v_\\theta/,'Avoid mixing training-paper notation into RTC original');
-
+  assert.match(await newCost.innerText(),/không cần VJP bổ sung/,'Training-time RTC avoids per-step VJP');
+  const equations=await comparison.locator('.brief-rtc-guidance .katex annotation').allTextContents();
+  assert.ok(equations.length>=5,'Weighted error, scalar expansion, VJP, guided velocity and denoised estimate must render');
+  const weighted=Math.max(0,equations.findIndex(eq=>eq.includes(String.raw`\operatorname{diag}(\mathbf W)`)));
+  assert.match(equations[weighted],/\\mathbf e=/,'Weighted error is one complete equation with an equals sign');
+  assert.ok(equations.some(eq=>eq.includes(String.raw`\mathbf e_i=W_i(`)),'Explain diag(W) as a weighted error at each position');
+  assert.ok(equations.some(eq=>eq.includes(String.raw`\mathbf g=`)),'Show VJP as its own equation');
+  assert.ok(equations.some(eq=>eq.includes(String.raw`\mathbf v_{\Pi\mathrm{GDM}}=`)),'Show guided velocity as its own equality');
+  const mainEquation=await comparison.locator('.brief-rtc-result-math annotation').textContent();
+  assert.match(mainEquation??'',/\\mathbf v_\\pi/,'Original RTC keeps vπ');
+  assert.doesNotMatch(mainEquation??'',/\\mathbf v_\\theta/,'Do not silently swap notation to vθ');
+  const projectedText=await comparison.innerText();
+  assert.match(projectedText,/diag\(W\).*ma trận đường chéo/s,'Project a plain-language explanation of the diagonal matrix');
+  assert.match(projectedText,/Wᵢ = 1.*Wᵢ = 0/s,'Project the effect of weights in each overlap zone');
 
   await academicLayout.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=4',{waitUntil:'domcontentloaded'});
   await academicLayout.locator('.brief-slide-art-with-figure .brief-source-figure img').waitFor({state:'visible',timeout:15000});
