@@ -371,7 +371,8 @@ try {
   await academicLayout.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=4',{waitUntil:'domcontentloaded'});
   await academicLayout.locator('.brief-slide-art-with-figure .brief-source-figure img').waitFor({state:'visible',timeout:15000});
   assert.match(await academicLayout.locator('.brief-layout-intuition h2').innerText(),/Ý tưởng trung tâm/);
-  assert.equal(await academicLayout.locator('.brief-source-figure img').getAttribute('src')?.then(src=>src?.includes('figure-2.webp')),true,
+  const figureSrc=await academicLayout.locator('.brief-source-figure img').getAttribute('src');
+  assert.match(figureSrc??'',/figure-2\.webp/,
     'Training slides begin with the actual training architecture, not espresso demo imagery');
   await academicLayout.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=10',{waitUntil:'domcontentloaded'});
   await academicLayout.locator('.brief-layout-equation .katex').waitFor({state:'visible',timeout:15000});
