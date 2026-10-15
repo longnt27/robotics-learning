@@ -49,7 +49,7 @@
     "intuition": "Ở RTC đời đầu, mô hình dự đoán hành động rồi dùng gradient để kéo chúng về tiền tố đã cam kết. Việc này lặp n lần trong một lượt sinh; Training-Time RTC học ràng buộc đó trước nên khi chạy không cần bước hiệu chỉnh VJP.",
     "detail": {
       "label": "GIẢI THÍCH BỔ SUNG",
-      "text": "Trong công thức guidance RTC gốc, \\u0176 là chuỗi hành động sạch ước lượng, Y là đích nối đoạn, W là trọng số giữ từng bước, còn đạo hàm Jacobian thể hiện tác động của việc thay đổi chuỗi đang sinh. Phép nhân vector–Jacobian (VJP) cần backpropagation mỗi bước lấy mẫu. Biểu thức thời gian bên dưới chỉ là ước lượng chi phí, không phải một phương trình đo độ trễ trong paper."
+      "text": "Trong công thức guidance RTC gốc, A có dấu mũ là chuỗi hành động sạch ước lượng, Y là đích nối đoạn, W là trọng số giữ từng bước, còn đạo hàm Jacobian thể hiện tác động của việc thay đổi chuỗi đang sinh. Phép nhân vector–Jacobian (VJP) cần backpropagation mỗi bước lấy mẫu. Biểu thức thời gian bên dưới chỉ là ước lượng chi phí, không phải một phương trình đo độ trễ trong paper."
     },
     "stageMode": "visual-first"
   },
