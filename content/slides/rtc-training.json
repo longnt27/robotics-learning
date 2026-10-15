@@ -40,16 +40,16 @@
   },
   {
     "type": "contrast",
-    "title": "RTC tại thời điểm suy luận: hiệu chỉnh lúc sinh hành động",
-    "lead": "Trong khi robot thực thi đoạn A, mô hình sinh đoạn B. Phần đầu của B phải phù hợp với những hành động đã được xác định từ A.",
+    "title": "RTC đời đầu chậm ở đâu? Một VJP trong mỗi bước sinh",
+    "lead": "Inference-Time RTC sửa trường vận tốc bằng pseudoinverse guidance. Mỗi lần khử nhiễu phải tính thêm vector–Jacobian product qua mô hình, nên không chỉ tốn lượt dự đoán thông thường.",
     "items": [
-      "CŨ: hiệu chỉnh mẫu bằng gradient trong quá trình lấy mẫu",
-      "MỚI: điều kiện hoá tiền tố ngay trong huấn luyện"
+      "CŨ: thêm VJP/backprop trong từng bước khử nhiễu",
+      "MỚI: học sinh hậu tố có điều kiện ngay lúc huấn luyện"
     ],
-    "intuition": "Inference-Time RTC kết hợp pseudoinverse guidance và soft masking để nối đoạn. Phần guidance cần tính vector–Jacobian product bằng backprop trong các bước khử nhiễu.",
+    "intuition": "Ở RTC đời đầu, mô hình dự đoán hành động rồi dùng gradient để kéo chúng về tiền tố đã cam kết. Việc này lặp n lần trong một lượt sinh; Training-Time RTC học ràng buộc đó trước nên khi chạy không cần bước hiệu chỉnh VJP.",
     "detail": {
       "label": "GIẢI THÍCH BỔ SUNG",
-      "text": "Các phép tính bổ sung có thể kéo dài thời gian suy luận. Khi độ trễ d tăng, robot thực thi thêm nhiều hành động từ đoạn cũ trước khi đoạn mới sẵn sàng, khiến yêu cầu về phần tiền tố cố định cũng tăng."
+      "text": "Trong công thức guidance RTC gốc, A có dấu mũ là chuỗi hành động sạch ước lượng, Y là đích nối đoạn, W là trọng số giữ từng bước, còn đạo hàm Jacobian thể hiện tác động của việc thay đổi chuỗi đang sinh. Phép nhân vector–Jacobian (VJP) cần backpropagation mỗi bước lấy mẫu. Biểu thức thời gian bên dưới chỉ là ước lượng chi phí, không phải một phương trình đo độ trễ trong paper."
     },
     "stageMode": "visual-first"
   },
@@ -288,7 +288,7 @@
   {
     "type": "relations",
     "title": "So sánh hai phiên bản RTC",
-    "lead": "Inference-Time RTC hiệu chỉnh hành động khi lấy mẫu; Training-Time RTC học sinh hậu tố từ tiền tố cố định, qua đó giảm tính toán bổ sung lúc suy luận.",
+    "lead": "RTC inference-time tính guidance trong quá trình lấy mẫu; RTC training-time học điều kiện tiền tố nên loại phép VJP bổ sung, nhưng không loại các lượt forward sinh hành động.",
     "items": [
       {
         "label": "INFERENCE-TIME RTC",
@@ -302,7 +302,7 @@
     "intuition": "Khác biệt chính nằm ở giai đoạn xử lý ràng buộc nối đoạn: lúc suy luận hoặc ngay từ huấn luyện. Cả hai cách vẫn cần sinh các đoạn hành động mới.",
     "detail": {
       "label": "GIẢI THÍCH BỔ SUNG",
-      "text": "Phương pháp training-time không thay thế kiến trúc VLA và không loại bỏ các bước sinh hành động. Những hướng cần nghiên cứu thêm gồm độ trễ thay đổi, sai số thực thi và việc kết hợp ràng buộc cứng với phần chồng mềm."
+      "text": "Cùng dùng cơ chế robot thực thi đoạn cũ trong lúc mô hình chuẩn bị đoạn mới. Khác biệt nằm ở cách đảm bảo nối đoạn: gradient guidance trong suy luận hoặc điều kiện hóa tiền tố trong huấn luyện. Chênh lệch 135 ms và 108 ms là kết quả theo cấu hình robot thật công bố, không phải mức tăng tốc cố định."
     },
     "stageMode": "visual-first"
   },

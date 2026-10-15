@@ -112,7 +112,7 @@ test('RTC Training-Time preserves the technical teaching sequence from the revie
  const titles=[
    "TRAINING-TIME RTC",
    "Độ trễ suy luận so với chu kỳ điều khiển",
-   "RTC tại thời điểm suy luận: hiệu chỉnh lúc sinh hành động",
+   "RTC đời đầu chậm ở đâu? Một VJP trong mỗi bước sinh",
    "Ví dụ nối đoạn trong thao tác pha espresso",
    "Ba tham số của cơ chế nối đoạn",
    "Huấn luyện với tiền tố hành động cố định",
@@ -128,7 +128,7 @@ test('RTC Training-Time preserves the technical teaching sequence from the revie
  ];
  assert.deepEqual(slides.map(s=>s.title),titles,'Preserve the researched RTC narrative and approved neutral titles');
  assert.match(slides[1].lead,/50 Hz.*20 ms.*100 ms/);
- assert.match(slides[2].intuition,/pseudoinverse guidance.*backprop/);
+ assert.match(slides[2].intuition,/gradient.*VJP/);
  assert.match(slides[4].lead,/H là số hành động.*s là khoảng cách.*d là độ trễ/);
  assert.deepEqual(slides[5].items,[
   'Lấy đoạn hành động mẫu và chọn ngẫu nhiên d',
@@ -150,4 +150,25 @@ test('RTC Training-Time preserves the technical teaching sequence from the revie
  assert.ok(slides.every(s=>s.stageMode==='visual-first'),'Presenter narration stays off the projected slide');
  assert.equal(slides.filter(s=>s.figure).length,9,'Keep nine paper figure appearances');
  assert.ok(slides.every(s=>s.detail?.text?.length>=80),'Speaker notes remain available for every slide');
+});
+
+
+test('RTC Training deck explains inference-time Jacobian overhead and its measured scope',()=>{
+ const deck=JSON.parse(fs.readFileSync(path.join(contentDir,'rtc-training.json'),'utf8'));
+ assert.match(deck[2].title,/VJP/);
+ assert.match(deck[2].lead,/Jacobian product|vector–Jacobian/);
+ assert.match(deck[2].intuition,/Training-Time RTC/);
+ assert.match(deck[13].lead,/không loại các lượt forward/);
+ const component=fs.readFileSync(path.join(root,'components/slide-deck.tsx'),'utf8');
+ assert.match(component,/RtcInferenceCostBridge/);
+ assert.ok(component.includes('operatorname{diag}'),'Guidance uses the weighted action constraint');
+ assert.ok(component.includes('VJP'),'Show per-denoising-step VJP overhead');
+});
+test('Slide projection has container-aware responsive figure and fullscreen rules',()=>{
+ const css=fs.readFileSync(path.join(root,'app/briefing.css'),'utf8');
+ assert.match(css,/container-type:inline-size/);
+ assert.match(css,/@container \(max-width:850px\)/);
+ assert.match(css,/\.brief-slide-stage:fullscreen \.brief-source-image/);
+ assert.match(css,/@media\(max-height:690px\)/);
+ assert.match(css,/\.brief-rtc-cost-pair/);
 });

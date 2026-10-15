@@ -86,6 +86,42 @@ function OrbitalArt({paper,displayIndex}:{paper:Paper;displayIndex:number}){
   </div>;
 }
 
+
+/** Paper 2506.07339, Eqs. (2-3); runtime accounting below is an illustrative estimate. */
+function RtcInferenceCostBridge(){
+  const equation="\\begin{aligned}\n\\mathbf v_{\\Pi\\mathrm{GDM}}&=\\mathbf v_\\theta+\n\\lambda_\\tau(\\mathbf Y-\\widehat{\\mathbf A}^{1})^\\top\\\\\n&\\quad\\operatorname{diag}(\\mathbf W)\n\\frac{\\partial\\widehat{\\mathbf A}^{1}}{\\partial\\mathbf A^\\tau}\n\\end{aligned}";
+  const denoised="\\widehat{\\mathbf A}^{1}=\\mathbf A^\\tau+(1-\\tau)\\mathbf v_\\theta";
+  const slowCost="T_{\\text{RTC suy luận}}\\approx n\\,(T_{\\mathrm{forward}}+T_{\\mathrm{VJP}})+T_{\\mathrm{khac}}";
+  const fastCost="T_{\\text{RTC huấn luyện}}\\approx n\\,T_{\\mathrm{forward}}+T_{\\mathrm{khac}}";
+  const math=(latex:string)=>({__html:katex.renderToString(latex,{displayMode:true,throwOnError:false,strict:"ignore",trust:false})});
+  return <div className="brief-rtc-bridge" aria-label="Vì sao RTC suy luận cần thêm phép tính so với RTC huấn luyện">
+    <div className="brief-rtc-guidance">
+      <div className="brief-rtc-eyebrow"><strong>RTC ĐỜI ĐẦU · PSEUDOINVERSE GUIDANCE</strong><span>Paper gốc, công thức (2–3)</span></div>
+      <div className="brief-rtc-guidance-math" dangerouslySetInnerHTML={math(equation)}/>
+      <div className="brief-rtc-definition">
+        <div className="brief-rtc-definition-math" dangerouslySetInnerHTML={math(denoised)}/>
+        <p><strong>Điểm tốn thời gian:</strong> tích vector–Jacobian ở cuối công thức cần backpropagation trong <strong>từng bước khử nhiễu</strong>. W quy định mức giữ các hành động chồng nhau.</p>
+      </div>
+    </div>
+    <div className="brief-rtc-cost-pair">
+      <section className="brief-rtc-cost-card brief-rtc-cost-old">
+        <div className="brief-rtc-cost-name"><span>01</span> RTC hiệu chỉnh lúc suy luận</div>
+        <div className="brief-rtc-cost-math" dangerouslySetInnerHTML={math(slowCost)}/>
+        <p>Mỗi bước: dự đoán trường vận tốc <strong>+ tính VJP để sửa mẫu</strong>.</p>
+      </section>
+      <section className="brief-rtc-cost-card brief-rtc-cost-new">
+        <div className="brief-rtc-cost-name"><span>02</span> RTC học điều kiện tiền tố</div>
+        <div className="brief-rtc-cost-math" dangerouslySetInnerHTML={math(fastCost)}/>
+        <p>Mỗi bước: <strong>chỉ dự đoán trường vận tốc</strong>. Mạng đã học cách nối tiền tố cố định.</p>
+      </section>
+    </div>
+    <div className="brief-rtc-takeaway"><span>MINH HỌA CHI PHÍ, KHÔNG PHẢI ĐỊNH LUẬT THỜI GIAN</span>
+      <p>Thử nghiệm π₀.₆ với 5 bước khử nhiễu: <strong>135 ms → 108 ms</strong> (H100 từ xa). Tăng tốc thực tế còn phụ thuộc hệ thống.</p>
+      <Link href="/paper/rtc-inference?tab=slides&slide=9" aria-label="Xem bài RTC Inference-Time">RTC đời đầu <ArrowUpRight size={15}/></Link>
+    </div>
+  </div>;
+}
+
 function SlideVisual({paper,slide,index,presenting=false}:{paper:Paper;slide:ResearchSlide;index:number;presenting?:boolean}){
   const items=slide.items;
   if(slide.type==="cover")return <div className="brief-cover-main">
@@ -112,6 +148,7 @@ function SlideVisual({paper,slide,index,presenting=false}:{paper:Paper;slide:Res
     {items[0]&&<div className="brief-thesis-key"><span>Ý NGHĨA CỦA CƠ CHẾ</span><p>{getItemText(items[0])}</p></div>}
     <div className="brief-thesis-bottom"><span>Ý TƯỞNG CỐT LÕI</span><span className="brief-thesis-line"/><span>KHÁC BIỆT NẰM Ở CƠ CHẾ</span></div>
   </div>;
+  if(slide.type==="contrast"&&paper.slug==="rtc-training")return <RtcInferenceCostBridge/>;
   if(slide.type==="contrast"){
     // The reviewed RTC comparison stores OLD and NEW claims in separate items.
     // Render each claim in its matching column instead of labeling the old method as an innovation.
