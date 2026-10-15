@@ -463,3 +463,77 @@
 .brief-rtc-element-formula>span{color:var(--brief-accent);font-weight:750}
 .brief-rtc-element-formula>div{font-size:clamp(12px,1.1cqw,17px);max-width:100%;overflow-x:auto}
 .brief-rtc-element-formula .katex-display{margin:3px 0}
+
+
+/* RTC Training: one original-paper figure per evidence slide; unique explanation diagrams. */
+.brief-rtc10-mask,.brief-rtc10-timeline,.brief-rtc10-runtime{width:100%;max-width:1320px;margin:auto;min-width:0}
+.brief-rtc10-mask{display:flex;flex-direction:column;gap:clamp(10px,1.3cqw,19px)}
+.brief-rtc10-mask-row{background:linear-gradient(135deg,#1b2b41,#1a2940);border:1px solid #465d79;border-radius:11px;padding:clamp(13px,1.5cqw,21px);min-width:0}
+.brief-rtc10-mask-title{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 14px;font-size:clamp(13px,1.1cqw,17px);margin-bottom:12px}
+.brief-rtc10-mask-title strong{color:#faf7ff;letter-spacing:.03em}
+.brief-rtc10-mask-title span{color:#b7c7dd;font-size:clamp(11px,.9cqw,14px)}
+.brief-rtc10-mask-track{display:flex;gap:3px;min-width:0}
+.brief-rtc10-segment{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-width:0;min-height:clamp(62px,7cqw,92px);padding:6px 5px;border-radius:6px;gap:4px}
+.brief-rtc10-segment strong{font-size:clamp(11px,.95cqw,14px);letter-spacing:.08em}
+.brief-rtc10-segment span{font-size:clamp(10px,.86cqw,14px);line-height:1.3}
+.brief-rtc10-segment.is-committed{background:#863c4c;color:#fff}
+.brief-rtc10-segment.is-soft{background:linear-gradient(90deg,#c48b38,#725b40);color:#fff}
+.brief-rtc10-segment.is-future{background:#244d71;color:#f4faff}
+.brief-rtc10-segment.is-predicted{background:#255771;color:#f4faff}
+.brief-rtc10-mask-row>p{margin:10px 0 0;font-size:clamp(11px,.98cqw,15px);color:#d3e0ef;line-height:1.45}
+.brief-rtc10-probability{font-size:clamp(12px,1.35cqw,19px);padding-top:8px;overflow-x:auto}
+.brief-rtc10-probability .katex-display{margin:3px 0}
+.brief-rtc10-question{padding:clamp(13px,1.4cqw,20px);background:rgba(255,218,155,.07);border:1px solid rgba(255,218,155,.38);border-left:4px solid #edbe6d;border-radius:9px}
+.brief-rtc10-question>strong{font-size:clamp(14px,1.15cqw,18px);color:#ffe4af}
+.brief-rtc10-question p{font-size:clamp(12px,1.07cqw,16px);line-height:1.54;margin:7px 0 4px;color:#e6ebf5}
+.brief-rtc10-question small{font-size:clamp(10px,.8cqw,12px);color:#b7c6de}
+.brief-rtc10-timeline{background:#17263d;border:1px solid #4a607d;border-radius:11px;padding:clamp(14px,2cqw,26px);display:flex;flex-direction:column;gap:clamp(14px,2cqw,27px)}
+.brief-rtc10-timeline-facts{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;font-size:clamp(12px,1.05cqw,17px);color:#c8d7ed}
+.brief-rtc10-timeline-facts strong{color:#fff}
+.brief-rtc10-timeline-scroll{overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.brief-rtc10-timeline-canvas{min-width:650px;display:flex;flex-direction:column;gap:9px}
+.brief-rtc10-track-label{font-size:11px;font-weight:800;letter-spacing:.08em;color:#bbcee5}
+.brief-rtc10-track{display:grid;grid-template-columns:repeat(23,minmax(0,1fr));gap:3px;width:100%}
+.brief-rtc10-slot{display:flex;align-items:center;justify-content:center;text-align:center;border-radius:5px;min-width:0;min-height:68px;padding:5px 7px;font-weight:700;font-size:clamp(10px,.89cqw,13px);line-height:1.3}
+.brief-rtc10-slot.is-past{background:#3d4b61;color:#f1f3f7}
+.brief-rtc10-slot.is-committed{background:#893a50;color:#fff}
+.brief-rtc10-slot.is-overlap{background:#a47837;color:#fff}
+.brief-rtc10-slot.is-future{background:#28607c;color:#fff}
+.brief-rtc10-slot.is-empty{background:transparent;min-height:68px}
+.brief-rtc10-timeline-condition{display:flex;gap:15px 28px;align-items:center;border-top:1px solid #465b79;padding-top:16px}
+.brief-rtc10-timeline-condition>div{font-size:clamp(16px,2cqw,28px);min-width:0;flex:0 1 400px;overflow-x:auto}
+.brief-rtc10-timeline-condition p{font-size:clamp(12px,1.08cqw,16px);line-height:1.5;color:#d5e1f0;flex:1;margin:0}
+.brief-rtc10-runtime{display:flex;flex-direction:column;gap:20px}
+.brief-rtc10-runtime-stages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,2cqw,24px)}
+.brief-rtc10-runtime-step{position:relative;min-width:0;min-height:210px;background:linear-gradient(135deg,#253a53,#1a2b43);border:1px solid #59718c;border-radius:10px;padding:clamp(14px,1.7cqw,23px);display:flex;flex-direction:column;gap:10px}
+.brief-rtc10-runtime-step>span:first-child{font-size:12px;color:var(--brief-accent);font-weight:800}
+.brief-rtc10-runtime-step strong{font-size:clamp(18px,1.8cqw,29px);color:#fff}
+.brief-rtc10-runtime-step p{font-size:clamp(12px,1.12cqw,17px);line-height:1.55;color:#d7e4f4;margin:0}
+.brief-rtc10-runtime-arrow{position:absolute;right:-20px;top:44%;z-index:2;font-size:22px;color:var(--brief-accent)}
+.brief-rtc10-runtime-note{background:#24354c;border-radius:8px;padding:15px 21px;font-size:clamp(12px,1.2cqw,17px);line-height:1.6;color:#d7e4f4}
+.brief-rtc10-runtime-note b{color:#ffe4af}
+.brief-defense-notes,.presenter-defense{border:1px solid #556d89;background:#17273d;border-radius:9px;margin:18px 0;padding:15px 18px}
+.brief-defense-notes summary,.presenter-defense summary{cursor:pointer;font-size:14px;font-weight:800;color:#ffe29a;letter-spacing:.03em}
+.brief-defense-item,.presenter-defense-answer{padding:15px 0;border-bottom:1px solid #465b76}
+.brief-defense-item:last-child,.presenter-defense-answer:last-child{border-bottom:0}
+.brief-defense-item strong,.presenter-defense-answer strong{color:#f5f8ff;font-size:clamp(14px,1.14cqw,17px);line-height:1.5}
+.brief-defense-item p,.presenter-defense-answer p{margin:8px 0;font-size:clamp(13px,1.02cqw,16px);line-height:1.75;color:#d6e4f5}
+.brief-defense-item small,.presenter-defense-answer small{font-size:12px;color:#aebfda}
+@container (max-width:850px){
+ .brief-rtc10-runtime-stages{grid-template-columns:1fr}
+ .brief-rtc10-runtime-step{min-height:0}
+ .brief-rtc10-runtime-arrow{display:none}
+ .brief-rtc10-timeline-condition{flex-direction:column;align-items:stretch}
+ .brief-rtc10-timeline-condition>div{flex:0 1 auto}
+}
+@container (max-width:530px){
+ .brief-rtc10-mask-track{overflow-x:auto}
+ .brief-rtc10-segment{min-width:96px}
+ .brief-rtc10-runtime-note{padding:12px}
+ .brief-rtc10-question p{font-size:13px}
+}
+@media(max-height:700px){
+ .brief-slide-stage:fullscreen .brief-rtc10-mask-row{padding:10px}
+ .brief-slide-stage:fullscreen .brief-rtc10-mask{gap:8px}
+ .brief-deck-presenting .brief-rtc10-mask-row{padding:10px}
+}
