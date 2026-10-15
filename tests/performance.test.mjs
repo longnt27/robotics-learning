@@ -56,11 +56,11 @@ test("static asset sizes are large enough that eager bundling is a regression",(
   assert.ok(count>=100);
 });
 
-test("restored RTC slide deck uses a fresh URL instead of the cached short version",()=>{
+test("RTC slide deck uses the current revision URL after wording edits",()=>{
   const reader=read("components/paper-reader.tsx");
   const route=read("app/api/papers/[slug]/slides/route.ts");
   assert.match(route,/max-age=3600/,"Slides are cacheable, so a versioned URL matters");
-  assert.match(reader,/slug === "rtc-training" \? "\?rev=rtc-rich-20261014" : ""/,
-    "RTC should not reuse the visual-first-20261014 URL for the old shortened deck");
+  assert.match(reader,/slug === "rtc-training" \? "\?rev=rtc-neutral-20261015" : ""/,
+    "RTC should request the latest neutral-wording deck instead of a stale cached version");
   assert.match(reader,/fetch\(`\/api\/papers\/\$\{encodeURIComponent\(slug\)\}\/slides\$\{revision\}\`\)/);
 });
