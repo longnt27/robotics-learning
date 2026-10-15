@@ -151,3 +151,24 @@ test('RTC Training-Time preserves the technical teaching sequence from the revie
  assert.equal(slides.filter(s=>s.figure).length,9,'Keep nine paper figure appearances');
  assert.ok(slides.every(s=>s.detail?.text?.length>=80),'Speaker notes remain available for every slide');
 });
+
+
+test('RTC Training deck explains inference-time Jacobian overhead and its measured scope',()=>{
+ const deck=JSON.parse(fs.readFileSync(path.join(contentDir,'rtc-training.json'),'utf8'));
+ assert.match(deck[2].title,/VJP/);
+ assert.match(deck[2].lead,/Jacobian product|vector–Jacobian/);
+ assert.match(deck[2].intuition,/Training-Time RTC/);
+ assert.match(deck[13].lead,/không loại các lượt forward/);
+ const component=fs.readFileSync(path.join(root,'components/slide-deck.tsx'),'utf8');
+ assert.match(component,/RtcInferenceCostBridge/);
+ assert.match(component,/frac\\\\partial|partial\\\\widehat/);
+ assert.match(component,/T_\\\\mathrm\{VJP\}/);
+});
+test('Slide projection has container-aware responsive figure and fullscreen rules',()=>{
+ const css=fs.readFileSync(path.join(root,'app/briefing.css'),'utf8');
+ assert.match(css,/container-type:inline-size/);
+ assert.match(css,/@container \(max-width:850px\)/);
+ assert.match(css,/\.brief-slide-stage:fullscreen \.brief-source-image/);
+ assert.match(css,/@media\(max-height:690px\)/);
+ assert.match(css,/\.brief-rtc-cost-pair/);
+});
