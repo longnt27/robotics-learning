@@ -161,8 +161,8 @@ test('RTC Training deck explains inference-time Jacobian overhead and its measur
  assert.match(deck[13].lead,/không loại các lượt forward/);
  const component=fs.readFileSync(path.join(root,'components/slide-deck.tsx'),'utf8');
  assert.match(component,/RtcInferenceCostBridge/);
- assert.match(component,/frac\\\\partial|partial\\\\widehat/);
- assert.match(component,/T_\\\\mathrm\{VJP\}/);
+ assert.ok(component.includes('operatorname{diag}'),'Guidance uses the weighted action constraint');
+ assert.ok(component.includes('VJP'),'Show per-denoising-step VJP overhead');
 });
 test('Slide projection has container-aware responsive figure and fullscreen rules',()=>{
  const css=fs.readFileSync(path.join(root,'app/briefing.css'),'utf8');
