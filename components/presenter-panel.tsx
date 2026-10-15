@@ -62,6 +62,12 @@ export function PresenterPanel({popup,paperTitle,slides,index,elapsedSeconds,cha
                 <div className="presenter-note-key"><span>Ý CẦN NHẤN MẠNH</span><p>{slide.intuition}</p></div>
                 {slide.detail&&<div className="presenter-note-body"><span>{slide.detail.label}</span><p>{slide.detail.text}</p></div>}
               </>}
+          {slide.defenseQA?.length?<details className="presenter-defense" aria-label="Câu hỏi phản biện và câu trả lời">
+            <summary>CÂU HỎI PHẢN BIỆN · {slide.defenseQA.length} CÂU</summary>
+            {slide.defenseQA.map((qa,i)=><article key={i} className="presenter-defense-answer">
+              <strong>{i+1}. {qa.question}</strong><p>{qa.answer}</p><small>Nguồn / mức độ chứng cứ: {qa.source}</small>
+            </article>)}
+          </details>:null}
           {chapterContext&&<details className="presenter-more"><summary>Thông tin kỹ thuật tham khảo (không phải lời thoại)</summary>
             {slide.speakerScript?.length&&<p><strong>Ý cần nhấn mạnh:</strong> {slide.intuition}</p>}
             {slide.speakerScript?.length&&slide.detail&&<p><strong>{slide.detail.label}:</strong> {slide.detail.text}</p>}
