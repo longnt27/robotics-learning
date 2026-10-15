@@ -108,7 +108,7 @@ function RtcInferenceCostBridge(){
           <div className="brief-rtc-step-label"><span>01</span> Cân sai lệch ở từng hành động</div>
           <div className="brief-rtc-step-math" dangerouslySetInnerHTML={math(weightedError)}/>
           <div className="brief-rtc-element-formula"><span>Từng vị trí:</span><div dangerouslySetInnerHTML={math(perActionError)}/></div>
-          <p><strong>Y</strong>: hành động cần khớp; <strong>Â¹</strong>: dự đoán chuỗi sạch. <strong>diag(W)</strong> đặt các trọng số W lên đường chéo ma trận để cân sai lệch từng vị trí.</p>
+          <p><strong>Y</strong>: hành động cần khớp; <strong>Â¹</strong>: dự đoán chuỗi sạch. <strong>diag(W)</strong> tạo ma trận đường chéo từ W để cân sai lệch ở từng vị trí.</p>
         </section>
         <section className="brief-rtc-step brief-rtc-vjp">
           <div className="brief-rtc-step-label"><span>02</span> Tính hiệu chỉnh bằng VJP</div>
