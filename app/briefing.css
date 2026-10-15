@@ -417,3 +417,12 @@
  .brief-speaker-script{padding:14px}
  .brief-speaker-script p{font-size:16px;line-height:1.75}
 }
+
+
+/* RTC guidance math is sourced from Eq. (2-4) of inference-time RTC; keep
+   all defined quantities visible next to the guidance term on any viewport. */
+.brief-rtc-parameter-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 13px;border-top:1px solid #43516a;padding-top:13px;align-items:center}
+.brief-rtc-parameter-grid .brief-rtc-definition-math{max-width:100%;font-size:clamp(11px,1.15cqw,18px);padding:1px 0;overflow-x:auto;min-width:0}
+.brief-rtc-guidance-explainer{font-size:clamp(12px,1.05cqw,15px);line-height:1.5;color:#dce8f7;margin:12px 0 0}
+@container (max-width:950px){.brief-rtc-parameter-grid{grid-template-columns:1fr 1fr}.brief-rtc-parameter-grid .brief-rtc-definition-math:first-child{grid-column:1/-1}}
+@container (max-width:570px){.brief-rtc-parameter-grid{grid-template-columns:1fr}.brief-rtc-parameter-grid .brief-rtc-definition-math:first-child{grid-column:auto}}
