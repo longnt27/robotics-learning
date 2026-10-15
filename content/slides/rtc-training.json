@@ -63,7 +63,7 @@
     },
     "stageMode": "visual-first",
     "speakerScript": [
-      "Nhìn vào công thức lớn ở giữa. v pi là trường vận tốc mà mô hình RTC đời đầu dự đoán bằng một lượt chạy mạng. Phần cộng thêm phía sau là guidance: nó kéo chuỗi dự đoán về những hành động đã cam kết. (Y) là các lệnh cần khớp, (W) là trọng số cho từng vị trí, còn (A) mũ một là chuỗi hành động sạch được ước lượng.",
+      "Nhìn vào công thức lớn ở giữa. v pi là trường vận tốc mà mô hình RTC đời đầu dự đoán bằng một lượt chạy mạng. Phần cộng thêm phía sau là guidance: nó kéo chuỗi dự đoán về những hành động đã cam kết. Y là các lệnh cần khớp, W là trọng số cho từng vị trí, còn A mũ một là chuỗi hành động sạch được ước lượng.",
       "Thành phần cuối có đạo hàm của (A) mũ một theo chuỗi đang sinh. Khi nhân với sai lệch có trọng số, ta phải tính một tích vector–Jacobian, gọi là VJP, bằng lan truyền ngược. Hệ số gamma tau điều chỉnh độ mạnh của hiệu chỉnh; hai công thức nhỏ ngay dưới định nghĩa cách ước lượng chuỗi sạch và tính gamma tau.",
       "Nhìn xuống hai ô chi phí: với (n) bước lấy mẫu, RTC cũ cần khoảng (n) lượt forward và (n) phép VJP; cách huấn luyện mới vẫn chạy các lượt forward, nhưng bỏ phép VJP bổ sung. Đây là lý do người ta muốn chuyển phần ràng buộc vào lúc huấn luyện. Từ slide tiếp theo, tôi sẽ chỉ nói về cách Training-Time RTC làm điều đó."
     ]
