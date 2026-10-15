@@ -347,16 +347,18 @@ try {
   await academicLayout.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=3',{waitUntil:'domcontentloaded'});
   const comparison=academicLayout.locator('.brief-layout-contrast');
   await comparison.waitFor({state:'visible',timeout:15000});
-  assert.match(await comparison.locator('.brief-contrast-old').innerText(),/sinh rồi liên tục hiệu chỉnh bằng gradient/,
-    'The old RTC inference-time cost must be shown on the OLD side');
-  assert.match(await comparison.locator('.brief-contrast-new').innerText(),/học điều kiện tiền tố, sinh trực tiếp hậu tố/,
-    'The new training-time approach must be shown on the NEW side');
-  assert.doesNotMatch(await comparison.locator('.brief-contrast-new').innerText(),/CŨ:/,
-    'Never label a previous method as the innovation');
+  const oldCost=comparison.locator('.brief-rtc-cost-old');
+  const newCost=comparison.locator('.brief-rtc-cost-new');
+  await oldCost.waitFor({state:'visible',timeout:15000});
+  await newCost.waitFor({state:'visible',timeout:15000});
+  assert.match(await oldCost.innerText(),/VJP/,'Inference-time RTC must explain the per-step Jacobian cost');
+  assert.match(await newCost.innerText(),/chỉ dự đoán trường vận tốc/,'Training-time RTC avoids per-step VJP');
+  assert.ok(await comparison.locator('.brief-rtc-guidance .katex').count()>0,
+    'The original RTC pseudoinverse guidance equation is projected as readable math');
 
   await academicLayout.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=10',{waitUntil:'domcontentloaded'});
   await academicLayout.locator('.brief-layout-equation .katex').waitFor({state:'visible',timeout:15000});
-  assert.match(await academicLayout.locator('.brief-layout-equation h2').innerText(),/Công thức trung tâm/);
+  assert.match(await academicLayout.locator('.brief-layout-equation h2').innerText(),/Hàm mất mát trên hậu tố hành động/);
   assert.equal(await academicLayout.locator('.brief-slide-stage .brief-slide-detail').count(),0,
     'The complete flow-matching equation is projected, but presenter narration is not');
   await academicLayout.close();
@@ -382,7 +384,7 @@ try {
   presenterPopup.on('pageerror',error=>presenterErrors.push(error.message));
   await presenterPopup.locator('[data-private-presenter="true"]').waitFor({state:'visible',timeout:15000});
   assert.ok(await presenterPopup.getByText('GHI CHÚ RIÊNG TƯ').isVisible(),'Presenter has readable private notes');
-  assert.match(await presenterPopup.locator('.presenter-note-body').innerText(),/LỜI THUYẾT TRÌNH/,'Existing RTC speaker narration is preserved');
+  assert.match(await presenterPopup.locator('.presenter-note-body').innerText(),/GIẢI THÍCH BỔ SUNG.*vector–Jacobian/s,'RTC gradient explanation is available privately');
   assert.equal(await presenterPage.locator('.brief-deck-presenting').count(),1,'Audience slide fills shared browser');
   assert.equal(await presenterPage.locator('[data-private-presenter]').count(),0,'Private DOM must not be attached to shared browser');
   assert.equal(await presenterPage.locator('.brief-speaker-notes,.brief-slide-detail,.brief-slide-intuition').count(),0,'No private narration in audience view');
@@ -395,7 +397,7 @@ try {
   await presenterPage.locator('.brief-layout-intuition').waitFor({state:'visible',timeout:7000});
   await presenterPopup.keyboard.press('ArrowRight');
   await presenterPage.waitForFunction(()=>new URL(location.href).searchParams.get('slide')==='5');
-  await presenterPopup.getByText('Ba đại lượng quyết định liệu RTC có nối được đoạn').waitFor({state:'visible',timeout:7000});
+  await presenterPopup.getByText('Ba tham số của cơ chế nối đoạn').waitFor({state:'visible',timeout:7000});
 
   await presenterPopup.close(); // user closing the OS popup must restore the normal reader
   await presenterPage.locator('.brief-deck-presenting').waitFor({state:'detached',timeout:7000});
