@@ -457,3 +457,9 @@
  .brief-slide-stage:fullscreen .brief-rtc-bridge,.brief-deck-presenting .brief-rtc-bridge{gap:10px}
  .brief-slide-stage:fullscreen .brief-rtc-guidance,.brief-deck-presenting .brief-rtc-guidance{padding:13px}
 }
+
+
+.brief-rtc-element-formula{display:flex;gap:6px 12px;align-items:center;flex-wrap:wrap;font-size:clamp(11px,1.0cqw,15px);color:#cfdff3}
+.brief-rtc-element-formula>span{color:var(--brief-accent);font-weight:750}
+.brief-rtc-element-formula>div{font-size:clamp(12px,1.1cqw,17px);max-width:100%;overflow-x:auto}
+.brief-rtc-element-formula .katex-display{margin:3px 0}
