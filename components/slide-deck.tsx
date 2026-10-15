@@ -93,6 +93,7 @@ function RtcInferenceCostBridge(){
   // split the identical vector-Jacobian product into its named intermediate
   // steps; this avoids a hanging "diag(W)" on a new display-math line.
   const weightedError=String.raw`\mathbf e=(\mathbf Y-\widehat{\mathbf A}^{1})^\top\operatorname{diag}(\mathbf W)`;
+  const perActionError=String.raw`\mathbf e_i=W_i(Y_i-\widehat{\mathbf A}^{1}_i)`;
   const vjp=String.raw`\mathbf g=\mathbf e\,\frac{\partial\widehat{\mathbf A}^{1}}{\partial\mathbf A^\tau}`;
   const guidedVelocity=String.raw`\mathbf v_{\Pi\mathrm{GDM}}=\mathbf v_\pi+\gamma_\tau\,\mathbf g`;
   const denoised=String.raw`\widehat{\mathbf A}^{1}=\mathbf A^\tau+(1-\tau)\mathbf v_\pi`;
@@ -106,6 +107,7 @@ function RtcInferenceCostBridge(){
         <section className="brief-rtc-step brief-rtc-weighted">
           <div className="brief-rtc-step-label"><span>01</span> Cân sai lệch ở từng hành động</div>
           <div className="brief-rtc-step-math" dangerouslySetInnerHTML={math(weightedError)}/>
+          <div className="brief-rtc-element-formula"><span>Từng vị trí:</span><div dangerouslySetInnerHTML={math(perActionError)}/></div>
           <p><strong>Y</strong>: hành động cần khớp; <strong>Â¹</strong>: dự đoán chuỗi sạch. <strong>diag(W)</strong> đặt các trọng số W lên đường chéo ma trận để cân sai lệch từng vị trí.</p>
         </section>
         <section className="brief-rtc-step brief-rtc-vjp">
