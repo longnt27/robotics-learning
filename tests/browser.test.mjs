@@ -308,11 +308,11 @@ try {
     await speakerNotes.waitFor({state:'visible'});
     assert.match(await speakerNotes.innerText(),/GHI CHÚ KHI TRÌNH BÀY/,
       'Speaker script is still available in Notes');
-    assert.equal(await speakerNotes.locator('.brief-speaker-script p').count(),4,
+    assert.equal(await speakerNotes.locator('.brief-speaker-script p').count(),3,
       'Slide 03 has four complete spoken paragraphs');
     assert.match(await speakerNotes.locator('.brief-speaker-script').innerText(),/VJP/,
       'Spoken script explains the inference-time gradient overhead');
-    assert.ok(!(await canvas.innerText()).includes('Nhưng RTC đời đầu chưa dừng ở dự đoán này'),
+    assert.ok(!(await canvas.innerText()).includes('Thành phần cuối có đạo hàm'),
       'Spoken script must not appear on the projected slide');
     assert.equal(await canvas.locator('.brief-slide-detail').count(),0,
       'Opening Notes does not insert them back into the slide canvas');
@@ -358,13 +358,25 @@ try {
   await oldCost.waitFor({state:'visible',timeout:15000});
   await newCost.waitFor({state:'visible',timeout:15000});
   assert.match(await oldCost.innerText(),/VJP/,'Inference-time RTC must explain the per-step Jacobian cost');
-  assert.match(await newCost.innerText(),/chỉ dự đoán trường vận tốc/,'Training-time RTC avoids per-step VJP');
+  assert.match(await newCost.innerText(),/không có VJP guidance bổ sung/,'Training-time RTC avoids per-step VJP');
   assert.ok(await comparison.locator('.brief-rtc-guidance .katex').count()>0,
     'The original RTC pseudoinverse guidance equation is projected as readable math');
+  assert.ok(await comparison.locator('.brief-rtc-parameter-grid .katex').count()>=3,
+    'Estimated actions, clipping weight and variance must all have visible math definitions');
+  const annotatedLatex=await comparison.locator('.brief-rtc-guidance-math annotation').textContent();
+  assert.match(annotatedLatex??'',/\\mathbf v_\\pi/,'The displayed inference formula uses vπ, not vθ');
+  assert.doesNotMatch(annotatedLatex??'',/\\mathbf v_\\theta/,'Avoid mixing training-paper notation into RTC original');
 
+
+  await academicLayout.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=4',{waitUntil:'domcontentloaded'});
+  await academicLayout.locator('.brief-slide-art-with-figure .brief-source-figure img').waitFor({state:'visible',timeout:15000});
+  assert.match(await academicLayout.locator('.brief-layout-intuition h2').innerText(),/Ý tưởng trung tâm/);
+  const figureSrc=await academicLayout.locator('.brief-source-figure img').getAttribute('src');
+  assert.match(figureSrc??'',/figure-2\.webp/,
+    'Training slides begin with the actual training architecture, not espresso demo imagery');
   await academicLayout.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=10',{waitUntil:'domcontentloaded'});
   await academicLayout.locator('.brief-layout-equation .katex').waitFor({state:'visible',timeout:15000});
-  assert.match(await academicLayout.locator('.brief-layout-equation h2').innerText(),/Hàm mất mát trên hậu tố hành động/);
+  assert.match(await academicLayout.locator('.brief-layout-equation h2').innerText(),/Hàm mất mát chỉ tính trên phần cần sinh/);
   assert.equal(await academicLayout.locator('.brief-slide-stage .brief-slide-detail').count(),0,
     'The complete flow-matching equation is projected, but presenter narration is not');
   await academicLayout.close();
@@ -392,7 +404,7 @@ try {
   assert.ok(await presenterPopup.getByText('GHI CHÚ RIÊNG TƯ').isVisible(),'Presenter has readable private notes');
   const liveScript=presenterPopup.locator('.presenter-script');
   await liveScript.waitFor({state:'visible',timeout:10000});
-  assert.equal(await liveScript.locator('p').count(),4,'Full slide 03 script is visible in private Presenter View');
+  assert.equal(await liveScript.locator('p').count(),3,'Full slide 03 script is visible in private Presenter View');
   assert.match(await liveScript.innerText(),/VJP/,'RTC VJP explanation is ready to speak');
   assert.equal(await presenterPopup.locator('.presenter-note-body').count(),0,'Do not duplicate reference prose when a script exists');
   assert.equal(await presenterPage.locator('.brief-deck-presenting').count(),1,'Audience slide fills shared browser');
@@ -407,7 +419,7 @@ try {
   await presenterPage.locator('.brief-layout-intuition').waitFor({state:'visible',timeout:7000});
   await presenterPopup.keyboard.press('ArrowRight');
   await presenterPage.waitForFunction(()=>new URL(location.href).searchParams.get('slide')==='5');
-  await presenterPopup.getByText('Ba tham số của cơ chế nối đoạn').waitFor({state:'visible',timeout:7000});
+  await presenterPopup.getByText('H, s và d quyết định tiền tố cần giữ').waitFor({state:'visible',timeout:7000});
 
   await presenterPopup.close(); // user closing the OS popup must restore the normal reader
   await presenterPage.locator('.brief-deck-presenting').waitFor({state:'detached',timeout:7000});
