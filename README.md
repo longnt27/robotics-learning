@@ -40,7 +40,8 @@ git pull --ff-only
 npm install --no-audit --no-fund
 ```
 
-Lưu ý: repo hiện **chưa có `package-lock.json`**, nên dùng `npm install` như CI, **không dùng `npm ci`**. Lệnh `git pull --ff-only` sẽ dừng nếu lịch sử Git local không thể fast-forward; không nên `reset --hard` nếu còn thay đổi chưa commit.
+Lưu ý: repo hiện **chưa có `package-lock.json`**, nên dùng `npm install` như CI, **không dùng `npm ci`**. 
+Sau `npm install`, npm có thể tự tạo `package-lock.json` trong thư mục project. File này khác với `/Users/<tên-user>/package-lock.json` mà Next.js đôi khi nhận nhầm là workspace root. Lệnh `git pull --ff-only` sẽ dừng nếu lịch sử Git local không thể fast-forward; không nên `reset --hard` nếu còn thay đổi chưa commit.
 
 ### 3. Chạy chế độ phát triển
 
@@ -153,11 +154,43 @@ Phím tắt: `←` / `→` hoặc Space (đổi slide), Home / End (đầu / cu�
 | `npm ERR! Missing script: "dev"` | Đang ở sai thư mục. Vào thư mục chứa `package.json` của `robotics-atlas`, rồi chạy lại. |
 | `Cannot find module 'next'` / `next: command not found` | Chạy `npm install --no-audit --no-fund` tại thư mục repo. |
 | `npm ci` báo thiếu lockfile | Dùng `npm install`, vì repo chưa có `package-lock.json`. |
+| `Module not found: Can't resolve 'hls.js'` từ `@react-three/drei/core/VideoTexture.js` | Cập nhật `main`, rồi chạy `npm install --include=optional`. `hls.js` đã được khai báo trong dependencies để Webpack tìm thấy khi import `@react-three/drei`. |
+| `@next/swc-darwin-arm64` báo `segment '__TEXT' load command content extends beyond end of file` | Native SWC binary bị hỏng/cài dở. Dừng server rồi thực hiện quy trình cài sạch cho macOS bên dưới; không cần đổi source code. |
+| Cảnh báo `multiple lockfiles`, chọn `~/package-lock.json` | Next đã được cấu hình `outputFileTracingRoot` theo thư mục project. Nếu vẫn gặp, cập nhật `main` và kiểm tra `pwd`; đừng xóa `~/package-lock.json` khi chưa biết nó thuộc project nào. |
+| `npm audit` báo vulnerabilities | Chạy `npm audit` và `npm audit --omit=dev` để kiểm tra package nào ảnh hưởng production. Không chạy `npm audit fix --force` khi chưa kiểm tra breaking changes; cảnh báo audit không phải nguyên nhân trực tiếp của lỗi import/binary ở trên. |
 | `EADDRINUSE: address already in use :::3000` | Tắt server cũ hoặc dùng `npm run dev -- -p 3001`. |
 | Build xung đột / `.next` bị khóa | Dừng `dev` / `start` trước khi `npm run build`; không chạy song song trong cùng `.next`. |
 | `npm run test:e2e` timeout hoặc không tìm Chromium | Bật server trong Terminal 1; chạy `npx playwright install chromium`, sau đó test ở Terminal 2. |
 | Vẫn thấy deck RTC cũ 15 slide | `git switch main && git pull --ff-only`, khởi động lại server và tải lại trang (`Cmd+Shift+R` trên macOS). |
 | PDF hoặc hình gốc không tải | Website hoạt động local, nhưng PDF gốc được lấy từ nguồn bên ngoài và có thể cần Internet hoặc bị nhà xuất bản chặn nhúng. |
+
+## Khi Next.js build lỗi trên Apple Silicon
+
+Nếu máy Mac báo `@next/swc-darwin-arm64` không load được, đặc biệt lỗi `segment '__TEXT' load command content extends beyond end of file`, file native compiler trong `node_modules` đã bị hỏng hoặc tải chưa hoàn chỉnh. Đó là lỗi cài đặt **trên máy**, không phải lỗi code TypeScript.
+
+Từ thư mục repo, kiểm tra `node --version` (khuyến nghị **22.x**) và chạy:
+
+```bash
+# Tắt tất cả server dev/start trong repo trước.
+cd ~/projects/robotics-learning
+rm -rf node_modules .next
+npm cache verify
+npm install --include=optional
+npm run build
+```
+
+Lệnh trên chỉ xóa dependencies và build cache **trong thư mục repo**, không xóa source code hoặc lockfile của user. `--include=optional` bảo đảm npm cài lại native SWC optional dependency đúng cho macOS ARM64.
+
+Nếu file SWC vẫn bị hỏng sau khi cài lại, mới thử xóa npm cache và cài lần nữa:
+
+```bash
+npm cache clean --force
+rm -rf node_modules .next
+npm install --include=optional
+npm run build
+```
+
+Đừng dùng `sudo npm install` và đừng xóa bừa `~/package-lock.json`: đó có thể là lockfile của project khác. Nếu build hoàn tất, `npm run start` sẽ phục vụ bản production ở `http://localhost:3000`.
 
 ## Cấu trúc nội dung
 
