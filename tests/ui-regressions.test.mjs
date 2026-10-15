@@ -48,3 +48,12 @@ test('equations use direct KaTeX rendering with safe defaults', () => {
   assert.match(slideUI, /throwOnError:false/);
   assert.doesNotMatch(slideUI, /<(?:radial|linear)Gradient\b/);
 });
+
+test("Starfield's drei barrel import has the hls.js runtime dependency",()=>{
+ const pkg=JSON.parse(fs.readFileSync(path.join(root,"package.json"),"utf8"));
+ const starfield=fs.readFileSync(path.join(root,"components/starfield.tsx"),"utf8");
+ assert.ok(starfield.includes('from "@react-three/drei"'),"Regression applies to the drei barrel import");
+ assert.match(pkg.dependencies["hls.js"]??"",/^1\./,"The drei VideoTexture import needs hls.js to resolve");
+ const config=fs.readFileSync(path.join(root,"next.config.ts"),"utf8");
+ assert.match(config,/outputFileTracingRoot:\s*process\.cwd\(\)/,"Build tracing must not select the parent home lockfile");
+});
