@@ -137,7 +137,7 @@
     "intuition": "Paper mới bỏ được gradient guidance nhưng mất cơ chế điều kiện hóa mềm trên phần vàng. Đây là giới hạn công khai, không phải chứng minh soft-training bất khả thi.",
     "detail": {
       "label": "GIẢI THÍCH KĨ THUẬT",
-      "text": "Training-Time học p(A_{t+d:H}|o_t,A_{t:t+d}) chỉ bằng prefix sạch. §VI thừa nhận không có khả năng soft-conditioning phần chồng còn lại. Đề xuất huấn luyện thêm ràng buộc mềm có thể nghiên cứu, nhưng không có trong phương pháp hoặc thí nghiệm của bài."
+      "text": "Training-Time học p(A_{t+d:H}|o_t,A_{t:t+d}) chỉ bằng prefix sạch. §VI thừa nhận không có khả năng soft-conditioning phần chồng còn lại. Đề xuất huấn luyện thêm ràng buộc mềm có thể nghiên cứu, nhưng không có trong phương pháp hoặc thí nghiệm của bài. Paper không chứng minh rằng không thể học ràng buộc mềm; đây là một hướng mở cần thử nghiệm."
     },
     "stageMode": "visual-first",
     "speakerScript": [
