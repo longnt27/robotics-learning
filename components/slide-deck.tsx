@@ -101,8 +101,8 @@ function RtcInferenceCostBridge(){
   const denoised=String.raw`\widehat{\mathbf A}^{1}=\mathbf A^\tau+(1-\tau)\mathbf v_\pi`;
   const strength=String.raw`\gamma_\tau=\min\left(\beta,\frac{1-\tau}{\tau r_\tau^2}\right)`;
   const variance=String.raw`r_\tau^2=\frac{(1-\tau)^2}{\tau^2+(1-\tau)^2}`;
-  const slowCost=String.raw`T_{\mathrm{inferenceRTC}}\approx n(T_{\mathrm{forward}}+T_{\mathrm{VJP}})+T_{\mathrm{khac}}`;
-  const fastCost=String.raw`T_{\mathrm{trainingRTC}}\approx nT_{\mathrm{forward}}+T_{\mathrm{khac}}`;
+  const slowCost=String.raw`T_{\mathrm{infer}}\approx n(T_f+T_{\mathrm{VJP}})+T_0`;
+  const fastCost=String.raw`T_{\mathrm{train}}\approx nT_f+T_0`;
   const math=(latex:string)=>({__html:katex.renderToString(latex,{displayMode:true,throwOnError:false,strict:"ignore",trust:false})});
   return <div className="brief-rtc-bridge" aria-label="Chi phí gradient guidance trong RTC inference-time">
     <div className="brief-rtc-guidance">
@@ -119,12 +119,12 @@ function RtcInferenceCostBridge(){
       <section className="brief-rtc-cost-card brief-rtc-cost-old">
         <div className="brief-rtc-cost-name"><span>01</span> RTC inference-time</div>
         <div className="brief-rtc-cost-math" dangerouslySetInnerHTML={math(slowCost)}/>
-        <p>Mỗi bước: <strong>forward + VJP</strong> để hiệu chỉnh mẫu.</p>
+        <p>T<sub>f</sub>: lượt forward, T<sub>VJP</sub>: phép nhân vector–Jacobian.</p>
       </section>
       <section className="brief-rtc-cost-card brief-rtc-cost-new">
         <div className="brief-rtc-cost-name"><span>02</span> Training-Time RTC</div>
         <div className="brief-rtc-cost-math" dangerouslySetInnerHTML={math(fastCost)}/>
-        <p>Mỗi bước: <strong>forward</strong>; không có VJP guidance bổ sung.</p>
+        <p>T<sub>0</sub>: chi phí phụ trợ; <strong>không có VJP guidance bổ sung</strong>.</p>
       </section>
     </div>
     <div className="brief-rtc-takeaway"><span>PHƯƠNG TRÌNH CHI PHÍ CHỈ ĐỂ GIẢI THÍCH</span>
