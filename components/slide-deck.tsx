@@ -148,17 +148,74 @@ function RtcInferenceCostBridge(){
   </div>;
 }
 
-function SlideVisual({paper,slide,index,presenting=false}:{paper:Paper;slide:ResearchSlide;index:number;presenting?:boolean}){
+/** Diagrams are authored for this talk, not claimed as original paper figures. */
+function RtcMaskTradeoff(){
+  const distribution=String.raw`p(\mathbf A_{t+d:H}\mid \mathbf o_t,\mathbf A_{t:t+d})`;
+  return <div className="brief-rtc10-mask" aria-label="Hard prefix của Training-Time so với soft masking trong RTC đời đầu">
+    <div className="brief-rtc10-mask-row">
+      <div className="brief-rtc10-mask-title"><strong>RTC GỐC</strong><span>guidance lúc suy luận</span></div>
+      <div className="brief-rtc10-mask-track">
+        <div className="brief-rtc10-segment is-committed" style={{flex:3}}><strong>ĐỎ</strong><span>W = 1</span></div>
+        <div className="brief-rtc10-segment is-soft" style={{flex:4}}><strong>VÀNG</strong><span>0 &lt; W &lt; 1, giảm dần</span></div>
+        <div className="brief-rtc10-segment is-future" style={{flex:5}}><strong>XANH</strong><span>W = 0</span></div>
+      </div>
+      <p>Vẫn tham khảo dự đoán cũ ở vùng chồng chưa cam kết; trả thêm chi phí VJP.</p>
+    </div>
+    <div className="brief-rtc10-mask-row">
+      <div className="brief-rtc10-mask-title"><strong>TRAINING-TIME</strong><span>điều kiện hóa lúc học</span></div>
+      <div className="brief-rtc10-mask-track">
+        <div className="brief-rtc10-segment is-committed" style={{flex:3}}><strong>ĐỎ</strong><span>prefix sạch, giữ nguyên</span></div>
+        <div className="brief-rtc10-segment is-predicted" style={{flex:4}}><strong>VÀNG</strong><span>mô hình sinh lại</span></div>
+        <div className="brief-rtc10-segment is-predicted" style={{flex:5}}><strong>XANH</strong><span>mô hình sinh mới</span></div>
+      </div>
+      <div className="brief-rtc10-probability" dangerouslySetInnerHTML={{__html:katex.renderToString(distribution,{displayMode:true,throwOnError:false})}}/>
+    </div>
+    <div className="brief-rtc10-question">
+      <strong>Vì sao không huấn luyện cả phần trọng số giảm dần?</strong>
+      <p>Paper <b>chưa giải quyết</b> soft conditioning ở training. Không có bằng chứng nó bất khả thi; chỉ nhân W vào loss không mặc nhiên tái tạo guidance phụ thuộc dự đoán cũ.</p>
+      <small>Phân biệt: giới hạn được tác giả nêu ở §VI · Ý tưởng mở rộng cần kiểm chứng thêm</small>
+    </div>
+  </div>;
+}
+function RtcHorizonTimeline(){
+  const inequality=String.raw`d\le H-s\qquad 5\le 16-7=9`;
+  return <div className="brief-rtc10-timeline" aria-label="Ví dụ 16 hành động, 7 đã thực thi và 5 hành động cần giữ">
+    <div className="brief-rtc10-timeline-facts"><span>H = <strong>16 hành động/chunk</strong></span><span>s = <strong>7 bước đã chạy</strong></span><span>d = <strong>5 bước chờ</strong></span></div>
+    <div className="brief-rtc10-timeline-scroll"><div className="brief-rtc10-timeline-canvas">
+      <div className="brief-rtc10-track-label">CHUNK CŨ</div>
+      <div className="brief-rtc10-track"><div className="brief-rtc10-slot is-past" style={{gridColumn:"span 7"}}>7 bước đã chạy</div><div className="brief-rtc10-slot is-committed" style={{gridColumn:"span 5"}}>5 bước sẽ chạy</div><div className="brief-rtc10-slot is-overlap" style={{gridColumn:"span 4"}}>4 bước còn lại</div><div className="brief-rtc10-slot is-empty" style={{gridColumn:"span 7"}}/></div>
+      <div className="brief-rtc10-track-label">CHUNK MỚI</div>
+      <div className="brief-rtc10-track"><div className="brief-rtc10-slot is-empty" style={{gridColumn:"span 7"}}/><div className="brief-rtc10-slot is-committed" style={{gridColumn:"span 5"}}>5 bước tiền tố cố định</div><div className="brief-rtc10-slot is-overlap" style={{gridColumn:"span 4"}}>4 bước sinh lại</div><div className="brief-rtc10-slot is-future" style={{gridColumn:"span 7"}}>7 bước sinh mới</div></div>
+    </div></div>
+    <div className="brief-rtc10-timeline-condition"><div dangerouslySetInnerHTML={{__html:katex.renderToString(inequality,{displayMode:true,throwOnError:false})}}/><p>Vùng chồng là <b>9</b> bước, nhưng chỉ <b>5</b> bước thực sự đã cam kết. Nếu d lớn hơn 9, bộ điều khiển sẽ hết lệnh cũ trước khi kết quả mới sẵn sàng.</p></div>
+  </div>;
+}
+function RtcTrainedRuntime(){
+  const steps=[
+    {n:"01",name:"Điều kiện",desc:"Quan sát hiện tại + d hành động đã cam kết từ chunk cũ."},
+    {n:"02",name:"Action expert",desc:"Flow matching dự đoán postfix; vẫn chạy forward, không VJP guidance."},
+    {n:"03",name:"Bộ điều khiển",desc:"Phát tiếp lệnh cũ trong lúc tính; chuyển sang chunk mới khi xong."}
+  ];
+  return <div className="brief-rtc10-runtime" aria-label="Luồng suy luận sau khi học điều kiện hóa tiền tố">
+    <div className="brief-rtc10-runtime-stages">{steps.map((s,i)=><div className="brief-rtc10-runtime-step" key={s.n}><span>{s.n}</span><strong>{s.name}</strong><p>{s.desc}</p>{i<2&&<span className="brief-rtc10-runtime-arrow" aria-hidden="true">→</span>}</div>)}</div>
+    <div className="brief-rtc10-runtime-note"><b>Không phải 'zero latency'.</b> Model và hệ điều khiển vẫn tốn thời gian. Thay đổi là không còn phép lan truyền ngược để nối đoạn trong mỗi bước lấy mẫu.</div>
+  </div>;
+}
+
+function SlideVisual({paper,slide,index,presenting=false,total=15}:{paper:Paper;slide:ResearchSlide;index:number;presenting?:boolean;total?:number}){
   const items=slide.items;
   if(slide.type==="cover")return <div className="brief-cover-main">
     <div className="brief-cover-copy"><div className="brief-overline"><span className="brief-signal"/> RESEARCH BRIEFING / {paper.date.slice(0,4)}</div>
-      <span className="brief-cover-ordinal">{String(index+1).padStart(2,"0")} / 15</span>
+      <span className="brief-cover-ordinal">{String(index+1).padStart(2,"0")} / {total}</span>
       <h2>{paper.shortTitle}<span className="brief-title-dot">.</span></h2>
       <p className="brief-cover-message">{slide.lead}</p>
       <div className="brief-cover-key"><span>LUẬN ĐIỂM CHÍNH</span><strong>{getItemText(items[0])}</strong>{slide.stageMode!=="visual-first"&&!presenting&&<p>{slide.intuition}</p>}</div>
       <div className="brief-cover-pill"><span/> {paper.venue} · {paper.userPick?"BÀI BẠN CHỌN":"BÀI NGHIÊN CỨU NỀN TẢNG"}</div>
     </div><OrbitalArt paper={paper} displayIndex={index+1}/>
   </div>;
+  if(paper.slug==="rtc-training"&&slide.visual==="mask-tradeoff")return <RtcMaskTradeoff/>;
+  if(paper.slug==="rtc-training"&&slide.visual==="horizon-timeline")return <RtcHorizonTimeline/>;
+  if(paper.slug==="rtc-training"&&slide.visual==="trained-runtime")return <RtcTrainedRuntime/>;
   if(slide.type==="pipeline")return <div className="brief-flow" role="img" aria-label={items.map(getItemText).join(" rồi đến ")}>
     {items.map((item,i)=><div className="brief-flow-stage" key={i}><div className="brief-flow-stage-head"><span>{String(i+1).padStart(2,"0")}</span><span className="brief-flow-mark"/></div><strong>{getItemText(item)}</strong><span className="brief-flow-stage-foot">{i===0?"INPUT":i===items.length-1?"OUTPUT":"PROCESS"}</span></div>)}
   </div>;
@@ -374,7 +431,7 @@ export function SlideDeck({paper,slides,chapter,onRead}:{paper:Paper;slides:Rese
       <AnimatePresence mode="wait" initial={false}>
         <motion.div key={`${paper.slug}-${index}`} className={`brief-slide-content brief-layout-${slide.type}`} initial={{opacity:0,y:14,filter:"blur(4px)"}} animate={{opacity:1,y:0,filter:"blur(0px)"}} exit={{opacity:0,y:-10,filter:"blur(3px)"}} transition={{duration:.23,ease:"easeOut"}}>
           {slide.type!=="cover"&&<div className="brief-slide-heading"><div className="brief-chapter-label"><span className="brief-signal"/> {SECTIONS[slide.type]} <span className="brief-heading-rule"/> {String(index+1).padStart(2,"0")}</div><h2>{slide.title}</h2>{!["intuition","equation","problem","contrast"].includes(slide.type)&&<p className="brief-slide-description">{slide.lead}</p>}</div>}
-          <div className={`brief-slide-art ${slide.figure?"brief-slide-art-with-figure":""}`}><div className="brief-slide-art-primary"><SlideVisual slide={slide} paper={paper} index={index} presenting={Boolean(presenterWindow)}/></div>{slide.figure&&<figure className="brief-source-figure"><div className="brief-source-image"><Image src={slide.figure.src} alt={slide.figure.alt} fill sizes="(max-width: 700px) 92vw, 42vw" priority={false} /></div><figcaption><span>HÌNH GỐC · NGUỒN BÀI BÁO</span>{slide.figure.caption}</figcaption></figure>}</div>
+          <div className={`brief-slide-art ${slide.figure?"brief-slide-art-with-figure":""}`}><div className="brief-slide-art-primary"><SlideVisual slide={slide} paper={paper} index={index} total={slides.length} presenting={Boolean(presenterWindow)}/></div>{slide.figure&&<figure className="brief-source-figure"><div className="brief-source-image"><Image src={slide.figure.src} alt={slide.figure.alt} fill sizes="(max-width: 700px) 92vw, 42vw" priority={false} /></div><figcaption><span>HÌNH GỐC · NGUỒN BÀI BÁO</span>{slide.figure.caption}</figcaption></figure>}</div>
           {slide.detail&&!audienceOnly&&<aside className={`brief-slide-detail brief-slide-detail-${slide.type}`}><span className="brief-slide-detail-label"><span className="brief-signal"/> {slide.detail.label}</span><p>{slide.detail.text}</p></aside>}
           {!audienceOnly&&slide.type!=="cover"&&slide.type!=="equation"&&slide.type!=="intuition"&&<div className="brief-slide-intuition"><span>CÁCH HIỂU <i>→</i></span><p>{slide.intuition}</p></div>}
         </motion.div>
@@ -398,6 +455,9 @@ export function SlideDeck({paper,slides,chapter,onRead}:{paper:Paper;slides:Rese
       {slide.speakerScript?.length
         ? <div className="brief-speaker-script" aria-label="Kịch bản thuyết trình cho slide hiện tại">{slide.speakerScript.map((paragraph,i)=><p key={i}>{paragraph}</p>)}</div>
         : <><p className="brief-notes-intuition"><strong>Cách hiểu.</strong> {slide.intuition}</p>{slide.detail&&<p><strong>{slide.detail.label}.</strong> {slide.detail.text}</p>}{speakerText&&<p>{speakerText}</p>}</>}
+      {slide.defenseQA?.length?<details className="brief-defense-notes"><summary>CÂU HỎI PHẢN BIỆN · {slide.defenseQA.length} CÂU</summary>
+        {slide.defenseQA.map((qa,i)=><section key={i} className="brief-defense-item"><strong>{i+1}. {qa.question}</strong><p>{qa.answer}</p><small>Nguồn / mức độ chứng cứ: {qa.source}</small></section>)}
+      </details>:null}
       {slide.speakerScript?.length&&<details className="brief-notes-reference"><summary>Thông tin kỹ thuật để đối chiếu</summary><p><strong>Ý chính:</strong> {slide.intuition}</p>{slide.detail&&<p><strong>{slide.detail.label}:</strong> {slide.detail.text}</p>}{speakerText&&<p>{speakerText}</p>}</details>}
       <button onClick={onRead}>ĐỌC CHƯƠNG ĐẦY ĐỦ <ArrowRight size={14}/></button></div>}
     <div className="brief-slide-disclaimer"><span>Slide tóm lược để thuyết trình; metric/nhận định cần đối chiếu với PDF gốc.</span><span>Nhấn <kbd>?</kbd> để xem phím tắt.</span></div>
