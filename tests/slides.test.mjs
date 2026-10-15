@@ -112,7 +112,7 @@ test('RTC Training-Time preserves the technical teaching sequence from the revie
  const titles=[
    "TRAINING-TIME RTC",
    "Độ trễ suy luận so với chu kỳ điều khiển",
-   "RTC tại thời điểm suy luận: hiệu chỉnh lúc sinh hành động",
+   "RTC đời đầu chậm ở đâu? Một VJP trong mỗi bước sinh",
    "Ví dụ nối đoạn trong thao tác pha espresso",
    "Ba tham số của cơ chế nối đoạn",
    "Huấn luyện với tiền tố hành động cố định",
@@ -128,7 +128,7 @@ test('RTC Training-Time preserves the technical teaching sequence from the revie
  ];
  assert.deepEqual(slides.map(s=>s.title),titles,'Preserve the researched RTC narrative and approved neutral titles');
  assert.match(slides[1].lead,/50 Hz.*20 ms.*100 ms/);
- assert.match(slides[2].intuition,/pseudoinverse guidance.*backprop/);
+ assert.match(slides[2].intuition,/gradient.*VJP/);
  assert.match(slides[4].lead,/H là số hành động.*s là khoảng cách.*d là độ trễ/);
  assert.deepEqual(slides[5].items,[
   'Lấy đoạn hành động mẫu và chọn ngẫu nhiên d',
