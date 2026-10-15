@@ -63,10 +63,9 @@
     },
     "stageMode": "visual-first",
     "speakerScript": [
-      "Nhìn vào ô số một: thay vì đọc cả công thức dài, ta tính sai lệch có trọng số trước. Y là các hành động mà chuỗi mới cần khớp, còn A mũ một là hành động sạch đang được ước lượng. diag W chỉ là thao tác đưa từng trọng số W vào đường chéo ma trận. Khi nhân vào sai lệch, mỗi vị trí được nhân với đúng trọng số của nó.",
-      "Ngay dòng nhỏ bên dưới là cách hiểu đơn giản nhất: e ở vị trí i bằng W i nhân với sai lệch tại vị trí đó. Những hành động đã cam kết có trọng số một, phần chồng chưa cam kết được giảm dần trọng số và các bước ngoài vùng chồng có trọng số không. Ví dụ W là một, không phẩy năm và không, thì diag W là ma trận chỉ có ba giá trị ấy trên đường chéo, còn các ô khác bằng không.",
-      "Sang ô số hai, sai lệch đã cân được nhân với Jacobian của chuỗi hành động theo trạng thái đang sinh. Đây chính là vector–Jacobian product, gọi tắt là VJP, và nó cần một lượt lan truyền ngược. Cuối cùng, công thức số ba cộng hiệu chỉnh g vào trường vận tốc v pi, với gamma tau kiểm soát độ mạnh hiệu chỉnh.",
-      "Nhìn xuống hai ô chi phí: RTC đời đầu phải tính forward cộng thêm VJP ở từng bước sinh. Training-Time RTC vẫn chạy forward, nhưng đã học cách tiếp nối tiền tố nên không phải tính VJP guidance bổ sung. Đó là điểm chúng ta cần nhớ trước khi chuyển sang phương pháp huấn luyện ở slide tiếp theo."
+      "Nhìn ô số một. Trước hết ta tính sai lệch giữa Y, các hành động cần khớp, với A mũ một, chuỗi hành động sạch đang được ước lượng. diag W không phải phép tính độc lập: nó biến vector trọng số W thành ma trận đường chéo. Vì thế ở vị trí i, sai lệch chỉ được nhân với W i. Trọng số bằng một ở tiền tố đã cam kết, giảm dần ở phần chồng còn lại, và bằng không ở ngoài vùng chồng.",
+      "Ở ô số hai, sai lệch đã cân được nhân với Jacobian của A mũ một theo chuỗi đang sinh. Đây là phép vector–Jacobian product, hay VJP. Máy phải chạy thêm lan truyền ngược để tính nó. Ở biểu thức số ba, RTC cộng hiệu chỉnh g vào trường vận tốc v pi; gamma tau kiểm soát độ mạnh của hiệu chỉnh.",
+      "Hai ô dưới cùng cho thấy vì sao cách này chậm: mỗi bước lấy mẫu cần forward rồi tính thêm VJP. Paper Training-Time sẽ học xử lý tiền tố từ trước để bỏ VJP đó, nhưng vẫn phải thực hiện các lượt forward sinh hành động. Từ đây chúng ta chuyển sang cơ chế huấn luyện."
     ]
   },
   {
