@@ -89,46 +89,61 @@ function OrbitalArt({paper,displayIndex}:{paper:Paper;displayIndex:number}){
 
 /** Paper 2506.07339, Eqs. (2-3); runtime accounting below is an illustrative estimate. */
 function RtcInferenceCostBridge(){
-  // RTC (arXiv:2506.07339), Eqs. (2-4) and Algorithm 1:
-  // \mathbf v_\pi names the learned field in the inference algorithm.
-  // The follow-up training paper (arXiv:2512.05964) calls its learned field v_\theta.
-  const guidance=String.raw`\begin{aligned}
-    \mathbf v_{\Pi\mathrm{GDM}}&=\mathbf v_\pi+
-    \gamma_\tau(\mathbf Y-\widehat{\mathbf A}^{1})^\top\\
-    &\quad\operatorname{diag}(\mathbf W)
-    \frac{\partial\widehat{\mathbf A}^{1}}{\partial\mathbf A^\tau}
-  \end{aligned}`;
+  // RTC inference-time paper (arXiv:2506.07339), Algorithm 1, Eqs. (2-4):
+  // split the identical vector-Jacobian product into its named intermediate
+  // steps; this avoids a hanging "diag(W)" on a new display-math line.
+  const weightedError=String.raw`\mathbf e=(\mathbf Y-\widehat{\mathbf A}^{1})^\top\operatorname{diag}(\mathbf W)`;
+  const perActionError=String.raw`\mathbf e_i=W_i(Y_i-\widehat{\mathbf A}^{1}_i)`;
+  const vjp=String.raw`\mathbf g=\mathbf e\,\frac{\partial\widehat{\mathbf A}^{1}}{\partial\mathbf A^\tau}`;
+  const guidedVelocity=String.raw`\mathbf v_{\Pi\mathrm{GDM}}=\mathbf v_\pi+\gamma_\tau\,\mathbf g`;
   const denoised=String.raw`\widehat{\mathbf A}^{1}=\mathbf A^\tau+(1-\tau)\mathbf v_\pi`;
-  const strength=String.raw`\gamma_\tau=\min\left(\beta,\frac{1-\tau}{\tau r_\tau^2}\right)`;
-  const variance=String.raw`r_\tau^2=\frac{(1-\tau)^2}{\tau^2+(1-\tau)^2}`;
   const slowCost=String.raw`T_{\mathrm{infer}}\approx n(T_f+T_{\mathrm{VJP}})+T_0`;
   const fastCost=String.raw`T_{\mathrm{train}}\approx nT_f+T_0`;
   const math=(latex:string)=>({__html:katex.renderToString(latex,{displayMode:true,throwOnError:false,strict:"ignore",trust:false})});
-  return <div className="brief-rtc-bridge" aria-label="Chi phí gradient guidance trong RTC inference-time">
+  return <div className="brief-rtc-bridge" aria-label="Ba bước của pseudoinverse guidance trong RTC inference-time">
     <div className="brief-rtc-guidance">
-      <div className="brief-rtc-eyebrow"><strong>RTC GỐC · GUIDANCE</strong><span>Viết lại Eq. (2–4), dùng vπ theo Algorithm 1</span></div>
-      <div className="brief-rtc-guidance-math" dangerouslySetInnerHTML={math(guidance)}/>
-      <div className="brief-rtc-parameter-grid">
-        <div className="brief-rtc-definition-math" dangerouslySetInnerHTML={math(denoised)}/>
-        <div className="brief-rtc-definition-math" dangerouslySetInnerHTML={math(strength)}/>
-        <div className="brief-rtc-definition-math" dangerouslySetInnerHTML={math(variance)}/>
+      <div className="brief-rtc-eyebrow"><strong>RTC GỐC · GIẢI THÍCH GUIDANCE THEO 3 BƯỚC</strong><span>Algorithm 1, Eqs. (2–4)</span></div>
+      <div className="brief-rtc-derivation">
+        <section className="brief-rtc-step brief-rtc-weighted">
+          <div className="brief-rtc-step-label"><span>01</span> Cân sai lệch ở từng hành động</div>
+          <div className="brief-rtc-step-math" dangerouslySetInnerHTML={math(weightedError)}/>
+          <div className="brief-rtc-element-formula"><span>Từng vị trí:</span><div dangerouslySetInnerHTML={math(perActionError)}/></div>
+          <p><strong>Y</strong>: hành động cần khớp; <strong>Â¹</strong>: dự đoán chuỗi sạch. <strong>diag(W)</strong> tạo ma trận đường chéo từ W để cân sai lệch ở từng vị trí.</p>
+        </section>
+        <section className="brief-rtc-step brief-rtc-vjp">
+          <div className="brief-rtc-step-label"><span>02</span> Tính hiệu chỉnh bằng VJP</div>
+          <div className="brief-rtc-step-math" dangerouslySetInnerHTML={math(vjp)}/>
+          <p>Nhân sai lệch đã cân với <strong>Jacobian</strong> của chuỗi dự đoán. Đây là phép <strong>VJP cần backpropagation</strong> trong mỗi bước khử nhiễu.</p>
+        </section>
       </div>
-      <p className="brief-rtc-guidance-explainer"><strong>Vì sao chậm?</strong> Tích vector–Jacobian ở cuối công thức cần thêm lan truyền ngược (backward) trong <strong>từng bước lấy mẫu</strong>. W là trọng số giữ các hành động chồng nhau.</p>
+      <div className="brief-rtc-mask-levels" aria-label="Giá trị trọng số của W">
+        <strong>Ý nghĩa W:</strong>
+        <span><b>Wᵢ = 1</b> · hành động đã cam kết</span>
+        <span><b>0 &lt; Wᵢ &lt; 1</b> · vùng chồng, giảm dần</span>
+        <span><b>Wᵢ = 0</b> · ngoài vùng chồng</span>
+      </div>
+      <div className="brief-rtc-guided-result">
+        <div className="brief-rtc-step-label"><span>03</span> Hiệu chỉnh trường vận tốc</div>
+        <div className="brief-rtc-result-math" dangerouslySetInnerHTML={math(guidedVelocity)}/>
+        <p><strong>vπ</strong> là trường vận tốc ban đầu, <strong>γτ</strong> là độ mạnh hiệu chỉnh (có giới hạn). <strong>Â¹</strong> được ước lượng từ trạng thái Aτ:</p>
+        <div className="brief-rtc-small-math" dangerouslySetInnerHTML={math(denoised)}/>
+      </div>
     </div>
     <div className="brief-rtc-cost-pair">
       <section className="brief-rtc-cost-card brief-rtc-cost-old">
-        <div className="brief-rtc-cost-name"><span>01</span> RTC inference-time</div>
+        <div className="brief-rtc-cost-name"><span>RTC CŨ</span> Guidance lúc suy luận</div>
         <div className="brief-rtc-cost-math" dangerouslySetInnerHTML={math(slowCost)}/>
-        <p>T<sub>f</sub>: lượt forward, T<sub>VJP</sub>: phép nhân vector–Jacobian.</p>
+        <p>Mỗi bước sinh: <strong>forward + VJP</strong>.</p>
       </section>
       <section className="brief-rtc-cost-card brief-rtc-cost-new">
-        <div className="brief-rtc-cost-name"><span>02</span> Training-Time RTC</div>
+        <div className="brief-rtc-cost-name"><span>RTC MỚI</span> Học điều kiện tiền tố</div>
         <div className="brief-rtc-cost-math" dangerouslySetInnerHTML={math(fastCost)}/>
-        <p>T<sub>0</sub>: chi phí phụ trợ; <strong>không có VJP guidance bổ sung</strong>.</p>
+        <p>Mỗi bước sinh: <strong>forward</strong>, không cần VJP bổ sung.</p>
       </section>
     </div>
-    <div className="brief-rtc-takeaway"><span>PHƯƠNG TRÌNH CHI PHÍ CHỈ ĐỂ GIẢI THÍCH</span>
-      <p>Từ slide 04: đưa tiền tố cố định vào huấn luyện. Paper mới dùng ký hiệu vθ cho trường vận tốc.</p>
+    <div className="brief-rtc-takeaway">
+      <span>BIỂU THỨC THỜI GIAN LÀ MINH HỌA</span>
+      <p>Từ slide 04: mô hình học cách tiếp nối tiền tố ngay trong quá trình huấn luyện.</p>
     </div>
   </div>;
 }

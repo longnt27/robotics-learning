@@ -154,21 +154,31 @@ test('RTC Training follows the requested scientific story with exact notation',(
  assert.equal(slides.filter(s=>s.figure).length,9);
 });
 
-test('RTC guidance original vπ and new training vθ never silently swap',()=>{
+test('RTC guidance explains diagonal mask through complete equations',()=>{
  const component=fs.readFileSync(path.join(root,'components/slide-deck.tsx'),'utf8');
  const slides=allSlides.find(p=>p.slug==='rtc-training')?.slides;
  const guidance=component.slice(component.indexOf('function RtcInferenceCostBridge'),component.indexOf('function SlideVisual'));
- assert.match(guidance,/\\mathbf v_\\pi/,'Guidance formula uses vπ as the original RTC Algorithm 1');
- assert.match(guidance,/\\gamma_\\tau/,'Guidance coefficient must not be undefined');
- assert.match(guidance,/\\min\\left\(\\beta/,'Original guidance clipping must be explicitly defined');
- assert.match(guidance,/r_\\tau\^2=\\frac/,'Guidance variance term must be defined');
- assert.match(guidance,/\\mathrm\{VJP\}/,'Show the expensive VJP in latency accounting');
- assert.doesNotMatch(guidance,/const guidance=[\s\S]*?\\mathbf v_\\theta/,'Do not call original RTC vθ in the visual equation');
- assert.match(slides[2].speakerScript.join(' '),/v\)? pi/,'Spoken walkthrough must call the visible velocity vπ');
- assert.doesNotMatch(slides[2].speakerScript.join(' '),/v theta/,'Never say vθ while showing original vπ');
- assert.match(slides[3].speakerScript.join(' '),/v theta/,'Introduce vθ when starting the training paper');
- assert.match(slides[9].speakerScript.join(' '),/v theta/,'Masked loss walkthrough must call learned field vθ');
- assert.doesNotMatch(slides[3].speakerScript.join(' '),/espresso|nén cà phê/,'Training intro must not revert to inference-time example');
+ assert.ok(guidance.includes('const weightedError=String.raw'),'Compute named weighted error first');
+ assert.ok(guidance.includes('const perActionError=String.raw'),'Expand the matrix operation to per-action weights');
+ assert.ok(guidance.includes('const vjp=String.raw'),'Define the intermediate VJP explicitly');
+ assert.ok(guidance.includes('const guidedVelocity=String.raw'),'Finish the derivation with an explicit guided velocity');
+ assert.ok(guidance.includes(String.raw`\mathbf e=`),'Weighted error has an equals sign');
+ assert.ok(guidance.includes(String.raw`\mathbf e_i=W_i(`),'Scalar per-position equality explains diag(W)');
+ assert.ok(guidance.includes(String.raw`\mathbf g=`),'VJP has an equals sign');
+ assert.ok(guidance.includes(String.raw`\mathbf v_{\Pi\mathrm{GDM}}=`),'Guided velocity has an equals sign');
+ assert.ok(guidance.includes(String.raw`\operatorname{diag}(\mathbf W)`),'Weights use a diagonal matrix');
+ assert.ok(guidance.includes('ma trận đường chéo'),'Diagonal matrix must be explained in projected prose');
+ assert.ok(guidance.includes('Wᵢ = 1')&&guidance.includes('Wᵢ = 0'),'Define hard and zero mask values');
+ assert.ok(guidance.includes('0 &lt; Wᵢ &lt; 1'),'Define soft overlap weights');
+ assert.ok(guidance.includes(String.raw`\mathbf v_\pi`),'Use vπ from the original inference-time paper');
+ assert.ok(!guidance.includes(String.raw`\mathbf v_\theta`),'Do not silently rename the original velocity field');
+ assert.ok(!guidance.includes(String.raw`\begin{aligned}`),'Avoid unmarked line-wrap inside one matrix product');
+ assert.match(guidance,/T_\{\\mathrm\{VJP\}\}/,'Keep runtime overhead linked to VJP');
+ assert.match(slides[2].speakerScript.join(' '),/diag W.*ma trận đường chéo/);
+ assert.match(slides[2].speakerScript.join(' '),/v pi/);
+ assert.doesNotMatch(slides[2].speakerScript.join(' '),/v theta/);
+ assert.match(slides[3].speakerScript.join(' '),/v theta/,'Introduce vθ only after switching to the training paper');
+ assert.match(slides[9].speakerScript.join(' '),/v theta/);
 });
 
 test('Slide projection has container-aware responsive figure and fullscreen rules',()=>{
