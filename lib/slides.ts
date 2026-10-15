@@ -32,8 +32,9 @@ export async function getResearchSlides(slug: string): Promise<ResearchSlide[]> 
   const load = loadDecks[slug];
   if (!load) return [];
   const {default:raw} = await load();
-  if (!Array.isArray(raw) || raw.length !== 15) {
-    throw new Error(`Invalid slide deck for ${slug}: expected 15 slides`);
+  const expected = slug === "rtc-training" ? 10 : 15;
+  if (!Array.isArray(raw) || raw.length !== expected) {
+    throw new Error(`Invalid slide deck for ${slug}: expected ${expected} slides`);
   }
   return raw as ResearchSlide[];
 }
