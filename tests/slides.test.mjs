@@ -110,41 +110,43 @@ test('RTC Training-Time preserves the technical teaching sequence from the revie
  const slides=allSlides.find(p=>p.slug==='rtc-training')?.slides;
  assert.equal(slides?.length,15);
  const titles=[
-  'TRAINING-TIME RTC',
-  'Robot chạy 50 Hz, nhưng VLA suy luận lâu hơn một nhịp',
-  'RTC đầu tiên: chạy bất đồng bộ nhưng phải sửa lúc lấy mẫu',
-  'Một cú nén espresso giải thích được toàn bộ bài toán',
-  'Ba đại lượng quyết định liệu RTC có nối được đoạn',
-  'Từ dữ liệu mẫu đến bài học nối đoạn: chỉ ba thay đổi',
-  'Tại sao không dùng cả H−s bước chồng nhau?',
-  "Mô hình phân biệt 'đã biết' và 'phải tạo' bằng cách nào?",
-  'Khi triển khai: nối đoạn mà không gọi backward',
-  'Công thức trung tâm: giữ tiền tố, học hậu tố',
-  'Mô phỏng: khi d lớn, học trước có ích hơn',
-  'Robot thật: hiệu quả tương đương, chi phí suy luận thấp hơn',
-  'Điểm đánh đổi: bớt gradient, bớt độ linh hoạt',
-  'Đặt hai bài RTC đúng vị trí trong lịch sử nghiên cứu',
-  'Kết luận trước giáo viên hướng dẫn'
+   "TRAINING-TIME RTC",
+   "Độ trễ suy luận so với chu kỳ điều khiển",
+   "RTC tại thời điểm suy luận: hiệu chỉnh lúc sinh hành động",
+   "Ví dụ nối đoạn trong thao tác pha espresso",
+   "Ba tham số của cơ chế nối đoạn",
+   "Huấn luyện với tiền tố hành động cố định",
+   "Vì sao chỉ cố định d hành động đầu?",
+   "Mô hình nhận biết phần cố định như thế nào?",
+   "Quy trình nối đoạn khi suy luận",
+   "Hàm mất mát trên hậu tố hành động",
+   "Kết quả mô phỏng theo độ trễ suy luận",
+   "Robot thật: độ trễ thấp hơn trong thiết lập thử nghiệm",
+   "Giới hạn của phương pháp",
+   "So sánh hai phiên bản RTC",
+   "Kết luận và phạm vi kết quả"
  ];
- assert.deepEqual(slides.map(s=>s.title),titles,'Do not rewrite expert-level RTC story into generic cue cards');
+ assert.deepEqual(slides.map(s=>s.title),titles,'Preserve the researched RTC narrative and approved neutral titles');
  assert.match(slides[1].lead,/50 Hz.*20 ms.*100 ms/);
  assert.match(slides[2].intuition,/pseudoinverse guidance.*backprop/);
- assert.match(slides[4].lead,/H là số bước.*s là số bước.*d là độ trễ/);
+ assert.match(slides[4].lead,/H là số hành động.*s là khoảng cách.*d là độ trễ/);
  assert.deepEqual(slides[5].items,[
-  'Lấy chunk mẫu và bốc thăm d',
-  'Giữ nguyên d hành động đầu, τ = 1',
-  'Thêm nhiễu phần sau và dự đoán vận tốc dòng',
-  'Chỉ tối ưu loss trên phần sau'
+  'Lấy đoạn hành động mẫu và chọn ngẫu nhiên d',
+  'Giữ d hành động đầu không thêm nhiễu (τᵢ = 1)',
+  'Thêm nhiễu vào hậu tố, dự đoán trường vận tốc',
+  'Chỉ tính hàm mất mát trên hậu tố'
  ]);
- assert.match(slides[6].lead,/H−s.*soft masking.*d bước/);
- assert.match(slides[7].lead,/τᵢ=1.*flow matching/);
+ assert.match(slides[6].lead,/H−s.*d bước/);
+ assert.match(slides[7].lead,/τᵢ = 1.*flow matching/);
  assert.match(slides[8].lead,/t\+d/);
  assert.match(slides[9].equation,/\\mathbb E.*\\sum_\{i=d\+1\}/);
  assert.match(slides[10].lead,/2\.048.*Wilson 95%/);
  assert.match(slides[11].lead,/8\.000 bước.*batch 512/);
  assert.match(slides[12].lead,/soft masking/);
  assert.match(JSON.stringify(slides[13].items),/pseudoinverse guidance/);
- assert.match(slides[14].lead,/inpainting.*gradient/);
+ assert.match(slides[14].lead,/gradient/);
+ assert.ok(slides.every(s=>s.detail.label==='GIẢI THÍCH BỔ SUNG'||s.detail.label==='DIỄN GIẢI CÔNG THỨC'));
+ assert.doesNotMatch(JSON.stringify(slides),/Kết luận trước giáo viên hướng dẫn|Một cú nén espresso giải thích được toàn bộ bài toán|Đừng nhầm|bốc thăm/);
  assert.ok(slides.every(s=>s.stageMode==='visual-first'),'Presenter narration stays off the projected slide');
  assert.equal(slides.filter(s=>s.figure).length,9,'Keep nine paper figure appearances');
  assert.ok(slides.every(s=>s.detail?.text?.length>=80),'Speaker notes remain available for every slide');
