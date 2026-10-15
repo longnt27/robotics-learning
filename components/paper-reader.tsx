@@ -41,8 +41,8 @@ function loadDeck(slug: string): Promise<DeckPayload> {
   const pending = pendingDecks.get(slug);
   if (pending) return pending;
 
-  // The detailed RTC deck restored in PR #24 must not reuse the cached shortened deck URL.
-  const revision = slug === "rtc-training" ? "?rev=rtc-rich-20261014" : "";
+  // Version the RTC slide payload when copy changes so browsers do not reuse stale cached decks.
+  const revision = slug === "rtc-training" ? "?rev=rtc-neutral-20261015" : "";
   const request = fetch(`/api/papers/${encodeURIComponent(slug)}/slides${revision}`)
     .then(async (response) => {
       if (!response.ok) throw new Error(`Slide request failed: ${response.status}`);
