@@ -180,7 +180,7 @@ test('RTC Training has fifteen distinct, complete talk tracks ready to speak alo
    assert.ok(slide.speakerScript?.length>=3,`RTC slide ${index+1} needs a spoken beginning, explanation and transition`);
    const paragraphs=slide.speakerScript;
    assert.ok(paragraphs.every(p=>p.length>=100),`RTC slide ${index+1}: fragmentary script paragraph`);
-   assert.ok(paragraphs.join(' ').split(/\\s+/).length>=135,`RTC slide ${index+1}: talk track too short to explain the paper`);
+   assert.ok(paragraphs.join(' ').split(' ').length>=135,`RTC slide ${index+1}: talk track too short to explain the paper`);
    assert.notEqual(paragraphs[0],slide.lead,`RTC slide ${index+1}: script cannot simply repeat the projected lead`);
  }
  assert.equal(new Set(slides.map(s=>s.speakerScript.join(' '))).size,15,'Scripts cannot be identical');
