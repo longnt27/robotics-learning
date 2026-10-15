@@ -306,7 +306,7 @@ try {
     await rtc.getByRole('button',{name:'Bật tắt ghi chú thuyết trình'}).click();
     const speakerNotes=rtc.locator('.brief-speaker-notes');
     await speakerNotes.waitFor({state:'visible'});
-    assert.match(await speakerNotes.innerText(),/LỜI THUYẾT TRÌNH/,
+    assert.match(await speakerNotes.innerText(),/GHI CHÚ KHI TRÌNH BÀY/,
       'Presenter explanation is still available in the Notes panel');
     assert.equal(await canvas.locator('.brief-slide-detail').count(),0,
       'Opening Notes does not insert them back into the slide canvas');
