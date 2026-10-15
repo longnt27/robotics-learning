@@ -54,3 +54,12 @@ button:focus-visible,summary:focus-visible{outline:3px solid #ffe29a;outline-off
  .presenter-script{padding-left:12px}
  .presenter-script p{font-size:17px;line-height:1.73}
 }
+
+
+.presenter-defense{border:1px solid #657792;border-radius:9px;background:#14253d;margin:18px 0;padding:13px}
+.presenter-defense summary{cursor:pointer;font-size:13px;line-height:1.5;color:#ffe29a;font-weight:850}
+.presenter-defense-answer{border-bottom:1px solid #3d526c;padding:13px 0}
+.presenter-defense-answer:last-child{border-bottom:0}
+.presenter-defense-answer strong{display:block;color:#fff;font-size:clamp(15px,2.6vw,18px);line-height:1.5}
+.presenter-defense-answer p{margin:8px 0;color:#e0e9f7;font-size:clamp(14px,2.45vw,16px);line-height:1.67}
+.presenter-defense-answer small{display:block;color:#b3c3de;font-size:12px;line-height:1.5}
