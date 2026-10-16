@@ -537,3 +537,27 @@
  .brief-slide-stage:fullscreen .brief-rtc10-mask{gap:8px}
  .brief-deck-presenting .brief-rtc10-mask-row{padding:10px}
 }
+
+
+/* Export uses the browser's PDF printer, not screenshots. */
+@media screen{
+  .brief-print-document{position:absolute!important;left:-100000px!important;top:0!important;width:1280px!important;opacity:0!important;pointer-events:none!important;z-index:-1!important}
+  .brief-print-document .brief-print-page{width:1280px;height:720px}
+}
+@page{size:13.333333in 7.5in;margin:0}
+@media print{
+  html,body{width:13.333333in!important;margin:0!important;padding:0!important;background:#121b2b!important;overflow:visible!important;print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important}
+  body.brief-export-printing>*:not(.brief-print-document){display:none!important}
+  .brief-print-document{position:static!important;display:block!important;width:1280px!important;max-width:none!important;margin:0!important;padding:0!important;opacity:1!important;pointer-events:auto!important;print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important}
+  .brief-print-page{display:block!important;width:1280px!important;height:720px!important;margin:0!important;padding:0!important;break-inside:avoid!important;break-after:page!important;page-break-after:always!important;overflow:hidden!important}
+  .brief-print-page:last-child{break-after:auto!important;page-break-after:auto!important}
+  .brief-print-page .brief-slide-stage{width:1280px!important;height:720px!important;min-height:0!important;max-height:none!important;aspect-ratio:auto!important;border:0!important;border-radius:0!important;box-shadow:none!important;overflow:hidden!important}
+  .brief-print-page .brief-slide-content{height:calc(100% - 69px)!important;min-height:0!important;padding:20px 49px 39px!important;overflow:hidden!important;gap:8px!important}
+  .brief-print-page .brief-slide-heading h2{font-size:38px!important}
+  .brief-print-page .brief-slide-description{font-size:19px!important}
+  .brief-print-page .brief-cover-copy h2{font-size:82px!important}
+  .brief-print-page .brief-slide-masthead{padding:20px 49px 0!important}
+  .brief-print-page .brief-stage-index{left:49px!important;right:49px!important}
+  .brief-print-page .brief-rtc10-timeline-scroll,.brief-print-page .brief-rtc-element-formula,.brief-print-page .brief-formula-math{overflow:visible!important}
+  .brief-print-page .brief-slide-halo,.brief-print-page .brief-slide-grid,.brief-print-page .brief-slide-rail{print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important}
+}

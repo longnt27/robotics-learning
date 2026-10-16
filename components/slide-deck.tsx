@@ -6,7 +6,7 @@ import Image from "next/image";
 import {createPortal} from "react-dom";
 import {PresenterPanel} from "./presenter-panel";
 import {AnimatePresence,motion} from "framer-motion";
-import {ArrowLeft,ArrowRight,ArrowUpRight,BookOpen,Check,ChevronLeft,ChevronRight,ExternalLink,Grid2X2,HelpCircle,Maximize2,Minimize2,NotebookText,Orbit,PlayCircle,Presentation,X} from "lucide-react";
+import {ArrowLeft,ArrowRight,ArrowUpRight,BookOpen,Check,ChevronLeft,ChevronRight,ExternalLink,Grid2X2,HelpCircle,Maximize2,Minimize2,NotebookText,Orbit,PlayCircle,Presentation,Printer,X} from "lucide-react";
 import katex from "katex";
 import type {Paper} from "@/lib/papers";
 import type {ResearchSlide,ResearchSlideItem} from "@/lib/slide-types";
@@ -257,6 +257,27 @@ function SlideVisual({paper,slide,index,presenting=false,total=15}:{paper:Paper;
   </div>;
 }
 
+
+/** A print-only replica of the slide canvas, without overlays, controls or speaker notes. */
+function PrintableSlide({paper,slide,index,total}:{paper:Paper;slide:ResearchSlide;index:number;total:number}){
+  const visualFirst=slide.stageMode==="visual-first";
+  return <article className="brief-print-page" aria-label={"Slide "+(index+1)+": "+slide.title}>
+    <div className={"brief-slide-stage"+(visualFirst?" brief-slide-stage-visual-first":"")}>
+      <div className="brief-slide-halo" aria-hidden="true"/>
+      <div className="brief-slide-grid" aria-hidden="true"/>
+      <div className="brief-slide-rail" aria-hidden="true"/>
+      <header className="brief-slide-masthead"><div><Orbit size={19}/><strong>ROBOTICS <span>/</span> ATLAS</strong><span className="brief-mast-divider"/> {PALETTE[paper.category].word}</div><span>{paper.venue} <b>·</b> {paper.date.slice(0,4)}</span></header>
+      <div className={"brief-slide-content brief-layout-"+slide.type}>
+        {slide.type!=="cover"&&<div className="brief-slide-heading"><div className="brief-chapter-label"><span className="brief-signal"/> {SECTIONS[slide.type]} <span className="brief-heading-rule"/> {String(index+1).padStart(2,"0")}</div><h2>{slide.title}</h2>{!["intuition","equation","problem","contrast"].includes(slide.type)&&<p className="brief-slide-description">{slide.lead}</p>}</div>}
+        <div className={"brief-slide-art "+(slide.figure?"brief-slide-art-with-figure":"")}><div className="brief-slide-art-primary"><SlideVisual slide={slide} paper={paper} index={index} total={total} presenting={visualFirst}/></div>{slide.figure&&<figure className="brief-source-figure"><div className="brief-source-image"><Image src={slide.figure.src} alt={slide.figure.alt} fill sizes="720px" loading="eager" /></div><figcaption><span>HÌNH GỐC · NGUỒN BÀI BÁO</span>{slide.figure.caption}</figcaption></figure>}</div>
+        {slide.detail&&!visualFirst&&<aside className={"brief-slide-detail brief-slide-detail-"+slide.type}><span className="brief-slide-detail-label"><span className="brief-signal"/> {slide.detail.label}</span><p>{slide.detail.text}</p></aside>}
+        {!visualFirst&&slide.type!=="cover"&&slide.type!=="equation"&&slide.type!=="intuition"&&<div className="brief-slide-intuition"><span>CÁCH HIỂU <i>→</i></span><p>{slide.intuition}</p></div>}
+      </div>
+      <div className="brief-stage-index"><span>SCENE {String(index+1).padStart(2,"0")}</span><span>{String(index+1).padStart(2,"0")} / {String(total).padStart(2,"0")}</span></div>
+    </div>
+  </article>;
+}
+
 function updateDeepLink(index:number){
   if(typeof window==="undefined")return;
   const url=new URL(window.location.href);
@@ -274,6 +295,9 @@ export function SlideDeck({paper,slides,chapter,onRead}:{paper:Paper;slides:Rese
   const [presenterWindow,setPresenterWindow]=useState<Window|null>(null);
   const presenterWindowRef=useRef<Window|null>(null);
   const [presenterError,setPresenterError]=useState("");
+  const [printing,setPrinting]=useState(false);
+  const [printError,setPrintError]=useState("");
+  const printRef=useRef<HTMLDivElement>(null);
   const [elapsedSeconds,setElapsedSeconds]=useState(0);
   const stageRef=useRef<HTMLDivElement>(null);
   const gridRef=useRef<HTMLDivElement>(null);
@@ -413,6 +437,60 @@ export function SlideDeck({paper,slides,chapter,onRead}:{paper:Paper;slides:Rese
   const visualFirst=slide?.stageMode==="visual-first";
   const audienceOnly=visualFirst||Boolean(presenterWindow);
   const speakerText=useMemo(()=>chapterContext(chapter,slide.type),[chapter,slide.type]);
+
+  const exportPdf=useCallback(async()=>{
+    if(printing)return;
+    setPrintError("");
+    if(document.fullscreenElement){
+      try{await document.exitFullscreen();}
+      catch{setPrintError("Hãy thoát chế độ toàn màn hình rồi xuất PDF.");return;}
+    }
+    setPrinting(true);
+  },[printing]);
+
+  useEffect(()=>{
+    if(!printing)return;
+    let cancelled=false;
+    let ended=false;
+    let oldTitle:string|null=null;
+    const finish=()=>{
+      if(ended)return;
+      ended=true;
+      document.body.classList.remove("brief-export-printing");
+      if(oldTitle!==null)document.title=oldTitle;
+      setPrinting(false);
+    };
+    window.addEventListener("afterprint",finish);
+    const prepareAndPrint=async()=>{
+      const root=printRef.current;
+      if(!root)throw new Error("Print stage is missing");
+      // Even offscreen original-paper figures must finish decoding before printing.
+      await document.fonts.ready;
+      const loaded=await Promise.all(Array.from(root.querySelectorAll("img")).map(img=>img.decode().then(()=>true,()=>false)));
+      if(cancelled)return;
+      if(loaded.some(ok=>!ok)){
+        setPrintError("Một số hình minh họa chưa tải được. Kiểm tra kết nối rồi thử lại.");
+        finish();
+        return;
+      }
+      await new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve())));
+      if(cancelled)return;
+      oldTitle=document.title;
+      document.title="robotics-learning-"+paper.slug+"-slides";
+      document.body.classList.add("brief-export-printing");
+      window.print(); // Native Save as PDF preserves searchable text and vector KaTeX.
+    };
+    void prepareAndPrint().catch(()=>{
+      if(!cancelled){setPrintError("Không chuẩn bị được bản PDF. Hãy thử lại.");finish();}
+    });
+    return()=>{
+      cancelled=true;
+      window.removeEventListener("afterprint",finish);
+      document.body.classList.remove("brief-export-printing");
+      if(oldTitle!==null)document.title=oldTitle;
+    };
+  },[printing,paper.slug]);
+
   const copy=async()=>{
     try{await navigator.clipboard.writeText(window.location.href);setCopied(true);setTimeout(()=>setCopied(false),1400);}catch{}
   };
@@ -420,9 +498,10 @@ export function SlideDeck({paper,slides,chapter,onRead}:{paper:Paper;slides:Rese
   const audience=<section className={"brief-deck-root"+(presenterWindow?" brief-deck-presenting":"")} aria-label={`Slide nghiên cứu ${paper.shortTitle}`} style={{"--brief-accent":palette.primary,"--brief-glow":palette.glow} as React.CSSProperties}>
     <div className="brief-deck-toolbar">
       <div className="brief-deck-id"><span className="brief-deck-id-light"/> BẢN TRÌNH BÀY NGHIÊN CỨU <span className="brief-deck-id-sep">/</span> {paper.shortTitle.toUpperCase()}</div>
-      <div className="brief-deck-actions"><button type="button" onClick={()=>void openPresenter()} aria-label="Bắt đầu Presenter View với ghi chú riêng"><Presentation size={16}/><span>TRÌNH CHIẾU + GHI CHÚ</span></button><button onClick={()=>setOverview(v=>!v)} aria-label="Xem tất cả slide" aria-pressed={overview}><Grid2X2 size={16}/> <span>XEM LƯỚI</span></button><button onClick={()=>setNotes(v=>!v)} aria-label="Bật tắt ghi chú thuyết trình" aria-pressed={notes}><NotebookText size={16}/> <span>GHI CHÚ</span></button><button onClick={toggleFullscreen} aria-label={full?"Thoát toàn màn hình":"Trình chiếu toàn màn hình"}>{full?<Minimize2 size={16}/>:<Maximize2 size={16}/>} <span>{full?"THU NHỎ":"TOÀN MÀN HÌNH"}</span></button><button onClick={()=>setHelp(v=>!v)} aria-label="Phím tắt trình chiếu" aria-pressed={help}><HelpCircle size={17}/></button></div>
+      <div className="brief-deck-actions"><button type="button" onClick={()=>void openPresenter()} aria-label="Bắt đầu Presenter View với ghi chú riêng"><Presentation size={16}/><span>TRÌNH CHIẾU + GHI CHÚ</span></button><button onClick={()=>setOverview(v=>!v)} aria-label="Xem tất cả slide" aria-pressed={overview}><Grid2X2 size={16}/> <span>XEM LƯỚI</span></button><button onClick={()=>setNotes(v=>!v)} aria-label="Bật tắt ghi chú thuyết trình" aria-pressed={notes}><NotebookText size={16}/> <span>GHI CHÚ</span></button><button type="button" onClick={()=>void exportPdf()} aria-label="Xuất toàn bộ slide thành PDF" disabled={printing}><Printer size={16}/><span>{printing?"ĐANG CHUẨN BỊ":"XUẤT PDF"}</span></button><button onClick={toggleFullscreen} aria-label={full?"Thoát toàn màn hình":"Trình chiếu toàn màn hình"}>{full?<Minimize2 size={16}/>:<Maximize2 size={16}/>} <span>{full?"THU NHỎ":"TOÀN MÀN HÌNH"}</span></button><button onClick={()=>setHelp(v=>!v)} aria-label="Phím tắt trình chiếu" aria-pressed={help}><HelpCircle size={17}/></button></div>
     </div>
     {presenterError&&<p role="alert" className="brief-presenter-error">{presenterError}</p>}
+    {printError&&<p role="alert" className="brief-presenter-error">{printError}</p>}
     <div className={`brief-slide-stage ${visualFirst?"brief-slide-stage-visual-first":""}`} ref={stageRef} tabIndex={-1}>
       <div className="brief-slide-halo" aria-hidden="true"/>
       <div className="brief-slide-grid" aria-hidden="true"/>
@@ -464,5 +543,8 @@ export function SlideDeck({paper,slides,chapter,onRead}:{paper:Paper;slides:Rese
     {presenterWindow&&<PresenterPanel popup={presenterWindow} paperTitle={paper.shortTitle} slides={slides} index={index} elapsedSeconds={elapsedSeconds} chapterContext={speakerText} onGo={go} onClose={closePresenter}/>}
   </section>;
   // Portal the shared slide stage to the document body, avoiding transformed reader ancestors.
-  return presenterWindow?createPortal(audience,document.body):audience;
+  return <>
+    {presenterWindow?createPortal(audience,document.body):audience}
+    {printing&&createPortal(<div ref={printRef} className="brief-print-document brief-deck-root" aria-label={"Xuất PDF slide "+paper.shortTitle} style={{"--brief-accent":palette.primary,"--brief-glow":palette.glow} as React.CSSProperties}>{slides.map((s,i)=><PrintableSlide key={i} paper={paper} slide={s} index={i} total={slides.length}/>)}</div>,document.body)}
+  </>;
 }

@@ -217,3 +217,21 @@ test('RTC Training has ten distinct talk tracks and evidence-grounded defense QA
  assert.match(deck,/slide\.speakerScript\.map/);
  assert.ok(!deck.includes('slide.speakerScript.map') || deck.indexOf('slide.speakerScript.map')>deck.indexOf('brief-speaker-notes'), 'Scripts render in Notes only');
 });
+
+
+test('PDF slide export has all-page 16:9 print layout and does not include private presenter notes',()=>{
+ const ui=fs.readFileSync(path.join(root,'components/slide-deck.tsx'),'utf8');
+ const css=fs.readFileSync(path.join(root,'app/briefing.css'),'utf8');
+ assert.match(ui,/aria-label="Xuất toàn bộ slide thành PDF"/);
+ assert.match(ui,/slides\.map\(\(s,i\)=><PrintableSlide/);
+ assert.match(ui,/document\.fonts\.ready/);
+ assert.match(ui,/img\.decode\(\)/);
+ assert.match(ui,/window\.print\(\)/);
+ assert.match(ui,/brief-print-document/);
+ const printComponent=ui.slice(ui.indexOf('function PrintableSlide('),ui.indexOf('function updateDeepLink('));
+ assert.doesNotMatch(printComponent,/speakerScript|defenseQA|PresenterPanel|brief-speaker-notes/);
+ assert.match(css,/@page\{size:13\.333333in 7\.5in;margin:0\}/);
+ assert.match(css,/break-after:page!important/);
+ assert.match(css,/print-color-adjust:exact/);
+ assert.match(css,/body\.brief-export-printing>\*:not\(\.brief-print-document\)/);
+});
