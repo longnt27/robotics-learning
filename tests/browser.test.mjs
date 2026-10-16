@@ -232,6 +232,26 @@ try {
     await chapterPage.close();
   }
 
+  // PDF export must render every canvas without copying notes or showing print controls.
+  const exportPage=await browser.newPage({viewport:{width:1280,height:800}});
+  const exportErrors=[];
+  exportPage.on('pageerror',e=>exportErrors.push(e.message));
+  await exportPage.addInitScript(()=>{
+    window.__printCalls=0;
+    window.print=()=>{window.__printCalls++;};
+  });
+  await exportPage.goto(baseUrl+'/paper/rtc-training?tab=slides&slide=4',{waitUntil:'domcontentloaded'});
+  await exportPage.getByRole('button',{name:'Xuất toàn bộ slide thành PDF'}).click();
+  await exportPage.waitForFunction(()=>window.__printCalls===1,{timeout:20000});
+  assert.equal(await exportPage.locator('.brief-print-page').count(),10,'Export every RTC slide, not only the active slide');
+  assert.equal(await exportPage.locator('.brief-print-page .brief-stage-index').count(),10);
+  assert.equal(await exportPage.locator('.brief-print-document .brief-speaker-notes,.brief-print-document .presenter-defense,.brief-print-document .brief-deck-toolbar').count(),0,'Notes and private presenter controls must not enter PDF');
+  assert.equal(await exportPage.evaluate(()=>document.body.classList.contains('brief-export-printing')),true);
+  await exportPage.evaluate(()=>window.dispatchEvent(new Event('afterprint')));
+  await exportPage.locator('.brief-print-document').waitFor({state:'detached'});
+  assert.deepEqual(exportErrors,[],'PDF export must not throw browser errors');
+  await exportPage.close();
+
   // HTML slide-deck acceptance tests: deep links, keyboard navigation, notes and small screens.
   for (const viewport of [{width:1280,height:800},{width:390,height:844}]) {
     const page=await browser.newPage({viewport});
