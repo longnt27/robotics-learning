@@ -11,6 +11,7 @@ NS='http://schemas.openxmlformats.org/presentationml/2006/main'
 A='http://schemas.openxmlformats.org/drawingml/2006/main'
 P14='http://schemas.microsoft.com/office/powerpoint/2010/main'
 P159='http://schemas.microsoft.com/office/powerpoint/2015/09/main'
+MC='http://schemas.openxmlformats.org/markup-compatibility/2006'
 etree.register_namespace('p',NS)
 def tag(n):return '{'+NS+'}'+n
 def el(n,**attrs):return etree.Element(tag(n),**attrs)
@@ -79,11 +80,22 @@ with ZipFile(BASE) as src, ZipFile(OUT,'w',ZIP_DEFLATED) as dst:
             r.append(timing([[]]+ordered))
         old=r.find(tag('transition'))
         if old is not None:r.remove(old)
-        tr=el('transition',spd='med',advClick='1')
-        tr.set('{'+P14+'}dur',str(MORPH.get(n,650)))
         if n in MORPH:
-            etree.SubElement(tr,'{'+P159+'}morph',option='byObject')
-        else:etree.SubElement(tr,tag('fade'))
+            # A native Microsoft PowerPoint Morph transition with a Fade
+            # fallback for incompatible presentation software.
+            tr=etree.Element('{'+MC+'}AlternateContent',nsmap={'mc':MC})
+            choice=etree.SubElement(tr,'{'+MC+'}Choice',nsmap={'p159':P159})
+            choice.set('Requires','p159')
+            native=etree.SubElement(choice,tag('transition'),spd='slow',advClick='1')
+            native.set('{'+P14+'}dur',str(MORPH[n]))
+            etree.SubElement(native,'{'+P159+'}morph',option='byObject')
+            fallback=etree.SubElement(tr,'{'+MC+'}Fallback')
+            fade=etree.SubElement(fallback,tag('transition'),spd='med',advClick='1')
+            etree.SubElement(fade,tag('fade'))
+        else:
+            tr=el('transition',spd='med',advClick='1')
+            tr.set('{'+P14+'}dur','650')
+            etree.SubElement(tr,tag('fade'))
         # PowerPoint root elements: transition precedes timing
         timingnode=r.find(tag('timing'))
         if timingnode is not None:r.insert(list(r).index(timingnode),tr)
