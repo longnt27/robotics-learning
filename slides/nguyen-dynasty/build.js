@@ -109,8 +109,14 @@ async function image(s,key,x,y,w,h,opts={}) {
     }
     imageCache.set(variant,dest);
   }
+  const md=await sharp(imageFiles[key]).metadata();
+  const sourceAspect=md.width/md.height,frameAspect=w/h;
+  const mismatch=Math.max(sourceAspect/frameAspect,frameAspect/sourceAspect);
+  if(mode==='preserve' && mismatch>1.9)
+    throw new Error('Bad picture-frame ratio for '+key+': '+mismatch.toFixed(2));
   imageAudit.push({slide:pptx._slides.indexOf(s)+1,key,mode,decorative:!!opts.decorative,
-    target:[x,y,w,h],alt:opts.alt||''});
+    sourceAspect:+sourceAspect.toFixed(3),frameAspect:+frameAspect.toFixed(3),
+    aspectMismatch:+mismatch.toFixed(3),target:[x,y,w,h],alt:opts.alt||''});
   s.addImage({path:dest,x,y,w,h,objectName:opts.name||'',altText:opts.alt||''});
   return true;
 }
@@ -236,8 +242,9 @@ async function make(){
     let s=pptx.addSlide();
     section(s,4,'Trung tâm quyền lực','Kinh đô Huế',
       'Không gian chính trị, nghi lễ và văn hóa của triều Nguyễn.');
-    await image(s,'hue_citadel',6.57,1.97,5.99,4.92,
-      {alt:'Đại Nội Huế ngày nay'});
+    smallLabel(s,'DI TÍCH / ĐẠI NỘI HUẾ',6.81,2.25,5.52);
+    await image(s,'hue_citadel',6.57,2.67,5.99,3.60,
+      {alt:'Cổng chính Đại Nội Huế'});
     box(s,6.57,6.39,5.99,0.5,C.deep,{opacity:8});
     txt(s,'Cổng chính Đại Nội Huế',6.8,6.48,5.52,0.25,11,C.ivory);
     blockRow(s,0.82,2.22,5.3,'01','KINH THÀNH','Vành đai phòng thủ và không gian đô thị hoàng gia.',null);
@@ -405,15 +412,24 @@ async function make(){
     txt(s,'Di sản văn hóa còn lại, dù một thể chế chính trị đã kết thúc.',1.07,5.85,4.95,0.54,13,C.gray,
       {name:nm('G1','legacyText')});
     await image(s,'bao_dai',6.57,1.92,3.45,4.91,{alt:'Chân dung Bảo Đại'});
-    await image(s,'ngo_mon',10.19,1.92,2.26,4.91,{alt:'Cổng Ngọ Môn',name:'!!hue-last'});
+    smallLabel(s,'KINH ĐÔ HUẾ',10.20,2.69,2.24);
+    await image(s,'ngo_mon',10.19,3.15,2.26,1.51,
+      {alt:'Cổng thành Huế',name:'!!hue-last'});
+    line(s,10.19,4.93,12.45,4.93,C.gold,0.9,45);
+    txt(s,'Dấu ấn kiến trúc của một kinh đô.',10.19,5.23,2.26,0.79,12.7,C.gray);
     notes(s,'Bảo Đại làm lễ thoái vị tại Huế ngày 30/8/1945. Đây là dấu mốc kết thúc chế độ quân chủ. Chân dung Bảo Đại và kiến trúc kinh đô Huế gợi bối cảnh khép lại vương triều.',['bao_dai','ngo_mon'],['Đánh giá di sản còn lại sau sự kết thúc thể chế.']);
   }
   // 15. Close
   {
     let s=pptx.addSlide();s.background={color:C.ink};
     box(s,0,0,W,0.065,C.gold);
-    await image(s,'ngo_mon',6.75,0.45,6.0,6.31,{alt:'Cổng Ngọ Môn',name:'!!hue-last'});
-    box(s,6.75,0.45,6.0,6.31,C.dark,{opacity:66});
+    smallLabel(s,'DI SẢN KIẾN TRÚC / HUẾ',6.78,1.17,5.84);
+    await image(s,'ngo_mon',6.75,1.78,6.0,4.0,
+      {alt:'Cổng thành Huế',name:'!!hue-last'});
+    box(s,6.75,1.78,6.0,4.0,C.dark,{opacity:79});
+    line(s,6.75,6.09,12.75,6.09,C.gold,0.85,40);
+    txt(s,'DẤU ẤN CỦA MỘT KINH ĐÔ',6.78,6.28,5.9,0.37,13.2,C.gold,
+      {bold:true,spacing:1});
     smallLabel(s,'KẾT THÚC BÀI THUYẾT TRÌNH',0.83,1.05,5.8);
     txt(s,'XIN CHÂN THÀNH',0.83,1.87,6.7,0.7,29,C.ivory,{serif:true,bold:true});
     txt(s,'CẢM ƠN',0.8,2.67,6.3,1.08,51,C.gold,{serif:true,bold:true});

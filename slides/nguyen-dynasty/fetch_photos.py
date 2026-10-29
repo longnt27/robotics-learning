@@ -19,7 +19,7 @@ FILES = [
     {"id": "gia_long", "file": "Emperor Gia Long.jpg", "subject": "Vua Gia Long", "license": "Public domain"},
     {"id": "bao_dai", "file": "Portrait of Emperor Bảo Đại.png", "subject": "Vua Bảo Đại (chân dung năm 1934)", "license": "Public domain"},
     {"id": "ngo_mon", "file": "Ngo Mon Gate for entry to the Imperial Citadel, Hue (31654316702).jpg", "subject": "Ngọ Môn, Huế", "license": "See Wikimedia page", "fallback": "hue-imperial-gate.jpg"},
-    {"id": "khai_dinh", "file": "The tomb of Emperor Khai Dinh (12060688173).jpg", "subject": "Lăng Khải Định", "license": "See Wikimedia page"},
+    {"id": "khai_dinh", "file": "Grab von Kaiser Khai Dinh, Hue (39513722502).jpg", "subject": "Lăng Khải Định", "license": "See Wikimedia page"},
     {"id": "woodblocks", "file": "Woodblocks of the Nguyễn Dynasty 01.jpg", "subject": "Mộc bản triều Nguyễn", "license": "See Wikimedia page"},
     {"id": "hue_citadel", "fallback": "dai-noi-hue.jpg", "subject": "Đại Nội Huế", "license": "See source metadata"},
     {"id": "tourane_1858", "file": "Dien Hai Citadel bombing by French fleet.jpg",
