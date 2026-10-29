@@ -22,6 +22,9 @@ FILES = [
     {"id": "khai_dinh", "file": "The tomb of Emperor Khai Dinh (12060688173).jpg", "subject": "Lăng Khải Định", "license": "See Wikimedia page"},
     {"id": "woodblocks", "file": "Woodblocks of the Nguyễn Dynasty 01.jpg", "subject": "Mộc bản triều Nguyễn", "license": "See Wikimedia page"},
     {"id": "hue_citadel", "fallback": "dai-noi-hue.jpg", "subject": "Đại Nội Huế", "license": "See source metadata"},
+    {"id": "tourane_1858", "file": "Dien Hai Citadel bombing by French fleet.jpg",
+     "subject": "Tranh khắc trận Đà Nẵng 1858 (Louis Le Breton)",
+     "license": "Public domain"},
 ]
 
 def fetch(url: str, tries: int = 4) -> bytes:
@@ -125,7 +128,9 @@ with (ASSETS / "credits.csv").open("w", newline="", encoding="utf-8") as handle:
     for v in results.values():
         writer.writerow([v[k] for k in ("id", "subject", "source", "author", "license", "sha256")])
 # Mandatory: at least one verified Hue photo + an actual Nguyễn emperor portrait.
-if not (("ngo_mon" in results or "hue_citadel" in results)
-        and ("gia_long" in results or "minh_mang" in results or "bao_dai" in results)):
-    raise SystemExit("Insufficient authentic imagery. Refusing to publish placeholder deck.")
+required = {"gia_long", "bao_dai", "ngo_mon", "khai_dinh",
+            "woodblocks", "hue_citadel", "tourane_1858"}
+missing = sorted(required.difference(results))
+if missing:
+    raise SystemExit(f"Missing historically verified images: {missing}")
 print("Ready:", len(results), "authentic images")

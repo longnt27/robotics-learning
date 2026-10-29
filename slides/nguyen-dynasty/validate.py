@@ -38,7 +38,15 @@ with ZipFile(p) as z:
             assert len(r.findall('.//{'+ns15+'}morph'))==1,f'missing Morph: slide {i}'
             mc='http://schemas.openxmlformats.org/markup-compatibility/2006'
             assert r.find('{'+mc+'}AlternateContent') is not None,f'missing Morph fallback: {i}'
-print('PASS: 15 slides, notes, images, transitions, semantic click groups, and native Morph')
+audit=json.loads((ROOT/'out'/'image_composition_audit.json').read_text())
+assert audit and len(audit)>=12,'missing composition audit'
+assert sum(x['mode']=='cover' for x in audit)==1,'unexpected documentary image crop'
+assert all(x['mode']=='preserve' or (x['slide']==1 and x['decorative']) for x in audit)
+assert any(x['key']=='tourane_1858' and x['slide']==11 for x in audit)
+for s in prs.slides:
+    texts=' '.join(sh.text for sh in s.shapes if sh.has_text_frame)
+    assert 'không phải ảnh chiến sự' not in texts
+print('PASS: 15 slides, notes, image-preserving compositions, grouped clicks and native Morph')
 out=ROOT/'out'
 subprocess.run(['libreoffice','-env:UserInstallation=file:///tmp/lo-nguyen','--headless','--convert-to','pdf','--outdir',str(out),str(p)],check=True,timeout=90)
 pdf=p.with_suffix('.pdf')

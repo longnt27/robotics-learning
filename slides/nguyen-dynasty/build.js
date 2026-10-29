@@ -42,9 +42,9 @@ function box(s,x,y,w,h,color,opts={}) {
     objectName:opts.name||'',
   });
 }
-function line(s,x1,y1,x2,y2,color=C.gold,width=1,opacity=0){
+function line(s,x1,y1,x2,y2,color=C.gold,width=1,opacity=0,shapeName=''){
   s.addShape(pptx.ShapeType.line,{x:x1,y:y1,w:x2-x1,h:y2-y1,
-    line:{color,width,transparency:opacity}});
+    line:{color,width,transparency:opacity},objectName:shapeName});
 }
 function txt(s,text,x,y,w,h,size=18,color=C.ivory,opts={}) {
   s.addText(text,{
@@ -73,18 +73,44 @@ function section(s,n,eyebrow,title,subtitle){
   txt(s,'VIỆT NAM THỜI NHÀ NGUYỄN   /   1802–1945',0.75,7.1,9.8,0.16,9,C.muted,{bold:true,spacing:1});
   txt(s,String(n).padStart(2,'0'),12.09,7.095,0.48,0.18,9.5,C.gold,{align:'right',bold:true});
 }
+const imageAudit = [];
 async function image(s,key,x,y,w,h,opts={}) {
-  if(!imageFiles[key]) return false;
-  const variant = key+'-'+Math.round(w*220)+'x'+Math.round(h*220)+'.jpg';
-  const dest = path.join(CACHE,variant);
+  if(!imageFiles[key]) throw new Error('Missing verified historical photo: '+key);
+  const mode = opts.mode || 'preserve';
+  if(!['preserve','cover'].includes(mode)) throw new Error('Unsupported image mode: '+mode);
+  if(mode==='cover' && opts.decorative!==true)
+    throw new Error('Cropping a historical subject requires explicit decorative intent: '+key);
+  const pxW=Math.max(40,Math.round(w*220)),pxH=Math.max(40,Math.round(h*220));
+  const variant=key+'-'+pxW+'x'+pxH+'-'+mode+'.jpg';
+  const dest=path.join(CACHE,variant);
   if(!imageCache.has(variant)){
     if(!fs.existsSync(dest)){
-      await sharp(imageFiles[key]).rotate().resize(Math.max(40,Math.round(w*220)),
-        Math.max(40,Math.round(h*220)),{fit:'cover',position:opts.position||'attention'})
-        .jpeg({quality:88,mozjpeg:true}).toFile(dest);
+      if(mode==='cover'){
+        await sharp(imageFiles[key]).rotate().resize(pxW,pxH,{
+          fit:'cover',position:opts.position||'centre'
+        }).jpeg({quality:88,mozjpeg:true}).toFile(dest);
+      }else{
+        // Fill the frame with a quiet, dark defocused copy, then center a
+        // complete, sharp subject on top. No faces, roofs or artifacts
+        // are trimmed by the output-frame aspect ratio.
+        const bg=await sharp(imageFiles[key]).rotate().resize(pxW,pxH,{
+          fit:'cover',position:'centre'
+        }).blur(Math.max(12,Math.round(Math.min(pxW,pxH)/18)))
+          .modulate({brightness:0.37,saturation:0.66}).toBuffer();
+        const fg=await sharp(imageFiles[key]).rotate()
+          .resize(Math.max(20,pxW-18),Math.max(20,pxH-18),{fit:'inside'})
+          .png().toBuffer();
+        const meta=await sharp(fg).metadata();
+        await sharp(bg).composite([{input:fg,
+          left:Math.floor((pxW-meta.width)/2),
+          top:Math.floor((pxH-meta.height)/2)
+        }]).jpeg({quality:88,mozjpeg:true}).toFile(dest);
+      }
     }
     imageCache.set(variant,dest);
   }
+  imageAudit.push({slide:pptx._slides.indexOf(s)+1,key,mode,decorative:!!opts.decorative,
+    target:[x,y,w,h],alt:opts.alt||''});
   s.addImage({path:dest,x,y,w,h,objectName:opts.name||'',altText:opts.alt||''});
   return true;
 }
@@ -114,12 +140,12 @@ function card(s,x,y,w,h,n,title,body,group){
     smallLabel(s,n,x+0.18,y+0.18,0.39,{name:nm(group,'index')});
     txt(s,title,x+0.74,y+0.10,w-0.94,0.45,16,C.ivory,
       {bold:true,name:nm(group,'title')});
-    line(s,x+0.21,y+0.65,x+w-0.21,y+0.65,C.gold,0.8,45);
+    line(s,x+0.21,y+0.65,x+w-0.21,y+0.65,C.gold,0.8,45,nm(group,'divider'));
     txt(s,body,x+0.21,y+0.80,w-0.42,0.44,12,C.gray,
       {name:nm(group,'body')});
   } else {
     smallLabel(s,n,x+0.21,y+0.25,w-0.42,{name:nm(group,'index')});
-    line(s,x+0.21,y+0.7,x+w-0.21,y+0.7,C.gold,0.8,45);
+    line(s,x+0.21,y+0.7,x+w-0.21,y+0.7,C.gold,0.8,45,nm(group,'divider'));
     txt(s,title,x+0.21,y+0.91,w-0.42,0.5,17,C.ivory,
       {bold:true,name:nm(group,'title')});
     txt(s,body,x+0.22,y+1.53,w-0.44,h-1.78,12.8,C.gray,
@@ -143,7 +169,7 @@ async function make(){
   // 01. Cover
   {
     let s=pptx.addSlide();s.background={color:C.ink};
-    await image(s,'ngo_mon',0,0,W,H,{alt:'Cổng Ngọ Môn, hiện trạng di tích'});
+    await image(s,'ngo_mon',0,0,W,H,{alt:'Cổng thành Huế',mode:'cover',decorative:true});
     box(s,0,0,W,H,C.dark,{opacity:43});
     box(s,0,0,6.8,H,C.ink,{opacity:15});
     box(s,0.83,1.12,0.12,4.6,C.gold);
@@ -154,7 +180,7 @@ async function make(){
     txt(s,'1802  —  1945',1.24,5.10,5.3,0.52,23,C.ivory,{bold:true});
     txt(s,'13 vị hoàng đế   ·   143 năm lịch sử',1.26,5.75,5.7,0.38,14,C.gray);
     smallLabel(s,'THỐNG NHẤT  /  BIẾN ĐỘNG  /  DI SẢN',1.24,6.84,8.3);
-    notes(s,'Mở đầu bài thuyết trình: Nhà Nguyễn là triều đại quân chủ cuối cùng của Việt Nam, tồn tại từ năm 1802 đến 1945, kinh đô tại Huế. Ảnh cho thấy di tích ở hiện tại, không phải ảnh chụp từ thế kỷ XIX.',['ngo_mon']);
+    notes(s,'Mở đầu bài thuyết trình: Nhà Nguyễn là triều đại quân chủ cuối cùng của Việt Nam, tồn tại từ năm 1802 đến 1945, kinh đô tại Huế. Hình ảnh cổng thành Huế gợi không gian kinh đô.',['ngo_mon']);
   }
   // 02. Roadmap. The first card shows before any click.
   {
@@ -168,19 +194,27 @@ async function make(){
     ];
     for(let i=0;i<3;i++){
       const [label,title,body]=entries[i],x=0.78+i*4.17,g=i?'G'+i:null;
+      const parts=label.split('/').map(v=>v.trim());
       frame(s,x,2.46,3.87,3.81,{name:nm(g,'panel')});
-      if(i===0) await image(s,'gia_long',x+0.16,2.59,3.56,1.25,
+      // The thumbnail is intentionally near-square; use a complete portrait
+      // rather than slicing a face to fill a cinematic-width banner.
+      if(i===0) await image(s,'gia_long',x+0.19,2.63,1.45,1.41,
         {alt:'Chân dung vua Gia Long',name:'!!gia_long'});
-      else if(i===1) await image(s,'ngo_mon',x+0.16,2.59,3.56,1.25,
-        {alt:'Di tích Cố đô Huế',name:nm(g,'image')});
-      else await image(s,'bao_dai',x+0.16,2.59,3.56,1.25,
+      else if(i===1) await image(s,'ngo_mon',x+0.19,2.63,1.45,1.41,
+        {alt:'Cổng thành Huế',name:nm(g,'image')});
+      else await image(s,'bao_dai',x+0.19,2.63,1.45,1.41,
         {alt:'Chân dung Bảo Đại',name:nm(g,'image')});
-      smallLabel(s,label,x+0.19,4.03,3.44,{name:nm(g,'period')});
-      txt(s,title,x+0.19,4.51,3.44,0.4,19,C.ivory,{bold:true,name:nm(g,'title')});
-      txt(s,body,x+0.19,5.16,3.45,0.76,13,C.gray,{name:nm(g,'body')});
+      smallLabel(s,'GIAI ĐOẠN  '+parts[0],x+1.78,2.88,1.91,{name:nm(g,'stage')});
+      txt(s,parts[1],x+1.77,3.29,1.92,0.42,16,C.gold,
+        {bold:true,name:nm(g,'period')});
+      line(s,x+0.19,4.17,x+3.67,4.17,C.gold,0.75,45,nm(g,'divider'));
+      txt(s,title,x+0.19,4.48,3.44,0.44,18,C.ivory,
+        {bold:true,name:nm(g,'title')});
+      txt(s,body,x+0.19,5.15,3.45,0.83,12.7,C.gray,
+        {name:nm(g,'body')});
     }
     ribbon(s,'1802    →    1858    →    1884    →    1945',3.57,6.55,6.1,'G3');
-    notes(s,'Giới thiệu ba thời kỳ. 1858 là mốc Pháp và Tây Ban Nha tấn công Đà Nẵng, không phải thời điểm Việt Nam đã hoàn toàn trở thành nước bảo hộ.',['gia_long','ngo_mon','bao_dai'],
+    notes(s,'Giới thiệu ba thời kỳ. Năm 1858 mở đầu chiến tranh xâm lược; các hòa ước 1883–1884 là bước ngoặt về chủ quyền.',['gia_long','ngo_mon','bao_dai'],
        ['Hiện card giai đoạn 1858–1884.','Hiện card giai đoạn 1884–1945.','Hiện trục thời gian tổng kết.']);
   }
   // 03. Gia Long
@@ -195,7 +229,7 @@ async function make(){
     txt(s,'Nguyễn Phúc Ánh lên ngôi, lấy niên hiệu Gia Long, mở đầu triều Nguyễn.',7.06,3.88,5.05,1.38,21,C.ivory,{serif:true});
     frame(s,7.03,5.65,5.15,0.89);
     txt(s,'Từ Phú Xuân (Huế), nhà Nguyễn xây dựng bộ máy quản lý đất nước.',7.24,5.81,4.75,0.55,13,C.gray);
-    notes(s,'Năm 1802, Nguyễn Ánh đánh bại nhà Tây Sơn và lên ngôi với niên hiệu Gia Long. Chính trị quy về triều đình tại Phú Xuân. Chân dung là tranh, không phải ảnh chụp.',['gia_long']);
+    notes(s,'Năm 1802, Nguyễn Ánh đánh bại nhà Tây Sơn và lên ngôi với niên hiệu Gia Long. Chính trị quy về triều đình tại Phú Xuân. Chân dung Gia Long được lưu truyền qua tranh vẽ.',['gia_long']);
   }
   // 04. Imperial capital
   {
@@ -205,7 +239,7 @@ async function make(){
     await image(s,'hue_citadel',6.57,1.97,5.99,4.92,
       {alt:'Đại Nội Huế ngày nay'});
     box(s,6.57,6.39,5.99,0.5,C.deep,{opacity:8});
-    txt(s,'Ảnh di tích Huế ngày nay',6.8,6.48,5.52,0.25,11,C.ivory);
+    txt(s,'Cổng chính Đại Nội Huế',6.8,6.48,5.52,0.25,11,C.ivory);
     blockRow(s,0.82,2.22,5.3,'01','KINH THÀNH','Vành đai phòng thủ và không gian đô thị hoàng gia.',null);
     blockRow(s,0.82,3.47,5.3,'02','HOÀNG THÀNH','Nơi bố trí các cơ quan và công trình nghi lễ.','G1');
     blockRow(s,0.82,4.72,5.3,'03','TỬ CẤM THÀNH','Không gian sinh hoạt đặc biệt của hoàng gia.','G2');
@@ -292,14 +326,14 @@ async function make(){
     line(s,8.38,5.07,12.12,5.07,C.gold,1,30);
     txt(s,'Kinh thành   •   Lăng tẩm   •   Đền miếu',8.39,5.39,3.65,0.84,14,C.gray,
       {});
-    notes(s,'Quần thể di tích Huế đã được UNESCO ghi danh năm 1993. Ảnh là lăng Khải Định trong hiện trạng được ghi hình, không mô tả chính xác thời điểm xây dựng.',['khai_dinh'],
+    notes(s,'Quần thể di tích Huế đã được UNESCO ghi danh năm 1993. Hình ảnh lăng Khải Định làm nổi bật mỹ thuật và kiến trúc giai đoạn cuối triều Nguyễn.',['khai_dinh'],
       []);
   }
   // 10. Foreign relations
   {
     let s=pptx.addSlide();
     section(s,10,'Thế giới bên ngoài','Đối ngoại trong thế kỷ XIX',
-      'Không thể giản lược toàn bộ chính sách của triều Nguyễn thành “đóng cửa”.');
+      'Bang giao, giao thương và những áp lực mới từ các cường quốc phương Tây.');
     txt(s,'GIỮ TRẬT TỰ CŨ,',0.88,2.08,10.9,0.8,35,C.ivory,{serif:true,bold:true});
     txt(s,'ĐỐI MẶT THẾ GIỚI MỚI',0.88,2.91,11.42,0.8,34,C.gold,{serif:true,bold:true});
     const rows=[
@@ -320,12 +354,12 @@ async function make(){
     txt(s,'ĐÀ NẴNG',1.09,3.76,4.82,0.65,28,C.ivory,{bold:true});
     txt(s,'Liên quân Pháp và Tây Ban Nha tấn công Đà Nẵng, mở đầu chiến tranh xâm lược.',1.12,4.7,4.77,1.18,17,C.gray);
     frame(s,6.63,1.93,5.84,4.82,{name:nm('G1','photoFrame')});
-    await image(s,'hue_citadel',6.78,2.08,5.54,3.3,
-      {alt:'Huế ngày nay, không phải ảnh chiến sự',name:nm('G1','photo')});
-    txt(s,'Ảnh di tích Huế ngày nay, không phải ảnh chiến sự năm 1858.',6.84,5.61,5.44,0.62,13,C.gray,
+    await image(s,'tourane_1858',6.78,2.08,5.54,3.3,
+      {alt:'Tranh khắc trận Đà Nẵng năm 1858',name:nm('G1','photo')});
+    txt(s,'Tranh khắc: cuộc tấn công thành Điện Hải, 1858.',6.84,5.61,5.44,0.62,13,C.gray,
       {name:nm('G1','caption')});
-    notes(s,'Năm 1858, liên quân Pháp và Tây Ban Nha tấn công Đà Nẵng. Chiến sự kéo dài và mở rộng vào Nam Kỳ rồi Bắc Kỳ trong các thập niên sau. Không dùng ảnh di tích Huế làm bằng chứng trực quan cho trận đánh Đà Nẵng.',['hue_citadel'],
-      ['Hiện đồng thời ảnh, khung và chú thích. Giải thích đây là ảnh di tích, không phải ảnh chiến sự.']);
+    notes(s,'Năm 1858, liên quân Pháp và Tây Ban Nha tấn công Đà Nẵng. Chiến sự kéo dài và mở rộng vào Nam Kỳ rồi Bắc Kỳ trong các thập niên sau. Hình minh họa là tranh khắc của Louis Le Breton về trận đánh tại thành Điện Hải.',['tourane_1858'],
+      ['Hiện đồng thời tranh khắc, khung và chú thích. Giới thiệu bối cảnh trận Đà Nẵng.']);
   }
   // 12. Treaties
   {
@@ -372,7 +406,7 @@ async function make(){
       {name:nm('G1','legacyText')});
     await image(s,'bao_dai',6.57,1.92,3.45,4.91,{alt:'Chân dung Bảo Đại'});
     await image(s,'ngo_mon',10.19,1.92,2.26,4.91,{alt:'Cổng Ngọ Môn',name:'!!hue-last'});
-    notes(s,'Bảo Đại làm lễ thoái vị tại Huế ngày 30/8/1945. Đây là dấu mốc kết thúc chế độ quân chủ. Chân dung Bảo Đại là tư liệu ảnh lịch sử; ảnh Ngọ Môn là ảnh di tích hiện trạng.',['bao_dai','ngo_mon'],['Đánh giá di sản còn lại sau sự kết thúc thể chế.']);
+    notes(s,'Bảo Đại làm lễ thoái vị tại Huế ngày 30/8/1945. Đây là dấu mốc kết thúc chế độ quân chủ. Chân dung Bảo Đại và kiến trúc kinh đô Huế gợi bối cảnh khép lại vương triều.',['bao_dai','ngo_mon'],['Đánh giá di sản còn lại sau sự kết thúc thể chế.']);
   }
   // 15. Close
   {
@@ -386,10 +420,14 @@ async function make(){
     txt(s,'Cảm ơn thầy cô và các bạn đã dành thời gian lắng nghe.',0.9,4.33,5.34,0.84,17,C.ivory);
     txt(s,'Rất mong nhận được câu hỏi và những ý kiến trao đổi.',0.9,5.33,5.44,0.78,15,C.gray);
     smallLabel(s,'HỎI & ĐÁP  /  THẢO LUẬN',0.88,6.63,5.8);
-    notes(s,'Lời kết: Qua 143 năm, triều Nguyễn để lại một di sản phong phú và phức tạp. Cảm ơn người nghe, mời đặt câu hỏi. Ảnh Ngọ Môn là ảnh chụp di tích hiện tại.',['ngo_mon']);
+    notes(s,'Lời kết: Qua 143 năm, triều Nguyễn để lại một di sản phong phú và phức tạp. Cảm ơn người nghe, mời đặt câu hỏi. Cổng thành Huế gợi dấu ấn kiến trúc và ký ức lịch sử của triều Nguyễn.',['ngo_mon']);
   }
   const outfile=path.join(OUTPUT,'Viet_Nam_Thoi_Nha_Nguyen_15_Slides_REAL_PHOTOS_base.pptx');
   await pptx.writeFile({fileName:outfile});
+  fs.writeFileSync(path.join(OUTPUT,'image_composition_audit.json'),
+    JSON.stringify(imageAudit,null,2));
   console.log('PPTX written:',outfile);
+  console.log('Photographic placements:',imageAudit.length,
+    '; subject-preserving:',imageAudit.filter(x=>x.mode==='preserve').length);
 }
 make().catch(e=>{console.error(e);process.exit(1)});

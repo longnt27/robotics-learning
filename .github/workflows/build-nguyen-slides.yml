@@ -42,5 +42,8 @@ jobs:
             slides/nguyen-dynasty/out/Viet_Nam_Thoi_Nha_Nguyen_15_Slides_REAL_PHOTOS.pptx
             slides/nguyen-dynasty/out/Viet_Nam_Thoi_Nha_Nguyen_15_Slides_REAL_PHOTOS.pdf
             slides/nguyen-dynasty/assets/credits.csv
+            slides/nguyen-dynasty/assets/*.jpg
+            slides/nguyen-dynasty/assets/*.png
+            slides/nguyen-dynasty/out/image_composition_audit.json
           if-no-files-found: error
           retention-days: 30
