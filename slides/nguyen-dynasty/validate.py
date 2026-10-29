@@ -27,8 +27,18 @@ with ZipFile(p) as z:
         spids={int(x.get('id')) for x in r.findall('.//{'+P+'}cNvPr')}
         for x in r.findall('.//{'+P+'}spTgt'):
             assert int(x.get('spid')) in spids,(i,x.get('spid'))
-        assert r.find('{'+P+'}transition') is not None,i
-print('PASS: 15 slides, notes, images, transitions, animation target integrity')
+        assert r.findall('.//{'+P+'}transition'),f'missing transition on slide {i}'
+        names={int(x.get('id')):x.get('name','') for x in r.findall('.//{'+P+'}cNvPr')}
+        animated={int(x.get('spid')) for x in r.findall('.//{'+P+'}spTgt')}
+        for sid,name in names.items():
+            if name.startswith('CLICK_'):
+                assert sid in animated,f'click-group component missing animation: slide {i}, {name}'
+        if i in (3,15):
+            ns15='http://schemas.microsoft.com/office/powerpoint/2015/09/main'
+            assert len(r.findall('.//{'+ns15+'}morph'))==1,f'missing Morph: slide {i}'
+            mc='http://schemas.openxmlformats.org/markup-compatibility/2006'
+            assert r.find('{'+mc+'}AlternateContent') is not None,f'missing Morph fallback: {i}'
+print('PASS: 15 slides, notes, images, transitions, semantic click groups, and native Morph')
 out=ROOT/'out'
 subprocess.run(['libreoffice','-env:UserInstallation=file:///tmp/lo-nguyen','--headless','--convert-to','pdf','--outdir',str(out),str(p)],check=True,timeout=90)
 pdf=p.with_suffix('.pdf')
