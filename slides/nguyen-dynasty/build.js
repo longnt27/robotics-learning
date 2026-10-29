@@ -112,10 +112,17 @@ function card(s,x,y,w,h,n,title,body,group){
   frame(s,x,y,w,h,{name:nm(group,'background')});
   smallLabel(s,n,x+0.21,y+0.25,w-0.42,{name:nm(group,'index')});
   line(s,x+0.21,y+0.7,x+w-0.21,y+0.7,C.gold,0.8,45);
-  txt(s,title,x+0.21,y+0.91,w-0.42,0.5,17,C.ivory,
-    {bold:true,name:nm(group,'title')});
-  txt(s,body,x+0.22,y+1.53,w-0.44,h-1.78,12.8,C.gray,
-    {name:nm(group,'body')});
+  if(h < 2) {
+    txt(s,title,x+0.21,y+0.43,w-0.42,0.34,16,C.ivory,
+      {bold:true,name:nm(group,'title')});
+    txt(s,body,x+0.21,y+0.85,w-0.42,0.38,12,C.gray,
+      {name:nm(group,'body')});
+  } else {
+    txt(s,title,x+0.21,y+0.91,w-0.42,0.5,17,C.ivory,
+      {bold:true,name:nm(group,'title')});
+    txt(s,body,x+0.22,y+1.53,w-0.44,h-1.78,12.8,C.gray,
+      {name:nm(group,'body')});
+  }
 }
 function blockRow(s,x,y,w,number,title,desc,group){
   frame(s,x,y,w,0.99,{name:nm(group,'bg')});
