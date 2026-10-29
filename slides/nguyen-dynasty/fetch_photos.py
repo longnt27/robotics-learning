@@ -17,8 +17,8 @@ REPO_RAW = "https://raw.githubusercontent.com/schoolcodecsharp/DoAn4/main/backen
 # Titles selected from Commons file pages; do not auto-pick a search result.
 FILES = [
     {"id": "gia_long", "file": "Emperor Gia Long.jpg", "subject": "Vua Gia Long", "license": "Public domain"},
-    {"id": "minh_mang", "file": "Emperor Minh Mang.jpg", "subject": "Vua Minh Mạng", "license": "Public domain"},
-    {"id": "bao_dai", "file": "Portrait of Emperor Bao Dai, Tràng An báo No.61.png", "subject": "Vua Bảo Đại (Tràng An báo 1942)", "license": "Public domain"},
+    {"id": "minh_mang", "file": "Minh Mang Emperor.jpg", "subject": "Vua Minh Mạng", "license": "Public domain"},
+    {"id": "bao_dai", "file": "Portrait of Emperor Bảo Đại.png", "subject": "Vua Bảo Đại (chân dung năm 1934)", "license": "Public domain"},
     {"id": "ngo_mon", "file": "Ngo Mon Gate for entry to the Imperial Citadel, Hue (31654316702).jpg", "subject": "Ngọ Môn, Huế", "license": "See Wikimedia page", "fallback": "hue-imperial-gate.jpg"},
     {"id": "khai_dinh", "file": "The tomb of Emperor Khai Dinh (12060688173).jpg", "subject": "Lăng Khải Định", "license": "See Wikimedia page"},
     {"id": "woodblocks", "file": "Woodblocks of the Nguyễn Dynasty 01.jpg", "subject": "Mộc bản triều Nguyễn", "license": "See Wikimedia page"},
