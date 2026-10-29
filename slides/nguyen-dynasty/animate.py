@@ -69,15 +69,20 @@ with ZipFile(BASE) as src, ZipFile(OUT,'w',ZIP_DEFLATED) as dst:
             if cn is not None:
                 allnames[int(cn.get('id'))]=cn.get('name','')
         groups={}
+        automatic=[]
         for id,name in allnames.items():
+            if name.startswith('AUTO_G0_'):
+                automatic.append(id)
             if not name.startswith('CLICK_G'):continue
             m=re.match(r'CLICK_(G\d+)_',name)
             if m:groups.setdefault(int(m.group(1)[1:]),[]).append(id)
         old=r.find(tag('timing'))
         if old is not None:r.remove(old)
-        if groups:
+        if groups or automatic:
+            # Automatic Fade on slide entry for the first content unit.
+            # Every later group is one complete presenter-controlled click.
             ordered=[groups[i] for i in sorted(groups)]
-            r.append(timing([[]]+ordered))
+            r.append(timing([automatic]+ordered))
         old=r.find(tag('transition'))
         if old is not None:r.remove(old)
         if n in MORPH:

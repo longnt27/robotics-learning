@@ -46,6 +46,100 @@ assert any(x['key']=='tourane_1858' and x['slide']==11 for x in audit)
 for s in prs.slides:
     texts=' '.join(sh.text for sh in s.shapes if sh.has_text_frame)
     assert 'không phải ảnh chiến sự' not in texts
+# Production layout checks for the entire 15-slide deck.
+from pptx.enum.text import PP_ALIGN
+from pptx.enum.shapes import MSO_SHAPE_TYPE
+from collections import defaultdict
+import re
+
+EMU=914400
+def get_text(slide,value):
+    found=[sh for sh in slide.shapes if sh.has_text_frame and sh.text.strip()==value]
+    assert len(found)==1,(value,len(found))
+    return found[0]
+def verify_center(slide_number,value,expected):
+    sh=get_text(prs.slides[slide_number-1],value)
+    assert sh.text_frame.paragraphs[0].alignment==PP_ALIGN.CENTER,(slide_number,value,"not centered")
+    actual=(sh.left+sh.width/2)/EMU
+    assert abs(actual-expected)<=0.065,(slide_number,value,round(actual,3),expected)
+for value in [
+    'LỤC BỘ','SƠ ĐỒ LƯỢC GIẢN CÁC THIẾT CHẾ',
+    'HOÀNG ĐẾ   /   TRIỀU ĐÌNH TRUNG ƯƠNG',
+    '30 TỈNH   +   PHỦ THỪA THIÊN'
+]:
+    verify_center(5,value,8.38)
+for value in ['LẠI','HỘ','LỄ','BINH','HÌNH','CÔNG']:
+    sh=get_text(prs.slides[4],value)
+    assert sh.text_frame.paragraphs[0].alignment==PP_ALIGN.CENTER,(5,value)
+verify_center(2,'1802    →    1858    →    1884    →    1945',6.67)
+verify_center(12,'NAM KỲ: THUỘC ĐỊA     •     BẮC & TRUNG KỲ: BẢO HỘ',6.645)
+
+def bounds(shape):
+    return tuple(v/EMU for v in (shape.left,shape.top,shape.left+shape.width,shape.top+shape.height))
+def intersection(a,b):
+    return max(0,min(a[2],b[2])-max(a[0],b[0]))*max(0,min(a[3],b[3])-max(a[1],b[1]))
+for no,slide in enumerate(prs.slides,1):
+    texts=[sh for sh in slide.shapes if sh.has_text_frame and sh.text.strip()]
+    photos=[sh for sh in slide.shapes if sh.shape_type==MSO_SHAPE_TYPE.PICTURE]
+    for i,a in enumerate(texts):
+        for b in texts[i+1:]:
+            assert intersection(bounds(a),bounds(b))<0.004,(no,a.text[:45],b.text[:45],"overlapping text")
+    if no!=1:
+        for ph in photos:
+            for txtsh in texts:
+                assert intersection(bounds(ph),bounds(txtsh))<0.18,(no,txtsh.text[:50],"photo/text overlap")
+
+# The three-card layouts share symmetric side margins and equal gaps.
+for no,backgrounds in [
+    (2,['STATIC_panel','CLICK_G1_panel','CLICK_G2_panel']),
+    (6,['AUTO_G0_background','CLICK_G1_background','CLICK_G2_background'])
+]:
+    slide=prs.slides[no-1]
+    cards=[]
+    for name in backgrounds:
+        found=[sh for sh in slide.shapes if sh.name==name]
+        assert len(found)==1,(no,name,len(found))
+        cards.append(found[0])
+    cards.sort(key=lambda sh:sh.left)
+    margin_left=cards[0].left/EMU
+    margin_right=(prs.slide_width-cards[-1].left-cards[-1].width)/EMU
+    gaps=[(cards[i+1].left-cards[i].left-cards[i].width)/EMU for i in range(2)]
+    assert abs(margin_left-margin_right)<0.10,(no,margin_left,margin_right)
+    assert abs(gaps[0]-gaps[1])<0.01,(no,gaps)
+    assert len({int(sh.width) for sh in cards})==1,(no,"card widths not equal")
+
+# Check that every semantic unit is a single timing step; automatic
+# first groups share a common entry trigger, remaining groups each wait
+# for one click, and the number of cues matches Presenter Notes.
+for no,slide in enumerate(prs.slides,1):
+    xml=etree.fromstring(ZipFile(p).read(f'ppt/slides/slide{no}.xml'))
+    lookup={int(n.get('id')):n.get('name','') for n in xml.findall('.//{'+P+'}cNvPr')}
+    auto={sid for sid,name in lookup.items() if name.startswith('AUTO_G0_')}
+    clicks=defaultdict(set)
+    for sid,name in lookup.items():
+        match=re.match(r'CLICK_G(\d+)_',name)
+        if match: clicks[int(match.group(1))].add(sid)
+    cues=re.findall(r'Click \d+:',slide.notes_slide.notes_text_frame.text)
+    assert len(cues)==len(clicks),(no,"speaker notes click mismatch",len(cues),len(clicks))
+    sequence=xml.find('.//{'+P+'}cTn[@nodeType="mainSeq"]')
+    if auto or clicks:
+        assert sequence is not None,(no,"animation sequence missing")
+        steps=sequence.find('{'+P+'}childTnLst').findall('{'+P+'}par')
+        assert len(steps)==1+len(clicks),(no,"wrong number of timing steps")
+        expected=[auto]+[clicks[key] for key in sorted(clicks)]
+        for index,(step,ids) in enumerate(zip(steps,expected)):
+            got={int(t.get('spid')) for t in step.findall('.//{'+P+'}spTgt')}
+            assert got==ids,(no,index,"shape group mismatch",got^ids)
+            starts=step.findall('.//{'+P+'}cond[@evt="onBegin"]')
+            assert bool(starts)==(index==0),(no,index,"incorrect start trigger")
+            for effect in step.findall('.//{'+P+'}animEffect'):
+                assert effect.get('filter')=='fade',(no,"inconsistent effect")
+    else:
+        assert sequence is None,(no,"unexpected animation sequence")
+# Explicitly keep every item of slide 13's Tân Sở card in the same group.
+right_card=prs.slides[12]
+assert len([sh for sh in right_card.shapes if sh.name.startswith('CLICK_G1_')])==4
+print('PASS: optical alignment, text and image clearance, card spacing, cue order, and 15-slide animation consistency')
 print('PASS: 15 slides, notes, image-preserving compositions, grouped clicks and native Morph')
 out=ROOT/'out'
 subprocess.run(['libreoffice','-env:UserInstallation=file:///tmp/lo-nguyen','--headless','--convert-to','pdf','--outdir',str(out),str(p)],check=True,timeout=90)

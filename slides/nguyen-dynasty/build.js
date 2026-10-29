@@ -32,7 +32,10 @@ const manifest = JSON.parse(fs.readFileSync(path.join(IMAGE_DIR,'credits.json'),
 const imageFiles = {};
 for (const [k,v] of Object.entries(manifest)) imageFiles[k] = path.join(IMAGE_DIR,v.path);
 const imageCache = new Map();
-function nm(group, piece){return group ? 'CLICK_' + group + '_' + piece : 'STATIC_' + piece;}
+function nm(group, piece){
+  if(group==='AUTO') return 'AUTO_G0_' + piece;
+  return group ? 'CLICK_' + group + '_' + piece : 'STATIC_' + piece;
+}
 function box(s,x,y,w,h,color,opts={}) {
   s.addShape(opts.round ? pptx.ShapeType.roundRect : pptx.ShapeType.rect,{
     x,y,w,h,rectRadius:0.08,
@@ -58,7 +61,7 @@ function txt(s,text,x,y,w,h,size=18,color=C.ivory,opts={}) {
   });
 }
 function smallLabel(s,value,x,y,w,opts={}) {
-  txt(s,value.toUpperCase(),x,y,w,0.23,10.3,C.gold,{bold:true,spacing:1.4,name:opts.name});
+  txt(s,value.toUpperCase(),x,y,w,0.23,10.3,C.gold,{bold:true,spacing:1.4,name:opts.name,align:opts.align||'left'});
 }
 function frame(s,x,y,w,h,opts={}){
   box(s,x,y,w,h,C.panel,{round:true,line:opts.line||C.line,name:opts.name});
@@ -138,7 +141,7 @@ function notes(s,body,ids=[],clicks=[]){
 function ribbon(s,value,x,y,w,group){
   box(s,x,y,w,0.37,C.gold,{round:true,name:nm(group,'ribbon')});
   txt(s,value,x+0.13,y+0.02,w-0.26,0.32,11.3,C.ink,
-      {bold:true,name:nm(group,'ribbontext')});
+      {bold:true,align:'center',name:nm(group,'ribbontext')});
 }
 function card(s,x,y,w,h,n,title,body,group){
   frame(s,x,y,w,h,{name:nm(group,'background')});
@@ -167,8 +170,8 @@ function blockRow(s,x,y,w,number,title,desc,group,rowH=0.99){
 }
 function triplet(s,entries,y){
   for(let i=0;i<entries.length;i++){
-    const a=entries[i],g=i?('G'+i):null;
-    card(s,0.78+i*4.17,y,3.87,3.08,a[0],a[1],a[2],g);
+    const a=entries[i],g=i?('G'+i):'AUTO';
+    card(s,0.78+i*4.05,y,3.74,3.08,a[0],a[1],a[2],g);
   }
 }
 async function make(){
@@ -199,9 +202,9 @@ async function make(){
       ['03  /  1884–1945','CHUYỂN GIAO','Triều đình tồn tại dưới quyền bảo hộ trước khi thoái vị năm 1945.']
     ];
     for(let i=0;i<3;i++){
-      const [label,title,body]=entries[i],x=0.78+i*4.17,g=i?'G'+i:null;
+      const [label,title,body]=entries[i],x=0.78+i*4.05,g=i?'G'+i:null;
       const parts=label.split('/').map(v=>v.trim());
-      frame(s,x,2.46,3.87,3.81,{name:nm(g,'panel')});
+      frame(s,x,2.46,3.74,3.81,{name:nm(g,'panel')});
       // The thumbnail is intentionally near-square; use a complete portrait
       // rather than slicing a face to fill a cinematic-width banner.
       if(i===0) await image(s,'gia_long',x+0.19,2.63,1.45,1.41,
@@ -210,16 +213,16 @@ async function make(){
         {alt:'Cổng thành Huế',name:nm(g,'image')});
       else await image(s,'bao_dai',x+0.19,2.63,1.45,1.41,
         {alt:'Chân dung Bảo Đại',name:nm(g,'image')});
-      smallLabel(s,'GIAI ĐOẠN  '+parts[0],x+1.78,2.88,1.91,{name:nm(g,'stage')});
-      txt(s,parts[1],x+1.77,3.29,1.92,0.42,16,C.gold,
+      smallLabel(s,'GIAI ĐOẠN  '+parts[0],x+1.78,2.88,1.79,{name:nm(g,'stage')});
+      txt(s,parts[1],x+1.77,3.29,1.80,0.42,16,C.gold,
         {bold:true,name:nm(g,'period')});
-      line(s,x+0.19,4.17,x+3.67,4.17,C.gold,0.75,45,nm(g,'divider'));
-      txt(s,title,x+0.19,4.48,3.44,0.44,18,C.ivory,
+      line(s,x+0.19,4.17,x+3.53,4.17,C.gold,0.75,45,nm(g,'divider'));
+      txt(s,title,x+0.19,4.48,3.34,0.44,18,C.ivory,
         {bold:true,name:nm(g,'title')});
-      txt(s,body,x+0.19,5.15,3.45,0.83,12.7,C.gray,
+      txt(s,body,x+0.19,5.15,3.34,0.83,12.7,C.gray,
         {name:nm(g,'body')});
     }
-    ribbon(s,'1802    →    1858    →    1884    →    1945',3.57,6.55,6.1,'G3');
+    ribbon(s,'1802    →    1858    →    1884    →    1945',3.62,6.55,6.1,'G3');
     notes(s,'Giới thiệu ba thời kỳ. Năm 1858 mở đầu chiến tranh xâm lược; các hòa ước 1883–1884 là bước ngoặt về chủ quyền.',['gia_long','ngo_mon','bao_dai'],
        ['Hiện card giai đoạn 1858–1884.','Hiện card giai đoạn 1884–1945.','Hiện trục thời gian tổng kết.']);
   }
@@ -247,7 +250,7 @@ async function make(){
       {alt:'Cổng chính Đại Nội Huế'});
     box(s,6.57,6.39,5.99,0.5,C.deep,{opacity:8});
     txt(s,'Cổng chính Đại Nội Huế',6.8,6.48,5.52,0.25,11,C.ivory);
-    blockRow(s,0.82,2.22,5.3,'01','KINH THÀNH','Vành đai phòng thủ và không gian đô thị hoàng gia.',null);
+    blockRow(s,0.82,2.22,5.3,'01','KINH THÀNH','Vành đai phòng thủ và không gian đô thị hoàng gia.','AUTO');
     blockRow(s,0.82,3.47,5.3,'02','HOÀNG THÀNH','Nơi bố trí các cơ quan và công trình nghi lễ.','G1');
     blockRow(s,0.82,4.72,5.3,'03','TỬ CẤM THÀNH','Không gian sinh hoạt đặc biệt của hoàng gia.','G2');
     notes(s,'Huế là trung tâm quyền lực của triều Nguyễn trong giai đoạn 1802–1945. Kinh thành, Hoàng thành và Tử Cấm thành tạo thành những lớp không gian có chức năng khác nhau. UNESCO ghi danh Quần thể di tích Cố đô Huế năm 1993.',['hue_citadel'],['Hiện phần Hoàng thành.','Hiện phần Tử Cấm thành.']);
@@ -264,7 +267,7 @@ async function make(){
     frame(s,4.26,2.07,8.24,0.69);
     txt(s,'HOÀNG ĐẾ   /   TRIỀU ĐÌNH TRUNG ƯƠNG',4.48,2.26,7.8,0.3,18,C.ivory,
       {align:'center',bold:true});
-    ribbon(s,'LỤC BỘ',7.16,3.06,2.3,'G1');
+    ribbon(s,'LỤC BỘ',7.23,3.06,2.3,'G1');
     const ministries=['LẠI','HỘ','LỄ','BINH','HÌNH','CÔNG'];
     for(let i=0;i<6;i++){
       const x=4.28+(i%3)*2.76,y=3.65+Math.floor(i/3)*0.83;
@@ -275,7 +278,7 @@ async function make(){
     frame(s,4.29,5.66,8.21,0.73,{name:nm('G2','provinceBg')});
     txt(s,'30 TỈNH   +   PHỦ THỪA THIÊN',4.58,5.88,7.64,0.29,18,C.gold,
       {bold:true,align:'center',name:nm('G2','provinceText')});
-    smallLabel(s,'SƠ ĐỒ LƯỢC GIẢN CÁC THIẾT CHẾ',5.16,6.68,6.65);
+    smallLabel(s,'SƠ ĐỒ LƯỢC GIẢN CÁC THIẾT CHẾ',4.26,6.68,8.24,{align:'center'});
     notes(s,'Vua là trung tâm. Lục bộ phụ trách các mảng quản trị. Trong các năm 1831–1832, Minh Mạng sắp xếp lại địa phương thành 30 tỉnh và phủ Thừa Thiên. Sơ đồ khái quát không thể hiện mọi chức quan.',['minh_mang'],
       ['Hiện đồng thời sáu bộ trong Lục bộ.','Hiện cơ cấu 30 tỉnh và phủ Thừa Thiên.']);
   }
@@ -297,7 +300,7 @@ async function make(){
     let s=pptx.addSlide();
     section(s,7,'Giáo dục và khoa cử','Học để bước vào bộ máy quan lại','');
     smallLabel(s,'CON ĐƯỜNG KHOA CỬ',0.84,2.11,5.57);
-    blockRow(s,0.8,2.62,5.35,'01','HỌC TẬP','Nho học, kinh điển và chữ Hán là nền tảng.',null);
+    blockRow(s,0.8,2.62,5.35,'01','HỌC TẬP','Nho học, kinh điển và chữ Hán là nền tảng.','AUTO');
     blockRow(s,0.8,3.87,5.35,'02','THI CỬ','Các kỳ thi Hương, Hội, Đình được tổ chức.','G1');
     blockRow(s,0.8,5.12,5.35,'03','LÀM QUAN','Người đỗ đạt có thể tham gia bộ máy hành chính.','G2');
     frame(s,6.57,1.93,5.94,4.84);
@@ -313,11 +316,11 @@ async function make(){
       'Âm nhạc, tư liệu, mỹ thuật và lễ nghi cùng tạo thành di sản triều Nguyễn.');
     await image(s,'woodblocks',0.75,2.15,5.41,4.55,
       {alt:'Mộc bản triều Nguyễn'});
-    card(s,6.54,2.14,5.91,1.4,'01','NHÃ NHẠC','Di sản âm nhạc cung đình Huế.','G1');
-    card(s,6.54,3.76,5.91,1.4,'02','MỘC BẢN','Hệ thống ván khắc phục vụ in ấn và ghi chép.','G2');
-    card(s,6.54,5.38,5.91,1.4,'03','CHÂU BẢN','Hồ sơ hành chính lưu dấu hoạt động triều đình.','G3');
+    card(s,6.54,2.14,5.91,1.4,'01','NHÃ NHẠC','Di sản âm nhạc cung đình Huế.','AUTO');
+    card(s,6.54,3.76,5.91,1.4,'02','MỘC BẢN','Hệ thống ván khắc phục vụ in ấn và ghi chép.','G1');
+    card(s,6.54,5.38,5.91,1.4,'03','CHÂU BẢN','Hồ sơ hành chính lưu dấu hoạt động triều đình.','G2');
     notes(s,'Di sản nhà Nguyễn có cả giá trị vật thể và phi vật thể. Nhã nhạc cung đình Huế được UNESCO ghi danh; mộc bản và châu bản giúp phục dựng nhiều hoạt động quản trị và lịch sử xã hội.',['woodblocks'],
-      ['Giới thiệu Nhã nhạc.','Giới thiệu Mộc bản.','Giới thiệu Châu bản.']);
+      ['Hiện card Mộc bản.','Hiện card Châu bản.']);
   }
   // 09. Architectural heritage
   {
@@ -348,7 +351,7 @@ async function make(){
       ['02','GIAO THƯƠNG','Trao đổi quốc tế tồn tại nhưng chịu quản lý và hạn chế.'],
       ['03','VA CHẠM','Áp lực quân sự, truyền giáo và ngoại giao phương Tây gia tăng.']
     ];
-    rows.forEach((v,i)=>blockRow(s,0.89,4.02+i*0.91,11.52,v[0],v[1],v[2],i?'G'+i:null,0.79));
+    rows.forEach((v,i)=>blockRow(s,0.89,4.02+i*0.91,11.52,v[0],v[1],v[2],i?'G'+i:'AUTO',0.79));
     notes(s,'Triều Nguyễn duy trì quan hệ ngoại giao và thương mại, song có những biện pháp kiểm soát chặt chẽ, trong khi tương quan quân sự với phương Tây biến đổi. Cần phân tích chính sách đối ngoại trong bối cảnh chủ nghĩa thực dân thế kỷ XIX.',[],
       ['Hiện nội dung giao thương.','Hiện nội dung va chạm với phương Tây.']);
   }
@@ -372,10 +375,13 @@ async function make(){
   {
     let s=pptx.addSlide();
     section(s,12,'Bước ngoặt chủ quyền','Những hòa ước năm 1883–1884','');
-    frame(s,0.83,2.17,5.72,3.66);
-    txt(s,'1883',1.15,2.52,5.04,0.89,48,C.gold,{serif:true,bold:true});
-    txt(s,'HÒA ƯỚC HARMAND',1.14,3.59,5.05,0.55,21,C.ivory,{bold:true});
-    txt(s,'Những điều khoản nghiêm ngặt làm suy giảm quyền tự chủ của triều đình.',1.15,4.49,5.05,0.77,16,C.gray);
+    frame(s,0.83,2.17,5.72,3.66,{name:nm('AUTO','panel')});
+    txt(s,'1883',1.15,2.52,5.04,0.89,48,C.gold,
+      {serif:true,bold:true,name:nm('AUTO','year')});
+    txt(s,'HÒA ƯỚC HARMAND',1.14,3.59,5.05,0.55,21,C.ivory,
+      {bold:true,name:nm('AUTO','title')});
+    txt(s,'Những điều khoản nghiêm ngặt làm suy giảm quyền tự chủ của triều đình.',1.15,4.49,5.05,0.77,16,C.gray,
+      {name:nm('AUTO','body')});
     frame(s,6.8,2.17,5.72,3.66,{name:nm('G1','bg')});
     txt(s,'1884',7.12,2.52,5.04,0.89,48,C.gold,{serif:true,bold:true,name:nm('G1','year')});
     txt(s,'HÒA ƯỚC PATENÔTRE',7.12,3.59,5.07,0.55,21,C.ivory,
@@ -394,12 +400,13 @@ async function make(){
     txt(s,'1885',0.93,2.18,6.3,1.1,69,C.gold,{serif:true,bold:true});
     txt(s,'CHIẾU CẦN VƯƠNG',0.98,3.56,6.28,0.5,23,C.ivory,{bold:true});
     txt(s,'Vua Hàm Nghi và Tôn Thất Thuyết kêu gọi kháng chiến chống Pháp.',0.98,4.27,6.24,1.13,19,C.gray);
-    frame(s,7.65,2.15,4.64,3.93);
-    smallLabel(s,'13.07.1885',7.96,2.55,3.87);
-    txt(s,'TÂN SỞ',7.96,3.19,3.85,0.8,30,C.gold,{bold:true});
+    frame(s,7.65,2.15,4.64,3.93,{name:nm('G1','panel')});
+    smallLabel(s,'13.07.1885',7.96,2.55,3.87,{name:nm('G1','date')});
+    txt(s,'TÂN SỞ',7.96,3.19,3.85,0.8,30,C.gold,
+      {bold:true,name:nm('G1','place')});
     txt(s,'SĨ PHU  •  NGHĨA QUÂN',7.95,4.27,3.85,0.69,16,C.ivory,
       {name:nm('G1','forces')});
-    notes(s,'Sau biến cố kinh thành Huế tháng 7/1885, vua Hàm Nghi và Tôn Thất Thuyết ra Tân Sở. Chiếu Cần Vương ngày 13/7/1885 đã thúc đẩy nhiều cuộc kháng chiến chống Pháp.',['hue_citadel'],['Hiện địa điểm, thời điểm và lực lượng hưởng ứng.']);
+    notes(s,'Sau biến cố kinh thành Huế tháng 7/1885, vua Hàm Nghi và Tôn Thất Thuyết ra Tân Sở. Chiếu Cần Vương ngày 13/7/1885 đã thúc đẩy nhiều cuộc kháng chiến chống Pháp.',['hue_citadel'],['Hiện toàn bộ card Tân Sở gồm khung, thời điểm và lực lượng.']);
   }
   // 14. 1945
   {
@@ -431,8 +438,8 @@ async function make(){
     txt(s,'DẤU ẤN CỦA MỘT KINH ĐÔ',6.78,6.28,5.9,0.37,13.2,C.gold,
       {bold:true,spacing:1});
     smallLabel(s,'KẾT THÚC BÀI THUYẾT TRÌNH',0.83,1.05,5.8);
-    txt(s,'XIN CHÂN THÀNH',0.83,1.87,6.7,0.7,29,C.ivory,{serif:true,bold:true});
-    txt(s,'CẢM ƠN',0.8,2.67,6.3,1.08,51,C.gold,{serif:true,bold:true});
+    txt(s,'XIN CHÂN THÀNH',0.83,1.87,5.79,0.7,29,C.ivory,{serif:true,bold:true});
+    txt(s,'CẢM ƠN',0.8,2.67,5.82,1.08,51,C.gold,{serif:true,bold:true});
     txt(s,'Cảm ơn thầy cô và các bạn đã dành thời gian lắng nghe.',0.9,4.33,5.34,0.84,17,C.ivory);
     txt(s,'Rất mong nhận được câu hỏi và những ý kiến trao đổi.',0.9,5.33,5.44,0.78,15,C.gray);
     smallLabel(s,'HỎI & ĐÁP  /  THẢO LUẬN',0.88,6.63,5.8);
