@@ -110,25 +110,28 @@ function ribbon(s,value,x,y,w,group){
 }
 function card(s,x,y,w,h,n,title,body,group){
   frame(s,x,y,w,h,{name:nm(group,'background')});
-  smallLabel(s,n,x+0.21,y+0.25,w-0.42,{name:nm(group,'index')});
-  line(s,x+0.21,y+0.7,x+w-0.21,y+0.7,C.gold,0.8,45);
   if(h < 2) {
-    txt(s,title,x+0.21,y+0.43,w-0.42,0.34,16,C.ivory,
+    smallLabel(s,n,x+0.18,y+0.18,0.39,{name:nm(group,'index')});
+    txt(s,title,x+0.74,y+0.10,w-0.94,0.45,16,C.ivory,
       {bold:true,name:nm(group,'title')});
-    txt(s,body,x+0.21,y+0.85,w-0.42,0.38,12,C.gray,
+    line(s,x+0.21,y+0.65,x+w-0.21,y+0.65,C.gold,0.8,45);
+    txt(s,body,x+0.21,y+0.80,w-0.42,0.44,12,C.gray,
       {name:nm(group,'body')});
   } else {
+    smallLabel(s,n,x+0.21,y+0.25,w-0.42,{name:nm(group,'index')});
+    line(s,x+0.21,y+0.7,x+w-0.21,y+0.7,C.gold,0.8,45);
     txt(s,title,x+0.21,y+0.91,w-0.42,0.5,17,C.ivory,
       {bold:true,name:nm(group,'title')});
     txt(s,body,x+0.22,y+1.53,w-0.44,h-1.78,12.8,C.gray,
       {name:nm(group,'body')});
   }
 }
-function blockRow(s,x,y,w,number,title,desc,group){
-  frame(s,x,y,w,0.99,{name:nm(group,'bg')});
-  txt(s,number,x+0.19,y+0.2,0.63,0.49,19,C.gold,{bold:true,name:nm(group,'num')});
-  txt(s,title,x+0.82,y+0.12,w-1.04,0.35,15.3,C.ivory,{bold:true,name:nm(group,'title')});
-  txt(s,desc,x+0.82,y+0.52,w-1.05,0.31,10.5,C.gray,{name:nm(group,'desc')});
+function blockRow(s,x,y,w,number,title,desc,group,rowH=0.99){
+  frame(s,x,y,w,rowH,{name:nm(group,'bg')});
+  const compact=rowH<0.90;
+  txt(s,number,x+0.19,y+(compact?0.14:0.2),0.63,0.49,19,C.gold,{bold:true,name:nm(group,'num')});
+  txt(s,title,x+0.82,y+(compact?0.07:0.12),w-1.04,0.35,15.3,C.ivory,{bold:true,name:nm(group,'title')});
+  txt(s,desc,x+0.82,y+(compact?0.43:0.52),w-1.05,0.31,10.5,C.gray,{name:nm(group,'desc')});
 }
 function triplet(s,entries,y){
   for(let i=0;i<entries.length;i++){
@@ -288,9 +291,9 @@ async function make(){
     txt(s,'UNESCO ghi danh Di sản Văn hóa Thế giới',8.39,4.12,3.72,0.65,16,C.ivory,{bold:true});
     line(s,8.38,5.07,12.12,5.07,C.gold,1,30);
     txt(s,'Kinh thành   •   Lăng tẩm   •   Đền miếu',8.39,5.39,3.65,0.84,14,C.gray,
-      {name:nm('G1','list')});
+      {});
     notes(s,'Quần thể di tích Huế đã được UNESCO ghi danh năm 1993. Ảnh là lăng Khải Định trong hiện trạng được ghi hình, không mô tả chính xác thời điểm xây dựng.',['khai_dinh'],
-      ['Hiện danh sách thành phần di sản kiến trúc.']);
+      []);
   }
   // 10. Foreign relations
   {
@@ -304,7 +307,7 @@ async function make(){
       ['02','GIAO THƯƠNG','Trao đổi quốc tế tồn tại nhưng chịu quản lý và hạn chế.'],
       ['03','VA CHẠM','Áp lực quân sự, truyền giáo và ngoại giao phương Tây gia tăng.']
     ];
-    rows.forEach((v,i)=>blockRow(s,0.89,4.08+i*0.85,11.52,v[0],v[1],v[2],i?'G'+i:null));
+    rows.forEach((v,i)=>blockRow(s,0.89,4.02+i*0.91,11.52,v[0],v[1],v[2],i?'G'+i:null,0.79));
     notes(s,'Triều Nguyễn duy trì quan hệ ngoại giao và thương mại, song có những biện pháp kiểm soát chặt chẽ, trong khi tương quan quân sự với phương Tây biến đổi. Cần phân tích chính sách đối ngoại trong bối cảnh chủ nghĩa thực dân thế kỷ XIX.',[],
       ['Hiện nội dung giao thương.','Hiện nội dung va chạm với phương Tây.']);
   }
@@ -316,13 +319,13 @@ async function make(){
     txt(s,'1858',1.07,2.32,4.83,1.22,65,C.gold,{serif:true,bold:true});
     txt(s,'ĐÀ NẴNG',1.09,3.76,4.82,0.65,28,C.ivory,{bold:true});
     txt(s,'Liên quân Pháp và Tây Ban Nha tấn công Đà Nẵng, mở đầu chiến tranh xâm lược.',1.12,4.7,4.77,1.18,17,C.gray);
-    frame(s,6.63,1.93,5.84,4.82);
+    frame(s,6.63,1.93,5.84,4.82,{name:nm('G1','photoFrame')});
     await image(s,'hue_citadel',6.78,2.08,5.54,3.3,
-      {alt:'Huế ngày nay, không phải ảnh chiến sự'});
+      {alt:'Huế ngày nay, không phải ảnh chiến sự',name:nm('G1','photo')});
     txt(s,'Ảnh di tích Huế ngày nay, không phải ảnh chiến sự năm 1858.',6.84,5.61,5.44,0.62,13,C.gray,
       {name:nm('G1','caption')});
     notes(s,'Năm 1858, liên quân Pháp và Tây Ban Nha tấn công Đà Nẵng. Chiến sự kéo dài và mở rộng vào Nam Kỳ rồi Bắc Kỳ trong các thập niên sau. Không dùng ảnh di tích Huế làm bằng chứng trực quan cho trận đánh Đà Nẵng.',['hue_citadel'],
-      ['Nêu rõ ảnh bên phải chỉ là ảnh di tích ngày nay, không phải tư liệu trận đánh.']);
+      ['Hiện đồng thời ảnh, khung và chú thích. Giải thích đây là ảnh di tích, không phải ảnh chiến sự.']);
   }
   // 12. Treaties
   {
