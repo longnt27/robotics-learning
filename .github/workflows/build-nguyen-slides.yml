@@ -1,0 +1,46 @@
+name: Build Nguyen dynasty photo slides
+on:
+  push:
+    branches: [feat/nguyen-dynasty-slide-build]
+    paths:
+      - 'slides/nguyen-dynasty/**'
+      - '.github/workflows/build-nguyen-slides.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  deck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install slide dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y fonts-noto-core libreoffice-impress
+          python -m pip install "lxml>=5.4,<7" "python-pptx>=1.0,<2"
+          cd slides/nguyen-dynasty && npm install --no-audit --no-fund
+      - name: Fetch historically sourced photos with attribution
+        run: python slides/nguyen-dynasty/fetch_photos.py
+      - name: Build all 15 slides and speaker notes
+        run: node slides/nguyen-dynasty/build.js
+      - name: Add grouped On Click animations and selective Morph
+        run: python slides/nguyen-dynasty/animate.py
+      - name: Structural and visual quality checks
+        run: python slides/nguyen-dynasty/validate.py
+      - name: Upload PowerPoint, credit manifest, and rendered PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: nguyen-dynasty-photo-deck
+          path: |
+            slides/nguyen-dynasty/out/Viet_Nam_Thoi_Nha_Nguyen_15_Slides_REAL_PHOTOS.pptx
+            slides/nguyen-dynasty/out/Viet_Nam_Thoi_Nha_Nguyen_15_Slides_REAL_PHOTOS.pdf
+            slides/nguyen-dynasty/assets/credits.csv
+          if-no-files-found: error
+          retention-days: 30
